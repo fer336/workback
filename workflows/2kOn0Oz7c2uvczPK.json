@@ -1,0 +1,384 @@
+{
+  "active": true,
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n": {
+      "main": [
+        [
+          {
+            "node": "active && no error handler set && not this  handler workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get error handler": {
+      "main": [
+        [
+          {
+            "node": "n8n",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set fields": {
+      "main": [
+        [
+          {
+            "node": "n8n | update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "active && no error handler set && not this  handler workflow": {
+      "main": [
+        [
+          {
+            "node": "set fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "get error handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-21T00:48:00.140Z",
+  "id": "2kOn0Oz7c2uvczPK",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Error Workflows",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d231c973-555a-44b5-a3b2-707a8bf32887",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "position": [
+        -140,
+        320
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "filters": {},
+        "requestOptions": {}
+      },
+      "id": "675931d9-b4c8-43e0-b78c-24e1cda7dfb3",
+      "name": "n8n",
+      "type": "n8n-nodes-base.n8n",
+      "position": [
+        320,
+        -20
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "n8nApi": {
+          "id": "Ki5wPNytwpKrHGnQ",
+          "name": "WorkFlows"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "requestOptions": {}
+      },
+      "id": "d17a71e7-0077-45e4-a5f8-f20357e75759",
+      "name": "get error handler",
+      "type": "n8n-nodes-base.n8n",
+      "position": [
+        80,
+        -20
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "n8nApi": {
+          "id": "Ki5wPNytwpKrHGnQ",
+          "name": "WorkFlows"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $json.id }}"
+        },
+        "workflowObject": "={{ JSON.stringify($json) }}",
+        "requestOptions": {}
+      },
+      "id": "0d0c6e51-e741-4795-a2cd-5951dfc12803",
+      "name": "n8n | update",
+      "type": "n8n-nodes-base.n8n",
+      "position": [
+        920,
+        -60
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "n8nApi": {
+          "id": "Ki5wPNytwpKrHGnQ",
+          "name": "WorkFlows"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const data = $json\n\ndata.settings.errorWorkflow = $('get error handler').item.json.id ;\ndelete data.settings.callerPolicy;\n\nreturn {\n  id: data.id,\n  name: data.name,\n  nodes: data.nodes,\n  connections: data.connections,\n  settings: data.settings\n}"
+      },
+      "id": "7be2ff2b-7db6-4599-9e01-51043104747e",
+      "name": "set fields",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        720,
+        -60
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "290fd302-4e2d-44d6-8a8a-14a0b8f2c360",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.settings.errorWorkflow }}",
+              "rightValue": "=Default Error Handler"
+            },
+            {
+              "id": "2a5799e9-2030-4281-bf11-e7f9777906c5",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              },
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "={{ $('get error handler').item.json.id }}"
+            },
+            {
+              "id": "8bc4c2a0-e094-4426-8ae6-71b6e4fa9842",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.active }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "03cf4714-93ef-4dd9-957b-26f334a9d256",
+      "name": "active && no error handler set && not this  handler workflow",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        520,
+        -20
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "content": "## Default Error Handler\n\nUpdate this to your preferred notification mechanism",
+        "height": 308.64949804469416,
+        "width": 483.4744075807993
+      },
+      "id": "21e651b9-1c73-48c2-a725-7910d240d91e",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -200,
+        200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "get ID of self",
+        "height": 216.67545344104974,
+        "width": 232.91556831986873
+      },
+      "id": "14f16eed-471f-4304-bb20-0a614f204f70",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        240,
+        -80
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "id": "9f09a895-b686-41e8-b68f-f6a0be608bce",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        -140,
+        -20
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "content": "Runs every day at midnight to update new workflows",
+        "height": 219.7116384468202,
+        "width": 214.6984582852457
+      },
+      "id": "b95949ff-5ef3-466b-9a34-4b545a1d93d3",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -200,
+        -80
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=⚠️ Error en Flujo de Trabajo ⚠️\n\n. ID de Ejecución: {{$json.execution.id}}\n. Nombre del Flujo: {{$json.workflow.name}}\n. ID del Flujo: {{$json.workflow.id}}\n. Error: {{ $json.execution.error.message }}\n. Nodo donde ocurrió: {{ $json.execution.lastNodeExecuted }} \n. Modo de ejecución: {{ $json.execution.mode }}  . URL de ejecución: {{ $json.execution.url }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        100,
+        320
+      ],
+      "id": "bc6ee710-0f89-41b0-be53-dbab0c63e8b3",
+      "name": "Telegram",
+      "webhookId": "c276d752-0918-477a-847a-cbbf808219fb",
+      "credentials": {
+        "telegramApi": {
+          "id": "Uk3tgb6s53LxEXnG",
+          "name": "Debuger"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger1": [
+      {
+        "json": {
+          "timestamp": "2025-02-25T00:00:23.031-05:00",
+          "Readable date": "February 25th 2025, 12:00:23 am",
+          "Readable time": "12:00:23 am",
+          "Day of week": "Tuesday",
+          "Year": "2025",
+          "Month": "February",
+          "Day of month": "25",
+          "Hour": "00",
+          "Minute": "00",
+          "Second": "23",
+          "Timezone": "America/New_York (UTC-05:00)"
+        }
+      }
+    ],
+    "Error Trigger": [
+      {
+        "json": {
+          "execution": {
+            "id": "435482",
+            "url": "https://n8n.innovasoftpro.dev/workflow/5AJCyyzXz5C3WWHQ/executions/435482",
+            "error": {
+              "level": "error",
+              "tags": {},
+              "description": "TypeError",
+              "lineNumber": 6,
+              "node": {
+                "parameters": {
+                  "mode": "runOnceForAllItems",
+                  "language": "javaScript",
+                  "jsCode": "// Obtenemos el evento verde principal\nconst eventoVerde = $input.first().json;\nconsole.log(\"Evento verde principal:\", eventoVerde.summary);\n\n// Obtenemos fechas exactamente como vienen en el formato original\nconst fechaInicioStr = eventoVerde.start.dateTime;\nconst fechaFinStr = eventoVerde.end.dateTime;\n\n// Extraemos solo las partes de hora del string ISO\nconst horaInicioVerde = fechaInicioStr.substring(11, 16); // Formato HH:MM\nconst horaFinVerde = fechaFinStr.substring(11, 16);       // Formato HH:MM\n\nconsole.log(`Horario original evento verde: ${horaInicioVerde} a ${horaFinVerde}`);\n\n// Función para extraer las horas y minutos exactos de un string ISO\nfunction extraerHoraMinutos(isoString) {\n  const horas = parseInt(isoString.substring(11, 13), 10);\n  const minutos = parseInt(isoString.substring(14, 16), 10);\n  return { horas, minutos, total: horas * 60 + minutos };\n}\n\n// Función para convertir total de minutos a formato HH:MM\nfunction minutosAHora(totalMinutos) {\n  const horas = Math.floor(totalMinutos / 60);\n  const minutos = totalMinutos % 60;\n  return {\n    horas, \n    minutos,\n    formato: `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`\n  };\n}\n\n// Obtenemos el total de minutos para el inicio y fin del evento verde\nconst inicioVerdeMinutos = extraerHoraMinutos(fechaInicioStr).total;\nconst finVerdeMinutos = extraerHoraMinutos(fechaFinStr).total;\n\nconsole.log(`Minutos inicio: ${inicioVerdeMinutos}, Minutos fin: ${finVerdeMinutos}`);\n\n// Generamos los bloques de 30 minutos dentro del rango del evento verde\nconst bloques = [];\nfor (let minutos = inicioVerdeMinutos; minutos < finVerdeMinutos; minutos += 30) {\n  // Solo agregamos si el bloque completo cabe en el evento verde\n  if (minutos + 30 <= finVerdeMinutos) {\n    const horaInicio = minutosAHora(minutos);\n    const horaFin = minutosAHora(minutos + 30);\n    \n    bloques.push({\n      inicioMinutos: minutos,\n      finMinutos: minutos + 30,\n      horaInicio: horaInicio.formato,\n      horaFin: horaFin.formato\n    });\n  }\n}\n\nconsole.log(`Total de bloques generados: ${bloques.length}`);\nbloques.forEach(b => console.log(`Bloque: ${b.horaInicio} a ${b.horaFin}`));\n\n// Obtenemos todos los eventos para buscar los rojos\nconst eventos = $input.all();\nconst eventosRojos = [];\n\n// Buscamos eventos rojos\nfor (const item of eventos) {\n  const evento = item.json;\n  if (evento.colorId === \"11\" || evento.colorId === 11) {\n    const inicioRojoStr = evento.start.dateTime;\n    const finRojoStr = evento.end.dateTime;\n    \n    // Convertimos las horas a minutos para facilitar comparación\n    const inicioRojoMinutos = extraerHoraMinutos(inicioRojoStr).total;\n    const finRojoMinutos = extraerHoraMinutos(finRojoStr).total;\n    \n    eventosRojos.push({\n      inicioMinutos: inicioRojoMinutos,\n      finMinutos: finRojoMinutos,\n      horaInicio: inicioRojoStr.substring(11, 16),\n      horaFin: finRojoStr.substring(11, 16)\n    });\n    \n    console.log(`Evento rojo: ${inicioRojoStr.substring(11, 16)} a ${finRojoStr.substring(11, 16)}`);\n  }\n}\n\n// Verificamos cada bloque contra los eventos rojos\nconst bloquesDisponibles = [];\n\nfor (const bloque of bloques) {\n  let disponible = true;\n  \n  for (const rojo of eventosRojos) {\n    // Verificar solapamiento usando los minutos\n    if (bloque.inicioMinutos < rojo.finMinutos && rojo.inicioMinutos < bloque.finMinutos) {\n      disponible = false;\n      console.log(`Bloque ${bloque.horaInicio}-${bloque.horaFin} está ocupado por ${rojo.horaInicio}-${rojo.horaFin}`);\n      break;\n    }\n  }\n  \n  if (disponible) {\n    bloquesDisponibles.push(bloque);\n    console.log(`Bloque disponible: ${bloque.horaInicio}-${bloque.horaFin}`);\n  }\n}\n\n// Formateamos las fechas ISO para los bloques disponibles\n// Esto mantiene el formato ISO pero actualiza solo la parte de hora\nfunction crearFechaISOConHora(fechaBase, hora, minuto) {\n  // Tomamos la fecha base y solo cambiamos las horas y minutos\n  return fechaBase.substring(0, 11) + \n         hora.toString().padStart(2, '0') + \":\" + \n         minuto.toString().padStart(2, '0') + \n         fechaBase.substring(16);\n}\n\n// Resultado final\nconst horariosDisponibles = bloquesDisponibles.map(bloque => {\n  const horaInicio = parseInt(bloque.horaInicio.split(':')[0], 10);\n  const minInicio = parseInt(bloque.horaInicio.split(':')[1], 10);\n  const horaFin = parseInt(bloque.horaFin.split(':')[0], 10);\n  const minFin = parseInt(bloque.horaFin.split(':')[1], 10);\n  \n  return {\n    inicio: crearFechaISOConHora(fechaInicioStr, horaInicio, minInicio),\n    fin: crearFechaISOConHora(fechaInicioStr, horaFin, minFin), \n    horaInicio: bloque.horaInicio,\n    horaFin: bloque.horaFin\n  };\n});\n\nreturn [{\n  json: {\n    eventoPrincipal: {\n      resumen: eventoVerde.summary,\n      inicio: fechaInicioStr,\n      fin: fechaFinStr,\n      horaInicio: horaInicioVerde,\n      horaFin: horaFinVerde\n    },\n    horariosDisponibles: horariosDisponibles\n  }\n}];",
+                  "notice": ""
+                },
+                "type": "n8n-nodes-base.code",
+                "typeVersion": 2,
+                "position": [
+                  -1720,
+                  200
+                ],
+                "id": "95a27333-50bd-4ca1-80a0-2fcfbb2e960c",
+                "name": "Obtener fechas disponibles"
+              },
+              "message": "Cannot read properties of undefined (reading 'dateTime') [line 6]",
+              "stack": "TypeError: Cannot read properties of undefined (reading 'dateTime')\n    at /usr/local/lib/node_modules/n8n/node_modules/n8n-nodes-base/dist/nodes/Code:6:42\n    at /usr/local/lib/node_modules/n8n/node_modules/n8n-nodes-base/dist/nodes/Code:143:2\n    at VM2 Wrapper.apply (/usr/local/lib/node_modules/n8n/node_modules/@n8n/vm2/lib/bridge.js:490:11)\n    at NodeVM.run (/usr/local/lib/node_modules/n8n/node_modules/@n8n/vm2/lib/nodevm.js:497:23)\n    at JavaScriptSandbox.runCodeAllItems (/usr/local/lib/node_modules/n8n/node_modules/n8n-nodes-base/dist/nodes/Code/JavaScriptSandbox.js:50:45)\n    at ExecuteContext.execute (/usr/local/lib/node_modules/n8n/node_modules/n8n-nodes-base/dist/nodes/Code/Code.node.js:132:40)\n    at WorkflowExecute.runNode (/usr/local/lib/node_modules/n8n/node_modules/n8n-core/dist/execution-engine/workflow-execute.js:687:50)\n    at /usr/local/lib/node_modules/n8n/node_modules/n8n-core/dist/execution-engine/workflow-execute.js:919:62\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at /usr/local/lib/node_modules/n8n/node_modules/n8n-core/dist/execution-engine/workflow-execute.js:1252:20"
+            },
+            "lastNodeExecuted": "Obtener fechas disponibles",
+            "mode": "integrated"
+          },
+          "workflow": {
+            "id": "5AJCyyzXz5C3WWHQ",
+            "name": "AGENTE INMO - Consultar_fechas_disponibles"
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-22T19:48:46.187Z",
+  "versionId": "54f04a8b-8a8e-4cb6-a57d-670aac340d51"
+}
