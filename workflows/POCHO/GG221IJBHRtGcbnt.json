@@ -1,0 +1,460 @@
+{
+  "active": true,
+  "connections": {
+    "ChatwootToWhapi": {
+      "main": [
+        [
+          {
+            "node": "variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "variables": {
+      "main": [
+        [
+          {
+            "node": "Message Type1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type1": {
+      "main": [
+        [
+          {
+            "node": "Grabando Audio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Escribiendo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Escribiendo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escribiendo": {
+      "main": [
+        [
+          {
+            "node": "Texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grabando Audio": {
+      "main": [
+        [
+          {
+            "node": "Enviar Audio1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-09T15:47:07.119Z",
+  "id": "GG221IJBHRtGcbnt",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "DESPENSA envio mensaje desde chatwoot a whapi",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wepi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        500,
+        -140
+      ],
+      "id": "c87f0c4c-67e4-4137-ae95-537faf95e094",
+      "name": "CanalApiWepiWhapi",
+      "webhookId": "0147a521-fe16-40b3-befd-a57d401b219c"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "22fee715-ca10-4fca-aefc-0b9870d60999",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1080,
+        -80
+      ],
+      "id": "2881b16c-91b6-4cae-aa9b-30a43bf60306",
+      "name": "ChatwootToWhapi",
+      "webhookId": "37ccf5cc-5131-4df2-9609-cee3d81fa9ae"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "deb13bac-3ca3-4b5f-a567-8ad552fe780a",
+              "name": "mensaje",
+              "value": "={{ $json?.body?.messages[0]?.content || $json.body.messages[0].attachments[0].data_url }}",
+              "type": "string"
+            },
+            {
+              "id": "1ed82420-a056-46c1-afdc-f9769dc4b626",
+              "name": "numero",
+              "value": "={{ $json.body.meta.sender.phone_number.split('+')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "5b46b841-1e28-47d7-afe2-615961220268",
+              "name": "type",
+              "value": "={{ $json?.body?.messages[0]?.content_type || $json.body.messages[0].content_type }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -740,
+        -80
+      ],
+      "id": "b2c0a5a8-52b0-4713-838a-415866ecc500",
+      "name": "variables"
+    },
+    {
+      "parameters": {
+        "content": "## Envio de chatwoot a whapi\nEn la seccion de automatizacion de chatwoot coloco este webhook para la salida de msg de chatwoot a whapi",
+        "height": 400,
+        "width": 2000,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1160,
+        -300
+      ],
+      "typeVersion": 1,
+      "id": "3f0c308c-39a4-463e-8a3c-a2f6757c45ed",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "### En chatwoot coloco en la seccion ENTRADAS este webhook",
+        "height": 260,
+        "width": 360
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        380,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "b6430334-aab7-49ad-a305-1633d8b01e54",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('ChatwootToWhapi').item.json.body.messages[0].attachments[0].file_type }}",
+                    "rightValue": "audio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "9d6039bf-d7d0-489c-8f18-691901f06a47"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4972bf24-fce2-42ca-ac41-2fc2c0b4665c",
+                    "leftValue": "={{ $('ChatwootToWhapi').item.json.body.messages[0].attachments[0].file_type }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3f06e900-4dee-43af-9264-4221e9c03692",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "569e2687-6aed-4339-b764-2af5c192669a",
+      "name": "Message Type1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -480,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $('variables').first().json.mensaje.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('variables').first().json.numero }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -40,
+        -280
+      ],
+      "id": "502110cb-2480-4dba-8a80-23e4ebf03bed",
+      "name": "Texto"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://gate.whapi.cloud/presences/{{ $json.numero }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "presence",
+              "value": "typing"
+            },
+            {
+              "name": "delay",
+              "value": "={{1}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        -280
+      ],
+      "id": "567a3ddd-5290-49dc-831f-3662c98781f1",
+      "name": "Escribiendo"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://gate.whapi.cloud/presences/{{ $json.numero }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "presence",
+              "value": "recording"
+            },
+            {
+              "name": "delay",
+              "value": "={{3}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        -100
+      ],
+      "id": "41a993cd-0434-4f38-a4f0-721f53b96dc3",
+      "name": "Grabando Audio"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/audio",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $('Message Type1').item.json.numero }}"
+            },
+            {
+              "name": "media",
+              "value": "={{ $('Message Type1').item.json.mensaje }}"
+            },
+            {
+              "name": "recording_time",
+              "value": "0"
+            },
+            {
+              "name": "mime_type",
+              "value": "audio/mp3"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -20,
+        -100
+      ],
+      "id": "3e0e399f-d6aa-4645-bc42-8ff82aab1aaa",
+      "name": "Enviar Audio1"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-01-19T21:20:51.336Z",
+      "updatedAt": "2025-01-19T21:20:51.336Z",
+      "id": "dgrS6et84MZNe4W0",
+      "name": "POCHO"
+    }
+  ],
+  "triggerCount": 2,
+  "updatedAt": "2025-05-09T17:17:16.393Z",
+  "versionId": "13f973ee-9c2f-46bd-a394-b536ff234f26"
+}
