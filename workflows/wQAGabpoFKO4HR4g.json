@@ -1,0 +1,325 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Redis6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-19T18:37:41.551Z",
+  "id": "wQAGabpoFKO4HR4g",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "DESPENSA - Humanos",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "22fee715-ca10-4fca-aefc-0b9870d60999",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -20
+      ],
+      "id": "e4f903b0-2839-474c-aa4f-cfbbaa7458bf",
+      "name": "Webhook",
+      "webhookId": "22fee715-ca10-4fca-aefc-0b9870d60999"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{ $('Webhook').item.json.body.meta.sender.phone_number}}",
+        "value": "=bot_off"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        180,
+        -200
+      ],
+      "id": "1c8fdac1-fe3d-4023-82c4-4909a9fad3d6",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c64f171a-c378-49a6-b12b-266eec6c3c95",
+              "leftValue": "={{ $json.body.labels }}",
+              "rightValue": "bot_off",
+              "operator": {
+                "type": "array",
+                "operation": "contains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -100,
+        -20
+      ],
+      "id": "a190d61b-a963-432b-b2c7-c3d3350c4681",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6ac883a8-ac67-44bc-beff-b65a4faf5347",
+              "leftValue": "={{ $json.body.labels }}",
+              "rightValue": "=",
+              "operator": {
+                "type": "array",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        180,
+        180
+      ],
+      "id": "c48e5952-1a01-4e0d-8861-47e2fba30fc1",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{ $('Webhook').item.json.body.meta.sender.phone_number}}",
+        "value": "="
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        460,
+        60
+      ],
+      "id": "fcb9c177-2389-42a1-987c-c654c41f96bc",
+      "name": "Redis6",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.innovasoftpro.dev",
+            "user-agent": "rest-client/2.1.0 (linux-musl x86_64) ruby/3.3.3p89",
+            "content-length": "1936",
+            "accept": "application/json",
+            "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+            "content-type": "application/json",
+            "x-forwarded-for": "15.228.243.44",
+            "x-forwarded-host": "n8n.innovasoftpro.dev",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "575dad520f0e",
+            "x-real-ip": "15.228.243.44"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "additional_attributes": {},
+            "can_reply": true,
+            "channel": "Channel::Api",
+            "contact_inbox": {
+              "id": 821,
+              "contact_id": 1423,
+              "inbox_id": 16,
+              "source_id": "4d553749-1382-4faa-8f02-7eac5b35b876",
+              "created_at": "2025-03-12T01:47:04.805Z",
+              "updated_at": "2025-03-12T01:47:04.805Z",
+              "hmac_verified": false,
+              "pubsub_token": "3GktJTDrhyrCvjbNUkMqAFeE"
+            },
+            "id": 152,
+            "inbox_id": 16,
+            "messages": [
+              {
+                "id": 20498,
+                "content": "hola\n\n--\n\n|Admin|",
+                "account_id": 3,
+                "inbox_id": 16,
+                "conversation_id": 152,
+                "message_type": 1,
+                "created_at": 1741745421,
+                "updated_at": "2025-03-12T02:10:21.585Z",
+                "private": false,
+                "status": "sent",
+                "source_id": null,
+                "content_type": "text",
+                "content_attributes": {},
+                "sender_type": "User",
+                "sender_id": 2,
+                "external_source_ids": {},
+                "additional_attributes": {},
+                "processed_message_content": "hola\n\n--\n\n|Admin|",
+                "sentiment": {},
+                "conversation": {
+                  "assignee_id": null,
+                  "unread_count": 0,
+                  "last_activity_at": 1741745421,
+                  "contact_inbox": {
+                    "source_id": "4d553749-1382-4faa-8f02-7eac5b35b876"
+                  }
+                },
+                "sender": {
+                  "id": 2,
+                  "name": "Fernando",
+                  "available_name": "Fernando",
+                  "avatar_url": "",
+                  "type": "user",
+                  "availability_status": null,
+                  "thumbnail": ""
+                }
+              }
+            ],
+            "labels": [
+              "bot_off"
+            ],
+            "meta": {
+              "sender": {
+                "additional_attributes": {},
+                "custom_attributes": {},
+                "email": null,
+                "id": 1423,
+                "identifier": null,
+                "name": "Qeva Solutions",
+                "phone_number": "+5492254596618",
+                "thumbnail": "",
+                "type": "contact"
+              },
+              "assignee": null,
+              "team": null,
+              "hmac_verified": false
+            },
+            "status": "open",
+            "custom_attributes": {},
+            "snoozed_until": null,
+            "unread_count": 0,
+            "first_reply_created_at": "2025-03-12T01:48:36.516Z",
+            "priority": null,
+            "waiting_since": 0,
+            "agent_last_seen_at": 1741745421,
+            "contact_last_seen_at": 0,
+            "last_activity_at": 1741745421,
+            "timestamp": 1741745421,
+            "created_at": 1741744026,
+            "event": "conversation_updated",
+            "changed_attributes": [
+              {
+                "updated_at": {
+                  "previous_value": "2025-03-12T02:10:21.591Z",
+                  "current_value": "2025-03-12T02:12:04.297Z"
+                }
+              },
+              {
+                "cached_label_list": {
+                  "previous_value": "",
+                  "current_value": "bot_off"
+                }
+              },
+              {
+                "label_list": {
+                  "previous_value": [],
+                  "current_value": [
+                    "bot_off"
+                  ]
+                }
+              }
+            ]
+          },
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/22fee715-ca10-4fca-aefc-0b9870d60999",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "C1RoMITYn9bjEQwF"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-09T16:30:34.610Z",
+  "versionId": "03495830-71ec-4e58-9bbd-368dac1f96bf"
+}
