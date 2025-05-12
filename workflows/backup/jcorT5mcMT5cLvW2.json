@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "/": {
       "main": [
@@ -145,7 +145,13 @@
     },
     "Loop Over Items": {
       "main": [
-        [],
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Execute Workflow",
@@ -254,6 +260,134 @@
           }
         ]
       ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: Listar Archivos": {
+      "main": [
+        [
+          {
+            "node": "Filtrar solo archivos JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar solo archivos JSON": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Archivos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Archivos": {
+      "main": [
+        [
+          {
+            "node": "GitHub: Obtener Contenido",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Agregar Resultados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub: Obtener Contenido": {
+      "main": [
+        [
+          {
+            "node": "Preparar Datos para Importación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Datos para Importación": {
+      "main": [
+        [
+          {
+            "node": "n8n: Importar Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n: Importar Workflow": {
+      "main": [
+        [
+          {
+            "node": "Procesar Resultado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Procesar Resultado": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Archivos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agregar Resultados": {
+      "main": [
+        [
+          {
+            "node": "Formatear Notificación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear Notificación": {
+      "main": [
+        [
+          {
+            "node": "Telegram: Enviar Notificación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "GitHub: Listar Archivos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-05-12T00:23:39.343Z",
@@ -261,7 +395,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "My workflow 10",
+  "name": "Backups Workflows",
   "nodes": [
     {
       "parameters": {},
@@ -397,8 +531,8 @@
       "name": "Merge Items",
       "type": "n8n-nodes-base.merge",
       "position": [
-        1240,
-        1000
+        1160,
+        1060
       ],
       "typeVersion": 2
     },
@@ -410,8 +544,8 @@
       "name": "isDiffOrNew",
       "type": "n8n-nodes-base.code",
       "position": [
-        1440,
-        1000
+        1420,
+        1060
       ],
       "typeVersion": 1
     },
@@ -440,7 +574,7 @@
       "type": "n8n-nodes-base.switch",
       "position": [
         1660,
-        1000
+        1040
       ],
       "typeVersion": 1
     },
@@ -560,8 +694,8 @@
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "position": [
-        900,
-        360
+        940,
+        340
       ],
       "typeVersion": 3
     },
@@ -570,7 +704,8 @@
         "rule": {
           "interval": [
             {
-              "triggerAtHour": 7
+              "triggerAtHour": 3,
+              "triggerAtMinute": 32
             }
           ]
         }
@@ -603,8 +738,8 @@
     {
       "parameters": {
         "content": "## Main workflow loop",
-        "height": 434.88564057365943,
-        "width": 886.4410237965205,
+        "height": 435,
+        "width": 1226,
         "color": 7
       },
       "id": "09e24664-bd08-4537-9980-25961c75692a",
@@ -739,8 +874,8 @@
       "name": "Execute Workflow",
       "type": "n8n-nodes-base.executeWorkflow",
       "position": [
-        1120,
-        380
+        1360,
+        400
       ],
       "typeVersion": 1.2,
       "executeOnce": true,
@@ -834,6 +969,302 @@
         900
       ],
       "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=⬢ GitHub Workflows ⬢\n───────────────────\n✓ Actualización completada 🎯\n✓ Todos los cambios sincronizados 🔄\n✓ Sistema operativo ⚡\n\n🟢 ¡Todo listo para continuar!",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1360,
+        240
+      ],
+      "id": "f4a1490e-8a23-46df-a6d1-731f603bece8",
+      "name": "Telegram1",
+      "webhookId": "e4b6548e-8950-419c-b3b2-c56e46830553",
+      "credentials": {
+        "telegramApi": {
+          "id": "Uk3tgb6s53LxEXnG",
+          "name": "Debuger"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        240
+      ],
+      "id": "b9f9f946-ef10-4ee2-bdce-be7ec7662d3e",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "repository",
+        "operation": "getContent",
+        "owner": "fer336",
+        "repository": "workback"
+      },
+      "id": "77e412f3-5b35-4c32-80d7-3e8295eda2f9",
+      "name": "GitHub: Listar Archivos",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        340,
+        2140
+      ],
+      "typeVersion": 1,
+      "webhookId": "22c03c5d-2db5-4e96-a5e1-730012b958d2",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "jT5LNDbXbJWMToOl",
+          "name": "Qeva Github"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const outputItems = [];\n\n// Filter for only JSON files\nfor (const item of $input.all()) {\n  if (item.json.type === 'file' && item.json.name.endsWith('.json')) {\n    outputItems.push(item);\n  }\n}\n\nreturn outputItems;"
+      },
+      "id": "670c5074-2caf-451b-b34b-5c0f7e58e9ef",
+      "name": "Filtrar solo archivos JSON",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        540,
+        2140
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "08c94307-eed2-4507-ac6c-026a8a716ed0",
+      "name": "Loop Over Archivos",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        740,
+        2140
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "operation": "get",
+        "owner": "fer336",
+        "repository": "workback",
+        "filePath": "={{ 'workflows/' + $json.name }}",
+        "asBinaryProperty": false,
+        "additionalParameters": {}
+      },
+      "id": "56a4e6e5-872d-4f93-a3f2-33b1848e0994",
+      "name": "GitHub: Obtener Contenido",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        940,
+        2140
+      ],
+      "typeVersion": 1,
+      "webhookId": "09d97c9f-449c-4589-aa06-a1a646e78e04",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "jT5LNDbXbJWMToOl",
+          "name": "Qeva Github"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Decode base64 content and parse JSON\nconst decodedContent = Buffer.from($json.content, 'base64').toString();\nconst workflowData = JSON.parse(decodedContent);\n\n// Extract workflow ID from filename\nconst filenameWithoutExtension = $json.name.replace('.json', '');\n\n// Return prepared data for n8n import\nreturn {\n  json: {\n    workflowId: filenameWithoutExtension,\n    workflowData: workflowData,\n    originalFilename: $json.name\n  }\n};"
+      },
+      "id": "94f3c638-1641-492f-a0cc-136844636652",
+      "name": "Preparar Datos para Importación",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        1140,
+        2140
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "=https://n8n.innovasoftpro.dev/api/v1/workflows",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "=n8n_api_GDwjY1aU6H53kWVz0D6ZDGgj4RXcA198"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "622ddbab-eea0-432c-838b-d1e2eb0eeb0c",
+      "name": "n8n: Importar Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1340,
+        2140
+      ],
+      "typeVersion": 4.1,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "H94CnsGTHGIbYBK4",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Process the import result\nconst result = {\n  name: $json.workflowData.name,\n  id: $json.workflowId,\n  originalFilename: $json.originalFilename\n};\n\n// Check for successful import\nif ($node.executeData.result.response.statusCode >= 200 && $node.executeData.result.response.statusCode < 300) {\n  result.success = true;\n  result.importedId = $node.executeData.result.response.body.id;\n  result.message = `Workflow ${result.name} importado correctamente`;\n} else {\n  result.success = false;\n  result.error = `Error ${$node.executeData.result.response.statusCode}: ${JSON.stringify($node.executeData.result.response.body)}`;\n  result.message = `Error al importar ${result.name}`;\n}\n\nreturn { json: result };"
+      },
+      "id": "0e444ea8-4b8a-4beb-b99d-e7ade8044b41",
+      "name": "Procesar Resultado",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        1540,
+        2140
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "cbab21e6-b0af-4632-a41e-475fc4ece088",
+      "name": "Agregar Resultados",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1740,
+        2140
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsCode": "// Calculate summary statistics\nconst summary = {\n  total: $input.all().length,\n  success: 0,\n  warnings: 0,\n  errors: 0,\n  successList: [],\n  errorList: [],\n  warningList: []\n};\n\n// Process results\n$input.all().forEach(item => {\n  if (item.json.success) {\n    summary.success++;\n    summary.successList.push(item.json.name);\n  } else if (item.json.warning) {\n    summary.warnings++;\n    summary.warningList.push(`${item.json.name}: ${item.json.warning}`);\n  } else if (item.json.error) {\n    summary.errors++;\n    summary.errorList.push(`${item.json.name}: ${item.json.error}`);\n  }\n});\n\n// Format date/time\nconst now = new Date();\nconst timeString = now.toLocaleTimeString('es-AR', { \n  hour: '2-digit', \n  minute: '2-digit' \n});\nconst dateString = now.toLocaleDateString('es-AR', {\n  day: '2-digit',\n  month: '2-digit',\n  year: 'numeric'\n});\n\n// Create status emoji\nlet statusEmoji = '✅';\nif (summary.errors > 0) {\n  statusEmoji = '❌';\n} else if (summary.warnings > 0) {\n  statusEmoji = '⚠️';\n}\n\n// Create message for Telegram\nconst telegramMessage = `\n🌟 ¡RESTAURACIÓN COMPLETADA! 🌟\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n${statusEmoji} Se han restaurado ${summary.total} workflows\n   desde GitHub a n8n\n\n📊 Resumen:\n  • ${summary.success} workflows exitosos\n  • ${summary.warnings} con advertencias\n  • ${summary.errors} con errores\n\n🕒 ${timeString} - ${dateString}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n🚀 ¡Instancia de n8n actualizada!\n`;\n\n// Add details section if needed\nlet detailsSection = '';\nif (summary.errorList.length > 0 || summary.warningList.length > 0) {\n  detailsSection = '\\n📝 Detalles:\\n';\n  \n  summary.errorList.forEach(error => {\n    detailsSection += `❌ ${error}\\n`;\n  });\n  \n  summary.warningList.forEach(warning => {\n    detailsSection += `⚠️ ${warning}\\n`;\n  });\n}\n\nreturn {\n  json: {\n    summary: summary,\n    message: telegramMessage + detailsSection\n  }\n};"
+      },
+      "id": "ac587dd8-0535-4a76-b75a-4de165c78d24",
+      "name": "Formatear Notificación",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        1940,
+        2140
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "disable_notification": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "8dbba385-5ac9-4ef7-a17a-58f25a213151",
+      "name": "Telegram: Enviar Notificación",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        2140,
+        2140
+      ],
+      "typeVersion": 1.2,
+      "webhookId": "83107e1f-728b-4fd6-99c5-f66777c7562c",
+      "credentials": {
+        "telegramApi": {
+          "id": "Uk3tgb6s53LxEXnG",
+          "name": "Debuger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Workflow Inverso: GitHub a n8n\nEste workflow restaura todos los workflows de GitHub a tu instancia de n8n.\n\nFuncionamiento:\n1. Obtiene la lista de archivos JSON desde tu repositorio GitHub\n2. Procesa cada archivo y lo prepara para importación\n3. Importa los workflows a tu instancia de n8n mediante la API\n4. Envía una notificación detallada a Telegram\n\nAjustes necesarios:\n- Verifica las credenciales de GitHub\n- Actualiza la URL de tu instancia n8n en el nodo 'n8n: Importar Workflow'\n- Revisa la API key de n8n\n- Actualiza el Chat ID de Telegram",
+        "height": 420,
+        "width": 480,
+        "color": 4
+      },
+      "id": "7bb1971d-02e0-4233-adb4-62d3323e90bb",
+      "name": "Instrucciones",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        1440
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## GitHub a n8n Restore",
+        "height": 751,
+        "width": 2547,
+        "color": 6
+      },
+      "id": "b1c5d566-bf6d-4faa-a277-77a4986b7da6",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        1880
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 3,
+              "triggerAtMinute": 32
+            }
+          ]
+        }
+      },
+      "id": "63eb184a-b2ff-4bb8-b24f-eb13abef8f1d",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        140,
+        2300
+      ],
+      "typeVersion": 1.2,
+      "disabled": true
     }
   ],
   "pinData": {
@@ -1153,9 +1584,17 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
   },
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [
     {
       "createdAt": "2025-05-12T00:23:01.806Z",
@@ -1164,7 +1603,7 @@
       "name": "backup"
     }
   ],
-  "triggerCount": 0,
-  "updatedAt": "2025-05-12T01:07:36.210Z",
-  "versionId": "f7bac008-1632-4dce-8796-fe0104e3da41"
+  "triggerCount": 1,
+  "updatedAt": "2025-05-12T04:00:41.755Z",
+  "versionId": "7ea1b67f-a33a-4524-bb6a-6a30ccff033c"
 }
