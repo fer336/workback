@@ -1,0 +1,924 @@
+{
+  "active": false,
+  "connections": {
+    "Calendario": {
+      "main": [
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        []
+      ]
+    },
+    "Code1": {
+      "main": [
+        []
+      ]
+    },
+    "Redis1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Response null Codigo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Success1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getForCode": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "getForCode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        []
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Success2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lista",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar1": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Success3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getForCode1": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "getForCode1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Success4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lista1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-29T19:14:29.563Z",
+  "id": "5AJCyyzXz5C3WWHQ",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE INMO - Consultar_fechas_disponibles",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Evento"
+            },
+            {
+              "name": "session_id"
+            },
+            {
+              "name": "url_evo"
+            },
+            {
+              "name": "instance"
+            },
+            {
+              "name": "apikey"
+            },
+            {
+              "name": "numero_telefono"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -3180,
+        360
+      ],
+      "id": "6e4f3631-32d6-4a84-a3a3-404bc5d1312a",
+      "name": "Calendario"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Calendario').first().json.url_evo }}/message/sendList/{{ $('Calendario').first().json.instance }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Calendario').first().json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -20,
+        720
+      ],
+      "id": "4abeecfd-d86e-41de-b4fa-e6e875079cfd",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener los datos de las fechas disponibles\nconst rawText = $input.first().json.text;\nlet fechasData = null;\n\n// Extraer el JSON del formato markdown\nif (rawText) {\n  const jsonMatch = rawText.match(/```json\\s*([\\s\\S]*?)\\s*```/);\n  if (jsonMatch && jsonMatch[1]) {\n    try {\n      fechasData = JSON.parse(jsonMatch[1].trim());\n    } catch (e) {\n      console.log('Error al parsear JSON:', e);\n    }\n  }\n}\n\n// Si no hay datos disponibles, devolver un mensaje de error\nif (!fechasData) {\n  return { json: { error: \"No se pudieron procesar los datos de fechas\" } };\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Función para calcular el horario de fin sumando 30 minutos\nfunction calcularHoraFin(horaInicio) {\n  const [horas, minutos] = horaInicio.split(':').map(num => parseInt(num, 10));\n  let nuevasHoras = horas;\n  let nuevosMinutos = minutos + 30;\n  \n  if (nuevosMinutos >= 60) {\n    nuevasHoras += 1;\n    nuevosMinutos -= 60;\n  }\n  \n  return `${nuevasHoras.toString().padStart(2, '0')}:${nuevosMinutos.toString().padStart(2, '0')}`;\n}\n\n// Procesar todas las fechas y horarios\nconst sectionsArray = [];\n\nif (Array.isArray(fechasData)) {\n  // Agrupar por mes\n  const mesesAgrupados = {};\n  \n  fechasData.forEach(item => {\n    if (item.mes && item.dia) {\n      const mes = item.mes;\n      const nombreMes = nombresMeses[mes] || `Mes ${mes}`;\n      \n      if (!mesesAgrupados[nombreMes]) {\n        mesesAgrupados[nombreMes] = [];\n      }\n      \n      const dia = item.dia;\n      const horarios = item.horarios || item.horario || [];\n      \n      // Para cada horario, crear una fila con horario de inicio y fin (30 min más)\n      if (Array.isArray(horarios)) {\n        horarios.forEach(horaInicio => {\n          const horaFin = calcularHoraFin(horaInicio);\n          \n          mesesAgrupados[nombreMes].push({\n            dia: dia,\n            horaInicio: horaInicio,\n            title: `${dia} de ${nombreMes}`,\n            description: `Hora: ${horaInicio} a ${horaFin}`,\n            rowId: `${mes}-${dia}-${horaInicio}`\n          });\n        });\n      }\n    }\n  });\n  \n  // Crear las secciones por mes\n  for (const [nombreMes, filas] of Object.entries(mesesAgrupados)) {\n    // Ordenar las filas por día y luego por hora\n    filas.sort((a, b) => {\n      if (a.dia !== b.dia) {\n        return a.dia - b.dia;\n      }\n      return a.horaInicio.localeCompare(b.horaInicio);\n    });\n    \n    // Crear el array de rows\n    const rowsArray = filas.map(fila => ({\n      title: fila.title,\n      description: fila.description,\n      rowId: fila.rowId\n    }));\n    \n    // Añadir sección al array de secciones\n    sectionsArray.push({\n      title: nombreMes,\n      rows: rowsArray\n    });\n  }\n}\n\n// Obtener número de cliente o usar valor por defecto\nconst remoteJid = $('Calendario').first()?.json?.numero_cliente || \"549225442359\";\n\n// Crear un único objeto JSON, no un array\nconst requestBody = {\n  number: remoteJid,\n  title: \"Fechas Disponibles\",\n  description: \"Selecciona una fecha y hora para agendar tu visita\",\n  buttonText: \"Seleccionar\",\n  footerText: \"Cada cita tiene una duración de 30 minutos\",\n  sections: sectionsArray\n};\n\n// Devolver un objeto con la propiedad json que contiene un solo objeto, no un array\nreturn {\n  json: requestBody  // No wrappear en un array []\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        740
+      ],
+      "id": "88d6aee3-8cb6-4c76-88be-d0d7aa7194c4",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Codigo_propiedad",
+        "key": "=propiedades_historial_analisis",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -2940,
+        360
+      ],
+      "id": "db279666-f2af-4220-943f-335f44a78abc",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c358838a-4034-4100-a5cd-e89f533161b0",
+              "leftValue": "={{ $json.ultimoCodigo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2440,
+        360
+      ],
+      "id": "3ff701f4-a965-4679-a55b-899ceded888b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ef619c87-8996-4278-805f-187d5e1e672a",
+              "name": "response",
+              "value": "Codigo propiedad vacio",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1920,
+        560
+      ],
+      "id": "b7e17bdc-0386-4846-a29f-c7424c903213",
+      "name": "Response null Codigo1"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "qeva.ai.solutions@gmail.com",
+          "mode": "list",
+          "cachedResultName": "Propiedades inmobiliarias"
+        },
+        "returnAll": true,
+        "timeMax": "={{ $now.plus({ week: 2 }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -1840,
+        380
+      ],
+      "id": "305f5c1a-e231-4f10-983e-d3054fd5250b",
+      "name": "Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "248CSUaxOr8MEWUN",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Calendario').first().json.url_evo }}/message/sendList/{{ $('Calendario').first().json.instance }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Calendario').first().json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('Calendario').first().json.numero_telefono }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "footerText",
+              "value": "="
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -700,
+        400
+      ],
+      "id": "a36506e8-1dd9-4450-ae36-0d7af61dfcaa",
+      "name": "HTTP Request2",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39c2f302-03be-4464-a17a-d7cc481d6d44",
+              "name": "=response",
+              "value": "=true",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bc06c8aa-a328-446d-8949-60271387df59",
+      "name": "Success1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -420,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener los datos del nodo anterior\nconst datos = $input.first()?.json?.resultados || [];\nconsole.log(\"DEBUG - Datos recibidos:\", JSON.stringify(datos).substring(0, 200) + \"...\");\n\n// Verificar si tenemos datos\nif (!datos || !datos.length) {\n  console.log(\"DEBUG - No hay datos disponibles\");\n  return [{\n    json: {\n      error: \"No se encontraron eventos\",\n      message: \"El nodo anterior no devolvió ningún horario disponible\"\n    },\n    pairedItem: 0\n  }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\"; // Otoño\n  if (mes >= 6 && mes <= 8) return \"❄️\"; // Invierno\n  if (mes >= 9 && mes <= 11) return \"🌸\"; // Primavera\n  return \"☀️\"; // Verano\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Nombres de los días de la semana\nconst nombresDias = {\n  0: 'Domingo',\n  1: 'Lunes',\n  2: 'Martes',\n  3: 'Miércoles',\n  4: 'Jueves',\n  5: 'Viernes',\n  6: 'Sábado'\n};\n\n// Extraer fecha de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  \n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    const diaSemana = nombresDias[fechaCompleta.getDay()];\n    \n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: diaSemana\n    };\n  }\n  return null;\n}\n\n// Función para formatear el rango de hora correctamente (12:00 a 12:30)\nfunction formatearRangoHora(horaInicio, horaFin) {\n  // Extraer horas y minutos de ambos horarios\n  const inicioMatch = horaInicio.match(/^(\\d+):(\\d+)/);\n  const finMatch = horaFin.match(/^(\\d+):(\\d+)/);\n  \n  // Formatear correctamente con horas y minutos\n  const horaInicioFormateada = inicioMatch ? `${inicioMatch[1]}:${inicioMatch[2]}` : horaInicio;\n  const horaFinFormateada = finMatch ? `${finMatch[1]}:${finMatch[2]}` : horaFin;\n  \n  return `${horaInicioFormateada} a ${horaFinFormateada}`;\n}\n\n// Obtener la fecha y hora actual\nconst ahora = new Date();\nconsole.log(`DEBUG - Fecha actual: ${ahora.toISOString()}`);\nconsole.log(`DEBUG - Fecha local: ${ahora.toString()}`);\n\n// Agrupar horarios por mes y día\nconst mesesAgrupados = {};\n\n// Procesar los horarios disponibles de todos los eventos\ndatos.forEach(evento => {\n  if (!evento.horariosDisponibles || !evento.horariosDisponibles.length) return;\n  \n  evento.horariosDisponibles.forEach(horario => {\n    try {\n      // Obtener la fecha de inicio del horario\n      const fechaHorario = new Date(horario.inicio);\n      \n      // Para debug\n      console.log(`DEBUG - Evaluando horario: ${horario.inicio}`);\n      \n      // COMPARACIÓN SIMPLE: Verificar si la fecha ya pasó\n      if (fechaHorario <= ahora) {\n        console.log(`DEBUG - FILTRADA: Fecha ya pasó`);\n        return; // Saltar este horario porque ya pasó\n      }\n      \n      // Extraer componentes de la fecha para agrupar\n      const fechaInicio = extraerFechaYHora(horario.inicio);\n      if (!fechaInicio) {\n        console.log(`DEBUG - Error al extraer fecha y hora de: ${horario.inicio}`);\n        return;\n      }\n      \n      const mes = fechaInicio.mes;\n      const dia = fechaInicio.dia;\n      const nombreMes = nombresMeses[mes];\n      const diaSemana = fechaInicio.diaSemana;\n      \n      // Inicializar el grupo del mes si no existe\n      if (!mesesAgrupados[nombreMes]) {\n        mesesAgrupados[nombreMes] = {\n          mes: mes,\n          fechas: []\n        };\n      }\n      \n      // Evitar duplicados\n      const yaExiste = mesesAgrupados[nombreMes].fechas.some(\n        e => e.dia === dia && e.horaInicio === horario.horaInicio\n      );\n      \n      if (!yaExiste) {\n        mesesAgrupados[nombreMes].fechas.push({\n          dia,\n          horaInicio: horario.horaInicio,\n          horaFin: horario.horaFin,\n          mes,\n          diaSemana,\n          resumen: evento.eventoPrincipal.resumen,\n          rowId: `${mes}-${dia}-${horario.horaInicio.replace(\":\", \"\")}`\n        });\n      }\n    } catch (error) {\n      console.log(`ERROR procesando horario: ${error.message}`);\n    }\n  });\n});\n\n// Armar la estructura para WhatsApp SendList\nconst sections = [];\n\n// Crear una sección para cada mes\nfor (const [nombreMes, datosMes] of Object.entries(mesesAgrupados)) {\n  const filas = datosMes.fechas;\n  if (filas.length === 0) continue;\n  \n  // Obtener el emoji estacional para este mes\n  const emoji = getEmojiEstacional(datosMes.mes);\n  \n  // Ordenar filas por día y hora\n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n  \n  const rowsDelMes = [];\n  filas.forEach(f => {\n    const horaFormateada = formatearRangoHora(f.horaInicio, f.horaFin);\n    rowsDelMes.push({\n      title: `🕒 ${f.dia} de ${nombreMes} : ${horaFormateada}`,\n      description: `${f.diaSemana}`,\n      rowId: f.rowId\n    });\n  });\n  \n  // Agregar la sección del mes con el emoji estacional\n  if (rowsDelMes.length > 0) {\n    sections.push({\n      title: `${emoji} ${nombreMes}`,\n      rows: rowsDelMes\n    });\n  }\n}\n\n// Sección por defecto si no hay nada\nif (sections.length === 0) {\n  sections.push({\n    title: \"⚠️ Sin horarios disponibles\",\n    rows: [{\n      title: \"No hay horarios disponibles\",\n      description: \"Intenta más tarde\",\n      rowId: \"no-disponible\"\n    }]\n  });\n}\n\n// Obtener número de cliente desde otro nodo o poner uno por defecto\nconst remoteJid = $('Calendario').first().json.numero_cliente;\n\n// JSON final para enviar por WhatsApp\nconst requestBody = {\n  number: remoteJid,\n  title: \"📅 Fechas Disponibles\",\n  description: \"Seleccioná una fecha y hora para agendar tu visita\\n🕒 Cada visita tiene una duración de 30 minutos aprox.\",\n  buttonText: \"Seleccioná 👆\",\n  footerText: \"\", // Ya incluimos la información de duración en la descripción\n  sections\n};\n\n// Retornar el mensaje final en el formato que espera n8n\nreturn [{\n  json: requestBody,\n  pairedItem: 0 // Agregamos pairedItem para mantener el enlace con el elemento de entrada\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1000,
+        460
+      ],
+      "id": "ae9a13fb-b9b6-4237-ae12-338898fce69e",
+      "name": "Lista"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Código para obtener el último código de propiedad\n// Obtenemos todos los ítems de Redis\nconst redisItems =$input.first().json.Codigo_propiedad ;\n\n// Verificamos si existe la propiedad y es un array\nif (!Array.isArray(redisItems)) {\n  console.log(\"Error: No se encontró un array de códigos de propiedad\");\n  return $input.all();\n}\n\n// Obtenemos el último elemento del array\nconst ultimoCodigo = redisItems[redisItems.length - 1];\nconsole.log(\"Último código de propiedad:\", ultimoCodigo);\n\n// Añadimos el último código a todos los ítems de entrada\nconst items = $input.all();\nfor (const item of items) {\n  item.json.ultimoCodigo = ultimoCodigo;\n}\n\n// Devolvemos los ítems con el nuevo campo\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2680,
+        360
+      ],
+      "id": "d714ca80-98fb-4845-8cb3-d7bf383ec8f1",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🚀 Leer todos los eventos\nconst eventos = $input.all();\nconst codigoBusqueda = $('Code').first().json.ultimoCodigo?.toLowerCase();\n\n// 🚀 Funciones auxiliares\nconst extraerMinutos = (isoString) => {\n  if (!isoString) return null;\n  const hora = isoString.substring(11,16).split(':');\n  return parseInt(hora[0]) * 60 + parseInt(hora[1]);\n};\n\nconst minutosAHora = (totalMinutos) => {\n  const horas = Math.floor(totalMinutos / 60);\n  const minutos = totalMinutos % 60;\n  return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;\n};\n\nconst crearFechaISO = (fechaBase, horaStr) => {\n  return fechaBase.substring(0, 11) + horaStr + fechaBase.substring(16);\n};\n\n// 🚀 Clasificar eventos\nconst eventosVerdes = [];\nconst eventosRojos = [];\n\nfor (const item of eventos) {\n  const ev = item.json;\n  const start = ev.start?.dateTime || ev.start?.date || ev.start;\n  const end = ev.end?.dateTime || ev.end?.date || ev.end;\n\n  if (!start || !end) continue;\n\n  const summary = ev.summary?.toLowerCase() || \"\";\n  const location = ev.location?.toLowerCase() || \"\";\n  const description = ev.description?.toLowerCase() || \"\";\n  const colorId = ev.colorId?.toString();\n\n  const coincide = summary.includes(codigoBusqueda) || location.includes(codigoBusqueda) || description.includes(codigoBusqueda);\n\n  if (!coincide) continue;\n\n  if (colorId === \"2\") {\n    eventosVerdes.push({ start, end, summary, location });\n  } else if (colorId === \"11\") {\n    eventosRojos.push({ start, end });\n  }\n}\n\n// 🚀 Si no hay verdes, devolver mensaje\nif (eventosVerdes.length === 0) {\n  return [{\n    json: {\n      noMatchingEvents: true,\n      message: \"No se encontraron eventos disponibles para la propiedad.\"\n    }\n  }];\n}\n\n// 🚀 Procesar horarios disponibles\nconst resultados = eventosVerdes.map(evento => {\n  const inicioVerdeMin = extraerMinutos(evento.start);\n  const finVerdeMin = extraerMinutos(evento.end);\n\n  const bloques = [];\n\n  for (let m = inicioVerdeMin; m + 30 <= finVerdeMin; m += 30) {\n    let bloqueOk = true;\n\n    for (const rojo of eventosRojos) {\n      const inicioRojoMin = extraerMinutos(rojo.start);\n      const finRojoMin = extraerMinutos(rojo.end);\n\n      if (inicioRojoMin === null || finRojoMin === null) continue;\n\n      // Verificar solapamiento\n      if (!(m + 30 <= inicioRojoMin || m >= finRojoMin)) {\n        bloqueOk = false;\n        break;\n      }\n    }\n\n    if (bloqueOk) {\n      const horaInicio = minutosAHora(m);\n      const horaFin = minutosAHora(m + 30);\n\n      bloques.push({\n        horaInicio: horaInicio,\n        horaFin: horaFin,\n        inicio: crearFechaISO(evento.start, horaInicio),\n        fin: crearFechaISO(evento.start, horaFin)\n      });\n    }\n  }\n\n  return {\n    eventoPrincipal: {\n      resumen: evento.summary,\n      location: evento.location,\n      inicio: evento.start,\n      fin: evento.end,\n      horaInicio: minutosAHora(inicioVerdeMin),\n      horaFin: minutosAHora(finVerdeMin)\n    },\n    horariosDisponibles: bloques\n  };\n});\n\n// 🚀 Devolver la respuesta\nreturn [{\n  json: {\n    resultados: resultados\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1500,
+        380
+      ],
+      "id": "e8ad3a77-dca2-4e50-a840-1fbd4f3a5187",
+      "name": "getForCode"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=propiedades:2ac2bbce-963a-4428-9a38-3d902c160fda:historial_analisis\n"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1740,
+        640
+      ],
+      "id": "115caa33-9a64-4829-998b-12f546bf21a8",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "summary, start, end, location, colorId, description, id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1680,
+        380
+      ],
+      "id": "5bdf6fd1-d1b3-42b4-8ca8-ffb7aaba17cb",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b272870f-2db7-43e9-b82f-131ed3160b38",
+              "leftValue": "={{ $json.message }}",
+              "rightValue": "=No se encontraron eventos disponibles para la propiedad.",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1280,
+        380
+      ],
+      "id": "f29796f5-987b-4b1b-a419-448eb760e7c8",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39c2f302-03be-4464-a17a-d7cc481d6d44",
+              "name": "=response",
+              "value": "=true",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7e2ba682-8592-4258-bd4a-b29e9be52fe1",
+      "name": "Success",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39c2f302-03be-4464-a17a-d7cc481d6d44",
+              "name": "=response",
+              "value": "=No hay evento cargados para esta propiedad",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "956ea19e-b07d-4eea-894c-0da963c65220",
+      "name": "Success2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1000,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "435d1553-cd6c-4d79-85c9-bf9b09fef4fd",
+              "leftValue": "={{ $('Calendario').item.json.Evento }}",
+              "rightValue": "reagendar",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2220,
+        260
+      ],
+      "id": "04879fbb-87a8-49dc-91e7-8235bc0b09b4",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "qeva.ai.solutions@gmail.com",
+          "mode": "list",
+          "cachedResultName": "Propiedades inmobiliarias"
+        },
+        "returnAll": true,
+        "timeMax": "={{ $now.plus({ week: 2 }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -1960,
+        -20
+      ],
+      "id": "9bbc5406-f79e-486e-96e7-037773d23987",
+      "name": "Google Calendar1",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "248CSUaxOr8MEWUN",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Calendario').first().json.url_evo }}/message/sendList/{{ $('Calendario').first().json.instance }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Calendario').first().json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('Calendario').first().json.numero_telefono }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "footerText",
+              "value": "={{ $json.footerText }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -820,
+        0
+      ],
+      "id": "a4ff3271-c078-4b9e-bae1-38ab121066ac",
+      "name": "HTTP Request",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39c2f302-03be-4464-a17a-d7cc481d6d44",
+              "name": "=response",
+              "value": "=true",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cefd55d1-7160-46e4-a9d1-aeaf63ee6c3e",
+      "name": "Success3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -540,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener los datos del nodo anterior\nconst datos = $input.first()?.json?.resultados || [];\nconsole.log(\"DEBUG - Datos recibidos:\", JSON.stringify(datos).substring(0, 200) + \"...\");\n\n// Verificar si tenemos datos\nif (!datos || !datos.length) {\n  console.log(\"DEBUG - No hay datos disponibles\");\n  return [{\n    json: {\n      error: \"No se encontraron eventos\",\n      message: \"El nodo anterior no devolvió ningún horario disponible\"\n    },\n    pairedItem: 0\n  }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\"; // Otoño\n  if (mes >= 6 && mes <= 8) return \"❄️\"; // Invierno\n  if (mes >= 9 && mes <= 11) return \"🌸\"; // Primavera\n  return \"☀️\"; // Verano\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Nombres de los días de la semana\nconst nombresDias = {\n  0: 'Domingo',\n  1: 'Lunes',\n  2: 'Martes',\n  3: 'Miércoles',\n  4: 'Jueves',\n  5: 'Viernes',\n  6: 'Sábado'\n};\n\n// Extraer fecha de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  \n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    const diaSemana = nombresDias[fechaCompleta.getDay()];\n    \n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: diaSemana\n    };\n  }\n  return null;\n}\n\n// Función para formatear el rango de hora correctamente (12:00 a 12:30)\nfunction formatearRangoHora(horaInicio, horaFin) {\n  // Extraer horas y minutos de ambos horarios\n  const inicioMatch = horaInicio.match(/^(\\d+):(\\d+)/);\n  const finMatch = horaFin.match(/^(\\d+):(\\d+)/);\n  \n  // Formatear correctamente con horas y minutos\n  const horaInicioFormateada = inicioMatch ? `${inicioMatch[1]}:${inicioMatch[2]}` : horaInicio;\n  const horaFinFormateada = finMatch ? `${finMatch[1]}:${finMatch[2]}` : horaFin;\n  \n  return `${horaInicioFormateada} a ${horaFinFormateada}`;\n}\n\n// Obtener la fecha y hora actual\nconst ahora = new Date();\nconsole.log(`DEBUG - Fecha actual: ${ahora.toISOString()}`);\nconsole.log(`DEBUG - Fecha local: ${ahora.toString()}`);\n\n// Agrupar horarios por mes y día\nconst mesesAgrupados = {};\n\n// Procesar los horarios disponibles de todos los eventos\ndatos.forEach(evento => {\n  if (!evento.horariosDisponibles || !evento.horariosDisponibles.length) return;\n  \n  evento.horariosDisponibles.forEach(horario => {\n    try {\n      // Obtener la fecha de inicio del horario\n      const fechaHorario = new Date(horario.inicio);\n      \n      // Para debug\n      console.log(`DEBUG - Evaluando horario: ${horario.inicio}`);\n      \n      // COMPARACIÓN SIMPLE: Verificar si la fecha ya pasó\n      if (fechaHorario <= ahora) {\n        console.log(`DEBUG - FILTRADA: Fecha ya pasó`);\n        return; // Saltar este horario porque ya pasó\n      }\n      \n      // Extraer componentes de la fecha para agrupar\n      const fechaInicio = extraerFechaYHora(horario.inicio);\n      if (!fechaInicio) {\n        console.log(`DEBUG - Error al extraer fecha y hora de: ${horario.inicio}`);\n        return;\n      }\n      \n      const mes = fechaInicio.mes;\n      const dia = fechaInicio.dia;\n      const nombreMes = nombresMeses[mes];\n      const diaSemana = fechaInicio.diaSemana;\n      \n      // Inicializar el grupo del mes si no existe\n      if (!mesesAgrupados[nombreMes]) {\n        mesesAgrupados[nombreMes] = {\n          mes: mes,\n          fechas: []\n        };\n      }\n      \n      // Evitar duplicados\n      const yaExiste = mesesAgrupados[nombreMes].fechas.some(\n        e => e.dia === dia && e.horaInicio === horario.horaInicio\n      );\n      \n      if (!yaExiste) {\n        mesesAgrupados[nombreMes].fechas.push({\n          dia,\n          horaInicio: horario.horaInicio,\n          horaFin: horario.horaFin,\n          mes,\n          diaSemana,\n          resumen: evento.eventoPrincipal.resumen,\n          rowId: `${mes}-${dia}-${horario.horaInicio.replace(\":\", \"\")}`\n        });\n      }\n    } catch (error) {\n      console.log(`ERROR procesando horario: ${error.message}`);\n    }\n  });\n});\n\n// Armar la estructura para WhatsApp SendList\nconst sections = [];\n\n// Crear una sección para cada mes\nfor (const [nombreMes, datosMes] of Object.entries(mesesAgrupados)) {\n  const filas = datosMes.fechas;\n  if (filas.length === 0) continue;\n  \n  // Obtener el emoji estacional para este mes\n  const emoji = getEmojiEstacional(datosMes.mes);\n  \n  // Ordenar filas por día y hora\n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n  \n  const rowsDelMes = [];\n  filas.forEach(f => {\n    const horaFormateada = formatearRangoHora(f.horaInicio, f.horaFin);\n    rowsDelMes.push({\n      title: `🕒 ${f.dia} de ${nombreMes} : ${horaFormateada}`,\n      description: `${f.diaSemana}`,\n      rowId: f.rowId\n    });\n  });\n  \n  // Agregar la sección del mes con el emoji estacional\n  if (rowsDelMes.length > 0) {\n    sections.push({\n      title: `${emoji} ${nombreMes}`,\n      rows: rowsDelMes\n    });\n  }\n}\n\n// Sección por defecto si no hay nada\nif (sections.length === 0) {\n  sections.push({\n    title: \"⚠️ Sin horarios disponibles\",\n    rows: [{\n      title: \"No hay horarios disponibles\",\n      description: \"Intenta más tarde\",\n      rowId: \"no-disponible\"\n    }]\n  });\n}\n\n// Obtener número de cliente desde otro nodo o poner uno por defecto\nconst remoteJid = $('Calendario').first().json.numero_cliente;\n\n// JSON final para enviar por WhatsApp\nconst requestBody = {\n  number: remoteJid,\n  title: \"📅 Fechas de Reprogramación\",\n  description: \"Seleccioná una fecha y hora para reagendar tu visita\",\n  buttonText: \"Seleccioná 👆\",\n  footerText: \"🕒 Cada visita tiene una duración de 30 minutos aprox\", // Ya incluimos la información de duración en la descripción\n  sections\n};\n\n// Retornar el mensaje final en el formato que espera n8n\nreturn [{\n  json: requestBody,\n  pairedItem: 0 // Agregamos pairedItem para mantener el enlace con el elemento de entrada\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1100,
+        0
+      ],
+      "id": "2da1d5a4-b775-44f5-8130-195fee697e1b",
+      "name": "Lista1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🚀 Leer todos los eventos\nconst eventos = $input.all();\nconst codigoBusqueda = $('Code').first().json.ultimoCodigo?.toLowerCase();\n\n// 🚀 Funciones auxiliares\nconst extraerMinutos = (isoString) => {\n  if (!isoString) return null;\n  const hora = isoString.substring(11,16).split(':');\n  return parseInt(hora[0]) * 60 + parseInt(hora[1]);\n};\n\nconst minutosAHora = (totalMinutos) => {\n  const horas = Math.floor(totalMinutos / 60);\n  const minutos = totalMinutos % 60;\n  return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;\n};\n\nconst crearFechaISO = (fechaBase, horaStr) => {\n  return fechaBase.substring(0, 11) + horaStr + fechaBase.substring(16);\n};\n\n// 🚀 Clasificar eventos\nconst eventosVerdes = [];\nconst eventosRojos = [];\n\nfor (const item of eventos) {\n  const ev = item.json;\n  const start = ev.start?.dateTime || ev.start?.date || ev.start;\n  const end = ev.end?.dateTime || ev.end?.date || ev.end;\n\n  if (!start || !end) continue;\n\n  const summary = ev.summary?.toLowerCase() || \"\";\n  const location = ev.location?.toLowerCase() || \"\";\n  const description = ev.description?.toLowerCase() || \"\";\n  const colorId = ev.colorId?.toString();\n\n  const coincide = summary.includes(codigoBusqueda) || location.includes(codigoBusqueda) || description.includes(codigoBusqueda);\n\n  if (!coincide) continue;\n\n  if (colorId === \"2\") {\n    eventosVerdes.push({ start, end, summary, location });\n  } else if (colorId === \"11\") {\n    eventosRojos.push({ start, end });\n  }\n}\n\n// 🚀 Si no hay verdes, devolver mensaje\nif (eventosVerdes.length === 0) {\n  return [{\n    json: {\n      noMatchingEvents: true,\n      message: \"No se encontraron eventos disponibles para la propiedad.\"\n    }\n  }];\n}\n\n// 🚀 Procesar horarios disponibles\nconst resultados = eventosVerdes.map(evento => {\n  const inicioVerdeMin = extraerMinutos(evento.start);\n  const finVerdeMin = extraerMinutos(evento.end);\n\n  const bloques = [];\n\n  for (let m = inicioVerdeMin; m + 30 <= finVerdeMin; m += 30) {\n    let bloqueOk = true;\n\n    for (const rojo of eventosRojos) {\n      const inicioRojoMin = extraerMinutos(rojo.start);\n      const finRojoMin = extraerMinutos(rojo.end);\n\n      if (inicioRojoMin === null || finRojoMin === null) continue;\n\n      // Verificar solapamiento\n      if (!(m + 30 <= inicioRojoMin || m >= finRojoMin)) {\n        bloqueOk = false;\n        break;\n      }\n    }\n\n    if (bloqueOk) {\n      const horaInicio = minutosAHora(m);\n      const horaFin = minutosAHora(m + 30);\n\n      bloques.push({\n        horaInicio: horaInicio,\n        horaFin: horaFin,\n        inicio: crearFechaISO(evento.start, horaInicio),\n        fin: crearFechaISO(evento.start, horaFin)\n      });\n    }\n  }\n\n  return {\n    eventoPrincipal: {\n      resumen: evento.summary,\n      location: evento.location,\n      inicio: evento.start,\n      fin: evento.end,\n      horaInicio: minutosAHora(inicioVerdeMin),\n      horaFin: minutosAHora(finVerdeMin)\n    },\n    horariosDisponibles: bloques\n  };\n});\n\n// 🚀 Devolver la respuesta\nreturn [{\n  json: {\n    resultados: resultados\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1620,
+        -20
+      ],
+      "id": "517488c1-b309-4971-974e-59aa27d61c99",
+      "name": "getForCode1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "summary, start, end, location, colorId, description, id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1800,
+        -20
+      ],
+      "id": "17ab3e84-17d0-4733-8ecb-879d58ae6930",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b272870f-2db7-43e9-b82f-131ed3160b38",
+              "leftValue": "={{ $json.message }}",
+              "rightValue": "=No se encontraron eventos disponibles para la propiedad.",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1400,
+        -20
+      ],
+      "id": "15f7b69e-b6b4-4bb1-abba-cc52525be075",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39c2f302-03be-4464-a17a-d7cc481d6d44",
+              "name": "=response",
+              "value": "=No hay evento cargados para esta propiedad",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d5b2d7c9-db67-4315-9581-f35f93d32690",
+      "name": "Success4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1120,
+        -220
+      ]
+    }
+  ],
+  "pinData": {
+    "Calendario": [
+      {
+        "json": {
+          "Evento": "reagendar",
+          "session_id": "3EB0BB8CA24D550336C391",
+          "url_evo": "https://evo.innovasoftpro.dev",
+          "instance": "tester",
+          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
+          "numero_telefono": "5492254423359"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-23T17:49:20.946Z",
+      "updatedAt": "2025-03-23T17:49:20.946Z",
+      "id": "UdWAGpsQzroykED6",
+      "name": "AGENTES INMO"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-08T21:14:13.465Z",
+  "versionId": "4667197b-3590-4c76-a2aa-030335bd5eed"
+}
