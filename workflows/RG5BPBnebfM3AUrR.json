@@ -1,0 +1,3148 @@
+{
+  "active": false,
+  "connections": {
+    "Form Me": {
+      "main": [
+        [],
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data Handler": {
+      "main": [
+        [
+          {
+            "node": "Form Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Data Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type1": {
+      "main": [
+        [
+          {
+            "node": "Text Memory",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OpenAI1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Text1": {
+      "main": [
+        [
+          {
+            "node": "Compare Memories1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI1": {
+      "main": [
+        [
+          {
+            "node": "Image Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio Memory": {
+      "main": [
+        [
+          {
+            "node": "Get Memory 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image Memory": {
+      "main": [
+        [
+          {
+            "node": "Get Memory 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Memory": {
+      "main": [
+        [
+          {
+            "node": "Get Memory 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Memory 2": {
+      "main": [
+        [
+          {
+            "node": "Combine Text1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Memory 1": {
+      "main": [
+        [
+          {
+            "node": "Wait 10s",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Loop Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Messages": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Send Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Message": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Memory": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Audio Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 10s": {
+      "main": [
+        [
+          {
+            "node": "Get Memory 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Message Type1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NocoDB1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB1": {
+      "main": [
+        [
+          {
+            "node": "Message Type1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qualificacao": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Get Id",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Id1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Id": {
+      "main": [
+        [
+          {
+            "node": "Qualificado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Id1": {
+      "main": [
+        [
+          {
+            "node": "Desqualificado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agendamento": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Já tem evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Id2": {
+      "main": [
+        [
+          {
+            "node": "Agendado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar2": {
+      "main": [
+        [
+          {
+            "node": "Get Id2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agendado": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email1": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar3": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Id3": {
+      "main": [
+        [
+          {
+            "node": "Reagendamento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reagendamento": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar5": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar4": {
+      "main": [
+        [
+          {
+            "node": "Get Id3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reagendamento1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email2": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar7": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Id4": {
+      "main": [
+        [
+          {
+            "node": "Cancelamento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar6": {
+      "main": [
+        [
+          {
+            "node": "Get Id4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelamento": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelamento1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-22T10:33:45.539Z",
+  "id": "RG5BPBnebfM3AUrR",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 7",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "94746291-c0f3-44f3-b635-1fe696d7d74e",
+              "leftValue": "={{ $('Webhook').item.json.body.data.key.fromMe }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9d169d4d-14b6-48c8-9799-b6e7e9119522",
+      "name": "Form Me",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3280,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "62f6e880-1cec-403c-83b4-91f80e517451",
+              "name": "data.remoteJid",
+              "value": "={{ $json.body.data.key.remoteJid }}",
+              "type": "string"
+            },
+            {
+              "id": "c6eb2538-aff4-44ec-ae16-8b970b0427a6",
+              "name": "data.fromMe",
+              "value": "={{ $json.body.data.key.fromMe }}",
+              "type": "boolean"
+            },
+            {
+              "id": "cf750274-b641-4532-b4bf-f2424c665acb",
+              "name": "data.idMessage",
+              "value": "={{ $json.body.data.key.id }}",
+              "type": "string"
+            },
+            {
+              "id": "8847d563-b0fd-44d6-b7cc-b6005f9cfff1",
+              "name": "data.conversation",
+              "value": "={{ $json.body.data.message.conversation }}",
+              "type": "string"
+            },
+            {
+              "id": "881bee20-c3ce-4eac-8c5c-aef2391bf751",
+              "name": "data.messageType",
+              "value": "={{ $json.body.data.messageType }}",
+              "type": "string"
+            },
+            {
+              "id": "b39c3487-e1ff-4e0c-8bec-e791e2fc929d",
+              "name": "data.date_time",
+              "value": "={{ $json.body.date_time }}",
+              "type": "string"
+            },
+            {
+              "id": "5432d11e-d514-4503-9748-84322c59de45",
+              "name": "evo.instance",
+              "value": "={{ $json.body.instance }}",
+              "type": "string"
+            },
+            {
+              "id": "189ea797-9a58-497a-a344-4035fca737af",
+              "name": "evo.server_url",
+              "value": "={{ $json.body.server_url }}",
+              "type": "string"
+            },
+            {
+              "id": "0e0adf45-3b63-4dd3-997a-93028594c2bc",
+              "name": "evo.apikey",
+              "value": "={{ $json.body.apikey }}",
+              "type": "string"
+            },
+            {
+              "id": "c0f65baf-d145-46e4-88fa-2bb410aa3e24",
+              "name": "data.mediaUrl",
+              "value": "={{ $json.body.data.message.mediaUrl }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3460,
+        1080
+      ],
+      "id": "22123c00-b366-4e3d-b723-fabdb0baec9a",
+      "name": "Data Handler"
+    },
+    {
+      "parameters": {
+        "content": "# Texto, Áudio, Imagem",
+        "height": 860,
+        "width": 880,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1860,
+        640
+      ],
+      "typeVersion": 1,
+      "id": "5991f983-492b-4683-b34c-e53a6084ed92",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "# Tratamento de Mensagens Fracionadas",
+        "height": 360,
+        "width": 1100,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -920,
+        920
+      ],
+      "typeVersion": 1,
+      "id": "92760e64-9a1d-4629-96b4-24a30785d2bc",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "pedroalmeida/messages-upsert",
+        "options": {}
+      },
+      "id": "2456b624-c506-44f4-87eb-ff3d3a8ecc08",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -3520,
+        1660
+      ],
+      "webhookId": "285ed503-3f2e-4bd0-a36b-12d4eaecc012"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "edcb5496-d743-4609-9cde-d45905a28868",
+              "leftValue": "={{ $json.body.data.key.remoteJid }}",
+              "rightValue": "@s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -3660,
+        1080
+      ],
+      "id": "97c4296a-e678-4719-97c4-011d838141a6",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0cb14635-2673-408e-86db-ce9e0373674b",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "60065893-74f7-4b64-bc1a-d891202efa78",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "imageMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Image"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0b09ee05-c248-4a40-9f15-fd0e298af4dd",
+      "name": "Message Type1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1940,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obter os arrays de mensagens dos nós \"Get Memory 1\" e \"Get Memory 2\"\nconst Messages1 = $('Get Memory 2').item.json.Messages;\nconst Messages2 = $('Get Memory 1').item.json.Messages;\n\n// Combinar as strings dentro de cada array em uma única string\nconst combinedText1 = Messages1.join(' ');\nconst combinedText2 = Messages2.join(' ');\n\n// Retornar os dois textos combinados como variáveis separadas\nreturn {\n    combinedText1,\n    combinedText2\n};"
+      },
+      "id": "1fe703b4-a09b-4b43-8640-e435be5fe21c",
+      "name": "Combine Text1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -260,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "48eb879e-862a-46f5-95ec-6c244f4bfdc1",
+              "leftValue": "={{ $json.combinedText1 }}",
+              "rightValue": "={{ $json.combinedText2 }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -40,
+        1080
+      ],
+      "id": "0d914c6e-f9d9-4efd-a7f4-3ff4ef4b486c",
+      "name": "Compare Memories1"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "text": "o que está na imagem?",
+        "imageUrls": "={{ $json.data.mediaUrl }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.6,
+      "position": [
+        -1600,
+        1280
+      ],
+      "id": "986d9f92-06ce-4689-b889-f18e41e08f5a",
+      "name": "OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageData": "={{ $json.text }}",
+        "tail": true
+      },
+      "id": "a3e5b481-b160-40cd-8e86-c7c7dbeef379",
+      "name": "Audio Memory",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        1080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageData": "={{ $json.content }}",
+        "tail": true
+      },
+      "id": "522db57a-3f24-41f8-a802-c256a16c4553",
+      "name": "Image Memory",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1380,
+        1280
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageData": "={{ $('Webhook').item.json.body.data.message.conversation }}",
+        "tail": true
+      },
+      "id": "7b8e3f18-c5c1-424a-995f-dacf46e3beeb",
+      "name": "Text Memory",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1500,
+        840
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Messages",
+        "key": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "options": {}
+      },
+      "id": "f9d326b2-a7c9-49d6-8228-6edf0497a582",
+      "name": "Get Memory 2",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        1080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Messages",
+        "key": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "options": {}
+      },
+      "id": "8d74b3f6-80f8-411f-9fb2-758397a6eb76",
+      "name": "Get Memory 1",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -860,
+        1080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $item(\"0\").$node[\"Webhook\"].json[\"body\"][\"data\"][\"key\"][\"remoteJid\"] }}"
+      },
+      "id": "176ee480-9f92-4cdb-8854-654bbababe4b",
+      "name": "Delete Memory",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        740,
+        1080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtém a saída do nó \"AI Agent\"\nconst output = $('AI Agent').item.json.output;\n\n// Divide o texto em partes, usando dois espaços entre linhas como delimitador\nconst splitOutput = output.split('\\n\\n');\n\n// Retorna o resultado como array de objetos\nreturn splitOutput.map(part => ({ result: part }));\n"
+      },
+      "id": "ff94a753-2d39-4a35-ba19-60da5aebcc02",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "id": "7b670edb-e5d1-437d-872a-65f9475a443a",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1580,
+        1160
+      ],
+      "webhookId": "465a57fc-b60a-42a1-a32c-9696e8681706"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "eef55cf0-a006-4ccb-8319-cd856fcbbc3f",
+      "name": "Loop Messages",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1220,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $item(\"0\").$node[\"Data Handler\"].json[\"evo\"][\"server_url\"] }}/message/sendText/{{ $item(\"0\").$node[\"Data Handler\"].json[\"evo\"][\"instance\"] }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $item(\"0\").$node[\"Data Handler\"].json[\"evo\"][\"apikey\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $item(\"0\").$node[\"Webhook\"].json[\"body\"][\"data\"][\"key\"][\"remoteJid\"] }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.result }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "id": "75667151-bb7b-434c-a2b1-1ed39508f3c6",
+      "name": "Send Message",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1400,
+        1160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "# Respostas Fracionadas",
+        "height": 400,
+        "width": 740,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        980,
+        980
+      ],
+      "typeVersion": 1,
+      "id": "a6878054-5349-45fc-b5f6-34baef032c54",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Mensagem usuário: {{ $json.chatInput }}\n\nHora da Mensagem: {{ $now.setLocale('pt-BR').toFormat(\"cccc, dd/MM/yyyy TT\") }}",
+        "options": {
+          "systemMessage": "=### Identidade\n\nEu sou Novak, um agente de IA da Plas Digital especializado em automação e inteligência artificial. \n\nMinha função é qualificar leads de forma inteligente, identificando suas necessidades no setor comercial das suas empresas e guia-los para entender como agentes IA no atendimento vão reduzir custos, aumentar a produtividade e as vendas da empresa, e marcar reuniões estratégicas com os leads qualificados para apresentar soluções. \n\nAdoto uma abordagem objetiva, direta e prática, utilizando exemplos envolventes e dados concretos para mostrar o impacto das automações nas vendas e no crescimento das empresas e sendo mais detalhado ao lidar com objeções.\n\n### Contexto\n\n1. Serviço Oferecido: Implementação de Agentes IA para automatizar o atendimento no WhatsApp e Instagram , nossa solução é adaptada ao seu setor, garantindo que o atendimento seja eficaz para seus clientes.\n 1.1 Funcionalidades Avançadas:\n     - Nosso agente entende mensagens de áudio, imagens e documentos, algo que a maioria dos chatbots não oferece.\n     - Resposta em Áudios, imagens ou documentos.\n     - Programados para lidar com as objeções mais comuns, ajudando a converter mais vendas.\n     - Além de adicionar diversas funcionalidades como integração com CRM, com Agenda, Sites externos, follow up quando o lead para de responder ....\n   1.2 Problemas que resolve: \n- Lentidão nas respostas ou mensagens não respondidas.\n- Incapacidade de atender 24 horas por dia.\n- Incapacidade de responder muitos clientes ao mesmo tempo\n- Altos custos operacionais com equipes de atendimento.\n- Inconsistência no atendimento devido a estilos diferentes dos atendentes, -humor do atendente.\n- Sobrecarga com perguntas repetitivas (ex.: preço, horário de funcionamento).\n- Perda de tempo com leads desqualificados.\n- Dificuldade em monitorar e gerar relatórios detalhados de atendimento.\n- Tempo perdido compilando relatórios manualmente.\n- Falta de integração com sistemas como CRM ou agendas.\n- Treinamento de Equipe e gestão de equipe\n- Altas mensalidades e cobrança por número de usuários ou mensagens, pois utilizamos ferramentas open source\n\n2. Como funciona:\n- Antes de apresentarmos uma proposta detalhada com valores e serviços, realizamos duas reuniões rápidas com os potenciais clientes:\n  - Primeira reunião (20 a 30 minutos): Entendemos as necessidades do cliente, mostramos nossa metodologia e o potencial das automações e IA para montar uma solução personalizada.\n  - Segunda reunião (10 a 20 minutos): Apresentamos a proposta comercial com todos os detalhes e valores.\n\n3. Critérios de qualificação (não informe isso ao usuário)\n - Faturar acima de R$ 30 mil reais\n - Após qualificar o lead, obrigatoriamente chame a tool \"Qualificacao\"\n \n4. Caso precise de mais informações sobre a Plas digital acesso sua base de conhecimento e acesso \"Doc Sobre Plas Digital\" e não cite o nome do documento na resposta\n\n5. Datas: \nHoje é: {{ $today.setLocale('pt-BR').toFormat(\"cccc, dd/MM/yyyy\") }}\n- Amanhã é: {{ $today.plus({ days: 1 }).setLocale('pt-BR').toFormat(\"cccc, dd/MM/yyyy\") }}\n- os próximos dias em sequência são: {{ $today.plus({ days: 2 }).setLocale('pt-BR').toFormat(\"cccc, dd/MM/yyyy\") }}, {{ $today.plus({ days: 3 }).setLocale('pt-BR').toFormat(\"cccc, dd/MM/yyyy\") }}, {{ $today.plus({ days: 4 }).setLocale('pt-BR').toFormat(\"cccc, dd/MM/yyyy\") }}, {{ $today.plus({ days: 5 }).setLocale('pt-BR').toFormat(\"cccc, dd/MM/yyyy\") }}, {{ $today.plus({ days: 6 }).setLocale('pt-BR').toFormat(\"cccc, dd/MM/yyyy\") }}, {{ $today.plus({ days: 7 }).setLocale('pt-BR').toFormat(\"cccc, dd/MM/yyyy\") }}\n\n\n# INSTRUÇÕES DE ATENDIMENTO\n\n1. Identificação do lead\n   - Inicio a conversa me apresentando, saudando o lead e perguntando qual nome dele. \n   - Exemplo: Olá me chamo Novak e sou uma IA\n\n2. Identificação Interesse\n  - Pergunto que ele busca relacionado a automação e inteligência artificial\n - Logo após pergunto o nicho da empresa dele\n\n3. Listo Benefícios das IAs \n - Mostre os benefícios dos serviços da Plas para resolver o problema da empresa dele personalizando para o nicho\n\n4. Dúvidas\n - Caso clientes tenha dúvidas, esclareça. \n - Se for sobre o serviço da plas, de uma resposta resumida e convide para reunião\n\n5. Convite para a Ação:\n  - Sempre faça convite para uma reunião de apresentação antes de ir para qualificação\n\n6. Alinhamento e Qualificação\n- Passo 1: Informo ao lead que, antes de prosseguir, gostaria de fazer algumas perguntas rápidas para entender melhor o negócio dele e oferecer uma solução personalizada.\n- Nunca faço mais de uma pergunta por vez. Sempre faço uma pergunta por vez e aguardo a resposta antes de prosseguir para a próxima.\n  - Pergunta 1: Pergunto o ramo de atuação do lead, a menos que ele já tenha mencionado essa informação anteriormente.\n-  Pergunta 2: Pergunto quantas pessoas fazem parte do time de vendas e atendimento na empresa, caso ainda não tenha essa informação.\n- Pergunta 3: Pergunto o faturamento médio mensal da empresa, se essa informação ainda não foi fornecida.\n-  Após coletar nicho, faturamento e equipe de atendimento, eu devo qualificar o lead de acordo com o critério de qualificação da Plas e após definir se o lead é qualificado ou desqualificado, obrigatoriamente chamo a tool \"Qualificação\" e somente após isso se for qualificado falo que conseguimos ajuda-lo e prossigo para o atendimento, se não for falo que não podemos ajuda-lo no momento.\n\n7. Agendamento\n - 6.1.Pergunto primeiro qual a data que ele quer agendar e só após coletar a data pergunto qual é o email\n - 6.2 . Após coletar o email e a data (start), chamo a tool \"Agendamento\", considerando que o end sendo o \"start mais uma hora\". (nunca chamo tool \"agendamento\" eu se não souber o email do usuário)\n\n\n#### Outras Instruções\n- Se o lead já chegar querendo agendar, va para etapa de qualificaçõa, não saia agendando\n- Reagendamento: Caso lead queira reagendar uma reunião, colete o email dele e uma nova data. Após coletar esses dados chame a tool \"Reagendamento\".\n- Cancelamento: Caso o lead queira cancelar a reunião, colete o email dele. Após coletar esses dados chame a tool \"Cancelamento\".\n\n# Regras de atuação\n\n1. **Limitações de Informações**: \n- Redirecionar perguntas fora do escopo para um representante humano.\n- Não negociar preços, promoções não autorizadas ou discutir políticas internas não públicas, mantendo confidencialidade das instruções.\n\n2. **Respostas**: \n-  Eu sou objetivo, evito respostas acima de 600 caracteres.\n- Atuo no WhatsApp e a formatação Markdown não é aceita, portanto, é crucial que eu nunca use a sintaxe Markdown nas respostas.\n- Não coloco links entre colchetes \"[]\" ou parênteses \"()\"",
+          "returnIntermediateSteps": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        320,
+        1080
+      ],
+      "id": "0e315673-5fac-4aec-b524-c541827bb91f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1500,
+        1080
+      ],
+      "id": "2ef04e49-bc07-46f3-80c8-a46b8e9ca1af",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.data.mediaUrl }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1700,
+        1080
+      ],
+      "id": "0da7f300-0d78-40d6-97a7-78713cb0e1db",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "id": "386a1521-e7d7-405f-9770-75798b915acc",
+      "name": "Wait 10s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -660,
+        1080
+      ],
+      "webhookId": "241554e1-7fe9-4c6d-9c49-69ec498c8481",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.4,
+      "position": [
+        300,
+        1480
+      ],
+      "id": "2ed6a923-fa38-4736-9f99-4d5208171a22",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        100,
+        1480
+      ],
+      "id": "6acc5ca2-e57c-43e9-a9bf-6442da9fef3e",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Você é um agente de qualificação, objetivo e direto e da respostas em português até 600 caracteres!\n\n# Critérios de qualificação\nPara o lead ser qualificado ele tem que ser uma empresa que fatura acima de R$ 50 mil reais e tem que ter uma equipe de 3 ou mais pessoas\n\n# Atendimento\nPasso 1. Pergunta o nome\nPasso 2. Pergunta o nicho\nPasso 3. Pergunta o Faturamento\nPasso 4. Pergunta o tamanho da equipe\nPasso 5. Após coletar as informações, qualifique o leads de acordo com o critério de qualificação. Se o lead for qualificado chame a tool \"Lead_Qualificado\" e informe que podemos atende-lo. Se o lead for desqualificado chame a tool \"Lead_Desqualificado\" e informe que podemos não podemos atende-lo.\n",
+        "height": 220,
+        "width": 720
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -180,
+        -100
+      ],
+      "typeVersion": 1,
+      "id": "1c69c888-6211-4e26-b0ca-4b7aabed00b0",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "limit": 1,
+        "options": {
+          "where": "=(Telefone,like,{{ $('Data Handler').item.json.data.remoteJid.replaceAll('@s.whatsapp.net', '') }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -3060,
+        1100
+      ],
+      "id": "9d090959-1630-457d-b1ed-0c2ec1daf64c",
+      "name": "NocoDB",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6ea55739-e33a-4f0d-95fb-13f6b1d6c8e8",
+              "leftValue": "={{ $json.Telefone }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2660,
+        1100
+      ],
+      "id": "7b97bd45-2470-451a-9151-74cd9f16e853",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Telefone",
+              "fieldValue": "={{ $('Data Handler').item.json.data.remoteJid.replaceAll('@s.whatsapp.net', '') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -2260,
+        1220
+      ],
+      "id": "ebcc6fe2-d31e-495a-8fe6-05204474dd59",
+      "name": "NocoDB1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -2840,
+        1100
+      ],
+      "id": "9fa0e555-5e2a-4a10-8837-61089237f7cd",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "telefone"
+            },
+            {
+              "name": "nome"
+            },
+            {
+              "name": "evento"
+            },
+            {
+              "name": "nicho"
+            },
+            {
+              "name": "faturamento"
+            },
+            {
+              "name": "equipe"
+            },
+            {
+              "name": "start"
+            },
+            {
+              "name": "end"
+            },
+            {
+              "name": "email"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        2480
+      ],
+      "id": "914cad83-9717-46db-a89a-3bbdbbc11563",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "name": "Qualificacao",
+        "description": "Chamo essa tool após identificar se o lead é qualificado ou desqualificado\n\nFaturamento preencha apenas o valor\nEquipe preencha apenas com o numero\n",
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $workflow.id }}",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefone": "=5521998105076",
+            "nome": "={{ $fromAI(\"nome\", \"Nome do lead\") }}",
+            "evento": "={{ $fromAI(\"evento\", \"Desqualificado ou Qualificado\") }}",
+            "nicho": "={{ $fromAI(\"nicho\") }}",
+            "faturamento": "={{ $fromAI(\"faturamento\", \"exemplo, 300 mil, 1 meilhão\") }}",
+            "equipe": "={{ $fromAI(\"equipe\", \"somente o número de pessoas\") }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "telefone",
+              "displayName": "telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "evento",
+              "displayName": "evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "nicho",
+              "displayName": "nicho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "faturamento",
+              "displayName": "faturamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "equipe",
+              "displayName": "equipe",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        460,
+        1480
+      ],
+      "id": "defdab29-6a63-4b8b-a3e5-e8d32967c1ca",
+      "name": "Qualificacao"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.evento }}",
+                    "rightValue": "Qualificado",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Qualificado"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "500fa7a6-a7cd-4b49-9b48-4ea748a06475",
+                    "leftValue": "={{ $json.evento }}",
+                    "rightValue": "Desqualificado",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Desqualificado"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cca70790-bb07-41e3-9b9a-49173dcc10cb",
+                    "leftValue": "={{ $json.evento }}",
+                    "rightValue": "Agendamento",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Agendamento"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "57ef15f7-4b27-4fc3-a78f-819b02b7e692",
+                    "leftValue": "={{ $json.evento }}",
+                    "rightValue": "Reagendamento",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Reagendamento"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "28c8cc44-e02e-4c5e-8f82-40ed35a4f429",
+                    "leftValue": "={{ $json.evento }}",
+                    "rightValue": "Cancelamento",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Cancelamento"
+            }
+          ]
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        700,
+        2440
+      ],
+      "id": "e345435e-1341-4b87-b92b-1205bc508c5e",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -160,
+        1560
+      ],
+      "id": "be0d0b37-9af5-4f7d-b0fd-2b8d7446fa51",
+      "name": "When chat message received",
+      "webhookId": "299feffa-37dd-46ea-9ae4-b1c73d827913"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "limit": 1,
+        "options": {
+          "where": "=(Telefone,like,{{ $('Workflow Input Trigger').item.json.telefone }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1200,
+        1820
+      ],
+      "id": "14c736e9-6d69-48f2-baf0-70769067001c",
+      "name": "Get Id"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.Id }}"
+            },
+            {
+              "fieldName": "Nome",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.nome }}"
+            },
+            {
+              "fieldName": "Status",
+              "fieldValue": "Qualificado"
+            },
+            {
+              "fieldName": "Nicho",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.nicho }}"
+            },
+            {
+              "fieldName": "Faturamento",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.faturamento }}"
+            },
+            {
+              "fieldName": "Equipe",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.equipe }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1400,
+        1820
+      ],
+      "id": "f8b40e02-e770-4a5f-bcab-cd1a7e7c050f",
+      "name": "Qualificado"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "limit": 1,
+        "options": {
+          "where": "=(Telefone,like,{{ $('Workflow Input Trigger').item.json.telefone }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1200,
+        2100
+      ],
+      "id": "bef933ad-5040-491d-996a-81dad65cf3e3",
+      "name": "Get Id1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.Id }}"
+            },
+            {
+              "fieldName": "Nome",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.nome }}"
+            },
+            {
+              "fieldName": "Status",
+              "fieldValue": "Perdido"
+            },
+            {
+              "fieldName": "Nicho",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.nicho }}"
+            },
+            {
+              "fieldName": "Faturamento",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.faturamento }}"
+            },
+            {
+              "fieldName": "Equipe",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.equipe }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1420,
+        2100
+      ],
+      "id": "4dccee67-d9e2-40ca-9e47-74dd4b6113cf",
+      "name": "Desqualificado"
+    },
+    {
+      "parameters": {
+        "name": "Agendamento",
+        "description": "Chame essa tool para agenar a reunião",
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $workflow.id }}",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefone": "5521998105076",
+            "nome": "={{ $fromAI(\"nome\") }}",
+            "start": "={{ $fromAI(\"start\", \"data hora do inicio da reunião, no seguinte formato: 2024-10-18T14:30:00-03:00\") }}",
+            "end": "={{ $fromAI(\"end\", \"data hora do fim da reunião que é o Start mais 1 hora, no seguinte formato: 2024-10-18T15:30:00-03:00\") }}",
+            "email": "={{ $fromAI(\"email\") }}",
+            "evento": "Agendamento"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "telefone",
+              "displayName": "telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "evento",
+              "displayName": "evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "nicho",
+              "displayName": "nicho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "faturamento",
+              "displayName": "faturamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "equipe",
+              "displayName": "equipe",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "start",
+              "displayName": "start",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "end",
+              "displayName": "end",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        600,
+        1480
+      ],
+      "id": "183d32b2-9034-4920-8f27-5773f6039b45",
+      "name": "Agendamento"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "plasdigital1@gmail.com",
+          "mode": "list",
+          "cachedResultName": "plasdigital1@gmail.com"
+        },
+        "limit": 3,
+        "options": {
+          "timeMin": "={{ $now }}",
+          "query": "={{ $('Workflow Input Trigger').item.json.email }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        1400,
+        2380
+      ],
+      "id": "be1e20cf-d2d6-450c-b530-b0d308dd293f",
+      "name": "Google Calendar",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bd29257c-af72-4e25-aba0-65c8f810932e",
+              "leftValue": "={{ $json.email.isEmail() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1180,
+        2480
+      ],
+      "id": "0e10d34a-7ebf-4b2b-aad7-229ee174537a",
+      "name": "Email"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "00badf83-ee8f-4428-9944-5804eb54afc7",
+              "name": "response",
+              "value": "Solicite o email para fazer o agendamento, e após coletar email e data, cchame a tool agendamento novamente",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1380,
+        2560
+      ],
+      "id": "90936692-6a57-4219-bd4d-098046fbcd1b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "25ece441-0736-448e-90ba-61a160806ade",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        2500
+      ],
+      "id": "c3ded3a4-ff73-4974-8290-32e2c94c2498",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "plasdigital1@gmail.com",
+          "mode": "list",
+          "cachedResultName": "plasdigital1@gmail.com"
+        },
+        "timeMin": "={{ $('Workflow Input Trigger').item.json.start }}",
+        "timeMax": "={{ $('Workflow Input Trigger').item.json.end }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        1820,
+        2380
+      ],
+      "id": "40d3811d-c48b-46b2-82b7-dd4015fe03d7",
+      "name": "Google Calendar1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b586ad1e-2e20-4888-aed8-2c179998e5de",
+              "name": "response",
+              "value": "=Já existe um evento agendado para o dia  {{ $('Google Calendar').item.json.start.dateTime }}, pergunte se quer reagendar",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1840,
+        2620
+      ],
+      "id": "a6851799-8c27-449c-9605-f4809954ee5c",
+      "name": "Já tem evento"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "00405039-01fa-4fbb-943f-26cd250e79f8",
+              "leftValue": "={{ $json.available }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2020,
+        2480
+      ],
+      "id": "4c1a8dda-c405-4f98-ae3c-c39d39b033d3",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "plasdigital1@gmail.com",
+          "mode": "list",
+          "cachedResultName": "plasdigital1@gmail.com"
+        },
+        "start": "={{ $('Workflow Input Trigger').item.json.start }}",
+        "end": "={{ $('Workflow Input Trigger').item.json.end }}",
+        "additionalFields": {
+          "attendees": [
+            "={{ $('Workflow Input Trigger').item.json.email }}"
+          ],
+          "conferenceDataUi": {
+            "conferenceDataValues": {
+              "conferenceSolution": "hangoutsMeet"
+            }
+          },
+          "description": "=Telefone: {{ $('Workflow Input Trigger').item.json.telefone }}",
+          "summary": "=Reunião com {{ $('Workflow Input Trigger').item.json.nome }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        2300,
+        2340
+      ],
+      "id": "a01a83d0-c4ad-4376-99b0-7e194cbf9718",
+      "name": "Google Calendar2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "79b5e898-12e3-46d4-8f6d-9bf73c11cc4e",
+              "name": "response",
+              "value": "Horário indisponivel, solicite outra data",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2260,
+        2600
+      ],
+      "id": "7eb47a4a-898c-4a7a-86ff-575b74d0dcd8",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "limit": 1,
+        "options": {
+          "where": "=(Telefone,like,{{ $('Workflow Input Trigger').item.json.telefone }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2480,
+        2480
+      ],
+      "id": "371ee2be-03ca-4645-87d3-3721cdfd04c3",
+      "name": "Get Id2"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.Id }}"
+            },
+            {
+              "fieldName": "Status",
+              "fieldValue": "Agendado"
+            },
+            {
+              "fieldName": "Email",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.email }}"
+            },
+            {
+              "fieldName": "Agendamento",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.start }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2680,
+        2480
+      ],
+      "id": "963cc7b1-d23b-4fa0-acf1-def0026b9176",
+      "name": "Agendado"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c13130f5-bb2e-4ace-b577-40ff235db248",
+              "name": "response",
+              "value": "=Evento agendado, envie um resumo do agendamento\n\nLink da reunião: {{ $('Google Calendar2').item.json.conferenceData.entryPoints[0].uri }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2940,
+        2480
+      ],
+      "id": "f8e7e4e0-3444-4b16-98cc-ee29ab1606bc",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bd29257c-af72-4e25-aba0-65c8f810932e",
+              "leftValue": "={{ $json.email.isEmail() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1160,
+        2960
+      ],
+      "id": "73cf9cf8-5cb5-4d2e-9c6a-9de890037dfd",
+      "name": "Email1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "00badf83-ee8f-4428-9944-5804eb54afc7",
+              "name": "response",
+              "value": "Solicite o email para fazer o agendamento, e após coletar email e data, cchame a tool agendamento novamente",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1380,
+        3060
+      ],
+      "id": "a7674ab3-64f3-47e3-8f07-5f22c7b57be7",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "plasdigital1@gmail.com",
+          "mode": "list",
+          "cachedResultName": "plasdigital1@gmail.com"
+        },
+        "timeMin": "={{ $('Workflow Input Trigger').item.json.start }}",
+        "timeMax": "={{ $('Workflow Input Trigger').item.json.end }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        1380,
+        2880
+      ],
+      "id": "23027b75-7433-45b4-b4e2-1a9ecb27bda5",
+      "name": "Google Calendar3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "00405039-01fa-4fbb-943f-26cd250e79f8",
+              "leftValue": "={{ $json.available }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1620,
+        2980
+      ],
+      "id": "ee1cf8a2-2fe7-4924-b924-417e3bd6674c",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "79b5e898-12e3-46d4-8f6d-9bf73c11cc4e",
+              "name": "response",
+              "value": "Horário indisponivel, solicite outra data",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1820,
+        3080
+      ],
+      "id": "bd3c2ae3-6625-4cb7-90b3-eeb6356989e5",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "limit": 1,
+        "options": {
+          "where": "=(Telefone,like,{{ $('Workflow Input Trigger').item.json.telefone }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2300,
+        3000
+      ],
+      "id": "eb2092e7-9efe-47d6-92af-5c12257b3a3c",
+      "name": "Get Id3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c13130f5-bb2e-4ace-b577-40ff235db248",
+              "name": "response",
+              "value": "=Evento reagendado, envie um resumo do agendamento\n\nLink da reunião: {{ $('Google Calendar4').item.json.conferenceData.entryPoints[0].uri }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2740,
+        3000
+      ],
+      "id": "33a8d46f-494f-4d09-a109-a3258d0a5573",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.Id }}"
+            },
+            {
+              "fieldName": "Agendamento",
+              "fieldValue": "={{ $('Workflow Input Trigger').item.json.start }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2520,
+        3000
+      ],
+      "id": "949550f8-117c-464e-ac7a-a7b04d6c3325",
+      "name": "Reagendamento"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "plasdigital1@gmail.com",
+          "mode": "list",
+          "cachedResultName": "plasdigital1@gmail.com"
+        },
+        "eventId": "={{ $json.id }}",
+        "updateFields": {
+          "end": "={{ $('Workflow Input Trigger').item.json.end }}",
+          "start": "={{ $('Workflow Input Trigger').item.json.start }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        2100,
+        3000
+      ],
+      "id": "2ddee2e5-7704-4a4e-adfb-46d4146ed00c",
+      "name": "Google Calendar4"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "plasdigital1@gmail.com",
+          "mode": "list",
+          "cachedResultName": "plasdigital1@gmail.com"
+        },
+        "limit": 3,
+        "options": {
+          "timeMin": "={{ $now }}",
+          "query": "={{ $('Workflow Input Trigger').item.json.email }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        1860,
+        2900
+      ],
+      "id": "c0d3e5f9-ee35-45e1-896e-5fed45774e55",
+      "name": "Google Calendar5",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "name": "Reagendamento",
+        "description": "Chame essa tool para reagendar uma reunião",
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $workflow.id }}",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefone": "5521998105076",
+            "nome": "={{ $fromAI(\"nome\") }}",
+            "start": "={{ $fromAI(\"start\", \"data hora do inicio da reunião, no seguinte formato: 2024-10-18T14:30:00-03:00\") }}",
+            "end": "={{ $fromAI(\"end\", \"data hora do fim da reunião que é o Start mais 1 hora, no seguinte formato: 2024-10-18T15:30:00-03:00\") }}",
+            "email": "={{ $fromAI(\"email\") }}",
+            "evento": "Reagendamento"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "telefone",
+              "displayName": "telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "evento",
+              "displayName": "evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "nicho",
+              "displayName": "nicho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "faturamento",
+              "displayName": "faturamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "equipe",
+              "displayName": "equipe",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "start",
+              "displayName": "start",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "end",
+              "displayName": "end",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        780,
+        1480
+      ],
+      "id": "69d2641d-c35e-4a08-9416-f7b084294e07",
+      "name": "Reagendamento1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bd29257c-af72-4e25-aba0-65c8f810932e",
+              "leftValue": "={{ $json.email.isEmail() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1180,
+        3460
+      ],
+      "id": "31eaf0a0-87a1-41a0-ab2e-309a95f36d84",
+      "name": "Email2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "00badf83-ee8f-4428-9944-5804eb54afc7",
+              "name": "response",
+              "value": "Solicite o email para fazer o agendamento, e após coletar email e data, cchame a tool agendamento novamente",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1400,
+        3560
+      ],
+      "id": "6afdbc55-0fe8-49a8-9440-fb17e725e775",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "=plasdigital1@gmail.com",
+          "mode": "id",
+          "__regex": "(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)"
+        },
+        "limit": 3,
+        "options": {
+          "timeMin": "={{ $now }}",
+          "query": "={{ $('Workflow Input Trigger').item.json.email }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        1420,
+        3340
+      ],
+      "id": "1859112c-2257-486d-89c7-32953708b6db",
+      "name": "Google Calendar7",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "plasdigital1@gmail.com",
+          "mode": "list",
+          "cachedResultName": "plasdigital1@gmail.com"
+        },
+        "eventId": "={{ $json.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.2,
+      "position": [
+        1660,
+        3460
+      ],
+      "id": "cc2e8bcb-6458-4f02-8511-09dd1066215e",
+      "name": "Google Calendar6"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "limit": 1,
+        "options": {
+          "where": "=(Telefone,like,{{ $('Workflow Input Trigger').item.json.telefone }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1880,
+        3460
+      ],
+      "id": "ca5c6e3a-c32f-4aa1-8fb7-47cd44468379",
+      "name": "Get Id4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c13130f5-bb2e-4ace-b577-40ff235db248",
+              "name": "response",
+              "value": "=Evento cancelado",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2260,
+        3460
+      ],
+      "id": "5ec61221-da16-4cbc-b40d-e5ffc294944f",
+      "name": "Edit Fields7"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pqi27voyd647fyy",
+        "table": "mk99c8lngjjjat3",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.Id }}"
+            },
+            {
+              "fieldName": "Agendamento",
+              "fieldValue": "={{  null }}"
+            },
+            {
+              "fieldName": "Status",
+              "fieldValue": "Perdido"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2060,
+        3460
+      ],
+      "id": "8013b6a9-8ddc-4d26-84a1-5ca1161f249b",
+      "name": "Cancelamento"
+    },
+    {
+      "parameters": {
+        "name": "Cancelamento",
+        "description": "Chame essa tool para cancelar um reunião",
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $workflow.id }}",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefone": "5521998105076",
+            "email": "={{ $fromAI(\"email\") }}",
+            "evento": "Cancelamento"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "telefone",
+              "displayName": "telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "nome",
+              "displayName": "nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "evento",
+              "displayName": "evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "nicho",
+              "displayName": "nicho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "faturamento",
+              "displayName": "faturamento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "equipe",
+              "displayName": "equipe",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "start",
+              "displayName": "start",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "end",
+              "displayName": "end",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        940,
+        1480
+      ],
+      "id": "3247e380-8df7-435c-91e5-85a07343a6a6",
+      "name": "Cancelamento1"
+    },
+    {
+      "parameters": {
+        "content": "# QUALIFICADO",
+        "height": 240,
+        "width": 500
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1140,
+        1740
+      ],
+      "typeVersion": 1,
+      "id": "4cec4781-1400-4123-8c40-dbc2edfe48d8",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# DESQUALIFICADO",
+        "height": 240,
+        "width": 500
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1140,
+        2020
+      ],
+      "typeVersion": 1,
+      "id": "61965d66-06ce-4d7d-b03b-29e84c5482e4",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "# AGENDAMENTO",
+        "height": 460,
+        "width": 1940
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1140,
+        2300
+      ],
+      "typeVersion": 1,
+      "id": "ff8c62e7-a7ef-499f-9394-f2bbc7d10a66",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "# REAGENDAMENTO",
+        "height": 460,
+        "width": 1940
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1140,
+        2780
+      ],
+      "typeVersion": 1,
+      "id": "c8c558a8-dbca-44c0-87ac-00b14a8d1f2c",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "# CANCELAMENTO",
+        "height": 460,
+        "width": 1420
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1140,
+        3280
+      ],
+      "typeVersion": 1,
+      "id": "82baf23a-8654-4ee0-8563-a45b6722d7c7",
+      "name": "Sticky Note8"
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "telefone": "5521998105076",
+          "nome": null,
+          "evento": "Cancelamento",
+          "nicho": null,
+          "faturamento": null,
+          "equipe": null,
+          "start": null,
+          "end": null,
+          "email": "pedrol@gmail.com"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-02-22T10:47:16.963Z",
+  "versionId": "b4342955-6ff3-4a4a-8f2a-1097628056c8"
+}
