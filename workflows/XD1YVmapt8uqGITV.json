@@ -1,0 +1,246 @@
+{
+  "active": false,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Telegram1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram": {
+      "main": [
+        [
+          {
+            "node": "S3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-12-15T18:47:56.510Z",
+  "id": "XD1YVmapt8uqGITV",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 4",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "9de241f7-b487-4e1f-98bf-97b66d892172",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        240
+      ],
+      "webhookId": "f1b57ddd-6b86-42e8-85f2-e83f0e7c74aa",
+      "credentials": {
+        "telegramApi": {
+          "id": "skMQcrtQlIZvLFNp",
+          "name": "rshtechbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bucket",
+        "operation": "presignedPutObject",
+        "bucket": {
+          "__rl": true,
+          "value": "testo",
+          "mode": "list",
+          "cachedResultName": "testo"
+        },
+        "key": "1"
+      },
+      "id": "7f9fe3f0-1eeb-4935-97c4-e69fae71d447",
+      "name": "MinIO",
+      "type": "n8n-nodes-minio.minioNode",
+      "typeVersion": 1,
+      "position": [
+        380,
+        600
+      ],
+      "credentials": {
+        "minioCredentialsApi": {
+          "id": "FQ0LZvnWHpyf9leJ",
+          "name": "MinIO account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "testo",
+        "fileName": "testimg.jpg",
+        "additionalFields": {}
+      },
+      "id": "94188e15-c17a-4e1a-b2b3-3fa7262304e9",
+      "name": "S3",
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        240
+      ],
+      "credentials": {
+        "s3": {
+          "id": "UNrMGDqYN1oD2iEG",
+          "name": "S3 account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "bucket",
+        "operation": "getAll"
+      },
+      "id": "1e06c049-f7fb-4b13-ad25-2e6009994ecf",
+      "name": "S31",
+      "type": "n8n-nodes-base.s3",
+      "typeVersion": 1,
+      "position": [
+        180,
+        560
+      ],
+      "credentials": {
+        "s3": {
+          "id": "UNrMGDqYN1oD2iEG",
+          "name": "S3 account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8a939d00-4561-4e50-a9dc-42bcd526a0da",
+              "name": "file",
+              "value": "={{ $json.message.photo[3].file_id }}",
+              "type": "string"
+            },
+            {
+              "id": "62a212da-9734-48ac-a65a-9810bdc8e96e",
+              "name": "chatID",
+              "value": "={{ $json.message.chat.id }}",
+              "type": "number"
+            },
+            {
+              "id": "c0807aee-b913-4832-ad26-92dea7fd2fcb",
+              "name": "message",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "9acd75a6-03d4-4959-aa76-5a956be6db84",
+              "name": "from",
+              "value": "={{ $json.message.from.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "194627a6-97fc-477f-8903-ccf7c7fdbdeb",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        380,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.file }}"
+      },
+      "id": "a649e7e7-7981-47af-8424-b5b5def9e35a",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        960,
+        240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "skMQcrtQlIZvLFNp",
+          "name": "rshtechbot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatID }}",
+        "text": "Comienza el BOT",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "TEST",
+                    "additionalFields": {
+                      "callback_data": "INICIAR AUDITORIA"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "id": "a58cdf77-b746-4f77-a5a9-e2edf8b84f33",
+      "name": "Telegram1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        240
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "skMQcrtQlIZvLFNp",
+          "name": "rshtechbot"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-12-16T01:47:35.524Z",
+  "versionId": "eb37fda4-7e01-40f0-a52d-7f1908dee300"
+}
