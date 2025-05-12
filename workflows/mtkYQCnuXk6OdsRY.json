@@ -1,0 +1,79 @@
+{
+  "active": false,
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-04T12:48:59.247Z",
+  "id": "mtkYQCnuXk6OdsRY",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "INMOBILIARIA - Insertar nombre",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -300,
+        -100
+      ],
+      "id": "8453a4d6-498c-4051-9cd1-f63984e24281",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "tableId": "clientes",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "nombre_real"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        20,
+        -100
+      ],
+      "id": "c4b85a35-7972-43ca-a2a3-8fc6e873b4a5",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "Wufct6Yuc5Sk88KF",
+          "name": "Inmobiliaria"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "nombre_real": "Fernando",
+          "telefono": "5492254423359@s.whatsapp.net"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-02-04T13:12:13.475Z",
+  "versionId": "0d497508-53bb-451c-8f86-8273101d9b1c"
+}
