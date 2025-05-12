@@ -1,0 +1,2047 @@
+{
+  "active": false,
+  "connections": {
+    "Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AGE3",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat": {
+      "ai_memory": [
+        [
+          {
+            "node": "AGE3",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agendar reunion": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGE3",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelar reunion": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGE3",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reprogramar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGE3",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar imagenes": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGE3",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MESSAGE": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar propiedades": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGE3",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        []
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buscar_propiedades_disponibles": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGE3",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "replace": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AGE3": {
+      "main": [
+        [
+          {
+            "node": "replace",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompts": {
+      "main": [
+        [
+          {
+            "node": "Unificados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getClient": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "fromMe",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GeraUUID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreateUser": {
+      "main": [
+        [
+          {
+            "node": "getClient",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GeraUUID": {
+      "main": [
+        [
+          {
+            "node": "CreateUser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fromMe": {
+      "main": [
+        [
+          {
+            "node": "NOP1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "camposiniciales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "camposiniciales": {
+      "main": [
+        [
+          {
+            "node": "Prompts",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "NoOp.4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unificados": {
+      "main": [
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "getClient",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar nombre": {
+      "ai_tool": [
+        [
+          {
+            "node": "AGE3",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NoOp.4": {
+      "main": [
+        [
+          {
+            "node": "Unificados",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "Compara Get Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Return Redis2": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compara igualdad de memorias": {
+      "main": [
+        [
+          {
+            "node": "Delete1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compara Get Memory": {
+      "main": [
+        [
+          {
+            "node": "Compara igualdad de memorias",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Return Redis1": {
+      "main": [
+        [
+          {
+            "node": "Espera 4 segundos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Espera 4 segundos": {
+      "main": [
+        [
+          {
+            "node": "Return Redis2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "apilaTexto1": {
+      "main": [
+        [
+          {
+            "node": "Return Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "apilaTexto1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete1": {
+      "main": [
+        [
+          {
+            "node": "AGE3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-11-13T18:17:11.719Z",
+  "id": "8skQbE8EbhuDBFg0",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "INMOBILIARIA - Master",
+  "nodes": [
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Webhook').item.json.body.data.key.remoteJid.replace(/\\D/g, '') }} ",
+        "contextWindowLength": 10
+      },
+      "id": "af293546-591b-4703-9084-d2516841af35",
+      "name": "Chat",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.1,
+      "position": [
+        1800,
+        1360
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-2024-11-20",
+        "options": {
+          "temperature": 0.1,
+          "maxRetries": 10
+        }
+      },
+      "id": "245443ed-9e40-493c-b927-195522d3b01d",
+      "name": "Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        1360
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "agendar",
+        "description": "Llama a esta herramienta cuando se solicite agendar una reunion o cita, pero debes agregarle una hs mas a la fecha de fin\n",
+        "workflowId": {
+          "__rl": true,
+          "value": "iKHEXVJEJZY53EMy",
+          "mode": "list",
+          "cachedResultName": "Agenda inmobiliaria"
+        },
+        "fields": {
+          "values": [
+            {
+              "name": "Evento",
+              "stringValue": "agendar"
+            },
+            {
+              "name": "RemoteJid",
+              "stringValue": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            }
+          ]
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "{\n\t\"nombre\": \"nombre del usuario\",\n    \"correo\": \"correo electrónico del usuario\",\n    \"inicio\": \"fecha y hora de inicio de la reunión\",\n    \"fin\": \"fecha y hora de finalización de la reunión\",\n    \"descripcion\": \"descripción del evento\"\n       \n}"
+      },
+      "id": "5f5aff7b-75ca-49dd-a38e-3cfa4ecea3dd",
+      "name": "Agendar reunion",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1220,
+        1660
+      ]
+    },
+    {
+      "parameters": {
+        "name": "cancelar",
+        "description": "=Llama a esta herramienta cuadno el usuario necesite cancelar la cita y reprograme una cita",
+        "workflowId": {
+          "__rl": true,
+          "value": "iKHEXVJEJZY53EMy",
+          "mode": "list",
+          "cachedResultName": "Agenda inmobiliaria"
+        },
+        "fields": {
+          "values": [
+            {
+              "name": "Evento",
+              "stringValue": "cancelar"
+            },
+            {
+              "name": "Remotejid",
+              "stringValue": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            }
+          ]
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "{\n\t\"nombre\": \"nombre de usuario\",\n    \"email\": \"email de usuario\",\n    \"descripcion\": \"la propiedad\"\n}"
+      },
+      "id": "b7665ecc-86cd-4cf8-82c7-2f7494ef9ac9",
+      "name": "Cancelar reunion",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1760,
+        1660
+      ]
+    },
+    {
+      "parameters": {
+        "name": "reprogramar",
+        "description": "=Llama a esta herramienta solo cuando tengas que reprogramar una reunion y tengas el correo electronico\npero debes agregarle una hora a la fecha de fin\n\n",
+        "workflowId": {
+          "__rl": true,
+          "value": "iKHEXVJEJZY53EMy",
+          "mode": "list",
+          "cachedResultName": "INMOBILIARIA - Agendar cita"
+        },
+        "fields": {
+          "values": [
+            {
+              "name": "Evento",
+              "stringValue": "reprogramar"
+            },
+            {
+              "name": "Remotejid",
+              "stringValue": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            }
+          ]
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "{\n\t\"nombre\": \"nombre del usuario\",\n    \"correo\": \"fercassera@gmail.com\",\n    \"inicio\": \"fecha y hora de inicio de la reunión\",\n    \"fin\": \"fecha y hora de finalización de la reunion sumar\",\n  \"descripcion\":\"propiedade\"\n   \n    \n}"
+      },
+      "id": "1684c932-ebd1-4e49-933b-c88880f0820a",
+      "name": "Reprogramar",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1640,
+        1660
+      ]
+    },
+    {
+      "parameters": {
+        "name": "buscar_imagenes",
+        "description": "Llamaras a esta tool cuando el usaurio quiera ver las fotos de las propiedades pero debes tener antes el ID",
+        "workflowId": {
+          "__rl": true,
+          "value": "1qF59KeIUzmj8Z5K",
+          "mode": "list",
+          "cachedResultName": "Buscar imagenes propiedades"
+        },
+        "fields": {
+          "values": [
+            {
+              "name": "CELULAR",
+              "stringValue": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            }
+          ]
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "{\n\n  \"Id\":\"id propiedad\"\n}"
+      },
+      "id": "6a8996d1-9768-4a64-9077-e6a956489b79",
+      "name": "Buscar imagenes",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1360,
+        1660
+      ]
+    },
+    {
+      "parameters": {
+        "amount": "=0"
+      },
+      "id": "41eeae1c-9fec-4737-a9f5-ea3272a7749c",
+      "name": "Wait3",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3100,
+        1680
+      ],
+      "webhookId": "6f130bc2-7de0-4353-b6d0-653f7c7e6623"
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "8ebbf290-1f0d-4431-ab4c-37aa08c86a92",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2840,
+        1620
+      ],
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $node['Webhook'].json.body.server_url }}/message/sendText/{{ $node['Webhook'].json.body.instance }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $node['Webhook'].json.body.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{ $node['Webhook'].json.body.data.key.remoteJid }}\",\n    \"text\": \"{{ $('Loop Over Items').item.json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
+        "options": {}
+      },
+      "id": "68cdc20b-bb57-4df4-a172-1174517b0dc0",
+      "name": "MESSAGE",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3340,
+        1680
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "options": {}
+      },
+      "id": "75566ea0-59c0-4f6a-bcb1-859c804fd4d6",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2580,
+        1440
+      ]
+    },
+    {
+      "parameters": {
+        "name": "buscar_propiedades",
+        "description": "Llamaras a esta herramienta cuando tengas el periodo y el precio de la estadia, por ejemplo \"1° quincena de diciembre\" o \"2° primera quincena de diciembre\"\n",
+        "workflowId": {
+          "__rl": true,
+          "value": "mVpVsWZk4ZURlpXE",
+          "mode": "list",
+          "cachedResultName": "Buscar propiedades"
+        },
+        "responsePropertyName": "=response",
+        "fields": {
+          "values": [
+            {
+              "name": "CELULAR",
+              "stringValue": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            }
+          ]
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "{ \n  \"precioMin\": \"siemrpe es 0\",\n  \"precioMax\":\"valor maximo\",\n  \"periodo\":\"1era,quincena,enero\",\n  \"tipo\":\"departamento\",\n  \"ambientes\":\"ambientes\",\n  \"localidad\":\"localidad\"\n \n}"
+      },
+      "id": "3354089e-0e1f-457c-85a1-877e9b6a4fd4",
+      "name": "Buscar propiedades",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1500,
+        1660
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "7f1dbd85-5958-427d-bda5-ef9f42778bc9",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        3100,
+        1480
+      ]
+    },
+    {
+      "parameters": {
+        "name": "buscar_propiedades_disponibles",
+        "description": "Llamaras a esta herramientas cuando el usuario quiera saber las propiedades disponibles que hay en una localidad.",
+        "workflowId": {
+          "__rl": true,
+          "value": "6WApyFj3RfXNPAj6",
+          "mode": "list",
+          "cachedResultName": "buscar_propiedades_disponibles"
+        },
+        "fields": {
+          "values": [
+            {
+              "name": "CELULAR",
+              "stringValue": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            }
+          ]
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "{ \n    \"localidad\":\"localidad\" \n}"
+      },
+      "id": "af1ce398-72bc-490b-a88d-c99220dd8590",
+      "name": "buscar_propiedades_disponibles",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1920,
+        1660
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d04d69d-cb9c-41be-a44a-95fac3c059f3",
+              "name": "text",
+              "value": "={{ $json.output\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*')\n    .replace(/###\\s*/g, '')\n    .replace(/[¡¿!]/g, '')\n    .replace(/\\[.*?\\]\\((.*?)\\)/g, '$1')\n    .split(/\\n\\n|---/)\n    .filter(Boolean) }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "425b5aa4-8595-4a56-ac8d-d4fdac5527c4",
+      "name": "replace",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2360,
+        1440
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message_completo }}",
+        "options": {
+          "systemMessage": "={{ $('Unificados').item.json.systemMessageAgente }}\n\nno debes poner que el precio es por dia eso debe ser retirado del mensaje\n\ny recuerda tomar el nombre real del usuario si te habla por primera vez. Toma esta variable -> {{ $('getClient').item.json.nombre_real }}\n\nDebes llamar siempre esta variable para dirigirte al usuario o cliente -> {{ $('getClient').item.json.nombre_real }}",
+          "maxIterations": 6
+        }
+      },
+      "id": "d2726252-1cb4-4e72-9602-f1b370af862c",
+      "name": "AGE3",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        1380,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Configure su prompt",
+        "height": 223.25452635785376,
+        "width": 180.90155202154455,
+        "color": 4
+      },
+      "id": "92fdc4e9-65de-4a5a-ad7f-d458326d344f",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -700,
+        1460
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "aa4d5d29-e6f1-4bce-b5ff-4575b553a077",
+              "name": "systemMessageAgente",
+              "value": "={\n  \"configuracion\": {\n    \"version\": \"1.0\",\n    \"region\": \"Partido de Pinamar 🌊\",\n    \"localidades\": {\n      \"Pinamar\": \"🌴\",\n      \"Ostende\": \"🏖️\",\n      \"Valeria del Mar\": \"🏊‍♂️\",\n      \"Cariló\": \"🌲\"\n    }\n  },\n  \"fechas\": {\n    \"actual\": \"{{$now}}\",\n    \"interpretacion\": {\n      \"mañana\": \"+1 día ⏰\",\n      \"pasado\": \"+2 días 📅\",\n      \"proxima_semana\": \"+7 días 📆\",\n      \"proximo_mes\": \"+30 días 📅\"\n    }\n  },\n  \"interaccion\": {\n    \"verificacion_usuario\": {\n      \"origen_nombre\": \"{{ $json.meta.nombreReal }}\",\n      \"validacion\": {\n        \"si_existe\": {\n          \"mensaje\": \"¡Hola, {{ $json.meta.nombreReal }}! 🌟 ¿En qué puedo ayudarte hoy? 😊\"\n        },\n        \"si_no_existe\": {\n          \"mensaje\": \"¡Hola! ✨ Antes de empezar, ¿me decís tu nombre? 👋\",\n          \"herramienta\": \"insertar_nombre_real\"\n        }\n      }\n    },\n    \"duracion\": \"¿Por cuánto tiempo te gustaría alquilar? ⌛\",\n    \"presupuesto\": \"¿Cuál es tu presupuesto aproximado? 💰\",\n    \"localidad\": \"¿En qué zona te interesa? 🗺️\\n- Pinamar 🌴\\n- Ostende 🏖️\\n- Valeria del Mar 🏊‍♂️\\n- Cariló 🌲\",\n    \"confirmacion\": {\n      \"mensaje\": \"¡Perfecto! 🎯 Repasemos los datos:\",\n      \"datos\": {\n        \"fecha\": \"📅 Fecha: {fecha}\",\n        \"duracion\": \"⌛ Duración: {duracion}\",\n        \"presupuesto\": \"💰 Presupuesto: {presupuesto}\",\n        \"localidad\": \"📍 Zona: {localidad}\"\n      }\n    }\n  },\n  \"formatos\": {\n    \"propiedad\": {\n      \"encabezado\": \"📍 {localidad} | 🏠 {tipo_propiedad}\",\n      \"separador\": \"➖➖➖➖➖➖➖➖➖➖\",\n      \"detalles\": [\n        \". 💰 Precio: ${precio}\",\n        \". 🛏️ Dormitorios: {dormitorios}\",\n        \". 🚿 Baños: {baños}\",\n        \". 📏 Superficie: {metros}m²\",\n        \". 🚗 Cochera: {cochera}\",\n        \". 🏊‍♂️ Pileta: {pileta}\"\n      ],\n      \"amenities\": {\n        \"wifi\": \"📶 WiFi\",\n        \"aire\": \"❄️ Aire Acondicionado\",\n        \"calefaccion\": \"🔥 Calefacción\",\n        \"parrilla\": \"🔥 Parrilla\",\n        \"lavadora\": \"🧺 Lavarropas\",\n        \"tv\": \"📺 TV Cable\",\n        \"microondas\": \"♨️ Microondas\",\n        \"heladera\": \"❄️ Heladera\"\n      },\n      \"pie\": [\n        \"📅 Disponible: {fecha_disponible}\",\n        \"⭐ ID: {id_propiedad}\"\n      ],\n      \"botones_accion\": {\n        \"agendar_visita\": \"📝 Agendar Visita\",\n        \"mas_info\": \"ℹ️ Más Información\",\n        \"consultar\": \"💬 Hacer Consulta\"\n      }\n    },\n    \"listado\": {\n      \"encabezado\": \"🏠 Encontré {cantidad} propiedades para vos:\",\n      \"sin_resultados\": \"😔 No encontré propiedades con esos criterios.\",\n      \"filtros_aplicados\": \"🔍 Filtros aplicados:\",\n      \"ordenamiento\": {\n        \"precio_asc\": \"💰 Precio: Menor a Mayor\",\n        \"precio_desc\": \"💰 Precio: Mayor a Menor\",\n        \"relevancia\": \"⭐ Más Relevantes\"\n      }\n    }\n  },\n  \"herramientas\": {\n    \"propiedades\": {\n      \"busqueda\": \"buscar_propiedades 🔍\",\n      \"disponibilidad\": \"buscar_disponibilidad 📊\"\n    },\n    \"citas\": {\n      \"agendar\": {\n        \"accion\": \"agendar 📝\",\n        \"requiere\": [\"nombre 👤\", \"correo 📧\", \"fecha 📅\", \"propiedad 🏠\"]\n      },\n      \"reprogramar\": {\n        \"accion\": \"reprogramar 🔄\",\n        \"requiere\": [\"correo 📧\", \"nueva_fecha 📅\"]\n      },\n      \"cancelar\": {\n        \"accion\": \"cancelar ❌\",\n        \"requiere\": [\"correo 📧\"]\n      }\n    },\n    \"usuarios\": {\n      \"registro\": \"insertar_nombre_real 👤\"\n    }\n  },\n  \"mensajes_sistema\": {\n    \"exito\": \"¡Listo! ✅\",\n    \"error\": \"Ups, hubo un problema 😕\",\n    \"espera\": \"Dame un momento... ⌛\",\n    \"busqueda\": \"Buscando las mejores opciones para vos 🔍\",\n    \"sin_resultados\": \"No encontré propiedades con esos criterios 😔\",\n    \"contacto\": \"¿Te gustaría agendar una visita? 🤝\"\n  },\n  \"capacidades\": {\n    \"descripcion\": \"¡Hola! 👋 Soy tu asistente inmobiliario y puedo ayudarte con:\",\n    \"funciones\": [\n      \"🏠 Buscar propiedades en alquiler\",\n      \"📅 Agendar visitas con agentes inmobiliarios\",\n      \"🔄 Reprogramar visitas agendadas\",\n      \"❌ Cancelar visitas\",\n      \"💬 Responder consultas sobre propiedades\",\n      \"📊 Verificar disponibilidad\",\n      \"💰 Consultas sobre precios y condiciones\"\n    ],\n    \"recordatorio\": {\n      \"trigger\": \"inactividad_2min\",\n      \"mensaje\": \"¿Necesitás ayuda? 🤔 Recordá que puedo:\\n{funciones}\",\n      \"despedida\": \"¡Cualquier consulta estoy para ayudarte! 😊\"\n    }\n  },\n  \"respuestas_comunes\": {\n    \"que_podes_hacer\": \"Puedo ayudarte a encontrar tu propiedad ideal en {region}! 🏠\\n\\nPodés consultarme sobre:\\n{funciones}\\n\\n¿Con qué te gustaría empezar?\",\n    \"fuera_alcance\": \"Disculpá, pero eso está fuera de mi alcance. 😅\\nPero puedo ayudarte con:\\n{funciones}\",\n    \"aclaracion\": \"Para brindarte la mejor ayuda, ¿te gustaría:\\n1. 🔍 Buscar propiedades\\n2. 📅 Agendar una visita\\n3. 🔄 Gestionar una visita existente?\"\n  },\n  \"politicas_seguridad\": {\n    \"alcance\": {\n      \"permitido\": [\n        \"Consultas sobre propiedades en alquiler\",\n        \"Gestión de visitas y citas\",\n        \"Información sobre zonas del Partido de Pinamar\",\n        \"Precios y condiciones de alquiler\",\n        \"Amenities y características de propiedades\"\n      ],\n      \"no_permitido\": [\n        \"Consultas personales\",\n        \"Temas políticos o controversiales\",\n        \"Información turística general\",\n        \"Consejos financieros\",\n        \"Predicciones económicas\"\n      ]\n    },\n    \"respuestas_redireccion\": {\n      \"informacion_general\": {\n        \"mensaje\": \"Lo siento, soy un asistente especializado en propiedades de {region}. Para información general te sugiero consultar a ChatGPT o Claude 🤖\",\n        \"alternativas\": \"¿Te gustaría que te ayude a encontrar una propiedad en alquiler? 🏠\"\n      },\n      \"fuera_tema\": {\n        \"mensaje\": \"Disculpá, solo puedo ayudarte con temas relacionados a alquileres en {region}. 🏠\",\n        \"recordatorio\": \"Recordá que puedo:\\n{funciones}\"\n      }\n    },\n    \"privacidad_datos\": {\n      \"uso_permitido\": [\n        \"Nombre para personalizar la atención\",\n        \"Email para gestión de citas\",\n        \"Presupuesto para búsqueda de propiedades\",\n        \"Fechas para verificar disponibilidad\"\n      ],\n      \"aclaracion\": \"Solo utilizo tus datos para brindarte una mejor experiencia en la búsqueda de propiedades. 🔒\"\n    }\n  },\n  \"filtro_estricto\": {\n    \"activado\": true,\n    \"palabras_clave_inmobiliarias\": [\n      \"alquil\", \"prop\", \"casa\", \"depart\", \"precio\", \"vivienda\", \"inmobil\", \n      \"Pinamar\", \"Ostende\", \"Valeria\", \"Cariló\", \"metros\", \"dormitor\", \n      \"visit\", \"dispon\", \"reserv\", \"habitac\", \"inmueble\", \"terreno\", \"lote\",\n      \"cochera\", \"pileta\", \"baño\", \"alojamiento\", \"temporada\", \"vacacion\",\n      \"cuarto\", \"semana\", \"mes\", \"día\", \"noche\", \"playa\", \"costa\", \"mar\",\n      \"dueño\", \"agente\", \"inmobiliaria\", \"comprar\", \"vender\", \"zona\",\n      \"superficie\", \"cama\", \"wifi\", \"aire\", \"calefacción\", \"parrilla\",\n      \"amueblado\", \"ubicación\", \"dirección\", \"condominio\", \"edificio\",\n      \"costo\", \"pago\", \"adelanto\", \"seña\", \"contrato\", \"requisito\"\n    ],\n    \"palabras_clave_bloqueadas\": [\n      \"suicid\", \"matar\", \"morir\", \"depresión\", \"triste\", \"política\", \"religión\", \"color\", \n      \"ciencia\", \"universo\", \"personal\", \"íntimo\", \"ayuda psicológica\", \"economía\", \n      \"turismo\", \"historia\", \"geografía\", \"clima\", \"tiempo\", \"escuela\", \"universidad\",\n      \"salud\", \"enfermedad\", \"medicina\", \"deportes\", \"juegos\", \"música\", \"arte\",\n      \"tecnología\", \"noticias\", \"actualidad\", \"restaurante\", \"comida\", \"receta\"\n    ],\n    \"validacion_estricta\": {\n      \"modo\": \"doble_filtro\",\n      \"reglas\": [\n        {\n          \"condicion\": \"NO_contiene_palabra_inmobiliaria\",\n          \"accion\": \"ignorar_completamente\",\n          \"excepcion\": \"primera_interaccion\"\n        },\n        {\n          \"condicion\": \"contiene_palabra_bloqueada\",\n          \"accion\": \"ignorar_completamente\",\n          \"sin_excepciones\": true\n        }\n      ]\n    },\n    \"primera_interaccion\": {\n      \"mensaje_unico\": \"Solo puedo ayudarte con consultas inmobiliarias en el Partido de Pinamar. ¿En qué tipo de propiedad estás interesado?\",\n      \"solo_una_vez\": true\n    },\n    \"comportamiento_silencio\": {\n      \"metodo\": \"omitir_respuesta\",\n      \"contador_ignorados\": true,\n      \"umbral_redireccion\": 3,\n      \"mensaje_umbral\": \"Parece que estás buscando información fuera del ámbito inmobiliario. Recuerda que solo puedo ayudarte con propiedades en alquiler en Pinamar. ¿Te gustaría buscar alguna propiedad?\"\n    }\n  },\n  \"procesamiento_mensaje\": {\n    \"analisis_previo\": {\n      \"activo\": true,\n      \"validar_tematica\": \"inmobiliaria_estricta\",\n      \"rechazar_no_tematico\": true\n    },\n    \"logica_respuesta\": {\n      \"si_tema_inmobiliario\": \"procesar_normalmente\",\n      \"si_tema_no_inmobiliario\": \"no_responder\",\n      \"si_primera_vez_no_inmobiliario\": \"mensaje_unico_redireccion\",\n      \"si_insistencia_no_inmobiliario\": \"silencio_total\"\n    },\n    \"instrucciones_sistema\": [\n      \"NUNCA respondas a preguntas que no estén relacionadas con bienes raíces o propiedades en Pinamar\",\n      \"Si una pregunta NO contiene términos inmobiliarios, NO debes responder bajo ninguna circunstancia\",\n      \"Tu ÚNICA función es asistir en consultas inmobiliarias del Partido de Pinamar\",\n      \"Ante preguntas personales, políticas, científicas o de cualquier otro tema, mantén SILENCIO ABSOLUTO\",\n      \"NO intentes redireccionar conversaciones no inmobiliarias, simplemente NO RESPONDAS\"\n    ]\n  }\n}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "ce0ab68a-366e-439a-9839-e09f20b5b67a",
+      "name": "Prompts",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -660,
+        1520
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "clientes",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "telefono",
+              "keyValue": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            }
+          ]
+        }
+      },
+      "id": "0f4944d9-b18e-424a-8d14-8a1f16ff6a9e",
+      "name": "getClient",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -2200,
+        1580
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "Wufct6Yuc5Sk88KF",
+          "name": "Inmobiliaria"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4e77cc7c-48f4-4cbe-94e7-6d211db67002",
+              "leftValue": "={{ $('getClient').item.json.telefono }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0d99c729-738a-477a-a1e2-615437aa55af",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1960,
+        1580
+      ]
+    },
+    {
+      "parameters": {
+        "tableId": "clientes",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "nombre",
+              "fieldValue": "={{ $('Webhook').item.json.body.data.pushName }}"
+            },
+            {
+              "fieldId": "telefono",
+              "fieldValue": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+            },
+            {
+              "fieldId": "idMensaje",
+              "fieldValue": "={{ $('Webhook').item.json.body.data.key.id }}"
+            },
+            {
+              "fieldId": "session_id",
+              "fieldValue": "={{ $json.data }}"
+            }
+          ]
+        }
+      },
+      "id": "c55acc63-0616-4145-91f8-2dc05216caf8",
+      "name": "CreateUser",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -1560,
+        1720
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "Wufct6Yuc5Sk88KF",
+          "name": "Inmobiliaria"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "action": "generate"
+      },
+      "id": "50d3d6a5-dc13-4df6-8f41-8dc4c312621b",
+      "name": "GeraUUID",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        -1740,
+        1720
+      ],
+      "notesInFlow": false
+    },
+    {
+      "parameters": {},
+      "id": "b3361d34-2945-463d-87d6-c951bfc7283b",
+      "name": "NOP1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1540,
+        1300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b3c9b986-29a6-4418-a033-6422c387377f",
+              "leftValue": "={{ $('Webhook').item.json.body.data.key.fromMe }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "46518a9d-a928-47c7-9bce-137a1e024def",
+      "name": "fromMe",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1740,
+        1440
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Pensado en flujo de trabajo durante 10 segundos\n1ª Parte del workflow\nAgrega datos en el nodo \"campos iniciales\"\nConfigura el prompt\nVerifica el registro de cliente en Supabase\nAgrupa los mensajes\nEl agente de IA responde y utiliza las herramientas\nDivide la respuesta de forma natural\nEnvía el mensaje en partes",
+        "height": 231.90603035421952,
+        "width": 337.4989040429268,
+        "color": 4
+      },
+      "id": "67e26609-c196-4e14-99d4-0557ee8221f7",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2000,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 714,
+        "width": 1467,
+        "color": 7
+      },
+      "id": "e8ba718d-e5bb-4974-8c9b-4c2de2d711d1",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2800,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Credenciales y datos predeterminados",
+        "height": 140,
+        "width": 442,
+        "color": 4
+      },
+      "id": "5c35b60d-7c14-4bb1-8cff-6b84d5346b72",
+      "name": "Sticky Note15",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2760,
+        1320
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Configure sus datos ",
+        "height": 223.25452635785376,
+        "width": 180.90155202154455,
+        "color": 2
+      },
+      "id": "f1bff618-fa71-4635-baa4-a0ecb1655096",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        1540
+      ]
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 712,
+        "width": 1240,
+        "color": 5
+      },
+      "id": "629808bc-cd8d-4192-8c4c-6683015f84f5",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Registrar usuario en *Supabase*",
+        "height": 280,
+        "width": 422,
+        "color": 4
+      },
+      "id": "ccf22289-31f0-47ee-b767-12dd64dba8d8",
+      "name": "Sticky Note16",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1800,
+        1640
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Envía los mensajes",
+        "height": 693,
+        "width": 1310,
+        "color": 4
+      },
+      "id": "73d1ba26-5541-468c-92c4-6769b905ede2",
+      "name": "Sticky Note17",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "meta.telefonoCliente",
+              "value": "={{ \n  $json.body?.conversation?.contact_inbox?.contact_id || \n  $json.body?.data?.key?.remoteJid || $('Webhook').item.json.body?.data?.key?.remoteJid.replace(/\\D/g, '') }}  || \n  null \n}}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "meta.nombreCliente",
+              "value": "={{ $('Webhook').item.json.body.data.pushName }}",
+              "type": "string"
+            },
+            {
+              "id": "01238a36-6907-4aec-ab21-26345ed5fc96",
+              "name": "whatsapp.evo.nombreInstancia",
+              "value": "={{ $('Webhook').item.json.body.instance }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "content.mensaje",
+              "value": "={{ \n  $('Webhook').item.json?.body?.content?.mensaje?.extendedTextMessage?.text ||\n     $('Webhook').item.json?.body?.data?.message?.extendedTextMessage?.text ||\n  $('Webhook').item.json?.body?.data?.message?.imageMessage?.caption || \n  $('Webhook').item.json?.body?.data?.message?.conversation || \n  $('Webhook').item.json?.message?.text || \n  $('Webhook').item.json?.message?.caption || \n  null \n}}\n\n\n",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "content.tipoMensaje",
+              "value": "={{ $('Webhook').item.json.body.data.messageType }}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "content.idMensaje",
+              "value": "={{ $('Webhook').item.json.body.data.key.id }}",
+              "type": "string"
+            },
+            {
+              "id": "9d947263-3b68-4c63-88ba-ef1b9de22571",
+              "name": "empresa.nombreEmpresa",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "076ad2d4-b8ea-440f-9c02-f7e8417a984d",
+              "name": "whatsapp.evo.apikey",
+              "value": "={{ $('Webhook').item.json.body.apikey }}",
+              "type": "string"
+            },
+            {
+              "id": "0c237725-0428-4f1d-bddf-41bd289b3168",
+              "name": "whatsapp.evo.server_url",
+              "value": "={{ $('Webhook').item.json.body.server_url}}",
+              "type": "string"
+            },
+            {
+              "id": "255b9c45-7769-4d09-9c50-61dcdfb7c09d",
+              "name": "app.debouncerTime",
+              "value": "6",
+              "type": "string"
+            },
+            {
+              "id": "196aeb96-5c33-4dd7-9a4f-6bd40765b7fb",
+              "name": "doc.id",
+              "value": "1G3ca5La7WxEfZxpRYwyxhweknGlxRFxWPiwoUoP7eUY",
+              "type": "string"
+            },
+            {
+              "id": "fc7c5c8f-b505-4a43-ae07-51eea58d6f80",
+              "name": "linkPreview",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "e30bbf8c-d5da-4410-b875-8dfe4b301798",
+              "name": "Digitando",
+              "value": 1200,
+              "type": "number"
+            },
+            {
+              "id": "9f678274-90b4-44f5-8614-e9d4bd101d15",
+              "name": "meta.nombreReal",
+              "value": "={{ $json.nombre_real }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8c2ef202-9559-46c2-a07d-011dbd42543c",
+      "name": "camposiniciales",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        1600
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 700,
+        "width": 1000,
+        "color": 7
+      },
+      "id": "3c639206-31eb-4be4-98a0-84e56340fd66",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "60065893-74f7-4b64-bc1a-d891202efa78",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "imageMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Imagen"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0cb14635-2673-408e-86db-ce9e0373674b",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Texto"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Áudio"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "012501f3-3b28-4d3d-8742-3af652b56140",
+      "name": "Switch2",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -180,
+        1620
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Transcribe audio a texto",
+        "height": 265,
+        "width": 1205
+      },
+      "id": "df2ecfe3-c57a-446d-9dfc-ed29cb8d3c41",
+      "name": "Sticky Note14",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        1720
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Memoria",
+        "height": 423,
+        "width": 1204,
+        "color": 4
+      },
+      "id": "807132a5-13a3-47d8-ac34-cd967658a875",
+      "name": "Sticky Note20",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "d03b944c-be4e-4396-aa7f-fc79b989bb7d",
+      "name": "Unificados",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -440,
+        1620
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2ee77a3b-87c9-4793-b3bc-af6f46c56142",
+              "leftValue": "={{ $json.body.data.key.remoteJid }}",
+              "rightValue": "5491165461651@s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "8f930726-596a-4be4-a723-fdaa802e5110",
+              "leftValue": "={{ $json.body.data.key.remoteJid }}",
+              "rightValue": "5492254423359@s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "d567e162-27fd-49dc-ba57-e5de79b86945",
+              "leftValue": "={{ $json.body.data.key.remoteJid }}",
+              "rightValue": "549115827385@s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "1490fee4-f7f7-4c22-9587-90401187dadc",
+              "leftValue": "={{ $json.body.data.key.remoteJid }}",
+              "rightValue": "5491140841598@s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "1ade67b4-e5c0-4af9-a7ba-52f34857c614",
+              "leftValue": "={{ $json.body.data.key.remoteJid }}",
+              "rightValue": "=595985624358@s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "0a6c33f0-4bc9-464d-9f28-2bcb9e03bc47",
+              "leftValue": "={{ $json.body.data.key.remoteJid }}",
+              "rightValue": "5491158827385@s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2460,
+        1600
+      ],
+      "id": "1a2e59bd-792c-499c-99dc-fbef4f9f9d85",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_chat_histories",
+          "mode": "list",
+          "cachedResultName": "n8n_chat_histories"
+        },
+        "options": {
+          "cascade": true
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -1160,
+        1400
+      ],
+      "id": "5c8c0d09-8ab6-49fa-80eb-17febe1d6fd3",
+      "name": "Delete",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "insertar_nombre_real",
+        "description": "llamaras a esta herramienta cuando el usuario te de su nombre",
+        "workflowId": {
+          "__rl": true,
+          "value": "mtkYQCnuXk6OdsRY",
+          "mode": "list",
+          "cachedResultName": "INMOBILIARIA - Insertar nombre"
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "{\n\t\"nombre\": \"nombre\"\n    \n}"
+      },
+      "id": "e5e37d72-5f48-4de4-b6f7-31269c2fd248",
+      "name": "Guardar nombre",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        1660
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Trae nombre real",
+        "height": 223,
+        "width": 201,
+        "color": 5
+      },
+      "id": "e47e26a4-d4d9-43c7-ac4e-7d6aa1bc9be0",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2260,
+        1520
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Usuario permitidos",
+        "height": 223.25452635785376,
+        "width": 180.90155202154455,
+        "color": 3
+      },
+      "id": "65970107-47bf-4261-8962-989e28e342e5",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2500,
+        1520
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "b036e7c3-3e4e-4a39-b539-158418015895",
+      "name": "NoOp.4",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        1720
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Datos a tener en cuenta\n",
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -400,
+        1300
+      ],
+      "typeVersion": 1,
+      "id": "d3115418-b585-413c-8d3c-dd2f07751b05",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Delete memoria\n",
+        "height": 260,
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1260,
+        1320
+      ],
+      "typeVersion": 1,
+      "id": "a73f40e7-ef4d-4967-aeb0-e50fafb2dac3",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_chat_histories",
+          "mode": "list",
+          "cachedResultName": "n8n_chat_histories"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        880,
+        1780
+      ],
+      "id": "fda576c6-9ef4-428c-b13e-cf61c9885f63",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "id": "7e43e93e-a9e5-42bc-a05f-52f80f21e94c",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        480,
+        1780
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "Redis1",
+              "value": "={{ $('Return Redis1').item.json.Redis1 }}",
+              "type": "string"
+            },
+            {
+              "id": "3cd6e8a1-98ef-4abb-9490-fb7946365cfb",
+              "name": "Redis2",
+              "value": "={{ $json.Redis2 }}",
+              "type": "string"
+            },
+            {
+              "id": "cbebbec6-37ab-441f-8e29-62ff4cdbf045",
+              "name": "sessionId",
+              "value": "={{ $('getClient').item.json.idMensaje }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2e46f495-bd59-4629-a5f6-754f33a83242",
+      "name": "Redis",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        1520
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Redis2",
+        "key": "={{ $('Webhook').item.json.body.data.key.remoteJid.replace(/\\D/g, '') }} ",
+        "options": {}
+      },
+      "id": "5ec71659-e3b2-401c-a563-55c2fbae75cd",
+      "name": "Return Redis2",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        840,
+        1300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $item(0).$node[\"Compara Get Memory\"].json[\"Redis2\"];\n\n// Verifica si data es un array directamente\nlet array;\n\nif (Array.isArray(data)) {\n    array = data;\n} else {\n    try {\n        // Intenta parsear si es una cadena JSON válida\n        array = JSON.parse(data);\n    } catch (error) {\n        // Si no es JSON, considera que es un texto plano\n        array = [data];\n    }\n}\n\n// Une los elementos del array en un string\nconst message_completo = array.join(\" \");\n\nreturn [{ json: { message_completo } }];\n"
+      },
+      "id": "ae1eb061-daba-4456-a0de-def052d155c5",
+      "name": "Compara igualdad de memorias",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        600,
+        1520
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d5a342e9-585b-42ea-be44-644adae10199",
+              "leftValue": "={{ $json.Redis1 }}",
+              "rightValue": "={{ $json.Redis2 }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "33b04d8f-51e2-4051-bcd2-af1cd3587865",
+      "name": "Compara Get Memory",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        1520
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Redis1",
+        "key": "={{ $('Webhook').item.json.body.data.key.remoteJid.replace(/\\D/g, '') }} ",
+        "options": {
+          "dotNotation": true
+        }
+      },
+      "id": "95aa2a65-8f9a-488b-8ce2-0587c9aaad87",
+      "name": "Return Redis1",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        460,
+        1300
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": "={{ $('camposiniciales').item.json.app.debouncerTime }}"
+      },
+      "id": "ebe8ee85-e81d-43b7-bdee-4561d89f19dd",
+      "name": "Espera 4 segundos",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        1300
+      ],
+      "webhookId": "6f130bc2-7de0-4353-b6d0-653f7c7e6623"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Webhook').item.json.body.data.key.remoteJid.replace(/\\D/g, '') }} ",
+        "messageData": "={{ $('camposiniciales').item.json.content.mensaje }} ",
+        "tail": true
+      },
+      "id": "e0cc0fc9-eb2a-4932-ad56-7bd0a4b2d9c8",
+      "name": "apilaTexto1",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        280,
+        1300
+      ],
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7d210f0-6a18-456d-9e89-aa28f548b2a0",
+              "name": "body.data.message.base64",
+              "value": "={{ $('Webhook').item.json.body.data.message.base64 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fd92236a-b77b-479a-8f67-bd481cf3bfd1",
+      "name": "Edit Fields3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        140,
+        1780
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "body.data.message.base64",
+        "options": {
+          "mimeType": "audio/mp3"
+        }
+      },
+      "id": "7bdbfd22-4e31-4ac4-ad10-057eccf9d6df",
+      "name": "Convert to File",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        300,
+        1780
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "294730d2-a6a9-417d-b97e-46314b89d7f4",
+              "name": "msg",
+              "value": "={{ $('camposiniciales').item?.json?.content?.mensaje || $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        100,
+        1300
+      ],
+      "id": "8ceb650c-44d8-4245-84ef-d14f1e986581",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "## Delete memories",
+        "height": 200,
+        "width": 260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        800,
+        1720
+      ],
+      "typeVersion": 1,
+      "id": "c63037dc-6ea5-48b3-b868-ee55f28ee070",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Webhook').item.json.body.data.key.remoteJid.replace(/\\D/g, '') }} "
+      },
+      "id": "6d595642-2f8a-4c46-8ecd-9b6fff84cf4f",
+      "name": "Delete1",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        840,
+        1520
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "testagent",
+        "options": {}
+      },
+      "id": "a32e2fb8-046f-47d5-afd9-65f8504f33ef",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2680,
+        1580
+      ],
+      "webhookId": "3ba6ce2e-1b02-4b06-8edd-9c60afb2db89"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.innovasoftpro.dev",
+            "user-agent": "axios/1.7.7",
+            "content-length": "1005",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8n.innovasoftpro.dev",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "575dad520f0e",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "event": "messages.upsert",
+            "instance": "testagent",
+            "data": {
+              "key": {
+                "remoteJid": "5492254423359@s.whatsapp.net",
+                "fromMe": false,
+                "id": "3EB02BC2E387FAD0C7D83D"
+              },
+              "pushName": "Fer { }",
+              "status": "DELIVERY_ACK",
+              "message": {
+                "conversation": "como va",
+                "messageContextInfo": {
+                  "deviceListMetadata": {
+                    "senderKeyHash": "geTzV9gDb4Wuvg==",
+                    "senderTimestamp": "1740582364",
+                    "senderAccountType": "E2EE",
+                    "receiverAccountType": "E2EE",
+                    "recipientKeyHash": "N3+lvlS62MH9JA==",
+                    "recipientTimestamp": "1740590134"
+                  },
+                  "deviceListMetadataVersion": 2,
+                  "messageSecret": "ei46IXY03NIxsyLMwSqcVp4lh3zaupXmIyj4wi1u6nQ="
+                }
+              },
+              "messageType": "conversation",
+              "messageTimestamp": 1740785223,
+              "instanceId": "7823438f-a437-44ca-a45f-70657cf0d1e3",
+              "source": "web",
+              "chatwootMessageId": 15076,
+              "chatwootInboxId": 5,
+              "chatwootConversationId": 32
+            },
+            "destination": "https://n8n.innovasoftpro.dev/webhook/testagent",
+            "date_time": "2025-02-28T20:27:04.215Z",
+            "sender": "5492254606018@s.whatsapp.net",
+            "server_url": "https://evo.innovasoftpro.dev",
+            "apikey": "F31D17DE4252-4013-98B2-20C7F33636EA"
+          },
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/testagent",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-11-13T18:17:03.104Z",
+      "updatedAt": "2024-11-13T18:17:03.104Z",
+      "id": "YrHhxlrwgYNlhWHU",
+      "name": "Inmobiliaria"
+    },
+    {
+      "createdAt": "2024-12-28T13:52:00.523Z",
+      "updatedAt": "2024-12-28T13:52:00.523Z",
+      "id": "nbNu1S635zJ1nPcQ",
+      "name": "Master"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-22T19:49:21.750Z",
+  "versionId": "20aec28f-c944-4f05-9e86-6103c2eed51f"
+}
