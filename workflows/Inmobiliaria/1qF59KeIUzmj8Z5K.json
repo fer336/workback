@@ -1,0 +1,417 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB1": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "NocoDB1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Limit1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit1": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MESSAGE1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-11-13T18:19:04.503Z",
+  "id": "1qF59KeIUzmj8Z5K",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Buscar imagenes propiedades",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f4430086-2177-46a9-a3bb-06cc84b4d82f",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        140,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "projectId": "pr9sg65kufmbn26",
+        "table": "mbkbum9n7u2uz29",
+        "id": "={{ $json.Imagenes.Id }}"
+      },
+      "id": "d04ad909-15ca-4da9-b4f9-f11cac986a92",
+      "name": "NocoDB1",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        780,
+        460
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "uiVAxQcDCuq8IFxo",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "projectId": "pr9sg65kufmbn26",
+        "table": "m0olxsv6vtkxxq1",
+        "id": "={{ $json.query.Id }}"
+      },
+      "id": "b9a16e12-6252-403e-8c67-317e499cb1fc",
+      "name": "NocoDB",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        500,
+        460
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "uiVAxQcDCuq8IFxo",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "urls",
+        "options": {}
+      },
+      "id": "782fc517-5c63-45c5-bc1a-a763731aecce",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "urls",
+        "options": {}
+      },
+      "id": "bac3ded1-1215-4a72-8a66-d7bbf2516aa9",
+      "name": "Split Out2",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evo.innovasoftpro.dev/message/sendMedia/Agente inmobiliria",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=4280B613C409-4089-8A6D-35D6B54F08C9"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\"number\": \"{{ $('Execute Workflow Trigger').item.json.CELULAR }}\",\n    \"mediatype\": \"image\",\n    \"mimetype\": \"image/png\",\n    \"caption\": \"\",\n    \"media\": \"https://db.innovasoftpro.dev/{{ $json.urls }}\",\n    \"fileName\": \"Imagem.png\"\n   \n}",
+        "options": {}
+      },
+      "id": "b338a156-9366-430e-8b52-36f95a48ab80",
+      "name": "Imagenes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1740,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "id": "c6bce86f-0b34-4857-9c8e-33f5e42ce44b",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1680,
+        480
+      ],
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "amount": "=0"
+      },
+      "id": "4de9fca2-cf67-4a27-be7a-71fa25936465",
+      "name": "Wait3",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1900,
+        620
+      ],
+      "webhookId": "6f130bc2-7de0-4353-b6d0-653f7c7e6623"
+    },
+    {
+      "parameters": {},
+      "id": "d2b46abe-c5af-4301-9115-79a4d9ccd2be",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6f65e788-5672-49bd-977e-0e9c20464342",
+              "name": "response",
+              "value": "las fotos fueron enviadas con exito ✅",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a0a83d73-a9e8-4126-9faf-7d2b4d18b855",
+      "name": "Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2040,
+        340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "a644403f-a069-4b84-bf88-3d1c833dce53",
+      "name": "Limit1",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1860,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evo.innovasoftpro.dev/message/sendText/Agente inmobiliria",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=4280B613C409-4089-8A6D-35D6B54F08C9"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 2500,\n    \"number\": \"{{ $json.CELULAR }}\",\n    \"text\": \"Buscando fotos del 🆔: *{{ $json.query.Id }}* 🏡 \\n\\n_Aguarda unos Segundos_ ⌛\"\n\n}",
+        "options": {}
+      },
+      "id": "72797613-7fdd-437d-b19a-22638f7305cf",
+      "name": "MESSAGE",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evo.innovasoftpro.dev/message/sendMedia/Agente inmobiliria",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=4280B613C409-4089-8A6D-35D6B54F08C9"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\"number\": \"{{ $('Execute Workflow Trigger').item.json.CELULAR }}\",\n    \"mediatype\": \"image\",\n    \"mimetype\": \"image/png\",\n    \"caption\": \"\",\n    \"media\": \"https://db.innovasoftpro.dev/{{ $json.urls }}\",\n    \"fileName\": \"Imagem.png\"\n   \n}",
+        "options": {}
+      },
+      "id": "6a3d585c-1e24-4a6e-9cf0-298d2c689431",
+      "name": "Imagenes1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evo.innovasoftpro.dev/message/sendText/Agente inmobiliria",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=4280B613C409-4089-8A6D-35D6B54F08C9"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 2500,\n    \"number\": \"{{ $('Execute Workflow Trigger').item.json.CELULAR }}\",\n    \"text\": \"{{ $json.urls }}\"\n\n}",
+        "options": {}
+      },
+      "id": "84920559-7b85-492e-880a-c103e7c8faff",
+      "name": "MESSAGE1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2140,
+        620
+      ]
+    }
+  ],
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "query": {
+            "Id": "3"
+          },
+          "CELULAR": "5492254423359@s.whatsapp.net"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-11-13T18:17:03.104Z",
+      "updatedAt": "2024-11-13T18:17:03.104Z",
+      "id": "YrHhxlrwgYNlhWHU",
+      "name": "Inmobiliaria"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2024-12-23T00:55:43.064Z",
+  "versionId": "ca5621d5-1a7b-461b-8020-b61fdc165eae"
+}
