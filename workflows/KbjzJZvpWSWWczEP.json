@@ -1,0 +1,541 @@
+{
+  "active": false,
+  "connections": {
+    "Obtener Participantes": {
+      "main": [
+        [
+          {
+            "node": "Preparar Mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Mensaje": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        []
+      ]
+    },
+    "FERNANDO": {
+      "main": [
+        []
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        []
+      ]
+    },
+    "vars2": {
+      "main": [
+        []
+      ]
+    },
+    "vars": {
+      "main": [
+        [
+          {
+            "node": "Obtener Participantes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-02T01:04:40.949Z",
+  "id": "KbjzJZvpWSWWczEP",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Mencion fantasma",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $json.url }}/group/participants/{{ $json.instance }}?groupJid={{ $json.number }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {
+              "followRedirects": true
+            }
+          }
+        }
+      },
+      "name": "Obtener Participantes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        -440,
+        1080
+      ],
+      "id": "cf711e0d-2322-49d4-87cd-b5742ded8660"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener los datos de participantes y configuración\nconst participantes = $input.item.json.participants || [];\nconst config = $node[\"vars\"].json;\n// Cambia \"Configuración\" por \"vars\"\n\n// Verificar que participantes sea un array\nif (!Array.isArray(participantes)) {\n  throw new Error(\"Los participantes no son un array válido\");\n}\n\n// Crear menciones para todos los participantes\nconst mentions = participantes.map(participante => {\n  return {\n    mentioned: participante.id,\n    name: '\\u200E' // Carácter invisible U+200E (Left-to-Right Mark)\n  };\n});\n\n// Crear el cuerpo de la solicitud\nconst requestData = {\n  number: config.number,\n  options: {\n    delay: config.options.delay,\n    presence: config.options.presence\n  },\n  textMessage: {\n    text: config.text,\n    mentions: mentions\n  }\n};\n\n// Esta línea es crucial - debes devolver un objeto con una propiedad json\nreturn {json: requestData};"
+      },
+      "name": "Preparar Mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        1080
+      ],
+      "id": "6036c74c-8077-421d-a60b-ea2e115ecdc5"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nodo de depuración\nconst inputData = $node[\"Preparar Mensaje\"].json;\nconsole.log(\"Datos originales:\", JSON.stringify(inputData, null, 2));\n\n// Intentar con una serialización/deserialización adicional\nconst serialized = JSON.stringify(inputData);\nconst deserialized = JSON.parse(serialized);\nconsole.log(\"Después de serializar/deserializar:\", JSON.stringify(deserialized, null, 2));\n\nreturn {json: deserialized};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        1080
+      ],
+      "id": "bb462e51-8317-466b-80a4-b0b598949ae5",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "content": "## Grupo buitres 5491138677828-1439064022@g.us\n\n## Grupo General IA \"120363409752146229@g.us\"\n\n## Grupo TRAID general \"120363347362371229@g.us\"\n\n## Grupo Inmobiliario \"120363407640794586@g.us\"",
+        "height": 660,
+        "width": 580
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -340,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "3a5ac9ca-9811-4765-983c-96f2a4a71a12",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('vars').item.json.url }}/message/sendText/{{ $('vars').item.json.instance }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('vars').item.json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.number }}"
+            },
+            {
+              "name": "options",
+              "value": "={{ $json.options }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.textMessage.text }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.textMessage.mentions }}"
+            },
+            {
+              "name": "mentionsEveryOne",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Mensaje2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        -880,
+        1340
+      ],
+      "id": "26951623-760e-4013-931a-7cb12e2ec413",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('vars').item.json.url }}/message/sendText/{{ $('vars').item.json.instance }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('vars').item.json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.number }}"
+            },
+            {
+              "name": "options",
+              "value": "={{ $json.options }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.textMessage.text }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.textMessage.mentions }}"
+            },
+            {
+              "name": "mentionsEveryOne",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "FER",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        -880,
+        820
+      ],
+      "id": "aac34276-b477-4aff-a29c-c3a00f5d7c47",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "OpgdvMlLy6Zxc6ii",
+          "name": "NOCODB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('vars').item.json.url }}/message/sendText/{{ $('vars').item.json.instance }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('vars').item.json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.number }}"
+            },
+            {
+              "name": "options",
+              "value": "={{ $json.options }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.textMessage.text }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.textMessage.mentions }}"
+            },
+            {
+              "name": "mentionsEveryOne",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "FERNANDO",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        220,
+        1080
+      ],
+      "id": "948a1325-ab71-4e2d-8f04-80084d5e3137",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "OpgdvMlLy6Zxc6ii",
+          "name": "NOCODB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -880,
+        1080
+      ],
+      "id": "528b9244-f3d2-4e20-88fa-5ae8d8bd5f92",
+      "name": "When chat message received",
+      "webhookId": "09c51867-0f21-4154-a0cf-d2bcb70e31bb"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ferc33",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -540,
+        800
+      ],
+      "id": "b812773e-1f6e-475a-8360-d9206fe2776e",
+      "name": "Webhook",
+      "webhookId": "9ba09d30-2eb8-4bdf-8785-2bfc45e3f63d",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23189e14-968e-44f2-be6c-32e7889d5294",
+              "name": "number",
+              "value": "=120363347362371229@g.us",
+              "type": "string"
+            },
+            {
+              "id": "c403ade0-2efe-493c-96e6-a45fcb270920",
+              "name": "url",
+              "value": "=https://evo.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "237b606f-962f-485e-8945-2409e46b5ed8",
+              "name": "apikey",
+              "value": "=B8F21C0B3BFC-453F-A467-B69E2BB0D8E3",
+              "type": "string"
+            },
+            {
+              "id": "6b637992-7137-4ec6-adb4-db6fa6706671",
+              "name": "instance",
+              "value": "=fernando",
+              "type": "string"
+            },
+            {
+              "id": "c584414f-8f84-450d-8999-3071701de88c",
+              "name": "options",
+              "value": "={delay: 1200,presence: 'composing'}",
+              "type": "object"
+            },
+            {
+              "id": "d7e9739d-f087-4f35-bd14-b39bb38ab224",
+              "name": "text",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "0def1f68-c153-4d34-8b8a-90014d5be372",
+              "name": "mentions",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -220,
+        1320
+      ],
+      "id": "169aea44-6800-41ca-b669-c96d841f5d24",
+      "name": "vars2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23189e14-968e-44f2-be6c-32e7889d5294",
+              "name": "number",
+              "value": "=120363347362371229@g.us",
+              "type": "string"
+            },
+            {
+              "id": "c403ade0-2efe-493c-96e6-a45fcb270920",
+              "name": "url",
+              "value": "=https://evo.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "237b606f-962f-485e-8945-2409e46b5ed8",
+              "name": "apikey",
+              "value": "=454444F88F77-4A37-B753-FFAAB4664C16",
+              "type": "string"
+            },
+            {
+              "id": "6b637992-7137-4ec6-adb4-db6fa6706671",
+              "name": "instance",
+              "value": "=QEVA AI",
+              "type": "string"
+            },
+            {
+              "id": "c584414f-8f84-450d-8999-3071701de88c",
+              "name": "options",
+              "value": "={delay: 1200,presence: 'composing'}",
+              "type": "object"
+            },
+            {
+              "id": "d7e9739d-f087-4f35-bd14-b39bb38ab224",
+              "name": "text",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "0def1f68-c153-4d34-8b8a-90014d5be372",
+              "name": "mentions",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -640,
+        1080
+      ],
+      "id": "4d448bde-b5b2-4007-a7ee-3e52d8ae13e6",
+      "name": "vars"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.innovasoftpro.dev",
+            "user-agent": "axios/1.7.9",
+            "content-length": "1036",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8n.innovasoftpro.dev",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "575dad520f0e",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "event": "messages.upsert",
+            "instance": "fernando",
+            "data": {
+              "key": {
+                "remoteJid": "120363407640794586@g.us",
+                "fromMe": true,
+                "id": "9C0CB1B18CF8673E18CADD4EF4C293D0",
+                "participant": "5492254423359@s.whatsapp.net"
+              },
+              "pushName": "Fer { }",
+              "status": "SERVER_ACK",
+              "message": {
+                "conversation": "Consulta.\n\nTanto para reagendar y cancelar, prefieren que sigamos con la misma metodología de listas? Que muestre un listado con todos los eventos que tiene ese usuario y que pueda cancelar o reagendar desde ahí? O prefieren que directamente le pase el correo y le diga los eventos que tiene en formato texto?",
+                "messageContextInfo": {
+                  "messageSecret": "vmnp24CdzLEDar+OY4fN9vEpDQdKAzAy0gD1tONZ5pE="
+                }
+              },
+              "messageType": "conversation",
+              "messageTimestamp": 1744026443,
+              "instanceId": "587a952b-d0d7-429c-956f-165783f2d30e",
+              "source": "android"
+            },
+            "destination": "https://n8n.innovasoftpro.dev/webhook/fer33",
+            "date_time": "2025-04-07T08:47:23.431Z",
+            "sender": "5492254423359@s.whatsapp.net",
+            "server_url": "https://evo.innovasoftpro.dev",
+            "apikey": "B8F21C0B3BFC-453F-A467-B69E2BB0D8E3"
+          },
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/fer33",
+          "executionMode": "production"
+        }
+      }
+    ],
+    "When chat message received": [
+      {
+        "json": {
+          "sessionId": "c3e6f41ef29d4a82ba4dfbc2bbe19423",
+          "action": "sendMessage",
+          "chatInput": "Hola chicos, una consulta alguien le paso con el modelo nuevo de gemini 2.5 flash este error"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 3,
+  "updatedAt": "2025-04-25T17:33:53.925Z",
+  "versionId": "782c589f-a989-4c2c-a0fb-dfd98e308c87"
+}
