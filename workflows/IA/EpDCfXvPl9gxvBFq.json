@@ -1,0 +1,1111 @@
+{
+  "active": false,
+  "connections": {
+    "Extrae url's de los inmuebles1": {
+      "main": [
+        [
+          {
+            "node": "Completa urls para scrapping detallado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No hay mas inmuebles": {
+      "main": [
+        [
+          {
+            "node": "Fin: No hay mas inmuebles",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extrae url's de los inmuebles1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Completa urls para scrapping detallado": {
+      "main": [
+        [
+          {
+            "node": "Obtiene el html de cada url de inmueble",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Obtiene la url + id de cada inmueble",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtiene html de url - General": {
+      "main": [
+        [
+          {
+            "node": "Extrae todos los inmuebles de una página",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extrae todos los inmuebles de una página": {
+      "main": [
+        [
+          {
+            "node": "No hay mas inmuebles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtiene el html de cada url de inmueble": {
+      "main": [
+        [
+          {
+            "node": "Extrae Datos del Inmueble",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extrae Datos del Inmueble": {
+      "main": [
+        [
+          {
+            "node": "Formato a los campos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formato a los campos": {
+      "main": [
+        [
+          {
+            "node": "Obtiene: Departamento, Ciudad y Barrio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtiene la url + id de cada inmueble": {
+      "main": [
+        [
+          {
+            "node": "Agrega url a cada inmueble",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "inmuebles",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "inmuebles",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Token Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Vectoriza - Barrio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtiene: Departamento, Ciudad y Barrio": {
+      "main": [
+        [
+          {
+            "node": "Agrega url a cada inmueble",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Búsqueda del Barrio": {
+      "main": [
+        [
+          {
+            "node": "Retrieve: Info del Barrio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectoriza - Barrio": {
+      "main": [
+        [
+          {
+            "node": "Búsqueda del Barrio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve: Info del Barrio": {
+      "main": [
+        [
+          {
+            "node": "Set Información del Barrio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Información del Barrio": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Agrega url a cada inmueble": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Variables Iniciales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "inmuebles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Variables Iniciales": {
+      "main": [
+        [
+          {
+            "node": "Obtiene html de url - General",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "inmuebles": {
+      "main": [
+        [
+          {
+            "node": "Confirma Pasada x 21",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirma Pasada x 21": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-12T23:43:51.944Z",
+  "id": "EpDCfXvPl9gxvBFq",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "VECTORIZAR - BD",
+  "nodes": [
+    {
+      "parameters": {
+        "dataPropertyName": "inmuebles",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "url",
+              "cssSelector": ".lc-cardCover",
+              "returnValue": "attribute",
+              "attribute": "href"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Extrae url's de los inmuebles1",
+      "type": "n8n-nodes-base.htmlExtract",
+      "position": [
+        -580,
+        220
+      ],
+      "typeVersion": 1,
+      "id": "d731318b-84c2-40bf-bf08-c715baf27ac7"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c0b9ba42-5969-46ee-8c75-0bb4ea007dc9",
+              "leftValue": "={{ $json.inmuebles }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "da95c45c-308f-4148-b814-9cd31e3313d2",
+      "name": "No hay mas inmuebles",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -800,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6aaa6966-4384-4a8e-a70d-a1204c200d89",
+              "name": "url",
+              "value": "={{ $('Set Variables Iniciales').item.json.url_base }}{{ $json.url }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4e0beb54-c3cb-46fc-bd42-aa610f401636",
+      "name": "Completa urls para scrapping detallado",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -360,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=http://api.scraperapi.com?api_key=d8e6c1a368047c73389a926370a4695c&url={{ $json.url }}",
+        "options": {}
+      },
+      "id": "06fbb269-3d8b-4495-bc70-a661e7e9e979",
+      "name": "Obtiene html de url - General",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1180,
+        200
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {},
+      "id": "55179771-999c-4d07-a2d5-b2c2f487d070",
+      "name": "Fin: No hay mas inmuebles",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "extractionValues": {
+          "values": [
+            {
+              "key": "inmuebles",
+              "cssSelector": ".listingCard",
+              "returnValue": "html",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Extrae todos los inmuebles de una página",
+      "type": "n8n-nodes-base.htmlExtract",
+      "position": [
+        -1000,
+        200
+      ],
+      "typeVersion": 1,
+      "id": "4954587f-ad60-4305-8a53-afbac54c6e38"
+    },
+    {
+      "parameters": {
+        "url": "=http://api.scraperapi.com?api_key=d8e6c1a368047c73389a926370a4695c&url={{ $json.url }}",
+        "options": {}
+      },
+      "id": "034d2a41-053f-4c86-8047-178f42848c54",
+      "name": "Obtiene el html de cada url de inmueble",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "extractionValues": {
+          "values": [
+            {
+              "key": "tipo_de_inmueble",
+              "cssSelector": ".technical-sheet .ant-row-space-between:has(span:contains(\"Tipo de Inmueble\")) strong"
+            },
+            {
+              "key": "Precio",
+              "cssSelector": ".ant-typography.price.heading.heading-3.high strong"
+            },
+            {
+              "key": "estrato",
+              "cssSelector": ".technical-sheet .ant-row-space-between:has(span:contains(\"Estrato\")) strong"
+            },
+            {
+              "key": "numero_baños",
+              "cssSelector": ".technical-sheet .ant-row-space-between:has(span:contains(\"Baños\")) strong"
+            },
+            {
+              "key": "Area",
+              "cssSelector": ".technical-sheet .ant-row-space-between:has(span:contains(\"Área Construida\")) strong"
+            },
+            {
+              "key": "Numero_de_Parqueaderos",
+              "cssSelector": ".technical-sheet .ant-row-space-between:has(span:contains(\"Parqueaderos\")) strong"
+            },
+            {
+              "key": "Numero_de_Habitaciones",
+              "cssSelector": ".technical-sheet .ant-row-space-between:has(span:contains(\"Habitaciones\")) strong"
+            },
+            {
+              "key": "codigo_inmueble",
+              "cssSelector": "span[style*=\"color:#456787\"]"
+            },
+            {
+              "key": "Ubicación",
+              "cssSelector": ".location-header p.body-regular"
+            },
+            {
+              "key": "Administracion",
+              "cssSelector": ".technical-sheet .ant-row-space-between:has(span:contains(\"Administración\")) strong"
+            },
+            {
+              "key": "Piso",
+              "cssSelector": ".technical-sheet .ant-row-space-between:has(span:contains(\"Piso N°\")) strong"
+            },
+            {
+              "key": "fecha_publicacion",
+              "cssSelector": "span.ant-typography.ant-typography-secondary[style*=\"font-size:13px\"]"
+            },
+            {
+              "key": "descripcion_del_imueble",
+              "cssSelector": ".property-description.body.body-regular.body-1.high"
+            },
+            {
+              "key": "comodidades",
+              "cssSelector": "<div class=\"ant-col ant-col-24\" style=\"padding-top: 8px; padding-bottom: 8px;\"><h4 class=\"subhead subhead-semibold high\">Comodidades de la propiedad</h4><div class=\"ant-row\" style=\"margin: -2px -2px 2px;\"><div class=\"ant-col ant-col-8\" style=\"padding: 2px;\"><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Balcón</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Baño Auxiliar</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Calentador</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Canchas Deportivas</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Circuito cerrado de TV</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Citófono</span></div></div></div></div><div class=\"ant-col ant-col-11\" style=\"padding: 2px;\"><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Piscina</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Piso en Baldosa /  Mármol</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Portería / Recepción</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Salón Comunal</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Sobre vía principal</span></div></div></div><div class=\"ant-row\"><div class=\"ant-space ant-space-horizontal ant-space-align-center CO-facility-batch\"><div class=\"ant-space-item\" style=\"margin-right: 5px;\"><span class=\"ant-typography ant-typography-secondary small\">•</span></div><div class=\"ant-space-item\"><span class=\"ant-typography\">Supermercados / C.Comerciales</span></div></div></div></div></div><a class=\"toggle-visibility\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"17\" fill=\"none\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M22.03 2.339c.413.438.4 1.135-.031 1.557l-4.235 4.14c-.048.058-.1.11-.157.155l-2.273 2.222a1.12 1.12 0 0 1-.359.351l-4.978 4.869a1.091 1.091 0 0 1-.36.351l-2.423 2.37c-.105.18-.251.319-.42.41L3.8 21.695a1.067 1.067 0 0 1-1.528-.033 1.116 1.116 0 0 1 .031-1.557l2.196-2.147a20.613 20.613 0 0 1-3.803-3.38A2.761 2.761 0 0 1 0 12.741c0-.68.249-1.335.697-1.838 1.341-1.507 3.085-2.996 5.019-4.105 1.927-1.106 4.106-1.87 6.299-1.833 1.625.018 3.227.37 4.711 1.033l3.776-3.692a1.067 1.067 0 0 1 1.528.032Zm-7.025 5.343-.747.73a4.743 4.743 0 0 0-2.378-.504 4.775 4.775 0 0 0-3.097 1.361 4.945 4.945 0 0 0-1.462 3.097 4.99 4.99 0 0 0 .398 2.441l-1.62 1.585a18.424 18.424 0 0 1-3.796-3.287l-.006-.007a.536.536 0 0 1 0-.713l.002-.001C3.5 11.033 5.066 9.699 6.777 8.718c1.717-.985 3.516-1.58 5.204-1.55h.008a9.732 9.732 0 0 1 3.016.514Zm-2.505 2.45-3.022 2.955a2.726 2.726 0 0 1 .803-2.23 2.632 2.632 0 0 1 2.219-.725Zm6.148-1.865a1.068 1.068 0 0 1 1.51-.242 20.686 20.686 0 0 1 3.146 2.88c.448.503.696 1.158.696 1.837s-.248 1.334-.697 1.837c-2.564 2.887-6.873 6.01-11.31 5.938a10.521 10.521 0 0 1-3.227-.495 1.105 1.105 0 0 1-.71-1.38c.178-.58.784-.904 1.354-.723.837.267 1.709.4 2.585.395h.024c3.517.062 7.278-2.507 9.682-5.214l.002-.002a.536.536 0 0 0 0-.713l-.002-.002a18.512 18.512 0 0 0-2.815-2.578 1.115 1.115 0 0 1-.238-1.538Zm-1.927 4.475c0-.609-.484-1.102-1.081-1.102s-1.081.493-1.081 1.102c0 .342-.066.68-.195.997a2.61 2.61 0 0 1-.555.846c-.237.242-.52.434-.83.565-.31.13-.643.198-.979.198-.597 0-1.081.493-1.081 1.101 0 .609.484 1.102 1.081 1.102.62 0 1.234-.125 1.807-.366a4.718 4.718 0 0 0 1.531-1.043 4.817 4.817 0 0 0 1.024-1.56c.237-.584.359-1.209.359-1.84Z\" clip-rule=\"evenodd\"></path></svg><span>Ver más</span></a></div>"
+            },
+            {
+              "key": "vendedor",
+              "cssSelector": "span.owner-name[title]"
+            },
+            {
+              "key": "ubicacion_principal",
+              "cssSelector": "div.location-header div.ant-col:first-child p.body-regular"
+            },
+            {
+              "key": "ubicaciones_asociadas",
+              "cssSelector": "div.location-header div.ant-col:last-child p.body-regular"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Extrae Datos del Inmueble",
+      "type": "n8n-nodes-base.htmlExtract",
+      "position": [
+        40,
+        260
+      ],
+      "typeVersion": 1,
+      "id": "34f3bc75-de74-4c41-96f7-2ff35995ad7e"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Funciones de procesamiento\nconst procesarPrecio = (precio) => {\n  if (!precio) return precio;\n  return parseInt(precio.replace(/[^\\d]/g, ''));\n};\n\nconst procesarArea = (area) => {\n  if (!area) return area;\n  const match = area.match(/[\\d.]+/);\n  if (!match) return area;\n  return parseFloat(parseFloat(match[0]).toFixed(1));\n};\n\nconst procesarAdministracion = (admin) => {\n  if (!admin) return admin;\n  const numero = admin.replace(/,/g, '');\n  return parseInt(numero);\n};\n\nconst procesarCodigo = (codigo) => {\n  if (!codigo) return codigo;\n  const match = codigo.split(':')[1];\n  return match ? match.trim() : codigo;\n};\n\nconst procesarFecha = (fechaStr) => {\n  if (!fechaStr) return fechaStr;\n  const match = fechaStr.match(/(\\d{1,2})\\s+de\\s+(\\w+)\\s+de\\s+(\\d{4})/);\n  if (!match) return fechaStr;\n  \n  const meses = {\n    'enero': '01', 'febrero': '02', 'marzo': '03', 'abril': '04',\n    'mayo': '05', 'junio': '06', 'julio': '07', 'agosto': '08',\n    'septiembre': '09', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n  };\n  \n  const dia = match[1].padStart(2, '0');\n  const mes = meses[match[2].toLowerCase()];\n  const año = match[3];\n  \n  return `${año}/${mes}/${dia}`;\n};\n\nconst procesarEntero = (valor) => {\n  if (!valor) return 0;\n  return parseInt(valor) || 0;\n};\n\n// Mapeo de campos a sus funciones de procesamiento\nconst procesadores = {\n  'tipo_de_inmueble': (val) => val ? val.toLowerCase() : val,\n  'Precio': procesarPrecio,\n  'estrato': procesarEntero,\n  'numero_baños': procesarEntero,\n  'Area': procesarArea,\n  'Numero_de_Parqueaderos': procesarEntero,\n  'Numero_de_Habitaciones': procesarEntero,\n  'codigo_inmueble': procesarCodigo,\n  'Administracion': procesarAdministracion,\n  'Piso': procesarEntero,\n  'fecha_publicacion': procesarFecha\n};\n\n// Función principal de procesamiento\nconst procesarDatosInmuebles = (item) => {\n  // Creamos un nuevo objeto con todas las propiedades originales\n  const resultado = { ...item };\n  \n  // Aplicamos los procesadores solo a los campos definidos\n  Object.keys(procesadores).forEach(campo => {\n    if (campo in item) {\n      resultado[campo] = procesadores[campo](item[campo]);\n    }\n  });\n  \n  return resultado;\n};\n\n// Procesar los datos\nreturn items.map(item => ({\n  json: procesarDatosInmuebles(item.json)\n}));"
+      },
+      "id": "8f6a0713-fd25-4acd-bc0f-4e59fc7c0ea6",
+      "name": "Formato a los campos",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener los datos de entrada\nconst inputData = $input.all();\n\n// Transformar los datos para incluir URL y código extraído\nconst outputData = inputData.map(item => {\n    const url = item.json.url; // Obtener la URL\n    const match = url.match(/(\\d+)$/); // Buscar el número al final\n    return {\n        url: url, // Mantener la URL original\n        code: match ? match[0] : null, // Extraer el número si existe\n    };\n});\n\n// Retornar los datos procesados\nreturn outputData;\n"
+      },
+      "id": "3058847f-8068-45be-bd2c-9a22d131b2d4",
+      "name": "Obtiene la url + id de cada inmueble",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        180,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "=Descripción detallada:Este inmueble es un/una {{ $json.tipo_de_inmueble }}, en {{ $('Set Variables Iniciales').item.json.venta_renta }} y el precio está en {{ $json.Precio }}, está ubicado en {{ $json['Ubicación'] }}, está en estrato {{ $json.estrato }}, tiene un área de {{ $json.Area }} metros cuadrados, cuenta con {{ $json.Numero_de_Habitaciones }} habitaciones, {{ $json['numero_baños'] }} baño(s), {{ $json.Numero_de_Parqueaderos }} parqueaderos,está en el piso {{ $json.Piso }} y maneja una administración de {{ $json.Administracion }} pesos.\n\nEste inmueble está en la ciudad de:{{ $json.ciudad }} y en el barrio:{{ $json.barrio }}. Está en la Zona:{{ $json.zona }}, comuna {{ $json.comuna }}\n\n{{ $json.comodidades }}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "fuente",
+                "value": "=fr-{{ $('Set Variables Iniciales').item.json.venta_renta }}-royal"
+              },
+              {
+                "name": "precio",
+                "value": "={{ $json.Precio }}"
+              },
+              {
+                "name": "url",
+                "value": "={{ $json.url }}"
+              },
+              {
+                "name": "estado",
+                "value": "activo"
+              },
+              {
+                "name": "tipo_de_inmueble",
+                "value": "={{ $json.tipo_de_inmueble }}"
+              },
+              {
+                "name": "estrato",
+                "value": "={{ $json.estrato }}"
+              },
+              {
+                "name": "numero_de_baños",
+                "value": "={{ $json['numero_baños'] }}"
+              },
+              {
+                "name": "area",
+                "value": "={{ $json.Area }}"
+              },
+              {
+                "name": "numero_de_parqueaderos",
+                "value": "={{ $json.Numero_de_Parqueaderos }}"
+              },
+              {
+                "name": "numero_de_habitaciones",
+                "value": "={{ $json.Numero_de_Habitaciones }}"
+              },
+              {
+                "name": "codigo_del_inmueble",
+                "value": "={{ $json.codigo_inmueble }}"
+              },
+              {
+                "name": "ubicacion",
+                "value": "={{ $json['Ubicación'] }}"
+              },
+              {
+                "name": "administracion",
+                "value": "={{ $json.Administracion }}"
+              },
+              {
+                "name": "piso",
+                "value": "={{ $json.Piso }}"
+              },
+              {
+                "name": "fecha_de_publicacion",
+                "value": "={{ $json.fecha_publicacion }}"
+              },
+              {
+                "name": "comodidades_adicionales",
+                "value": "={{ $json.comodidades }}"
+              },
+              {
+                "name": "valor_metro_cuadrado",
+                "value": "={{ $json.Precio / $json.Area }}"
+              },
+              {
+                "name": "vendedor",
+                "value": "={{ $json.vendedor }}"
+              },
+              {
+                "name": "inmueble_para",
+                "value": "={{ $('Set Variables Iniciales').item.json.venta_renta }}"
+              },
+              {
+                "name": "corrida",
+                "value": "={{ $('Set Variables Iniciales').item.json.corrida }}"
+              },
+              {
+                "name": "descripcion",
+                "value": "={{ $json.descripcion_del_imueble }}"
+              },
+              {
+                "name": "barrio",
+                "value": "={{ $json.barrio }}"
+              },
+              {
+                "name": "ciudad",
+                "value": "={{ $json.ciudad }}"
+              },
+              {
+                "name": "zona",
+                "value": "={{ $json.zona }}"
+              },
+              {
+                "name": "comuna",
+                "value": "={{ $json.comuna }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "0afc7193-9b5f-40ac-8a3f-dc640867040e",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        900
+      ]
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-small",
+        "options": {}
+      },
+      "id": "cb1af040-ebb8-48a4-b01a-293b6fbbfdbe",
+      "name": "Embeddings OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1,
+      "position": [
+        -380,
+        900
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chunkSize": 2000
+      },
+      "id": "228e4537-330e-4abd-9db6-b09467697110",
+      "name": "Token Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterTokenSplitter",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        1080
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e52cc398-9d5d-4d3a-a2fb-9e1824309e44",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -1620,
+        860
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función para procesar las ubicaciones\nconst procesarUbicaciones = (item) => {\n  // Hacemos una copia del item original\n  const resultado = { ...item };\n  \n  // Verificamos si existe ubicacion_principal\n  if (!item?.ubicacion_principal) {\n    // Si no existe, establecemos valores por defecto\n    resultado.barrio = '';\n    resultado.ciudad = '';\n    resultado.departamento = '';\n    console.log(`No se encontró ubicacion_principal en el item`);\n    return resultado;\n  }\n  \n  // Separamos la ubicación principal por comas\n  const ubicacionParts = item.ubicacion_principal.split(',').map(part => part.trim());\n  \n  // Determinamos los campos según el número de partes\n  if (ubicacionParts.length === 2) {\n    // Si solo hay dos partes (ciudad, departamento)\n    resultado.ciudad = ubicacionParts[0];\n    resultado.departamento = ubicacionParts[1];\n    resultado.barrio = ubicacionParts[0]; // El barrio será igual a la ciudad\n  } else if (ubicacionParts.length === 3) {\n    // Si hay tres partes (barrio, ciudad, departamento)\n    resultado.barrio = ubicacionParts[0];\n    resultado.ciudad = ubicacionParts[1];\n    resultado.departamento = ubicacionParts[2];\n  } else {\n    // En caso de un formato inesperado\n    resultado.barrio = '';\n    resultado.ciudad = '';\n    resultado.departamento = '';\n    console.log(`Formato inesperado en ubicacion_principal: ${item.ubicacion_principal}`);\n  }\n  \n  return resultado;\n};\n\n// Código principal para N8N\nreturn items.map(item => ({\n  json: procesarUbicaciones(item.json)\n}));"
+      },
+      "id": "4f16868e-6b3e-48c5-827a-0a9e68752ab0",
+      "name": "Obtiene: Departamento, Ciudad y Barrio",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://lemans_qdrant:6333/collections/barrios/points/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "qdrantApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"query\":[{{ $json.data[0].embedding }}],\n    \"limit\":1\n}",
+        "options": {}
+      },
+      "id": "4845bb6d-9a67-447d-a5e6-17f1f649f435",
+      "name": "Búsqueda del Barrio",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1220,
+        860
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "BN76OoD2c9RtFeu0",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/embeddings",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer $OPENAI_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "input",
+              "value": "={{ $json.barrio }}"
+            },
+            {
+              "name": "model",
+              "value": "text-embedding-3-small"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "161670e2-b1ad-4259-b05d-3f28efd2bf64",
+      "name": "Vectoriza - Barrio",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1420,
+        860
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://lemans_qdrant:6333/collections/barrios/points",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "qdrantApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"ids\": [\"{{ $json.result.points[0].id }}\"],\n    \"with_payload\":true\n}",
+        "options": {}
+      },
+      "id": "9c574abc-4437-4322-8a64-0ccd7832822f",
+      "name": "Retrieve: Info del Barrio",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1000,
+        860
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "BN76OoD2c9RtFeu0",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d306610f-6287-41d9-b12d-2730279a71e3",
+              "name": "barrio",
+              "value": "={{ $json.result[0].payload.content }}",
+              "type": "string"
+            },
+            {
+              "id": "0cf5862d-c3db-4de3-bcca-113271a268e7",
+              "name": "zona",
+              "value": "={{ $json.result[0].payload.metadata.zona }}",
+              "type": "string"
+            },
+            {
+              "id": "00e0f39b-0735-4e0f-a0c3-f63712a44b73",
+              "name": "comuna",
+              "value": "={{ $json.result[0].payload.metadata.comuna }}",
+              "type": "string"
+            },
+            {
+              "id": "a3b2256f-97e3-47ed-a4b9-e3d1174b70f0",
+              "name": "latitud",
+              "value": "={{ $json.result[0].payload.metadata.latitud }}",
+              "type": "string"
+            },
+            {
+              "id": "2df64d38-42d6-4605-b141-33cb622aa1ab",
+              "name": "longitud",
+              "value": "={{ $json.result[0].payload.metadata.longitud }}",
+              "type": "string"
+            },
+            {
+              "id": "e6e2e4d0-352d-472a-9b1f-855b12ed0b37",
+              "name": "referentes",
+              "value": "={{ $json.result[0].payload.metadata.referentes }}",
+              "type": "string"
+            },
+            {
+              "id": "119ab039-ec91-4947-9428-157995768a7f",
+              "name": "vias_principales",
+              "value": "={{ $json.result[0].payload.metadata.vias_principales }}",
+              "type": "string"
+            },
+            {
+              "id": "6a1fd675-b896-4c7c-9054-6f880b769b19",
+              "name": "barrios_limitrofes",
+              "value": "={{ $json.result[0].payload.metadata.barrios_limitrofes }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a55628c0-a5b3-4975-94e5-4372466e796d",
+      "name": "Set Información del Barrio",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -800,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "8c491f03-055a-4f94-9cf1-9c7e1f28710c",
+      "name": "Agrega url a cada inmueble",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        700,
+        380
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "dc8ce6d7-4e37-42e8-ac53-08f60b8dc597",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        300,
+        680
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "c7e6e7e7-d622-416d-86e9-f6eb8dbfe835",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1560,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "6d040e84-2d02-4174-899d-097c75bd53e5",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -580,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1ea54497-dc75-4390-9a05-c94d5fcad2b1",
+              "name": "url",
+              "value": "={{ $json.url }}",
+              "type": "string"
+            },
+            {
+              "id": "6c1297b4-4e1a-4f09-828e-585f15e1c123",
+              "name": "url_base",
+              "value": "={{ $json.url_base }}",
+              "type": "string"
+            },
+            {
+              "id": "c1cab029-fe14-4783-aee0-9cf2ede16aba",
+              "name": "corrida",
+              "value": "={{ $json.corrida }}",
+              "type": "number"
+            },
+            {
+              "id": "a1fa3ca6-9845-449e-90e6-b5ac0f7ac29a",
+              "name": "venta_renta",
+              "value": "={{ $json.venta_renta }}",
+              "type": "string"
+            },
+            {
+              "id": "0d8a7b65-2cb6-4ac1-ad53-a8e717a837ce",
+              "name": "contador",
+              "value": "={{ $json.contador }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d52067c4-963e-45fc-85c4-c1aea9aa8b90",
+      "name": "Set Variables Iniciales",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1360,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "inmuebles",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "ca63a5bc-ea4b-4e6b-92eb-bd06d68e9f98",
+      "name": "inmuebles",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "position": [
+        -360,
+        680
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "qdrantApi": {
+          "id": "BN76OoD2c9RtFeu0",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "=5821474261",
+        "text": "=Pasada: # {{ $('Set Variables Iniciales').item.json.contador }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "261aee9f-58c0-439e-a55d-36cb17603a72",
+      "name": "Confirma Pasada x 21",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        680
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "IaDHMcNaJ5yYrAbM",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Limit": [
+      {
+        "json": {
+          "url": "https://www.fincaraiz.com.co/apartamento-en-venta/191399875",
+          "code": "191399875",
+          "tipo_de_inmueble": "apartamento",
+          "Precio": 950000000,
+          "estrato": 4,
+          "numero_baños": 3,
+          "Area": 320,
+          "Numero_de_Parqueaderos": 2,
+          "Numero_de_Habitaciones": 3,
+          "codigo_inmueble": "191399875",
+          "Ubicación": "Tequendama, Cali, Valle del caucaLos cambulos, Tequendama, Comuna 19, Cali",
+          "Administracion": "",
+          "Piso": 18,
+          "fecha_publicacion": "2024/09/16",
+          "descripcion_del_imueble": "Este Penthouse está situado en el corazón de Cali,   dónde llegarás a tan solo minutos al sur, Norte, oeste y centro de la ciudad\n\ndescubre el lujo elevado en nuestro penthouse donde podrás disfrutar de una vista a todo Cali\n\nPor lo que trata su particularidad este apartamento mide 320 metros cuadrados cuenta con tres habitaciones tres baños dos garajes y un depósito.\n\nadicionalmente podrás disfrutar de una terraza de 50 metros cuadrados que estoy segura le encantará.\n\n\n\nSC",
+          "comodidades": "Comodidades de la propiedad•Balcón•Baño Auxiliar•Calentador•Canchas Deportivas•Circuito cerrado de TV•Citófono•Piscina•Piso en Baldosa /  Mármol•Portería / Recepción•Salón Comunal•Sobre vía principal•Supermercados / C.ComercialesVer más",
+          "vendedor": "Royal Inmuebles",
+          "ubicacion_principal": "Tequendama, Cali, Valle del cauca",
+          "ubicaciones_asociadas": "Los cambulos, Tequendama, Comuna 19, Cali",
+          "barrio": "Tequendama",
+          "ciudad": "Cali",
+          "departamento": "Valle del cauca"
+        }
+      }
+    ],
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "url": "https://www.fincaraiz.com.co/inmobiliaria-royal-inmuebles-174765234/venta/inmuebles/pagina20",
+          "url_base": "https://www.fincaraiz.com.co",
+          "corrida": 116,
+          "venta_renta": "venta",
+          "contador": 20
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-02-12T23:41:33.780Z",
+      "updatedAt": "2025-02-12T23:41:33.780Z",
+      "id": "qYIadOkTsnVUBYKT",
+      "name": "IA"
+    },
+    {
+      "createdAt": "2025-02-12T23:41:33.781Z",
+      "updatedAt": "2025-02-12T23:41:33.781Z",
+      "id": "AZMlcSdVtjlECI0J",
+      "name": "búsqueda de inmuebles"
+    },
+    {
+      "createdAt": "2025-02-12T23:43:44.492Z",
+      "updatedAt": "2025-02-12T23:43:44.492Z",
+      "id": "dh30C7fuTVyn5HNd",
+      "name": "desarrollo"
+    },
+    {
+      "createdAt": "2025-02-12T23:41:34.015Z",
+      "updatedAt": "2025-02-12T23:41:34.015Z",
+      "id": "gZzvGBR2b9vE3w6i",
+      "name": "especifico"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-02-24T13:46:12.948Z",
+  "versionId": "3b12378f-21e9-4ed5-a40b-0701df31dce8"
+}
