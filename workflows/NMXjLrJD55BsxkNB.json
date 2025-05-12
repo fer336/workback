@@ -1,0 +1,370 @@
+{
+  "active": false,
+  "connections": {
+    "Variables": {
+      "main": [
+        [
+          {
+            "node": "Get clientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Actualizar cliente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "noResponse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos": {
+      "main": [
+        [
+          {
+            "node": "Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar cliente": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get clientes": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-11T06:03:44.753Z",
+  "id": "NMXjLrJD55BsxkNB",
+  "meta": null,
+  "name": "UPDATE - Datos personales",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d8f5eb25-6872-41cc-94ae-80275636cfbc",
+              "name": "nombre_real",
+              "value": "={{ $json.query.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "1363eefb-3557-4dbb-92c2-cd61a4d90524",
+              "name": "telefono",
+              "value": "={{ $json.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "127a43ca-3f67-4283-8625-bf483e0f3329",
+              "name": "Id",
+              "value": "={{ $json.Id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        -40
+      ],
+      "id": "985f0864-703d-40e9-84df-1e7db471ea11",
+      "name": "Variables"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4488a487-cf78-43cf-83eb-0e7ae9aa4d2e",
+              "leftValue": "={{ $json.list }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -440,
+        -40
+      ],
+      "id": "84f5b870-2db2-4d5d-a8df-e24354103739",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "17b74d7c-6c80-46b9-a37e-4ddf79b94508",
+              "name": "response",
+              "value": "=campo actualizado",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -140
+      ],
+      "id": "f5e11cd5-4070-4c76-9264-07ab7f73c8e2",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "17b74d7c-6c80-46b9-a37e-4ddf79b94508",
+              "name": "response",
+              "value": "no se actualizo ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -220,
+        60
+      ],
+      "id": "29b22a08-6deb-4558-9c65-a36f96c22291",
+      "name": "noResponse"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "nombre"
+            },
+            {
+              "name": "telefono"
+            },
+            {
+              "name": "correo"
+            },
+            {
+              "name": "Id"
+            },
+            {
+              "name": "table",
+              "type": "any"
+            },
+            {
+              "name": "server"
+            },
+            {
+              "name": "viewId"
+            },
+            {
+              "name": "tipoCliente"
+            }
+          ]
+        }
+      },
+      "id": "d9169706-cac5-4bac-9ddc-559c5a7f093b",
+      "typeVersion": 1.1,
+      "name": "Datos",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -1100,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{$node[\"Datos\"].json.server}}/api/v2/tables/{{ $node[\"Datos\"].json.table}}/records",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "xc-token",
+              "value": "dvtjLmSgOqZu95Po8dX_v9bHOE2IhATKFDmvDxTN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Id",
+              "value": "={{ $('Get clientes').item.json.list[0].Id }}"
+            },
+            {
+              "name": "Telefono",
+              "value": "={{ $node[\"Datos\"].json.telefono }}"
+            },
+            {
+              "name": "Nombre",
+              "value": "={{ $node[\"Datos\"].json.nombre}}"
+            },
+            {
+              "name": "Correo",
+              "value": "={{ $node[\"Datos\"].json.correo}}"
+            },
+            {
+              "name": "tipoCliente",
+              "value": "={{ $('Datos').item.json.tipoCliente }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -220,
+        -140
+      ],
+      "id": "f0cf1cea-8813-48cd-aed1-7d778c2ea3ac",
+      "name": "Actualizar cliente"
+    },
+    {
+      "parameters": {
+        "url": "={{ $node[\"Datos\"].json.server}}/api/v2/tables/{{ $node[\"Datos\"].json.table }}/records",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            },
+            {
+              "name": "shuffle",
+              "value": "0"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            },
+            {
+              "name": "where",
+              "value": "=(Id,eq,{{ $json.Id }})"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "xc-token",
+              "value": "dvtjLmSgOqZu95Po8dX_v9bHOE2IhATKFDmvDxTN"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -660,
+        -40
+      ],
+      "id": "72b4ccae-a1a4-4300-ad6f-1ea72bebb351",
+      "name": "Get clientes"
+    },
+    {
+      "parameters": {
+        "content": "## Actualizar nombre real y correo electronico",
+        "height": 240,
+        "width": 520,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -300,
+        -220
+      ],
+      "typeVersion": 1,
+      "id": "da17d2c8-97e8-4970-a878-9258199adacc",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {
+    "Datos": [
+      {
+        "json": {
+          "nombre": "Fernando",
+          "telefono": "5492254423359",
+          "correo": "qeva.ai.solutions@gmail.com",
+          "Id": 30,
+          "table": "m65ab1wqt3e0skg",
+          "server": "https://db.innovasoftpro.dev",
+          "viewId": "vw6xjes92bviyo83",
+          "tipoCliente": "Particular"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-03T13:44:34.719Z",
+  "versionId": "47171dd7-2a6e-40ac-b20f-01e2477f5eb5"
+}
