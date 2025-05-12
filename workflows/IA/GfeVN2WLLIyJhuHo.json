@@ -1,0 +1,635 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Vectoriza - Positive Requirement",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Vectoriza - Negative Requirement",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Búsqueda": {
+      "main": [
+        [
+          {
+            "node": "Retrieve Points",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve Points": {
+      "main": [
+        [
+          {
+            "node": "Convertir en Tabla",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convertir en Tabla": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Fin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectoriza - Positive Requirement": {
+      "main": [
+        [
+          {
+            "node": "Obtiene Embedding Positive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectoriza - Negative Requirement": {
+      "main": [
+        [
+          {
+            "node": "Obtiene Embedding Negative",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtiene Embedding Positive": {
+      "main": [
+        [
+          {
+            "node": "Une Positive + Negative",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtiene Embedding Negative": {
+      "main": [
+        [
+          {
+            "node": "Une Positive + Negative",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Une Positive + Negative": {
+      "main": [
+        [
+          {
+            "node": "Búsqueda",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-12T23:42:06.449Z",
+  "id": "GfeVN2WLLIyJhuHo",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "VECTORIZAR",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7772d63d-fc4e-4432-8f76-08696ac07f2e",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -940,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://lemans_qdrant:6333/collections/inmuebles/points",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "qdrantApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"ids\": [\"{{ $json.result.points[0].id }}\", \"{{ $json.result.points[1].id }}\", \"{{ $json.result.points[2].id }}\"],\n \"with_payload\":true\n}",
+        "options": {}
+      },
+      "id": "972abf37-3d46-450f-828e-5044c41b0a9f",
+      "name": "Retrieve Points",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        340,
+        20
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "BN76OoD2c9RtFeu0",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://lemans_qdrant:6333/collections/inmuebles/points/query",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "qdrantApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"query\": {\n    \"recommend\": {\n      \"positive\": [[{{ $json.positive_example }}]],\n      \"negative\": [[{{ $json.negative_example }}]],\n      \"strategy\": \"average_vector\"\n    }\n  },\n  \"limit\":3\n}",
+        "options": {}
+      },
+      "id": "910f34ae-59d7-47e6-a868-968d6ba15198",
+      "name": "Búsqueda",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        80,
+        20
+      ],
+      "credentials": {
+        "qdrantApi": {
+          "id": "BN76OoD2c9RtFeu0",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "result",
+        "options": {}
+      },
+      "id": "74b4941c-af08-4a1a-b16b-4d82c5c97910",
+      "name": "Convertir en Tabla",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        540,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "result.points",
+        "options": {}
+      },
+      "id": "d2d8c8c2-8dcb-4d3f-b0e1-38402e5703b3",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        340,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7ee40094-16c3-4bba-baf2-ebcf5c639140",
+              "name": "puntuación_de_la_recomendación",
+              "value": "={{ $json.score *100 }}",
+              "type": "number"
+            },
+            {
+              "id": "722aaa87-3e43-427c-aef4-39925426e015",
+              "name": "descripción",
+              "value": "={{ $json.payload.metadata.descripcion }}",
+              "type": "string"
+            },
+            {
+              "id": "d351143f-4ec6-44ab-8a30-4d762e4eae0c",
+              "name": "comodidades_adicionales",
+              "value": "={{ $json.payload.metadata.comodidades_adicionales }}",
+              "type": "string"
+            },
+            {
+              "id": "aaf921b2-6860-463c-861d-8f05e5374912",
+              "name": "precio",
+              "value": "={{ $json.payload.metadata.precio }}",
+              "type": "number"
+            },
+            {
+              "id": "798de5e5-6a15-455e-bf92-9d871e8b394c",
+              "name": "url",
+              "value": "={{ $json.payload.metadata.url }}",
+              "type": "string"
+            },
+            {
+              "id": "8af0895a-a595-47ce-acb2-f8636eee0d19",
+              "name": "tipo_de_inmueble",
+              "value": "={{ $json.payload.metadata.tipo_de_inmueble }}",
+              "type": "string"
+            },
+            {
+              "id": "657d09a5-e08e-435e-9bd3-dc6fbefef6ec",
+              "name": "estrato",
+              "value": "={{ $json.payload.metadata.estrato }}",
+              "type": "number"
+            },
+            {
+              "id": "5e935590-09c2-4a10-8b42-99e665991b9f",
+              "name": "numero_de_baños",
+              "value": "={{ $json.payload.metadata['numero_de_baños'] }}",
+              "type": "number"
+            },
+            {
+              "id": "e4bd9953-8466-4864-b5bc-886780e9bd6a",
+              "name": "area",
+              "value": "={{ $json.payload.metadata.area }}",
+              "type": "number"
+            },
+            {
+              "id": "30b980df-16b9-404a-ac41-55399cc308c1",
+              "name": "numero_de_parqueaderos",
+              "value": "={{ $json.payload.metadata.numero_de_parqueaderos }}",
+              "type": "number"
+            },
+            {
+              "id": "1c9bf218-6e64-4b99-b68c-7ca406bde84f",
+              "name": "numero_de_habitaciones",
+              "value": "={{ $json.payload.metadata.numero_de_habitaciones }}",
+              "type": "number"
+            },
+            {
+              "id": "0be023e5-9976-4cbc-9d4d-3026849d1fe9",
+              "name": "codigo_del_inmueble",
+              "value": "={{ $json.payload.metadata.codigo_del_inmueble }}",
+              "type": "string"
+            },
+            {
+              "id": "9023f5f3-73fd-4606-9482-678870bc768b",
+              "name": "ubicacion",
+              "value": "={{ $json.payload.metadata.ubicacion }}",
+              "type": "string"
+            },
+            {
+              "id": "7b97c07f-992f-4dec-af1b-eafaec47677d",
+              "name": "administracion",
+              "value": "={{ $json.payload.metadata.administracion }}",
+              "type": "number"
+            },
+            {
+              "id": "783ca393-899a-4cba-b9d5-ccb039853a91",
+              "name": "piso",
+              "value": "={{ $json.payload.metadata.piso }}",
+              "type": "number"
+            },
+            {
+              "id": "1bf350ca-2c26-48e5-bf39-be83d5181105",
+              "name": "fecha_de_publicacion",
+              "value": "={{ $json.payload.metadata.fecha_de_publicacion }}",
+              "type": "string"
+            },
+            {
+              "id": "a9614414-3db4-4bd6-a4b8-13dfcec8da7e",
+              "name": "valor_metro_cuadrado",
+              "value": "={{ $json.payload.metadata.valor_metro_cuadrado }}",
+              "type": "number"
+            },
+            {
+              "id": "e8aa86af-d6e5-4504-854c-d4542c229f99",
+              "name": "inmueble_para",
+              "value": "={{ $json.payload.metadata.inmueble_para }}",
+              "type": "string"
+            },
+            {
+              "id": "d223d838-bc7b-46b5-9323-f79e55d3dc72",
+              "name": "vendedor",
+              "value": "={{ $json.payload.metadata.vendedor }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "398e7d33-0dd2-42fb-8b62-edb0d42d36bd",
+      "name": "Edit Fields2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1020,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "response",
+        "options": {}
+      },
+      "id": "10ea79fd-a004-4e4d-863c-67204ca28fdf",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "fieldsToMatchString": "id",
+        "options": {}
+      },
+      "id": "f3f3db42-daec-4729-9b94-7550f2fb265b",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        800,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "03d631a4-e5d2-41a6-adb2-d91558ba841b",
+      "name": "Fin",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/embeddings",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer $OPENAI_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "input",
+              "value": "={{ $json.query.properties.positive_example.description }}"
+            },
+            {
+              "name": "model",
+              "value": "text-embedding-3-small"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d2efe7ce-29bf-4dd4-8128-ad8e20a4a829",
+      "name": "Vectoriza - Positive Requirement",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -640,
+        -60
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/embeddings",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer $OPENAI_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "input",
+              "value": "={{ $json.query.properties.negative_example.description }}"
+            },
+            {
+              "name": "model",
+              "value": "text-embedding-3-small"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1e1f6b25-7647-4a07-9d5e-26e3dc59f98a",
+      "name": "Vectoriza - Negative Requirement",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -640,
+        160
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8bb89bc5-c0a4-4fb0-bd20-0b554ff3a5c7",
+              "name": "positive_example",
+              "value": "={{ $json.data[0].embedding }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1e3a46ae-3e99-4e5a-962d-ebf6350ef37d",
+      "name": "Obtiene Embedding Positive",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -460,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8bb89bc5-c0a4-4fb0-bd20-0b554ff3a5c7",
+              "name": "negative_example",
+              "value": "={{ $json.data[0].embedding }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "492e6e05-0086-4309-a154-fe6dbda13230",
+      "name": "Obtiene Embedding Negative",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -440,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "91b76941-550c-4843-acd7-e8aceb4458fd",
+      "name": "Une Positive + Negative",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -160,
+        20
+      ]
+    }
+  ],
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "query": {
+            "type": "venta",
+            "properties": {
+              "positive_example": {
+                "type": "string",
+                "description": "Busco apartamento PARA compra en Cali, al norte, con 1 habitación, 2 baños, 1 parqueadero y precio hasta $230.000.000."
+              },
+              "negative_example": {
+                "type": "string",
+                "description": "No deseo alquilar."
+              }
+            }
+          },
+          "": ""
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-02-12T23:41:33.780Z",
+      "updatedAt": "2025-02-12T23:41:33.780Z",
+      "id": "qYIadOkTsnVUBYKT",
+      "name": "IA"
+    },
+    {
+      "createdAt": "2025-02-12T23:41:33.781Z",
+      "updatedAt": "2025-02-12T23:41:33.781Z",
+      "id": "AZMlcSdVtjlECI0J",
+      "name": "búsqueda de inmuebles"
+    },
+    {
+      "createdAt": "2025-02-12T23:41:33.782Z",
+      "updatedAt": "2025-02-12T23:41:33.782Z",
+      "id": "sh3umaXRr1kyrT1L",
+      "name": "produccion"
+    },
+    {
+      "createdAt": "2025-02-12T23:41:34.015Z",
+      "updatedAt": "2025-02-12T23:41:34.015Z",
+      "id": "gZzvGBR2b9vE3w6i",
+      "name": "especifico"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-02-12T23:42:56.835Z",
+  "versionId": "d22edbc0-5006-4d70-8962-e8a8aa87fa2b"
+}
