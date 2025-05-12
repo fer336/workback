@@ -1,0 +1,269 @@
+{
+  "active": false,
+  "connections": {
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Token Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-12-15T22:06:01.264Z",
+  "id": "tKRnUc7pwgycE3jx",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "ProyectX-BDV",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "propiedades",
+          "mode": "list",
+          "cachedResultName": "propiedades"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "785b4211-86d6-4f62-903b-2c63f0de77cf",
+      "name": "Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -300,
+        880
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "MpYgbampKrJaRplK",
+          "name": "Inmobiliaria"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "c067a8b2-90c3-4d6c-b0ba-eacefad4a5fd",
+      "name": "Embeddings OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        1100
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.direccion }}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "=id",
+                "value": "={{ $('Extract from File').item.json['﻿id'] }}"
+              },
+              {
+                "name": "direccion",
+                "value": "={{ $json.direccion }}"
+              },
+              {
+                "name": "caracteristicas",
+                "value": "={{ $json.caracteristicas }}"
+              },
+              {
+                "name": "ambientes",
+                "value": "={{ $json.ambientes }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "cc12b0ec-829e-468e-95bf-37ca382f6de8",
+      "name": "Default Data Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        660,
+        1080
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "2fa946fb-d8eb-4a7b-afc1-91b7f367e55d",
+      "name": "Convert to File",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -40,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "606645ee-c1bf-46e3-a984-271d7f3abc8a",
+      "name": "Extract from File",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        200,
+        880
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "0d9421e0-7d1b-4274-8b6a-c06c334ac340",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        880
+      ]
+    },
+    {
+      "parameters": {
+        "chunkOverlap": {}
+      },
+      "id": "75de8839-95f7-446a-b58c-3e4b7749ec62",
+      "name": "Token Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterTokenSplitter",
+      "typeVersion": 1,
+      "position": [
+        540,
+        1220
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "propiedades",
+          "mode": "list",
+          "cachedResultName": "propiedades"
+        },
+        "options": {}
+      },
+      "id": "f09d2e24-d9f7-4596-bc0f-d130a9405cce",
+      "name": "Pinecone Vector Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1,
+      "position": [
+        420,
+        880
+      ],
+      "credentials": {
+        "pineconeApi": {
+          "id": "k4J7Lm1UthYMNmM6",
+          "name": "PineconeApi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-12-15T22:15:54.367Z",
+      "updatedAt": "2024-12-15T22:15:54.367Z",
+      "id": "vjWA7BYiVNyOJAKt",
+      "name": "Inventario"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2024-12-24T16:59:46.233Z",
+  "versionId": "44f52f95-794c-4ef1-9cb3-4915dedd6e6a"
+}
