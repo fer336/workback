@@ -1,0 +1,227 @@
+{
+  "active": false,
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Borrar codigo propiedad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Borrar codigo propiedad": {
+      "main": [
+        [
+          {
+            "node": "borrar contador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "borrar contador": {
+      "main": [
+        [
+          {
+            "node": "Borrar horarios1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Borrar horarios1": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-18T15:19:11.137Z",
+  "id": "aqOavkv1DAG2owyP",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE INMO - Borrado de memoria",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "respuesta_usuario"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -380,
+        -140
+      ],
+      "id": "c7440ca9-bcff-44f7-9b2b-8480d21a80e4",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "997aa49a-ddfa-4b0b-a804-ece3c04ca469",
+              "leftValue": "={{ $json.respuesta_usuario }}",
+              "rightValue": "si",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -160,
+        -140
+      ],
+      "id": "cb58ecde-ba77-4767-b6b9-41c20a6fe718",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1ce3de13-2ce4-47e8-9d34-3fa7e1c7a33a",
+              "name": "response",
+              "value": "datos borrados correctamente",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        620,
+        -240
+      ],
+      "id": "52f661de-443a-4d9e-8db2-a46c52a80884",
+      "name": "Response"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "horarios:2ac2bbce-963a-4428-9a38-3d902c160fda"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        460,
+        -220
+      ],
+      "id": "d0916d71-bf44-427b-a6a2-1988d4a5923c",
+      "name": "Borrar horarios1",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "propiedad:2ac2bbce-963a-4428-9a38-3d902c160fda:codigo_propiedad"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        60,
+        -220
+      ],
+      "id": "4f3a5098-9343-44de-b70d-a2b6b92c82cc",
+      "name": "Borrar codigo propiedad",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "propiedades:2ac2bbce-963a-4428-9a38-3d902c160fda:contador"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        280,
+        -220
+      ],
+      "id": "43033c18-defa-4b53-965c-18a1cc0fd300",
+      "name": "borrar contador",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "respuesta_usuario": "si"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-23T17:49:20.946Z",
+      "updatedAt": "2025-03-23T17:49:20.946Z",
+      "id": "UdWAGpsQzroykED6",
+      "name": "AGENTES INMO"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-22T19:41:46.492Z",
+  "versionId": "4d67e128-a634-48d4-80c2-86f3353b8dd7"
+}
