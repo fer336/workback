@@ -1,0 +1,913 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Codigo": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "replace1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Segmentos1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "replace1": {
+      "main": [
+        [
+          {
+            "node": "Segmentos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Responde texto2": {
+      "main": [
+        []
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-01-20T00:46:55.726Z",
+  "id": "MA1amyL5ScIQzNJb",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "DESPENSA - Insertar pedido y envio email",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "5f6d6261-6f61-4e4b-a9d2-67ad35fe75af",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2700,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1360,
+        760
+      ],
+      "id": "f91eaa50-f5c0-4f73-8335-1d9a3138f5b6",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1940,
+        460
+      ],
+      "id": "cf0a7536-16ff-4e99-86f7-9ef14625729a",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -2160,
+        460
+      ],
+      "id": "0b2bae88-5074-4c33-8b14-c09ff77fadfe",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Code').item.json.correo }},lodepochomdq@gmail.com",
+        "subject": "PEDIDO CONFIRMADO",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -800,
+        460
+      ],
+      "id": "3a4e782f-1e22-4880-8372-020a486a1fdc",
+      "name": "Gmail",
+      "webhookId": "f3bd12ac-45df-43b6-bf9a-cfcad512b2ec",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "mrijNGuR9YKI4ylX",
+          "name": "Despensa"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Definimos la longitud del código y los caracteres permitidos\nconst length = 8; \nconst characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\nlet code = '';\n\n// Generamos el código aleatorio\nfor (let i = 0; i < length; i++) {\n  code += characters.charAt(Math.floor(Math.random() * characters.length));\n}\n\n// Retornamos el objeto JSON con todos los campos requeridos + el código generado\nreturn [\n  {\n    json: {\n      Nombre: $input.first().json.query.Nombre,\n      Productos: $input.first().json.query.Productos,\n      Detalle: $input.first().json.query.Productos[0].Detalle,\n      Cantidad: $input.first().json.query.Productos[0].Cantidad,\n      precio: $input.first().json.query.Productos[0].precio,\n      Total: $input.first().json.query.Total,\n      Telefono: $input.first().json.query.Telefono,\n      Direccion: $input.first().json.query.Direccion,\n      MetodoDePago: $input.first().json.query['Metodo de pago'],\n      Retiro: $input.first().json.query.Retiro,\n      correo: $input.first().json.query.correo,\n      Estado: $input.first().json.query.Estado,\n      \n      // Campo donde guardamos el código aleatorio\n      Codigo: code\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2360,
+        460
+      ],
+      "id": "96f746a6-066d-4d0e-9950-032da9df5747",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      html: `\n        <!DOCTYPE html>\n        <html lang=\"es\">\n        <head>\n            <meta charset=\"UTF-8\">\n            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n            <title>Detalle de Pedido</title>\n        </head>\n        <body style=\"margin:0; padding:0; min-width:100%; background-color:#f4f4f4;\">\n            <center style=\"width: 100%; background-color: #f4f4f4;\">\n                <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);\">\n                    <!-- Encabezado -->\n                    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n                        <tr>\n                            <td style=\"background-color:#f4f4f4; padding: 20px; text-align: center;\">\n                                <h1>Detalle de Pedido</h1>\n                            </td>\n                        </tr>\n                    </table>\n                    \n                    <!-- Cuerpo del Correo -->\n                    <table width=\"100%\" cellpadding=\"20\" cellspacing=\"0\" border=\"0\">\n                        <tr>\n                            <td style=\"font-family: 'Arial', sans-serif; color: #333333;\">\n                                <h2 style=\"margin:0 0 10px 0; font-size: 22px; color: #333333;\">\n                                    ¡Gracias por tu pedido, <strong>${$('Code').first().json.nombre}</strong>!\n                                </h2>\n                                <p style=\"margin:0 0 20px 0; font-size: 16px; line-height: 24px; color: #555555;\">\n                                    Aquí están los detalles de tu compra:\n                                </p>\n                                \n                                <!-- Detalles del Pedido -->\n                                <h3 style=\"font-size: 18px; margin-bottom: 15px; color: #333333;\">Detalles del Pedido</h3>\n                                <table width=\"100%\" cellpadding=\"10\" cellspacing=\"0\" border=\"0\" style=\"border-collapse: collapse; margin-bottom: 20px;\">\n                                    <thead>\n                                        <tr style=\"background-color: #f0f0f0;\">\n                                            <th align=\"left\" style=\"padding: 12px; font-family: 'Arial', sans-serif; font-size: 16px; color: #333333;\">Producto</th>\n                                            <th align=\"center\" style=\"padding: 12px; font-family: 'Arial', sans-serif; font-size: 16px; color: #333333;\">Cantidad</th>\n                                            <th align=\"right\" style=\"padding: 12px; font-family: 'Arial', sans-serif; font-size: 16px; color: #333333;\">Precio</th>\n                                        </tr>\n                                    </thead>\n                                    <tbody>\n                                        ${$('Code').first().json.Productos                                       .map((producto) => {\n                                            return `\n                                              <tr>\n                                                  <td style=\"padding: 12px; border-bottom: 1px solid #e0e0e0; font-family: 'Arial', sans-serif; font-size: 16px; color: #333333;\">\n                                                      ${producto.Detalle}\n                                                  </td>\n                                                  <td align=\"center\" style=\"padding: 12px; border-bottom: 1px solid #e0e0e0; font-family: 'Arial', sans-serif; font-size: 16px; color: #333333;\">\n                                                      ${producto.Cantidad}\n                                                  </td>\n                                                  <td align=\"right\" style=\"padding: 12px; border-bottom: 1px solid #e0e0e0; font-family: 'Arial', sans-serif; font-size: 16px; color: #333333;\">\n                                                      ${producto.precio}\n                                                  </td>\n                                              </tr>\n                                            `;\n                                          })\n                                          .join('')}\n                                    </tbody>\n                                    <tfoot>\n                                        <tr>\n                                            <td colspan=\"2\" align=\"right\" style=\"padding: 12px; font-family: 'Arial', sans-serif; font-size: 16px; color: #333333;\">\n                                                Total:\n                                            </td>\n                                            <td align=\"right\" style=\"padding: 12px; font-family: 'Arial', sans-serif; font-size: 16px; color: #333333;\">\n                                                ${$('Code').first().json.Total}\n                                            </td>\n                                        </tr>\n                                    </tfoot>\n                                </table>\n                                \n                                <!-- Otros detalles del pedido -->\n                                <p style=\"font-size: 16px; line-height: 24px; color: #555555;\">\n                                    <strong>Teléfono:</strong> ${$('Code').first().json.Telefono}<br>\n                                    <strong>Dirección:</strong> ${$('Code').first().json.Direccion}<br>\n                                    <strong>Método de Pago:</strong> ${$('Code').first().json.MetodoDePago}<br>\n                                    <strong>Retiro:</strong> ${$('Code').first().json.Retiro}<br>\n                                    <strong>Correo:</strong> ${$('Code').first().json.correo}<br>\n                                    <strong>Estado:</strong> ${$('Code').first().json.Estado}<br>\n                                    <strong>Código de Pedido:</strong> ${$('Code').first().json.Codigo}\n                                </p>\n                            </td>\n                        </tr>\n                    </table>\n                    \n                    <!-- Pie de Página -->\n                    <table width=\"100%\" cellpadding=\"20\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f9f9f9;\">\n                        <tr>\n                            <td style=\"font-family: 'Arial', sans-serif; font-size: 14px; color: #777777; text-align: center;\">\n                                <a href=\"https://wa.me/5492254596618\" target=\"_blank\" style=\"text-decoration: none; color: #25D366; font-weight: bold;\">\n                                    <img src=\"https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png\" alt=\"WhatsApp\" width=\"20\" style=\"vertical-align: middle; margin-right: 5px;\">\n                                    Contáctanos por WhatsApp\n                                </a>\n                                <br>\n                                &copy; 2025 Qeva Solutions. Todos los derechos reservados.\n                            </td>\n                        </tr>\n                    </table>\n                </div>\n            </center>\n        </body>\n        </html>\n      `,\n      // Variable separada con el correo electrónico\n      email: $('Code').first().json.Correo\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1260,
+        460
+      ],
+      "id": "f9eb41ff-66ae-4290-8378-55fa5f8edace",
+      "name": "Codigo"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Aggregate').item.json.data }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "COPIA ESTE DISEÑO PARA ENVIAR LOS PRODUCTOS\n\n✅ ANTO TENES UN PEDIDO: de {nombre_cliente} 😊 detalle de la compra:\n\n🍖 Producto: \n📏 Cantidad: \n💵 Precio: \n\n✨ Total: $xxxx\n\n📞 Teléfono: xxxxxxxx\n🏠 Dirección: xxxx\n💳 Método de pago: xx\n🏢 Retiro: xx\n📧 Correo electrónico: xx@xx.com\n✅ Estado del pedido: xxxxxx\n🔑 Código: xxxx\n\nPD: Anto metele al pedido a si la gente queda contenta 😊"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -1120,
+        80
+      ],
+      "id": "f4855bc5-e74e-4ac6-bf3f-8244d01ac821",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1020,
+        320
+      ],
+      "id": "6980b473-699c-40e6-b991-a5ec37857a17",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "options": {
+          "destinationFieldName": "msg"
+        }
+      },
+      "id": "8df1bb64-0a66-4ee7-89ee-c37c2bd0529a",
+      "name": "Segmentos1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d04d69d-cb9c-41be-a44a-95fac3c059f3",
+              "name": "text",
+              "value": "={{ [$json.text.replace(/\\*\\*(.*?)\\*\\*/g, '*$1*').replace(/###\\s*/g, '').replace(/[¡¿!]/g, '')] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2d2306b7-757c-4090-a7b3-ff7347f44c42",
+      "name": "replace1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -760,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evo.innovasoftpro.dev/message/sendText/POCHO",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=B8105B5C8C6B-4F2A-820D-A9B9859C077B"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "=5492234245220@s.whatsapp.net"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.msg }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "id": "9a701b9c-9192-4c1a-9d7b-bad7bfa8c471",
+      "name": "Responde texto2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        460,
+        -100
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8ee52d47-54e0-4c9b-9973-e80b12521b39",
+              "name": "response",
+              "value": "=true",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -560,
+        460
+      ],
+      "id": "6a00c406-c03c-477f-aae3-3c16746cf002",
+      "name": "Response"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "13OQj-WtbLQdirc7cVkxN3qs917-VksD6Y10lOnKIR9M",
+          "mode": "list",
+          "cachedResultName": "Pedidos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13OQj-WtbLQdirc7cVkxN3qs917-VksD6Y10lOnKIR9M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Pedidos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13OQj-WtbLQdirc7cVkxN3qs917-VksD6Y10lOnKIR9M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $('Split Out').item.json.Nombre }}",
+            "Direccion": "={{ $('Split Out').item.json.Direccion }}",
+            "Metodo de pago": "={{ $('Split Out').item.json.MetodoDePago }}",
+            "Productos": "={{ $('Split Out').item.json.Productos.map(p => `Producto: ${p.Detalle}, Cantidad: ${p.Cantidad}, Precio: ${p.precio}`).join(\"\\n\") }}\n",
+            "Retio": "={{ $('Split Out').item.json.Retiro }}",
+            "Telefono": "={{ $('Split Out').item.json.Telefono }}",
+            "Total": "={{ $('Split Out').item.json.Total }}",
+            "Correo": "={{ $('Split Out').item.json.correo }}",
+            "Fecha": "={{ $now }}",
+            "Codigo de pedido": "={{ $('Split Out').item.json.Codigo }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Direccion",
+              "displayName": "Direccion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Metodo de pago",
+              "displayName": "Metodo de pago",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Productos",
+              "displayName": "Productos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Retio",
+              "displayName": "Retio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Telefono",
+              "displayName": "Telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Correo",
+              "displayName": "Correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha",
+              "displayName": "Fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Codigo de pedido",
+              "displayName": "Codigo de pedido",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -600,
+        1100
+      ],
+      "id": "8846693f-c76f-4d1c-bfe6-6d5f640690a3",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yxBoR5sUs8UyR9Sc",
+          "name": "Despensa"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "amount": 1.5
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1040,
+        900
+      ],
+      "id": "61589534-e621-4bf5-bd3a-e585121b8ae5",
+      "name": "Wait",
+      "webhookId": "df07add9-ebbf-48a1-907f-f441a8184989"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": 3
+            },
+            {
+              "name": "to",
+              "value": "5492234245220"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.msg }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        80
+      ],
+      "id": "d9a3bd88-5d15-47bb-968a-9a0713e05de1",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -420,
+        640
+      ],
+      "id": "defaab2a-d3b0-4e3c-b3e6-ce3b30e0a1c3",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8ee52d47-54e0-4c9b-9973-e80b12521b39",
+              "name": "response",
+              "value": "={{ $('Aggregate').item.json.data }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        80
+      ],
+      "id": "84b28f69-b9a6-451c-8b64-e2f74fd98625",
+      "name": "Response1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "pc1g3m0ih934pz9",
+        "table": "mgc2xrm3wov3xxq",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "nombre",
+              "fieldValue": "={{ $('Loop Over Items1').item.json.Nombre }}"
+            },
+            {
+              "fieldName": "direccion",
+              "fieldValue": "={{ $('Loop Over Items1').item.json.Direccion }}"
+            },
+            {
+              "fieldName": "metodo_pago",
+              "fieldValue": "={{ $('Aggregate').item.json.data[0].MetodoDePago }}"
+            },
+            {
+              "fieldName": "precio_unitario",
+              "fieldValue": "={{ $('Aggregate').item.json.data[0].Productos[0].precio }}"
+            },
+            {
+              "fieldName": "productos",
+              "fieldValue": "={{ $('Aggregate').item.json.data[0].Productos }}"
+            },
+            {
+              "fieldName": "cantidad",
+              "fieldValue": "={{ $('Loop Over Items1').item.json.Productos[0].Cantidad }}"
+            },
+            {
+              "fieldName": "retiro",
+              "fieldValue": "={{ $json.Retiro }}"
+            },
+            {
+              "fieldName": "=codigo_pedido",
+              "fieldValue": "={{ $('Loop Over Items1').item.json.Codigo }}"
+            },
+            {
+              "fieldName": "estado",
+              "fieldValue": "={{ $json.Estado }}"
+            },
+            {
+              "fieldName": "telefono",
+              "fieldValue": "={{ $json.Telefono }}"
+            },
+            {
+              "fieldName": "fecha",
+              "fieldValue": "={{ $now.format('dd-MM-yyyy:HH:mm')}}"
+            },
+            {
+              "fieldName": "total",
+              "fieldValue": "={{ $json.Total }}"
+            },
+            {
+              "fieldName": "estado",
+              "fieldValue": "={{ $json.Estado }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -780,
+        980
+      ],
+      "id": "f5212651-3c1d-48d5-b887-bbc111f53c73",
+      "name": "NocoDB",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://db.innovasoftpro.dev/api/v2/tables/mgc2xrm3wov3xxq/records",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "xc-token",
+              "value": "dvtjLmSgOqZu95Po8dX_v9bHOE2IhATKFDmvDxTN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Nombre",
+              "value": "string"
+            },
+            {
+              "name": "Direccion",
+              "value": "string"
+            },
+            {
+              "name": "Metodo de pago",
+              "value": "string"
+            },
+            {
+              "name": "Productos",
+              "value": "string"
+            },
+            {
+              "name": "Cantidad",
+              "value": "string"
+            },
+            {
+              "name": "Precio unitario",
+              "value": "string"
+            },
+            {
+              "name": "Retio",
+              "value": "string"
+            },
+            {
+              "name": "Telefono",
+              "value": "string"
+            },
+            {
+              "name": "Total",
+              "value": "string"
+            },
+            {
+              "name": "Correo",
+              "value": "string"
+            },
+            {
+              "name": "Fecha",
+              "value": "string"
+            },
+            {
+              "name": "codigo_pedido",
+              "value": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "21de8096-ad7d-4ae7-be49-c78c544c0aa8",
+      "name": "HTTP Request1"
+    }
+  ],
+  "pinData": {
+    "Codigo": [
+      {
+        "json": {
+          "Nombre": "Fernando",
+          "Productos": [
+            {
+              "Detalle": "Pan De Panchos Bimbo 210gr",
+              "Cantidad": "1",
+              "precio": "2600"
+            },
+            {
+              "Detalle": "Salchichas Swift X 12 Unidades",
+              "Cantidad": "1",
+              "precio": "3200"
+            }
+          ],
+          "Detalle": "Pan De Panchos Bimbo 210gr",
+          "Cantidad": "1",
+          "precio": "2600",
+          "Total": "5800",
+          "Telefono": "2254423359",
+          "Direccion": "Belfast 1422",
+          "MetodoDePago": "Retiro",
+          "Retiro": "Sí",
+          "correo": "fercassera@gmail.com",
+          "Estado": "Pendiente",
+          "Codigo": "bUK5TN81"
+        }
+      }
+    ],
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "query": {
+            "Nombre": "Juan culo",
+            "Productos": [
+              {
+                "Detalle": "Alfajores Chocotorta",
+                "Cantidad": "3",
+                "precio": "4000"
+              }
+            ],
+            "Total": "4000",
+            "Telefono": "2254423359",
+            "Direccion": "",
+            "Metodo de pago": "Pago en retiro",
+            "Retiro": "Bolívar y Neuquén",
+            "Estado": "Reservado"
+          },
+          "push_name": "5492254423359"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-01-19T21:20:51.336Z",
+      "updatedAt": "2025-01-19T21:20:51.336Z",
+      "id": "dgrS6et84MZNe4W0",
+      "name": "POCHO"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-10T23:09:40.821Z",
+  "versionId": "1c1156f8-d23c-4ef3-a307-7191aeb9a72d"
+}
