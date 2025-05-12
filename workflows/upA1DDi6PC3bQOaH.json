@@ -1,0 +1,171 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "dados instance",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dados instance": {
+      "main": [
+        [
+          {
+            "node": "Get messages",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get contact": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get messages": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-01-13T14:40:12.393Z",
+  "id": "upA1DDi6PC3bQOaH",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Scraping web telefonico",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "2119217e-d5ff-43c0-985a-273d3595d451",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "147d1dcd-0cd4-47f6-a449-f178e14693d1",
+              "name": "instanceId",
+              "value": "abf8692d-6f40-44fd-9926-99db1063b65e",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1ff2fb60-e8df-4b81-ae08-d8488aeeb693",
+      "name": "dados instance",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        420,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT *\nFROM \"Contact\"\nWHERE \"instanceId\" = '{{ $node[\"dados instance\"].json[\"instanceId\"] }}'\n  AND \"remoteJid\" NOT LIKE '0@s.whatsapp.net'\n  AND \"remoteJid\" NOT ILIKE '%@g.us%'\n  AND \"remoteJid\" NOT ILIKE '%@broadcast%'\n  -- AND \"remoteJid\" like '%556136867007@s.whatsapp.net%'\n\n-- LIMIT 1000 -- Define o número de registros a serem retornados\n-- -- OFFSET 900; -- Define o ponto de início dos registros\n",
+        "options": {}
+      },
+      "id": "67ac86d2-883d-401d-b95f-4466c81c5264",
+      "name": "Get contact",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        680,
+        320
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "6IRnqWkQjgBxeGz5",
+          "name": "Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "WITH filtered_messages AS (\n    SELECT \n        key->>'remoteJid' AS remoteJid,\n        CASE \n            WHEN (key->>'fromMe')::BOOLEAN = FALSE THEN \"pushName\"\n            ELSE '' \n        END AS \"pushName\",\n        \"messageTimestamp\",\n        id\n    FROM \"Message\"\n    WHERE \"instanceId\" = '{{ $node[\"dados instance\"].json[\"instanceId\"] }}'\n      AND key->>'remoteJid' NOT LIKE '0@s.whatsapp.net'\n      AND key->>'remoteJid' NOT ILIKE '%@g.us%'\n      AND key->>'remoteJid' NOT ILIKE '%@broadcast%'\n),\nranked_messages AS (\n    SELECT \n        remoteJid,\n        \"pushName\",\n        \"messageTimestamp\",\n        id,\n        ROW_NUMBER() OVER (PARTITION BY remoteJid ORDER BY \"messageTimestamp\" DESC) AS rn\n    FROM filtered_messages\n)\nSELECT \n    remoteJid,\n    COALESCE(\"pushName\", '') AS \"pushName\",\n    \"messageTimestamp\",\n    id\nFROM ranked_messages\nWHERE rn = 1;\n",
+        "options": {}
+      },
+      "id": "9d2ebc03-377d-44fa-93c6-ec818ba1682b",
+      "name": "Get messages",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        680,
+        520
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "6IRnqWkQjgBxeGz5",
+          "name": "Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "advanced": true,
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "remoteJid",
+              "field2": "remotejid"
+            }
+          ]
+        },
+        "joinMode": "enrichInput2",
+        "options": {}
+      },
+      "id": "0faad9ea-2ace-4536-9ea3-e005ad06155c",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        960,
+        420
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-01-13T18:10:54.573Z",
+  "versionId": "c5087d82-3fef-4393-99a7-493e97d2d1d7"
+}
