@@ -1,0 +1,413 @@
+{
+  "active": false,
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "NocoDB1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "replace": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MESSAGE2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "vars3": {
+      "main": [
+        [
+          {
+            "node": "replace",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB1": {
+      "main": [
+        [
+          {
+            "node": "vars3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-01-06T11:26:47.944Z",
+  "id": "n5RUZRbk04paINYa",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "enviar_mensajes",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d04d69d-cb9c-41be-a44a-95fac3c059f3",
+              "name": "msg",
+              "value": "=👋 Hola, te imaginás una forma más rápida y eficiente de gestionar los alquileres en tu inmobiliaria?\n\nEl 2025 ya está acá, y con la inteligencia artificial es el momento de revolucionar tu negocio.\n\nEn Qeva Solutions, somos una empresa 100% dedicada exclusivamente a automatizaciones por WhatsApp.\n\n✅ Automatizamos consultas de tus clientes para que siempre tengan respuestas inmediatas.\n\n✅ Gestionamos estados de propiedades: si están disponibles o alquiladas, todo al instante.\n\n✅ Actualizamos y mostramos precios y disponibilidades en tiempo real.\n\n🎉 Lo mejor de todo: trabajamos para que dediques menos tiempo a tareas repetitivas y más a cerrar negocios. Con nosotros, tu atención al cliente será más rápida, eficiente y profesional, todo desde WhatsApp!\n\n🌟 El futuro es ahora: en este 2025, no podés quedarte atrás. Sumá la inteligencia artificial a tu inmobiliaria y sacale ventaja a la competencia.\n\n📲 Escribime y descubrí cómo podés transformar tu inmobiliaria con nuestras soluciones automatizadas por WhatsApp.\n\n🚪✨ ¡Aprovechá esta oportunidad y llevá tu negocio al siguiente nivel!",
+              "type": "string"
+            },
+            {
+              "id": "c8f9339a-5c69-4aca-8193-c57a42f36bbc",
+              "name": "Id",
+              "value": "={{ $json.Id }}",
+              "type": "string"
+            },
+            {
+              "id": "f893b97f-afbe-4219-a138-94d07cb6d259",
+              "name": "telefono",
+              "value": "={{ $('NocoDB').item.json.telefono }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "65095684-d0bc-4eef-84ed-4f3220960f13",
+      "name": "2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1780,
+        -560
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "id": "6260828c-bb6a-47e2-a21d-76f0d39263e0",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1120,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $('Loop Over Items1').context.done}}"
+        }
+      },
+      "id": "dd3bd88c-620d-4e7d-9aef-20bc07f3e03d",
+      "name": "Loop Over Items1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2380,
+        -140
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pod1jp9bstzupu1",
+        "table": "mor5ri5tdny4xdq",
+        "options": {
+          "fields": [],
+          "where": "(enviado,is,null)"
+        }
+      },
+      "id": "d09a4e68-a546-4a47-aaaa-b689029619a6",
+      "name": "NocoDB",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        920,
+        -180
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "uiVAxQcDCuq8IFxo",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pod1jp9bstzupu1",
+        "table": "mor5ri5tdny4xdq",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $('Loop Over Items').item.json.Id }}"
+            },
+            {
+              "fieldName": "enviado",
+              "fieldValue": "Si"
+            }
+          ]
+        }
+      },
+      "id": "f466c8a6-9fef-477c-9399-5699b29d2b06",
+      "name": "NocoDB1",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1420,
+        -260
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "uiVAxQcDCuq8IFxo",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "235c2893-d202-49bf-80a1-022dd47043ef",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        760,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 2.5
+      },
+      "id": "cd4bb7b9-b00b-4bb0-a436-3f43362fe698",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2600,
+        -120
+      ],
+      "webhookId": "e0377e17-0f4e-46ba-968a-4d2f646f7ba3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d04d69d-cb9c-41be-a44a-95fac3c059f3",
+              "name": "text",
+              "value": "={{ $json.msg.replace(/\\*\\*(.*?)\\*\\*/g, '*$1*').split(/\\n\\n|---/) }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e0a68b15-51dd-4829-8fbe-b14ff65ca51b",
+      "name": "replace",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1860,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "options": {}
+      },
+      "id": "dff8ea43-5328-49a0-9a86-118f2b4af61c",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evo.innovasoftpro.dev/message/sendText/QEVA AI",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "=454444F88F77-4A37-B753-FFAAB4664C16"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{ $('vars3').item.json.telefono }}\",\n    \"text\": \"{{ $('Loop Over Items1').item.json.text.replace(/\\*\\*(.*?)\\*\\*/g, '*$1*').split(/\\n\\n|---/) }}\"\n\n}",
+        "options": {}
+      },
+      "id": "259475ac-67dc-4231-b044-8185fddb90c3",
+      "name": "MESSAGE2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2820,
+        -120
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "0"
+      },
+      "id": "a83f3122-93d9-4a66-b58d-8b5a1ed18e89",
+      "name": "Redis1",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1620,
+        -560
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d04d69d-cb9c-41be-a44a-95fac3c059f3",
+              "name": "msg",
+              "value": "=👋 Hola, te imaginás una forma más rápida y eficiente de gestionar los alquileres en tu inmobiliaria?\n\nEl 2025 ya está acá, y con la inteligencia artificial es el momento de revolucionar tu negocio.\n\nEn Qeva Solutions, somos una empresa 100% dedicada exclusivamente a automatizaciones por WhatsApp.\n\n✅ Automatizamos consultas de tus clientes para que siempre tengan respuestas inmediatas.\n\n✅ Gestionamos estados de propiedades: si están disponibles o alquiladas, todo al instante.\n\n✅ Actualizamos y mostramos precios y disponibilidades en tiempo real.\n\n🎉 Lo mejor de todo: trabajamos para que dediques menos tiempo a tareas repetitivas y más a cerrar negocios. Con nosotros, tu atención al cliente será más rápida, eficiente y profesional, todo desde WhatsApp!\n\n🌟 El futuro es ahora: en este 2025, no podés quedarte atrás. Sumá la inteligencia artificial a tu inmobiliaria y sacale ventaja a la competencia.\n\n📲 Escribime y descubrí cómo podés transformar tu inmobiliaria con nuestras soluciones automatizadas por WhatsApp.\n\n🚪✨ ¡Aprovechá esta oportunidad y llevá tu negocio al siguiente nivel!",
+              "type": "string"
+            },
+            {
+              "id": "c8f9339a-5c69-4aca-8193-c57a42f36bbc",
+              "name": "Id",
+              "value": "={{ $json.Id }}",
+              "type": "string"
+            },
+            {
+              "id": "f893b97f-afbe-4219-a138-94d07cb6d259",
+              "name": "telefono",
+              "value": "={{ $('NocoDB').item.json.telefono }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f4be9a91-e078-4faf-8766-83aa3e042bb1",
+      "name": "vars3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1660,
+        -260
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-14T20:34:01.285Z",
+  "versionId": "07c93e77-6b65-44f2-ae64-27aeb53f7b9b"
+}
