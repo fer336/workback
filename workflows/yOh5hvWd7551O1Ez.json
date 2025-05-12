@@ -1,0 +1,201 @@
+{
+  "active": false,
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        []
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-02-11T17:20:31.069Z",
+  "id": "yOh5hvWd7551O1Ez",
+  "meta": {
+    "templateId": "VMiAxXa3lCAizGB5f7dVZQSFfg3FtHkdTKvLuupqBls=",
+    "templateCredsSetupCompleted": true
+  },
+  "name": "DESPENSA - Promociones",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "Workflow Input Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -160,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1E1IDVQWao5OcFJLpW9q-HrFRVHppfdgfU9EBm76Ch1o",
+          "mode": "list",
+          "cachedResultName": "Promociones de banco",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E1IDVQWao5OcFJLpW9q-HrFRVHppfdgfU9EBm76Ch1o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Promociones banco",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E1IDVQWao5OcFJLpW9q-HrFRVHppfdgfU9EBm76Ch1o/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        140,
+        40
+      ],
+      "id": "57d8266a-11b9-4462-911b-49440076be22",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "yxBoR5sUs8UyR9Sc",
+          "name": "Despensa"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "BANCO, DIAS, PROMOCION",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        340,
+        260
+      ],
+      "id": "7e97338e-bed1-43a8-8cb2-f3eacd4743c0",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "41676492-69d0-4362-a30e-e9d5efcceddb",
+              "name": "response",
+              "value": "={{ $json.data }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        840,
+        260
+      ],
+      "id": "9f5161de-3e40-4a64-a80f-a693d227355f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        580,
+        260
+      ],
+      "id": "3898b688-7988-4fce-aa35-8886a7755bb3",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pc1g3m0ih934pz9",
+        "table": "mkm9hablqytndkh",
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        80,
+        260
+      ],
+      "id": "2b4763b3-5e98-442e-9966-6e74ede3d102",
+      "name": "NocoDB",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "query": "fiambres"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-22T19:46:25.041Z",
+  "versionId": "4f9709a7-4605-4c09-97d3-de0900b70aa2"
+}
