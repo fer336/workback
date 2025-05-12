@@ -1,0 +1,339 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "Response2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        []
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2024-11-15T02:03:53.200Z",
+  "id": "mVpVsWZk4ZURlpXE",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "INMOBILIARIA - Buscar propiedades",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "32ae1d79-ca58-418b-be79-b1ddca93c9de",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -780,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función para formatear texto\nfunction formatText(input) {\n    const replacements = {\n        primera: \"1°\",\n        \"la primera\": \"1°\",\n        segunda: \"2°\",\n        \"la segunda\": \"2°\",\n        tercera: \"3°\",\n        \"la tercera\": \"3°\",\n        cuarta: \"4°\",\n        \"la cuarta\": \"4°\",\n        quinta: \"5°\",\n        \"la quinta\": \"5°\",\n        \"primer semana de\": \"1° quincena\",\n        \"una semana de\": \"1° quincena\",\n        \"la primer semana de\": \"1° quincena\",\n        \"segunda semana de\": \"2° quincena\",\n        \"la segunda semana de\": \"2° quincena\",\n        \"quincena de\": \"quincena\",\n        \"para la primera\": \"1°\",\n        \"para la segunda\": \"2°\",\n        \"para la\": \"\",\n        \"para el\": \"\",\n        \"de\": \"\",\n        \"la\": \"\",\n        \"el\": \"\",\n        \"en\": \"\",\n        \"semana de\": \"semana\"\n    };\n\n    let formattedText = input.toLowerCase().trim();\n\n    // Aplicar reemplazos\n    for (const [key, value] of Object.entries(replacements)) {\n        const regex = new RegExp(`\\\\b${key}\\\\b`, \"g\");\n        formattedText = formattedText.replace(regex, value);\n    }\n\n    // Eliminar espacios sobrantes\n    formattedText = formattedText.replace(/\\s+/g, \" \").trim();\n\n    // Convertir a formato esperado (capitalizar)\n    formattedText = formattedText\n        .split(\" \")\n        .map(word => word.charAt(0).toLowerCase() + word.slice(1))\n        .join(\" \");\n\n    return formattedText;\n}\n\n// Procesar datos de entrada\nconst inputData = $input.all(); // Obtener todos los elementos de entrada\n\nif (!inputData || inputData.length === 0) {\n    throw new Error(\"No se recibieron datos de entrada. Verifica el nodo anterior.\");\n}\n\nconst outputData = inputData.map(item => {\n    // Validar que los campos necesarios estén presentes\n    const query = item.json.query;\n    if (!query) {\n        throw new Error(\"El campo 'query' no está definido en los datos de entrada.\");\n    }\n    if (!query.periodo) {\n        throw new Error(\"El campo 'periodo' no está definido en 'query'.\");\n    }\n    if (!query.precioMin || !query.precioMax) {\n        throw new Error(\"Faltan los campos 'precioMin' o 'precioMax' en 'query'.\");\n    }\n\n    // Formatear el periodo\n    const formattedPeriodo = formatText(query.periodo);\n\n    // Validar valores de precio\n    if (isNaN(query.precioMin) || isNaN(query.precioMax)) {\n        throw new Error(\"Los valores de 'precioMin' y 'precioMax' deben ser números.\");\n    }\n\n    // Devolver los datos formateados para el siguiente nodo\n    return {\n        json: {\n            ...item.json, // Mantener todos los datos originales\n            query: {\n                ...query,\n                formattedPeriodo // Incluir el periodo formateado\n            }\n        }\n    };\n});\n\n// Devolver los datos procesados\nreturn outputData;\n"
+      },
+      "id": "04709bff-5866-4fe0-a7a9-9e65b620b7f9",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -520,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "527ba2c2-79cc-4ff2-887e-2c324e18e6af",
+              "name": "response",
+              "value": "=No se encontraron propiedades",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3729dd0f-287a-4d68-a1af-1d10a31f1754",
+      "name": "Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n    prop.id AS id,\n    prop.direccion,\n    prop.caracteristicas,\n    prop.tipo,\n    prop.ubicacion,\n    prop.ambientes,\n    localidad.localidad AS localidad,\n    precios.precio,\n    precios.Disponible AS disponible,\n    periodos.periodo,\n    periodos.fecha_inicio,\n    periodos.fecha_fin,\n    imagenes.urls AS imagen\nFROM \n    propiedad_periodo_precio AS ppp\nINNER JOIN \n    propiedades AS prop ON ppp.id_propiedad = prop.id\nINNER JOIN \n    precios AS precios ON ppp.id_precio = precios.id\nINNER JOIN \n    periodos AS periodos ON ppp.id_periodo = periodos.id\nINNER JOIN \n    localidad AS localidad ON prop.id_localidad = localidad.id\nINNER JOIN \n    imagenes AS imagenes ON prop.id = imagenes.id\nWHERE \n    precios.precio BETWEEN '0' AND '{{ $json.query.precioMax }}'\n    AND periodos.periodo = '{{ $json.query.formattedPeriodo }}'; \n",
+        "options": {}
+      },
+      "id": "ec55f363-91e0-4a6a-8497-98d1bc401a4a",
+      "name": "Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -240,
+        100
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "tU4YEosCZwq1L9B0",
+          "name": "Inmo Master "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "cef9f263-4f4c-40e2-89d7-449223093fcd",
+      "name": "Aggregate1",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        200,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d04d69d-cb9c-41be-a44a-95fac3c059f3",
+              "name": "msgs",
+              "value": "={{ $json.data }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d6f57190-bf8d-40b0-8220-82b812096d6b",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        760,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6b4588f1-6d96-4e19-bed4-843edb7b431d",
+              "leftValue": "={{ $json.success }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "400120ae-2db1-4c4e-b281-cac81ba7155f",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -20,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "ce279c94-c4ba-4616-97f0-bc645ffbffb7",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -180
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "03bcc702-a824-42a1-b672-e04d340d6cc2",
+              "name": "response",
+              "value": "={{ $json.data }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "57196122-85bb-491f-9700-e64552bd3f34",
+      "name": "Response2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        500,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Aggregate1').item.json.data }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Ejemplo de respuesta optimizada tras la búsqueda:\n\nTe paso las propiedades que encontre:\n\n\n. 🏖️ Alquiler: Departamento\n. 🆔 ID Propiedad: 123\n. 📍 Ubicación: Pinamar\n. ✅ Estado: Disponible\n. 💵 Precio: $8,000 USD por semana\n. 🛏️ Habitaciones: 3\n. 🌟 Características: Vista al mar, pileta privada, parrilla\n. 📅 Periodo: Primera quincena de enero\n. 📷 Fotos: [url]\n\n. 🏖️ Alquiler: Casa\n. 🆔 ID Propiedad: 456\n. 📍 Ubicación: La Herradura\n. ✅ Estado: Disponible\n. 💵 Precio: $15,000 USD por temporada\n. 🛏️ Habitaciones: 5\n. 🌟 Características: Jardín amplio, acceso a club de golf, seguridad 24/7\n. 📅 Periodo: Temporada completa\n. 📷 Fotos: [url]\n\n. 🏖️ Alquiler: Departamento\n. 🆔 ID Propiedad: 789\n. 📍 Ubicación: Valeria del Mar\n. ✅ Estado: Disponible\n. 💵 Precio: $5,500 USD por semana\n. 🛏️ Habitaciones: 2\n. 🌟 Características: Terraza con parrilla, a 2 cuadras de la playa\n. 📅 Periodo: Segunda quincena de enero\n. 📷 Fotos: [url]\n"
+            }
+          ]
+        }
+      },
+      "id": "d95a6ede-d623-417c-83d2-898f22afe2ba",
+      "name": "Basic LLM Chain1",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        600,
+        -260
+      ]
+    }
+  ],
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "query": {
+            "precioMin": "0",
+            "precioMax": "3000",
+            "periodo": "2° quincena de febrero",
+            "tipo": "alquiler",
+            "ambientes": "cualquiera",
+            "localidad": "Pinamar"
+          },
+          "CELULAR": "5492254423359@s.whatsapp.net"
+        }
+      }
+    ],
+    "Basic LLM Chain1": [
+      {
+        "json": {
+          "text": "Te comparto las propiedades que encontré disponibles para el periodo solicitado:\n\n. 🏖️ Alquiler: Departamento  \n. 🆔 ID Propiedad: 2  \n. 📍 Dirección: Eolo al 100, Pinamar  \n. ✅ Estado: Disponible  \n. 💵 Precio: $1,000 USD  \n. 🛏️ Habitaciones: 2 Dormitorios  \n. 🌟 Características: Este espectacular departamento de 3 ambientes, cerca del centro.  \n. 📅 Periodo: 2° quincena de febrero (Del 16 al 28 de febrero de 2025)  \n. 📷 Fotos: [Ver Imagen](https://linktw.in/ixMjHV)  \n\n. 🏖️ Alquiler: Casa  \n. 🆔 ID Propiedad: 1  \n. 📍 Dirección: Calandria al 900, Pinamar  \n. ✅ Estado: Disponible  \n. 💵 Precio: $2,000 USD  \n. 🛏️ Habitaciones: 3 Dormitorios  \n. 🌟 Características: Casa con pileta, parrilla, jardín y cercana a la playa.  \n. 📅 Periodo: 2° quincena de febrero (Del 16 al 28 de febrero de 2025)  \n. 📷 Fotos: [Ver Imagen](https://linktw.in/CNdmoo)  \n\n. 🏖️ Alquiler: Casa  \n. 🆔 ID Propiedad: 4  \n. 📍 Dirección: Alcino al 200, Costa Esmeralda  \n. ✅ Estado: Disponible  \n. 💵 Precio: $2,500 USD  \n. 🛏️ Habitaciones: 5 Dormitorios  \n. 🌟 Características: Casa en alquiler temporario en Pinamar Norte.  \n. 📅 Periodo: 2° quincena de febrero (Del 16 al 28 de febrero de 2025)  \n. 📷 Fotos: [Ver Imagen](https://linktw.in/yDWVws)  \n\nSi necesitas más información o deseas reservar alguna de estas propiedades, no dudes en decírmelo."
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2024-11-13T18:17:03.104Z",
+      "updatedAt": "2024-11-13T18:17:03.104Z",
+      "id": "YrHhxlrwgYNlhWHU",
+      "name": "Inmobiliaria"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-02-04T15:12:48.984Z",
+  "versionId": "62b97d96-54c8-4da9-b3ff-402ae63f918d"
+}
