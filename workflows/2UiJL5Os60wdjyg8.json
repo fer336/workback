@@ -164,6 +164,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Obtiene consulta de bot",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -689,16 +696,11 @@
         ]
       ]
     },
-    "Frenamos": {
-      "main": [
-        []
-      ]
-    },
     "Obtiene el estado": {
       "main": [
         [
           {
-            "node": "Code",
+            "node": "Redis13",
             "type": "main",
             "index": 0
           }
@@ -795,6 +797,85 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "Redis11": {
+      "main": [
+        [
+          {
+            "node": "FERNANDO2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ya solicito?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Redis11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtiene consulta de bot": {
+      "main": [
+        [
+          {
+            "node": "Ya solicito?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis7": {
+      "main": [
+        [
+          {
+            "node": "Redis12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis13": {
+      "main": [
+        [
+          {
+            "node": "If10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If10": {
+      "main": [
+        [
+          {
+            "node": "Agentes",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agentes": {
+      "main": [
+        []
       ]
     }
   },
@@ -907,8 +988,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        3580,
-        2260
+        1600,
+        2785
       ],
       "alwaysOutputData": true,
       "onError": "continueRegularOutput"
@@ -966,8 +1047,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        460,
-        3040
+        -1480,
+        3710
       ],
       "id": "e2cac8b4-6329-4c91-b59d-2740a6749371",
       "name": "vars"
@@ -979,8 +1060,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1820,
-        2365
+        -160,
+        2885
       ],
       "id": "cb1bb325-4e20-42ab-b4d3-d50be58b7e9f",
       "name": "Wait",
@@ -998,8 +1079,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        1600,
-        2365
+        -380,
+        2885
       ],
       "credentials": {
         "redis": {
@@ -1016,8 +1097,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -2800,
-        3300
+        -3020,
+        4670
       ],
       "id": "991a03f9-eae2-46e9-b57c-8e03951c0f44",
       "name": "Redis7",
@@ -1038,8 +1119,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        1380,
-        2360
+        -600,
+        2885
       ],
       "id": "ecdc7908-83ba-4858-9a6e-b90ae500f68f",
       "name": "MSG",
@@ -1060,8 +1141,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        1160,
-        2365
+        -820,
+        2885
       ],
       "id": "3f7d7ea2-696c-4be7-ba89-cb76ebe1d8ec",
       "name": "contador",
@@ -1081,8 +1162,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        3580,
-        2465
+        1600,
+        2985
       ],
       "id": "7ce7a7ed-624f-40a7-9e77-65fd7f6d9a00",
       "name": "Redis4",
@@ -1113,8 +1194,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        940,
-        2165
+        -1040,
+        2685
       ]
     },
     {
@@ -1130,8 +1211,8 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        1160,
-        2165
+        -820,
+        2685
       ]
     },
     {
@@ -1145,8 +1226,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -3280,
-        3000
+        -3900,
+        3610
       ],
       "webhookId": "3cdd40ed-a48c-411c-96d6-3679c5894079"
     },
@@ -1352,6 +1433,31 @@
               },
               "renameOutput": true,
               "outputKey": "🗓️ Solicitar una reunión"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "22c71e9f-178b-4c8c-8439-b87baf4ae4a5",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.message.listResponseMessage.singleSelectReply.selectedRowId }}",
+                    "rightValue": "bot_inmobiliario",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "🏡 Bot Inmobiliario"
             }
           ]
         },
@@ -1362,8 +1468,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        720,
-        2960
+        -1260,
+        3584
       ]
     },
     {
@@ -1375,8 +1481,8 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        1380,
-        2165
+        -600,
+        2685
       ],
       "id": "e1d8a406-81ce-48b8-96c1-f5d8677376a0",
       "name": "Transcribir",
@@ -1410,8 +1516,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2040,
-        2165
+        60,
+        2685
       ]
     },
     {
@@ -1421,8 +1527,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1820,
-        2165
+        -160,
+        2685
       ],
       "id": "a8389e9e-7913-4082-8b59-13c2c235921a",
       "name": "Wait2",
@@ -1451,8 +1557,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3800,
-        2465
+        1820,
+        2985
       ]
     },
     {
@@ -1493,8 +1599,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        4020,
-        2460
+        2040,
+        2985
       ],
       "id": "70b6784f-4517-4e72-ad6a-72293ad9eb28",
       "credentials": {
@@ -1527,8 +1633,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        4220,
-        2760
+        -3900,
+        2165
       ]
     },
     {
@@ -1538,8 +1644,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4680,
-        2460
+        2700,
+        2985
       ],
       "id": "ca3643a7-5e95-47e4-aad2-6cd8336a0e41",
       "name": "Lista1"
@@ -1592,8 +1698,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        4900,
-        2460
+        2920,
+        2985
       ],
       "id": "b00319f7-ba41-4efe-b2e9-c923ca80202b",
       "name": "Agendar",
@@ -1623,8 +1729,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        4240,
-        2460
+        2260,
+        2985
       ]
     },
     {
@@ -1669,8 +1775,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        4480,
-        2760
+        -3680,
+        2165
       ],
       "id": "3ab05b7f-1602-4ca0-a1d0-471609497030",
       "credentials": {
@@ -1703,8 +1809,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        4460,
-        2460
+        2480,
+        2985
       ]
     },
     {
@@ -1715,8 +1821,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -3480,
-        3300
+        -3680,
+        4670
       ],
       "id": "12e01d4f-33c4-4933-acce-eef5a7730884",
       "name": "Redis5",
@@ -1756,8 +1862,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        3360,
-        2365
+        1380,
+        2885
       ],
       "id": "1b3415b7-b71b-41a4-8e7d-b6572aebf0bd",
       "name": "If"
@@ -1785,8 +1891,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        4240,
-        2260
+        2260,
+        2785
       ]
     },
     {
@@ -1799,8 +1905,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        3820,
-        2200
+        1820,
+        2785
       ],
       "id": "0ed3615d-e689-4daf-8f4d-0570d9aef54d",
       "name": "contador1",
@@ -1839,8 +1945,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        4020,
-        2260
+        2040,
+        2785
       ],
       "id": "d02be655-4e13-4617-ae18-d25472e69830",
       "name": "If3"
@@ -1860,8 +1966,8 @@
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        980,
-        2660
+        -1040,
+        3185
       ],
       "id": "eff27d1b-ba78-40a7-a788-3a6314366e15",
       "name": "Google Calendar",
@@ -1891,8 +1997,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1820,
-        2565
+        -160,
+        3085
       ]
     },
     {
@@ -1943,8 +2049,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2040,
-        2765
+        60,
+        3285
       ],
       "id": "5aa9b2a5-4d04-437a-9b8a-6a1d96e76d3f",
       "name": "HTTP Request",
@@ -1958,8 +2064,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1380,
-        2665
+        -600,
+        3185
       ],
       "id": "b87b9a4b-e38d-4b61-82ff-67f493527b09",
       "name": "getForCode1"
@@ -1972,8 +2078,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1160,
-        2665
+        -820,
+        3185
       ],
       "id": "7ad642ac-cec1-4f5a-8225-8d9cb423edfb",
       "name": "Split Out1"
@@ -2005,8 +2111,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1600,
-        2665
+        -380,
+        3185
       ],
       "id": "b4a7ae6b-d52d-463e-ba16-b844d67f4a46",
       "name": "If5"
@@ -2018,8 +2124,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1820,
-        2760
+        -160,
+        3285
       ],
       "id": "c24ea093-af2c-4b59-a07a-8d0229136c4f",
       "name": "Lista2"
@@ -2066,8 +2172,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        1920,
-        3400
+        -160,
+        3810
       ],
       "id": "4f32c2b9-0a29-4386-84eb-7406298f0bf1",
       "name": "NocoDB",
@@ -2092,8 +2198,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        1020,
-        3100
+        -1040,
+        3610
       ],
       "id": "ae34cb4a-c4cd-4796-886a-0bdc73fd625a",
       "name": "obtener cliente",
@@ -2134,8 +2240,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1200,
-        3100
+        -820,
+        3610
       ],
       "id": "0522f6a9-755b-48ea-b16d-2399de605054",
       "name": "If6"
@@ -2178,8 +2284,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        2140,
-        3400
+        60,
+        3810
       ],
       "id": "ca1417bb-dcfd-4f83-b533-6946fc533685",
       "credentials": {
@@ -2197,8 +2303,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -3260,
-        3300
+        -3460,
+        4670
       ],
       "id": "95622cac-68a0-44e7-b5ba-15553e761993",
       "name": "Redis8",
@@ -2217,8 +2323,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -3040,
-        3300
+        -3240,
+        4670
       ],
       "id": "25feed1f-4aab-4afe-9f2e-2709a163a563",
       "name": "Redis9",
@@ -2234,8 +2340,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -3760,
-        3300
+        -3900,
+        4670
       ],
       "id": "586698e9-c760-43ca-91b6-d380ddc5a210",
       "name": "When clicking ‘Test workflow’"
@@ -2245,8 +2351,8 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        1700,
-        3020
+        -380,
+        3510
       ],
       "id": "369e757c-7fb9-4a99-8e93-b957d647e203",
       "name": "Limit"
@@ -2274,8 +2380,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2920,
-        2365
+        940,
+        2885
       ]
     },
     {
@@ -2308,8 +2414,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2480,
-        2365
+        500,
+        2885
       ]
     },
     {
@@ -2321,8 +2427,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2700,
-        2365
+        720,
+        2885
       ]
     },
     {
@@ -2333,8 +2439,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        3140,
-        2365
+        1160,
+        2885
       ],
       "id": "52a840d8-c0d5-4185-99bc-007d4caa50da",
       "name": "Redis10",
@@ -2368,8 +2474,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        2260,
-        2365
+        280,
+        2885
       ],
       "id": "84cb0666-b0ca-45b2-9fdb-d17029c8179b",
       "name": "redis1"
@@ -2386,8 +2492,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        2040,
-        2365
+        60,
+        2885
       ],
       "credentials": {
         "redis": {
@@ -2419,8 +2525,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1380,
-        3665
+        -600,
+        4410
       ]
     },
     {
@@ -2433,8 +2539,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        920,
-        3660
+        -1040,
+        4410
       ],
       "id": "c7b56bd4-0c9c-4255-85b1-8c3143a34b7e",
       "name": "contador2",
@@ -2472,8 +2578,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1160,
-        3665
+        -820,
+        4410
       ],
       "id": "ab2ca81f-d6ca-4327-8a96-9cc40d5c6295",
       "name": "If7"
@@ -2501,8 +2607,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1600,
-        2165
+        -380,
+        2685
       ]
     },
     {
@@ -2513,8 +2619,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        1600,
-        3665
+        -380,
+        4410
       ],
       "id": "a90063d5-2a98-4d85-a383-f149bf3b499d",
       "name": "Redis",
@@ -2533,8 +2639,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        2360,
-        3400
+        280,
+        3810
       ],
       "id": "eb1b74d3-a86f-4e25-84fe-bafb7ef50835",
       "name": "Redis1",
@@ -2553,8 +2659,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        2240,
-        3020
+        280,
+        3510
       ],
       "id": "9b028ad2-e26a-4229-ad22-f231a912604b",
       "name": "Redis2",
@@ -2573,8 +2679,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        4460,
-        2265
+        2480,
+        2785
       ],
       "id": "8af906b7-8d1e-4537-bbf2-e783adb7f637",
       "name": "Redis3",
@@ -2593,8 +2699,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        5120,
-        2460
+        3140,
+        2985
       ],
       "id": "03a91228-0910-472e-ae30-488e0ded0645",
       "name": "Redis6",
@@ -2643,8 +2749,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        940,
-        3465
+        -3900,
+        5450
       ],
       "id": "2593f426-c70c-4228-9632-85ea809f5453",
       "credentials": {
@@ -2692,8 +2798,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        1200,
-        3360
+        -3900,
+        4930
       ],
       "id": "9e4150cf-8c8b-42be-bb20-c2eb96cb6fbd",
       "credentials": {
@@ -2717,8 +2823,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        940,
-        2360
+        -1040,
+        2885
       ],
       "id": "340c5c09-31b4-424c-821c-7857ac0e8fc8",
       "name": "NocoDB1",
@@ -2738,8 +2844,8 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        60,
-        3140
+        -1920,
+        3785
       ],
       "id": "c9ed2993-589a-4635-98b9-cf68d3e104da",
       "name": "Crypto"
@@ -2774,8 +2880,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        280,
-        3140
+        -1700,
+        3785
       ],
       "id": "97205392-979b-4235-860a-ad967866efa5",
       "name": "InsertarCliente",
@@ -2800,8 +2906,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -1820,
-        3020
+        -2580,
+        3710
       ],
       "id": "c497a62f-c72f-4174-acfd-1ed3349187d8",
       "name": "getClientes",
@@ -2842,8 +2948,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -160,
-        3060
+        -2140,
+        3710
       ],
       "id": "609da1ad-da53-412d-a62a-7d65b42fab1c",
       "name": "If1"
@@ -2862,8 +2968,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        1840,
-        3020
+        -160,
+        3510
       ],
       "id": "e2e16d68-5426-44a4-ade7-b48b3fff3ae2",
       "name": "NocoDB2",
@@ -2899,8 +3005,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2020,
-        3020
+        60,
+        3510
       ]
     },
     {
@@ -2925,8 +3031,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        4680,
-        2265
+        2700,
+        2785
       ],
       "id": "f935853c-38ed-41aa-87f2-c108c8afa7fa",
       "name": "NocoDB3",
@@ -2934,29 +3040,6 @@
         "nocoDbApiToken": {
           "id": "CawnXo6TfhLoivTw",
           "name": "NocoDB Token account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "set",
-        "key": "=status:{{ $('Webhook').item.json.body.data.key.remoteJid.replace(/\\D/g, '') }}",
-        "value": "@bot_off",
-        "expire": true,
-        "ttl": 3600
-      },
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        -2040,
-        3260
-      ],
-      "id": "c55872c7-9bd5-44cf-b64d-61b6a6903044",
-      "name": "Frenamos",
-      "credentials": {
-        "redis": {
-          "id": "JMklVOvkU7koL2UG",
-          "name": "Redis"
         }
       }
     },
@@ -2970,8 +3053,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -2960,
-        3000
+        -3680,
+        3610
       ],
       "id": "4be38706-5dfc-44ce-a3ed-75cad2cd4783",
       "name": "Obtiene el estado",
@@ -3011,8 +3094,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2740,
-        3500
+        -3900,
+        5710
       ],
       "id": "bdaafbe5-d340-41c7-92b3-2f0c9f7b66d7",
       "name": "msg"
@@ -3075,8 +3158,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -2520,
-        3560
+        -3680,
+        5710
       ],
       "id": "e4a06e33-baa4-4c65-ae87-3cc679944dd0",
       "name": "Switch2"
@@ -3092,8 +3175,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -2040,
-        3440
+        -3900,
+        5190
       ],
       "id": "31b635d9-394c-4046-930c-47291c71e110",
       "name": "Activa robot",
@@ -3111,8 +3194,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2680,
-        3000
+        -3020,
+        3710
       ],
       "id": "43a97a86-e68a-4501-bb10-c67aae8267a8",
       "name": "Code"
@@ -3145,8 +3228,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2420,
-        2860
+        -3900,
+        2425
       ],
       "id": "6291bb87-8305-4d6a-87ad-1a081b6672f4",
       "name": "If4"
@@ -3179,8 +3262,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2280,
-        3000
+        -2800,
+        3710
       ],
       "id": "1a17ec7b-cf81-43e5-963f-82ed1da4e930",
       "name": "If8"
@@ -3223,8 +3306,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        460,
-        3640
+        -1040,
+        4010
       ],
       "id": "da2bc0c9-d0d9-40e4-8984-99a2fe0b9de1",
       "credentials": {
@@ -3272,8 +3355,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        20,
-        3640
+        -1040,
+        3810
       ],
       "id": "189652a6-0c28-4e7d-9a91-214964b4de96",
       "credentials": {
@@ -3311,8 +3394,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1600,
-        3020
+        -2360,
+        3710
       ],
       "id": "eeee1b6c-33ba-4dc3-bd61-6ba597e7cf21",
       "name": "If2",
@@ -3326,8 +3409,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1720,
-        3320
+        -380,
+        3810
       ],
       "id": "61ddc2f3-b982-40d1-a5eb-8af13f2d0809",
       "name": "Convertir la fecha"
@@ -3360,22 +3443,259 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1380,
-        3180
+        -600,
+        3760
       ],
       "id": "fceab68d-ffb4-48cb-a064-5e63ebe2da59",
       "name": "If9"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=cliente:{{ $('vars').item.json.remoteJid }}",
+        "value": "@bot_inmobiliario",
+        "expire": true,
+        "ttl": 3600
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        4210
+      ],
+      "id": "7fb3cc2c-792e-4254-b929-8c7eb84a9074",
+      "name": "Redis11",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('vars').item.json.server_url }}/message/sendText/{{ $('vars').item.json.instance }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('vars').item.json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('vars').item.json.remoteJid }}"
+            },
+            {
+              "name": "text",
+              "value": "=🏡 Acaba de solicitar el demo inmobiliario 🏡\n\nPreparando el agente ...\n\nAguarde unos minutos ...\n\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "FERNANDO2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        -380,
+        4210
+      ],
+      "id": "51fd8d9c-38ba-405a-be65-d32cb7539863",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "OpgdvMlLy6Zxc6ii",
+          "name": "NOCODB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7a144109-0d59-46fc-9c7e-36b4615b3567",
+              "leftValue": "={{ $json.bot_inmobiliario }}",
+              "rightValue": "@bot_inmobiliario",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -820,
+        4210
+      ],
+      "id": "6f58b7dd-4235-46bb-a32b-ed880f2d8555",
+      "name": "Ya solicito?"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "bot_inmobiliario",
+        "key": "=cliente:{{ $('vars').item.json.remoteJid }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        4210
+      ],
+      "id": "48616d17-13af-4d11-bea1-8202bb5cb75e",
+      "name": "Obtiene consulta de bot",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=cliente:5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -2800,
+        4670
+      ],
+      "id": "c263e92d-eb13-47b4-bc5b-47c1bea61c55",
+      "name": "Redis12",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "bot_on",
+        "key": "=cliente:{{ $('Webhook').item.json.body.data.key.remoteJid.replace(/\\D/g, '')}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -3460,
+        3610
+      ],
+      "id": "610e4d79-f745-4440-abca-8c12fa0cd67b",
+      "name": "Redis13",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "74dc65ff-5023-4340-a0b6-ec0f504ce6a6",
+              "leftValue": "={{ $json.bot_on }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3240,
+        3610
+      ],
+      "id": "f7262cb7-681d-449f-9855-2ee0da69cd2e",
+      "name": "If10"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.bot_on }}",
+                    "rightValue": "@bot_inmobiliario",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "fe69761d-d1f8-46bd-923e-d33321fe6c2a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "@bot_inmobiliario"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -3020,
+        3510
+      ],
+      "id": "59cfa51d-4093-4453-afd4-f7b9a91a1795",
+      "name": "Agentes"
     }
   ],
   "pinData": {
-    "Frenamos": [
-      {
-        "json": {
-          "conversation": "🙋🏻‍♂️",
-          "sender": "5492254596618"
-        }
-      }
-    ],
     "msg": [
       {
         "json": {
@@ -3390,7 +3710,7 @@
           "headers": {
             "host": "n8n.innovasoftpro.dev",
             "user-agent": "axios/1.7.9",
-            "content-length": "9252",
+            "content-length": "4214",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
             "x-forwarded-for": "3.236.85.138",
@@ -3409,7 +3729,7 @@
               "key": {
                 "remoteJid": "5492254423359@s.whatsapp.net",
                 "fromMe": false,
-                "id": "DEDCC8E80EC020FFD73501C5E1CE5E0D"
+                "id": "98C9AD891F527C6A24DF863A6EAFB74E"
               },
               "pushName": "Fer { }",
               "status": "DELIVERY_ACK",
@@ -3422,482 +3742,174 @@
                     "recipientTimestamp": "1746795020"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "L9q/MO/PYfFajI7NKbbH2At45gzaAP09TLjALIkmsYc="
+                  "messageSecret": "Mf8D4bKOYgDbbRWXQq+4OATMahOf8yI28PtIyaEgg3M="
                 },
                 "listResponseMessage": {
-                  "title": "🕒 12 de Mayo : 09:00 a 09:30",
+                  "title": "🏡 Bot Inmobiliario",
                   "listType": "SINGLE_SELECT",
                   "singleSelectReply": {
-                    "selectedRowId": "5-12-0900"
+                    "selectedRowId": "bot_inmobiliario"
                   },
                   "contextInfo": {
-                    "stanzaId": "3EB0672D69A2260421B1719E8AEB2C6EB4074027",
+                    "stanzaId": "3EB01B0E6988D6D5F16836B28DF68FA30915B1D6",
                     "participant": "5492254596618@s.whatsapp.net",
                     "quotedMessage": {
                       "listMessage": {
-                        "title": "📅 Fechas Disponibles",
-                        "description": "Seleccioná una fecha y hora para agendar tu visita\n🕒 Cada visita tiene una duración de 30 minutos aprox.",
-                        "buttonText": "Seleccioná 👆",
+                        "title": "🔹 AUTOMATIZACIONES 🔹",
+                        "description": "Seleccione un área para atención inmediata:",
+                        "buttonText": "Ver áreas 📋",
                         "listType": "SINGLE_SELECT",
                         "sections": [
                           {
-                            "title": "🍂 Mayo",
+                            "title": "🚨 Urgencias",
                             "rows": [
                               {
-                                "title": "🕒 12 de Mayo : 09:00 a 09:30",
-                                "description": "Lunes",
-                                "rowId": "5-12-0900"
+                                "title": "⚠️ Problemas técnicos",
+                                "description": "Comunícate con un agente técnico por problemas con tu software",
+                                "rowId": "urgencia-tecnica"
                               },
                               {
-                                "title": "🕒 12 de Mayo : 09:30 a 10:00",
-                                "description": "Lunes",
-                                "rowId": "5-12-0930"
+                                "title": "💵 Informar pagos",
+                                "description": "Notificar pagos realizados o consultas urgentes de facturación",
+                                "rowId": "urgencia-pagos"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "👩‍💻 Soporte Técnico",
+                            "rows": [
+                              {
+                                "title": "🔌 Integraciones",
+                                "description": "Ayuda con reconexion de Whatsapp ",
+                                "rowId": "agente-integraciones"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "📅 Agendar una cita",
+                            "rows": [
+                              {
+                                "title": "🗓️ Solicitar una reunión",
+                                "description": "Coordiná una cita con nuestro equipo",
+                                "rowId": "cita-solicitar"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "Nuestros agentes, ¡solicitá tu demo! 🚀",
+                            "rows": [
+                              {
+                                "title": "🏡 Bot Inmobiliario",
+                                "description": "Gestioná alquileres, ventas y consultas",
+                                "rowId": "bot_inmobiliario"
                               },
                               {
-                                "title": "🕒 12 de Mayo : 10:00 a 10:30",
-                                "description": "Lunes",
-                                "rowId": "5-12-1000"
+                                "title": "🛒 Bot para Despensas",
+                                "description": "Automatizá pedidos y atención de tu tienda",
+                                "rowId": "bot_despensa"
                               },
                               {
-                                "title": "🕒 12 de Mayo : 10:30 a 11:00",
-                                "description": "Lunes",
-                                "rowId": "5-12-1030"
+                                "title": "🛵 Bot de Delivery",
+                                "description": "Tomá pedidos y gestioná envíos en WhatsApp",
+                                "rowId": "bot_delivery"
                               },
                               {
-                                "title": "🕒 12 de Mayo : 11:00 a 11:30",
-                                "description": "Lunes",
-                                "rowId": "5-12-1100"
-                              },
-                              {
-                                "title": "🕒 12 de Mayo : 11:30 a 12:00",
-                                "description": "Lunes",
-                                "rowId": "5-12-1130"
-                              },
-                              {
-                                "title": "🕒 13 de Mayo : 09:00 a 09:30",
-                                "description": "Martes",
-                                "rowId": "5-13-0900"
-                              },
-                              {
-                                "title": "🕒 13 de Mayo : 09:30 a 10:00",
-                                "description": "Martes",
-                                "rowId": "5-13-0930"
-                              },
-                              {
-                                "title": "🕒 13 de Mayo : 10:00 a 10:30",
-                                "description": "Martes",
-                                "rowId": "5-13-1000"
-                              },
-                              {
-                                "title": "🕒 13 de Mayo : 10:30 a 11:00",
-                                "description": "Martes",
-                                "rowId": "5-13-1030"
-                              },
-                              {
-                                "title": "🕒 13 de Mayo : 11:00 a 11:30",
-                                "description": "Martes",
-                                "rowId": "5-13-1100"
-                              },
-                              {
-                                "title": "🕒 13 de Mayo : 11:30 a 12:00",
-                                "description": "Martes",
-                                "rowId": "5-13-1130"
-                              },
-                              {
-                                "title": "🕒 14 de Mayo : 09:00 a 09:30",
-                                "description": "Miércoles",
-                                "rowId": "5-14-0900"
-                              },
-                              {
-                                "title": "🕒 14 de Mayo : 09:30 a 10:00",
-                                "description": "Miércoles",
-                                "rowId": "5-14-0930"
-                              },
-                              {
-                                "title": "🕒 14 de Mayo : 10:00 a 10:30",
-                                "description": "Miércoles",
-                                "rowId": "5-14-1000"
-                              },
-                              {
-                                "title": "🕒 14 de Mayo : 10:30 a 11:00",
-                                "description": "Miércoles",
-                                "rowId": "5-14-1030"
-                              },
-                              {
-                                "title": "🕒 14 de Mayo : 11:00 a 11:30",
-                                "description": "Miércoles",
-                                "rowId": "5-14-1100"
-                              },
-                              {
-                                "title": "🕒 14 de Mayo : 11:30 a 12:00",
-                                "description": "Miércoles",
-                                "rowId": "5-14-1130"
-                              },
-                              {
-                                "title": "🕒 15 de Mayo : 09:00 a 09:30",
-                                "description": "Jueves",
-                                "rowId": "5-15-0900"
-                              },
-                              {
-                                "title": "🕒 15 de Mayo : 09:30 a 10:00",
-                                "description": "Jueves",
-                                "rowId": "5-15-0930"
-                              },
-                              {
-                                "title": "🕒 15 de Mayo : 10:00 a 10:30",
-                                "description": "Jueves",
-                                "rowId": "5-15-1000"
-                              },
-                              {
-                                "title": "🕒 15 de Mayo : 10:30 a 11:00",
-                                "description": "Jueves",
-                                "rowId": "5-15-1030"
-                              },
-                              {
-                                "title": "🕒 15 de Mayo : 11:00 a 11:30",
-                                "description": "Jueves",
-                                "rowId": "5-15-1100"
-                              },
-                              {
-                                "title": "🕒 15 de Mayo : 11:30 a 12:00",
-                                "description": "Jueves",
-                                "rowId": "5-15-1130"
-                              },
-                              {
-                                "title": "🕒 16 de Mayo : 09:00 a 09:30",
-                                "description": "Viernes",
-                                "rowId": "5-16-0900"
-                              },
-                              {
-                                "title": "🕒 16 de Mayo : 09:30 a 10:00",
-                                "description": "Viernes",
-                                "rowId": "5-16-0930"
-                              },
-                              {
-                                "title": "🕒 16 de Mayo : 10:00 a 10:30",
-                                "description": "Viernes",
-                                "rowId": "5-16-1000"
-                              },
-                              {
-                                "title": "🕒 16 de Mayo : 10:30 a 11:00",
-                                "description": "Viernes",
-                                "rowId": "5-16-1030"
-                              },
-                              {
-                                "title": "🕒 16 de Mayo : 11:00 a 11:30",
-                                "description": "Viernes",
-                                "rowId": "5-16-1100"
-                              },
-                              {
-                                "title": "🕒 16 de Mayo : 11:30 a 12:00",
-                                "description": "Viernes",
-                                "rowId": "5-16-1130"
-                              },
-                              {
-                                "title": "🕒 17 de Mayo : 09:00 a 09:30",
-                                "description": "Sábado",
-                                "rowId": "5-17-0900"
-                              },
-                              {
-                                "title": "🕒 17 de Mayo : 09:30 a 10:00",
-                                "description": "Sábado",
-                                "rowId": "5-17-0930"
-                              },
-                              {
-                                "title": "🕒 17 de Mayo : 10:00 a 10:30",
-                                "description": "Sábado",
-                                "rowId": "5-17-1000"
-                              },
-                              {
-                                "title": "🕒 17 de Mayo : 10:30 a 11:00",
-                                "description": "Sábado",
-                                "rowId": "5-17-1030"
-                              },
-                              {
-                                "title": "🕒 17 de Mayo : 11:00 a 11:30",
-                                "description": "Sábado",
-                                "rowId": "5-17-1100"
-                              },
-                              {
-                                "title": "🕒 17 de Mayo : 11:30 a 12:00",
-                                "description": "Sábado",
-                                "rowId": "5-17-1130"
-                              },
-                              {
-                                "title": "🕒 18 de Mayo : 09:00 a 09:30",
-                                "description": "Domingo",
-                                "rowId": "5-18-0900"
-                              },
-                              {
-                                "title": "🕒 18 de Mayo : 09:30 a 10:00",
-                                "description": "Domingo",
-                                "rowId": "5-18-0930"
-                              },
-                              {
-                                "title": "🕒 18 de Mayo : 10:00 a 10:30",
-                                "description": "Domingo",
-                                "rowId": "5-18-1000"
-                              },
-                              {
-                                "title": "🕒 18 de Mayo : 10:30 a 11:00",
-                                "description": "Domingo",
-                                "rowId": "5-18-1030"
-                              },
-                              {
-                                "title": "🕒 18 de Mayo : 11:00 a 11:30",
-                                "description": "Domingo",
-                                "rowId": "5-18-1100"
-                              },
-                              {
-                                "title": "🕒 18 de Mayo : 11:30 a 12:00",
-                                "description": "Domingo",
-                                "rowId": "5-18-1130"
+                                "title": "📅 Agendador de Citas",
+                                "description": "Organizá turnos con recordatorios automáticos",
+                                "rowId": "bot_agendador"
                               }
                             ]
                           }
-                        ]
+                        ],
+                        "footerText": "💼 Expertos en automatización WhatsApp"
                       }
                     }
                   },
-                  "description": "Lunes"
+                  "description": "Gestioná alquileres, ventas y consultas"
                 }
               },
               "contextInfo": {
-                "stanzaId": "3EB0672D69A2260421B1719E8AEB2C6EB4074027",
+                "stanzaId": "3EB01B0E6988D6D5F16836B28DF68FA30915B1D6",
                 "participant": "5492254596618@s.whatsapp.net",
                 "quotedMessage": {
                   "listMessage": {
-                    "title": "📅 Fechas Disponibles",
-                    "description": "Seleccioná una fecha y hora para agendar tu visita\n🕒 Cada visita tiene una duración de 30 minutos aprox.",
-                    "buttonText": "Seleccioná 👆",
+                    "title": "🔹 AUTOMATIZACIONES 🔹",
+                    "description": "Seleccione un área para atención inmediata:",
+                    "buttonText": "Ver áreas 📋",
                     "listType": "SINGLE_SELECT",
                     "sections": [
                       {
-                        "title": "🍂 Mayo",
+                        "title": "🚨 Urgencias",
                         "rows": [
                           {
-                            "title": "🕒 12 de Mayo : 09:00 a 09:30",
-                            "description": "Lunes",
-                            "rowId": "5-12-0900"
+                            "title": "⚠️ Problemas técnicos",
+                            "description": "Comunícate con un agente técnico por problemas con tu software",
+                            "rowId": "urgencia-tecnica"
                           },
                           {
-                            "title": "🕒 12 de Mayo : 09:30 a 10:00",
-                            "description": "Lunes",
-                            "rowId": "5-12-0930"
+                            "title": "💵 Informar pagos",
+                            "description": "Notificar pagos realizados o consultas urgentes de facturación",
+                            "rowId": "urgencia-pagos"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "👩‍💻 Soporte Técnico",
+                        "rows": [
+                          {
+                            "title": "🔌 Integraciones",
+                            "description": "Ayuda con reconexion de Whatsapp ",
+                            "rowId": "agente-integraciones"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "📅 Agendar una cita",
+                        "rows": [
+                          {
+                            "title": "🗓️ Solicitar una reunión",
+                            "description": "Coordiná una cita con nuestro equipo",
+                            "rowId": "cita-solicitar"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "Nuestros agentes, ¡solicitá tu demo! 🚀",
+                        "rows": [
+                          {
+                            "title": "🏡 Bot Inmobiliario",
+                            "description": "Gestioná alquileres, ventas y consultas",
+                            "rowId": "bot_inmobiliario"
                           },
                           {
-                            "title": "🕒 12 de Mayo : 10:00 a 10:30",
-                            "description": "Lunes",
-                            "rowId": "5-12-1000"
+                            "title": "🛒 Bot para Despensas",
+                            "description": "Automatizá pedidos y atención de tu tienda",
+                            "rowId": "bot_despensa"
                           },
                           {
-                            "title": "🕒 12 de Mayo : 10:30 a 11:00",
-                            "description": "Lunes",
-                            "rowId": "5-12-1030"
+                            "title": "🛵 Bot de Delivery",
+                            "description": "Tomá pedidos y gestioná envíos en WhatsApp",
+                            "rowId": "bot_delivery"
                           },
                           {
-                            "title": "🕒 12 de Mayo : 11:00 a 11:30",
-                            "description": "Lunes",
-                            "rowId": "5-12-1100"
-                          },
-                          {
-                            "title": "🕒 12 de Mayo : 11:30 a 12:00",
-                            "description": "Lunes",
-                            "rowId": "5-12-1130"
-                          },
-                          {
-                            "title": "🕒 13 de Mayo : 09:00 a 09:30",
-                            "description": "Martes",
-                            "rowId": "5-13-0900"
-                          },
-                          {
-                            "title": "🕒 13 de Mayo : 09:30 a 10:00",
-                            "description": "Martes",
-                            "rowId": "5-13-0930"
-                          },
-                          {
-                            "title": "🕒 13 de Mayo : 10:00 a 10:30",
-                            "description": "Martes",
-                            "rowId": "5-13-1000"
-                          },
-                          {
-                            "title": "🕒 13 de Mayo : 10:30 a 11:00",
-                            "description": "Martes",
-                            "rowId": "5-13-1030"
-                          },
-                          {
-                            "title": "🕒 13 de Mayo : 11:00 a 11:30",
-                            "description": "Martes",
-                            "rowId": "5-13-1100"
-                          },
-                          {
-                            "title": "🕒 13 de Mayo : 11:30 a 12:00",
-                            "description": "Martes",
-                            "rowId": "5-13-1130"
-                          },
-                          {
-                            "title": "🕒 14 de Mayo : 09:00 a 09:30",
-                            "description": "Miércoles",
-                            "rowId": "5-14-0900"
-                          },
-                          {
-                            "title": "🕒 14 de Mayo : 09:30 a 10:00",
-                            "description": "Miércoles",
-                            "rowId": "5-14-0930"
-                          },
-                          {
-                            "title": "🕒 14 de Mayo : 10:00 a 10:30",
-                            "description": "Miércoles",
-                            "rowId": "5-14-1000"
-                          },
-                          {
-                            "title": "🕒 14 de Mayo : 10:30 a 11:00",
-                            "description": "Miércoles",
-                            "rowId": "5-14-1030"
-                          },
-                          {
-                            "title": "🕒 14 de Mayo : 11:00 a 11:30",
-                            "description": "Miércoles",
-                            "rowId": "5-14-1100"
-                          },
-                          {
-                            "title": "🕒 14 de Mayo : 11:30 a 12:00",
-                            "description": "Miércoles",
-                            "rowId": "5-14-1130"
-                          },
-                          {
-                            "title": "🕒 15 de Mayo : 09:00 a 09:30",
-                            "description": "Jueves",
-                            "rowId": "5-15-0900"
-                          },
-                          {
-                            "title": "🕒 15 de Mayo : 09:30 a 10:00",
-                            "description": "Jueves",
-                            "rowId": "5-15-0930"
-                          },
-                          {
-                            "title": "🕒 15 de Mayo : 10:00 a 10:30",
-                            "description": "Jueves",
-                            "rowId": "5-15-1000"
-                          },
-                          {
-                            "title": "🕒 15 de Mayo : 10:30 a 11:00",
-                            "description": "Jueves",
-                            "rowId": "5-15-1030"
-                          },
-                          {
-                            "title": "🕒 15 de Mayo : 11:00 a 11:30",
-                            "description": "Jueves",
-                            "rowId": "5-15-1100"
-                          },
-                          {
-                            "title": "🕒 15 de Mayo : 11:30 a 12:00",
-                            "description": "Jueves",
-                            "rowId": "5-15-1130"
-                          },
-                          {
-                            "title": "🕒 16 de Mayo : 09:00 a 09:30",
-                            "description": "Viernes",
-                            "rowId": "5-16-0900"
-                          },
-                          {
-                            "title": "🕒 16 de Mayo : 09:30 a 10:00",
-                            "description": "Viernes",
-                            "rowId": "5-16-0930"
-                          },
-                          {
-                            "title": "🕒 16 de Mayo : 10:00 a 10:30",
-                            "description": "Viernes",
-                            "rowId": "5-16-1000"
-                          },
-                          {
-                            "title": "🕒 16 de Mayo : 10:30 a 11:00",
-                            "description": "Viernes",
-                            "rowId": "5-16-1030"
-                          },
-                          {
-                            "title": "🕒 16 de Mayo : 11:00 a 11:30",
-                            "description": "Viernes",
-                            "rowId": "5-16-1100"
-                          },
-                          {
-                            "title": "🕒 16 de Mayo : 11:30 a 12:00",
-                            "description": "Viernes",
-                            "rowId": "5-16-1130"
-                          },
-                          {
-                            "title": "🕒 17 de Mayo : 09:00 a 09:30",
-                            "description": "Sábado",
-                            "rowId": "5-17-0900"
-                          },
-                          {
-                            "title": "🕒 17 de Mayo : 09:30 a 10:00",
-                            "description": "Sábado",
-                            "rowId": "5-17-0930"
-                          },
-                          {
-                            "title": "🕒 17 de Mayo : 10:00 a 10:30",
-                            "description": "Sábado",
-                            "rowId": "5-17-1000"
-                          },
-                          {
-                            "title": "🕒 17 de Mayo : 10:30 a 11:00",
-                            "description": "Sábado",
-                            "rowId": "5-17-1030"
-                          },
-                          {
-                            "title": "🕒 17 de Mayo : 11:00 a 11:30",
-                            "description": "Sábado",
-                            "rowId": "5-17-1100"
-                          },
-                          {
-                            "title": "🕒 17 de Mayo : 11:30 a 12:00",
-                            "description": "Sábado",
-                            "rowId": "5-17-1130"
-                          },
-                          {
-                            "title": "🕒 18 de Mayo : 09:00 a 09:30",
-                            "description": "Domingo",
-                            "rowId": "5-18-0900"
-                          },
-                          {
-                            "title": "🕒 18 de Mayo : 09:30 a 10:00",
-                            "description": "Domingo",
-                            "rowId": "5-18-0930"
-                          },
-                          {
-                            "title": "🕒 18 de Mayo : 10:00 a 10:30",
-                            "description": "Domingo",
-                            "rowId": "5-18-1000"
-                          },
-                          {
-                            "title": "🕒 18 de Mayo : 10:30 a 11:00",
-                            "description": "Domingo",
-                            "rowId": "5-18-1030"
-                          },
-                          {
-                            "title": "🕒 18 de Mayo : 11:00 a 11:30",
-                            "description": "Domingo",
-                            "rowId": "5-18-1100"
-                          },
-                          {
-                            "title": "🕒 18 de Mayo : 11:30 a 12:00",
-                            "description": "Domingo",
-                            "rowId": "5-18-1130"
+                            "title": "📅 Agendador de Citas",
+                            "description": "Organizá turnos con recordatorios automáticos",
+                            "rowId": "bot_agendador"
                           }
                         ]
                       }
-                    ]
+                    ],
+                    "footerText": "💼 Expertos en automatización WhatsApp"
                   }
                 }
               },
               "messageType": "listResponseMessage",
-              "messageTimestamp": 1747030234,
+              "messageTimestamp": 1747076691,
               "instanceId": "17397cdb-a498-4f14-ac42-db31546caee9",
               "source": "android"
             },
             "destination": "https://n8n.innovasoftpro.dev/webhook/qeva",
-            "date_time": "2025-05-12T03:10:34.694Z",
+            "date_time": "2025-05-12T16:04:51.357Z",
             "sender": "5492254596618@s.whatsapp.net",
             "server_url": "https://n8n-evolution-api.ea1y7g.easypanel.host",
             "apikey": "FEFC629ADE3D-4720-A67F-6B927CFEC8CA"
@@ -3917,6 +3929,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-05-12T06:49:52.784Z",
-  "versionId": "85b471dd-e3b6-420f-83a2-213d6c4ea5fe"
+  "updatedAt": "2025-05-12T19:14:21.803Z",
+  "versionId": "e240f61b-929f-4443-b8e7-a3eb17d8fa47"
 }
