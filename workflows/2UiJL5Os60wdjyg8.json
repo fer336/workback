@@ -1816,7 +1816,7 @@
     {
       "parameters": {
         "operation": "delete",
-        "key": "=status:5492254423359"
+        "key": "=usuario:5492267416252"
       },
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
@@ -2860,11 +2860,11 @@
           "fieldValues": [
             {
               "fieldName": "pushname",
-              "fieldValue": "={{ $('If4').item.json.body.data.pushName }}"
+              "fieldValue": "={{ $('Webhook').item.json.body.data.pushName }}"
             },
             {
               "fieldName": "Telefono",
-              "fieldValue": "={{ $('If4').item.json.body.data.key.remoteJid.replace(/\\D/g, '') }}"
+              "fieldValue": "={{ $('Webhook').item.json.body.data.key.remoteJid.replace(/\\D/g, '') }}"
             },
             {
               "fieldName": "key",
@@ -3054,7 +3054,7 @@
       "typeVersion": 1,
       "position": [
         -3680,
-        3610
+        3620
       ],
       "id": "4be38706-5dfc-44ce-a3ed-75cad2cd4783",
       "name": "Obtiene el estado",
@@ -3710,7 +3710,7 @@
           "headers": {
             "host": "n8n.innovasoftpro.dev",
             "user-agent": "axios/1.7.9",
-            "content-length": "4214",
+            "content-length": "840",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
             "x-forwarded-for": "3.236.85.138",
@@ -3727,189 +3727,30 @@
             "instance": "tester",
             "data": {
               "key": {
-                "remoteJid": "5492254423359@s.whatsapp.net",
+                "remoteJid": "5492267416252@s.whatsapp.net",
                 "fromMe": false,
-                "id": "98C9AD891F527C6A24DF863A6EAFB74E"
+                "id": "E48C0D30F9E3F2F9CD4F9F9C67048404"
               },
-              "pushName": "Fer { }",
+              "pushName": "guidoangelsoliz87",
               "status": "DELIVERY_ACK",
               "message": {
+                "conversation": "Hola",
                 "messageContextInfo": {
                   "deviceListMetadata": {
-                    "senderKeyHash": "a0ebFmt5jO2yzg==",
-                    "senderTimestamp": "1746748763",
                     "recipientKeyHash": "YtP4sRhXLhV5fg==",
                     "recipientTimestamp": "1746795020"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "Mf8D4bKOYgDbbRWXQq+4OATMahOf8yI28PtIyaEgg3M="
-                },
-                "listResponseMessage": {
-                  "title": "🏡 Bot Inmobiliario",
-                  "listType": "SINGLE_SELECT",
-                  "singleSelectReply": {
-                    "selectedRowId": "bot_inmobiliario"
-                  },
-                  "contextInfo": {
-                    "stanzaId": "3EB01B0E6988D6D5F16836B28DF68FA30915B1D6",
-                    "participant": "5492254596618@s.whatsapp.net",
-                    "quotedMessage": {
-                      "listMessage": {
-                        "title": "🔹 AUTOMATIZACIONES 🔹",
-                        "description": "Seleccione un área para atención inmediata:",
-                        "buttonText": "Ver áreas 📋",
-                        "listType": "SINGLE_SELECT",
-                        "sections": [
-                          {
-                            "title": "🚨 Urgencias",
-                            "rows": [
-                              {
-                                "title": "⚠️ Problemas técnicos",
-                                "description": "Comunícate con un agente técnico por problemas con tu software",
-                                "rowId": "urgencia-tecnica"
-                              },
-                              {
-                                "title": "💵 Informar pagos",
-                                "description": "Notificar pagos realizados o consultas urgentes de facturación",
-                                "rowId": "urgencia-pagos"
-                              }
-                            ]
-                          },
-                          {
-                            "title": "👩‍💻 Soporte Técnico",
-                            "rows": [
-                              {
-                                "title": "🔌 Integraciones",
-                                "description": "Ayuda con reconexion de Whatsapp ",
-                                "rowId": "agente-integraciones"
-                              }
-                            ]
-                          },
-                          {
-                            "title": "📅 Agendar una cita",
-                            "rows": [
-                              {
-                                "title": "🗓️ Solicitar una reunión",
-                                "description": "Coordiná una cita con nuestro equipo",
-                                "rowId": "cita-solicitar"
-                              }
-                            ]
-                          },
-                          {
-                            "title": "Nuestros agentes, ¡solicitá tu demo! 🚀",
-                            "rows": [
-                              {
-                                "title": "🏡 Bot Inmobiliario",
-                                "description": "Gestioná alquileres, ventas y consultas",
-                                "rowId": "bot_inmobiliario"
-                              },
-                              {
-                                "title": "🛒 Bot para Despensas",
-                                "description": "Automatizá pedidos y atención de tu tienda",
-                                "rowId": "bot_despensa"
-                              },
-                              {
-                                "title": "🛵 Bot de Delivery",
-                                "description": "Tomá pedidos y gestioná envíos en WhatsApp",
-                                "rowId": "bot_delivery"
-                              },
-                              {
-                                "title": "📅 Agendador de Citas",
-                                "description": "Organizá turnos con recordatorios automáticos",
-                                "rowId": "bot_agendador"
-                              }
-                            ]
-                          }
-                        ],
-                        "footerText": "💼 Expertos en automatización WhatsApp"
-                      }
-                    }
-                  },
-                  "description": "Gestioná alquileres, ventas y consultas"
+                  "messageSecret": "yDgWu9NwM9R1zra7037n8bWTovTnqpPquUrwLvXBuQM="
                 }
               },
-              "contextInfo": {
-                "stanzaId": "3EB01B0E6988D6D5F16836B28DF68FA30915B1D6",
-                "participant": "5492254596618@s.whatsapp.net",
-                "quotedMessage": {
-                  "listMessage": {
-                    "title": "🔹 AUTOMATIZACIONES 🔹",
-                    "description": "Seleccione un área para atención inmediata:",
-                    "buttonText": "Ver áreas 📋",
-                    "listType": "SINGLE_SELECT",
-                    "sections": [
-                      {
-                        "title": "🚨 Urgencias",
-                        "rows": [
-                          {
-                            "title": "⚠️ Problemas técnicos",
-                            "description": "Comunícate con un agente técnico por problemas con tu software",
-                            "rowId": "urgencia-tecnica"
-                          },
-                          {
-                            "title": "💵 Informar pagos",
-                            "description": "Notificar pagos realizados o consultas urgentes de facturación",
-                            "rowId": "urgencia-pagos"
-                          }
-                        ]
-                      },
-                      {
-                        "title": "👩‍💻 Soporte Técnico",
-                        "rows": [
-                          {
-                            "title": "🔌 Integraciones",
-                            "description": "Ayuda con reconexion de Whatsapp ",
-                            "rowId": "agente-integraciones"
-                          }
-                        ]
-                      },
-                      {
-                        "title": "📅 Agendar una cita",
-                        "rows": [
-                          {
-                            "title": "🗓️ Solicitar una reunión",
-                            "description": "Coordiná una cita con nuestro equipo",
-                            "rowId": "cita-solicitar"
-                          }
-                        ]
-                      },
-                      {
-                        "title": "Nuestros agentes, ¡solicitá tu demo! 🚀",
-                        "rows": [
-                          {
-                            "title": "🏡 Bot Inmobiliario",
-                            "description": "Gestioná alquileres, ventas y consultas",
-                            "rowId": "bot_inmobiliario"
-                          },
-                          {
-                            "title": "🛒 Bot para Despensas",
-                            "description": "Automatizá pedidos y atención de tu tienda",
-                            "rowId": "bot_despensa"
-                          },
-                          {
-                            "title": "🛵 Bot de Delivery",
-                            "description": "Tomá pedidos y gestioná envíos en WhatsApp",
-                            "rowId": "bot_delivery"
-                          },
-                          {
-                            "title": "📅 Agendador de Citas",
-                            "description": "Organizá turnos con recordatorios automáticos",
-                            "rowId": "bot_agendador"
-                          }
-                        ]
-                      }
-                    ],
-                    "footerText": "💼 Expertos en automatización WhatsApp"
-                  }
-                }
-              },
-              "messageType": "listResponseMessage",
-              "messageTimestamp": 1747076691,
+              "messageType": "conversation",
+              "messageTimestamp": 1747150745,
               "instanceId": "17397cdb-a498-4f14-ac42-db31546caee9",
               "source": "android"
             },
             "destination": "https://n8n.innovasoftpro.dev/webhook/qeva",
-            "date_time": "2025-05-12T16:04:51.357Z",
+            "date_time": "2025-05-13T12:39:06.013Z",
             "sender": "5492254596618@s.whatsapp.net",
             "server_url": "https://n8n-evolution-api.ea1y7g.easypanel.host",
             "apikey": "FEFC629ADE3D-4720-A67F-6B927CFEC8CA"
@@ -3929,6 +3770,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-05-12T19:14:21.803Z",
-  "versionId": "e240f61b-929f-4443-b8e7-a3eb17d8fa47"
+  "updatedAt": "2025-05-13T17:45:36.881Z",
+  "versionId": "24365cae-4b36-4077-9798-167679ed9d39"
 }
