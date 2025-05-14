@@ -178,11 +178,45 @@
       "main": [
         [
           {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "NocoDB1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Recordatorio de cita",
             "type": "main",
             "index": 0
           }
         ]
+      ]
+    },
+    "NocoDB1": {
+      "main": [
+        []
       ]
     }
   },
@@ -596,7 +630,7 @@
             },
             {
               "fieldName": "Fecha_cita",
-              "fieldValue": "={{ $('Calendario').first().json.fecha_cita.substring(0, 16) }}"
+              "fieldValue": "={{ $('Code1').item.json.fecha_cita }}"
             },
             {
               "fieldName": "Propiedad",
@@ -608,11 +642,11 @@
             },
             {
               "fieldName": "recordatorio_24h_enviado",
-              "fieldValue": "={{ $json.recordatorio_24h ? $json.recordatorio_24h.substring(0, 16) : \"\" }}"
+              "fieldValue": "={{ $('Code1').item.json.recordatorio_24h }}"
             },
             {
               "fieldName": "recordatorio_1h_enviado",
-              "fieldValue": "={{ $json.recordatorio_1h ? $json.recordatorio_1h.substring(0, 16) : \"\" }}"
+              "fieldValue": "={{ $('Code1').item.json.recordatorio_1h }}"
             },
             {
               "fieldName": "recordatorio_1h",
@@ -632,8 +666,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        280,
-        -600
+        800,
+        -460
       ],
       "id": "f6f33091-87a1-478b-8690-c0b8297bb445",
       "name": "Recordatorio de cita",
@@ -656,6 +690,110 @@
       ],
       "id": "e048dd66-1dcf-4873-a001-b66b9874ba84",
       "name": "Code1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p311nqyjsnx0fqq",
+        "table": "mdyqlno73gz7aly",
+        "returnAll": true,
+        "options": {
+          "where": "=(Fecha_cita,eq,{{ $json.fecha_cita }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        320,
+        -600
+      ],
+      "id": "5698e204-9e5a-4232-abc6-358a84faee67",
+      "name": "NocoDB",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "04ba47e5-a15b-4db9-a9f7-fdad3dc6013d",
+              "leftValue": "={{ $json.Id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        -600
+      ],
+      "id": "e481df27-f88c-408a-99a5-47f1d177e2c5",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "p311nqyjsnx0fqq",
+        "table": "mdyqlno73gz7aly",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "recordatorio_24h_enviado",
+              "fieldValue": "={{ $('Code1').item.json.recordatorio_24h }}"
+            },
+            {
+              "fieldName": "recordatorio_1h_enviado",
+              "fieldValue": "={{ $('Code1').item.json.recordatorio_1h }}"
+            },
+            {
+              "fieldName": "Fecha_cita",
+              "fieldValue": "={{ $('Code1').item.json.fecha_cita }}"
+            },
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $('NocoDB').item.json.Id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        800,
+        -760
+      ],
+      "id": "6b86ab52-f008-4852-a490-37a7f0c32ecd",
+      "name": "NocoDB1",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -663,13 +801,13 @@
       {
         "json": {
           "numero_cliente": "5492254423359",
-          "fecha_cita": "2025-05-12T09:30:00",
-          "Nombre": "Juan Alberto Pederna",
+          "fecha_cita": "2025-05-16T10:00:00",
+          "Nombre": "Fernando",
           "Evento": "agendar",
           "correo_electronico": "casserafernando@gmail.com",
-          "nombre_inmobiliaria": "Agencia",
-          "session_id": "dd5838a2-daae-4b28-aba4-959b0596f45c",
-          "idMensaje": "B606A39559BC6DE00DDB4553498F016F"
+          "nombre_inmobiliaria": "",
+          "session_id": "a066b5fe-c1ce-4809-9e4d-8abe62b8b7c3",
+          "idMensaje": "3EB0EA72D427F9A994D177"
         }
       }
     ]
@@ -690,6 +828,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-09T20:46:37.381Z",
-  "versionId": "afcdac7d-79e9-463c-a4f0-00291d07655f"
+  "updatedAt": "2025-05-14T05:05:57.182Z",
+  "versionId": "272ccc07-2194-4d42-8554-683913ee4a16"
 }
