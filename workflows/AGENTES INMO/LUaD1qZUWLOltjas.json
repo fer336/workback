@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Loop Over Items": {
       "main": [
@@ -1370,7 +1370,8 @@
             "apikey": "={{ $('Variables globales').item.json.apikey }}",
             "url_evo": "={{ $('Variables globales').item.json.server_url }}",
             "session_id": "={{ $('getCliente').item.json.Key }}",
-            "Evento": "={{ $json.singleSelectReply.selectedRowId }}"
+            "Evento": "={{ $json.singleSelectReply.selectedRowId }}",
+            "fecha_cita": "={{ $json.detalles.fecha_iso }}"
           },
           "matchingColumns": [
             "Evento"
@@ -1429,6 +1430,16 @@
             {
               "id": "numero_telefono",
               "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -2539,7 +2550,7 @@
       "typeVersion": 3.1,
       "position": [
         -19160,
-        -8636
+        -8600
       ],
       "id": "bd8bdc68-0ed0-411c-b3ff-f3375c76e150",
       "name": "Merge"
@@ -2557,7 +2568,7 @@
       "typeVersion": 1,
       "position": [
         -18940,
-        -8615
+        -8580
       ],
       "credentials": {
         "redis": {
@@ -2568,7 +2579,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle = listResponseMessage?.title || \"\";\n    const singleSelectReply = listResponseMessage?.singleSelectReply || null;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Obtener el título y la descripción\n        const title = listResponseMessage.title || \"\";\n        \n        // Verificar si hay información adicional en el nodo que indique el tipo de lista\n        // Por ejemplo, podríamos buscar en quotedMessage o contextInfo\n        let tipoLista = \"\";\n        \n        // Intentar obtener tipo de lista desde lista completa si está disponible\n        try {\n          const quotedMessage = listResponseMessage?.contextInfo?.quotedMessage;\n          if (quotedMessage && quotedMessage.listMessage) {\n            const listMessageTitle = quotedMessage.listMessage.title || \"\";\n            if (listMessageTitle.includes(\"Visitas Programadas\")) {\n              tipoLista = \"fechas_reprogramacion\";\n            } else if (listMessageTitle.includes(\"Fechas Disponibles\")) {\n              tipoLista = \"fechas_disponibles\";\n            }\n          }\n        } catch (e) {\n          console.log(\"Error al intentar obtener tipo de lista desde quoted message:\", e);\n        }\n        \n        // Si no pudimos detectar el tipo desde el contexto, intentamos inferirlo\n        if (!tipoLista) {\n          // Buscar elementos específicos en el input que puedan indicar el tipo\n          const inputJson = $input.first()?.json || {};\n          \n          // SOLUCIÓN: Verificar si hay algún indicador en el formato del rowId o en los datos\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            // Si tiene formato de fecha (mes-dia-hora), asumimos que es fechas_disponibles\n            tipoLista = \"fechas_disponibles\";\n          } else if (title.includes(\"Visitas Programadas\") || \n                   inputJson.footerText?.includes(\"visitas\") ||\n                   inputJson.description?.includes(\"visitas programadas\")) {\n            tipoLista = \"fechas_reprogramacion\";\n          }\n          \n          // Si aún no tenemos tipo, hacemos una última verificación\n          if (!tipoLista) {\n            if (title.match(/\\d+ de [A-Za-z]+ - \\d+:\\d+/)) {\n              tipoLista = \"fechas_disponibles\"; // Si tiene formato de fecha, es disponibilidad\n            } else {\n              tipoLista = \"disponibilidad\"; // Valor por defecto\n            }\n          }\n        }\n        \n        // Usamos el tipo detectado\n        if (tipoLista === \"fechas_reprogramacion\") {\n          return {\n            tipo: \"fechas_reprogramacion\",\n            eventId: eventId,\n            detalles: {\n              visita_id: eventId,\n              texto_visita: title\n            },\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Para fechas_disponibles o disponibilidad\n          // Procesamos la fecha\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}:00`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Extraer información del title\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}:00`;\n                \n                return {\n                  tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Fallback para selecciones desconocidas\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Resto del código para mensajes y confirmaciones igual...\n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje = $input.first()?.json?.mensaje || \"\";\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
+        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle = listResponseMessage?.title || \"\";\n    const singleSelectReply = listResponseMessage?.singleSelectReply || null;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Obtener el título y la descripción\n        const title = listResponseMessage.title || \"\";\n        \n        // Verificar si hay información adicional en el nodo que indique el tipo de lista\n        // Por ejemplo, podríamos buscar en quotedMessage o contextInfo\n        let tipoLista = \"\";\n        \n        // Intentar obtener tipo de lista desde lista completa si está disponible\n        try {\n          const quotedMessage = listResponseMessage?.contextInfo?.quotedMessage;\n          if (quotedMessage && quotedMessage.listMessage) {\n            const listMessageTitle = quotedMessage.listMessage.title || \"\";\n            if (listMessageTitle.includes(\"Visitas Programadas\")) {\n              tipoLista = \"fechas_reprogramacion\";\n            } else if (listMessageTitle.includes(\"Fechas Disponibles\")) {\n              tipoLista = \"fechas_disponibles\";\n            }\n          }\n        } catch (e) {\n          console.log(\"Error al intentar obtener tipo de lista desde quoted message:\", e);\n        }\n        \n        // Si no pudimos detectar el tipo desde el contexto, intentamos inferirlo\n        if (!tipoLista) {\n          // Buscar elementos específicos en el input que puedan indicar el tipo\n          const inputJson = $input.first()?.json || {};\n          \n          // SOLUCIÓN: Verificar si hay algún indicador en el formato del rowId o en los datos\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            // Si tiene formato de fecha (mes-dia-hora), asumimos que es fechas_disponibles\n            tipoLista = \"fechas_disponibles\";\n          } else if (title.includes(\"Visitas Programadas\") || \n                   inputJson.footerText?.includes(\"visitas\") ||\n                   inputJson.description?.includes(\"visitas programadas\")) {\n            tipoLista = \"fechas_reprogramacion\";\n          }\n          \n          // Si aún no tenemos tipo, hacemos una última verificación\n          if (!tipoLista) {\n            if (title.match(/\\d+ de [A-Za-z]+ - \\d+:\\d+/)) {\n              tipoLista = \"fechas_disponibles\"; // Si tiene formato de fecha, es disponibilidad\n            } else {\n              tipoLista = \"disponibilidad\"; // Valor por defecto\n            }\n          }\n        }\n        \n        // Usamos el tipo detectado\n        if (tipoLista === \"fechas_reprogramacion\") {\n          // NUEVO: Extraer fecha del título para casos de fechas_reprogramacion\n          const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n          let detallesVisita = {\n            visita_id: eventId,\n            texto_visita: title\n          };\n          \n          // Si encontramos un formato de fecha en el título, agregamos fecha_iso\n          if (fechaMatch) {\n            const dia = fechaMatch[1];\n            const mesTexto = fechaMatch[2];\n            const hora = fechaMatch[3];\n            const minutos = fechaMatch[4];\n            \n            // Mapeo de nombres de meses a números\n            const mesesMap = {\n              'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n              'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n              'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n            };\n            \n            const mesNumero = mesesMap[mesTexto.toLowerCase()];\n            if (mesNumero) {\n              const now = new Date();\n              const anioActual = now.getFullYear();\n              // Sin segundos\n              const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n              \n              detallesVisita = {\n                ...detallesVisita,\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: mesTexto,\n                hora: `${hora}:${minutos}`,\n                fecha_iso: fechaISO\n              };\n            }\n          }\n          \n          return {\n            tipo: \"fechas_reprogramacion\",\n            eventId: eventId,\n            detalles: detallesVisita,\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Para fechas_disponibles o disponibilidad\n          // Procesamos la fecha\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO - Sin segundos\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Extraer información del title\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                // Sin segundos\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n                \n                return {\n                  tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Fallback para selecciones desconocidas\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Resto del código para mensajes y confirmaciones igual...\n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje = $input.first()?.json?.mensaje || \"\";\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2811,7 +2822,8 @@
             "apikey": "={{ $('Variables globales').item.json.apikey }}",
             "url_evo": "={{ $('Variables globales').item.json.server_url }}",
             "session_id": "={{ $('getCliente').item.json.Key }}",
-            "Evento": "={{ $json.singleSelectReply.selectedRowId }}"
+            "Evento": "={{ $json.singleSelectReply.selectedRowId }}",
+            "fecha_cita": "={{ $json.detalles.fecha_iso }}"
           },
           "matchingColumns": [
             "Evento"
@@ -2876,6 +2888,16 @@
               "canBeUsedToMatch": true,
               "type": "string",
               "removed": false
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
             }
           ],
           "attemptToConvertTypes": true,
@@ -2894,13 +2916,13 @@
     },
     {
       "parameters": {
-        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle = listResponseMessage?.title || \"\";\n    const singleSelectReply = listResponseMessage?.singleSelectReply || null;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Obtener el título y la descripción\n        const title = listResponseMessage.title || \"\";\n        \n        // Verificar si hay información adicional en el nodo que indique el tipo de lista\n        // Por ejemplo, podríamos buscar en quotedMessage o contextInfo\n        let tipoLista = \"\";\n        \n        // Intentar obtener tipo de lista desde lista completa si está disponible\n        try {\n          const quotedMessage = listResponseMessage?.contextInfo?.quotedMessage;\n          if (quotedMessage && quotedMessage.listMessage) {\n            const listMessageTitle = quotedMessage.listMessage.title || \"\";\n            if (listMessageTitle.includes(\"Visitas Programadas\")) {\n              tipoLista = \"fechas_reprogramacion\";\n            } else if (listMessageTitle.includes(\"Fechas Disponibles\")) {\n              tipoLista = \"fechas_disponibles\";\n            }\n          }\n        } catch (e) {\n          console.log(\"Error al intentar obtener tipo de lista desde quoted message:\", e);\n        }\n        \n        // Si no pudimos detectar el tipo desde el contexto, intentamos inferirlo\n        if (!tipoLista) {\n          // Buscar elementos específicos en el input que puedan indicar el tipo\n          const inputJson = $input.first()?.json || {};\n          \n          // SOLUCIÓN: Verificar si hay algún indicador en el formato del rowId o en los datos\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            // Si tiene formato de fecha (mes-dia-hora), asumimos que es fechas_disponibles\n            tipoLista = \"fechas_disponibles\";\n          } else if (title.includes(\"Visitas Programadas\") || \n                   inputJson.footerText?.includes(\"visitas\") ||\n                   inputJson.description?.includes(\"visitas programadas\")) {\n            tipoLista = \"fechas_reprogramacion\";\n          }\n          \n          // Si aún no tenemos tipo, hacemos una última verificación\n          if (!tipoLista) {\n            if (title.match(/\\d+ de [A-Za-z]+ - \\d+:\\d+/)) {\n              tipoLista = \"fechas_disponibles\"; // Si tiene formato de fecha, es disponibilidad\n            } else {\n              tipoLista = \"disponibilidad\"; // Valor por defecto\n            }\n          }\n        }\n        \n        // Usamos el tipo detectado\n        if (tipoLista === \"fechas_reprogramacion\") {\n          return {\n            tipo: \"fechas_reprogramacion\",\n            eventId: eventId,\n            detalles: {\n              visita_id: eventId,\n              texto_visita: title\n            },\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Para fechas_disponibles o disponibilidad\n          // Procesamos la fecha\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}:00`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Extraer información del title\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}:00`;\n                \n                return {\n                  tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Fallback para selecciones desconocidas\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Resto del código para mensajes y confirmaciones igual...\n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje = $input.first()?.json?.mensaje || \"\";\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
+        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle = listResponseMessage?.title || \"\";\n    const singleSelectReply = listResponseMessage?.singleSelectReply || null;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Obtener el título y la descripción\n        const title = listResponseMessage.title || \"\";\n        \n        // Verificar si hay información adicional en el nodo que indique el tipo de lista\n        // Por ejemplo, podríamos buscar en quotedMessage o contextInfo\n        let tipoLista = \"\";\n        \n        // Intentar obtener tipo de lista desde lista completa si está disponible\n        try {\n          const quotedMessage = listResponseMessage?.contextInfo?.quotedMessage;\n          if (quotedMessage && quotedMessage.listMessage) {\n            const listMessageTitle = quotedMessage.listMessage.title || \"\";\n            if (listMessageTitle.includes(\"Visitas Programadas\")) {\n              tipoLista = \"fechas_reprogramacion\";\n            } else if (listMessageTitle.includes(\"Fechas Disponibles\")) {\n              tipoLista = \"fechas_disponibles\";\n            }\n          }\n        } catch (e) {\n          console.log(\"Error al intentar obtener tipo de lista desde quoted message:\", e);\n        }\n        \n        // Si no pudimos detectar el tipo desde el contexto, intentamos inferirlo\n        if (!tipoLista) {\n          // Buscar elementos específicos en el input que puedan indicar el tipo\n          const inputJson = $input.first()?.json || {};\n          \n          // SOLUCIÓN: Verificar si hay algún indicador en el formato del rowId o en los datos\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            // Si tiene formato de fecha (mes-dia-hora), asumimos que es fechas_disponibles\n            tipoLista = \"fechas_disponibles\";\n          } else if (title.includes(\"Visitas Programadas\") || \n                   inputJson.footerText?.includes(\"visitas\") ||\n                   inputJson.description?.includes(\"visitas programadas\")) {\n            tipoLista = \"fechas_reprogramacion\";\n          }\n          \n          // Si aún no tenemos tipo, hacemos una última verificación\n          if (!tipoLista) {\n            if (title.match(/\\d+ de [A-Za-z]+ - \\d+:\\d+/)) {\n              tipoLista = \"fechas_disponibles\"; // Si tiene formato de fecha, es disponibilidad\n            } else {\n              tipoLista = \"disponibilidad\"; // Valor por defecto\n            }\n          }\n        }\n        \n        // Usamos el tipo detectado\n        if (tipoLista === \"fechas_reprogramacion\") {\n          return {\n            tipo: \"fechas_reprogramacion\",\n            eventId: eventId,\n            detalles: {\n              visita_id: eventId,\n              texto_visita: title\n            },\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Para fechas_disponibles o disponibilidad\n          // Procesamos la fecha\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO - CAMBIO AQUÍ: Eliminado los segundos (:00)\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Extraer información del title\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                // CAMBIO AQUÍ: Eliminado los segundos (:00)\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n                \n                return {\n                  tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Fallback para selecciones desconocidas\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Resto del código para mensajes y confirmaciones igual...\n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje = $input.first()?.json?.mensaje || \"\";\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -15990,
-        -8419
+        -16000,
+        -8420
       ],
       "id": "76695f3f-52b0-4a2a-8be0-6923f7947cfa",
       "name": "Codigo3"
@@ -2930,8 +2952,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -16580,
-        -8400
+        -16540,
+        -8300
       ],
       "id": "1b6efdda-29f9-4e35-8be9-6f1667caf7ec",
       "name": "Google Gemini Chat Model1",
@@ -2950,7 +2972,7 @@
           "headers": {
             "host": "n8n.innovasoftpro.dev",
             "user-agent": "axios/1.7.9",
-            "content-length": "926",
+            "content-length": "2306",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
             "x-forwarded-for": "172.18.0.1",
@@ -2969,38 +2991,146 @@
               "key": {
                 "remoteJid": "5492254423359@s.whatsapp.net",
                 "fromMe": false,
-                "id": "3EB0CA8A746D19E3C5083B"
+                "id": "5D5EDE4782D404882243DE046653D96E"
               },
               "pushName": "Fer { }",
               "status": "DELIVERY_ACK",
               "message": {
-                "conversation": "si",
                 "messageContextInfo": {
                   "deviceListMetadata": {
                     "senderKeyHash": "a0ebFmt5jO2yzg==",
                     "senderTimestamp": "1746748763",
-                    "senderAccountType": "E2EE",
-                    "receiverAccountType": "E2EE",
                     "recipientKeyHash": "ReBBitAuv3H82w==",
                     "recipientTimestamp": "1745502914"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "htzudBiF4idKRixqGW7mFDAga3F7mkTzAlPSNin2wtc="
+                  "messageSecret": "EBzN1C1E7MngxIXc1962467wJrWrvrqYCz5dUvacJpI="
+                },
+                "listResponseMessage": {
+                  "title": "📅 19 de Mayo - 09:00",
+                  "listType": "SINGLE_SELECT",
+                  "singleSelectReply": {
+                    "selectedRowId": "qp862ifcdv05o5k0qtd9misdvc"
+                  },
+                  "contextInfo": {
+                    "stanzaId": "3EB06960BB07FC786BA16A2362E1FBFD52D33BA8",
+                    "participant": "5492254606018@s.whatsapp.net",
+                    "quotedMessage": {
+                      "listMessage": {
+                        "title": "📅 Visitas Programadas",
+                        "description": "Lista de visitas a propiedades programadas",
+                        "buttonText": "✅ Fecha a reprogramar",
+                        "listType": "SINGLE_SELECT",
+                        "sections": [
+                          {
+                            "title": "🍂 Mayo",
+                            "rows": [
+                              {
+                                "title": "📅 19 de Mayo - 09:00",
+                                "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64",
+                                "rowId": "qp862ifcdv05o5k0qtd9misdvc"
+                              }
+                            ]
+                          }
+                        ],
+                        "footerText": "🟢 Visitas Programadas"
+                      }
+                    }
+                  },
+                  "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64"
                 }
               },
-              "messageType": "conversation",
-              "messageTimestamp": 1747177123,
+              "contextInfo": {
+                "stanzaId": "3EB06960BB07FC786BA16A2362E1FBFD52D33BA8",
+                "participant": "5492254606018@s.whatsapp.net",
+                "quotedMessage": {
+                  "listMessage": {
+                    "title": "📅 Visitas Programadas",
+                    "description": "Lista de visitas a propiedades programadas",
+                    "buttonText": "✅ Fecha a reprogramar",
+                    "listType": "SINGLE_SELECT",
+                    "sections": [
+                      {
+                        "title": "🍂 Mayo",
+                        "rows": [
+                          {
+                            "title": "📅 19 de Mayo - 09:00",
+                            "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64",
+                            "rowId": "qp862ifcdv05o5k0qtd9misdvc"
+                          }
+                        ]
+                      }
+                    ],
+                    "footerText": "🟢 Visitas Programadas"
+                  }
+                }
+              },
+              "messageType": "listResponseMessage",
+              "messageTimestamp": 1747225953,
               "instanceId": "4e9127df-d360-4ac0-a849-965bf5955398",
-              "source": "web"
+              "source": "android"
             },
             "destination": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
-            "date_time": "2025-05-13T19:58:43.470Z",
+            "date_time": "2025-05-14T09:32:33.598Z",
             "sender": "5492254606018@s.whatsapp.net",
             "server_url": "https://evo.innovasoftpro.dev",
             "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
           },
           "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
           "executionMode": "production"
+        }
+      }
+    ],
+    "Variables globales": [
+      {
+        "json": {
+          "TelefonoCliente": "5492254423359",
+          "nombreCliente": "Fer { }",
+          "nombreInstancia": "tester",
+          "mensaje": null,
+          "tipoMensaje": "listResponseMessage",
+          "idMensaje": "5D5EDE4782D404882243DE046653D96E",
+          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
+          "Escribiendo": 1200,
+          "tiempo": "2025-05-14T09:32:33.598Z",
+          "server_url": "https://evo.innovasoftpro.dev",
+          "label": "[\"\"]",
+          "ListResponseMessage": {
+            "title": "📅 19 de Mayo - 09:00",
+            "listType": "SINGLE_SELECT",
+            "singleSelectReply": {
+              "selectedRowId": "qp862ifcdv05o5k0qtd9misdvc"
+            },
+            "contextInfo": {
+              "stanzaId": "3EB06960BB07FC786BA16A2362E1FBFD52D33BA8",
+              "participant": "5492254606018@s.whatsapp.net",
+              "quotedMessage": {
+                "listMessage": {
+                  "title": "📅 Visitas Programadas",
+                  "description": "Lista de visitas a propiedades programadas",
+                  "buttonText": "✅ Fecha a reprogramar",
+                  "listType": "SINGLE_SELECT",
+                  "sections": [
+                    {
+                      "title": "🍂 Mayo",
+                      "rows": [
+                        {
+                          "title": "📅 19 de Mayo - 09:00",
+                          "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64",
+                          "rowId": "qp862ifcdv05o5k0qtd9misdvc"
+                        }
+                      ]
+                    }
+                  ],
+                  "footerText": "🟢 Visitas Programadas"
+                }
+              }
+            },
+            "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64"
+          },
+          "server_db": "https://db.innovasoftpro.dev",
+          "Key": "77722567-7848-4d4e-80e1-139d338e2329",
+          "Id": 49
         }
       }
     ]
@@ -3021,6 +3151,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-05-13T23:11:46.418Z",
-  "versionId": "033ac060-5c2a-42de-9832-201df50ffa63"
+  "updatedAt": "2025-05-15T01:41:50.138Z",
+  "versionId": "438567f5-7444-433d-9d53-db31b8afcc27"
 }
