@@ -1,0 +1,541 @@
+{
+  "active": false,
+  "connections": {
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "vars1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "vars1": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB1": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Productos3": {
+      "main": [
+        [
+          {
+            "node": "Productos5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "NocoDB1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "Productos4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Productos4": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Productos5": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Aggregate2": {
+      "main": [
+        [
+          {
+            "node": "Productos3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista General": {
+      "main": [
+        [
+          {
+            "node": "cancelar8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-05-01T11:28:51.537Z",
+  "id": "HAtUjKa7vn5tm7K1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "DESPENSA - Promociones_productos",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "descripcion"
+            },
+            {
+              "name": "Telefono"
+            },
+            {
+              "name": "server"
+            },
+            {
+              "name": "apikey"
+            },
+            {
+              "name": "instance"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1280,
+        500
+      ],
+      "id": "25562478-a66f-46e7-a46d-8fe658c9bdde",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1931bd85-0ac1-497b-a706-9d5785b6fd21",
+              "name": "response",
+              "value": "={{ $json.productos }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1140,
+        500
+      ],
+      "id": "42863cf8-6887-48d0-b54a-a5640bf2d44e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "Producto, ['P. Venta']",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        40,
+        575
+      ],
+      "id": "a05adc14-272c-499a-ace4-0ef588c92138",
+      "name": "Split Out2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6e46f8fb-879f-4d37-b5f9-cfdf1177e673",
+              "name": "descripcion",
+              "value": "={{ $json.descripcion }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1060,
+        500
+      ],
+      "id": "b3097871-6afc-409d-8e24-8eb6896468c5",
+      "name": "vars1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pc1g3m0ih934pz9",
+        "table": "mglfauedt7z942e",
+        "returnAll": true,
+        "options": {
+          "fields": []
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -180,
+        575
+      ],
+      "id": "af1c13d0-31c8-4d5f-9de3-7cc4bc5e3926",
+      "name": "NocoDB1",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "=promo",
+        "messageData": "={{ JSON.stringify($json.productos) }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        480,
+        575
+      ],
+      "id": "444324e4-3d06-4233-a95a-813006cec19d",
+      "name": "Productos3",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fd06524c-64b9-494c-b07c-866a083aed27",
+              "leftValue": "={{ $json.productos }}",
+              "rightValue": "null",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -400,
+        500
+      ],
+      "id": "cc250e79-01b2-4d94-828c-b28d30f79403",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "=Promociones",
+        "key": "=promo",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -840,
+        500
+      ],
+      "id": "ace4bbd6-5614-4998-9258-94cb8fc02ea6",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a36ae4f2-54a0-4d2d-b58e-1a8c013faf22",
+              "name": "productos",
+              "value": "={{ $json.Promociones }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -620,
+        500
+      ],
+      "id": "aabd048f-ea12-468f-86b0-f93b14f487b6",
+      "name": "Productos4"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        920,
+        500
+      ],
+      "id": "905324d3-61e9-4903-b2fe-f4ca9e95d175",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5b1f7094-6f76-4c92-b112-059537c4d552",
+              "name": "productos",
+              "value": "={{ $json.productos }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        700,
+        575
+      ],
+      "id": "c6156abe-6d76-4251-a90a-7ce9e0028014",
+      "name": "Productos5"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "=productos",
+        "include": "specifiedFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        260,
+        575
+      ],
+      "id": "57fd5357-473d-4cf7-a513-cdb7790ef993",
+      "name": "Aggregate2"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "promo"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        840
+      ],
+      "id": "029b088b-c387-40b9-88be-56a658639532",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función para generar una lista de productos a partir del array proporcionado\nfunction generarListaProductos(numeroCliente, productos) {\n  // Asegurarse de que productos sea un array\n  const productosArray = Array.isArray(productos) ? productos : [];\n  \n  // Crear un array de filas para los productos\n  const productosRows = productosArray.map((producto, index) => {\n    return {\n      \"title\": producto.Producto || \"Producto sin nombre\",\n      \"description\": `${producto[\"['P. Venta']\"] || 0}`,\n      \"rowId\": `producto_${index}`\n    };\n  });\n\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🛒 Productos Disponibles\",\n      \"description\": \"Selecciona los productos que deseas ordenar\",\n      \"buttonText\": \"Ver Productos\",\n      \"footerText\": \"Elige cualquier producto de nuestra selección\",\n      \"sections\": [\n        {\n          \"title\": \"📋 Lista de Productos\",\n          \"rows\": productosRows\n        },\n        {\n          \"title\": \"🛒 Carrito\",\n          \"rows\": [\n            {\n              \"title\": \"Ver mi Pedido\",\n              \"description\": \"Revisa los productos seleccionados\",\n              \"rowId\": \"ver_carrito\"\n            },\n            {\n              \"title\": \"Finalizar Compra\",\n              \"description\": \"Proceder al pago\",\n              \"rowId\": \"finalizar_compra\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Mantener las demás funciones existentes\n// ...\n\n// Modificar la última línea para usar la nueva función\n// Acceder a los productos desde el input\n// Asegurarse de que response sea un array antes de usarlo\nlet productos = [];\ntry {\n  const inputData = $input.first().json;\n  productos = Array.isArray(inputData.response) ? inputData.response : [];\n  // Si response no es un array, verificar si es un string que podría ser un JSON\n  if (productos.length === 0 && typeof inputData.response === 'string') {\n    try {\n      const parsedResponse = JSON.parse(inputData.response);\n      productos = Array.isArray(parsedResponse) ? parsedResponse : [];\n    } catch (e) {\n      // Si no se puede parsear como JSON, dejar productos como array vacío\n    }\n  }\n} catch (error) {\n  // En caso de error, usar un array vacío\n}\n\nreturn generarListaProductos($input.first().json.numero_cliente || \"123456789\", productos);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1380,
+        500
+      ],
+      "id": "d19d1aa9-95fe-4958-93bb-dbe48396dfd4",
+      "name": "Lista General"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Calendario').first().json.url }}/message/sendList/{{ $('Calendario').first().json.instancia }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Calendario').first().json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.number }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "footerText",
+              "value": "={{ $json.footerText }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1600,
+        500
+      ],
+      "id": "4d49f208-1f8b-4c79-aa6b-9726110bef3c",
+      "name": "cancelar8",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {
+    "Workflow Input Trigger": [
+      {
+        "json": {
+          "descripcion": "No es correcto busca de nuevo",
+          "Telefono": "5492254423359"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-01-19T21:20:51.336Z",
+      "updatedAt": "2025-01-19T21:20:51.336Z",
+      "id": "dgrS6et84MZNe4W0",
+      "name": "POCHO"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-05-14T20:28:53.204Z",
+  "versionId": "b438550e-bbc8-4e82-abbb-7ff714a990d5"
+}
