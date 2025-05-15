@@ -1,0 +1,414 @@
+{
+  "active": true,
+  "connections": {
+    "Lista General": {
+      "main": [
+        [
+          {
+            "node": "cancelar8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Menu": {
+      "main": [
+        []
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MESSAGE": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separa datos": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Lista General",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cancelar8": {
+      "main": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-15T01:36:14.652Z",
+  "id": "FR9qUEE1lqIr1h2S",
+  "meta": null,
+  "name": "AGENTE DELIVERY - Menu principal",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// Función para generar el menú principal (categorías)\nfunction generarMenuPrincipal(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍔 Menú Delivery\",\n      \"description\": \"¡Hola! Bienvenido a nuestro servicio de delivery\",\n      \"buttonText\": \"Ver Categorías\",\n      \"footerText\": \"Selecciona una categoría para continuar\",\n      \"sections\": [\n        {\n          \"title\": \"🍔 Nuestro Menú\",\n          \"rows\": [\n            {\n              \"title\": \"Burgers con papas\",\n              \"description\": \"Hamburguesas gourmet con papas fritas incluidas\",\n              \"rowId\": \"cat_burgers\"\n            },\n            {\n              \"title\": \"Veggies con papas\",\n              \"description\": \"Hamburguesas vegetarianas con papas fritas incluidas\",\n              \"rowId\": \"cat_veggies\"\n            },\n            {\n              \"title\": \"Fries\",\n              \"description\": \"Papas fritas y toppings especiales\",\n              \"rowId\": \"cat_fries\"\n            },\n            {\n              \"title\": \"Ensaladas\",\n              \"description\": \"Opciones frescas y saludables\",\n              \"rowId\": \"cat_ensaladas\"\n            },\n            {\n              \"title\": \"Menu Kids\",\n              \"description\": \"Opciones especiales para los más pequeños\",\n              \"rowId\": \"cat_kids\"\n            },\n            {\n              \"title\": \"Tostados con papas\",\n              \"description\": \"Tostados gourmet con papas fritas incluidas\",\n              \"rowId\": \"cat_tostados\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🥤 Bebidas\",\n          \"rows\": [\n            {\n              \"title\": \"Bebidas sin alcohol\",\n              \"description\": \"Refrescos, jugos y aguas\",\n              \"rowId\": \"cat_bebidas\"\n            },\n            {\n              \"title\": \"Cerveza Artesanal MINGA\",\n              \"description\": \"Variedad de cervezas artesanales\",\n              \"rowId\": \"cat_cervezas\"\n            },\n            {\n              \"title\": \"Tragos\",\n              \"description\": \"Bebidas con alcohol y cócteles\",\n              \"rowId\": \"cat_tragos\"\n            }\n          ]\n        },\n        {\n          \"title\": \"✨ Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Invitados especiales\",\n              \"description\": \"Nuestras creaciones destacadas\",\n              \"rowId\": \"cat_invitados\"\n            },\n            {\n              \"title\": \"Combo Del día\",\n              \"description\": \"La mejor opción al mejor precio\",\n              \"rowId\": \"cat_combo\"\n            },\n            {\n              \"title\": \"Promos\",\n              \"description\": \"Ofertas y promociones especiales\",\n              \"rowId\": \"cat_promos\"\n            },\n            {\n              \"title\": \"Postres\",\n              \"description\": \"Dulces para completar tu experiencia\",\n              \"rowId\": \"cat_postres\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar el menú de hamburguesas cuando se selecciona \"Burgers con papas\"\nfunction generarMenuBurgers(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍔 Burgers con Papas\",\n      \"description\": \"Selecciona la hamburguesa que deseas ordenar\",\n      \"buttonText\": \"Ver Hamburguesas\",\n      \"footerText\": \"Todas nuestras hamburguesas incluyen papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"⭐ Hamburguesas Clásicas\",\n          \"rows\": [\n            {\n              \"title\": \"Cheese Burger\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4\\nSimple: $14.500 | Doble: $17.300\",\n              \"rowId\": \"burger_cheese\"\n            },\n            {\n              \"title\": \"American\",\n              \"description\": \"Medallón 120gr, cheddar x4, ketchup, mostaza, cebolla cubitos, pepinillos\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_american\"\n            },\n            {\n              \"title\": \"Classic\",\n              \"description\": \"Medallón 120gr, cheddar x4, salsa mil islas, cebollas, pepinillos, lechuga, tomate\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_classic\"\n            },\n            {\n              \"title\": \"Tasty\",\n              \"description\": \"Medallón 120gr, cheddar x4, lechuga, tomate, cebolla morada, aderezo tasty\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_tasty\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🥓 Hamburguesas con Bacon\",\n          \"rows\": [\n            {\n              \"title\": \"Cheese Bacon\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_cheese_bacon\"\n            },\n            {\n              \"title\": \"Sistons\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, aioli de berenjena ahumada, pepinillos\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_sistons\"\n            },\n            {\n              \"title\": \"Candy\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, cebolla caramelizada\\nSimple: $16.500 | Doble: $19.100 | Triple: $21.900\",\n              \"rowId\": \"burger_candy\"\n            },\n            {\n              \"title\": \"Cheese Bacon Egg\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, huevo a la plancha\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_egg\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🧅 Hamburguesas con Cebolla\",\n          \"rows\": [\n            {\n              \"title\": \"Fried Onion\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla smasheada en la plancha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion\"\n            },\n            {\n              \"title\": \"Fried Onion 2.0\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla smasheada, ali oli, pepinillos (opcional)\\nSimple: $15.800 | Doble: $18.800 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion2\"\n            },\n            {\n              \"title\": \"Crispy Onion\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, ali oli, mil islas, cebolla crispy, pepinillos\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_crispy_onion\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🌟 Hamburguesas Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Blue Cheese\",\n              \"description\": \"Medallón 120gr, queso emmental x2, queso azul, bacon ahumado, cebolla morada\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_blue_cheese\"\n            },\n            {\n              \"title\": \"Butter Sriracha\",\n              \"description\": \"Medallón 120gr, cheddar x4, manteca, sriracha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_sriracha\"\n            },\n            {\n              \"title\": \"Gesell Burger\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla brunoise salteada, mayonesa heinz\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_gesell\"\n            },\n            {\n              \"title\": \"Pina Burger\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, aros de cebolla, barbacoa, aioli ahumado\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_pina\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🔝 Premium\",\n          \"rows\": [\n            {\n              \"title\": \"Juicy\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado (2 fetas), cebolla morada, salsa secreta, pepinillos\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_juicy\"\n            },\n            {\n              \"title\": \"Sistons Scott\",\n              \"description\": \"Medallón 120gr, cheddar x4, ketchup, mostaza, cebolla, pepinillos, lechuga, bacon\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_sistons_scott\"\n            },\n            {\n              \"title\": \"Triple Queso\",\n              \"description\": \"3 medallones 120gr (blend secreto), x6 cheddar\\n$19.800\",\n              \"rowId\": \"burger_triple_queso\"\n            },\n            {\n              \"title\": \"Chicken Burger\",\n              \"description\": \"Pollo crispy, salsa caesar, lechuga, crispy, bacon, cheddar\\n$16.700\",\n              \"rowId\": \"burger_chicken\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para mostrar opciones de una hamburguesa específica (Simple/Doble/Triple)\nfunction generarOpcionesHamburguesa(numeroCliente, burgerId, nombreHamburguesa) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": `🍔 ${nombreHamburguesa}`,\n      \"description\": \"Selecciona el tamaño de tu hamburguesa\",\n      \"buttonText\": \"Seleccionar Tamaño\",\n      \"footerText\": \"Todas nuestras hamburguesas incluyen papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"🔄 Selecciona el Tamaño\",\n          \"rows\": [\n            {\n              \"title\": \"Simple\",\n              \"description\": \"1 medallón de carne de 120gr\",\n              \"rowId\": `${burgerId}_simple`\n            },\n            {\n              \"title\": \"Doble\",\n              \"description\": \"2 medallones de carne de 120gr\",\n              \"rowId\": `${burgerId}_doble`\n            },\n            {\n              \"title\": \"Triple\",\n              \"description\": \"3 medallones de carne de 120gr\",\n              \"rowId\": `${burgerId}_triple`\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver a Hamburguesas\",\n              \"description\": \"Ver otras opciones\",\n              \"rowId\": \"volver_burgers\"\n            },\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar la lista de bebidas sin alcohol\nfunction generarMenuBebidas(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🥤 Bebidas sin Alcohol\",\n      \"description\": \"Selecciona la bebida que deseas ordenar\",\n      \"buttonText\": \"Ver Bebidas\",\n      \"footerText\": \"Bebidas refrescantes para acompañar tu comida\",\n      \"sections\": [\n        {\n          \"title\": \"🥤 Gaseosas\",\n          \"rows\": [\n            {\n              \"title\": \"Coca-Cola 500ml\",\n              \"description\": \"Gaseosa sabor cola\\n$1.800\",\n              \"rowId\": \"bebida_coca_500\"\n            },\n            {\n              \"title\": \"Sprite 500ml\",\n              \"description\": \"Gaseosa sabor lima-limón\\n$1.800\",\n              \"rowId\": \"bebida_sprite_500\"\n            },\n            {\n              \"title\": \"Fanta 500ml\",\n              \"description\": \"Gaseosa sabor naranja\\n$1.800\",\n              \"rowId\": \"bebida_fanta_500\"\n            },\n            {\n              \"title\": \"Coca-Cola Zero 500ml\",\n              \"description\": \"Gaseosa sabor cola sin azúcar\\n$1.800\",\n              \"rowId\": \"bebida_coca_zero_500\"\n            }\n          ]\n        },\n        {\n          \"title\": \"💧 Agua y Jugos\",\n          \"rows\": [\n            {\n              \"title\": \"Agua Mineral 500ml\",\n              \"description\": \"Agua mineral sin gas\\n$1.500\",\n              \"rowId\": \"bebida_agua_500\"\n            },\n            {\n              \"title\": \"Agua con Gas 500ml\",\n              \"description\": \"Agua mineral con gas\\n$1.500\",\n              \"rowId\": \"bebida_agua_gas_500\"\n            },\n            {\n              \"title\": \"Jugo de Naranja Natural\",\n              \"description\": \"Exprimido al momento\\n$2.200\",\n              \"rowId\": \"bebida_jugo_naranja\"\n            },\n            {\n              \"title\": \"Limonada\",\n              \"description\": \"Con menta y jengibre\\n$2.200\",\n              \"rowId\": \"bebida_limonada\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar el menú de cervezas artesanales\nfunction generarMenuCervezas(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍺 Cerveza Artesanal MINGA\",\n      \"description\": \"Selecciona la cerveza que deseas ordenar\",\n      \"buttonText\": \"Ver Cervezas\",\n      \"footerText\": \"Cervezas artesanales de producción local\",\n      \"sections\": [\n        {\n          \"title\": \"🍺 Cervezas MINGA\",\n          \"rows\": [\n            {\n              \"title\": \"IPA\",\n              \"description\": \"Indian Pale Ale, con notas cítricas y amargor pronunciado\\nPinta: $2.900\",\n              \"rowId\": \"cerveza_ipa\"\n            },\n            {\n              \"title\": \"Golden\",\n              \"description\": \"Rubia suave y refrescante, fácil de tomar\\nPinta: $2.700\",\n              \"rowId\": \"cerveza_golden\"\n            },\n            {\n              \"title\": \"Amber\",\n              \"description\": \"Roja con notas a caramelo y cuerpo medio\\nPinta: $2.700\",\n              \"rowId\": \"cerveza_amber\"\n            },\n            {\n              \"title\": \"Stout\",\n              \"description\": \"Negra con notas a café y chocolate\\nPinta: $2.900\",\n              \"rowId\": \"cerveza_stout\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para los combos del día\nfunction generarMenuCombos(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🔥 Combos del Día\",\n      \"description\": \"Nuestras mejores ofertas de hoy\",\n      \"buttonText\": \"Ver Combos\",\n      \"footerText\": \"Aprovecha nuestras promociones especiales\",\n      \"sections\": [\n        {\n          \"title\": \"🔥 Combos Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Combo Individual\",\n              \"description\": \"Hamburguesa Simple + Bebida\\nCon 20% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_individual\"\n            },\n            {\n              \"title\": \"Combo Pareja\",\n              \"description\": \"2 Hamburguesas Dobles + 2 Bebidas\\nCon 25% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_pareja\"\n            },\n            {\n              \"title\": \"Combo Familiar\",\n              \"description\": \"4 Hamburguesas + 4 Bebidas + 2 Postres\\nCon 30% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_familiar\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para solicitar dirección de entrega\nfunction solicitarDireccion(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"type\": \"text\",\n      \"text\": \"🏠 Por favor, indícanos la dirección de entrega para tu pedido. Incluye calle, número, piso/departamento (si aplica) y referencias que nos ayuden a encontrar tu domicilio.\"\n    }\n  ];\n}\n\n// Función para solicitar método de pago\nfunction solicitarMetodoPago(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"💰 Método de Pago\",\n      \"description\": \"Selecciona cómo deseas pagar tu pedido\",\n      \"buttonText\": \"Seleccionar Pago\",\n      \"footerText\": \"Elige el método de pago más conveniente\",\n      \"sections\": [\n        {\n          \"title\": \"💳 Opciones de Pago\",\n          \"rows\": [\n            {\n              \"title\": \"Efectivo\",\n              \"description\": \"Pagaré en efectivo al momento de la entrega\",\n              \"rowId\": \"pago_efectivo\"\n            },\n            {\n              \"title\": \"Tarjeta (en delivery)\",\n              \"description\": \"Pagaré con tarjeta al momento de la entrega\",\n              \"rowId\": \"pago_tarjeta\"\n            },\n            {\n              \"title\": \"Transferencia\",\n              \"description\": \"Realizaré una transferencia bancaria\",\n              \"rowId\": \"pago_transferencia\"\n            },\n            {\n              \"title\": \"Mercado Pago\",\n              \"description\": \"Pagaré usando Mercado Pago\",\n              \"rowId\": \"pago_mercadopago\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para procesar mensajes de la IA (personalización de hamburguesa)\nfunction mensajeIA(numeroCliente, nombreHamburguesa, tamano) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"type\": \"text\",\n      \"text\": `¡Excelente elección! Has seleccionado una ${nombreHamburguesa} ${tamano}.\\n\\n¿Deseas personalizar tu hamburguesa? Puedes decirme si quieres quitar o agregar algún ingrediente.\\n\\nPor ejemplo:\\n- \"Sin cebolla\"\\n- \"Sin ketchup\"\\n- \"Extra queso\"\\n- \"Agregar bacon\"\\n\\nO simplemente dime \"Está bien así\" para continuar con tu pedido.`\n    }\n  ];\n}\n\n// Función para confirmar el pedido final\nfunction confirmarPedido(numeroCliente, detallePedido, precioTotal) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🛒 Confirmar Pedido\",\n      \"description\": `Tu pedido:\\n${detallePedido}\\n\\nTotal: $${precioTotal}`,\n      \"buttonText\": \"Confirmar\",\n      \"footerText\": \"Verifica que tu pedido esté correcto\",\n      \"sections\": [\n        {\n          \"title\": \"✅ Finalizar\",\n          \"rows\": [\n            {\n              \"title\": \"Confirmar Pedido\",\n              \"description\": \"Proceder con la compra\",\n              \"rowId\": \"confirmar_pedido\"\n            },\n            {\n              \"title\": \"Editar Pedido\",\n              \"description\": \"Realizar cambios\",\n              \"rowId\": \"editar_pedido\"\n            },\n            {\n              \"title\": \"Cancelar\",\n              \"description\": \"Cancelar todo el pedido\",\n              \"rowId\": \"cancelar_pedido\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Exportar las funciones para su uso\nmodule.exports = {\n  generarMenuPrincipal,\n  generarMenuBurgers,\n  generarOpcionesHamburguesa,\n  generarMenuBebidas,\n  generarMenuCervezas,\n  generarMenuCombos,\n  solicitarDireccion,\n  solicitarMetodoPago,\n  mensajeIA,\n  confirmarPedido\n};\n\n// Si se ejecuta directamente, retornar el menú principal por defecto\n// (Con un número de cliente de ejemplo, debe ser reemplazado por el número real)\nreturn generarMenuPrincipal($input.first().json.numero_cliente);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1660,
+        -620
+      ],
+      "id": "ce2b2bba-eb5f-4022-a253-675a00a0bd84",
+      "name": "Lista General"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Menu').first().json.url }}/message/sendList/{{ $('Menu').first().json.instancia }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Menu').first().json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.number }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "footerText",
+              "value": "={{ $json.footerText }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1440,
+        -620
+      ],
+      "id": "d0dd7db0-260b-4461-91fc-e878ccdac3fc",
+      "name": "cancelar8",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "numero_cliente",
+              "type": "any"
+            },
+            {
+              "name": "fecha_cita",
+              "type": "any"
+            },
+            {
+              "name": "Nombre"
+            },
+            {
+              "name": "Evento"
+            },
+            {
+              "name": "correo_electronico",
+              "type": "any"
+            },
+            {
+              "name": "session_id"
+            },
+            {
+              "name": "url",
+              "type": "any"
+            },
+            {
+              "name": "instancia",
+              "type": "any"
+            },
+            {
+              "name": "apikey",
+              "type": "any"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1200,
+        -200
+      ],
+      "id": "d5262a2e-430d-402b-8745-e8642fad8c07",
+      "name": "Menu"
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "7d509c14-917d-4269-8a9f-81db48f07a3c",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        600,
+        -400
+      ],
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$node[\"Webhook\"].json.body.server_url}}/message/sendText/{{$node[\"Webhook\"].json.body.instance}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$node[\"Webhook\"].json.body.apikey}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{$node[\"Variables globales\"].json.TelefonoCliente}}\",\n    \"text\": \"{{ $('Loop Over Items').first().json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
+        "options": {}
+      },
+      "id": "19af59d3-d1fe-4084-a605-7923b2263a4b",
+      "name": "MESSAGE",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        820,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "options": {}
+      },
+      "id": "51eaaefe-7398-49d7-97ab-9bb952a34de1",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        380,
+        -400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para procesar el texto y dividirlo inteligentemente\nfunction processAndSplitText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un array vacío\n    if (text === null || text === undefined) {\n      return [];\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) { // Intentamos extraer de un campo 'output'\n          // Si output es un string, lo usamos\n          if (typeof text.output === 'string') {\n              text = text.output;\n          } else { // Si output es un objeto o array, intentamos extraer de ahí\n              const extracted = extractTextContent(text.output); // Usamos la función de extracción\n              if (extracted) {\n                  text = extracted;\n              } else {\n                   // Si no pudimos extraer, intentamos convertir todo el objeto a string\n                   try {\n                       text = JSON.stringify(text);\n                   } catch (e) {\n                       console.error(\"No se pudo serializar el objeto a string:\", e);\n                       return []; // Si falla la serialización, devolvemos vacío\n                   }\n              }\n          }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n           console.error(\"No se pudo serializar el objeto a string:\", e);\n           return []; // Si falla la serialización, devolvemos vacío\n        }\n      }\n    } else { // Si no es string, objeto, null o undefined, devolvemos vacío\n       console.warn(\"Entrada a processAndSplitText no es string, objeto, null o undefined:\", typeof text);\n       return [];\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n      return [];\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '');         // Elimina signos de exclamación e interrogación iniciales y finales\n\n  // Divide en líneas para análisis\n  const lines = processedText.split('\\n');\n\n  // Grupos para almacenar los mensajes\n  const messages = [];\n  let currentMessage = [];\n  let inNumberedSection = false;\n  let currentSectionNumber = null;\n\n  // Detectar secciones numeradas y agrupables\n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i];\n    // Detecta si la línea es un encabezado numerado (ej: \"1. Tipo de propiedad:\")\n    const numberedHeaderMatch = line.match(/^\\s*(\\d+)\\.\\s+([^:]+):/);\n\n    if (numberedHeaderMatch) {\n      const sectionNumber = parseInt(numberedHeaderMatch[1]);\n\n      // Si estamos empezando una nueva sección numerada O si el número no es el siguiente esperado\n      if (!inNumberedSection || (inNumberedSection && sectionNumber !== currentSectionNumber + 1)) {\n         // Si tenemos contenido previo, guardamos como mensaje separado\n         if (currentMessage.length > 0) {\n             messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n             currentMessage = [];\n         }\n         inNumberedSection = true;\n      }\n      currentSectionNumber = sectionNumber; // Actualizamos el número de sección actual\n       currentMessage.push(line); // Agregamos la línea al mensaje actual\n\n    } else if (line.trim() === '') { // Línea vacía\n        // Una línea vacía puede terminar una sección si hay contenido previo\n        if (currentMessage.length > 0) {\n             // Si no estamos en una sección numerada, una línea vacía termina el mensaje actual\n             if (!inNumberedSection) {\n                 messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n                 currentMessage = [];\n             } else {\n                 // Si estamos en una sección numerada, una línea vacía se agrega al mensaje actual,\n                 // podría terminar la sección si hay otra línea vacía o fin de texto después.\n                 currentMessage.push(line);\n             }\n        }\n         // Si currentMessage está vacío, una línea vacía consecutiva no hace nada\n\n    } else { // Línea con contenido que no es un encabezado numerado\n        currentMessage.push(line);\n        inNumberedSection = false; // Salimos de la sección numerada si el contenido no sigue el patrón\n    }\n  }\n\n  // Agregar el último mensaje si queda algo\n  if (currentMessage.length > 0) {\n    messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n  }\n\n  // Filtrar mensajes vacíos y limpiar líneas vacías extra\n  return messages\n    .filter(msg => msg.length > 0) // Filtrar cadenas vacías después del trim\n    .map(msg => {\n      // Eliminar líneas vacías múltiples dentro del mensaje\n      return msg.replace(/\\n{2,}/g, '\\n\\n');\n    });\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n       const extracted = extractTextContent(item); // Llamada recursiva para elementos del array\n       if (extracted) {\n           return extracted; // Devolvemos el primer texto que encontramos\n       }\n    }\n    return null; // Si no encontramos texto en ningún elemento del array\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él (puede ser string, array u objeto)\n    if (data.output !== undefined && data.output !== null) {\n         const extracted = extractTextContent(data.output); // Llamada recursiva para el campo output\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'response', intentamos extraer texto de él\n     if (data.response !== undefined && data.response !== null) {\n         const extracted = extractTextContent(data.response); // Llamada recursiva para el campo response\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'json', intentamos extraer texto de él\n     if (data.json !== undefined && data.json !== null) {\n         const extracted = extractTextContent(data.json); // Llamada recursiva para el campo json\n         if (extracted) {\n             return extracted;\n         }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n     try {\n         return JSON.stringify(data);\n     } catch (e) {\n         console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n         return null; // Si falla la serialización\n     }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const textArray = processAndSplitText(textToProcess);\n    // Devolvemos un array con un objeto que contiene el array de texto\n    return [{json: {text: textArray}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un array vacío\n    return [{json: {text: []}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {text: [], error: error.message}}];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        160,
+        -400
+      ],
+      "id": "b50609be-9c27-4c50-a224-ba731ebaa93f",
+      "name": "Separa datos"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-04-17-thinking",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        -380
+      ],
+      "id": "ff68a5e9-3fa8-427a-a59d-07ae48d4b7ce",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9O8uUWkp7h4KwsVD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Variables globales').first().json.TelefonoCliente }}",
+        "tableName": "n8n_chat_histories_inmobiliaria",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -1100,
+        -380
+      ],
+      "id": "55749dfc-d01a-4f5d-9b2f-9023a9949f09",
+      "name": "Postgres Chat Memory1",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message_completo }}",
+        "options": {
+          "systemMessage": "=# Martín – Asistente Inmobiliario Digital (Optimizado)\n\nSoy Martín, el asesor de Francisco en RealStateIQ, con más de 20 años de experiencia en el mercado inmobiliario de Buenos Aires. Uso un tono profesional, cordial y respetuoso con acento argentino. Uso \"vos\" en lugar de \"tú\" pero mantengo siempre un lenguaje formal y profesional. Evito expresiones demasiado coloquiales como \"che\", \"mirá\", etc. Uso frases como \"¿Cómo estás?\", \"Perfecto\", \"Excelente\".\n\n---\n\n## REGLAS FUNDAMENTALES (Aplicar Siempre)\n\n1.  **Ejecución de Herramientas:** Ejecutar las herramientas necesarias en cada interacción para asegurar información actualizada. Nunca confiar en resultados anteriores. En caso de duda, volver a ejecutar la herramienta.\n2.  **Confirmación de Datos:** Antes de cualquier acción (agendar, modificar, cancelar), solicitar confirmación explícita del usuario sobre todos los datos recopilados en conjunto.\n3.  **Modificación de Datos:** Ofrecer siempre la posibilidad de modificar cualquier dato antes de la confirmación final. Si el usuario desea modificar, preguntar por el dato específico, actualizarlo (ej. con `insert_name_correo`) y volver a presentar el resumen completo para nueva confirmación.\n4.  **Comunicación con el Usuario:**\n    * Nunca mencionar \"herramienta\", \"sistema\" o aspectos técnicos.\n    * Mantener el contexto completo de la conversación. No preguntar información ya proporcionada ni repetir explicaciones.\n    * No enviar códigos especiales (ej. `DISPONIBILIDAD_ENVIADA`) con comillas.\n    * Ser breve y directo, evitando explicaciones innecesarias.\n    * Usar formato de código Markdown (\\`correo@ejemplo.com\\`) para correos electrónicos, nunca texto plano.\n5.  **Manejo de Errores de Herramientas:** Si una herramienta no devuelve la información esperada o falla, responder únicamente con el mensaje genérico \"ERROR\" sin dar explicaciones adicionales ni exponer detalles técnicos.\n6. **Ejecución Inmediata de Herramientas para Reprogramación y Cancelación:** Cuando un usuario confirma su correo para reprogramar o cancelar, NUNCA pedir fecha o detalles adicionales de la visita. Ejecutar INMEDIATAMENTE la herramienta correspondiente (`show_reschedulable_visits` o `show_cancellable_visits`) con los datos del cliente. El sistema mostrará automáticamente todas las visitas disponibles sin necesidad de preguntar por fechas específicas.\n---\n\n## Funciones Principales (Herramientas)\n\n* `validate_url`: Valida si la URL corresponde a una propiedad disponible.\n* `get_details`: Obtiene superficie, expensas, orientación, etc. Solo se ejecuta si el usuario pide características.\n* `getCliente`: Lee/actualiza en la base los campos `Nombre`, `Correo`, `Telefono`, `TipoCliente`, `nombre_inmobiliaria`. Ejecutar según se indique en los flujos (ej. al inicio, antes de acciones que requieran datos del cliente).\n* `check_slots`: Lista horarios disponibles SOLO para NUEVAS visitas.\n* `book_visit`: Agenda una visita. Requiere un objeto completo con todos los datos confirmados.\n* `show_cancellable_visits`: Muestra SOLO lista de visitas que pueden CANCELARSE. \n* `show_reschedulable_visits`: Muestra SOLO lista de visitas que pueden REPROGRAMARSE.\n* `insert_name_correo`: Guarda o actualiza Nombre, Correo, Teléfono, Tipo de Cliente y Nombre de Inmobiliaria.\n\n---\n\n## Códigos de Respuesta Especiales (Usar SIN COMILLAS y solo tras verificar respuesta de herramienta previa)\n\n* DISPONIBILIDAD_ENVIADA: Enviar ÚNICAMENTE después de ejecutar `check_slots` y verificar que haya devuelto resultados.\n* REAGENDAR_ENVIADA: Enviar ÚNICAMENTE después de ejecutar `show_reschedulable_visits` y verificar que haya devuelto resultados.\n* CANCELAR_ENVIADO: Enviar ÚNICAMENTE después de ejecutar `show_cancellable_visits` y verificar que haya devuelto resultados.\n\n*(Al enviar uno de estos códigos, se considera un punto de \"reset de flujo\", conservando Nombre, Correo, Tipo de Cliente y Nombre de Inmobiliaria ya recopilados)*.\n\n---\n\n## IMPORTANTE: FORMATO CORRECTO DE PARÁMETROS PARA HERRAMIENTAS\n\n* Para `show_reschedulable_visits`, usar EXACTAMENTE:\n```json\n{\n  \"correo_electronico\": \"correo@ejemplo.com\",\n  \"Nombre\": \"Nombre Del Cliente\",\n  \"Evento\": \"reagendar\"\n}\n```\n\n* Para `show_cancellable_visits`, usar EXACTAMENTE:\n```json\n{\n  \"correo_electronico\": \"correo@ejemplo.com\",\n  \"Nombre\": \"Nombre Del Cliente\",\n  \"Evento\": \"cancelar\"\n}\n```\n\nNUNCA cambiar las claves, manteniendo exactamente: \"correo_electronico\", \"Nombre\" y \"Evento\".\nNUNCA incluir variables como {getCliente.Correo} en el JSON final, siempre sustituir por el valor real.\n\n---\n\n## Flujo de Conversación Natural\n\n### Inicio de Conversación (Primer mensaje del usuario):\n1.  Ejecutar `getCliente`.\n2.  Saludar:\n    * Si `getCliente` devuelve Nombre: \"Hola {Nombre}, soy Martín, asistente de Francisco en RealStateIQ. ¿En qué puedo ayudarte hoy?\"\n    * Si no: \"Hola, soy Martín, asistente de Francisco en RealStateIQ. ¿En qué puedo ayudarte hoy?\"\n3.  Si el usuario indica que es primera vez o no hay registro previo: \"Entiendo. ¿En qué puedo ayudarte con tu búsqueda inmobiliaria?\"\n\n### Usuario Busca Propiedad (Sin URL):\n* Responder: \"¿Podrías compartirme el enlace de la propiedad que te interesa? Así podré darte información específica sobre ella.\"\n\n### Usuario Comparte Enlace (URL):\n1.  Ejecutar `getCliente` (si no se hizo o para asegurar datos actualizados).\n2.  Ejecutar `validate_url` con la URL proporcionada.\n3.  Saludar (si es el inicio efectivo de la interacción sobre una propiedad, adaptar saludo):\n    * Si `getCliente` devuelve Nombre: \"Muchas gracias {Nombre} por el enlace. Soy Martín, asistente de Francisco en RealStateIQ. ¿Hay algo específico que quieras saber sobre esta propiedad?\"\n    * Si no: \"Gracias por compartir el enlace. Soy Martín, el asistente de Francisco en RealStateIQ. ¿Hay algo específico que quieras saber sobre esta propiedad?\"\n4.  No mostrar información detallada de la propiedad hasta que el usuario lo pida explícitamente.\n\n### Consulta sobre Características de la Propiedad:\n* Cuando el usuario pregunta por cualquier característica (ej. \"¿Tiene cochera?\", \"¿Qué orientación tiene?\", \"Me podés pasar los datos\"), ejecutar `get_details`.\n* Si el mensaje contiene solo una URL predeterminada: saludar y esperar la consulta del usuario.\n\n### Verificación de Correo Electrónico:\n1.  Cuando el usuario proporciona un correo:\n    * Pedir confirmación explícita: \"¿Confirmás que tu correo es `{correo}`?\"\n2.  Si hay dudas o el usuario indica corrección, pedir que lo escriba nuevamente: \"¿Podés escribir nuevamente tu correo electrónico?\"\n3.  No continuar procesos que dependan del correo hasta tener confirmación explícita.\n\n### Intención de Agendar NUEVA Visita:\n1.  Si el usuario expresa \"quiero agendar\", \"quiero visitar\", \"puedo ir a verla\" (y NO está pidiendo reprogramar una existente):\n    * Responder: \"¿Querés que te comparta los horarios disponibles para agendar una visita?\"\n2.  Si responde afirmativamente:\n    * Ejecutar `check_slots`.\n    * Tras verificar respuesta de `check_slots`, responder exactamente: DISPONIBILIDAD_ENVIADA\n\n### Agendamiento (Después de que el usuario selecciona fecha/hora de \"DISPONIBILIDAD_ENVIADA\"):\n1.  Ejecutar `getCliente` para tener/confirmar datos.\n2.  **Recolección/Confirmación de Datos Secuencial:**\n    * **Nombre:**\n        * Si no existe en `getCliente.Nombre`: \"Para agendar la visita para el {fecha} a las {hora} hs, ¿cuál es tu nombre completo?\" Esperar respuesta.\n        * Si existe: \"Para agendar la visita para el {fecha} a las {hora} hs, ¿tu nombre es {Nombre}?\" Si dice \"no\", preguntar: \"¿Cuál es tu nombre completo?\" Esperar respuesta.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Correo:**\n        * Si no existe en `getCliente.Correo`: \"¿Me podés proporcionar tu correo electrónico?\" Esperar respuesta. Luego, pedir confirmación (ver \"Verificación de Correo Electrónico\").\n        * Si existe: \"¿Tu correo electrónico es `{Correo}`?\" Si dice \"no\", preguntar: \"¿Cuál es tu correo electrónico?\" Esperar respuesta. Luego, pedir confirmación.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Tipo de Cliente:**\n        * Si no existe en `getCliente.tipoCliente`: \"¿Sos particular o agente inmobiliario?\" Esperar respuesta.\n        * Si existe (ej. \"Particular\"): \"¿Seguís siendo particular?\" Si dice \"no\", preguntar: \"¿Sos particular o agente inmobiliario?\" Esperar respuesta.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Nombre de Inmobiliaria (solo si es Agente):**\n        * Si `TipoCliente` es \"Agente\":\n            * Si existe `nombre_inmobiliaria` en `getCliente`: \"¿Seguís trabajando en {nombre_inmobiliaria}?\" Si dice \"no\", preguntar: \"¿De qué inmobiliaria sos ahora?\" Esperar respuesta.\n            * Si no existe: \"¿De qué inmobiliaria sos?\" Esperar respuesta.\n        * Tras obtener/confirmar esta información, ejecutar `insert_name_correo` para actualizar y luego incluirla en el objeto para `book_visit` en el campo `nombre_inmobiliaria`.\n3.  **Confirmación Final de Datos Completos (OBLIGATORIO):**\n    * Mostrar resumen:\n        ```\n        Para confirmar:\n        • Nombre: {Nombre}\n        • Correo: `{Correo}`\n        • Tipo: {TipoCliente === \"Agente\" ? \"Agente inmobiliario\" : \"Particular\"}\n        {TipoCliente === \"Agente\" ? \"• Inmobiliaria: \" + nombre_inmobiliaria : \"\"}\n        • Fecha: {fecha} a las {hora} hs\n\n        ¿Todos los datos son correctos?\n        ```\n    * Esperar confirmación explícita. Si quiere modificar, seguir Regla Fundamental 3.\n4.  **Agendar:** Solo tras confirmación completa, ejecutar `book_visit` con el objeto completo:\n    ```json\n    {\n      \"fecha_cita\": \"fecha_iso_seleccionada\", // Asegurar formato ISO\n      \"Nombre\": \"nombre_confirmado\",\n      \"correo_electronico\": \"correo_confirmado\",\n      \"tipo_cliente\": \"tipo_confirmado\",\n      \"nombre_inmobiliaria\": \"{TipoCliente === 'Agente' ? nombre_inmobiliaria_confirmado : ''}\"\n    }\n    ```\n5.  **Confirmar Visita Agendada:** \"Listo {Nombre}, agendamos tu visita para el {fecha} a las {hora} hs. Te llegará un correo con la dirección.\"\n\n### Reprogramar una Visita:\n1.  Si el usuario indica intención de reprogramar (palabras clave \"reprogramar\", \"cambiar fecha/hora\", \"mover visita\", etc.):\n    * Ejecutar `getCliente` para obtener los datos del usuario de la base de datos.\n    * Verificar si hay un correo registrado en `getCliente.Correo`:\n        * **Si hay correo registrado**:\n            * Responder concisamente: \"Perfecto {getCliente.Nombre}. Para validar tus datos y reprogramar, ¿tu correo es `{getCliente.Correo}`?\"\n            * Si confirma con \"sí\" o similar, INMEDIATAMENTE ejecutar `show_reschedulable_visits` con exactamente:\n                ```json\n                {\n                  \"correo_electronico\": \"correo_real_del_cliente\",\n                  \"Nombre\": \"nombre_real_del_cliente\",\n                  \"Evento\": \"reagendar\"\n                }\n                ```\n            * Tras verificar respuesta, responder exactamente: REAGENDAR_ENVIADA\n            * Si no hay visitas: \"No encontré visitas agendadas con ese correo. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n        * **Si no hay correo registrado**:\n            * Responder directamente: \"No tengo registrada ninguna visita a tu nombre. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n2.  **Usuario Selecciona Visita y Nueva Fecha (desde los listados provistos tras `REAGENDAR_ENVIADA`):**\n    * Ejecutar `getCliente` para datos actualizados.\n    * Si `TipoCliente` es \"Agente\":\n        * Si existe `nombre_inmobiliaria` en `getCliente`: \"Para completar la reprogramación, ¿seguís trabajando en {nombre_inmobiliaria}?\" Si dice \"no\", preguntar: \"¿De qué inmobiliaria sos ahora?\" Esperar respuesta.\n        * Si no existe: \"Para completar la reprogramación, ¿de qué inmobiliaria sos?\" Esperar respuesta.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Confirmación Final (OBLIGATORIO pero concisa):**\n        ```\n        Para confirmar la reprogramación:\n        • Nombre: {Nombre}\n        • Correo: `{Correo}`\n        • Tipo: {TipoCliente === \"Agente\" ? \"Agente inmobiliario\" : \"Particular\"}\n        {TipoCliente === \"Agente\" ? \"• Inmobiliaria: \" + nombre_inmobiliaria : \"\"}\n        • Nueva fecha: {nueva_fecha} a las {nueva_hora} hs\n\n        ¿Confirmás estos datos?\n        ```\n    * Esperar confirmación. Si quiere modificar, seguir Regla Fundamental 3.\n3.  **Reprogramar:** Solo tras confirmación, ejecutar `book_visit` (NO una herramienta \"reschedule\") con el objeto completo de la nueva visita (similar al agendamiento).\n4.  **Confirmar Reprogramación:** \"Listo {Nombre}, reprogramamos tu visita para el {nueva_fecha} a las {nueva_hora} hs. Te llegará un correo con los detalles actualizados.\"\n\n### Cancelar Visita:\n1.  Si el usuario indica intención de cancelar (palabras clave \"cancelar\", \"anular\", \"dar de baja\", etc.):\n    * Ejecutar `getCliente` para obtener los datos del usuario de la base de datos.\n    * Verificar si hay un correo registrado en `getCliente.Correo`:\n        * **Si hay correo registrado**:\n            * Responder concisamente: \"Perfecto {getCliente.Nombre}. Para validar tus datos y cancelar, ¿tu correo es `{getCliente.Correo}`?\"\n            * Si confirma con \"sí\" o similar, INMEDIATAMENTE ejecutar `show_cancellable_visits` con exactamente:\n                ```json\n                {\n                  \"correo_electronico\": \"correo_real_del_cliente\",\n                  \"Nombre\": \"nombre_real_del_cliente\",\n                  \"Evento\": \"cancelar\"\n                }\n                ```\n            * Tras verificar respuesta, responder exactamente: CANCELAR_ENVIADO\n            * Si no hay visitas: \"No encontré visitas agendadas con ese correo. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n        * **Si no hay correo registrado**:\n            * Responder directamente: \"No tengo registrada ninguna visita a tu nombre. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n2.  **Usuario Selecciona Visita para Cancelar (desde listado tras `CANCELAR_ENVIADO`):** La herramienta gestiona la selección.\n3.  Si se requiere confirmación de fecha específica (ej. si el sistema lo pide o hay ambigüedad):\n    * \"¿Podrías confirmarme la fecha de la visita que querés cancelar?\"\n    * Una vez recibida, ejecutar `show_cancellable_visits` nuevamente con `fecha_cita` (formato ISO) añadida al JSON. Verificar respuesta antes de proceder o confirmar cancelación.\n\n---\n\n## EJEMPLOS ESPECÍFICOS DE REPROGRAMACIÓN (Seguir exactamente)\n\n### Ejemplo 1: Usuario quiere reprogramar\nUsuario: \"Hola Martín, me gustaría reagendar una visita que tengo\"\n\n1. Ejecutar `getCliente` para obtener datos\n2. Si hay correo (ej. \"usuario@gmail.com\"):\n   * Responder: \"Perfecto Fernando. Para validar tus datos y reprogramar, ¿tu correo es `usuario@gmail.com`?\"\n3. Usuario responde \"Sí\"\n4. Inmediatamente ejecutar `show_reschedulable_visits`:\n   ```json\n   {\n     \"correo_electronico\": \"usuario@gmail.com\",\n     \"Nombre\": \"Fernando\",\n     \"Evento\": \"reagendar\"\n   }\n   ```\n5. Tras verificar respuesta: \"REAGENDAR_ENVIADA\"\n6. Si el usuario selecciona nueva fecha y es agente:\n   * Si existe nombre_inmobiliaria en getCliente: \"Para completar la reprogramación para el \"dia\" de mayo a las \"\" hs, ¿seguís trabajando en pichulisbrother?\"\n   * Si responde \"Sí\", continuar con confirmación final\n   * Si responde \"No\", preguntar: \"¿De qué inmobiliaria sos ahora?\"\n\n### Ejemplo 2: Usuario quiere cancelar\nUsuario: \"Necesito cancelar mi visita\"\n\n1. Ejecutar `getCliente` para obtener datos\n2. Si hay correo (ej. \"usuario@gmail.com\"):\n   * Responder: \"Perfecto Fernando. Para validar tus datos y cancelar, ¿tu correo es `usuario@gmail.com`?\"\n3. Usuario responde \"Sí\"\n4. Inmediatamente ejecutar `show_cancellable_visits`:\n   ```json\n   {\n     \"correo_electronico\": \"usuario@gmail.com\",\n     \"Nombre\": \"Fernando\",\n     \"Evento\": \"cancelar\"\n   }\n   ```\n5. Tras verificar respuesta: \"CANCELAR_ENVIADO\"\n\n---\n\n### Variables Útiles (Referencia Interna)\n\n* **Nombre**: `{{ $('getCliente').first().json.Nombre }}`\n* **Correo**: `{{ $('getCliente').first().json.Correo }}`\n* **TipoCliente**: `{{ $('getCliente').first().json.tipoCliente }}`\n* **nombre_inmobiliaria**: `{{ $('getCliente').first().json.nombre_inmobiliaria }}`\n* **Ahora**: `{{$now}}`\n\n---"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -1240,
+        -620
+      ],
+      "id": "5c0f8dbc-7af4-4ea2-922a-7cc09d6f54a2",
+      "name": "Tester Prompt"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "tester-nuevo",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1880,
+        -620
+      ],
+      "id": "99108ca4-235a-4320-9e87-ded78d64ef71",
+      "name": "Webhook",
+      "webhookId": "160af03a-d560-413b-bea9-ea1007aa1570"
+    }
+  ],
+  "pinData": {
+    "Menu": [
+      {
+        "json": {
+          "numero_cliente": "5492254423359",
+          "fecha_cita": "",
+          "Nombre": "Fernando",
+          "Menu": "🌱 Veggies con Papas",
+          "correo_electronico": "casserafernando@gmail.com",
+          "session_id": "a066b5fe-c1ce-4809-9e4d-8abe62b8b7c3",
+          "url": "https://evo.innovasoftpro.dev",
+          "instancia": "tester",
+          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-05-15T01:36:11.776Z",
+      "updatedAt": "2025-05-15T01:36:11.776Z",
+      "id": "d3d6zb9nCLfGQXaG",
+      "name": "delivery"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-15T04:00:41.817Z",
+  "versionId": "eab0e573-4851-4bfd-b555-abe1c1e41abd"
+}
