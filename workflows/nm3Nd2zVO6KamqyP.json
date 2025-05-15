@@ -45,6 +45,28 @@
         ],
         [
           {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "NocoDB1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB1": {
+      "main": [
+        [
+          {
             "node": "Existe visita",
             "type": "main",
             "index": 0
@@ -144,6 +166,9 @@
             },
             {
               "name": "numero_telefono"
+            },
+            {
+              "name": "fecha_cita"
             }
           ]
         }
@@ -208,8 +233,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        780,
-        -160
+        720,
+        -220
       ],
       "id": "f58df391-fe11-41d6-9960-c29b37c14ec1",
       "name": "No existe correo"
@@ -231,23 +256,77 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        780,
-        20
+        1140,
+        40
       ],
       "id": "20322c7d-1c96-4487-996e-c974fd1e52e8",
       "name": "Existe visita"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p311nqyjsnx0fqq",
+        "table": "mdyqlno73gz7aly",
+        "returnAll": true,
+        "options": {
+          "where": "=(Fecha_cita,eq,{{ $('If').item.json.fecha_cita }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        700,
+        40
+      ],
+      "id": "b7d80c22-53f2-444d-b7d4-8bc85cc8c850",
+      "name": "NocoDB",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "delete",
+        "projectId": "p311nqyjsnx0fqq",
+        "table": "mdyqlno73gz7aly",
+        "id": "={{ $json.Id }}"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        920,
+        40
+      ],
+      "id": "c07a5bd4-cff6-40fc-a966-bf8c9cd88d1c",
+      "name": "NocoDB1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
     "Calendario": [
       {
         "json": {
-          "Evento": "56qmulju65fvgi3o0egha2gadk",
-          "session_id": "efbf76fe-b4bd-4786-8903-221b1218e221",
+          "Evento": "fcpg10tvr8027re82fcmt8dqn0",
+          "session_id": "a066b5fe-c1ce-4809-9e4d-8abe62b8b7c3",
           "url_evo": "https://evo.innovasoftpro.dev",
           "instance": "tester",
           "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
-          "numero_telefono": "5492254423359"
+          "numero_telefono": "5492254423359",
+          "fecha_cita": "2025-05-19T11:30"
         }
       }
     ]
@@ -258,6 +337,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-05-09T12:00:56.367Z",
-  "versionId": "7475bf7b-8167-468a-9645-f905b7e503aa"
+  "updatedAt": "2025-05-14T12:04:38.833Z",
+  "versionId": "767aec6d-146e-4a93-b3d6-dcd982c7dbb2"
 }
