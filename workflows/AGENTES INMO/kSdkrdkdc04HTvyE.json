@@ -1,0 +1,3156 @@
+{
+  "active": false,
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MESSAGE": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "Insertar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI1": {
+      "main": [
+        [
+          {
+            "node": "Image Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio Memory": {
+      "main": [
+        [
+          {
+            "node": "Return Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image Memory": {
+      "main": [
+        [
+          {
+            "node": "Return Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Memory 2": {
+      "main": [
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 10s": {
+      "main": [
+        [
+          {
+            "node": "Escribiendo...",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI2": {
+      "main": [
+        [
+          {
+            "node": "Audio Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File1": {
+      "main": [
+        [
+          {
+            "node": "OpenAI2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Variables globales",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Return Redis": {
+      "main": [
+        [
+          {
+            "node": "Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis1": {
+      "main": [
+        [
+          {
+            "node": "Compara Get Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "From Me3": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "From Me3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compara Get Memory": {
+      "main": [
+        [
+          {
+            "node": "Compara igualdad de memorias",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compara igualdad de memorias": {
+      "main": [
+        [
+          {
+            "node": "Delete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        [
+          {
+            "node": "getCliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agendar visita": {
+      "ai_tool": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Time": {
+      "main": [
+        [
+          {
+            "node": "Wait 10s",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separa datos": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete": {
+      "main": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reagendar visita": {
+      "ai_tool": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelar evento": {
+      "main": [
+        [
+          {
+            "node": "Reagendar List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escribiendo...": {
+      "main": [
+        [
+          {
+            "node": "Get Memory 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Codigo": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Traer detalles": {
+      "ai_tool": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nombre y Correo": {
+      "ai_tool": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "validar_pagina": {
+      "ai_tool": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insertar Lead": {
+      "main": [
+        [
+          {
+            "node": "Variables globales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variables globales": {
+      "main": [
+        [
+          {
+            "node": "Message Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getCliente": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetCliente": {
+      "ai_tool": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consultar disponibilidad": {
+      "ai_tool": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          {
+            "node": "Separa datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "OpenAI1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Codigo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Codigo1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Codigo2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Codigo3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "apilaTexto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "apilaTexto": {
+      "main": [
+        [
+          {
+            "node": "Return Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Codigo1": {
+      "main": [
+        [
+          {
+            "node": "Cancelar evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Codigo2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Cancelar": {
+      "ai_tool": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Codigo3": {
+      "main": [
+        [
+          {
+            "node": "Cancelar evento1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelar evento1": {
+      "main": [
+        [
+          {
+            "node": "Separa datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tester Prompt": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-15T15:06:26.017Z",
+  "id": "kSdkrdkdc04HTvyE",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE INMO - MASTER TESTING",
+  "nodes": [
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "13f14a35-2d53-4bde-8e87-3992c58c731b",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -14580,
+        -8869.5
+      ],
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$node[\"Webhook\"].json.body.server_url}}/message/sendText/{{$node[\"Webhook\"].json.body.instance}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$node[\"Webhook\"].json.body.apikey}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{$node[\"Variables globales\"].json.TelefonoCliente}}\",\n    \"text\": \"{{ $('Loop Over Items').first().json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
+        "options": {}
+      },
+      "id": "7ddc892c-15e1-409a-9d23-08ce774dd92b",
+      "name": "MESSAGE",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -14360,
+        -8869.5
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "options": {}
+      },
+      "id": "ef43e519-aceb-4e85-8bce-5afe0d31a53d",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -14800,
+        -8869.5
+      ]
+    },
+    {
+      "parameters": {
+        "action": "generate"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        -20260,
+        -8772
+      ],
+      "id": "395965e8-5933-4a9f-9333-2d73fb9e5750",
+      "name": "Crypto"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "text": "Analiza la imagen pero no des mucha inforamcion",
+        "imageUrls": "={{ $json.data.mediaUrl }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.6,
+      "position": [
+        -18940,
+        -9080
+      ],
+      "id": "c2eb9f94-783a-4e91-8de0-ef1e43ed1787",
+      "name": "OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Variables globales').item.json.TelefonoCliente }}",
+        "messageData": "={{ $json.text }}",
+        "tail": true
+      },
+      "id": "a077b6e1-fe13-4673-9f59-47895b721c8e",
+      "name": "Audio Memory",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -18720,
+        -9280
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Variables globales').item.json.TelefonoCliente }}",
+        "messageData": "={{ $json.content }}",
+        "tail": true
+      },
+      "id": "7e7fd9c6-8821-4ae5-b40a-8c54ffd416ba",
+      "name": "Image Memory",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -18720,
+        -9080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Messages",
+        "key": "={{ $('Variables globales').first().json.TelefonoCliente }}",
+        "options": {}
+      },
+      "id": "1079ac3a-681f-46d9-91e3-8675213b2ebb",
+      "name": "Get Memory 2",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -17620,
+        -9080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": "={{ $('Time').first()?.json?.responseDelay/1000 || 1 }}"
+      },
+      "id": "b60a1c4a-5b1c-4e41-b5cd-e34b06cd0e2f",
+      "name": "Wait 10s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -18060,
+        -9080
+      ],
+      "webhookId": "db546385-4de1-4d6f-804e-93d3be9083c8"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -18940,
+        -9280
+      ],
+      "id": "8afa8c00-d643-4336-aca6-968dec1f955a",
+      "name": "OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "body.data.message.base64",
+        "options": {
+          "mimeType": "audio/mp3"
+        }
+      },
+      "id": "f3731408-f4d4-4349-b692-c3a730a2d08e",
+      "name": "Convert to File1",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -19160,
+        -9280
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7d210f0-6a18-456d-9e89-aa28f548b2a0",
+              "name": "body.data.message.base64",
+              "value": "={{ $('Webhook').item.json.body.data.message.base64 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a267ca1f-977c-4225-a9ac-bcc0b71c198f",
+      "name": "Edit Fields4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -19380,
+        -9280
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e02fa309-efdc-4424-a35e-232970a746cf",
+              "leftValue": "={{ $json.Telefono }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -20480,
+        -8847
+      ],
+      "id": "f2f5fe48-9ae7-4bc9-b95d-d449a00a9fca",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Redis1",
+        "key": "={{ $('Variables globales').item.json.TelefonoCliente }}",
+        "options": {}
+      },
+      "id": "699a6bc4-c406-4987-bc0d-55a6f4e89ccc",
+      "name": "Return Redis",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -18500,
+        -9080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "Redis1",
+              "value": "={{ $('Return Redis').first().json.Redis1 }}",
+              "type": "string"
+            },
+            {
+              "id": "3cd6e8a1-98ef-4abb-9490-fb7946365cfb",
+              "name": "Redis2",
+              "value": "={{ $json.Messages }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c34ed376-c7a5-4300-9b84-becd91ee9d8f",
+      "name": "Redis1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -17400,
+        -9080
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "60a730ae-12a3-4199-88e0-86b27dcbd9cc",
+              "leftValue": "={{ $json.body.data.key.remoteJid.match(/@g\\.us$/) !== null }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "03038ff5-c964-4f8d-b1b8-8cc63fca941b",
+      "name": "From Me3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -21140,
+        -8847
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "c19441bb-6011-4b52-9276-4a85a0d354d5",
+        "options": {}
+      },
+      "id": "9f55aed1-8a59-43be-8242-55b1db8ea296",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -21360,
+        -8847
+      ],
+      "webhookId": "c19441bb-6011-4b52-9276-4a85a0d354d5"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d5a342e9-585b-42ea-be44-644adae10199",
+              "leftValue": "={{ $json.Redis1 }}",
+              "rightValue": "={{ $json.Redis2 }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "4c96176d-e292-461d-920f-b820d52a2050",
+      "name": "Compara Get Memory",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -17180,
+        -9080
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener los datos del nodo anterior\nconst data = $item(0).$node[\"Compara Get Memory\"].json[\"Redis2\"];\n// Verificar si data es un array directamente\nlet array;\nif (Array.isArray(data)) {\n    array = data;\n} else {\n    try {\n        // Intenta parsear si es una cadena JSON válida\n        array = JSON.parse(data);\n    } catch (error) {\n        // Si no es JSON, considera que es un texto plano\n        array = [data];\n    }\n}\n// Une los elementos del array en un string\nconst message_completo = array.join(\", \");\n\n// Añade pairedItem para mantener el enlace con el elemento de entrada\nreturn [{\n    json: { message_completo },\n    pairedItem: 0 // Enlaza con el primer elemento de entrada\n}];"
+      },
+      "id": "196ed86f-dc31-4818-9945-12e5b6a2c0fa",
+      "name": "Compara igualdad de memorias",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16960,
+        -9080
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bc1dbc77-10d2-48f4-ad72-0b5cffc255c7",
+              "leftValue": "={{ $json.body.data.key.fromMe }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -20920,
+        -8847
+      ],
+      "id": "e9ec0f36-a84c-4d18-8905-a8b2de4e9bfe",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "name": "book_visit",
+        "description": "you will call this tool when you need to schedule an appointment or visiting meeting",
+        "workflowId": {
+          "__rl": true,
+          "value": "WeP6wQkgz8h3964y",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Agendar_cita"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_cliente": "={{ $('Variables globales').first().json.TelefonoCliente }}",
+            "fecha_cita": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fecha_cita', `debes obtener la fecha en formato iso `, 'string') }}",
+            "Nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Nombre', `obienes el nombre del cliente`, 'string') }}",
+            "Evento": "agendar",
+            "correo_electronico": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo_electronico', `debes obtener el correo elctronico`, 'string') }}",
+            "nombre_inmobiliaria": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nombre_inmobiliaria', `si es particular omiti este dato`, 'string') }}",
+            "session_id": "={{ $('Variables globales').first().json.Key }}",
+            "idMensaje": "={{ $('Variables globales').first().json.idMensaje }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero_cliente",
+              "displayName": "numero_cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nombre_inmobiliaria",
+              "displayName": "nombre_inmobiliaria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "idMensaje",
+              "displayName": "idMensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -16280,
+        -8860
+      ],
+      "id": "2802ac96-66bb-42cf-b8b2-f464b8691909",
+      "name": "Agendar visita"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener historial de mensajes desde Redis\nconst redisMessages = $input.first()?.json?.Redis1 || [];\n\n// Extraer el último mensaje recibido, asegurando que sea un string válido\nconst userMessage = Array.isArray(redisMessages) && redisMessages.length > 0\n  ? String(redisMessages[redisMessages.length - 1]).trim().toLowerCase()\n  : \"\";\n\n// Obtener la cantidad de mensajes en cola desde Redis en los últimos 6 segundos\nconst queueLength = parseInt($input.first()?.json?.queueLength || \"0\", 10);\n\n// Contar palabras en el mensaje\nconst words = userMessage.trim().split(/\\s+/).filter(Boolean);\nconst wordCount = words.length;\n\n// Contar caracteres en el mensaje\nconst charCount = userMessage.length;\n\n// Detectar si el mensaje contiene solo palabras de 6 caracteres o menos\nconst isShortMessage = words.every(word => word.length <= 8);\n\n// Detectar si el mensaje es numérico\nconst isNumericMessage = /^[0-9\\s]+$/.test(userMessage);\n\n// Detectar si es un mensaje corto de respuesta rápida\nconst quickReplies = [\"ok\", \"si\", \"dale\", \"hola\", \"gracias\", \"entendido\", \"bien\", \"como estas\", \"adios\", \"chau\", \"no\",\"soy particular\", \"soy agennte\",\"particular\",\"agente\"];\nconst isQuickReply = quickReplies.includes(userMessage);\n\n// Detectar si el mensaje contiene una URL\nconst urlRegex = /https?:\\/\\/[^\\s]+/;\nconst containsURL = urlRegex.test(userMessage);\n\n// Lógica del delay\nlet responseDelay = 8000; // Por defecto, 8 segundos\nif (isQuickReply || isNumericMessage || containsURL || (isShortMessage && wordCount <= 3)) {\n  responseDelay = 1000;\n}\n\n// Retornar los datos como un array con pairedItem para mantener el enlace\nreturn [{\n  json: {\n    responseDelay,\n    userMessage,\n    wordCount,\n    charCount,\n    isShortMessage,\n    isNumericMessage,\n    isQuickReply,\n    containsURL\n  },\n  pairedItem: 0 // Enlaza con el primer elemento de entrada\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -18280,
+        -9080
+      ],
+      "id": "48b298ee-ec0f-4c1f-aaf9-cb5ce835b537",
+      "name": "Time"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para procesar el texto y dividirlo inteligentemente\nfunction processAndSplitText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un array vacío\n    if (text === null || text === undefined) {\n      return [];\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) { // Intentamos extraer de un campo 'output'\n          // Si output es un string, lo usamos\n          if (typeof text.output === 'string') {\n              text = text.output;\n          } else { // Si output es un objeto o array, intentamos extraer de ahí\n              const extracted = extractTextContent(text.output); // Usamos la función de extracción\n              if (extracted) {\n                  text = extracted;\n              } else {\n                   // Si no pudimos extraer, intentamos convertir todo el objeto a string\n                   try {\n                       text = JSON.stringify(text);\n                   } catch (e) {\n                       console.error(\"No se pudo serializar el objeto a string:\", e);\n                       return []; // Si falla la serialización, devolvemos vacío\n                   }\n              }\n          }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n           console.error(\"No se pudo serializar el objeto a string:\", e);\n           return []; // Si falla la serialización, devolvemos vacío\n        }\n      }\n    } else { // Si no es string, objeto, null o undefined, devolvemos vacío\n       console.warn(\"Entrada a processAndSplitText no es string, objeto, null o undefined:\", typeof text);\n       return [];\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n      return [];\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '');         // Elimina signos de exclamación e interrogación iniciales y finales\n\n  // Divide en líneas para análisis\n  const lines = processedText.split('\\n');\n\n  // Grupos para almacenar los mensajes\n  const messages = [];\n  let currentMessage = [];\n  let inNumberedSection = false;\n  let currentSectionNumber = null;\n\n  // Detectar secciones numeradas y agrupables\n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i];\n    // Detecta si la línea es un encabezado numerado (ej: \"1. Tipo de propiedad:\")\n    const numberedHeaderMatch = line.match(/^\\s*(\\d+)\\.\\s+([^:]+):/);\n\n    if (numberedHeaderMatch) {\n      const sectionNumber = parseInt(numberedHeaderMatch[1]);\n\n      // Si estamos empezando una nueva sección numerada O si el número no es el siguiente esperado\n      if (!inNumberedSection || (inNumberedSection && sectionNumber !== currentSectionNumber + 1)) {\n         // Si tenemos contenido previo, guardamos como mensaje separado\n         if (currentMessage.length > 0) {\n             messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n             currentMessage = [];\n         }\n         inNumberedSection = true;\n      }\n      currentSectionNumber = sectionNumber; // Actualizamos el número de sección actual\n       currentMessage.push(line); // Agregamos la línea al mensaje actual\n\n    } else if (line.trim() === '') { // Línea vacía\n        // Una línea vacía puede terminar una sección si hay contenido previo\n        if (currentMessage.length > 0) {\n             // Si no estamos en una sección numerada, una línea vacía termina el mensaje actual\n             if (!inNumberedSection) {\n                 messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n                 currentMessage = [];\n             } else {\n                 // Si estamos en una sección numerada, una línea vacía se agrega al mensaje actual,\n                 // podría terminar la sección si hay otra línea vacía o fin de texto después.\n                 currentMessage.push(line);\n             }\n        }\n         // Si currentMessage está vacío, una línea vacía consecutiva no hace nada\n\n    } else { // Línea con contenido que no es un encabezado numerado\n        currentMessage.push(line);\n        inNumberedSection = false; // Salimos de la sección numerada si el contenido no sigue el patrón\n    }\n  }\n\n  // Agregar el último mensaje si queda algo\n  if (currentMessage.length > 0) {\n    messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n  }\n\n  // Filtrar mensajes vacíos y limpiar líneas vacías extra\n  return messages\n    .filter(msg => msg.length > 0) // Filtrar cadenas vacías después del trim\n    .map(msg => {\n      // Eliminar líneas vacías múltiples dentro del mensaje\n      return msg.replace(/\\n{2,}/g, '\\n\\n');\n    });\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n       const extracted = extractTextContent(item); // Llamada recursiva para elementos del array\n       if (extracted) {\n           return extracted; // Devolvemos el primer texto que encontramos\n       }\n    }\n    return null; // Si no encontramos texto en ningún elemento del array\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él (puede ser string, array u objeto)\n    if (data.output !== undefined && data.output !== null) {\n         const extracted = extractTextContent(data.output); // Llamada recursiva para el campo output\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'response', intentamos extraer texto de él\n     if (data.response !== undefined && data.response !== null) {\n         const extracted = extractTextContent(data.response); // Llamada recursiva para el campo response\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'json', intentamos extraer texto de él\n     if (data.json !== undefined && data.json !== null) {\n         const extracted = extractTextContent(data.json); // Llamada recursiva para el campo json\n         if (extracted) {\n             return extracted;\n         }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n     try {\n         return JSON.stringify(data);\n     } catch (e) {\n         console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n         return null; // Si falla la serialización\n     }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const textArray = processAndSplitText(textToProcess);\n    // Devolvemos un array con un objeto que contiene el array de texto\n    return [{json: {text: textArray}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un array vacío\n    return [{json: {text: []}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {text: [], error: error.message}}];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -15020,
+        -8869.5
+      ],
+      "id": "0ccc9ed2-397b-492d-b524-879ab0439fd2",
+      "name": "Separa datos"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Variables globales').first().json.TelefonoCliente }}"
+      },
+      "id": "dbaea27a-4209-4504-b873-88ca034ec112",
+      "name": "Delete",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -16740,
+        -9080
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "show_reschedulable_visits",
+        "description": "Call this tool whenever the user wants to reschedule a visit",
+        "workflowId": {
+          "__rl": true,
+          "value": "STmp3ANwLQSrvU9e",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Reagendar-Cancelar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_cliente": "={{ $('Variables globales').first().json.TelefonoCliente }}",
+            "Evento": "reagendar",
+            "correo_electronico": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo_electronico', ``, 'string') }}",
+            "fecha_cita": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fecha_cita', `recoge correctamente la fecha_cita  en formato iso`, 'string') }}",
+            "Nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Nombre', `obtén el nombre original del usuario`, 'string') }}",
+            "session_id": "={{ $('Variables globales').first().json.Key }}",
+            "url": "={{ $('Variables globales').first().json.server_url }}",
+            "instancia": "={{ $('Variables globales').first().json.nombreInstancia }}",
+            "apikey": "={{ $('Variables globales').first().json.apikey }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero_cliente",
+              "displayName": "numero_cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "instancia",
+              "displayName": "instancia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -16160,
+        -8860
+      ],
+      "id": "b220c714-c22a-4656-9795-cc8fac51a402",
+      "name": "Reagendar visita"
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_chat_histories_inmobiliaria",
+          "mode": "list",
+          "cachedResultName": "n8n_chat_histories_inmobiliaria"
+        },
+        "deleteCommand": "delete",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -21360,
+        -7809
+      ],
+      "id": "1486d62e-3a3f-4203-980c-a452bdd7c674",
+      "name": "Postgres2",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "nm3Nd2zVO6KamqyP",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Cancelar visitar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_telefono": "={{ $('Variables globales').item.json.TelefonoCliente }}",
+            "instance": "={{ $('Variables globales').item.json.nombreInstancia }}",
+            "apikey": "={{ $('Variables globales').item.json.apikey }}",
+            "url_evo": "={{ $('Variables globales').item.json.server_url }}",
+            "session_id": "={{ $('getCliente').item.json.Key }}",
+            "Evento": "={{ $json.singleSelectReply.selectedRowId }}",
+            "fecha_cita": "={{ $json.detalles.fecha_iso }}"
+          },
+          "matchingColumns": [
+            "Evento"
+          ],
+          "schema": [
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "url_evo",
+              "displayName": "url_evo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "instance",
+              "displayName": "instance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": true,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -19160,
+        -8509
+      ],
+      "id": "1ba97c0c-15da-429a-8243-4bd81a405773",
+      "name": "Cancelar evento"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $node[\"Variables globales\"].json.server_url }}/chat/sendPresence/{{ $node[\"Variables globales\"].json.nombreInstancia }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $node[\"Variables globales\"].json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"number\": \"{{ $node[\"Variables globales\"].json.TelefonoCliente }}\",\n    \"delay\": 1200,\n    \"presence\": \"composing\"\n}",
+        "options": {}
+      },
+      "id": "07300cd7-8d7f-4df1-8d80-523e052acddd",
+      "name": "Escribiendo...",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -17840,
+        -9080
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle = listResponseMessage?.title || \"\";\n    const singleSelectReply = listResponseMessage?.singleSelectReply || null;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Verificar si es una lista de visitas programadas\n        const title = listResponseMessage.title || \"\";\n        const esVisitasProgramadas = title.includes(\"Visitas Programadas\") || \n                                    title.includes(\"visitas programadas\") || \n                                    title.includes(\"Lista de visitas\");\n        \n        if (esVisitasProgramadas) {\n          // Es una selección de visita para reagendar o cancelar\n          return {\n            tipo: \"seleccion_visita_reagendar\",\n            eventId: eventId,\n            detalles: {\n              visita_id: eventId,\n              texto_visita: title\n            },\n            // Incluir las variables solicitadas\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Es posiblemente una selección de fecha\n          // Verificar si el eventId tiene formato de fecha (mes-dia-hora)\n          const formatoFecha = /^(\\d+)-(\\d+)-(\\d+)$/;\n          const esFormatoFecha = formatoFecha.test(eventId);\n          \n          if (esFormatoFecha) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}:00`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: \"disponibilidad\",\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              // Incluir las variables solicitadas\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Si no es formato de fecha, extraer información del title si es posible\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}:00`;\n                \n                return {\n                  tipo: \"disponibilidad\",\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  // Incluir las variables solicitadas\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Si no pudimos extraer fecha, devolvemos la selección como está\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              // Incluir las variables solicitadas\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje = $input.first()?.json?.mensaje || \"\";\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          // Incluir las variables solicitadas (podrían ser null en este caso)\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      // Si hay un mensaje, lo devolvemos como mensaje normal\n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          // Incluir las variables solicitadas (podrían ser null en este caso)\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    // Fallback: devolvemos mensaje vacío si no encontramos nada\n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      // Incluir las variables solicitadas (podrían ser null en este caso)\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      // Incluir valores vacíos para las variables solicitadas en caso de error\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -19380,
+        -8830
+      ],
+      "id": "b788f419-3b91-4468-8734-d82f1ff32406",
+      "name": "Codigo"
+    },
+    {
+      "parameters": {
+        "name": "get_details",
+        "description": "Siempre llama a esta herramienta cuando el usuario quiera saber detalles de una propiedad",
+        "workflowId": {
+          "__rl": true,
+          "value": "Ab4F7QajcghDftwL",
+          "mode": "list",
+          "cachedResultName": "INMOBILIARIA - DATOS TEMPORALES"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "session_id": "={{ $('Variables globales').first().json.Key }}",
+            "consulta_usuario": "={{ $('Compara igualdad de memorias').item.json.message_completo }}",
+            "instance": "={{ $('Variables globales').first().json.nombreInstancia }}",
+            "url": "={{ $('Variables globales').first().json.server_url }}",
+            "apikey": "={{ $('Variables globales').first().json.apikey }}",
+            "numero_telefono": "={{ $('Variables globales').first().json.TelefonoCliente }}"
+          },
+          "matchingColumns": [
+            "session_id"
+          ],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "consulta_usuario",
+              "displayName": "consulta_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "instance",
+              "displayName": "instance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -16040,
+        -8860
+      ],
+      "id": "63af2cc3-eafb-4cb4-a2ad-97b750efec66",
+      "name": "Traer detalles"
+    },
+    {
+      "parameters": {
+        "name": "insert_name_correo",
+        "description": "utilizaras esta herramienta cuando tengas el nombre y el correo del cliente",
+        "workflowId": {
+          "__rl": true,
+          "value": "NMXjLrJD55BsxkNB",
+          "mode": "list",
+          "cachedResultName": "INSERT Nombre - Correo"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Id": "={{ $('Variables globales').first().json.Id }}",
+            "nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nombre', `Cuando obtengas el nombre del cliente guardalo aqui`, 'string') }}",
+            "telefono": "={{ $('Variables globales').first().json.TelefonoCliente }}",
+            "correo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo', `Guarda el email del cliente`, 'string') }}",
+            "table": "m65ab1wqt3e0skg",
+            "server": "={{ $('Variables globales').first().json.server_db }}",
+            "viewId": "vw6xjes92bviyo83",
+            "tipoCliente": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('tipoCliente', `Debes obtener el tipo de cliente si es particular o agente`, 'string') }}",
+            "Inmobiliaria": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Inmobiliaria', `capturar el nombre de la inmobiliaria`, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "correo",
+              "displayName": "correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "table",
+              "displayName": "table",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "server",
+              "displayName": "server",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "viewId",
+              "displayName": "viewId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "tipoCliente",
+              "displayName": "tipoCliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Inmobiliaria",
+              "displayName": "Inmobiliaria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -15920,
+        -8860
+      ],
+      "id": "785cbcbc-6fe4-4c0a-ba22-9b2abbe2742b",
+      "name": "Nombre y Correo"
+    },
+    {
+      "parameters": {
+        "name": "validate_url",
+        "description": "=Llamaras a esta herramienta cada vez que un usuario te pida informacion de una propiedad o si te comparte una url, pero siempre debes usar esta herramienta",
+        "workflowId": {
+          "__rl": true,
+          "value": "Ab4F7QajcghDftwL",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - VALIDAR PROPIEDAD"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_telefono": "={{ $('Variables globales').first().json.TelefonoCliente }}",
+            "session_id": "={{ $('Variables globales').first().json.Key }}",
+            "consulta_usuario": "={{ $('Compara igualdad de memorias').item.json.message_completo }}",
+            "url": "={{ $('Variables globales').first().json.server_url }}",
+            "instance": "={{ $('Variables globales').first().json.nombreInstancia }}",
+            "apikey": "={{ $('Variables globales').first().json.apikey }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "consulta_usuario",
+              "displayName": "consulta_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "instance",
+              "displayName": "instance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -15800,
+        -8860
+      ],
+      "id": "a4c749d6-4bad-490e-a78e-03279ce3d11b",
+      "name": "validar_pagina"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "p311nqyjsnx0fqq",
+        "table": "m65ab1wqt3e0skg",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "pushname",
+              "fieldValue": "={{ $node[\"Webhook\"].json.body.data.pushName }}"
+            },
+            {
+              "fieldName": "Telefono",
+              "fieldValue": "={{ $node[\"Webhook\"].json.body.data.key.remoteJid.replace(/\\D/g, '') }}"
+            },
+            {
+              "fieldName": "Key",
+              "fieldValue": "={{ $json.data }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -20040,
+        -8772
+      ],
+      "id": "dcb920f0-49ad-47d6-bc5b-bd9d4209cb69",
+      "name": "Insertar Lead",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "TelefonoCliente",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.remoteJid.replace(/\\D/g, '') || $('Webhook').item?.json?.body?.meta?.sender?.identifier.replace(/\\D/g, '') || null}}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "nombreCliente",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.pushName || $('Webhook').item.json.body.meta.sender.name }}",
+              "type": "string"
+            },
+            {
+              "id": "01238a36-6907-4aec-ab21-26345ed5fc96",
+              "name": "nombreInstancia",
+              "value": "={{ $('Webhook').item.json.body.instance }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "mensaje",
+              "value": "={{ \n  $('Webhook').item?.json?.body?.content?.mensaje?.extendedTextMessage?.text ||\n     $('Webhook').item?.json?.body?.data?.message?.extendedTextMessage?.text ||\n  $('Webhook').item?.json?.body?.data?.message?.imageMessage?.caption || \n  $('Webhook').item?.json?.body?.data?.message?.conversation || \n  $('Webhook').item?.json?.message?.text || \n  $('Webhook').item?.json?.message?.caption || \n  null \n}}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "tipoMensaje",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.messageType || $('Webhook').item.json.body.messages[0].content_type }}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "idMensaje",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.id || $('Webhook').item.json.body.contact_inbox.source_id }}",
+              "type": "string"
+            },
+            {
+              "id": "076ad2d4-b8ea-440f-9c02-f7e8417a984d",
+              "name": "apikey",
+              "value": "={{ $('Webhook').item?.json?.body?.apikey || '084938B823FE-4BA9-974E-8C8951DB4277' }}",
+              "type": "string"
+            },
+            {
+              "id": "e30bbf8c-d5da-4410-b875-8dfe4b301798",
+              "name": "Escribiendo",
+              "value": "={{ 1200 }}",
+              "type": "number"
+            },
+            {
+              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
+              "name": "tiempo",
+              "value": "={{ $('Webhook').item.json.body.date_time || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "e8e6023d-7c0e-4f8b-815f-2abdff369912",
+              "name": "server_url",
+              "value": "={{ $('Webhook').item?.json?.body?.server_url || 'https://evo.innovasoftpro.dev'}}",
+              "type": "string"
+            },
+            {
+              "id": "07c65c0d-9662-41b0-b872-056a5d643f8c",
+              "name": "label",
+              "value": "={{ $('Webhook').item?.json?.body?.labels || [''] }}",
+              "type": "string"
+            },
+            {
+              "id": "90b443cd-2d2c-4a02-aa47-89b2fc25784d",
+              "name": "ListResponseMessage",
+              "value": "={{ $('Webhook').item.json.body.data.message.listResponseMessage }}",
+              "type": "object"
+            },
+            {
+              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
+              "name": "server_db",
+              "value": "https://db.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "5553db2c-49aa-4a58-bafe-f8794ce8832d",
+              "name": "Key",
+              "value": "={{ $('getCliente').item.json.Key }}",
+              "type": "string"
+            },
+            {
+              "id": "720d2599-daac-474d-904e-0ea0ee40689b",
+              "name": "Id",
+              "value": "={{ $('getCliente').item.json.Id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f0a82878-e0d0-465a-a57d-ba2c87b6558e",
+      "name": "Variables globales",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -19820,
+        -8847
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p311nqyjsnx0fqq",
+        "table": "m65ab1wqt3e0skg",
+        "returnAll": true,
+        "options": {
+          "where": "=(Telefono,eq,{{ $('Webhook').item.json.body.data.key.remoteJid.replace(/\\D/g, '') }}) "
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -20700,
+        -8847
+      ],
+      "id": "097ba612-d951-402e-aa41-616aa167b6ba",
+      "name": "getCliente",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Llama a esta herramienta cuando quieras necesites verificar la informacion del cliente",
+        "authentication": "nocoDbApiToken",
+        "projectId": "p311nqyjsnx0fqq",
+        "table": "m65ab1wqt3e0skg",
+        "id": "={{ $('getCliente').first().json.Id }}"
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        -15680,
+        -8860
+      ],
+      "id": "bfb28a38-a7df-4233-94ae-085218ddb416",
+      "name": "GetCliente",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "check_slots",
+        "description": "Llama a esta herramienta cuando el usuario necesite saber la disponiblidad para agendar una visita",
+        "workflowId": {
+          "__rl": true,
+          "value": "5AJCyyzXz5C3WWHQ",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Consultar_fechas_disponibles"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "session_id": "={{ $('Variables globales').first().json.Key }}",
+            "instance": "={{ $('Variables globales').first().json.nombreInstancia }}",
+            "apikey": "={{ $('Variables globales').first().json.apikey }}",
+            "url_evo": "={{ $('Variables globales').first().json.server_url }}",
+            "Evento": "consultar",
+            "numero_telefono": "={{ $('Variables globales').first().json.TelefonoCliente }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "url_evo",
+              "displayName": "url_evo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "instance",
+              "displayName": "instance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -15560,
+        -8860
+      ],
+      "id": "33025734-81c9-4e09-8871-7365335df5ce",
+      "name": "Consultar disponibilidad"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-04-17-thinking",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -16520,
+        -8860
+      ],
+      "id": "c64b33eb-ee54-4f9b-8eee-321d1fdeb4e9",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9O8uUWkp7h4KwsVD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## RESET BBDD",
+        "height": 240,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -21430,
+        -7889
+      ],
+      "typeVersion": 1,
+      "id": "0edfe6d1-20e8-43f7-9d74-61b53adc9ec2",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.output.trim() }}",
+                    "rightValue": "DISPONIBILIDAD_ENVIADA",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "a5815733-94ac-45ad-924d-2d0f7ff43d95"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Disponibildiad"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f9031e7e-158c-460e-8e57-c3aac4b8bda8",
+                    "leftValue": "={{ $json.output.trim() }}",
+                    "rightValue": "REAGENDAR_ENVIADA",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Reagendar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0b9fb62f-0af6-4f05-81f9-7eedcf6b6bf6",
+                    "leftValue": "={{ $json.output.trim() }}",
+                    "rightValue": "CANCELAR_ENVIADO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Cacelar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "68a4c039-97cc-425f-b3ed-d8621a725305",
+                    "leftValue": "={{ $json.output.trim() }}",
+                    "rightValue": "\"DISPONIBILIDAD_ENVIADA\"",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Disponibildiad"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "619a91cb-6f17-4d04-9df5-8113f798a6ed",
+                    "leftValue": "={{ $json.output.trim() }}",
+                    "rightValue": "CANCELAR_ENVIADA",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Cancelar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f9dcdadc-c2c1-46d2-b6b1-67c91dd8ffe6",
+                    "leftValue": "={{ $json.output.trim() }}",
+                    "rightValue": " DISPONIBILIDAD_ENVIADA\\n",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9fb87954-32ca-42db-86a5-fedd4834a548",
+                    "leftValue": "={{ $json.output }}",
+                    "rightValue": "ERROR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -15240,
+        -9185
+      ],
+      "id": "12112c75-b75f-45a3-9a49-4f8023c386f9",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Variables globales').first().json.TelefonoCliente }}",
+        "tableName": "n8n_chat_histories_inmobiliaria",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -16400,
+        -8860
+      ],
+      "id": "95a0b780-24ad-496a-b834-7ad106c14672",
+      "name": "Postgres Chat Memory1",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c203e3f3-cdae-4308-b7ca-2300800248e7"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "60065893-74f7-4b64-bc1a-d891202efa78",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "imageMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Image"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0cb14635-2673-408e-86db-ce9e0373674b",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3d2b908a-5bdf-41b5-b195-d4e9298c58e8",
+                    "leftValue": "={{ $json.ListResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+                    "rightValue": "=📅 Fechas Disponibles",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "📅 Fechas Disponibles"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b8ec469c-1812-4701-bce3-96a548649d76",
+                    "leftValue": "={{ $json.ListResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+                    "rightValue": "📅 Visitas Programadas",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "📅 Visitas Programadas"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "004fd6bb-488c-4f22-b1d2-7ce04855f172",
+                    "leftValue": "={{ $json.ListResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+                    "rightValue": "📅 Fechas de Reprogramación",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "📅 Fechas de Reprogramación"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "eb565653-33f7-4f16-a17c-b840b8b94e67",
+                    "leftValue": "={{ $json.ListResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+                    "rightValue": "❌ Cancelar Visitas",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "❌ Cancelar Visitas"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aaea347b-8c54-4b6f-98b0-8319c2e366fc",
+      "name": "Message Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -19600,
+        -8931
+      ]
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -19160,
+        -8876
+      ],
+      "id": "49423ebd-d176-40f0-ae1e-91253384247b",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Variables globales').first().json?.TelefonoCliente}}",
+        "messageData": "={{ $json?.mensaje || $json?.detalles?.fecha_iso  || $json.ListResponseMessage.title}} ",
+        "tail": true
+      },
+      "id": "b5aa9ae7-92e1-4065-b280-bd7a4fb224f0",
+      "name": "apilaTexto",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -18940,
+        -8855
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle = listResponseMessage?.title || \"\";\n    const singleSelectReply = listResponseMessage?.singleSelectReply || null;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Obtener el título y la descripción\n        const title = listResponseMessage.title || \"\";\n        \n        // Verificar si hay información adicional en el nodo que indique el tipo de lista\n        // Por ejemplo, podríamos buscar en quotedMessage o contextInfo\n        let tipoLista = \"\";\n        \n        // Intentar obtener tipo de lista desde lista completa si está disponible\n        try {\n          const quotedMessage = listResponseMessage?.contextInfo?.quotedMessage;\n          if (quotedMessage && quotedMessage.listMessage) {\n            const listMessageTitle = quotedMessage.listMessage.title || \"\";\n            if (listMessageTitle.includes(\"Visitas Programadas\")) {\n              tipoLista = \"fechas_reprogramacion\";\n            } else if (listMessageTitle.includes(\"Fechas Disponibles\")) {\n              tipoLista = \"fechas_disponibles\";\n            }\n          }\n        } catch (e) {\n          console.log(\"Error al intentar obtener tipo de lista desde quoted message:\", e);\n        }\n        \n        // Si no pudimos detectar el tipo desde el contexto, intentamos inferirlo\n        if (!tipoLista) {\n          // Buscar elementos específicos en el input que puedan indicar el tipo\n          const inputJson = $input.first()?.json || {};\n          \n          // SOLUCIÓN: Verificar si hay algún indicador en el formato del rowId o en los datos\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            // Si tiene formato de fecha (mes-dia-hora), asumimos que es fechas_disponibles\n            tipoLista = \"fechas_disponibles\";\n          } else if (title.includes(\"Visitas Programadas\") || \n                   inputJson.footerText?.includes(\"visitas\") ||\n                   inputJson.description?.includes(\"visitas programadas\")) {\n            tipoLista = \"fechas_reprogramacion\";\n          }\n          \n          // Si aún no tenemos tipo, hacemos una última verificación\n          if (!tipoLista) {\n            if (title.match(/\\d+ de [A-Za-z]+ - \\d+:\\d+/)) {\n              tipoLista = \"fechas_disponibles\"; // Si tiene formato de fecha, es disponibilidad\n            } else {\n              tipoLista = \"disponibilidad\"; // Valor por defecto\n            }\n          }\n        }\n        \n        // Usamos el tipo detectado\n        if (tipoLista === \"fechas_reprogramacion\") {\n          // NUEVO: Extraer fecha del título para casos de fechas_reprogramacion\n          const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n          let detallesVisita = {\n            visita_id: eventId,\n            texto_visita: title\n          };\n          \n          // Si encontramos un formato de fecha en el título, agregamos fecha_iso\n          if (fechaMatch) {\n            const dia = fechaMatch[1];\n            const mesTexto = fechaMatch[2];\n            const hora = fechaMatch[3];\n            const minutos = fechaMatch[4];\n            \n            // Mapeo de nombres de meses a números\n            const mesesMap = {\n              'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n              'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n              'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n            };\n            \n            const mesNumero = mesesMap[mesTexto.toLowerCase()];\n            if (mesNumero) {\n              const now = new Date();\n              const anioActual = now.getFullYear();\n              // Sin segundos\n              const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n              \n              detallesVisita = {\n                ...detallesVisita,\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: mesTexto,\n                hora: `${hora}:${minutos}`,\n                fecha_iso: fechaISO\n              };\n            }\n          }\n          \n          return {\n            tipo: \"fechas_reprogramacion\",\n            eventId: eventId,\n            detalles: detallesVisita,\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Para fechas_disponibles o disponibilidad\n          // Procesamos la fecha\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO - Sin segundos\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Extraer información del title\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                // Sin segundos\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n                \n                return {\n                  tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Fallback para selecciones desconocidas\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Resto del código para mensajes y confirmaciones igual...\n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje = $input.first()?.json?.mensaje || \"\";\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -19380,
+        -8509
+      ],
+      "id": "02083b28-e9ac-4d49-982e-ecb29632f4aa",
+      "name": "Codigo1"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "5AJCyyzXz5C3WWHQ",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Consultar_fechas_disponibles"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_telefono": "={{ $('Variables globales').item.json.TelefonoCliente }}",
+            "Evento": "reagendar",
+            "session_id": "={{ $('Variables globales').item.json.idMensaje }}",
+            "url_evo": "={{ $('Variables globales').item.json.server_url }}",
+            "instance": "={{ $('Message Type').item.json.nombreInstancia }}",
+            "apikey": "={{ $('Variables globales').item.json.apikey }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "url_evo",
+              "displayName": "url_evo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "instance",
+              "displayName": "instance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -18940,
+        -8509
+      ],
+      "id": "9cef982c-8415-431d-897a-18565f026145",
+      "name": "Reagendar List"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función que extrae información cuando un usuario selecciona una fecha (desde el ListResponseMessage)\nconst procesarSeleccionDeFecha = () => {\n  try {\n    // Verificamos si es una respuesta a una lista (selección de fecha)\n    const webhookData = $('Webhook').first().json;\n    if (webhookData && webhookData.body && webhookData.body.data && \n        webhookData.body.data.message && webhookData.body.data.message.listResponseMessage) {\n      \n      const listResponse = webhookData.body.data.message.listResponseMessage;\n      if (listResponse.singleSelectReply && listResponse.singleSelectReply.selectedRowId) {\n        const selectedId = listResponse.singleSelectReply.selectedRowId.trim();\n        \n        // Formato esperado: mes-dia-hora (ej: 5-8-1600)\n        const partes = selectedId.split('-');\n        if (partes.length >= 3) {\n          const now = new Date();\n          const anioActual = now.getFullYear();\n          const mesNumero = partes[0];\n          const dia = partes[1];\n          \n          // Formatea la hora (ej: \"1600\" a \"16:00\")\n          let horarioRaw = partes[2].toString().padStart(4, '0');\n          const hora = horarioRaw.slice(0, 2);\n          const minutos = horarioRaw.slice(2, 4);\n          const horarioFormateado = `${hora}:${minutos}`;\n          \n          // Construye la fecha ISO para la base de datos\n          const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}:00`;\n          \n          // Nombres de meses para mostrar en mensajes\n          const nombresMeses = {\n            '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n            '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n            '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n          };\n          \n          return {\n            tipo: \"seleccion_fecha\",\n            detalles: {\n              dia: dia,\n              mes: mesNumero,\n              mes_nombre: nombresMeses[mesNumero],\n              hora: horarioFormateado,\n              fecha_iso: fechaISO,\n              texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n            }\n          };\n        }\n      }\n    }\n    \n    // Verificamos si es una confirmación de datos\n    const mensajeTexto = webhookData?.body?.data?.message?.conversation?.toLowerCase();\n    if (mensajeTexto && (mensajeTexto.includes(\"son correctos\") || mensajeTexto.includes(\"si son\") || mensajeTexto === \"si\")) {\n      return {\n        tipo: \"confirmacion_datos\",\n        mensaje: mensajeTexto\n      };\n    }\n    \n    // Si no es ninguno de los casos anteriores, devolvemos el mensaje para procesamiento normal\n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: webhookData?.body?.data?.message?.conversation || \"\"\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección de fecha:\", error);\n    return {\n      error: true,\n      mensaje: error.message\n    };\n  }\n};\n\n// Para el caso donde el usuario ha escrito manualmente el texto de la fecha en lugar de usar el listado\nconst procesarTextoFecha = (texto) => {\n  if (!texto) return null;\n  \n  // Expresión regular para detectar formatos como \"Quiero agendar el 8 de Mayo a las 16:00\"\n  const regexFecha = /(\\d{1,2})\\s+de\\s+([A-Za-zÁáÉéÍíÓóÚú]+)\\s+a\\s+las\\s+(\\d{1,2}):?(\\d{2})/i;\n  const match = texto.match(regexFecha);\n  \n  if (match) {\n    const dia = match[1];\n    const mesTexto = match[2].toLowerCase();\n    const hora = match[3];\n    const minutos = match[4] || \"00\";\n    \n    // Mapeo de nombres de meses a números\n    const mesesMap = {\n      'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n      'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n      'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n    };\n    \n    // Inverso para obtener el nombre formal del mes\n    const nombresMeses = {\n      '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n      '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n      '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n    };\n    \n    const mesNumero = mesesMap[mesTexto];\n    if (mesNumero) {\n      const now = new Date();\n      const anioActual = now.getFullYear();\n      const horarioFormateado = `${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n      const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}:00`;\n      \n      return {\n        tipo: \"texto_fecha\",\n        detalles: {\n          dia: dia,\n          mes: mesNumero,\n          mes_nombre: nombresMeses[mesNumero],\n          hora: horarioFormateado,\n          fecha_iso: fechaISO,\n          texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n        }\n      };\n    }\n  }\n  \n  return null;\n};\n\n// Función principal que maneja todos los casos\nconst procesarMensaje = () => {\n  try {\n    const webhookData = $('Webhook').first().json;\n    if (!webhookData) {\n      return { error: \"No se encontraron datos en el webhook\" };\n    }\n    \n    // Si es una selección desde el listado de fechas\n    const resultadoListado = procesarSeleccionDeFecha();\n    if (resultadoListado && (resultadoListado.tipo === \"seleccion_fecha\" || resultadoListado.tipo === \"confirmacion_datos\")) {\n      return resultadoListado;\n    }\n    \n    // Si el usuario ha escrito manualmente la fecha\n    const mensajeTexto = webhookData?.body?.data?.message?.conversation || \"\";\n    const resultadoTextoFecha = procesarTextoFecha(mensajeTexto);\n    if (resultadoTextoFecha) {\n      return resultadoTextoFecha;\n    }\n    \n    // Si no es ninguno de los casos anteriores\n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensajeTexto\n    };\n    \n  } catch (error) {\n    console.error(\"Error general procesando mensaje:\", error);\n    return {\n      error: true,\n      mensaje: error.message\n    };\n  }\n};\n\n// Ejecutar el procesamiento y devolver con pairedItem\nreturn [{\n  json: procesarMensaje(),\n  pairedItem: 0\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -19380,
+        -8309
+      ],
+      "id": "26621657-6997-4813-a7fa-9be1b0948def",
+      "name": "Codigo2"
+    },
+    {
+      "parameters": {
+        "name": "show_cancellable_visits",
+        "description": "llama a esta herramienta cuando un usuario quiera cancelar una visita",
+        "workflowId": {
+          "__rl": true,
+          "value": "STmp3ANwLQSrvU9e",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Reagendar-Cancelar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_cliente": "={{ $('Variables globales').first().json.TelefonoCliente }}",
+            "Evento": "cancelar",
+            "correo_electronico": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo_electronico', `guarda si o si el email del cliente`, 'string') }}",
+            "Nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Nombre', `El nombre que recogiste del usuario`, 'string') }}",
+            "session_id": "={{ $('Variables globales').first().json.Key }}",
+            "url": "={{ $('Variables globales').first().json.server_url }}",
+            "instancia": "={{ $('Variables globales').first().json.nombreInstancia }}",
+            "apikey": "={{ $('Variables globales').first().json.apikey }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero_cliente",
+              "displayName": "numero_cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "instancia",
+              "displayName": "instancia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -15440,
+        -8860
+      ],
+      "id": "1c0d8924-0b3c-4260-9beb-1d213b4dc147",
+      "name": "Cancelar"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "nm3Nd2zVO6KamqyP",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Cancelar visitar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_telefono": "={{ $('Variables globales').item.json.TelefonoCliente }}",
+            "instance": "={{ $('Variables globales').item.json.nombreInstancia }}",
+            "apikey": "={{ $('Variables globales').item.json.apikey }}",
+            "url_evo": "={{ $('Variables globales').item.json.server_url }}",
+            "session_id": "={{ $('getCliente').item.json.Key }}",
+            "Evento": "={{ $json.singleSelectReply.selectedRowId }}",
+            "fecha_cita": "={{ $json.detalles.fecha_iso }}"
+          },
+          "matchingColumns": [
+            "Evento"
+          ],
+          "schema": [
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "url_evo",
+              "displayName": "url_evo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "instance",
+              "displayName": "instance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": true,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -15240,
+        -8659
+      ],
+      "id": "556046e8-80f5-4e0f-b705-09a16cc284d1",
+      "name": "Cancelar evento1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle = listResponseMessage?.title || \"\";\n    const singleSelectReply = listResponseMessage?.singleSelectReply || null;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Obtener el título y la descripción\n        const title = listResponseMessage.title || \"\";\n        \n        // Verificar si hay información adicional en el nodo que indique el tipo de lista\n        // Por ejemplo, podríamos buscar en quotedMessage o contextInfo\n        let tipoLista = \"\";\n        \n        // Intentar obtener tipo de lista desde lista completa si está disponible\n        try {\n          const quotedMessage = listResponseMessage?.contextInfo?.quotedMessage;\n          if (quotedMessage && quotedMessage.listMessage) {\n            const listMessageTitle = quotedMessage.listMessage.title || \"\";\n            if (listMessageTitle.includes(\"Visitas Programadas\")) {\n              tipoLista = \"fechas_reprogramacion\";\n            } else if (listMessageTitle.includes(\"Fechas Disponibles\")) {\n              tipoLista = \"fechas_disponibles\";\n            }\n          }\n        } catch (e) {\n          console.log(\"Error al intentar obtener tipo de lista desde quoted message:\", e);\n        }\n        \n        // Si no pudimos detectar el tipo desde el contexto, intentamos inferirlo\n        if (!tipoLista) {\n          // Buscar elementos específicos en el input que puedan indicar el tipo\n          const inputJson = $input.first()?.json || {};\n          \n          // SOLUCIÓN: Verificar si hay algún indicador en el formato del rowId o en los datos\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            // Si tiene formato de fecha (mes-dia-hora), asumimos que es fechas_disponibles\n            tipoLista = \"fechas_disponibles\";\n          } else if (title.includes(\"Visitas Programadas\") || \n                   inputJson.footerText?.includes(\"visitas\") ||\n                   inputJson.description?.includes(\"visitas programadas\")) {\n            tipoLista = \"fechas_reprogramacion\";\n          }\n          \n          // Si aún no tenemos tipo, hacemos una última verificación\n          if (!tipoLista) {\n            if (title.match(/\\d+ de [A-Za-z]+ - \\d+:\\d+/)) {\n              tipoLista = \"fechas_disponibles\"; // Si tiene formato de fecha, es disponibilidad\n            } else {\n              tipoLista = \"disponibilidad\"; // Valor por defecto\n            }\n          }\n        }\n        \n        // Usamos el tipo detectado\n        if (tipoLista === \"fechas_reprogramacion\") {\n          return {\n            tipo: \"fechas_reprogramacion\",\n            eventId: eventId,\n            detalles: {\n              visita_id: eventId,\n              texto_visita: title\n            },\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Para fechas_disponibles o disponibilidad\n          // Procesamos la fecha\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO - CAMBIO AQUÍ: Eliminado los segundos (:00)\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Extraer información del title\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                // CAMBIO AQUÍ: Eliminado los segundos (:00)\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n                \n                return {\n                  tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Fallback para selecciones desconocidas\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Resto del código para mensajes y confirmaciones igual...\n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje = $input.first()?.json?.mensaje || \"\";\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -15990,
+        -8659
+      ],
+      "id": "afbbf2fa-ecfd-4cc5-b108-f0013bf422dd",
+      "name": "Codigo3"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message_completo }}",
+        "options": {
+          "systemMessage": "=# Martín – Asistente Inmobiliario Digital (Optimizado)\n\nSoy Martín, el asesor de Francisco en RealStateIQ, con más de 20 años de experiencia en el mercado inmobiliario de Buenos Aires. Uso un tono profesional, cordial y respetuoso con acento argentino. Uso \"vos\" en lugar de \"tú\" pero mantengo siempre un lenguaje formal y profesional. Evito expresiones demasiado coloquiales como \"che\", \"mirá\", etc. Uso frases como \"¿Cómo estás?\", \"Perfecto\", \"Excelente\".\n\n---\n\n## REGLAS FUNDAMENTALES (Aplicar Siempre)\n\n1.  **Ejecución de Herramientas:** Ejecutar las herramientas necesarias en cada interacción para asegurar información actualizada. Nunca confiar en resultados anteriores. En caso de duda, volver a ejecutar la herramienta.\n2.  **Confirmación de Datos:** Antes de cualquier acción (agendar, modificar, cancelar), solicitar confirmación explícita del usuario sobre todos los datos recopilados en conjunto.\n3.  **Modificación de Datos:** Ofrecer siempre la posibilidad de modificar cualquier dato antes de la confirmación final. Si el usuario desea modificar, preguntar por el dato específico, actualizarlo (ej. con `insert_name_correo`) y volver a presentar el resumen completo para nueva confirmación.\n4.  **Comunicación con el Usuario:**\n    * Nunca mencionar \"herramienta\", \"sistema\" o aspectos técnicos.\n    * Mantener el contexto completo de la conversación. No preguntar información ya proporcionada ni repetir explicaciones.\n    * No enviar códigos especiales (ej. `DISPONIBILIDAD_ENVIADA`) con comillas.\n    * Ser breve y directo, evitando explicaciones innecesarias.\n    * Usar formato de código Markdown (\\`correo@ejemplo.com\\`) para correos electrónicos, nunca texto plano.\n5.  **Manejo de Errores de Herramientas:** Si una herramienta no devuelve la información esperada o falla, responder únicamente con el mensaje genérico \"ERROR\" sin dar explicaciones adicionales ni exponer detalles técnicos.\n6. **Ejecución Inmediata de Herramientas para Reprogramación y Cancelación:** Cuando un usuario confirma su correo para reprogramar o cancelar, NUNCA pedir fecha o detalles adicionales de la visita. Ejecutar INMEDIATAMENTE la herramienta correspondiente (`show_reschedulable_visits` o `show_cancellable_visits`) con los datos del cliente. El sistema mostrará automáticamente todas las visitas disponibles sin necesidad de preguntar por fechas específicas.\n---\n\n## Funciones Principales (Herramientas)\n\n* `validate_url`: Valida si la URL corresponde a una propiedad disponible.\n* `get_details`: Obtiene superficie, expensas, orientación, etc. Solo se ejecuta si el usuario pide características.\n* `getCliente`: Lee/actualiza en la base los campos `Nombre`, `Correo`, `Telefono`, `TipoCliente`, `nombre_inmobiliaria`. Ejecutar según se indique en los flujos (ej. al inicio, antes de acciones que requieran datos del cliente).\n* `check_slots`: Lista horarios disponibles SOLO para NUEVAS visitas.\n* `book_visit`: Agenda una visita. Requiere un objeto completo con todos los datos confirmados.\n* `show_cancellable_visits`: Muestra SOLO lista de visitas que pueden CANCELARSE. \n* `show_reschedulable_visits`: Muestra SOLO lista de visitas que pueden REPROGRAMARSE.\n* `insert_name_correo`: Guarda o actualiza Nombre, Correo, Teléfono, Tipo de Cliente y Nombre de Inmobiliaria.\n\n---\n\n## Códigos de Respuesta Especiales (Usar SIN COMILLAS y solo tras verificar respuesta de herramienta previa)\n\n* DISPONIBILIDAD_ENVIADA: Enviar ÚNICAMENTE después de ejecutar `check_slots` y verificar que haya devuelto resultados.\n* REAGENDAR_ENVIADA: Enviar ÚNICAMENTE después de ejecutar `show_reschedulable_visits` y verificar que haya devuelto resultados.\n* CANCELAR_ENVIADO: Enviar ÚNICAMENTE después de ejecutar `show_cancellable_visits` y verificar que haya devuelto resultados.\n\n*(Al enviar uno de estos códigos, se considera un punto de \"reset de flujo\", conservando Nombre, Correo, Tipo de Cliente y Nombre de Inmobiliaria ya recopilados)*.\n\n---\n\n## IMPORTANTE: FORMATO CORRECTO DE PARÁMETROS PARA HERRAMIENTAS\n\n* Para `show_reschedulable_visits`, usar EXACTAMENTE:\n```json\n{\n  \"correo_electronico\": \"correo@ejemplo.com\",\n  \"Nombre\": \"Nombre Del Cliente\",\n  \"Evento\": \"reagendar\"\n}\n```\n\n* Para `show_cancellable_visits`, usar EXACTAMENTE:\n```json\n{\n  \"correo_electronico\": \"correo@ejemplo.com\",\n  \"Nombre\": \"Nombre Del Cliente\",\n  \"Evento\": \"cancelar\"\n}\n```\n\nNUNCA cambiar las claves, manteniendo exactamente: \"correo_electronico\", \"Nombre\" y \"Evento\".\nNUNCA incluir variables como {getCliente.Correo} en el JSON final, siempre sustituir por el valor real.\n\n---\n\n## Flujo de Conversación Natural\n\n### Inicio de Conversación (Primer mensaje del usuario):\n1.  Ejecutar `getCliente`.\n2.  Saludar:\n    * Si `getCliente` devuelve Nombre: \"Hola {Nombre}, soy Martín, asistente de Francisco en RealStateIQ. ¿En qué puedo ayudarte hoy?\"\n    * Si no: \"Hola, soy Martín, asistente de Francisco en RealStateIQ. ¿En qué puedo ayudarte hoy?\"\n3.  Si el usuario indica que es primera vez o no hay registro previo: \"Entiendo. ¿En qué puedo ayudarte con tu búsqueda inmobiliaria?\"\n\n### Usuario Busca Propiedad (Sin URL):\n* Responder: \"¿Podrías compartirme el enlace de la propiedad que te interesa? Así podré darte información específica sobre ella.\"\n\n### Usuario Comparte Enlace (URL):\n1.  Ejecutar `getCliente` (si no se hizo o para asegurar datos actualizados).\n2.  Ejecutar `validate_url` con la URL proporcionada.\n3.  Saludar (si es el inicio efectivo de la interacción sobre una propiedad, adaptar saludo):\n    * Si `getCliente` devuelve Nombre: \"Muchas gracias {Nombre} por el enlace. Soy Martín, asistente de Francisco en RealStateIQ. ¿Hay algo específico que quieras saber sobre esta propiedad?\"\n    * Si no: \"Gracias por compartir el enlace. Soy Martín, el asistente de Francisco en RealStateIQ. ¿Hay algo específico que quieras saber sobre esta propiedad?\"\n4.  No mostrar información detallada de la propiedad hasta que el usuario lo pida explícitamente.\n\n### Consulta sobre Características de la Propiedad:\n* Cuando el usuario pregunta por cualquier característica (ej. \"¿Tiene cochera?\", \"¿Qué orientación tiene?\", \"Me podés pasar los datos\"), ejecutar `get_details`.\n* Si el mensaje contiene solo una URL predeterminada: saludar y esperar la consulta del usuario.\n\n### Verificación de Correo Electrónico:\n1.  Cuando el usuario proporciona un correo:\n    * Pedir confirmación explícita: \"¿Confirmás que tu correo es `{correo}`?\"\n2.  Si hay dudas o el usuario indica corrección, pedir que lo escriba nuevamente: \"¿Podés escribir nuevamente tu correo electrónico?\"\n3.  No continuar procesos que dependan del correo hasta tener confirmación explícita.\n\n### Intención de Agendar NUEVA Visita:\n1.  Si el usuario expresa \"quiero agendar\", \"quiero visitar\", \"puedo ir a verla\" (y NO está pidiendo reprogramar una existente):\n    * Responder: \"¿Querés que te comparta los horarios disponibles para agendar una visita?\"\n2.  Si responde afirmativamente:\n    * Ejecutar `check_slots`.\n    * Tras verificar respuesta de `check_slots`, responder exactamente: DISPONIBILIDAD_ENVIADA\n\n### Agendamiento (Después de que el usuario selecciona fecha/hora de \"DISPONIBILIDAD_ENVIADA\"):\n1.  Ejecutar `getCliente` para tener/confirmar datos.\n2.  **Recolección/Confirmación de Datos Secuencial:**\n    * **Nombre:**\n        * Si no existe en `getCliente.Nombre`: \"Para agendar la visita para el {fecha} a las {hora} hs, ¿cuál es tu nombre completo?\" Esperar respuesta.\n        * Si existe: \"Para agendar la visita para el {fecha} a las {hora} hs, ¿tu nombre es {Nombre}?\" Si dice \"no\", preguntar: \"¿Cuál es tu nombre completo?\" Esperar respuesta.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Correo:**\n        * Si no existe en `getCliente.Correo`: \"¿Me podés proporcionar tu correo electrónico?\" Esperar respuesta. Luego, pedir confirmación (ver \"Verificación de Correo Electrónico\").\n        * Si existe: \"¿Tu correo electrónico es `{Correo}`?\" Si dice \"no\", preguntar: \"¿Cuál es tu correo electrónico?\" Esperar respuesta. Luego, pedir confirmación.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Tipo de Cliente:**\n        * Si no existe en `getCliente.tipoCliente`: \"¿Sos particular o agente inmobiliario?\" Esperar respuesta.\n        * Si existe (ej. \"Particular\"): \"¿Seguís siendo particular?\" Si dice \"no\", preguntar: \"¿Sos particular o agente inmobiliario?\" Esperar respuesta.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Nombre de Inmobiliaria (solo si es Agente):**\n        * Si `TipoCliente` es \"Agente\":\n            * Si existe `nombre_inmobiliaria` en `getCliente`: \"¿Seguís trabajando en {nombre_inmobiliaria}?\" Si dice \"no\", preguntar: \"¿De qué inmobiliaria sos ahora?\" Esperar respuesta.\n            * Si no existe: \"¿De qué inmobiliaria sos?\" Esperar respuesta.\n        * Tras obtener/confirmar esta información, ejecutar `insert_name_correo` para actualizar y luego incluirla en el objeto para `book_visit` en el campo `nombre_inmobiliaria`.\n3.  **Confirmación Final de Datos Completos (OBLIGATORIO):**\n    * Mostrar resumen:\n        ```\n        Para confirmar:\n        • Nombre: {Nombre}\n        • Correo: `{Correo}`\n        • Tipo: {TipoCliente === \"Agente\" ? \"Agente inmobiliario\" : \"Particular\"}\n        {TipoCliente === \"Agente\" ? \"• Inmobiliaria: \" + nombre_inmobiliaria : \"\"}\n        • Fecha: {fecha} a las {hora} hs\n\n        ¿Todos los datos son correctos?\n        ```\n    * Esperar confirmación explícita. Si quiere modificar, seguir Regla Fundamental 3.\n4.  **Agendar:** Solo tras confirmación completa, ejecutar `book_visit` con el objeto completo:\n    ```json\n    {\n      \"fecha_cita\": \"fecha_iso_seleccionada\", // Asegurar formato ISO\n      \"Nombre\": \"nombre_confirmado\",\n      \"correo_electronico\": \"correo_confirmado\",\n      \"tipo_cliente\": \"tipo_confirmado\",\n      \"nombre_inmobiliaria\": \"{TipoCliente === 'Agente' ? nombre_inmobiliaria_confirmado : ''}\"\n    }\n    ```\n5.  **Confirmar Visita Agendada:** \"Listo {Nombre}, agendamos tu visita para el {fecha} a las {hora} hs. Te llegará un correo con la dirección.\"\n\n### Reprogramar una Visita:\n1.  Si el usuario indica intención de reprogramar (palabras clave \"reprogramar\", \"cambiar fecha/hora\", \"mover visita\", etc.):\n    * Ejecutar `getCliente` para obtener los datos del usuario de la base de datos.\n    * Verificar si hay un correo registrado en `getCliente.Correo`:\n        * **Si hay correo registrado**:\n            * Responder concisamente: \"Perfecto {getCliente.Nombre}. Para validar tus datos y reprogramar, ¿tu correo es `{getCliente.Correo}`?\"\n            * Si confirma con \"sí\" o similar, INMEDIATAMENTE ejecutar `show_reschedulable_visits` con exactamente:\n                ```json\n                {\n                  \"correo_electronico\": \"correo_real_del_cliente\",\n                  \"Nombre\": \"nombre_real_del_cliente\",\n                  \"Evento\": \"reagendar\"\n                }\n                ```\n            * Tras verificar respuesta, responder exactamente: REAGENDAR_ENVIADA\n            * Si no hay visitas: \"No encontré visitas agendadas con ese correo. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n        * **Si no hay correo registrado**:\n            * Responder directamente: \"No tengo registrada ninguna visita a tu nombre. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n2.  **Usuario Selecciona Visita y Nueva Fecha (desde los listados provistos tras `REAGENDAR_ENVIADA`):**\n    * Ejecutar `getCliente` para datos actualizados.\n    * Si `TipoCliente` es \"Agente\":\n        * Si existe `nombre_inmobiliaria` en `getCliente`: \"Para completar la reprogramación, ¿seguís trabajando en {nombre_inmobiliaria}?\" Si dice \"no\", preguntar: \"¿De qué inmobiliaria sos ahora?\" Esperar respuesta.\n        * Si no existe: \"Para completar la reprogramación, ¿de qué inmobiliaria sos?\" Esperar respuesta.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Confirmación Final (OBLIGATORIO pero concisa):**\n        ```\n        Para confirmar la reprogramación:\n        • Nombre: {Nombre}\n        • Correo: `{Correo}`\n        • Tipo: {TipoCliente === \"Agente\" ? \"Agente inmobiliario\" : \"Particular\"}\n        {TipoCliente === \"Agente\" ? \"• Inmobiliaria: \" + nombre_inmobiliaria : \"\"}\n        • Nueva fecha: {nueva_fecha} a las {nueva_hora} hs\n\n        ¿Confirmás estos datos?\n        ```\n    * Esperar confirmación. Si quiere modificar, seguir Regla Fundamental 3.\n3.  **Reprogramar:** Solo tras confirmación, ejecutar `book_visit` (NO una herramienta \"reschedule\") con el objeto completo de la nueva visita (similar al agendamiento).\n4.  **Confirmar Reprogramación:** \"Listo {Nombre}, reprogramamos tu visita para el {nueva_fecha} a las {nueva_hora} hs. Te llegará un correo con los detalles actualizados.\"\n\n### Cancelar Visita:\n1.  Si el usuario indica intención de cancelar (palabras clave \"cancelar\", \"anular\", \"dar de baja\", etc.):\n    * Ejecutar `getCliente` para obtener los datos del usuario de la base de datos.\n    * Verificar si hay un correo registrado en `getCliente.Correo`:\n        * **Si hay correo registrado**:\n            * Responder concisamente: \"Perfecto {getCliente.Nombre}. Para validar tus datos y cancelar, ¿tu correo es `{getCliente.Correo}`?\"\n            * Si confirma con \"sí\" o similar, INMEDIATAMENTE ejecutar `show_cancellable_visits` con exactamente:\n                ```json\n                {\n                  \"correo_electronico\": \"correo_real_del_cliente\",\n                  \"Nombre\": \"nombre_real_del_cliente\",\n                  \"Evento\": \"cancelar\"\n                }\n                ```\n            * Tras verificar respuesta, responder exactamente: CANCELAR_ENVIADO\n            * Si no hay visitas: \"No encontré visitas agendadas con ese correo. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n        * **Si no hay correo registrado**:\n            * Responder directamente: \"No tengo registrada ninguna visita a tu nombre. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n2.  **Usuario Selecciona Visita para Cancelar (desde listado tras `CANCELAR_ENVIADO`):** La herramienta gestiona la selección.\n3.  Si se requiere confirmación de fecha específica (ej. si el sistema lo pide o hay ambigüedad):\n    * \"¿Podrías confirmarme la fecha de la visita que querés cancelar?\"\n    * Una vez recibida, ejecutar `show_cancellable_visits` nuevamente con `fecha_cita` (formato ISO) añadida al JSON. Verificar respuesta antes de proceder o confirmar cancelación.\n\n---\n\n## EJEMPLOS ESPECÍFICOS DE REPROGRAMACIÓN (Seguir exactamente)\n\n### Ejemplo 1: Usuario quiere reprogramar\nUsuario: \"Hola Martín, me gustaría reagendar una visita que tengo\"\n\n1. Ejecutar `getCliente` para obtener datos\n2. Si hay correo (ej. \"usuario@gmail.com\"):\n   * Responder: \"Perfecto Fernando. Para validar tus datos y reprogramar, ¿tu correo es `usuario@gmail.com`?\"\n3. Usuario responde \"Sí\"\n4. Inmediatamente ejecutar `show_reschedulable_visits`:\n   ```json\n   {\n     \"correo_electronico\": \"usuario@gmail.com\",\n     \"Nombre\": \"Fernando\",\n     \"Evento\": \"reagendar\"\n   }\n   ```\n5. Tras verificar respuesta: \"REAGENDAR_ENVIADA\"\n6. Si el usuario selecciona nueva fecha y es agente:\n   * Si existe nombre_inmobiliaria en getCliente: \"Para completar la reprogramación para el \"dia\" de mayo a las \"\" hs, ¿seguís trabajando en pichulisbrother?\"\n   * Si responde \"Sí\", continuar con confirmación final\n   * Si responde \"No\", preguntar: \"¿De qué inmobiliaria sos ahora?\"\n\n### Ejemplo 2: Usuario quiere cancelar\nUsuario: \"Necesito cancelar mi visita\"\n\n1. Ejecutar `getCliente` para obtener datos\n2. Si hay correo (ej. \"usuario@gmail.com\"):\n   * Responder: \"Perfecto Fernando. Para validar tus datos y cancelar, ¿tu correo es `usuario@gmail.com`?\"\n3. Usuario responde \"Sí\"\n4. Inmediatamente ejecutar `show_cancellable_visits`:\n   ```json\n   {\n     \"correo_electronico\": \"usuario@gmail.com\",\n     \"Nombre\": \"Fernando\",\n     \"Evento\": \"cancelar\"\n   }\n   ```\n5. Tras verificar respuesta: \"CANCELAR_ENVIADO\"\n\n---\n\n### Variables Útiles (Referencia Interna)\n\n* **Nombre**: `{{ $('getCliente').first().json.Nombre }}`\n* **Correo**: `{{ $('getCliente').first().json.Correo }}`\n* **TipoCliente**: `{{ $('getCliente').first().json.tipoCliente }}`\n* **nombre_inmobiliaria**: `{{ $('getCliente').first().json.nombre_inmobiliaria }}`\n* **Ahora**: `{{$now}}`\n\n---"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        -16068,
+        -9080
+      ],
+      "id": "5691ff4c-34a8-49ee-9126-2ae612e581d5",
+      "name": "Tester Prompt"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-pro-preview-05-06",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -21360,
+        -8049
+      ],
+      "id": "c5e42094-3b6d-44e1-b8b9-43a123ac9a6a",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9O8uUWkp7h4KwsVD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.innovasoftpro.dev",
+            "user-agent": "axios/1.7.9",
+            "content-length": "2306",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8n.innovasoftpro.dev",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "575dad520f0e",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "event": "messages.upsert",
+            "instance": "tester",
+            "data": {
+              "key": {
+                "remoteJid": "5492254423359@s.whatsapp.net",
+                "fromMe": false,
+                "id": "5D5EDE4782D404882243DE046653D96E"
+              },
+              "pushName": "Fer { }",
+              "status": "DELIVERY_ACK",
+              "message": {
+                "messageContextInfo": {
+                  "deviceListMetadata": {
+                    "senderKeyHash": "a0ebFmt5jO2yzg==",
+                    "senderTimestamp": "1746748763",
+                    "recipientKeyHash": "ReBBitAuv3H82w==",
+                    "recipientTimestamp": "1745502914"
+                  },
+                  "deviceListMetadataVersion": 2,
+                  "messageSecret": "EBzN1C1E7MngxIXc1962467wJrWrvrqYCz5dUvacJpI="
+                },
+                "listResponseMessage": {
+                  "title": "📅 19 de Mayo - 09:00",
+                  "listType": "SINGLE_SELECT",
+                  "singleSelectReply": {
+                    "selectedRowId": "qp862ifcdv05o5k0qtd9misdvc"
+                  },
+                  "contextInfo": {
+                    "stanzaId": "3EB06960BB07FC786BA16A2362E1FBFD52D33BA8",
+                    "participant": "5492254606018@s.whatsapp.net",
+                    "quotedMessage": {
+                      "listMessage": {
+                        "title": "📅 Visitas Programadas",
+                        "description": "Lista de visitas a propiedades programadas",
+                        "buttonText": "✅ Fecha a reprogramar",
+                        "listType": "SINGLE_SELECT",
+                        "sections": [
+                          {
+                            "title": "🍂 Mayo",
+                            "rows": [
+                              {
+                                "title": "📅 19 de Mayo - 09:00",
+                                "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64",
+                                "rowId": "qp862ifcdv05o5k0qtd9misdvc"
+                              }
+                            ]
+                          }
+                        ],
+                        "footerText": "🟢 Visitas Programadas"
+                      }
+                    }
+                  },
+                  "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64"
+                }
+              },
+              "contextInfo": {
+                "stanzaId": "3EB06960BB07FC786BA16A2362E1FBFD52D33BA8",
+                "participant": "5492254606018@s.whatsapp.net",
+                "quotedMessage": {
+                  "listMessage": {
+                    "title": "📅 Visitas Programadas",
+                    "description": "Lista de visitas a propiedades programadas",
+                    "buttonText": "✅ Fecha a reprogramar",
+                    "listType": "SINGLE_SELECT",
+                    "sections": [
+                      {
+                        "title": "🍂 Mayo",
+                        "rows": [
+                          {
+                            "title": "📅 19 de Mayo - 09:00",
+                            "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64",
+                            "rowId": "qp862ifcdv05o5k0qtd9misdvc"
+                          }
+                        ]
+                      }
+                    ],
+                    "footerText": "🟢 Visitas Programadas"
+                  }
+                }
+              },
+              "messageType": "listResponseMessage",
+              "messageTimestamp": 1747225953,
+              "instanceId": "4e9127df-d360-4ac0-a849-965bf5955398",
+              "source": "android"
+            },
+            "destination": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
+            "date_time": "2025-05-14T09:32:33.598Z",
+            "sender": "5492254606018@s.whatsapp.net",
+            "server_url": "https://evo.innovasoftpro.dev",
+            "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
+          },
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
+          "executionMode": "production"
+        }
+      }
+    ],
+    "Variables globales": [
+      {
+        "json": {
+          "TelefonoCliente": "5492254423359",
+          "nombreCliente": "Fer { }",
+          "nombreInstancia": "tester",
+          "mensaje": null,
+          "tipoMensaje": "listResponseMessage",
+          "idMensaje": "5D5EDE4782D404882243DE046653D96E",
+          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
+          "Escribiendo": 1200,
+          "tiempo": "2025-05-14T09:32:33.598Z",
+          "server_url": "https://evo.innovasoftpro.dev",
+          "label": "[\"\"]",
+          "ListResponseMessage": {
+            "title": "📅 19 de Mayo - 09:00",
+            "listType": "SINGLE_SELECT",
+            "singleSelectReply": {
+              "selectedRowId": "qp862ifcdv05o5k0qtd9misdvc"
+            },
+            "contextInfo": {
+              "stanzaId": "3EB06960BB07FC786BA16A2362E1FBFD52D33BA8",
+              "participant": "5492254606018@s.whatsapp.net",
+              "quotedMessage": {
+                "listMessage": {
+                  "title": "📅 Visitas Programadas",
+                  "description": "Lista de visitas a propiedades programadas",
+                  "buttonText": "✅ Fecha a reprogramar",
+                  "listType": "SINGLE_SELECT",
+                  "sections": [
+                    {
+                      "title": "🍂 Mayo",
+                      "rows": [
+                        {
+                          "title": "📅 19 de Mayo - 09:00",
+                          "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64",
+                          "rowId": "qp862ifcdv05o5k0qtd9misdvc"
+                        }
+                      ]
+                    }
+                  ],
+                  "footerText": "🟢 Visitas Programadas"
+                }
+              }
+            },
+            "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64"
+          },
+          "server_db": "https://db.innovasoftpro.dev",
+          "Key": "77722567-7848-4d4e-80e1-139d338e2329",
+          "Id": 49
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-23T17:49:20.946Z",
+      "updatedAt": "2025-03-23T17:49:20.946Z",
+      "id": "UdWAGpsQzroykED6",
+      "name": "AGENTES INMO"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-15T21:00:34.345Z",
+  "versionId": "d6dd69eb-e695-4874-ac61-be9fadec0288"
+}
