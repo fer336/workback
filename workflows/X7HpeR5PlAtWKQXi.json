@@ -5,18 +5,7 @@
       "main": [
         [
           {
-            "node": "Switch1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Lista General": {
-      "main": [
-        [
-          {
-            "node": "cancelar8",
+            "node": "Switch2",
             "type": "main",
             "index": 0
           }
@@ -111,15 +100,19 @@
         ]
       ]
     },
-    "Switch1": {
+    "Lista General": {
       "main": [
         [
           {
-            "node": "Lista General",
+            "node": "cancelar8",
             "type": "main",
             "index": 0
           }
-        ],
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
         [
           {
             "node": "Lista Hamburguesas",
@@ -148,6 +141,7 @@
             "index": 0
           }
         ],
+        [],
         [
           {
             "node": "Lista Tostados",
@@ -181,7 +175,9 @@
   },
   "createdAt": "2025-05-14T15:06:10.693Z",
   "id": "X7HpeR5PlAtWKQXi",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "AGENTE DELIVERY - LISTAS",
   "nodes": [
     {
@@ -190,20 +186,6 @@
           "values": [
             {
               "name": "numero_cliente",
-              "type": "any"
-            },
-            {
-              "name": "fecha_cita",
-              "type": "any"
-            },
-            {
-              "name": "Nombre"
-            },
-            {
-              "name": "Evento"
-            },
-            {
-              "name": "correo_electronico",
               "type": "any"
             },
             {
@@ -220,6 +202,9 @@
             {
               "name": "apikey",
               "type": "any"
+            },
+            {
+              "name": "tittle"
             }
           ]
         }
@@ -227,8 +212,8 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -3840,
-        500
+        -2760,
+        580
       ],
       "id": "06e9e1fe-234d-423a-bc34-f35d7b97d20c",
       "name": "Calendario"
@@ -281,8 +266,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        1240
+        -1520,
+        1300
       ],
       "id": "6291c436-07a8-4505-ba8f-85c66f2f922f",
       "name": "cancelar",
@@ -291,26 +276,13 @@
     },
     {
       "parameters": {
-        "jsCode": "// Función para generar el menú principal (categorías)\nfunction generarMenuPrincipal(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍔 Menú Delivery\",\n      \"description\": \"¡Hola! Bienvenido a nuestro servicio de delivery\",\n      \"buttonText\": \"Ver Categorías\",\n      \"footerText\": \"Selecciona una categoría para continuar\",\n      \"sections\": [\n        {\n          \"title\": \"🍔 Nuestro Menú\",\n          \"rows\": [\n            {\n              \"title\": \"Burgers con papas\",\n              \"description\": \"Hamburguesas gourmet con papas fritas incluidas\",\n              \"rowId\": \"cat_burgers\"\n            },\n            {\n              \"title\": \"Veggies con papas\",\n              \"description\": \"Hamburguesas vegetarianas con papas fritas incluidas\",\n              \"rowId\": \"cat_veggies\"\n            },\n            {\n              \"title\": \"Fries\",\n              \"description\": \"Papas fritas y toppings especiales\",\n              \"rowId\": \"cat_fries\"\n            },\n            {\n              \"title\": \"Ensaladas\",\n              \"description\": \"Opciones frescas y saludables\",\n              \"rowId\": \"cat_ensaladas\"\n            },\n            {\n              \"title\": \"Menu Kids\",\n              \"description\": \"Opciones especiales para los más pequeños\",\n              \"rowId\": \"cat_kids\"\n            },\n            {\n              \"title\": \"Tostados con papas\",\n              \"description\": \"Tostados gourmet con papas fritas incluidas\",\n              \"rowId\": \"cat_tostados\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🥤 Bebidas\",\n          \"rows\": [\n            {\n              \"title\": \"Bebidas sin alcohol\",\n              \"description\": \"Refrescos, jugos y aguas\",\n              \"rowId\": \"cat_bebidas\"\n            },\n            {\n              \"title\": \"Cerveza Artesanal MINGA\",\n              \"description\": \"Variedad de cervezas artesanales\",\n              \"rowId\": \"cat_cervezas\"\n            },\n            {\n              \"title\": \"Tragos\",\n              \"description\": \"Bebidas con alcohol y cócteles\",\n              \"rowId\": \"cat_tragos\"\n            }\n          ]\n        },\n        {\n          \"title\": \"✨ Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Invitados especiales\",\n              \"description\": \"Nuestras creaciones destacadas\",\n              \"rowId\": \"cat_invitados\"\n            },\n            {\n              \"title\": \"Combo Del día\",\n              \"description\": \"La mejor opción al mejor precio\",\n              \"rowId\": \"cat_combo\"\n            },\n            {\n              \"title\": \"Promos\",\n              \"description\": \"Ofertas y promociones especiales\",\n              \"rowId\": \"cat_promos\"\n            },\n            {\n              \"title\": \"Postres\",\n              \"description\": \"Dulces para completar tu experiencia\",\n              \"rowId\": \"cat_postres\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar el menú de hamburguesas cuando se selecciona \"Burgers con papas\"\nfunction generarMenuBurgers(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍔 Burgers con Papas\",\n      \"description\": \"Selecciona la hamburguesa que deseas ordenar\",\n      \"buttonText\": \"Ver Hamburguesas\",\n      \"footerText\": \"Todas nuestras hamburguesas incluyen papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"⭐ Hamburguesas Clásicas\",\n          \"rows\": [\n            {\n              \"title\": \"Cheese Burger\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4\\nSimple: $14.500 | Doble: $17.300\",\n              \"rowId\": \"burger_cheese\"\n            },\n            {\n              \"title\": \"American\",\n              \"description\": \"Medallón 120gr, cheddar x4, ketchup, mostaza, cebolla cubitos, pepinillos\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_american\"\n            },\n            {\n              \"title\": \"Classic\",\n              \"description\": \"Medallón 120gr, cheddar x4, salsa mil islas, cebollas, pepinillos, lechuga, tomate\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_classic\"\n            },\n            {\n              \"title\": \"Tasty\",\n              \"description\": \"Medallón 120gr, cheddar x4, lechuga, tomate, cebolla morada, aderezo tasty\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_tasty\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🥓 Hamburguesas con Bacon\",\n          \"rows\": [\n            {\n              \"title\": \"Cheese Bacon\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_cheese_bacon\"\n            },\n            {\n              \"title\": \"Sistons\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, aioli de berenjena ahumada, pepinillos\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_sistons\"\n            },\n            {\n              \"title\": \"Candy\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, cebolla caramelizada\\nSimple: $16.500 | Doble: $19.100 | Triple: $21.900\",\n              \"rowId\": \"burger_candy\"\n            },\n            {\n              \"title\": \"Cheese Bacon Egg\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, huevo a la plancha\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_egg\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🧅 Hamburguesas con Cebolla\",\n          \"rows\": [\n            {\n              \"title\": \"Fried Onion\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla smasheada en la plancha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion\"\n            },\n            {\n              \"title\": \"Fried Onion 2.0\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla smasheada, ali oli, pepinillos (opcional)\\nSimple: $15.800 | Doble: $18.800 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion2\"\n            },\n            {\n              \"title\": \"Crispy Onion\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, ali oli, mil islas, cebolla crispy, pepinillos\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_crispy_onion\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🌟 Hamburguesas Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Blue Cheese\",\n              \"description\": \"Medallón 120gr, queso emmental x2, queso azul, bacon ahumado, cebolla morada\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_blue_cheese\"\n            },\n            {\n              \"title\": \"Butter Sriracha\",\n              \"description\": \"Medallón 120gr, cheddar x4, manteca, sriracha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_sriracha\"\n            },\n            {\n              \"title\": \"Gesell Burger\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla brunoise salteada, mayonesa heinz\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_gesell\"\n            },\n            {\n              \"title\": \"Pina Burger\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, aros de cebolla, barbacoa, aioli ahumado\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_pina\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🔝 Premium\",\n          \"rows\": [\n            {\n              \"title\": \"Juicy\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado (2 fetas), cebolla morada, salsa secreta, pepinillos\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_juicy\"\n            },\n            {\n              \"title\": \"Sistons Scott\",\n              \"description\": \"Medallón 120gr, cheddar x4, ketchup, mostaza, cebolla, pepinillos, lechuga, bacon\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_sistons_scott\"\n            },\n            {\n              \"title\": \"Triple Queso\",\n              \"description\": \"3 medallones 120gr (blend secreto), x6 cheddar\\n$19.800\",\n              \"rowId\": \"burger_triple_queso\"\n            },\n            {\n              \"title\": \"Chicken Burger\",\n              \"description\": \"Pollo crispy, salsa caesar, lechuga, crispy, bacon, cheddar\\n$16.700\",\n              \"rowId\": \"burger_chicken\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para mostrar opciones de una hamburguesa específica (Simple/Doble/Triple)\nfunction generarOpcionesHamburguesa(numeroCliente, burgerId, nombreHamburguesa) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": `🍔 ${nombreHamburguesa}`,\n      \"description\": \"Selecciona el tamaño de tu hamburguesa\",\n      \"buttonText\": \"Seleccionar Tamaño\",\n      \"footerText\": \"Todas nuestras hamburguesas incluyen papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"🔄 Selecciona el Tamaño\",\n          \"rows\": [\n            {\n              \"title\": \"Simple\",\n              \"description\": \"1 medallón de carne de 120gr\",\n              \"rowId\": `${burgerId}_simple`\n            },\n            {\n              \"title\": \"Doble\",\n              \"description\": \"2 medallones de carne de 120gr\",\n              \"rowId\": `${burgerId}_doble`\n            },\n            {\n              \"title\": \"Triple\",\n              \"description\": \"3 medallones de carne de 120gr\",\n              \"rowId\": `${burgerId}_triple`\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver a Hamburguesas\",\n              \"description\": \"Ver otras opciones\",\n              \"rowId\": \"volver_burgers\"\n            },\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar la lista de bebidas sin alcohol\nfunction generarMenuBebidas(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🥤 Bebidas sin Alcohol\",\n      \"description\": \"Selecciona la bebida que deseas ordenar\",\n      \"buttonText\": \"Ver Bebidas\",\n      \"footerText\": \"Bebidas refrescantes para acompañar tu comida\",\n      \"sections\": [\n        {\n          \"title\": \"🥤 Gaseosas\",\n          \"rows\": [\n            {\n              \"title\": \"Coca-Cola 500ml\",\n              \"description\": \"Gaseosa sabor cola\\n$1.800\",\n              \"rowId\": \"bebida_coca_500\"\n            },\n            {\n              \"title\": \"Sprite 500ml\",\n              \"description\": \"Gaseosa sabor lima-limón\\n$1.800\",\n              \"rowId\": \"bebida_sprite_500\"\n            },\n            {\n              \"title\": \"Fanta 500ml\",\n              \"description\": \"Gaseosa sabor naranja\\n$1.800\",\n              \"rowId\": \"bebida_fanta_500\"\n            },\n            {\n              \"title\": \"Coca-Cola Zero 500ml\",\n              \"description\": \"Gaseosa sabor cola sin azúcar\\n$1.800\",\n              \"rowId\": \"bebida_coca_zero_500\"\n            }\n          ]\n        },\n        {\n          \"title\": \"💧 Agua y Jugos\",\n          \"rows\": [\n            {\n              \"title\": \"Agua Mineral 500ml\",\n              \"description\": \"Agua mineral sin gas\\n$1.500\",\n              \"rowId\": \"bebida_agua_500\"\n            },\n            {\n              \"title\": \"Agua con Gas 500ml\",\n              \"description\": \"Agua mineral con gas\\n$1.500\",\n              \"rowId\": \"bebida_agua_gas_500\"\n            },\n            {\n              \"title\": \"Jugo de Naranja Natural\",\n              \"description\": \"Exprimido al momento\\n$2.200\",\n              \"rowId\": \"bebida_jugo_naranja\"\n            },\n            {\n              \"title\": \"Limonada\",\n              \"description\": \"Con menta y jengibre\\n$2.200\",\n              \"rowId\": \"bebida_limonada\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar el menú de cervezas artesanales\nfunction generarMenuCervezas(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍺 Cerveza Artesanal MINGA\",\n      \"description\": \"Selecciona la cerveza que deseas ordenar\",\n      \"buttonText\": \"Ver Cervezas\",\n      \"footerText\": \"Cervezas artesanales de producción local\",\n      \"sections\": [\n        {\n          \"title\": \"🍺 Cervezas MINGA\",\n          \"rows\": [\n            {\n              \"title\": \"IPA\",\n              \"description\": \"Indian Pale Ale, con notas cítricas y amargor pronunciado\\nPinta: $2.900\",\n              \"rowId\": \"cerveza_ipa\"\n            },\n            {\n              \"title\": \"Golden\",\n              \"description\": \"Rubia suave y refrescante, fácil de tomar\\nPinta: $2.700\",\n              \"rowId\": \"cerveza_golden\"\n            },\n            {\n              \"title\": \"Amber\",\n              \"description\": \"Roja con notas a caramelo y cuerpo medio\\nPinta: $2.700\",\n              \"rowId\": \"cerveza_amber\"\n            },\n            {\n              \"title\": \"Stout\",\n              \"description\": \"Negra con notas a café y chocolate\\nPinta: $2.900\",\n              \"rowId\": \"cerveza_stout\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para los combos del día\nfunction generarMenuCombos(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🔥 Combos del Día\",\n      \"description\": \"Nuestras mejores ofertas de hoy\",\n      \"buttonText\": \"Ver Combos\",\n      \"footerText\": \"Aprovecha nuestras promociones especiales\",\n      \"sections\": [\n        {\n          \"title\": \"🔥 Combos Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Combo Individual\",\n              \"description\": \"Hamburguesa Simple + Bebida\\nCon 20% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_individual\"\n            },\n            {\n              \"title\": \"Combo Pareja\",\n              \"description\": \"2 Hamburguesas Dobles + 2 Bebidas\\nCon 25% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_pareja\"\n            },\n            {\n              \"title\": \"Combo Familiar\",\n              \"description\": \"4 Hamburguesas + 4 Bebidas + 2 Postres\\nCon 30% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_familiar\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para solicitar dirección de entrega\nfunction solicitarDireccion(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"type\": \"text\",\n      \"text\": \"🏠 Por favor, indícanos la dirección de entrega para tu pedido. Incluye calle, número, piso/departamento (si aplica) y referencias que nos ayuden a encontrar tu domicilio.\"\n    }\n  ];\n}\n\n// Función para solicitar método de pago\nfunction solicitarMetodoPago(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"💰 Método de Pago\",\n      \"description\": \"Selecciona cómo deseas pagar tu pedido\",\n      \"buttonText\": \"Seleccionar Pago\",\n      \"footerText\": \"Elige el método de pago más conveniente\",\n      \"sections\": [\n        {\n          \"title\": \"💳 Opciones de Pago\",\n          \"rows\": [\n            {\n              \"title\": \"Efectivo\",\n              \"description\": \"Pagaré en efectivo al momento de la entrega\",\n              \"rowId\": \"pago_efectivo\"\n            },\n            {\n              \"title\": \"Tarjeta (en delivery)\",\n              \"description\": \"Pagaré con tarjeta al momento de la entrega\",\n              \"rowId\": \"pago_tarjeta\"\n            },\n            {\n              \"title\": \"Transferencia\",\n              \"description\": \"Realizaré una transferencia bancaria\",\n              \"rowId\": \"pago_transferencia\"\n            },\n            {\n              \"title\": \"Mercado Pago\",\n              \"description\": \"Pagaré usando Mercado Pago\",\n              \"rowId\": \"pago_mercadopago\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para procesar mensajes de la IA (personalización de hamburguesa)\nfunction mensajeIA(numeroCliente, nombreHamburguesa, tamano) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"type\": \"text\",\n      \"text\": `¡Excelente elección! Has seleccionado una ${nombreHamburguesa} ${tamano}.\\n\\n¿Deseas personalizar tu hamburguesa? Puedes decirme si quieres quitar o agregar algún ingrediente.\\n\\nPor ejemplo:\\n- \"Sin cebolla\"\\n- \"Sin ketchup\"\\n- \"Extra queso\"\\n- \"Agregar bacon\"\\n\\nO simplemente dime \"Está bien así\" para continuar con tu pedido.`\n    }\n  ];\n}\n\n// Función para confirmar el pedido final\nfunction confirmarPedido(numeroCliente, detallePedido, precioTotal) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🛒 Confirmar Pedido\",\n      \"description\": `Tu pedido:\\n${detallePedido}\\n\\nTotal: $${precioTotal}`,\n      \"buttonText\": \"Confirmar\",\n      \"footerText\": \"Verifica que tu pedido esté correcto\",\n      \"sections\": [\n        {\n          \"title\": \"✅ Finalizar\",\n          \"rows\": [\n            {\n              \"title\": \"Confirmar Pedido\",\n              \"description\": \"Proceder con la compra\",\n              \"rowId\": \"confirmar_pedido\"\n            },\n            {\n              \"title\": \"Editar Pedido\",\n              \"description\": \"Realizar cambios\",\n              \"rowId\": \"editar_pedido\"\n            },\n            {\n              \"title\": \"Cancelar\",\n              \"description\": \"Cancelar todo el pedido\",\n              \"rowId\": \"cancelar_pedido\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Exportar las funciones para su uso\nmodule.exports = {\n  generarMenuPrincipal,\n  generarMenuBurgers,\n  generarOpcionesHamburguesa,\n  generarMenuBebidas,\n  generarMenuCervezas,\n  generarMenuCombos,\n  solicitarDireccion,\n  solicitarMetodoPago,\n  mensajeIA,\n  confirmarPedido\n};\n\n// Si se ejecuta directamente, retornar el menú principal por defecto\n// (Con un número de cliente de ejemplo, debe ser reemplazado por el número real)\nreturn generarMenuPrincipal($input.first().json.numero_cliente);"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -1180,
-        -360
-      ],
-      "id": "41285f90-ec91-46c7-8b9f-7b04c33cb538",
-      "name": "Lista General"
-    },
-    {
-      "parameters": {
         "jsCode": "// Función para generar el menú detallado de hamburguesas\nfunction generarMenuBurgersDetallado(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍔 Burgers con Papas\",\n      \"description\": \"Nuestras deliciosas hamburguesas vienen con papas fritas\",\n      \"buttonText\": \"Ver Hamburguesas\",\n      \"footerText\": \"Todas incluyen medallón blend secreto y acompañan papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"🍔 Hamburguesas\",\n          \"rows\": [\n            {\n              \"title\": \"Sistons\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, alioli de berenjena ahumada, pepinillos.\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_sistons\"\n            },\n            {\n              \"title\": \"Candy\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, cebolla caramelizada\\nSimple: $16.500 | Doble: $19.100 | Triple: $21.900\",\n              \"rowId\": \"burger_candy\"\n            },\n            {\n              \"title\": \"Crispy Onion\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, ali oli, mil islas, cebolla crispy, pepinillos (opcional)\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_crispy_onion\"\n            },\n            {\n              \"title\": \"American\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, ketchup, mostaza, cebolla cubitos, pepinillos\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_american\"\n            },\n            {\n              \"title\": \"Classic\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, salsa mil islas, cebollas, pepinillos, lechuga, tomate\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_classic\"\n            },\n            {\n              \"title\": \"Tasty\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, lechuga, tomate, cebolla morada, aderezo tasty\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_tasty\"\n            },\n            {\n              \"title\": \"Fried Onion\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, cebolla smasheada en la plancha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion\"\n            },\n            {\n              \"title\": \"Fried Onion 2.0\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, cebolla smasheada en la plancha, ali oli, pepinillos (opcional)\\nSimple: $15.800 | Doble: $18.800 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion2\"\n            },\n            {\n              \"title\": \"Cheese Bacon\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_cheese_bacon\"\n            },\n            {\n              \"title\": \"Stacker\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, salsa stacker\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_stacker\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🧀 Hamburguesas con Quesos Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Cheese Burger\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4\\nSimple: $14.500 | Doble: $17.300\",\n              \"rowId\": \"burger_cheese\"\n            },\n            {\n              \"title\": \"Blue Cheese\",\n              \"description\": \"Medallón 120gr (blend secreto), queso emmental x2, queso azul, bacon ahumado, cebolla morada\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_blue_cheese\"\n            },\n            {\n              \"title\": \"Triple Queso\",\n              \"description\": \"3 medallones 120gr (blend secreto), x6 cheddar\\n$19.800\",\n              \"rowId\": \"burger_triple_queso\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🔥 Hamburguesas Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Butter Sriracha\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, manteca, sriracha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_sriracha\"\n            },\n            {\n              \"title\": \"Gesell Burger\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, cebolla brunoise salteada, mayonesa heinz\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_gesell\"\n            },\n            {\n              \"title\": \"Pina Burger\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, aros de cebolla, barbacoa, aioli ahumado\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_pina\"\n            },\n            {\n              \"title\": \"Cheese Bacon Egg\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, huevo a la plancha\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_cheese_bacon_egg\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🌟 Premium\",\n          \"rows\": [\n            {\n              \"title\": \"Juicy\",\n              \"description\": \"Medallón 120gr blend secreto, cheddar x4, bacon ahumado (2 fetas por medallón), cebolla morada, salsa secreta, pepinillos\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_juicy\"\n            },\n            {\n              \"title\": \"Sistons Scott\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4, ketchup, mostaza, cebolla en cubos, pepinillos, lechuga, bacon\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_sistons_scott\"\n            },\n            {\n              \"title\": \"Chicken Burger\",\n              \"description\": \"Pollo crispy, salsa caesar, lechuga, crispy, bacon, cheddar\\n$16.700\",\n              \"rowId\": \"burger_chicken\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para opciones de tamaño para una hamburguesa específica\n// (mostrando los precios específicos para esa hamburguesa)\nfunction generarOpcionesTamano(numeroCliente, burgerId) {\n  // Base de datos de hamburguesas\n  const hamburguesas = {\n    \"burger_sistons\": {\n      nombre: \"Sistons\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, alioli de berenjena ahumada, pepinillos\",\n      precioSimple: 16500,\n      precioDoble: 19000,\n      precioTriple: 21900\n    },\n    \"burger_candy\": {\n      nombre: \"Candy\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, cebolla caramelizada\",\n      precioSimple: 16500,\n      precioDoble: 19100,\n      precioTriple: 21900\n    },\n    \"burger_crispy_onion\": {\n      nombre: \"Crispy Onion\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, ali oli, mil islas, cebolla crispy, pepinillos (opcional)\",\n      precioSimple: 16700,\n      precioDoble: 19800,\n      precioTriple: 22900\n    },\n    \"burger_american\": {\n      nombre: \"American\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, ketchup, mostaza, cebolla cubitos, pepinillos\",\n      precioSimple: 15300,\n      precioDoble: 18100,\n      precioTriple: 21000\n    },\n    \"burger_classic\": {\n      nombre: \"Classic\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, salsa mil islas, cebollas, pepinillos, lechuga, tomate\",\n      precioSimple: 15300,\n      precioDoble: 18100,\n      precioTriple: 21000\n    },\n    \"burger_tasty\": {\n      nombre: \"Tasty\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, lechuga, tomate, cebolla morada, aderezo tasty\",\n      precioSimple: 15300,\n      precioDoble: 18100,\n      precioTriple: 21000\n    },\n    \"burger_fried_onion\": {\n      nombre: \"Fried Onion\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, cebolla smasheada en la plancha\",\n      precioSimple: 15300,\n      precioDoble: 18100,\n      precioTriple: 21000\n    },\n    \"burger_fried_onion2\": {\n      nombre: \"Fried Onion 2.0\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, cebolla smasheada en la plancha, ali oli, pepinillos (opcional)\",\n      precioSimple: 15800,\n      precioDoble: 18800,\n      precioTriple: 21000\n    },\n    \"burger_cheese_bacon\": {\n      nombre: \"Cheese Bacon\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado\",\n      precioSimple: 16500,\n      precioDoble: 19000,\n      precioTriple: 21900\n    },\n    \"burger_stacker\": {\n      nombre: \"Stacker\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, salsa stacker\",\n      precioSimple: 16500,\n      precioDoble: 19000,\n      precioTriple: 21900\n    },\n    \"burger_cheese\": {\n      nombre: \"Cheese Burger\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4\",\n      precioSimple: 14500,\n      precioDoble: 17300,\n      precioTriple: null\n    },\n    \"burger_blue_cheese\": {\n      nombre: \"Blue Cheese\",\n      descripcion: \"Medallón 120gr (blend secreto), queso emmental x2, queso azul, bacon ahumado, cebolla morada\",\n      precioSimple: 16500,\n      precioDoble: 19000,\n      precioTriple: 21900\n    },\n    \"burger_sriracha\": {\n      nombre: \"Butter Sriracha\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, manteca, sriracha\",\n      precioSimple: 15300,\n      precioDoble: 18100,\n      precioTriple: 21000\n    },\n    \"burger_gesell\": {\n      nombre: \"Gesell Burger\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, cebolla brunoise salteada, mayonesa heinz\",\n      precioSimple: 15300,\n      precioDoble: 18100,\n      precioTriple: 21000\n    },\n    \"burger_pina\": {\n      nombre: \"Pina Burger\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, aros de cebolla, barbacoa, aioli ahumado\",\n      precioSimple: 16700,\n      precioDoble: 19800,\n      precioTriple: 22900\n    },\n    \"burger_cheese_bacon_egg\": {\n      nombre: \"Cheese Bacon Egg\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, huevo a la plancha\",\n      precioSimple: 16700,\n      precioDoble: 19800,\n      precioTriple: 22900\n    },\n    \"burger_juicy\": {\n      nombre: \"Juicy\",\n      descripcion: \"Medallón 120gr blend secreto, cheddar x4, bacon ahumado (2 fetas por medallón), cebolla morada, salsa secreta, pepinillos\",\n      precioSimple: 16700,\n      precioDoble: 19800,\n      precioTriple: 22900\n    },\n    \"burger_sistons_scott\": {\n      nombre: \"Sistons Scott\",\n      descripcion: \"Medallón 120gr (blend secreto), cheddar x4, ketchup, mostaza, cebolla en cubos, pepinillos, lechuga, bacon\",\n      precioSimple: 16700,\n      precioDoble: 19800,\n      precioTriple: 22900\n    },\n    \"burger_triple_queso\": {\n      nombre: \"Triple Queso\",\n      descripcion: \"3 medallones 120gr (blend secreto), x6 cheddar\",\n      precioSimple: 19800,\n      precioDoble: null,\n      precioTriple: null\n    },\n    \"burger_chicken\": {\n      nombre: \"Chicken Burger\",\n      descripcion: \"Pollo crispy, salsa caesar, lechuga, crispy, bacon, cheddar\",\n      precioSimple: 16700,\n      precioDoble: null,\n      precioTriple: null\n    }\n  };\n  \n  // Obtener la hamburguesa seleccionada\n  const hamburguesa = hamburguesas[burgerId];\n  \n  if (!hamburguesa) {\n    return [\n      {\n        \"number\": numeroCliente,\n        \"type\": \"text\",\n        \"text\": \"Lo siento, no se encontró la hamburguesa seleccionada. Por favor, selecciona otra opción.\"\n      }\n    ];\n  }\n\n  // Crear las filas para las opciones de tamaño\n  const rows = [];\n  \n  // Opción Simple\n  if (hamburguesa.precioSimple !== null) {\n    rows.push({\n      \"title\": \"Simple\",\n      \"description\": `1 medallón 120gr | Precio: $${hamburguesa.precioSimple.toLocaleString('es-AR')}`,\n      \"rowId\": `${burgerId}_simple`\n    });\n  }\n  \n  // Opción Doble\n  if (hamburguesa.precioDoble !== null) {\n    rows.push({\n      \"title\": \"Doble\",\n      \"description\": `2 medallones 120gr | Precio: $${hamburguesa.precioDoble.toLocaleString('es-AR')}`,\n      \"rowId\": `${burgerId}_doble`\n    });\n  }\n  \n  // Opción Triple\n  if (hamburguesa.precioTriple !== null) {\n    rows.push({\n      \"title\": \"Triple\",\n      \"description\": `3 medallones 120gr | Precio: $${hamburguesa.precioTriple.toLocaleString('es-AR')}`,\n      \"rowId\": `${burgerId}_triple`\n    });\n  }\n  \n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": `🍔 ${hamburguesa.nombre}`,\n      \"description\": `${hamburguesa.descripcion}\\n\\nSelecciona el tamaño que prefieres:`,\n      \"buttonText\": \"Seleccionar Tamaño\",\n      \"footerText\": \"Todas nuestras hamburguesas incluyen papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"🔄 Tamaño\",\n          \"rows\": rows\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver a Hamburguesas\",\n              \"description\": \"Ver otras opciones de hamburguesas\",\n              \"rowId\": \"volver_burgers\"\n            },\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para el menú de Veggies con papas\nfunction generarMenuVeggies(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🥗 Veggies con Papas\",\n      \"description\": \"Nuestras hamburguesas vegetarianas vienen con papas fritas\",\n      \"buttonText\": \"Ver Veggie Burgers\",\n      \"footerText\": \"Opciones vegetarianas deliciosas\",\n      \"sections\": [\n        {\n          \"title\": \"🌱 Hamburguesas Vegetarianas\",\n          \"rows\": [\n            {\n              \"title\": \"Veggie Classic\",\n              \"description\": \"Hamburguesa de lentejas, queso, lechuga, tomate y aderezo especial\\n$15.300\",\n              \"rowId\": \"veggie_classic\"\n            },\n            {\n              \"title\": \"Veggie Mushroom\",\n              \"description\": \"Hamburguesa de hongos portobello, queso, rúcula y aderezo de ajo\\n$16.500\",\n              \"rowId\": \"veggie_mushroom\"\n            },\n            {\n              \"title\": \"Veggie Deluxe\",\n              \"description\": \"Hamburguesa de garbanzos y remolacha, queso, espinaca y palta\\n$16.700\",\n              \"rowId\": \"veggie_deluxe\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para el menú de Fries\nfunction generarMenuFries(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍟 Fries\",\n      \"description\": \"Nuestras deliciosas papas fritas y toppings\",\n      \"buttonText\": \"Ver Opciones\",\n      \"footerText\": \"Papas fritas para todos los gustos\",\n      \"sections\": [\n        {\n          \"title\": \"🍟 Papas Fritas\",\n          \"rows\": [\n            {\n              \"title\": \"Papas Tradicionales\",\n              \"description\": \"Papas fritas clásicas con sal\\n$8.500\",\n              \"rowId\": \"fries_classic\"\n            },\n            {\n              \"title\": \"Papas con Cheddar\",\n              \"description\": \"Papas fritas con salsa cheddar\\n$10.500\",\n              \"rowId\": \"fries_cheddar\"\n            },\n            {\n              \"title\": \"Papas con Bacon y Cheddar\",\n              \"description\": \"Papas fritas con bacon crocante y salsa cheddar\\n$12.500\",\n              \"rowId\": \"fries_bacon_cheddar\"\n            },\n            {\n              \"title\": \"Papas Rústicas\",\n              \"description\": \"Papas cortadas en gajos con especias\\n$9.500\",\n              \"rowId\": \"fries_rustic\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para exportar todas las funciones\nmodule.exports = {\n  generarMenuBurgersDetallado,\n  generarOpcionesTamano,\n  generarMenuVeggies,\n  generarMenuFries\n};\n\n// Por defecto, devolver el menú detallado de hamburguesas\nreturn generarMenuBurgersDetallado($input.first().json.numero_cliente);"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1180,
-        -160
+        -1740,
+        -100
       ],
       "id": "8b92f6fc-7502-4b56-9430-6710558f7588",
       "name": "Lista Hamburguesas"
@@ -322,8 +294,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1180,
-        40
+        -1740,
+        100
       ],
       "id": "a3380c19-4d64-4591-8f0a-2c31b6703e28",
       "name": "Lista Veggie"
@@ -335,8 +307,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1180,
-        240
+        -1740,
+        300
       ],
       "id": "404dd970-130c-4722-bc9e-794534bf7a92",
       "name": "Lista Fries"
@@ -348,8 +320,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1180,
-        440
+        -1740,
+        500
       ],
       "id": "0e3f554b-2280-4877-b190-8eae6f4983b9",
       "name": "Lista Ensaladas"
@@ -361,8 +333,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1180,
-        640
+        -1740,
+        700
       ],
       "id": "91a876b6-5c17-45d2-aa70-22e952fd9150",
       "name": "Lista Tostados"
@@ -374,8 +346,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1180,
-        840
+        -1740,
+        900
       ],
       "id": "2d4ba6e7-c78c-4c04-aa85-b9ba1fa21855",
       "name": "Lista bebidas sin gas"
@@ -387,8 +359,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1180,
-        1040
+        -1740,
+        1100
       ],
       "id": "8f91badf-4c24-44fa-a4ba-a67c9da62ad5",
       "name": "Lista Cervezas"
@@ -400,8 +372,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1180,
-        1240
+        -1740,
+        1300
       ],
       "id": "56bf8d7c-d0f6-4d1c-b3a9-aeb4604c16a7",
       "name": "Lista Tragos"
@@ -454,8 +426,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        1040
+        -1520,
+        1100
       ],
       "id": "1599d35e-8348-46d8-ae2e-4a45f1948544",
       "name": "cancelar1",
@@ -510,8 +482,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        840
+        -1520,
+        900
       ],
       "id": "58dc9df7-4436-4a60-a4b0-272ea23a72f4",
       "name": "cancelar2",
@@ -566,8 +538,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        640
+        -1520,
+        700
       ],
       "id": "9bdf057b-e279-458d-9ea3-bedaa30a5f90",
       "name": "cancelar3",
@@ -622,8 +594,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        440
+        -1520,
+        500
       ],
       "id": "93b129df-f4cf-4436-9afa-d373ba80d836",
       "name": "cancelar4",
@@ -678,8 +650,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        240
+        -1520,
+        300
       ],
       "id": "7d5a6ef8-f91b-471b-9246-ea18213a9fe6",
       "name": "cancelar5",
@@ -734,8 +706,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        40
+        -1520,
+        100
       ],
       "id": "e080b3c3-e5c6-4fc8-b9ae-cefb2c3e8fc8",
       "name": "cancelar6",
@@ -790,8 +762,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        -160
+        -1520,
+        -100
       ],
       "id": "5aeb2b9d-bfa8-43f1-ae10-7506c18c4b5c",
       "name": "cancelar7",
@@ -846,13 +818,26 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
+        -1960,
         -360
       ],
       "id": "ccff9117-5e91-4d23-9a81-3e4911f09a3d",
       "name": "cancelar8",
       "alwaysOutputData": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función para generar el menú principal (categorías)\nfunction generarMenuPrincipal(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍔 Menú Delivery\",\n      \"description\": \"¡Hola! Bienvenido a nuestro servicio de delivery\",\n      \"buttonText\": \"Ver Categorías\",\n      \"footerText\": \"Selecciona una categoría para continuar\",\n      \"sections\": [\n        {\n          \"title\": \"🍔 Nuestro Menú\",\n          \"rows\": [\n            {\n              \"title\": \"Burgers con papas\",\n              \"description\": \"Hamburguesas gourmet con papas fritas incluidas\",\n              \"rowId\": \"cat_burgers\"\n            },\n            {\n              \"title\": \"Veggies con papas\",\n              \"description\": \"Hamburguesas vegetarianas con papas fritas incluidas\",\n              \"rowId\": \"cat_veggies\"\n            },\n            {\n              \"title\": \"Fries\",\n              \"description\": \"Papas fritas y toppings especiales\",\n              \"rowId\": \"cat_fries\"\n            },\n            {\n              \"title\": \"Ensaladas\",\n              \"description\": \"Opciones frescas y saludables\",\n              \"rowId\": \"cat_ensaladas\"\n            },\n            {\n              \"title\": \"Menu Kids\",\n              \"description\": \"Opciones especiales para los más pequeños\",\n              \"rowId\": \"cat_kids\"\n            },\n            {\n              \"title\": \"Tostados con papas\",\n              \"description\": \"Tostados gourmet con papas fritas incluidas\",\n              \"rowId\": \"cat_tostados\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🥤 Bebidas\",\n          \"rows\": [\n            {\n              \"title\": \"Bebidas sin alcohol\",\n              \"description\": \"Refrescos, jugos y aguas\",\n              \"rowId\": \"cat_bebidas\"\n            },\n            {\n              \"title\": \"Cerveza Artesanal MINGA\",\n              \"description\": \"Variedad de cervezas artesanales\",\n              \"rowId\": \"cat_cervezas\"\n            },\n            {\n              \"title\": \"Tragos\",\n              \"description\": \"Bebidas con alcohol y cócteles\",\n              \"rowId\": \"cat_tragos\"\n            }\n          ]\n        },\n        {\n          \"title\": \"✨ Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Invitados especiales\",\n              \"description\": \"Nuestras creaciones destacadas\",\n              \"rowId\": \"cat_invitados\"\n            },\n            {\n              \"title\": \"Combo Del día\",\n              \"description\": \"La mejor opción al mejor precio\",\n              \"rowId\": \"cat_combo\"\n            },\n            {\n              \"title\": \"Promos\",\n              \"description\": \"Ofertas y promociones especiales\",\n              \"rowId\": \"cat_promos\"\n            },\n            {\n              \"title\": \"Postres\",\n              \"description\": \"Dulces para completar tu experiencia\",\n              \"rowId\": \"cat_postres\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar el menú de hamburguesas cuando se selecciona \"Burgers con papas\"\nfunction generarMenuBurgers(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍔 Burgers con Papas\",\n      \"description\": \"Selecciona la hamburguesa que deseas ordenar\",\n      \"buttonText\": \"Ver Hamburguesas\",\n      \"footerText\": \"Todas nuestras hamburguesas incluyen papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"⭐ Hamburguesas Clásicas\",\n          \"rows\": [\n            {\n              \"title\": \"Cheese Burger\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4\\nSimple: $14.500 | Doble: $17.300\",\n              \"rowId\": \"burger_cheese\"\n            },\n            {\n              \"title\": \"American\",\n              \"description\": \"Medallón 120gr, cheddar x4, ketchup, mostaza, cebolla cubitos, pepinillos\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_american\"\n            },\n            {\n              \"title\": \"Classic\",\n              \"description\": \"Medallón 120gr, cheddar x4, salsa mil islas, cebollas, pepinillos, lechuga, tomate\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_classic\"\n            },\n            {\n              \"title\": \"Tasty\",\n              \"description\": \"Medallón 120gr, cheddar x4, lechuga, tomate, cebolla morada, aderezo tasty\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_tasty\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🥓 Hamburguesas con Bacon\",\n          \"rows\": [\n            {\n              \"title\": \"Cheese Bacon\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_cheese_bacon\"\n            },\n            {\n              \"title\": \"Sistons\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, aioli de berenjena ahumada, pepinillos\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_sistons\"\n            },\n            {\n              \"title\": \"Candy\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, cebolla caramelizada\\nSimple: $16.500 | Doble: $19.100 | Triple: $21.900\",\n              \"rowId\": \"burger_candy\"\n            },\n            {\n              \"title\": \"Cheese Bacon Egg\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, huevo a la plancha\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_egg\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🧅 Hamburguesas con Cebolla\",\n          \"rows\": [\n            {\n              \"title\": \"Fried Onion\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla smasheada en la plancha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion\"\n            },\n            {\n              \"title\": \"Fried Onion 2.0\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla smasheada, ali oli, pepinillos (opcional)\\nSimple: $15.800 | Doble: $18.800 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion2\"\n            },\n            {\n              \"title\": \"Crispy Onion\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, ali oli, mil islas, cebolla crispy, pepinillos\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_crispy_onion\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🌟 Hamburguesas Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Blue Cheese\",\n              \"description\": \"Medallón 120gr, queso emmental x2, queso azul, bacon ahumado, cebolla morada\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_blue_cheese\"\n            },\n            {\n              \"title\": \"Butter Sriracha\",\n              \"description\": \"Medallón 120gr, cheddar x4, manteca, sriracha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_sriracha\"\n            },\n            {\n              \"title\": \"Gesell Burger\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla brunoise salteada, mayonesa heinz\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_gesell\"\n            },\n            {\n              \"title\": \"Pina Burger\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, aros de cebolla, barbacoa, aioli ahumado\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_pina\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🔝 Premium\",\n          \"rows\": [\n            {\n              \"title\": \"Juicy\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado (2 fetas), cebolla morada, salsa secreta, pepinillos\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_juicy\"\n            },\n            {\n              \"title\": \"Sistons Scott\",\n              \"description\": \"Medallón 120gr, cheddar x4, ketchup, mostaza, cebolla, pepinillos, lechuga, bacon\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_sistons_scott\"\n            },\n            {\n              \"title\": \"Triple Queso\",\n              \"description\": \"3 medallones 120gr (blend secreto), x6 cheddar\\n$19.800\",\n              \"rowId\": \"burger_triple_queso\"\n            },\n            {\n              \"title\": \"Chicken Burger\",\n              \"description\": \"Pollo crispy, salsa caesar, lechuga, crispy, bacon, cheddar\\n$16.700\",\n              \"rowId\": \"burger_chicken\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para mostrar opciones de una hamburguesa específica (Simple/Doble/Triple)\nfunction generarOpcionesHamburguesa(numeroCliente, burgerId, nombreHamburguesa) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": `🍔 ${nombreHamburguesa}`,\n      \"description\": \"Selecciona el tamaño de tu hamburguesa\",\n      \"buttonText\": \"Seleccionar Tamaño\",\n      \"footerText\": \"Todas nuestras hamburguesas incluyen papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"🔄 Selecciona el Tamaño\",\n          \"rows\": [\n            {\n              \"title\": \"Simple\",\n              \"description\": \"1 medallón de carne de 120gr\",\n              \"rowId\": `${burgerId}_simple`\n            },\n            {\n              \"title\": \"Doble\",\n              \"description\": \"2 medallones de carne de 120gr\",\n              \"rowId\": `${burgerId}_doble`\n            },\n            {\n              \"title\": \"Triple\",\n              \"description\": \"3 medallones de carne de 120gr\",\n              \"rowId\": `${burgerId}_triple`\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver a Hamburguesas\",\n              \"description\": \"Ver otras opciones\",\n              \"rowId\": \"volver_burgers\"\n            },\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar la lista de bebidas sin alcohol\nfunction generarMenuBebidas(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🥤 Bebidas sin Alcohol\",\n      \"description\": \"Selecciona la bebida que deseas ordenar\",\n      \"buttonText\": \"Ver Bebidas\",\n      \"footerText\": \"Bebidas refrescantes para acompañar tu comida\",\n      \"sections\": [\n        {\n          \"title\": \"🥤 Gaseosas\",\n          \"rows\": [\n            {\n              \"title\": \"Coca-Cola 500ml\",\n              \"description\": \"Gaseosa sabor cola\\n$1.800\",\n              \"rowId\": \"bebida_coca_500\"\n            },\n            {\n              \"title\": \"Sprite 500ml\",\n              \"description\": \"Gaseosa sabor lima-limón\\n$1.800\",\n              \"rowId\": \"bebida_sprite_500\"\n            },\n            {\n              \"title\": \"Fanta 500ml\",\n              \"description\": \"Gaseosa sabor naranja\\n$1.800\",\n              \"rowId\": \"bebida_fanta_500\"\n            },\n            {\n              \"title\": \"Coca-Cola Zero 500ml\",\n              \"description\": \"Gaseosa sabor cola sin azúcar\\n$1.800\",\n              \"rowId\": \"bebida_coca_zero_500\"\n            }\n          ]\n        },\n        {\n          \"title\": \"💧 Agua y Jugos\",\n          \"rows\": [\n            {\n              \"title\": \"Agua Mineral 500ml\",\n              \"description\": \"Agua mineral sin gas\\n$1.500\",\n              \"rowId\": \"bebida_agua_500\"\n            },\n            {\n              \"title\": \"Agua con Gas 500ml\",\n              \"description\": \"Agua mineral con gas\\n$1.500\",\n              \"rowId\": \"bebida_agua_gas_500\"\n            },\n            {\n              \"title\": \"Jugo de Naranja Natural\",\n              \"description\": \"Exprimido al momento\\n$2.200\",\n              \"rowId\": \"bebida_jugo_naranja\"\n            },\n            {\n              \"title\": \"Limonada\",\n              \"description\": \"Con menta y jengibre\\n$2.200\",\n              \"rowId\": \"bebida_limonada\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar el menú de cervezas artesanales\nfunction generarMenuCervezas(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍺 Cerveza Artesanal MINGA\",\n      \"description\": \"Selecciona la cerveza que deseas ordenar\",\n      \"buttonText\": \"Ver Cervezas\",\n      \"footerText\": \"Cervezas artesanales de producción local\",\n      \"sections\": [\n        {\n          \"title\": \"🍺 Cervezas MINGA\",\n          \"rows\": [\n            {\n              \"title\": \"IPA\",\n              \"description\": \"Indian Pale Ale, con notas cítricas y amargor pronunciado\\nPinta: $2.900\",\n              \"rowId\": \"cerveza_ipa\"\n            },\n            {\n              \"title\": \"Golden\",\n              \"description\": \"Rubia suave y refrescante, fácil de tomar\\nPinta: $2.700\",\n              \"rowId\": \"cerveza_golden\"\n            },\n            {\n              \"title\": \"Amber\",\n              \"description\": \"Roja con notas a caramelo y cuerpo medio\\nPinta: $2.700\",\n              \"rowId\": \"cerveza_amber\"\n            },\n            {\n              \"title\": \"Stout\",\n              \"description\": \"Negra con notas a café y chocolate\\nPinta: $2.900\",\n              \"rowId\": \"cerveza_stout\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para los combos del día\nfunction generarMenuCombos(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🔥 Combos del Día\",\n      \"description\": \"Nuestras mejores ofertas de hoy\",\n      \"buttonText\": \"Ver Combos\",\n      \"footerText\": \"Aprovecha nuestras promociones especiales\",\n      \"sections\": [\n        {\n          \"title\": \"🔥 Combos Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Combo Individual\",\n              \"description\": \"Hamburguesa Simple + Bebida\\nCon 20% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_individual\"\n            },\n            {\n              \"title\": \"Combo Pareja\",\n              \"description\": \"2 Hamburguesas Dobles + 2 Bebidas\\nCon 25% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_pareja\"\n            },\n            {\n              \"title\": \"Combo Familiar\",\n              \"description\": \"4 Hamburguesas + 4 Bebidas + 2 Postres\\nCon 30% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_familiar\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para solicitar dirección de entrega\nfunction solicitarDireccion(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"type\": \"text\",\n      \"text\": \"🏠 Por favor, indícanos la dirección de entrega para tu pedido. Incluye calle, número, piso/departamento (si aplica) y referencias que nos ayuden a encontrar tu domicilio.\"\n    }\n  ];\n}\n\n// Función para solicitar método de pago\nfunction solicitarMetodoPago(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"💰 Método de Pago\",\n      \"description\": \"Selecciona cómo deseas pagar tu pedido\",\n      \"buttonText\": \"Seleccionar Pago\",\n      \"footerText\": \"Elige el método de pago más conveniente\",\n      \"sections\": [\n        {\n          \"title\": \"💳 Opciones de Pago\",\n          \"rows\": [\n            {\n              \"title\": \"Efectivo\",\n              \"description\": \"Pagaré en efectivo al momento de la entrega\",\n              \"rowId\": \"pago_efectivo\"\n            },\n            {\n              \"title\": \"Tarjeta (en delivery)\",\n              \"description\": \"Pagaré con tarjeta al momento de la entrega\",\n              \"rowId\": \"pago_tarjeta\"\n            },\n            {\n              \"title\": \"Transferencia\",\n              \"description\": \"Realizaré una transferencia bancaria\",\n              \"rowId\": \"pago_transferencia\"\n            },\n            {\n              \"title\": \"Mercado Pago\",\n              \"description\": \"Pagaré usando Mercado Pago\",\n              \"rowId\": \"pago_mercadopago\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para procesar mensajes de la IA (personalización de hamburguesa)\nfunction mensajeIA(numeroCliente, nombreHamburguesa, tamano) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"type\": \"text\",\n      \"text\": `¡Excelente elección! Has seleccionado una ${nombreHamburguesa} ${tamano}.\\n\\n¿Deseas personalizar tu hamburguesa? Puedes decirme si quieres quitar o agregar algún ingrediente.\\n\\nPor ejemplo:\\n- \"Sin cebolla\"\\n- \"Sin ketchup\"\\n- \"Extra queso\"\\n- \"Agregar bacon\"\\n\\nO simplemente dime \"Está bien así\" para continuar con tu pedido.`\n    }\n  ];\n}\n\n// Función para confirmar el pedido final\nfunction confirmarPedido(numeroCliente, detallePedido, precioTotal) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🛒 Confirmar Pedido\",\n      \"description\": `Tu pedido:\\n${detallePedido}\\n\\nTotal: $${precioTotal}`,\n      \"buttonText\": \"Confirmar\",\n      \"footerText\": \"Verifica que tu pedido esté correcto\",\n      \"sections\": [\n        {\n          \"title\": \"✅ Finalizar\",\n          \"rows\": [\n            {\n              \"title\": \"Confirmar Pedido\",\n              \"description\": \"Proceder con la compra\",\n              \"rowId\": \"confirmar_pedido\"\n            },\n            {\n              \"title\": \"Editar Pedido\",\n              \"description\": \"Realizar cambios\",\n              \"rowId\": \"editar_pedido\"\n            },\n            {\n              \"title\": \"Cancelar\",\n              \"description\": \"Cancelar todo el pedido\",\n              \"rowId\": \"cancelar_pedido\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Exportar las funciones para su uso\nmodule.exports = {\n  generarMenuPrincipal,\n  generarMenuBurgers,\n  generarOpcionesHamburguesa,\n  generarMenuBebidas,\n  generarMenuCervezas,\n  generarMenuCombos,\n  solicitarDireccion,\n  solicitarMetodoPago,\n  mensajeIA,\n  confirmarPedido\n};\n\n// Si se ejecuta directamente, retornar el menú principal por defecto\n// (Con un número de cliente de ejemplo, debe ser reemplazado por el número real)\nreturn generarMenuPrincipal($input.first().json.numero_cliente);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2180,
+        -360
+      ],
+      "id": "41285f90-ec91-46c7-8b9f-7b04c33cb538",
+      "name": "Lista General"
     },
     {
       "parameters": {
@@ -868,19 +853,19 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.Menu }}",
-                    "rightValue": "🍔 Menú Delivery",
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_burgers",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
                     },
-                    "id": "6f33bff9-e6a1-4c76-86c0-1f9b8843a4e6"
+                    "id": "246d39c8-5bdc-44f7-8c17-3de623ded72b"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "🍔 Menú Delivery"
+              "outputKey": "Burgers con Papas"
             },
             {
               "conditions": {
@@ -892,19 +877,19 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.Menu }}",
-                    "rightValue": "🍔 Burgers con Papas",
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_veggies",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
                     },
-                    "id": "7f33bff9-e6a1-4c76-86c0-1f9b8843a4e7"
+                    "id": "0d8ed132-e03c-438b-bd1d-6b715bf1a0f1"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "🍔 Burgers con Papas"
+              "outputKey": "Veggies con Papas"
             },
             {
               "conditions": {
@@ -916,19 +901,19 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.Menu }}",
-                    "rightValue": "🌱 Veggies con Papas",
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_fries",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
                     },
-                    "id": "8f33bff9-e6a1-4c76-86c0-1f9b8843a4e8"
+                    "id": "18b9e3cc-e34f-4d12-a6fb-6ecefa73f6c2"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "🌱 Veggies con Papas"
+              "outputKey": "Fries"
             },
             {
               "conditions": {
@@ -940,19 +925,19 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.Menu }}",
-                    "rightValue": "🍟 Fries & Bocaditos",
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_ensaladas",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
                     },
-                    "id": "9f33bff9-e6a1-4c76-86c0-1f9b8843a4e9"
+                    "id": "3f60443f-53f0-4e33-93b3-1a497cf600bd"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "🍟 Fries & Bocaditos"
+              "outputKey": "Ensaladas"
             },
             {
               "conditions": {
@@ -964,19 +949,19 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.Menu }}",
-                    "rightValue": "🥗 Ensaladas",
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_kids",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
                     },
-                    "id": "af33bff9-e6a1-4c76-86c0-1f9b8843a4ea"
+                    "id": "c1a05c0f-6f85-4b9b-a8dd-5ecf16b69532"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "🥗 Ensaladas"
+              "outputKey": "Menú Kids"
             },
             {
               "conditions": {
@@ -988,19 +973,19 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.Menu }}",
-                    "rightValue": "🥪 Tostados con papas",
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_tostados",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
                     },
-                    "id": "bf33bff9-e6a1-4c76-86c0-1f9b8843a4eb"
+                    "id": "5e6d12d7-0121-46b2-a719-1a47d56b6d22"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "🥪 Tostados con papas"
+              "outputKey": "Tostados con Papas"
             },
             {
               "conditions": {
@@ -1012,19 +997,19 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.Menu }}",
-                    "rightValue": "🥤 Bebidas sin alcohol",
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_bebidas",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
                     },
-                    "id": "cf33bff9-e6a1-4c76-86c0-1f9b8843a4ec"
+                    "id": "7e1c8a5d-f2da-4dbe-9c1e-3b49b56db721"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "🥤 Bebidas sin alcohol"
+              "outputKey": "Bebidas sin Alcohol"
             },
             {
               "conditions": {
@@ -1036,19 +1021,19 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.Menu }}",
-                    "rightValue": "🍺 Cerveza Artesanal MINGA",
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_cervezas",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
                     },
-                    "id": "df33bff9-e6a1-4c76-86c0-1f9b8843a4ed"
+                    "id": "a41e51dd-5cfd-46e0-bb33-9b5544d2d179"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "🍺 Cerveza Artesanal MINGA"
+              "outputKey": "Cervezas Artesanales"
             },
             {
               "conditions": {
@@ -1060,19 +1045,115 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.Menu }}",
-                    "rightValue": "🍹 Tragos",
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_tragos",
                     "operator": {
                       "type": "string",
                       "operation": "equals"
                     },
-                    "id": "ef33bff9-e6a1-4c76-86c0-1f9b8843a4ee"
+                    "id": "60af29cb-41a8-4b93-8652-1eafdf97b0d9"
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "🍹 Tragos"
+              "outputKey": "Tragos"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_invitados",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "51ae3de9-47c6-4196-9d19-6a95170eb043"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Invitados Especiales"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_combo",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "9c61d83e-498d-4c63-bdd1-2779373b52dc"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Combos del Día"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_promos",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e85c0e37-0b4f-474b-882e-ff2035cd28ad"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Promos"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.tittle }}",
+                    "rightValue": "cat_postres",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "f60735a4-5e0f-4e9d-b542-8c3091a5ac2b"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Postres"
             }
           ]
         },
@@ -1081,11 +1162,11 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -3620,
-        380
+        -2260,
+        440
       ],
-      "id": "d4682fa8-70c2-46fc-8161-1a6b924bd13d",
-      "name": "Switch1"
+      "id": "de58a86f-3944-4194-9363-699806d74547",
+      "name": "Switch2"
     }
   ],
   "pinData": {
@@ -1093,14 +1174,11 @@
       {
         "json": {
           "numero_cliente": "5492254423359",
-          "fecha_cita": "",
-          "Nombre": "Fernando",
-          "Menu": "🌱 Veggies con Papas",
-          "correo_electronico": "casserafernando@gmail.com",
-          "session_id": "a066b5fe-c1ce-4809-9e4d-8abe62b8b7c3",
+          "session_id": "FD948AEB08D8EEE7697A49360935DAE9",
           "url": "https://evo.innovasoftpro.dev",
           "instancia": "tester",
-          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
+          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
+          "tittle": "cat_burgers"
         }
       }
     ]
@@ -1111,6 +1189,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-05-14T20:29:03.305Z",
-  "versionId": "c266163a-379b-4b48-92be-d484e23c702e"
+  "updatedAt": "2025-05-15T21:06:34.708Z",
+  "versionId": "1488bd34-c4e6-40f5-b353-322fa4443d7b"
 }
