@@ -286,7 +286,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -1560,
+        -1540,
         -120
       ],
       "id": "a508dd88-5029-4573-bd93-8d2c5ff42490",
@@ -569,12 +569,12 @@
           "conditions": [
             {
               "id": "ce3e00c5-d3a3-4552-bc8a-8d81d833cd66",
-              "leftValue": "=",
+              "leftValue": "={{ $('Obtener eventos').item.json.hasOwnProperty('items') && $('Obtener eventos').item.json.items.length > 0 }}",
               "rightValue": "",
               "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
               }
             }
           ],
@@ -589,7 +589,8 @@
         -120
       ],
       "id": "8830247f-a016-4068-ab41-c869b87b2457",
-      "name": "If"
+      "name": "If",
+      "disabled": true
     },
     {
       "parameters": {
@@ -748,12 +749,14 @@
         -20
       ],
       "id": "6daca6f7-75a0-42bc-85f1-9f7ddd3efbeb",
+      "alwaysOutputData": true,
       "credentials": {
         "httpBasicAuth": {
           "id": "OpgdvMlLy6Zxc6ii",
           "name": "NOCODB"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -800,6 +803,21 @@
         -240,
         -20
       ]
+    },
+    {
+      "parameters": {
+        "content": "## Parametros necesarios\n{\n    \"numero_cliente\": \"5492254423359\",\n    \"fecha_cita\": null,\n    \"Nombre\": \"Juan Carlos\",\n    \"Evento\": \"cancelar\", or \"reagendar\"\n    \"correo_electronico\": \"\",\n    \"session_id\": \"\",\n    \"url\": \"\",\n    \"instancia\": \"\",\n    \"apikey\": \"\"\n  }(https://docs.n8n.io/workflows/sticky-notes/)",
+        "height": 300,
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1960,
+        -540
+      ],
+      "typeVersion": 1,
+      "id": "d99301b2-54ab-4e39-adf0-2504bc89b1ef",
+      "name": "Sticky Note1"
     }
   ],
   "pinData": {
@@ -808,10 +826,10 @@
         "json": {
           "numero_cliente": "5492254423359",
           "fecha_cita": null,
-          "Nombre": "Juan Carlos",
+          "Nombre": "Fernando",
           "Evento": "cancelar",
-          "correo_electronico": "juan@pelotas.com",
-          "session_id": "77722567-7848-4d4e-80e1-139d338e2329",
+          "correo_electronico": "casserafernando@gmail.com",
+          "session_id": "0f65a551-6534-4b58-8161-96c26197774e",
           "url": "https://evo.innovasoftpro.dev",
           "instancia": "tester",
           "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
@@ -832,6 +850,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-14T20:27:52.558Z",
-  "versionId": "9fe913eb-8069-4680-89fa-c3f9116eaf6c"
+  "updatedAt": "2025-05-18T23:19:13.254Z",
+  "versionId": "47301b3e-58d1-45f3-aa08-04458ab84cdb"
 }
