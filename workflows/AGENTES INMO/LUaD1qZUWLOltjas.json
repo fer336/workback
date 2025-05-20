@@ -426,7 +426,13 @@
         [],
         [],
         [],
-        [],
+        [
+          {
+            "node": "MESSAGE1",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Separa datos",
@@ -609,7 +615,7 @@
       "typeVersion": 3,
       "position": [
         -14580,
-        -8869.5
+        -8769.5
       ],
       "alwaysOutputData": false,
       "executeOnce": false
@@ -638,7 +644,7 @@
       "typeVersion": 4.2,
       "position": [
         -14360,
-        -8869.5
+        -8769.5
       ]
     },
     {
@@ -652,7 +658,7 @@
       "typeVersion": 1,
       "position": [
         -14800,
-        -8869.5
+        -8769.5
       ]
     },
     {
@@ -1183,7 +1189,7 @@
       "typeVersion": 2,
       "position": [
         -15020,
-        -8869.5
+        -8769.5
       ],
       "id": "190a3972-d7da-4340-aa4e-1e0b5018131c",
       "name": "Separa datos"
@@ -2938,7 +2944,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        -16068,
+        -16060,
         -9080
       ],
       "id": "2c2a6e50-d629-4e43-9980-1308bc4d4ea0",
@@ -2963,6 +2969,33 @@
           "name": "Google Gemini(PaLM) Api account"
         }
       }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$node[\"Webhook\"].json.body.server_url}}/message/sendText/{{$node[\"Webhook\"].json.body.instance}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$node[\"Webhook\"].json.body.apikey}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{$node[\"Variables globales\"].json.TelefonoCliente}}\",\n    \"text\": \"Esta propiedad no tiene ninguna fecha asignada\"\n\n}",
+        "options": {}
+      },
+      "id": "46d3adbb-d94f-41be-b29a-91f67ad1d87a",
+      "name": "MESSAGE1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -14800,
+        -8940
+      ]
     }
   ],
   "pinData": {
@@ -2972,7 +3005,7 @@
           "headers": {
             "host": "n8n.innovasoftpro.dev",
             "user-agent": "axios/1.7.9",
-            "content-length": "2306",
+            "content-length": "1300",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
             "x-forwarded-for": "172.18.0.1",
@@ -2991,7 +3024,7 @@
               "key": {
                 "remoteJid": "5492254423359@s.whatsapp.net",
                 "fromMe": false,
-                "id": "5D5EDE4782D404882243DE046653D96E"
+                "id": "3EB02C6F3D52DF2EF79D6A"
               },
               "pushName": "Fer { }",
               "status": "DELIVERY_ACK",
@@ -3000,137 +3033,30 @@
                   "deviceListMetadata": {
                     "senderKeyHash": "a0ebFmt5jO2yzg==",
                     "senderTimestamp": "1746748763",
-                    "recipientKeyHash": "ReBBitAuv3H82w==",
+                    "senderAccountType": "E2EE",
+                    "receiverAccountType": "E2EE",
+                    "recipientKeyHash": "2XE6Qyb4UwHAfw==",
                     "recipientTimestamp": "1745502914"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "EBzN1C1E7MngxIXc1962467wJrWrvrqYCz5dUvacJpI="
+                  "messageSecret": "EX+fqFrAuy5eICN2dSocCFx54v948vvtA/4NxT/+1uI="
                 },
-                "listResponseMessage": {
-                  "title": "📅 19 de Mayo - 09:00",
-                  "listType": "SINGLE_SELECT",
-                  "singleSelectReply": {
-                    "selectedRowId": "qp862ifcdv05o5k0qtd9misdvc"
-                  },
-                  "contextInfo": {
-                    "stanzaId": "3EB06960BB07FC786BA16A2362E1FBFD52D33BA8",
-                    "participant": "5492254606018@s.whatsapp.net",
-                    "quotedMessage": {
-                      "listMessage": {
-                        "title": "📅 Visitas Programadas",
-                        "description": "Lista de visitas a propiedades programadas",
-                        "buttonText": "✅ Fecha a reprogramar",
-                        "listType": "SINGLE_SELECT",
-                        "sections": [
-                          {
-                            "title": "🍂 Mayo",
-                            "rows": [
-                              {
-                                "title": "📅 19 de Mayo - 09:00",
-                                "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64",
-                                "rowId": "qp862ifcdv05o5k0qtd9misdvc"
-                              }
-                            ]
-                          }
-                        ],
-                        "footerText": "🟢 Visitas Programadas"
-                      }
-                    }
-                  },
-                  "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64"
-                }
+                "conversation": "Hola me gustaria que se comuquien conmigo por esta propieadad que vi en zonaprop https://www.zonaprop.com.ar/propiedades/clasificado/veclapin-departamento-en-pinamar-55060690.html?labs=0,OFF-AnnoyAPI_itemitem_RC=_UC=,20250421084246,28c9c285-1731-4bef-b532-dcb345023448&userid=0&itemid=55950039&labs_source=RECOMENDADOS_FICHA_PROPIEDAD_DESKTOP&labs_version=2"
               },
-              "contextInfo": {
-                "stanzaId": "3EB06960BB07FC786BA16A2362E1FBFD52D33BA8",
-                "participant": "5492254606018@s.whatsapp.net",
-                "quotedMessage": {
-                  "listMessage": {
-                    "title": "📅 Visitas Programadas",
-                    "description": "Lista de visitas a propiedades programadas",
-                    "buttonText": "✅ Fecha a reprogramar",
-                    "listType": "SINGLE_SELECT",
-                    "sections": [
-                      {
-                        "title": "🍂 Mayo",
-                        "rows": [
-                          {
-                            "title": "📅 19 de Mayo - 09:00",
-                            "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64",
-                            "rowId": "qp862ifcdv05o5k0qtd9misdvc"
-                          }
-                        ]
-                      }
-                    ],
-                    "footerText": "🟢 Visitas Programadas"
-                  }
-                }
-              },
-              "messageType": "listResponseMessage",
-              "messageTimestamp": 1747225953,
+              "contextInfo": null,
+              "messageType": "conversation",
+              "messageTimestamp": 1747669261,
               "instanceId": "4e9127df-d360-4ac0-a849-965bf5955398",
-              "source": "android"
+              "source": "web"
             },
             "destination": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
-            "date_time": "2025-05-14T09:32:33.598Z",
+            "date_time": "2025-05-19T12:41:02.170Z",
             "sender": "5492254606018@s.whatsapp.net",
             "server_url": "https://evo.innovasoftpro.dev",
             "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
           },
           "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
           "executionMode": "production"
-        }
-      }
-    ],
-    "Variables globales": [
-      {
-        "json": {
-          "TelefonoCliente": "5492254423359",
-          "nombreCliente": "Fer { }",
-          "nombreInstancia": "tester",
-          "mensaje": null,
-          "tipoMensaje": "listResponseMessage",
-          "idMensaje": "5D5EDE4782D404882243DE046653D96E",
-          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
-          "Escribiendo": 1200,
-          "tiempo": "2025-05-14T09:32:33.598Z",
-          "server_url": "https://evo.innovasoftpro.dev",
-          "label": "[\"\"]",
-          "ListResponseMessage": {
-            "title": "📅 19 de Mayo - 09:00",
-            "listType": "SINGLE_SELECT",
-            "singleSelectReply": {
-              "selectedRowId": "qp862ifcdv05o5k0qtd9misdvc"
-            },
-            "contextInfo": {
-              "stanzaId": "3EB06960BB07FC786BA16A2362E1FBFD52D33BA8",
-              "participant": "5492254606018@s.whatsapp.net",
-              "quotedMessage": {
-                "listMessage": {
-                  "title": "📅 Visitas Programadas",
-                  "description": "Lista de visitas a propiedades programadas",
-                  "buttonText": "✅ Fecha a reprogramar",
-                  "listType": "SINGLE_SELECT",
-                  "sections": [
-                    {
-                      "title": "🍂 Mayo",
-                      "rows": [
-                        {
-                          "title": "📅 19 de Mayo - 09:00",
-                          "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64",
-                          "rowId": "qp862ifcdv05o5k0qtd9misdvc"
-                        }
-                      ]
-                    }
-                  ],
-                  "footerText": "🟢 Visitas Programadas"
-                }
-              }
-            },
-            "description": "📍 Nogoyá, Entre Ríos, Argentina\n👤 Juan Carlos\n📧 juan@pelotas.com\n🏠 Código: 3AUV_64"
-          },
-          "server_db": "https://db.innovasoftpro.dev",
-          "Key": "77722567-7848-4d4e-80e1-139d338e2329",
-          "Id": 49
         }
       }
     ]
@@ -3151,6 +3077,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-05-18T14:12:48.483Z",
-  "versionId": "a25b4c7e-b933-404d-b02f-237b0fcf821a"
+  "updatedAt": "2025-05-20T00:40:31.890Z",
+  "versionId": "e54d3ad1-0588-4753-90eb-3155ef76e063"
 }
