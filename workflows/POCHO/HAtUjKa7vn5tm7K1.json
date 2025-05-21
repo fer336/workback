@@ -16,9 +16,9 @@
       "main": [
         [
           {
-            "node": "Aggregate2",
+            "node": "Merge1",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
@@ -39,17 +39,6 @@
         [
           {
             "node": "Split Out2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Productos3": {
-      "main": [
-        [
-          {
-            "node": "Productos5",
             "type": "main",
             "index": 0
           }
@@ -100,33 +89,16 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "Limit",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Productos5": {
-      "main": [
-        [
-          {
-            "node": "Merge1",
-            "type": "main",
-            "index": 1
           }
         ]
       ]
     },
     "Aggregate2": {
       "main": [
-        [
-          {
-            "node": "Productos3",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Lista General": {
@@ -143,6 +115,49 @@
     "Edit Fields": {
       "main": [
         []
+      ]
+    },
+    "Traer datos": {
+      "main": [
+        []
+      ]
+    },
+    "Code": {
+      "main": [
+        []
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Promociones",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Promociones": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -179,7 +194,7 @@
       "typeVersion": 1.1,
       "position": [
         -1280,
-        500
+        80
       ],
       "id": "25562478-a66f-46e7-a46d-8fe658c9bdde",
       "name": "Workflow Input Trigger"
@@ -201,8 +216,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1140,
-        500
+        -1280,
+        1195
       ],
       "id": "42863cf8-6887-48d0-b54a-a5640bf2d44e",
       "name": "Edit Fields"
@@ -216,7 +231,7 @@
       "typeVersion": 1,
       "position": [
         40,
-        575
+        155
       ],
       "id": "a05adc14-272c-499a-ace4-0ef588c92138",
       "name": "Split Out2"
@@ -239,7 +254,7 @@
       "typeVersion": 3.4,
       "position": [
         -1060,
-        500
+        80
       ],
       "id": "b3097871-6afc-409d-8e24-8eb6896468c5",
       "name": "vars1"
@@ -259,7 +274,7 @@
       "typeVersion": 3,
       "position": [
         -180,
-        575
+        155
       ],
       "id": "af1c13d0-31c8-4d5f-9de3-7cc4bc5e3926",
       "name": "NocoDB1",
@@ -269,29 +284,6 @@
           "name": "NocoDB Token account"
         }
       }
-    },
-    {
-      "parameters": {
-        "operation": "push",
-        "list": "=promo",
-        "messageData": "={{ JSON.stringify($json.productos) }}",
-        "tail": true
-      },
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        480,
-        575
-      ],
-      "id": "444324e4-3d06-4233-a95a-813006cec19d",
-      "name": "Productos3",
-      "credentials": {
-        "redis": {
-          "id": "JMklVOvkU7koL2UG",
-          "name": "Redis"
-        }
-      },
-      "disabled": true
     },
     {
       "parameters": {
@@ -322,7 +314,7 @@
       "typeVersion": 2.2,
       "position": [
         -400,
-        500
+        80
       ],
       "id": "cc250e79-01b2-4d94-828c-b28d30f79403",
       "name": "If2"
@@ -338,7 +330,7 @@
       "typeVersion": 1,
       "position": [
         -840,
-        500
+        80
       ],
       "id": "ace4bbd6-5614-4998-9258-94cb8fc02ea6",
       "name": "Redis",
@@ -368,7 +360,7 @@
       "typeVersion": 3.4,
       "position": [
         -620,
-        500
+        80
       ],
       "id": "aabd048f-ea12-468f-86b0-f93b14f487b6",
       "name": "Productos4"
@@ -378,34 +370,11 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        920,
-        500
+        260,
+        80
       ],
       "id": "905324d3-61e9-4903-b2fe-f4ca9e95d175",
       "name": "Merge1"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "5b1f7094-6f76-4c92-b112-059537c4d552",
-              "name": "productos",
-              "value": "={{ $json.productos }}",
-              "type": "array"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        700,
-        575
-      ],
-      "id": "c6156abe-6d76-4251-a90a-7ce9e0028014",
-      "name": "Productos5"
     },
     {
       "parameters": {
@@ -417,8 +386,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        260,
-        575
+        -1280,
+        675
       ],
       "id": "57fd5357-473d-4cf7-a513-cdb7790ef993",
       "name": "Aggregate2"
@@ -432,7 +401,7 @@
       "typeVersion": 1,
       "position": [
         -1280,
-        840
+        935
       ],
       "id": "029b088b-c387-40b9-88be-56a658639532",
       "name": "Redis1",
@@ -450,8 +419,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1380,
-        500
+        -1280,
+        1455
       ],
       "id": "d19d1aa9-95fe-4958-93bb-dbe48396dfd4",
       "name": "Lista General"
@@ -504,21 +473,176 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1600,
-        500
+        -1060,
+        1455
       ],
       "id": "4d49f208-1f8b-4c79-aa6b-9726110bef3c",
       "name": "cancelar8",
       "alwaysOutputData": true,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const descripcion = $('vars1').first().json.descripcion;\n\n// 1️⃣ Convertir a minúsculas\nlet cleanText = descripcion.toLowerCase();\n\n// 2️⃣ Reemplazar caracteres especiales y eliminar acentos\ncleanText = cleanText\n    .normalize(\"NFD\") // Descompone caracteres acentuados\n    .replace(/[\\u0300-\\u036f]/g, \"\") // Elimina los acentos\n    .replace(/[^a-z0-9\\sáéíóúüñ]/gi, \"\"); // Conserva letras y números\n\n// 3️⃣ Dividir en palabras por espacio\nconst palabras = cleanText.split(\" \");\n\n// 4️⃣ Filtrar palabras vacías o irrelevantes\nconst palabrasFiltradas = palabras.filter(palabra => palabra.length > 1);\n\n// 5️⃣ Estructurar en un solo objeto JSON\nlet resultado = {};\npalabrasFiltradas.forEach((palabra, index) => {\n    resultado[`word_${index + 1}`] = palabra;\n});\n\n// 6️⃣ Retornar un solo objeto en un array\nreturn [{ ...resultado }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        -180
+      ],
+      "id": "9e74ad65-3c88-4dc9-977c-11d9b67bd49f",
+      "name": "Traer datos",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener las palabras de búsqueda\nconst word1 = $input.first().json.word_1 || \"\";\nconst word2 = $input.first().json.word_2 || \"\";\nconsole.log(`Buscando coincidencias para: \"${word1}\" y \"${word2}\"`);\n\n// Obtener productos directamente desde Merge\nlet productosRaw = $('Merge1').first().json.productos;\nconsole.log(\"Tipo de datos de productos:\", typeof productosRaw);\n\n// Asegurarnos de que productos sea un array\nlet productos = [];\n\nif (Array.isArray(productosRaw)) {\n  productos = productosRaw.filter(item => item !== null); // Filtrar posibles valores null dentro del array\n} else if (productosRaw !== null && typeof productosRaw === 'object') {\n  // Si es un objeto, lo convertimos en un array con un elemento\n  productos = [productosRaw];\n} else {\n  // Si es null o undefined, usamos un array vacío\n  productos = [];\n}\n\nconsole.log(`Total de productos disponibles: ${productos.length}`);\n\n// Función mejorada para verificar si un texto contiene una palabra (considerando singular/plural)\nfunction contienePalabra(texto, palabra) {\n  if (!texto || !palabra) return false;\n  \n  try {\n    // Limpiamos y normalizamos el texto y la palabra\n    texto = (texto || \"\").toString().toLowerCase().trim();\n    palabra = (palabra || \"\").toString().toLowerCase().trim();\n    \n    if (palabra === \"\") return false;\n    \n    // Considerar variantes (singular/plural y más)\n    let variantes = [palabra];\n    \n    // Plural a singular\n    if (palabra.endsWith('s') && palabra.length > 2) {\n      variantes.push(palabra.slice(0, -1)); // Quitar la 's' final\n      // Casos especiales como \"es\" -> \"e\" (ej. \"dentales\" -> \"dental\")\n      if (palabra.endsWith('es') && palabra.length > 3) {\n        variantes.push(palabra.slice(0, -2));\n      }\n    } \n    // Singular a plural\n    else {\n      variantes.push(palabra + 's'); // Añadir 's' al final\n      // Casos especiales como \"al\" -> \"ales\"\n      if (palabra.endsWith('al')) {\n        variantes.push(palabra.slice(0, -1) + 'ales');\n      }\n    }\n    \n    // Log para debug\n    // console.log(`Buscando variantes para \"${palabra}\":`, variantes);\n    \n    // Buscar palabra completa primero (priorizar coincidencias exactas)\n    const palabraRegex = new RegExp(`(^|\\\\s|[^a-zñáéíóúü])${palabra}(\\\\s|[^a-zñáéíóúü]|$)`, 'i');\n    if (palabraRegex.test(texto)) {\n      return true;\n    }\n    \n    // Si no hay coincidencia exacta, probar con las variantes\n    return variantes.some(v => {\n      if (v === palabra) return false; // Ya probamos con la palabra exacta\n      \n      try {\n        const varianteRegex = new RegExp(`(^|\\\\s|[^a-zñáéíóúü])${v}(\\\\s|[^a-zñáéíóúü]|$)`, 'i');\n        return varianteRegex.test(texto);\n      } catch (e) {\n        console.log(`Error en regex para variante \"${v}\":`, e.message);\n        // Fallback - búsqueda simple\n        return texto.includes(v);\n      }\n    });\n  } catch (e) {\n    console.log(\"Error en contienePalabra:\", e.message);\n    return false;\n  }\n}\n\n// Función mejorada para verificar si un producto contiene una palabra\nfunction productoContienePalabra(producto, palabra) {\n  if (!palabra || !producto) return false;\n  \n  try {\n    // Buscar en todos los campos de texto del producto\n    // Esto es más flexible que solo buscar en campos específicos\n    for (const [clave, valor] of Object.entries(producto)) {\n      // Solo procesar valores de texto\n      if (typeof valor === 'string' && valor.trim() !== '') {\n        if (contienePalabra(valor, palabra)) {\n          // console.log(`Coincidencia encontrada para \"${palabra}\" en campo \"${clave}\": \"${valor}\"`);\n          return true;\n        }\n      }\n    }\n    \n    return false;\n  } catch (e) {\n    console.log(\"Error en productoContienePalabra:\", e.message);\n    return false;\n  }\n}\n\n// Manejar búsquedas con protección contra errores\nlet resultadosWord1 = [];\nlet resultadosWord2 = [];\n\n// Buscar productos que coincidan con word1\nif (word1 && productos.length > 0) {\n  resultadosWord1 = productos.filter(p => p && productoContienePalabra(p, word1));\n  console.log(`Productos que coinciden con \"${word1}\": ${resultadosWord1.length}`);\n  // Mostrar algunos ejemplos para debug\n  if (resultadosWord1.length > 0) {\n    console.log(\"Ejemplos de coincidencias para word1:\");\n    resultadosWord1.slice(0, 3).forEach((p, i) => {\n      console.log(`  ${i+1}. ${p.Producto || p.producto || JSON.stringify(p).substring(0, 50)}`);\n    });\n  }\n}\n\n// Buscar productos que coincidan con word2\nif (word2 && productos.length > 0) {\n  resultadosWord2 = productos.filter(p => p && productoContienePalabra(p, word2));\n  console.log(`Productos que coinciden con \"${word2}\": ${resultadosWord2.length}`);\n  // Mostrar algunos ejemplos para debug\n  if (resultadosWord2.length > 0) {\n    console.log(\"Ejemplos de coincidencias para word2:\");\n    resultadosWord2.slice(0, 3).forEach((p, i) => {\n      console.log(`  ${i+1}. ${p.Producto || p.producto || JSON.stringify(p).substring(0, 50)}`);\n    });\n  }\n}\n\n// Combinar resultados (sin duplicados)\nconst todosIds = new Set();\nconst resultadosCombinados = [];\n\n// Agregar primero los resultados de word1\nresultadosWord1.forEach(producto => {\n  try {\n    if (!producto) return;\n    const id = producto.Codigo || producto.codigo || JSON.stringify(producto);\n    if (!todosIds.has(id)) {\n      todosIds.add(id);\n      resultadosCombinados.push(producto);\n    }\n  } catch (e) {\n    console.log(\"Error al procesar un producto de word1:\", e.message);\n  }\n});\n\n// Agregar después los resultados de word2 (si no están ya incluidos)\nresultadosWord2.forEach(producto => {\n  try {\n    if (!producto) return;\n    const id = producto.Codigo || producto.codigo || JSON.stringify(producto);\n    if (!todosIds.has(id)) {\n      todosIds.add(id);\n      resultadosCombinados.push(producto);\n    }\n  } catch (e) {\n    console.log(\"Error al procesar un producto de word2:\", e.message);\n  }\n});\n\nconsole.log(`Total de productos encontrados: ${resultadosCombinados.length}`);\n\n// Si no hay resultados, mostrar un mensaje\nif (resultadosCombinados.length === 0) {\n  console.log(`No se encontraron productos que coincidan con \"${word1}\" o \"${word2}\"`);\n}\n\n// Retornar los resultados combinados\nreturn resultadosCombinados.map(p => ({ json: p }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1280,
+        415
+      ],
+      "id": "3ef60605-bc73-4710-9895-6364ba9d01f7",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "maxItems": 25
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        480,
+        80
+      ],
+      "id": "555c7ded-05c0-4bb5-b496-ef4eab998921",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener productos desde el nodo 'productos'\nconst datosProductos = $input.all(); // O ajustar según cómo traigas la tabla 'productos'\nconst hayDatos = datosProductos && datosProductos.length > 0;\n\nconst remoteJid = $('Workflow Input Trigger').first().json.Telefono || \"\";\n\nif (!hayDatos) {\n  const mensajeSinProductos = {\n    to: remoteJid,\n    type: \"text\",\n    text: `📱🛒 *CATÁLOGO DIGITAL* 🛒📱\\n\\n━━━━━━━━━━━━━━━━━━━━\\n\\n🥫 *Información del Catálogo*\\n\\nActualmente no hay promociones disponibles.\\n\\nPor favor, vuelve más tarde. 🙏\\n\\n━━━━━━━━━━━━━━━━━━━━`\n  };\n  return [{ json: mensajeSinProductos }];\n}\n\nconst emojiCategorias = {\n  \"LÁCTEOS\": \"🥛🧀\",\n  \"BEBIDAS\": \"🥤🍹\",\n  \"GALLETITAS Y SNACKS\": \"🍪🍫\",\n  \"ALIMENTOS SECOS\": \"🥖🌾\",\n  \"ENLATADOS\": \"🥫📦\",\n  \"LIMPIEZA\": \"🧴🧽\",\n  \"VARIOS\": \"🛍️🛒\"\n};\n\nconst categorias = {};\n\ndatosProductos.forEach(item => {\n  const producto = item.json || item;\n  \n  const nombreProducto = producto.Producto || \"\";\n  const precioProducto = producto[\"['P. Venta']\"] || \"$0.00\";\n  const stockProducto = producto.Stock || \"Disponible\";\n\n  let categoria = \"VARIOS\";\n  const nombreLower = nombreProducto.toLowerCase();\n\n  if (nombreLower.includes(\"leche\") || nombreLower.includes(\"yogur\") || nombreLower.includes(\"queso\")) {\n    categoria = \"LÁCTEOS\";\n  } else if (nombreLower.includes(\"agua\") || nombreLower.includes(\"gaseosa\") || nombreLower.includes(\"jugo\")) {\n    categoria = \"BEBIDAS\";\n  } else if (nombreLower.includes(\"galleta\") || nombreLower.includes(\"snack\") || nombreLower.includes(\"chocolate\")) {\n    categoria = \"GALLETITAS Y SNACKS\";\n  } else if (nombreLower.includes(\"arroz\") || nombreLower.includes(\"fideos\") || nombreLower.includes(\"harina\")) {\n    categoria = \"ALIMENTOS SECOS\";\n  } else if (nombreLower.includes(\"atun\") || nombreLower.includes(\"conserva\") || nombreLower.includes(\"lata\")) {\n    categoria = \"ENLATADOS\";\n  } else if (nombreLower.includes(\"detergente\") || nombreLower.includes(\"jabon\") || nombreLower.includes(\"limpia\")) {\n    categoria = \"LIMPIEZA\";\n  } else {\n    const palabras = nombreProducto.split(' ');\n    if (palabras.length > 0 && palabras[0].length > 2) {\n      categoria = palabras[0].toUpperCase();\n    }\n  }\n\n  if (!categorias[categoria]) categorias[categoria] = [];\n\n  // Aquí el cambio: id con prefijo promo_\n  const productoId = `promo_${Math.floor(Math.random() * 10000)}`;\n\n  categorias[categoria].push({\n    id: productoId,\n    nombre: nombreProducto,\n    precio: precioProducto,\n    stock: stockProducto\n  });\n});\n\nconst ordenCategorias = [\n  \"LÁCTEOS\", \"BEBIDAS\", \"GALLETITAS Y SNACKS\", \"ALIMENTOS SECOS\",\n  \"ENLATADOS\", \"LIMPIEZA\", \"VARIOS\"\n];\n\nconst categoriasOrdenadas = Object.keys(categorias).sort((a, b) => {\n  const idxA = ordenCategorias.indexOf(a);\n  const idxB = ordenCategorias.indexOf(b);\n  if (idxA !== -1 && idxB !== -1) return idxA - idxB;\n  if (idxA !== -1) return -1;\n  if (idxB !== -1) return 1;\n  return a.localeCompare(b);\n});\n\nconst sections = [];\n\nfor (const cat of categoriasOrdenadas) {\n  const productos = categorias[cat];\n  if (productos.length === 0) continue;\n\n  productos.sort((a, b) => a.nombre.localeCompare(b.nombre));\n\n  const emojiCat = emojiCategorias[cat] || \"📦🛒\";\n\n  const rows = productos.map(p => {\n    const precioFormateado = p.precio.replace(/(\\d)(?=(\\d{3})+(?!\\d))/g, '$1.');\n    const stockEmoji = p.stock.toLowerCase() === \"disponible\" ? \"🟢\" : \"🔴\";\n    const stockText = p.stock.length > 15 ? p.stock.slice(0, 12) + \"…\" : p.stock;\n\n    return {\n      id: p.id,\n      title: `${p.nombre}`,\n      description:\n        `🔥 Precio: *${precioFormateado}*\\n` +\n        `🆔 Código: ${p.id}\\n` +\n        `📦 Stock: ${stockEmoji} ${stockText}`\n    };\n  });\n\n  sections.push({\n    title: `${emojiCat}  ${cat}`,\n    rows\n  });\n}\n\nconst headerObj = {\n  text: \"🛒🔥 CATÁLOGO DE PROMOCIONES DIARIAS 🔥🛒\"\n};\n\nconst bodyObj = {\n  text: `✅ Seleccioná el producto y escribe la cantidad que quieras`\n};\n\nconst footerObj = {\n  text: \"🏍️ Envios a domicilio 📦 | Neuquén 2098\"\n};\n\nconst actionObj = {\n  list: {\n    sections: sections,\n    label: \"🛒 Ver Catálogo 🔥\"\n  }\n};\n\nconst requestBody = {\n  header: headerObj,\n  body: bodyObj,\n  footer: footerObj,\n  action: actionObj,\n  type: \"list\",\n  to: remoteJid\n};\n\nreturn [{ json: requestBody }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        80
+      ],
+      "id": "3d56c0bb-0dd1-4b7f-9f34-32b25f208686",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "272539cb-ae4d-4110-8940-8d85d6088487",
+              "name": "response",
+              "value": "LISTA_ENVIADA",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1140,
+        80
+      ],
+      "id": "defa627b-4bc5-48c2-8067-8b3299bb420f",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/interactive",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "header",
+              "value": "={{ $json.header }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.action }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.type }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        920,
+        80
+      ],
+      "id": "2c7464e5-6fb1-4419-9841-0a7324242dfd",
+      "name": "Promociones"
     }
   ],
   "pinData": {
     "Workflow Input Trigger": [
       {
         "json": {
-          "descripcion": "No es correcto busca de nuevo",
-          "Telefono": "5492254423359"
+          "descripcion": null,
+          "Telefono": "5492254423359",
+          "server": null,
+          "apikey": null,
+          "instance": null
+        }
+      }
+    ],
+    "Edit Fields1": [
+      {
+        "json": {
+          "response": "LISTA_ENVIADA"
         }
       }
     ]
@@ -536,6 +660,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-14T20:28:53.204Z",
-  "versionId": "b438550e-bbc8-4e82-abbb-7ff714a990d5"
+  "updatedAt": "2025-05-20T22:16:33.290Z",
+  "versionId": "175c0702-15ca-4003-814e-2ea115004cdc"
 }
