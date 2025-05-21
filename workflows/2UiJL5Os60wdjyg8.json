@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Switch1": {
       "main": [
@@ -18,7 +18,7 @@
       "main": [
         [
           {
-            "node": "Switch",
+            "node": "If11",
             "type": "main",
             "index": 0
           }
@@ -119,13 +119,6 @@
         [
           {
             "node": "NocoDB1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Edit Fields1",
             "type": "main",
             "index": 0
           }
@@ -877,6 +870,24 @@
       "main": [
         []
       ]
+    },
+    "If11": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-12-24T17:03:06.444Z",
@@ -988,7 +999,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        1600,
+        1820,
         2785
       ],
       "alwaysOutputData": true,
@@ -1048,7 +1059,7 @@
       "typeVersion": 3.4,
       "position": [
         -1480,
-        3710
+        3310
       ],
       "id": "e2cac8b4-6329-4c91-b59d-2740a6749371",
       "name": "vars"
@@ -1060,7 +1071,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -160,
+        60,
         2885
       ],
       "id": "cb1bb325-4e20-42ab-b4d3-d50be58b7e9f",
@@ -1079,7 +1090,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -380,
+        -160,
         2885
       ],
       "credentials": {
@@ -1119,7 +1130,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -600,
+        -380,
         2885
       ],
       "id": "ecdc7908-83ba-4858-9a6e-b90ae500f68f",
@@ -1141,7 +1152,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -820,
+        -600,
         2885
       ],
       "id": "3f7d7ea2-696c-4be7-ba89-cb76ebe1d8ec",
@@ -1162,7 +1173,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        1600,
+        1820,
         2985
       ],
       "id": "7ce7a7ed-624f-40a7-9e77-65fd7f6d9a00",
@@ -1227,7 +1238,7 @@
       "typeVersion": 2,
       "position": [
         -3900,
-        3610
+        3210
       ],
       "webhookId": "3cdd40ed-a48c-411c-96d6-3679c5894079"
     },
@@ -1284,30 +1295,6 @@
               },
               "renameOutput": true,
               "outputKey": "Texto"
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
-                    "rightValue": "audioMessage",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    },
-                    "id": "d909b323-cc09-45bf-bdb4-49c5d1ffa6e7"
-                  }
-                ],
-                "combinator": "and"
-              },
-              "renameOutput": true,
-              "outputKey": "Áudio"
             },
             {
               "conditions": {
@@ -1468,8 +1455,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -1260,
-        3584
+        -1040,
+        3705
       ]
     },
     {
@@ -1517,7 +1504,7 @@
       "typeVersion": 4.2,
       "position": [
         60,
-        2680
+        2685
       ]
     },
     {
@@ -1557,7 +1544,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1820,
+        2040,
         2985
       ]
     },
@@ -1599,7 +1586,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        2040,
+        2260,
         2985
       ],
       "id": "70b6784f-4517-4e72-ad6a-72293ad9eb28",
@@ -1644,7 +1631,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2700,
+        2920,
         2985
       ],
       "id": "ca3643a7-5e95-47e4-aad2-6cd8336a0e41",
@@ -1698,7 +1685,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2920,
+        3140,
         2985
       ],
       "id": "b00319f7-ba41-4efe-b2e9-c923ca80202b",
@@ -1729,7 +1716,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2260,
+        2480,
         2985
       ]
     },
@@ -1809,7 +1796,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2480,
+        2700,
         2985
       ]
     },
@@ -1862,7 +1849,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1380,
+        1600,
         2885
       ],
       "id": "1b3415b7-b71b-41a4-8e7d-b6572aebf0bd",
@@ -1891,7 +1878,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2260,
+        2480,
         2785
       ]
     },
@@ -1905,8 +1892,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        1820,
-        2780
+        2040,
+        2785
       ],
       "id": "0ed3615d-e689-4daf-8f4d-0570d9aef54d",
       "name": "contador1",
@@ -1945,8 +1932,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2040,
-        2780
+        2260,
+        2785
       ],
       "id": "d02be655-4e13-4617-ae18-d25472e69830",
       "name": "If3"
@@ -1966,7 +1953,7 @@
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        -1040,
+        -820,
         3185
       ],
       "id": "eff27d1b-ba78-40a7-a788-3a6314366e15",
@@ -1997,7 +1984,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -160,
+        60,
         3085
       ]
     },
@@ -2049,7 +2036,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        60,
+        280,
         3285
       ],
       "id": "5aa9b2a5-4d04-437a-9b8a-6a1d96e76d3f",
@@ -2064,7 +2051,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -600,
+        -380,
         3185
       ],
       "id": "b87b9a4b-e38d-4b61-82ff-67f493527b09",
@@ -2078,7 +2065,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -820,
+        -600,
         3185
       ],
       "id": "7ad642ac-cec1-4f5a-8225-8d9cb423edfb",
@@ -2111,7 +2098,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -380,
+        -160,
         3185
       ],
       "id": "b4a7ae6b-d52d-463e-ba16-b844d67f4a46",
@@ -2124,7 +2111,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -160,
+        60,
         3285
       ],
       "id": "c24ea093-af2c-4b59-a07a-8d0229136c4f",
@@ -2172,7 +2159,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -160,
+        60,
         3810
       ],
       "id": "4f32c2b9-0a29-4386-84eb-7406298f0bf1",
@@ -2198,7 +2185,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -1040,
+        -820,
         3610
       ],
       "id": "ae34cb4a-c4cd-4796-886a-0bdc73fd625a",
@@ -2240,7 +2227,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -820,
+        -600,
         3610
       ],
       "id": "0522f6a9-755b-48ea-b16d-2399de605054",
@@ -2284,7 +2271,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        60,
+        280,
         3810
       ],
       "id": "ca1417bb-dcfd-4f83-b533-6946fc533685",
@@ -2351,7 +2338,7 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        -380,
+        -160,
         3510
       ],
       "id": "369e757c-7fb9-4a99-8e93-b957d647e203",
@@ -2380,7 +2367,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        940,
+        1160,
         2885
       ]
     },
@@ -2414,7 +2401,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        500,
+        720,
         2885
       ]
     },
@@ -2427,7 +2414,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        720,
+        940,
         2885
       ]
     },
@@ -2439,7 +2426,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        1160,
+        1380,
         2885
       ],
       "id": "52a840d8-c0d5-4185-99bc-007d4caa50da",
@@ -2474,7 +2461,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        280,
+        500,
         2885
       ],
       "id": "84cb0666-b0ca-45b2-9fdb-d17029c8179b",
@@ -2492,7 +2479,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        60,
+        280,
         2885
       ],
       "credentials": {
@@ -2525,7 +2512,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -600,
+        -380,
         4410
       ]
     },
@@ -2539,7 +2526,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -1040,
+        -820,
         4410
       ],
       "id": "c7b56bd4-0c9c-4255-85b1-8c3143a34b7e",
@@ -2578,7 +2565,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -820,
+        -600,
         4410
       ],
       "id": "ab2ca81f-d6ca-4327-8a96-9cc40d5c6295",
@@ -2619,7 +2606,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -380,
+        -160,
         4410
       ],
       "id": "a90063d5-2a98-4d85-a383-f149bf3b499d",
@@ -2639,7 +2626,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        280,
+        500,
         3810
       ],
       "id": "eb1b74d3-a86f-4e25-84fe-bafb7ef50835",
@@ -2659,7 +2646,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        280,
+        500,
         3510
       ],
       "id": "9b028ad2-e26a-4229-ad22-f231a912604b",
@@ -2679,7 +2666,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        2480,
+        2700,
         2785
       ],
       "id": "8af906b7-8d1e-4537-bbf2-e783adb7f637",
@@ -2699,7 +2686,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        3140,
+        3360,
         2985
       ],
       "id": "03a91228-0910-472e-ae30-488e0ded0645",
@@ -2823,7 +2810,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -1040,
+        -820,
         2885
       ],
       "id": "340c5c09-31b4-424c-821c-7857ac0e8fc8",
@@ -2845,7 +2832,7 @@
       "typeVersion": 1,
       "position": [
         -1920,
-        3785
+        3385
       ],
       "id": "c9ed2993-589a-4635-98b9-cf68d3e104da",
       "name": "Crypto"
@@ -2881,7 +2868,7 @@
       "typeVersion": 3,
       "position": [
         -1700,
-        3785
+        3385
       ],
       "id": "97205392-979b-4235-860a-ad967866efa5",
       "name": "InsertarCliente",
@@ -2907,7 +2894,7 @@
       "typeVersion": 3,
       "position": [
         -2580,
-        3710
+        3310
       ],
       "id": "c497a62f-c72f-4174-acfd-1ed3349187d8",
       "name": "getClientes",
@@ -2949,7 +2936,7 @@
       "typeVersion": 2.2,
       "position": [
         -2140,
-        3710
+        3310
       ],
       "id": "609da1ad-da53-412d-a62a-7d65b42fab1c",
       "name": "If1"
@@ -2968,7 +2955,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -160,
+        60,
         3510
       ],
       "id": "e2e16d68-5426-44a4-ade7-b48b3fff3ae2",
@@ -3005,7 +2992,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        60,
+        280,
         3510
       ]
     },
@@ -3031,7 +3018,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2700,
+        2920,
         2785
       ],
       "id": "f935853c-38ed-41aa-87f2-c108c8afa7fa",
@@ -3054,7 +3041,7 @@
       "typeVersion": 1,
       "position": [
         -3680,
-        3620
+        3210
       ],
       "id": "4be38706-5dfc-44ce-a3ed-75cad2cd4783",
       "name": "Obtiene el estado",
@@ -3195,7 +3182,7 @@
       "typeVersion": 2,
       "position": [
         -3020,
-        3710
+        3310
       ],
       "id": "43a97a86-e68a-4501-bb10-c67aae8267a8",
       "name": "Code"
@@ -3263,7 +3250,7 @@
       "typeVersion": 2.2,
       "position": [
         -2800,
-        3710
+        3310
       ],
       "id": "1a17ec7b-cf81-43e5-963f-82ed1da4e930",
       "name": "If8"
@@ -3306,7 +3293,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        -1040,
+        -820,
         4010
       ],
       "id": "da2bc0c9-d0d9-40e4-8984-99a2fe0b9de1",
@@ -3355,7 +3342,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        -1040,
+        -820,
         3810
       ],
       "id": "189652a6-0c28-4e7d-9a91-214964b4de96",
@@ -3395,7 +3382,7 @@
       "typeVersion": 2.2,
       "position": [
         -2360,
-        3710
+        3310
       ],
       "id": "eeee1b6c-33ba-4dc3-bd61-6ba597e7cf21",
       "name": "If2",
@@ -3409,7 +3396,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -380,
+        -160,
         3810
       ],
       "id": "61ddc2f3-b982-40d1-a5eb-8af13f2d0809",
@@ -3443,7 +3430,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -600,
+        -380,
         3760
       ],
       "id": "fceab68d-ffb4-48cb-a064-5e63ebe2da59",
@@ -3460,7 +3447,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -600,
+        -380,
         4210
       ],
       "id": "7fb3cc2c-792e-4254-b929-8c7eb84a9074",
@@ -3510,7 +3497,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        -380,
+        -160,
         4210
       ],
       "id": "51fd8d9c-38ba-405a-be65-d32cb7539863",
@@ -3549,7 +3536,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -820,
+        -600,
         4210
       ],
       "id": "6f58b7dd-4235-46bb-a32b-ed880f2d8555",
@@ -3565,7 +3552,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -1040,
+        -820,
         4210
       ],
       "id": "48616d17-13af-4d11-bea1-8202bb5cb75e",
@@ -3608,7 +3595,7 @@
       "typeVersion": 1,
       "position": [
         -3460,
-        3610
+        3210
       ],
       "id": "610e4d79-f745-4440-abca-8c12fa0cd67b",
       "name": "Redis13",
@@ -3648,7 +3635,7 @@
       "typeVersion": 2.2,
       "position": [
         -3240,
-        3610
+        3210
       ],
       "id": "f7262cb7-681d-449f-9855-2ee0da69cd2e",
       "name": "If10"
@@ -3689,10 +3676,44 @@
       "typeVersion": 3.2,
       "position": [
         -3020,
-        3510
+        3110
       ],
       "id": "59cfa51d-4093-4453-afd4-f7b9a91a1795",
       "name": "Agentes"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d8dba297-994e-46c2-876e-275d13484e04",
+              "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+              "rightValue": "audioMessage",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1260,
+        3310
+      ],
+      "id": "323f1da1-3706-4889-ac57-012be3bdc687",
+      "name": "If11"
     }
   ],
   "pinData": {
@@ -3710,50 +3731,209 @@
           "headers": {
             "host": "n8n.innovasoftpro.dev",
             "user-agent": "axios/1.7.9",
-            "content-length": "840",
+            "content-length": "4196",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
-            "x-forwarded-for": "3.236.85.138",
+            "x-forwarded-for": "172.18.0.1",
             "x-forwarded-host": "n8n.innovasoftpro.dev",
             "x-forwarded-port": "443",
             "x-forwarded-proto": "https",
             "x-forwarded-server": "575dad520f0e",
-            "x-real-ip": "3.236.85.138"
+            "x-real-ip": "172.18.0.1"
           },
           "params": {},
           "query": {},
           "body": {
             "event": "messages.upsert",
-            "instance": "tester",
+            "instance": "qeva",
             "data": {
               "key": {
-                "remoteJid": "5492267416252@s.whatsapp.net",
+                "remoteJid": "5492254423359@s.whatsapp.net",
                 "fromMe": false,
-                "id": "E48C0D30F9E3F2F9CD4F9F9C67048404"
+                "id": "DFD2D808D48F7F9A384A3FE2DCBC5693"
               },
-              "pushName": "guidoangelsoliz87",
+              "pushName": "Fer { }",
               "status": "DELIVERY_ACK",
               "message": {
-                "conversation": "Hola",
                 "messageContextInfo": {
                   "deviceListMetadata": {
-                    "recipientKeyHash": "YtP4sRhXLhV5fg==",
-                    "recipientTimestamp": "1746795020"
+                    "senderKeyHash": "a0ebFmt5jO2yzg==",
+                    "senderTimestamp": "1746748763",
+                    "recipientKeyHash": "jfpbSca0rEEO1A==",
+                    "recipientTimestamp": "1747789270"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "yDgWu9NwM9R1zra7037n8bWTovTnqpPquUrwLvXBuQM="
+                  "messageSecret": "EPs6MOE5AKzm+kXlGmLZShuV2x2Yuox65a//molCvTA="
+                },
+                "listResponseMessage": {
+                  "title": "🛒 Bot para Despensas",
+                  "listType": "SINGLE_SELECT",
+                  "singleSelectReply": {
+                    "selectedRowId": "bot_despensa"
+                  },
+                  "contextInfo": {
+                    "stanzaId": "3EB0C25219FE1DA70FDEFF55A89F9AA0C26F4B5C",
+                    "participant": "5492254596618@s.whatsapp.net",
+                    "quotedMessage": {
+                      "listMessage": {
+                        "title": "🔹 AUTOMATIZACIONES 🔹",
+                        "description": "Seleccione un área para atención inmediata:",
+                        "buttonText": "Ver áreas 📋",
+                        "listType": "SINGLE_SELECT",
+                        "sections": [
+                          {
+                            "title": "🚨 Urgencias",
+                            "rows": [
+                              {
+                                "title": "⚠️ Problemas técnicos",
+                                "description": "Comunícate con un agente técnico por problemas con tu software",
+                                "rowId": "urgencia-tecnica"
+                              },
+                              {
+                                "title": "💵 Informar pagos",
+                                "description": "Notificar pagos realizados o consultas urgentes de facturación",
+                                "rowId": "urgencia-pagos"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "👩‍💻 Soporte Técnico",
+                            "rows": [
+                              {
+                                "title": "🔌 Integraciones",
+                                "description": "Ayuda con reconexion de Whatsapp ",
+                                "rowId": "agente-integraciones"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "📅 Agendar una cita",
+                            "rows": [
+                              {
+                                "title": "🗓️ Solicitar una reunión",
+                                "description": "Coordiná una cita con nuestro equipo",
+                                "rowId": "cita-solicitar"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "Nuestros agentes, ¡solicitá tu demo! 🚀",
+                            "rows": [
+                              {
+                                "title": "🏡 Bot Inmobiliario",
+                                "description": "Gestioná alquileres, ventas y consultas",
+                                "rowId": "bot_inmobiliario"
+                              },
+                              {
+                                "title": "🛒 Bot para Despensas",
+                                "description": "Automatizá pedidos y atención de tu tienda",
+                                "rowId": "bot_despensa"
+                              },
+                              {
+                                "title": "🛵 Bot de Delivery",
+                                "description": "Tomá pedidos y gestioná envíos en WhatsApp",
+                                "rowId": "bot_delivery"
+                              },
+                              {
+                                "title": "📅 Agendador de Citas",
+                                "description": "Organizá turnos con recordatorios automáticos",
+                                "rowId": "bot_agendador"
+                              }
+                            ]
+                          }
+                        ],
+                        "footerText": "💼 Expertos en automatización WhatsApp"
+                      }
+                    }
+                  },
+                  "description": "Automatizá pedidos y atención de tu tienda"
                 }
               },
-              "messageType": "conversation",
-              "messageTimestamp": 1747150745,
-              "instanceId": "17397cdb-a498-4f14-ac42-db31546caee9",
+              "contextInfo": {
+                "stanzaId": "3EB0C25219FE1DA70FDEFF55A89F9AA0C26F4B5C",
+                "participant": "5492254596618@s.whatsapp.net",
+                "quotedMessage": {
+                  "listMessage": {
+                    "title": "🔹 AUTOMATIZACIONES 🔹",
+                    "description": "Seleccione un área para atención inmediata:",
+                    "buttonText": "Ver áreas 📋",
+                    "listType": "SINGLE_SELECT",
+                    "sections": [
+                      {
+                        "title": "🚨 Urgencias",
+                        "rows": [
+                          {
+                            "title": "⚠️ Problemas técnicos",
+                            "description": "Comunícate con un agente técnico por problemas con tu software",
+                            "rowId": "urgencia-tecnica"
+                          },
+                          {
+                            "title": "💵 Informar pagos",
+                            "description": "Notificar pagos realizados o consultas urgentes de facturación",
+                            "rowId": "urgencia-pagos"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "👩‍💻 Soporte Técnico",
+                        "rows": [
+                          {
+                            "title": "🔌 Integraciones",
+                            "description": "Ayuda con reconexion de Whatsapp ",
+                            "rowId": "agente-integraciones"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "📅 Agendar una cita",
+                        "rows": [
+                          {
+                            "title": "🗓️ Solicitar una reunión",
+                            "description": "Coordiná una cita con nuestro equipo",
+                            "rowId": "cita-solicitar"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "Nuestros agentes, ¡solicitá tu demo! 🚀",
+                        "rows": [
+                          {
+                            "title": "🏡 Bot Inmobiliario",
+                            "description": "Gestioná alquileres, ventas y consultas",
+                            "rowId": "bot_inmobiliario"
+                          },
+                          {
+                            "title": "🛒 Bot para Despensas",
+                            "description": "Automatizá pedidos y atención de tu tienda",
+                            "rowId": "bot_despensa"
+                          },
+                          {
+                            "title": "🛵 Bot de Delivery",
+                            "description": "Tomá pedidos y gestioná envíos en WhatsApp",
+                            "rowId": "bot_delivery"
+                          },
+                          {
+                            "title": "📅 Agendador de Citas",
+                            "description": "Organizá turnos con recordatorios automáticos",
+                            "rowId": "bot_agendador"
+                          }
+                        ]
+                      }
+                    ],
+                    "footerText": "💼 Expertos en automatización WhatsApp"
+                  }
+                }
+              },
+              "messageType": "listResponseMessage",
+              "messageTimestamp": 1747789648,
+              "instanceId": "588f50d5-9323-4ec2-a701-6019611508c0",
               "source": "android"
             },
             "destination": "https://n8n.innovasoftpro.dev/webhook/qeva",
-            "date_time": "2025-05-13T12:39:06.013Z",
+            "date_time": "2025-05-20T22:07:28.570Z",
             "sender": "5492254596618@s.whatsapp.net",
-            "server_url": "https://n8n-evolution-api.ea1y7g.easypanel.host",
-            "apikey": "FEFC629ADE3D-4720-A67F-6B927CFEC8CA"
+            "server_url": "https://evo.innovasoftpro.dev",
+            "apikey": "3463F236FF41-417E-8F0A-7F1D0F575FF9"
           },
           "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/qeva",
           "executionMode": "production"
@@ -3770,6 +3950,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-05-18T13:47:33.218Z",
-  "versionId": "6a79d8cb-985e-4107-83c5-d17ac8e40a8f"
+  "updatedAt": "2025-05-21T01:10:32.479Z",
+  "versionId": "324de7db-3fd0-4e7c-bcab-3356cca393f9"
 }
