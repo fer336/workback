@@ -378,7 +378,7 @@
       "main": [
         [
           {
-            "node": "If2",
+            "node": "Bot",
             "type": "main",
             "index": 0
           }
@@ -428,7 +428,7 @@
         [],
         [
           {
-            "node": "MESSAGE1",
+            "node": "Reaction3",
             "type": "main",
             "index": 0
           }
@@ -444,13 +444,7 @@
     },
     "Postgres Chat Memory1": {
       "ai_memory": [
-        [
-          {
-            "node": "Tester Prompt",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Message Type": {
@@ -593,6 +587,35 @@
           }
         ]
       ]
+    },
+    "Bot": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-02-26T13:00:31.939Z",
@@ -614,7 +637,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -14580,
+        -14360,
         -8769.5
       ],
       "alwaysOutputData": false,
@@ -635,7 +658,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{$node[\"Variables globales\"].json.TelefonoCliente}}\",\n    \"text\": \"{{ $('Loop Over Items').first().json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{$node[\"Variables globales\"].json.TelefonoCliente}}\",\n    \"text\": \"{{ $json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
         "options": {}
       },
       "id": "dc5eccb5-0d31-44c9-bda4-47a3ca2c667e",
@@ -643,7 +666,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -14360,
+        -14140,
         -8769.5
       ]
     },
@@ -657,7 +680,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -14800,
+        -14580,
         -8769.5
       ]
     },
@@ -668,8 +691,8 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        -20260,
-        -8772
+        -20100,
+        -8640
       ],
       "id": "243ee971-84dd-4281-aa1a-aebdecd19fa8",
       "name": "Crypto"
@@ -692,7 +715,7 @@
       "typeVersion": 1.6,
       "position": [
         -18940,
-        -9080
+        -9060
       ],
       "id": "04bc5c22-a87f-4dc3-8f85-f03def2a13d4",
       "name": "OpenAI1",
@@ -715,7 +738,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -18720,
+        -18500,
         -9280
       ],
       "credentials": {
@@ -738,7 +761,7 @@
       "typeVersion": 1,
       "position": [
         -18720,
-        -9080
+        -9060
       ],
       "credentials": {
         "redis": {
@@ -759,7 +782,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -17620,
+        -17400,
         -9080
       ],
       "credentials": {
@@ -778,7 +801,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -18060,
+        -17840,
         -9080
       ],
       "webhookId": "241554e1-7fe9-4c6d-9c49-69ec498c8481"
@@ -792,7 +815,7 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -18940,
+        -18720,
         -9280
       ],
       "id": "6e414c60-fbdf-45ed-935b-d260ace806dc",
@@ -817,7 +840,7 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        -19160,
+        -18940,
         -9280
       ]
     },
@@ -840,7 +863,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -19380,
+        -19160,
         -9280
       ]
     },
@@ -872,8 +895,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -20480,
-        -8847
+        -20380,
+        -8740
       ],
       "id": "ea7711d8-9ec8-42e4-a84d-99ad807ff410",
       "name": "If2"
@@ -890,7 +913,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -18500,
+        -18280,
         -9080
       ],
       "credentials": {
@@ -925,7 +948,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -17400,
+        -17180,
         -9080
       ],
       "onError": "continueRegularOutput"
@@ -960,8 +983,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -21140,
-        -8847
+        -21320,
+        -8840
       ]
     },
     {
@@ -975,8 +998,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -21360,
-        -8847
+        -21540,
+        -8840
       ],
       "webhookId": "3ba6ce2e-1b02-4b06-8edd-9c60afb2db89"
     },
@@ -1009,7 +1032,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -17180,
+        -16960,
         -9080
       ]
     },
@@ -1022,7 +1045,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -16960,
+        -16740,
         -9080
       ]
     },
@@ -1054,8 +1077,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -20920,
-        -8847
+        -21100,
+        -8840
       ],
       "id": "fb233b51-212f-4bab-aba5-2d09db4db08e",
       "name": "If"
@@ -1162,7 +1185,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -16280,
+        -16060,
         -8860
       ],
       "id": "3d093ae7-87f8-4b41-9a51-e89c0cb1c72a",
@@ -1175,7 +1198,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -18280,
+        -18060,
         -9080
       ],
       "id": "68443528-d6be-4273-a2f5-e60ad5cee965",
@@ -1188,7 +1211,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -15020,
+        -14800,
         -8769.5
       ],
       "id": "190a3972-d7da-4340-aa4e-1e0b5018131c",
@@ -1204,7 +1227,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -16740,
+        -16520,
         -9080
       ],
       "credentials": {
@@ -1322,7 +1345,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -16160,
+        -15940,
         -8860
       ],
       "id": "cff2ac32-a647-4ede-92a3-ecce8811e416",
@@ -1462,7 +1485,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -19160,
+        -18940,
         -8509
       ],
       "id": "df2bb443-440e-4462-a860-701beda423b1",
@@ -1491,7 +1514,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -17840,
+        -17620,
         -9080
       ]
     },
@@ -1502,7 +1525,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -19380,
+        -19160,
         -8830
       ],
       "id": "e2644af4-5c27-4578-be9c-ea95abf31e9e",
@@ -1600,7 +1623,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -16040,
+        -15820,
         -8860
       ],
       "id": "e2ee3847-9920-48a9-b6a6-917813055468",
@@ -1721,7 +1744,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -15920,
+        -15700,
         -8860
       ],
       "id": "d8a2e2c0-5101-45be-a0ea-0407482aacb8",
@@ -1745,7 +1768,8 @@
             "consulta_usuario": "={{ $('Compara igualdad de memorias').item.json.message_completo }}",
             "url": "={{ $('Variables globales').first().json.server_url }}",
             "instance": "={{ $('Variables globales').first().json.nombreInstancia }}",
-            "apikey": "={{ $('Variables globales').first().json.apikey }}"
+            "apikey": "={{ $('Variables globales').first().json.apikey }}",
+            "idMensaje": "={{ $('Variables globales').item.json.idMensaje }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -1802,6 +1826,16 @@
               "display": true,
               "canBeUsedToMatch": true,
               "type": "string"
+            },
+            {
+              "id": "idMensaje",
+              "displayName": "idMensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
             }
           ],
           "attemptToConvertTypes": false,
@@ -1811,7 +1845,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -15800,
+        -15580,
         -8860
       ],
       "id": "a4ec7ed8-97a1-4d14-a44a-fdba91637a80",
@@ -1843,8 +1877,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -20040,
-        -8772
+        -19880,
+        -8640
       ],
       "id": "498ee527-4c50-4a13-ac47-60707a06ce3f",
       "name": "Insertar Lead",
@@ -1958,8 +1992,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -19820,
-        -8847
+        -19600,
+        -8760
       ],
       "notesInFlow": true
     },
@@ -1977,8 +2011,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -20700,
-        -8847
+        -20880,
+        -8840
       ],
       "id": "142d1e06-b270-4bd2-8470-56c931efbddf",
       "name": "getCliente",
@@ -2003,7 +2037,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        -15680,
+        -15460,
         -8860
       ],
       "id": "e338664f-7796-44d5-add1-edb77e4a9921",
@@ -2105,7 +2139,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -15560,
+        -15340,
         -8860
       ],
       "id": "b53bd7da-1780-4622-8a66-5fdfa9a293e3",
@@ -2113,13 +2147,13 @@
     },
     {
       "parameters": {
-        "modelName": "models/gemini-2.5-flash-preview-04-17-thinking",
+        "modelName": "models/gemini-2.5-flash-preview-04-17",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -16520,
+        -16300,
         -8860
       ],
       "id": "9eb455fe-e799-43a1-a39f-ce2f58e2da8d",
@@ -2330,7 +2364,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -15240,
+        -15020,
         -9185
       ],
       "id": "d89b60c8-8855-4c6e-9f5f-897af81fad37",
@@ -2346,8 +2380,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
       "position": [
-        -16400,
-        -8860
+        -16140,
+        -9240
       ],
       "id": "7643ce51-bcb9-4c85-98ec-522f8ba5916f",
       "name": "Postgres Chat Memory1",
@@ -2356,7 +2390,8 @@
           "id": "E1mi81N6Tmr5cHS5",
           "name": "GENERICO"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -2544,7 +2579,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -19600,
+        -19380,
         -8931
       ]
     },
@@ -2555,8 +2590,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        -19160,
-        -8876
+        -18960,
+        -8900
       ],
       "id": "bd8bdc68-0ed0-411c-b3ff-f3375c76e150",
       "name": "Merge"
@@ -2573,7 +2608,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -18940,
+        -18720,
         -8855
       ],
       "credentials": {
@@ -2590,7 +2625,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -19380,
+        -19160,
         -8509
       ],
       "id": "f39d70a3-8583-4b79-9d9c-cc8790ad573e",
@@ -2679,7 +2714,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -18940,
+        -18720,
         -8509
       ],
       "id": "f1213444-43dd-46d3-8699-8148a6e5eefe",
@@ -2692,7 +2727,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -19380,
+        -19160,
         -8309
       ],
       "id": "b645cd86-4acb-49a5-aad7-acaf3704c9fd",
@@ -2806,7 +2841,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -15440,
+        -15220,
         -8860
       ],
       "id": "cd97185d-eb19-4fee-9b41-c329ab5682ea",
@@ -2914,7 +2949,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -15240,
+        -15020,
         -8659
       ],
       "id": "09616af9-0077-4ae9-84df-e55215f6f144",
@@ -2927,7 +2962,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -15990,
+        -15770,
         -8659
       ],
       "id": "76695f3f-52b0-4a2a-8be0-6923f7947cfa",
@@ -2944,7 +2979,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        -16060,
+        -15840,
         -9080
       ],
       "id": "2c2a6e50-d629-4e43-9980-1308bc4d4ea0",
@@ -2993,8 +3028,118 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -14800,
-        -8940
+        -14520,
+        -9100
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "047eb2f0-74d5-4619-81c7-b36d6d984f81",
+              "leftValue": "={{ $json.bot_estado }}",
+              "rightValue": "off",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -20660,
+        -8840
+      ],
+      "id": "0d28edff-ecf6-49f5-a196-030c35678a3a",
+      "name": "Bot"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$node[\"Webhook\"].json.body.server_url}}/message/sendText/{{$node[\"Webhook\"].json.body.instance}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$node[\"Webhook\"].json.body.apikey}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{ $('getCliente').item.json.Telefono }}\",\n    \"text\": \"📢 Estamos de mantenimiento 📢\"\n\n}",
+        "options": {}
+      },
+      "id": "631827c9-1345-4c14-b581-820a597e0cdb",
+      "name": "MESSAGE2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -20380,
+        -8980
+      ]
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=agente:{{ $('Variables globales').item.json.TelefonoCliente }}",
+        "sessionTTL": 3600,
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        -16180,
+        -8860
+      ],
+      "id": "bed70452-6227-45cd-90f8-984f6086dc4e",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Variables globales').item.json.server_url }}/message/sendReaction/tester",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Variables globales').item.json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={   \n    \"key\": {\n        \"remoteJid\": \"{{ $('Variables globales').item.json.TelefonoCliente }}@s.whatsapp.net\",\n        \"fromMe\":false,\n        \"id\": \"{{ $('Variables globales').item.json.idMensaje }}\"\n    },\n    \"reaction\": \"⚠️\"\n} ",
+        "options": {}
+      },
+      "id": "7ac3b3af-a2ff-46b1-928f-656fb6039709",
+      "name": "Reaction3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -14700,
+        -8980
       ]
     }
   ],
@@ -3005,7 +3150,7 @@
           "headers": {
             "host": "n8n.innovasoftpro.dev",
             "user-agent": "axios/1.7.9",
-            "content-length": "1300",
+            "content-length": "987",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
             "x-forwarded-for": "172.18.0.1",
@@ -3024,33 +3169,31 @@
               "key": {
                 "remoteJid": "5492254423359@s.whatsapp.net",
                 "fromMe": false,
-                "id": "3EB02C6F3D52DF2EF79D6A"
+                "id": "BB4C8712421A245667148F79A5C96692"
               },
               "pushName": "Fer { }",
               "status": "DELIVERY_ACK",
               "message": {
                 "messageContextInfo": {
                   "deviceListMetadata": {
-                    "senderKeyHash": "a0ebFmt5jO2yzg==",
-                    "senderTimestamp": "1746748763",
-                    "senderAccountType": "E2EE",
-                    "receiverAccountType": "E2EE",
+                    "senderKeyHash": "XCEUl9K6Uf8n1g==",
+                    "senderTimestamp": "1747842721",
                     "recipientKeyHash": "2XE6Qyb4UwHAfw==",
-                    "recipientTimestamp": "1745502914"
+                    "recipientTimestamp": "1747589471"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "EX+fqFrAuy5eICN2dSocCFx54v948vvtA/4NxT/+1uI="
+                  "messageSecret": "xRltPLvgPl0X5ur6BmaRuXcaEy+p6T77LpThSKL/Rmg="
                 },
-                "conversation": "Hola me gustaria que se comuquien conmigo por esta propieadad que vi en zonaprop https://www.zonaprop.com.ar/propiedades/clasificado/veclapin-departamento-en-pinamar-55060690.html?labs=0,OFF-AnnoyAPI_itemitem_RC=_UC=,20250421084246,28c9c285-1731-4bef-b532-dcb345023448&userid=0&itemid=55950039&labs_source=RECOMENDADOS_FICHA_PROPIEDAD_DESKTOP&labs_version=2"
+                "conversation": "https://www.argenprop.com/emprendimientos/emprendimiento-en-villa-del-parque--16997011"
               },
               "contextInfo": null,
               "messageType": "conversation",
-              "messageTimestamp": 1747669261,
+              "messageTimestamp": 1747884351,
               "instanceId": "4e9127df-d360-4ac0-a849-965bf5955398",
-              "source": "web"
+              "source": "android"
             },
             "destination": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
-            "date_time": "2025-05-19T12:41:02.170Z",
+            "date_time": "2025-05-22T00:25:51.657Z",
             "sender": "5492254606018@s.whatsapp.net",
             "server_url": "https://evo.innovasoftpro.dev",
             "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
@@ -3077,6 +3220,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-05-20T00:40:31.890Z",
-  "versionId": "e54d3ad1-0588-4753-90eb-3155ef76e063"
+  "updatedAt": "2025-05-22T03:27:58.740Z",
+  "versionId": "c8f755f7-9573-4712-ae4c-b1fb9247e35d"
 }
