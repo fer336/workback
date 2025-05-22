@@ -318,6 +318,48 @@
           }
         ]
       ]
+    },
+    "UltimoMSG": {
+      "main": [
+        [
+          {
+            "node": "Prepara SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepara SQL": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crea memoria desde msg": {
+      "main": [
+        []
+      ]
+    },
+    "Postgres": {
+      "main": [
+        []
+      ]
+    },
+    "Redis": {
+      "main": [
+        []
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2025-04-29T17:18:10.783Z",
@@ -436,8 +478,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -420,
-        -165
+        420,
+        -120
       ],
       "id": "641de2fa-82cd-45b0-88d8-493359d3913f",
       "name": "Loop Over Items1"
@@ -477,8 +519,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        680,
-        -165
+        1240,
+        -100
       ],
       "id": "a6b3f2f7-fe7c-40aa-bc3f-8c10e5c83ce7",
       "name": "Obtener Citas Para Recordatorios1",
@@ -496,8 +538,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -200,
-        -240
+        640,
+        -100
       ],
       "id": "61237a40-0472-425a-8c9c-67740dcbc398",
       "name": "Wait",
@@ -574,8 +616,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        920,
-        -180
+        1220,
+        -400
       ]
     },
     {
@@ -601,8 +643,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        920,
-        -360
+        1020,
+        -580
       ],
       "disabled": true
     },
@@ -613,8 +655,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        460,
-        -180
+        1040,
+        -100
       ],
       "id": "4e439151-aaa3-4998-bc74-f998bfd10534",
       "name": "Wait1",
@@ -698,7 +740,7 @@
         "authentication": "nocoDbApiToken",
         "operation": "getAll",
         "projectId": "p311nqyjsnx0fqq",
-        "table": "={{ $node[\"Configuración1\"].json.table }}",
+        "table": "mdyqlno73gz7aly",
         "returnAll": true,
         "options": {
           "fields": [],
@@ -914,12 +956,12 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtener datos de la cita\nconst datos = $input.first().json;\n\n// Extraer información necesaria\nconst nombre = datos.Nombre || \"Cliente\";\nconst propiedad = datos.Propiedad || \"la propiedad (dirección no especificada)\";\nconst fechaCita = datos.Fecha_cita || \"\";\nconst telefono = datos.Telefono || \"\";\nconst id_mensaje = datos.id_mensaje || \"\"; // Agregamos el id_mensaje que viene de nocodb\nconst tipoRecordatorio = datos.tipoRecordatorio || \"24h\"; // Tipo de recordatorio (1h o 24h)\n\n// Formatear fecha para mostrar de manera amigable\nfunction formatearFecha(fechaStr) {\n  try {\n    if (!fechaStr) return \"fecha no especificada\";\n    \n    const [fecha, hora] = fechaStr.split('T');\n    const [anio, mes, dia] = fecha.split('-');\n    return {\n      fechaCompleta: `${dia}/${mes}/${anio} a las ${hora}`,\n      diaMes: `${dia}/${mes}`,\n      hora: hora\n    };\n  } catch (e) {\n    return {\n      fechaCompleta: fechaStr,\n      diaMes: fechaStr,\n      hora: \"\"\n    };\n  }\n}\n\nconst infoFecha = formatearFecha(fechaCita);\n\n// Generar mensaje según el tipo de recordatorio\nlet mensaje = \"\";\n\nif (tipoRecordatorio === \"24h\") {\n  // Mensaje para recordatorio de 24 horas\n  mensaje = `Hola ${nombre} te escribo para confirmarte la visita de mañana en ${propiedad} a las ${infoFecha.hora}hs.Te esperamos` \n  \n} \n\n// Devolver objeto con la información para enviar el mensaje\nreturn {\n  json: {\n    ...datos,\n    tipoRecordatorio: tipoRecordatorio,\n    mensaje: mensaje,\n    telefono_formateado: telefono.replace(/\\D/g, ''), // Eliminar caracteres no numéricos\n    text: mensaje, // Para compatibilidad con diferentes nodos de WhatsApp\n    id_mensaje: id_mensaje // Incluimos el id_mensaje en el objeto de retorno\n  }\n};"
+        "jsCode": "// Obtener datos de la cita\nconst datos = $input.first().json;\n\n// Extraer información necesaria\nconst nombre = datos.Nombre || \"Cliente\";\nconst propiedad = datos.Propiedad || \"la propiedad (dirección no especificada)\";\nconst fechaCita = datos.Fecha_cita || \"\";\nconst telefono = datos.Telefono || \"\";\nconst id_mensaje = datos.id_mensaje || \"\"; // Agregamos el id_mensaje que viene de nocodb\nconst tipoRecordatorio = datos.tipoRecordatorio || \"24h\"; // Tipo de recordatorio (1h o 24h)\n\n// Formatear fecha para mostrar de manera amigable\nfunction formatearFecha(fechaStr) {\n  try {\n    if (!fechaStr) return \"fecha no especificada\";\n    \n    const [fecha, hora] = fechaStr.split('T');\n    const [anio, mes, dia] = fecha.split('-');\n    return {\n      fechaCompleta: `${dia}/${mes}/${anio} a las ${hora}`,\n      diaMes: `${dia}/${mes}`,\n      hora: hora\n    };\n  } catch (e) {\n    return {\n      fechaCompleta: fechaStr,\n      diaMes: fechaStr,\n      hora: \"\"\n    };\n  }\n}\n\nconst infoFecha = formatearFecha(fechaCita);\n\n// Generar mensaje según el tipo de recordatorio\nlet mensaje = \"\";\n\nif (tipoRecordatorio === \"24h\") {\n  // Mensaje para recordatorio de 24 horas\n mensaje = `Hola ${nombre} te escribo para confirmarte la visita de mañana en ${propiedad} a las ${infoFecha.hora}hs. Te esperamos.\\n\\n*Este es un mensaje automatizado, no hace falta que responda.*`;\n \n  \n} \n\n// Devolver objeto con la información para enviar el mensaje\nreturn {\n  json: {\n    ...datos,\n    tipoRecordatorio: tipoRecordatorio,\n    mensaje: mensaje,\n    telefono_formateado: telefono.replace(/\\D/g, ''), // Eliminar caracteres no numéricos\n    text: mensaje, // Para compatibilidad con diferentes nodos de WhatsApp\n    id_mensaje: id_mensaje // Incluimos el id_mensaje en el objeto de retorno\n  }\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -620,
+        -640,
         -220
       ],
       "id": "a4fffc54-21bf-49b6-bd8e-3a0762be45ec",
@@ -950,8 +992,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        640,
-        -640
+        160,
+        -960
       ]
     },
     {
@@ -1029,8 +1071,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        300,
-        -400
+        -180,
+        -720
       ],
       "id": "71f2dde9-8eae-44e5-96c9-dce31d151552",
       "name": "Recordartorio",
@@ -1052,7 +1094,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n   \"delay\": 1600,\n  \"number\": \"{{ $('Obtener Citas Para Recordatorios').item.json.Telefono }}\",\n  \"text\": \"{{ $json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"  \n}\n",
+        "jsonBody": "={\n   \"delay\": 1600,\n  \"number\": \"{{ $('Obtener Citas Para Recordatorios').item.json.Telefono }}\",\n  \"text\": \"{{ $('24h').item.json.mensaje.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"  \n}\n",
         "options": {}
       },
       "id": "1d8e8a86-7e0c-4f06-8945-f84ee6d62d0b",
@@ -1060,8 +1102,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        60,
-        -240
+        840,
+        -100
       ]
     },
     {
@@ -1078,6 +1120,186 @@
       "name": "1hs",
       "retryOnFail": false,
       "executeOnce": false
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_chat_histories_inmobiliaria",
+          "mode": "list",
+          "cachedResultName": "n8n_chat_histories_inmobiliaria"
+        },
+        "returnAll": true,
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -340,
+        -480
+      ],
+      "id": "b23c5588-4539-431b-bef7-d167dfe04cd7",
+      "name": "Postgres2",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT MAX(id) as max_id FROM n8n_chat_histories_inmobiliaria;\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -960,
+        -500
+      ],
+      "id": "17aef665-a797-4b4c-a5f4-fd1e77afca0b",
+      "name": "UltimoMSG",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Datos de entrada\nconst datos = $input.first().json;\n\n// Extraer el último id obtenido de la consulta previa a Postgres y sumar 1\nconst ultimoId = datos.max_id || 0;\nconst nuevoId = ultimoId + 1;\n\n// Obtener teléfono y mensaje desde 24h\nconst telefonoRaw = $('24h').first().json.Telefono || \"\";\nconst mensaje = $('24h').first().json.mensaje || \"\";\n\n// Limpiar y formatear teléfono\nconst telefonoLimpio = telefonoRaw.replace(/\\D/g, '');\n\n// Validar que el teléfono no esté vacío\nif (!telefonoLimpio) {\n  return {\n    json: {\n      error: \"No se proporcionó un número de teléfono válido\",\n      telefonoOriginal: telefonoRaw\n    }\n  };\n}\n\n// El session_id será el teléfono limpio\nconst session_id = telefonoLimpio;\n\n// Construir objeto message para insertar\nconst messageObj = {\n  type: \"ai\",\n  content: mensaje,\n  tool_calls: [],\n  additional_kwargs: {},\n  response_metadata: {},\n  invalid_tool_calls: []\n};\n\n// Escapar comillas simples en el JSON para SQL\nconst messageJsonEscapado = JSON.stringify(messageObj).replace(/'/g, \"''\");\n\n// Query con el ID incrementado\nconst query = `\nINSERT INTO n8n_chat_histories_inmobiliaria (id, session_id, message)\nVALUES (\n  ${nuevoId},\n  '${session_id}',\n  '${messageJsonEscapado}'\n);\n`;\n\n// Retornar query para ejecutar en siguiente nodo\nreturn {\n  json: {\n    query,\n    nuevoId,\n    mensaje,\n    session_id,\n    telefonoOriginal: telefonoRaw,\n    telefonoLimpio: telefonoLimpio\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -760,
+        -500
+      ],
+      "id": "b3236b86-ca9c-4d9d-a661-269a9fedad32",
+      "name": "Prepara SQL"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.query }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        -480
+      ],
+      "id": "8b5f375f-dc44-4329-8f39-54ee8e8d7a4e",
+      "name": "Crea memoria desde msg",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.query }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -560,
+        -500
+      ],
+      "id": "5f36a69c-d6e3-44d1-9e28-8b0162a0e8e0",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Code3').first().json.server_evolution }}/message/sendReaction/tester",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Configuración1').first().json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={   \n    \"key\": {\n        \"remoteJid\": \"{{ $json.key.remoteJid }}\",\n        \"fromMe\":{{ $json.key.fromMe }} ,\n        \"id\": \"{{ $json.key.id }}\"\n    },\n    \"reaction\": \"🕦\"\n} ",
+        "options": {}
+      },
+      "id": "a3968a18-67ea-4ed4-8a9e-b8feddaa4a19",
+      "name": "Reaction",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        620,
+        -360
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "historial",
+        "key": "=agente:{{ $json.Telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1480,
+        -480
+      ],
+      "id": "65157271-e271-4cb4-98c4-4fb81dd4ae10",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "redirect",
+        "redirectURL": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1520,
+        -80
+      ],
+      "id": "b5349e2f-7c09-441c-824a-7b21fdee097b",
+      "name": "Respond to Webhook"
     }
   ],
   "pinData": {
@@ -1098,65 +1320,10 @@
         }
       }
     ],
-    "Schedule Trigger": [
+    "UltimoMSG": [
       {
         "json": {
-          "timestamp": "2025-05-09T19:52:47.006-03:00",
-          "Readable date": "May 9th 2025, 7:52:47 pm",
-          "Readable time": "7:52:47 pm",
-          "Day of week": "Friday",
-          "Year": "2025",
-          "Month": "May",
-          "Day of month": "09",
-          "Hour": "19",
-          "Minute": "52",
-          "Second": "47",
-          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
-        }
-      }
-    ],
-    "Configuración": [
-      {
-        "json": {
-          "server": "https://db.innovasoftpro.dev",
-          "server_evolution": "https://evo.innovasoftpro.dev",
-          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
-          "token": "VQxKsHdwHJUyOV4dL6blf-Gvr2Dt2FqFv9nR6GCA",
-          "table": "mdyqlno73gz7aly",
-          "timestamp": "2025-05-09T19:52"
-        }
-      }
-    ],
-    "Code1": [
-      {
-        "json": {
-          "server": "https://db.innovasoftpro.dev",
-          "server_evolution": "https://evo.innovasoftpro.dev",
-          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
-          "token": "VQxKsHdwHJUyOV4dL6blf-Gvr2Dt2FqFv9nR6GCA",
-          "table": "mdyqlno73gz7aly",
-          "timestamp": "2025-05-09T19:52",
-          "timestamp_original": "2025-05-09T19:52",
-          "timestamp_minus5": "2025-05-09T19:47",
-          "timestamp_plus5": "2025-05-09T19:57"
-        }
-      }
-    ],
-    "Obtener Citas Para Recordatorios": [
-      {
-        "json": {
-          "Id": 97,
-          "Nombre": "Fernando ariel",
-          "CreatedAt": "2025-05-09 19:35:42+00:00",
-          "UpdatedAt": "2025-05-09 22:52:39+00:00",
-          "Telefono": "5492254423359",
-          "Fecha_cita": "2025-05-12T09:00",
-          "Propiedad": "Paraguay 2063, Recoleta, Capital Federal",
-          "recordatorio_24h_enviado": "2025-05-09T19:52",
-          "recordatorio_1h_enviado": "2025-05-09T19:52",
-          "recordatorio_24h": "no enviado",
-          "recordatorio_1h": "enviado",
-          "id_mensaje": "3EB026E960AE2709526C34"
+          "max_id": 1401
         }
       }
     ]
@@ -1177,6 +1344,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2025-05-10T02:26:41.630Z",
-  "versionId": "1143b5db-41f9-459b-aff6-d0d09bc2447a"
+  "updatedAt": "2025-05-22T02:08:56.528Z",
+  "versionId": "fb161da9-8070-49fb-a9fc-8562a3027aa5"
 }
