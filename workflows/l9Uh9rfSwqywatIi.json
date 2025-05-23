@@ -1,0 +1,116 @@
+{
+  "active": true,
+  "connections": {
+    "Redis Trigger": {
+      "main": [
+        []
+      ]
+    },
+    "Redis": {
+      "main": [
+        []
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-05-22T17:15:47.529Z",
+  "id": "l9Uh9rfSwqywatIi",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 11",
+  "nodes": [
+    {
+      "parameters": {
+        "channels": "__keyevent@0__:expired",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redisTrigger",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        -100
+      ],
+      "id": "1928558d-8a77-4c4b-b134-f4627d1295c4",
+      "name": "Redis Trigger",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "agente",
+        "value": "=3123",
+        "expire": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        220,
+        -20
+      ],
+      "id": "cd30e7cb-3316-4f28-aa09-325fb01c6000",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "s",
+        "key": "agente",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -100
+      ],
+      "id": "9daa22b0-c526-46e4-baf1-9654e7758735",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -460,
+        120
+      ],
+      "id": "e8d32c3c-04ad-491a-ac92-589b6405dfe2",
+      "name": "When chat message received",
+      "webhookId": "6a7b09f3-7980-4ae1-9704-4c3be7d15841"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-05-23T04:00:41.523Z",
+  "versionId": "58fa210f-b889-4820-9a0d-a5e8bf971202"
+}
