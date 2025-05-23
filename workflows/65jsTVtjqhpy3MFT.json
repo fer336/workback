@@ -238,11 +238,6 @@
         ]
       ]
     },
-    "MESSAGE": {
-      "main": [
-        []
-      ]
-    },
     "MESSAGE3": {
       "main": [
         [
@@ -292,11 +287,6 @@
         ]
       ]
     },
-    "Recordartorio": {
-      "main": [
-        []
-      ]
-    },
     "MESSAGE10": {
       "main": [
         [
@@ -317,43 +307,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "UltimoMSG": {
-      "main": [
-        [
-          {
-            "node": "Prepara SQL",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Prepara SQL": {
-      "main": [
-        [
-          {
-            "node": "Postgres",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Crea memoria desde msg": {
-      "main": [
-        []
-      ]
-    },
-    "Postgres": {
-      "main": [
-        []
-      ]
-    },
-    "Redis": {
-      "main": [
-        []
       ]
     },
     "Respond to Webhook": {
@@ -478,8 +431,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        420,
-        -120
+        -400,
+        -180
       ],
       "id": "641de2fa-82cd-45b0-88d8-493359d3913f",
       "name": "Loop Over Items1"
@@ -519,8 +472,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        1240,
-        -100
+        480,
+        -180
       ],
       "id": "a6b3f2f7-fe7c-40aa-bc3f-8c10e5c83ce7",
       "name": "Obtener Citas Para Recordatorios1",
@@ -538,8 +491,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        640,
-        -100
+        -160,
+        -240
       ],
       "id": "61237a40-0472-425a-8c9c-67740dcbc398",
       "name": "Wait",
@@ -655,8 +608,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1040,
-        -100
+        240,
+        -240
       ],
       "id": "4e439151-aaa3-4998-bc74-f998bfd10534",
       "name": "Wait1",
@@ -812,8 +765,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        700,
-        220
+        620,
+        200
       ],
       "id": "9e29f6f7-8ecf-4156-8fd1-7e1eb7607d5f",
       "name": "Obtener Citas Para Recordatorios3",
@@ -889,33 +842,6 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $('Code3').first().json.server_evolution }}/message/sendText/tester",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('Configuración1').first().json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n   \"delay\": 1600,\n  \"number\": \"{{ $('Obtener Citas Para Recordatorios2').item.json.Telefono }}\",\n  \"text\": \"{{ $json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\",\n  \"quoted\": {\n    \"key\": {\n      \"id\": \"{{ $json.id_mensaje }}\",\n      \"remoteJid\": \"{{ $('Obtener Citas Para Recordatorios2').item.json.Telefono }}\",\n      \"fromMe\": true\n    }\n  }\n}\n",
-        "options": {}
-      },
-      "id": "4b41aadb-df55-4b56-8677-5febd0c8db07",
-      "name": "MESSAGE",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        940,
-        220
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
         "url": "={{ $('Code3').first().json.server_evolution }}/message/sendReaction/tester",
         "sendHeaders": true,
         "headerParameters": {
@@ -936,7 +862,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        520,
+        420,
         140
       ]
     },
@@ -947,7 +873,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        340,
+        200,
         140
       ],
       "id": "54bdf4a7-2599-4a5e-9710-5ee42d4a0ba4",
@@ -1019,65 +945,9 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        60,
-        120
+        0,
+        140
       ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{$node['Configuración'].json.server_evolution}}/message/sendList/tester",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('Configuración').first().json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "form-urlencoded",
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number",
-              "value": "={{ $json.telefono_formateado }}"
-            },
-            {
-              "name": "title",
-              "value": "={{ $json.requestBody.title }}"
-            },
-            {
-              "name": "description",
-              "value": "={{ $json.requestBody.description }}"
-            },
-            {
-              "name": "buttonText",
-              "value": "={{ $json.requestBody.buttonText }}"
-            },
-            {
-              "name": "footerText",
-              "value": "={{ $json.requestBody.footerText }}"
-            },
-            {
-              "name": "sections",
-              "value": "={{ $json.requestBody.sections }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -180,
-        -720
-      ],
-      "id": "71f2dde9-8eae-44e5-96c9-dce31d151552",
-      "name": "Recordartorio",
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -1102,8 +972,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        840,
-        -100
+        40,
+        -240
       ]
     },
     {
@@ -1120,171 +990,6 @@
       "name": "1hs",
       "retryOnFail": false,
       "executeOnce": false
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "n8n_chat_histories_inmobiliaria",
-          "mode": "list",
-          "cachedResultName": "n8n_chat_histories_inmobiliaria"
-        },
-        "returnAll": true,
-        "sort": {
-          "values": [
-            {
-              "column": "id",
-              "direction": "DESC"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -340,
-        -480
-      ],
-      "id": "b23c5588-4539-431b-bef7-d167dfe04cd7",
-      "name": "Postgres2",
-      "credentials": {
-        "postgres": {
-          "id": "E1mi81N6Tmr5cHS5",
-          "name": "GENERICO"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "SELECT MAX(id) as max_id FROM n8n_chat_histories_inmobiliaria;\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -960,
-        -500
-      ],
-      "id": "17aef665-a797-4b4c-a5f4-fd1e77afca0b",
-      "name": "UltimoMSG",
-      "credentials": {
-        "postgres": {
-          "id": "E1mi81N6Tmr5cHS5",
-          "name": "GENERICO"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "// Datos de entrada\nconst datos = $input.first().json;\n\n// Extraer el último id obtenido de la consulta previa a Postgres y sumar 1\nconst ultimoId = datos.max_id || 0;\nconst nuevoId = ultimoId + 1;\n\n// Obtener teléfono y mensaje desde 24h\nconst telefonoRaw = $('24h').first().json.Telefono || \"\";\nconst mensaje = $('24h').first().json.mensaje || \"\";\n\n// Limpiar y formatear teléfono\nconst telefonoLimpio = telefonoRaw.replace(/\\D/g, '');\n\n// Validar que el teléfono no esté vacío\nif (!telefonoLimpio) {\n  return {\n    json: {\n      error: \"No se proporcionó un número de teléfono válido\",\n      telefonoOriginal: telefonoRaw\n    }\n  };\n}\n\n// El session_id será el teléfono limpio\nconst session_id = telefonoLimpio;\n\n// Construir objeto message para insertar\nconst messageObj = {\n  type: \"ai\",\n  content: mensaje,\n  tool_calls: [],\n  additional_kwargs: {},\n  response_metadata: {},\n  invalid_tool_calls: []\n};\n\n// Escapar comillas simples en el JSON para SQL\nconst messageJsonEscapado = JSON.stringify(messageObj).replace(/'/g, \"''\");\n\n// Query con el ID incrementado\nconst query = `\nINSERT INTO n8n_chat_histories_inmobiliaria (id, session_id, message)\nVALUES (\n  ${nuevoId},\n  '${session_id}',\n  '${messageJsonEscapado}'\n);\n`;\n\n// Retornar query para ejecutar en siguiente nodo\nreturn {\n  json: {\n    query,\n    nuevoId,\n    mensaje,\n    session_id,\n    telefonoOriginal: telefonoRaw,\n    telefonoLimpio: telefonoLimpio\n  }\n};"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -760,
-        -500
-      ],
-      "id": "b3236b86-ca9c-4d9d-a661-269a9fedad32",
-      "name": "Prepara SQL"
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "{{ $json.query }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        0,
-        -480
-      ],
-      "id": "8b5f375f-dc44-4329-8f39-54ee8e8d7a4e",
-      "name": "Crea memoria desde msg",
-      "credentials": {
-        "postgres": {
-          "id": "E1mi81N6Tmr5cHS5",
-          "name": "GENERICO"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "executeQuery",
-        "query": "{{ $json.query }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -560,
-        -500
-      ],
-      "id": "5f36a69c-d6e3-44d1-9e28-8b0162a0e8e0",
-      "name": "Postgres",
-      "credentials": {
-        "postgres": {
-          "id": "E1mi81N6Tmr5cHS5",
-          "name": "GENERICO"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('Code3').first().json.server_evolution }}/message/sendReaction/tester",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('Configuración1').first().json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={   \n    \"key\": {\n        \"remoteJid\": \"{{ $json.key.remoteJid }}\",\n        \"fromMe\":{{ $json.key.fromMe }} ,\n        \"id\": \"{{ $json.key.id }}\"\n    },\n    \"reaction\": \"🕦\"\n} ",
-        "options": {}
-      },
-      "id": "a3968a18-67ea-4ed4-8a9e-b8feddaa4a19",
-      "name": "Reaction",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        620,
-        -360
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "get",
-        "propertyName": "historial",
-        "key": "=agente:{{ $json.Telefono }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        -1480,
-        -480
-      ],
-      "id": "65157271-e271-4cb4-98c4-4fb81dd4ae10",
-      "name": "Redis",
-      "credentials": {
-        "redis": {
-          "id": "JMklVOvkU7koL2UG",
-          "name": "Redis"
-        }
-      }
     },
     {
       "parameters": {
@@ -1319,13 +1024,6 @@
           "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
         }
       }
-    ],
-    "UltimoMSG": [
-      {
-        "json": {
-          "max_id": 1401
-        }
-      }
     ]
   },
   "settings": {
@@ -1344,6 +1042,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2025-05-22T02:08:56.528Z",
-  "versionId": "fb161da9-8070-49fb-a9fc-8562a3027aa5"
+  "updatedAt": "2025-05-22T11:49:49.503Z",
+  "versionId": "a91954f4-f012-4598-aab5-1d680e570c25"
 }
