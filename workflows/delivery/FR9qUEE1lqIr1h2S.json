@@ -1,11 +1,11 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Lista General": {
       "main": [
         [
           {
-            "node": "cancelar8",
+            "node": "menu",
             "type": "main",
             "index": 0
           }
@@ -66,11 +66,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "cancelar8": {
-      "main": [
-        []
       ]
     },
     "Crypto": {
@@ -140,7 +135,7 @@
       "main": [
         [
           {
-            "node": "Switch2",
+            "node": "Listas1",
             "type": "main",
             "index": 0
           }
@@ -158,42 +153,6 @@
         ]
       ]
     },
-    "Webhook1": {
-      "main": [
-        [
-          {
-            "node": "From Me3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Switch2": {
-      "main": [
-        [
-          {
-            "node": "Lista General",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Listas",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Tester Prompt",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Tester Prompt": {
       "main": [
         [
@@ -205,12 +164,289 @@
         ]
       ]
     },
-    "delivery": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "From Me3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
       "ai_memory": [
         [
           {
             "node": "Tester Prompt",
             "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis1": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Redis3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis3": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "JSON Parse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON Parse": {
+      "main": [
+        [
+          {
+            "node": "Message Type1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type1": {
+      "main": [
+        [
+          {
+            "node": "text1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File1": {
+      "main": [
+        [
+          {
+            "node": "Transcribir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribir": {
+      "main": [
+        [
+          {
+            "node": "text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "chatInput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chatInput": {
+      "main": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listas": {
+      "main": [
+        []
+      ]
+    },
+    "Listas1": {
+      "main": [
+        [
+          {
+            "node": "Listas",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lista General",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "menu": {
+      "main": [
+        []
+      ]
+    },
+    "text3": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "text3",
+            "type": "main",
             "index": 0
           }
         ]
@@ -231,67 +467,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1160,
-        -740
+        -2000,
+        -460
       ],
       "id": "ce2b2bba-eb5f-4022-a253-675a00a0bd84",
       "name": "Lista General"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('Variables globales').item.json.server_url }}/message/sendList/{{ $('Variables globales').item.json.nombreInstancia }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('Variables globales').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "form-urlencoded",
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number",
-              "value": "={{ $('Variables globales').item.json.TelefonoCliente }}"
-            },
-            {
-              "name": "title",
-              "value": "={{ $json.title }}"
-            },
-            {
-              "name": "description",
-              "value": "={{ $json.description }}"
-            },
-            {
-              "name": "buttonText",
-              "value": "={{ $json.buttonText }}"
-            },
-            {
-              "name": "footerText",
-              "value": "={{ $json.footerText }}"
-            },
-            {
-              "name": "sections",
-              "value": "={{ $json.sections }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -940,
-        -740
-      ],
-      "id": "d0dd7db0-260b-4461-91fc-e878ccdac3fc",
-      "name": "cancelar8",
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -305,8 +485,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        400,
-        -800
+        1880,
+        -440
       ],
       "alwaysOutputData": false,
       "executeOnce": false
@@ -314,19 +494,19 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{$node[\"Webhook1\"].json.body.server_url}}/message/sendText/{{$node[\"Webhook1\"].json.body.instance}}",
+        "url": "={{$node[\"Webhook\"].json.body.server_url}}/message/sendText/{{$node[\"Webhook\"].json.body.instance}}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "apikey",
-              "value": "={{$node[\"Webhook1\"].json.body.apikey}}"
+              "value": "={{$node[\"Webhook\"].json.body.apikey}}"
             }
           ]
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{$node[\"Variables globales\"].json.TelefonoCliente}}\",\n    \"text\": \"{{ $('Loop Over Items').first().json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\":\"{{ $('Variables globales').item.json.msg.telefono }}\",\n    \"text\": \"{{ $('Loop Over Items').first().json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
         "options": {}
       },
       "id": "19af59d3-d1fe-4084-a605-7923b2263a4b",
@@ -334,8 +514,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        640,
-        -660
+        2100,
+        -440
       ]
     },
     {
@@ -348,8 +528,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        180,
-        -800
+        1660,
+        -440
       ]
     },
     {
@@ -359,22 +539,22 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -40,
-        -800
+        1440,
+        -440
       ],
       "id": "b50609be-9c27-4c50-a224-ba731ebaa93f",
       "name": "Separa datos"
     },
     {
       "parameters": {
-        "modelName": "models/gemini-2.5-flash-preview-04-17-thinking",
+        "modelName": "models/gemini-2.5-flash-preview-04-17",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -800,
-        -180
+        920,
+        -200
       ],
       "id": "ff68a5e9-3fa8-427a-a59d-07ae48d4b7ce",
       "name": "Google Gemini Chat Model",
@@ -388,7 +568,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $('Variables globales').item?.json?.id_row || $('Variables globales').item.json.mensaje }}",
+        "text": "={{ $json.message }}",
         "options": {
           "systemMessage": "=### Ejemplo de Identificación y Consulta por Categoría:\n\n```\nUsuario: burger_sistons\nMingo Bot: Excelente elección. La Sistons incluye medallón blend secreto, cheddar x4, bacon ahumado, alioli de berenjena ahumada, pepinillos. ¿La preferís simple, doble o triple?\n\nUsuario: simple\nMingo Bot: Perfecto. Una Sistons simple ha sido añadida a tu pedido. ¿Querés personalizarla o agregar algo más?\n\nUsuario: cerveza_juicy_lite\nMingo Bot: Has seleccionado JUICY LITE IPA - SRM 4 / ABV 5.2. ¿Preferís pinta o media pinta?\n\nUsuario: pinta\nMingo Bot: Excelente. Una pinta de JUICY LITE IPA ha sido añadida a tu pedido. ¿Deseás agregar algo más?\n\nUsuario: bebida_agua_saborizada\nMingo Bot: Has seleccionado Agua saborizada. Contamos con los siguientes sabores: Pomelo, Manzana, Pera y Uva. ¿Cuál preferís?\n\nUsuario: pomelo\nMingo Bot: Perfecto. Un Agua saborizada sabor pomelo ha sido añadida a tu pedido. ¿Deseás agregar algo más?\n```### Ejemplo Adicional - Cerveza y Confirmación de Selección:\n\n```\nUsuario: #menu\nMingo Bot: [muestra menú completo con opciones de bebidas]\n\nUsuario: quiero una cerveza\nMingo Bot: Tenemos varias opciones de cervezas disponibles:\n• Rubia IPA\n• Roja Irish\n• Negra Stout\n• Honey\nPor favor, confirmá exactamente cuál deseás seleccionar.\n\nUsuario: Rubia IPA\nMingo Bot: Has seleccionado Cerveza Rubia IPA. ¿Preferís pinta o media pinta?\n\nUsuario: pinta\nMingo Bot: Perfecto. Una pinta de Cerveza Rubia IPA añadida a tu pedido. ¿Deseás agregar algo más?\n```# Prompt Mejorado — Mingo Bot (Delivery de Hamburguesas)\n\n## 1. Identidad y Personalidad\n\nEres **«Mingo Bot»**, el asistente virtual exclusivo de **MINGA Burgers**, una hamburguesería premium con auténtico sabor argentino. Tu misión es gestionar pedidos de delivery con eficiencia, cordialidad y un tono profesional con identidad argentina.\n\n**Personalidad:**\n- **Tono argentino profesional:** Usás expresiones como \"excelente\", \"perfecto\", \"genial\", \"correcto\", \"por supuesto\", \"entendido\", con acento en la segunda persona (\"vos\", \"querés\", \"podés\").\n- **Actitud:** Cordial, atento y eficiente. Entusiasta sobre los productos pero manteniendo un tono profesional.\n- **Comunicación:** Mensajes claros y concisos (máximo 3 líneas por respuesta) y emojis discretos cuando sea apropiado (🍔 👍 ✅).\n\n**Instrucciones iniciales:**\n- En tu primer mensaje, SIEMPRE indicarle al usuario que puede escribir **#menu** en cualquier momento para ver las opciones disponibles.\n- Recordarle esta opción si parece estar confundido o pregunta por opciones no disponibles.\n\n## 2. Funciones Principales\n\n1. **Gestión de pedidos:** Traducís códigos `row_id` a productos reconocibles y mantenés un carrito actualizado.\n2. **Interpretar códigos y selecciones:** Cualquier `row_id` o selección directa del menú mostrado debe ser reconocida como válida e incorporada al carrito inmediatamente. NUNCA rechazar opciones que el usuario seleccionó directamente.\n3. **Tamaño de productos:**\n   - Para TODA hamburguesa, SIEMPRE preguntar: \"¿La preferís simple, doble o triple?\" y esperar respuesta.\n   - Para TODA cerveza, SIEMPRE preguntar: \"¿Preferís pinta o media pinta?\" y esperar respuesta.\n   - NUNCA agregar estos productos al carrito hasta confirmar el tamaño.\n4. **Confirmación:** Procesás la dirección, método de pago y emitís `PEDIDO_CONFIRMADO`.\n5. **Experiencia:** Respondés con velocidad y confirmación clara de cada acción.\n\n## 3. Especificaciones Técnicas\n\n### Estructura del Carrito (interno)\n```json\n{\n  \"carrito\": [\n    {\n      \"row_id\": \"burger_cheese\", \n      \"nombre_display\": \"Cheese Burger\",\n      \"precio_unitario\": 12500,\n      \"cantidad\": 2, \n      \"modifs\": [\"sin cebolla\", \"extra bacon\"],\n      \"subtotal\": 25000\n    }\n  ],\n  \"total_pedido\": 25000,\n  \"estado_pedido\": \"en_proceso\",\n  \"direccion\": \"\",\n  \"metodo_pago\": \"\"\n}\n```\n\n### Manejo de Opciones de Producto\n- **CRUCIAL:** El bot debe reconocer CUALQUIER selección que provenga de los listados n8n como válida (burger_xxx, veggie_xxx, fries_xxx, etc.)\n- Cuando el usuario selecciona un ítem, el bot debe **primero identificar qué tipo de producto es** y luego preguntar las opciones específicas según la categoría:\n  - **Hamburguesas:** Preguntar si quiere simple, doble o triple\n  - **Cervezas:** Preguntar si quiere pinta o media pinta\n  - **Aguas saborizadas:** Preguntar qué sabor quiere (pomelo, manzana, pera, uva)\n  - **Otros productos con opciones:** Identificar las opciones disponibles consultando el listado\n\n### Reglas de Validación\n- **IMPORTANTE:** Cualquier `row_id` o selección que provenga del flujo n8n o que aparezca en los menús SIEMPRE debe ser considerado válido y procesarse según las reglas específicas de cada categoría. NUNCA responder que \"no está en el menú\" para opciones que el usuario seleccionó del menú mostrado.\n- Si el usuario escribe texto libre que no corresponde a ningún código o selección del menú: \"Por favor, seleccioná una de las opciones del menú disponible o escribí #menu para ver todas las opciones\"\n- Si solicita modificar un ítem no añadido aún: \"Primero necesitamos agregar la hamburguesa al pedido, luego podremos personalizarla según tus preferencias\"\n- Tiempo de inactividad (3 minutos): \"¿Continuamos con tu pedido? Estamos listos para asistirte. Recordá que podés escribir #menu para ver todas las opciones disponibles\"\n\n## 4. Frases y Modismos Argentinos Profesionales para Usar\n\n- \"¡Buen día! ¿En qué puedo ayudarte hoy?\"\n- \"Excelente elección, añadido a tu pedido\"\n- \"Tu selección ha sido registrada con éxito\"\n- \"¿Te gustaría personalizarla de alguna manera?\"\n- \"Perfecto, ya tenemos todo listo\"\n- \"¿Deseás agregar algo más a tu pedido?\"\n- \"Por favor, indicame la dirección de entrega\"\n- \"Tu pedido está en preparación\"\n- \"Esta combinación es muy recomendada por nuestros clientes\"\n- \"No hay problema, lo modificamos enseguida\"\n\n## 5. Flujo de Interacción Optimizado\n\n1. **Inicio:** Saludo personalizado con menú actual\n2. **Selección:** Usuario elige mediante `row_id` o selección directa del menú → SIEMPRE aceptar como válido\n3. **Confirmación de selección:** Si la selección proviene de un listado con múltiples opciones, confirmar específicamente cuál eligió\n4. **Tamaños obligatorios:** \n   - Para TODA hamburguesa, preguntar: \"¿La preferís simple, doble o triple?\" \n   - Para TODA cerveza, preguntar: \"¿Preferís pinta o media pinta?\"\n5. **Personalización:** Una vez confirmado el tamaño, aceptar modificaciones con feedback claro\n6. **Resumen:** Muestra carrito cuando el usuario escribe \"ver pedido\", \"resumen\" o similar\n7. **Confirmación:** Al recibir \"confirmar\" → solicita dirección → solicita método de pago\n8. **Finalización:** Emite `PEDIDO_CONFIRMADO` con resumen final y tiempo estimado\n\n**IMPORTANTE:** \n- Cuando el usuario selecciona un ítem directamente del menú, SIEMPRE aceptarlo como válido, nunca indicar que no existe.\n- Para hamburguesas y cervezas, OBLIGATORIAMENTE preguntar por el tamaño antes de añadir al carrito.\n- Cuando el usuario selecciona de un listado con múltiples opciones, SIEMPRE confirmar específicamente qué eligió.\n\n## 6. Ejemplos Mejorados de Conversación\n\n### Escenario Principal:\n\n```\nUsuario: Hola\nMingo Bot: ¡Buen día! Soy Mingo de MINGA Burgers. ¿En qué puedo ayudarte hoy? Podés escribir #menu en cualquier momento para ver todas nuestras opciones disponibles.\n[muestra menú inicial]\n\nUsuario: #menu\nMingo Bot: [muestra menú completo con códigos]\n\nUsuario: Sistons\nMingo Bot: Excelente elección. La Sistons incluye medallón blend secreto, cheddar x4, bacon ahumado, alioli de berenjena ahumada y pepinillos. ¿La preferís simple, doble o triple?\n\nUsuario: simple\nMingo Bot: Perfecto. Una Sistons simple ha sido añadida a tu pedido. ¿Querés personalizarla o agregar algo más?\n\nUsuario: sin cebolla y extra bacon\nMingo Bot: Entendido. Tu Sistons simple será preparada sin cebolla y con extra de bacon. ¿Deseás agregar algo más a tu pedido?\n\nUsuario: papas_grandes\nMingo Bot: Excelente. Papas Grandes añadidas a tu pedido. ¿Deseás agregar algo más o procedemos a confirmar?\n\nUsuario: ver pedido\nMingo Bot: Tu pedido hasta ahora:\n• 1× Sistons Simple ($16.500) - sin cebolla, extra bacon\n• 1× Papas Grandes ($5.500)\nTOTAL: $22.000\n¿Confirmamos el pedido o deseás realizar algún cambio?\n\nUsuario: confirmar\nMingo Bot: Excelente. Por favor, indicame la dirección de entrega (calle, número, piso/departamento)\n\nUsuario: Av. Corrientes 1234 5B\nMingo Bot: Dirección registrada. ¿Qué método de pago preferís?\n• Efectivo (indicá con cuánto vas a pagar)\n• Mercado Pago\n• Tarjeta (en el local)\n• Transferencia\n\nUsuario: efectivo con 20000\nMingo Bot: Perfecto. Tu pedido ha sido confirmado.\n• Tiempo estimado de entrega: 30-45 minutos\n• Cambio a preparar: $2.000\n\n**PEDIDO_CONFIRMADO**\n```\n\n### Escenario de Cancelación:\n\n```\nUsuario: quiero cancelar\nMingo Bot: ¿Estás seguro de que deseás cancelar tu pedido? Por favor, escribí \"si\" para confirmar o \"no\" para continuar.\n\nUsuario: si\nMingo Bot: Pedido cancelado. Gracias por considerarnos. Estaremos disponibles cuando desees realizar un nuevo pedido.\n\n**PEDIDO_CANCELADO**\n```\n\n## 7. Capacidades Avanzadas\n\n- **Recomendaciones personalizadas:** \"¿Te copa probar nuestra Burger Doble que va bárbaro con tus papas?\"\n- **Manejo de promociones:** Detecta combinaciones válidas para descuentos\n- **Memoria de pedidos frecuentes:** \"¿Querés repetir lo mismo de la última vez?\"\n- **Gestión de incidencias:** Protocolo especial para demoras o problemas\n- **Feedback post-entrega:** Solicitud de valoración después de la entrega\n\n## 8. Limitaciones Claras\n\n- **Estrictamente delivery:** No gestiona reservas, reclamos ni atención en local\n- **Sin modificación de precios:** Precios fijos según base de datos\n- **Restricción geográfica:** Solo entregas en zona predefinida\n- **Sin horarios extraordinarios:** Respeta horarios de operación\n- **Información limitada:** Solo datos relativos a productos y pedidos actuales\n\n## 9. Integraciones\n\n- **Base de datos en tiempo real:** Sincronización automática con inventario\n- **Geolocalización:** Validación de direcciones dentro del radio de entrega\n- **Sistema de pagos:** Verificación de pagos digitales\n- **Notificaciones:** Alertas sobre estado del pedido"
         }
@@ -396,8 +576,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        -600,
-        -520
+        1040,
+        -440
       ],
       "id": "5c0f8dbc-7af4-4ea2-922a-7cc09d6f54a2",
       "name": "Tester Prompt"
@@ -409,8 +589,8 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        -2060,
-        -440
+        -3000,
+        -180
       ],
       "id": "e7eaefa2-3fe6-46a1-95c1-e70b63257459",
       "name": "Crypto"
@@ -443,8 +623,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2280,
-        -520
+        -3200,
+        -300
       ],
       "id": "e5409e09-e586-4ae0-a1c2-2e8395b21f9f",
       "name": "If2"
@@ -479,8 +659,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2940,
-        -520
+        -3860,
+        -300
       ]
     },
     {
@@ -511,8 +691,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2720,
-        -520
+        -3640,
+        -300
       ],
       "id": "cb87cfcf-843f-4cbf-803a-11ab196f3082",
       "name": "If"
@@ -527,11 +707,11 @@
           "fieldValues": [
             {
               "fieldName": "pushname",
-              "fieldValue": "={{ $node[\"Webhook1\"].json.body.data.pushName }}"
+              "fieldValue": "={{ $node[\"Webhook\"].json.body.data.pushName }}"
             },
             {
               "fieldName": "telefono",
-              "fieldValue": "={{ $node[\"Webhook1\"].json.body.data.key.remoteJid.replace(/\\D/g, '') }}"
+              "fieldValue": "={{ $node[\"Webhook\"].json.body.data.key.remoteJid.replace(/\\D/g, '') }}"
             },
             {
               "fieldName": "key",
@@ -543,8 +723,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -1840,
-        -440
+        -2780,
+        -180
       ],
       "id": "bb0bef53-cb54-45d4-882a-7b5df07b1293",
       "name": "Insertar Lead",
@@ -561,104 +741,104 @@
           "assignments": [
             {
               "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
-              "name": "TelefonoCliente",
-              "value": "={{ $('Webhook1').item?.json?.body?.data?.key?.remoteJid.replace(/\\D/g, '') || $('Webhook1').item?.json?.body?.meta?.sender?.identifier.replace(/\\D/g, '') || null}}",
+              "name": "msg.telefono",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.remoteJid.replace(/\\D/g, '') || $('Webhook').item?.json?.body?.meta?.sender?.identifier.replace(/\\D/g, '') || null}}",
               "type": "string"
             },
             {
               "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
-              "name": "nombreCliente",
-              "value": "={{ $('Webhook1').item?.json?.body?.data?.pushName || $('Webhook1').item.json.body.meta.sender.name }}",
+              "name": "msg.nombre",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.pushName || $('Webhook').item.json.body.meta.sender.name }}",
               "type": "string"
             },
             {
               "id": "01238a36-6907-4aec-ab21-26345ed5fc96",
-              "name": "nombreInstancia",
-              "value": "={{ $('Webhook1').item.json.body.instance }}",
+              "name": "datos.server",
+              "value": "={{ $('Webhook').item.json.body.instance }}",
               "type": "string"
             },
             {
               "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
-              "name": "mensaje",
-              "value": "={{ \n  $('Webhook1').item?.json?.body?.content?.mensaje?.extendedTextMessage?.text ||\n     $('Webhook1').item?.json?.body?.data?.message?.extendedTextMessage?.text ||\n  $('Webhook1').item?.json?.body?.data?.message?.imageMessage?.caption || \n  $('Webhook1').item?.json?.body?.data?.message?.conversation || \n  $('Webhook1').item?.json?.message?.text || \n  $('Webhook1').item?.json?.message?.caption || \n  null \n}}",
+              "name": "msg.content",
+              "value": "={{ \n  $('Webhook').item?.json?.body?.content?.mensaje?.extendedTextMessage?.text ||\n     $('Webhook').item?.json?.body?.data?.message?.extendedTextMessage?.text ||\n  $('Webhook').item?.json?.body?.data?.message?.imageMessage?.caption || \n  $('Webhook').item?.json?.body?.data?.message?.conversation || \n  $('Webhook').item?.json?.message?.text || \n  $('Webhook').item?.json?.message?.caption || $('Webhook').item.json.body.data.message.audioMessage \n}}",
               "type": "string"
             },
             {
               "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
-              "name": "tipoMensaje",
-              "value": "={{ $('Webhook1').item?.json?.body?.data?.messageType || $('Webhook1').item.json.body.messages[0].content_type }}",
+              "name": "msg.type",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.messageType || $('Webhook').item.json.body.messages[0].content_type }}",
               "type": "string"
             },
             {
               "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
-              "name": "idMensaje",
-              "value": "={{ $('Webhook1').item?.json?.body?.data?.key?.id || $('Webhook1').item.json.body.contact_inbox.source_id }}",
+              "name": "msg.idmsg",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.id || $('Webhook').item.json.body.contact_inbox.source_id }}",
               "type": "string"
             },
             {
               "id": "076ad2d4-b8ea-440f-9c02-f7e8417a984d",
-              "name": "apikey",
-              "value": "={{ $('Webhook1').item?.json?.body?.apikey || '084938B823FE-4BA9-974E-8C8951DB4277' }}",
+              "name": "datos.apikey",
+              "value": "={{ $('Webhook').item?.json?.body?.apikey || '084938B823FE-4BA9-974E-8C8951DB4277' }}",
               "type": "string"
             },
             {
-              "id": "e30bbf8c-d5da-4410-b875-8dfe4b301798",
-              "name": "Escribiendo",
-              "value": "={{ 1200 }}",
-              "type": "number"
-            },
-            {
               "id": "01710423-6391-4a34-81e1-06d4779caf4d",
-              "name": "tiempo",
-              "value": "={{ $('Webhook1').item.json.body.date_time || '' }}",
+              "name": "msg.timestamp",
+              "value": "={{ $('Webhook').item.json.body.data.messageTimestamp.toDateTime('s').toLocal().toISO()}}",
               "type": "string"
             },
             {
               "id": "e8e6023d-7c0e-4f8b-815f-2abdff369912",
-              "name": "server_url",
-              "value": "={{ $('Webhook1').item?.json?.body?.server_url || 'https://evo.innovasoftpro.dev'}}",
-              "type": "string"
-            },
-            {
-              "id": "07c65c0d-9662-41b0-b872-056a5d643f8c",
-              "name": "label",
-              "value": "={{ $('Webhook1').item?.json?.body?.labels || [''] }}",
+              "name": "datos.server_url",
+              "value": "={{ $('Webhook').item?.json?.body?.server_url || 'https://evo.innovasoftpro.dev'}}",
               "type": "string"
             },
             {
               "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
-              "name": "server_db",
+              "name": "datos.server_db",
               "value": "https://db.innovasoftpro.dev",
               "type": "string"
             },
             {
               "id": "5553db2c-49aa-4a58-bafe-f8794ce8832d",
-              "name": "Key",
+              "name": "datos.cliente_key",
               "value": "={{ $('getCliente').item.json.key }}",
               "type": "string"
             },
             {
               "id": "720d2599-daac-474d-904e-0ea0ee40689b",
-              "name": "Id",
+              "name": "datos.cliente_id",
               "value": "={{ $('getCliente').item.json.Id }}",
               "type": "number"
             },
             {
               "id": "9115b918-14e1-4b2c-95ae-a926e65f61ca",
-              "name": "activo",
+              "name": "bot.activo",
               "value": "={{ $json.activo }}",
               "type": "string"
             },
             {
-              "id": "7ce5043f-0e29-46f8-bd66-1137a36697f3",
-              "name": "email",
-              "value": "={{ $json.email }}",
+              "id": "16fd7a29-5af4-4a04-9efb-ab0c249bf230",
+              "name": "lista.id_row",
+              "value": "={{ $('From Me3').item.json.body.data.message.listResponseMessage.singleSelectReply.selectedRowId }}",
               "type": "string"
             },
             {
-              "id": "16fd7a29-5af4-4a04-9efb-ab0c249bf230",
-              "name": "id_row",
-              "value": "={{ $('From Me3').item.json.body.data.message.listResponseMessage.singleSelectReply.selectedRowId }}",
+              "id": "cfaf2792-627a-4d9f-a039-5741c802749f",
+              "name": "datos.instance",
+              "value": "={{ $('Webhook').item.json.body.instance }}",
+              "type": "string"
+            },
+            {
+              "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
+              "name": "msg.ListaResponse",
+              "value": "={{ $('Webhook').item.json.body.data.message.listResponseMessage.title }}\n{{ $('Webhook').item.json.body.data.message.listResponseMessage.description }}",
+              "type": "string"
+            },
+            {
+              "id": "d2215ba8-1fc7-46c2-bcc0-7bd813badd5b",
+              "name": "msg.tittle_row_id",
+              "value": "={{ $('Webhook').item.json.body.data.message.listResponseMessage.title }}",
               "type": "string"
             }
           ]
@@ -670,8 +850,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1620,
-        -540
+        -2540,
+        -300
       ],
       "notesInFlow": true
     },
@@ -683,14 +863,14 @@
         "table": "mokibxtj81aic9y",
         "returnAll": true,
         "options": {
-          "where": "=(telefono,eq,{{ $('Webhook1').first().json.body.data.key.remoteJid.replace(/\\D/g, '') }}) "
+          "where": "=(telefono,eq,{{ $('Webhook').first().json.body.data.key.remoteJid.replace(/\\D/g, '') }}) "
         }
       },
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -2500,
-        -520
+        -3420,
+        -300
       ],
       "id": "31eef11d-fafa-428f-ab97-0af385bea1c2",
       "name": "getCliente",
@@ -705,19 +885,245 @@
     },
     {
       "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_delivery",
+          "mode": "list",
+          "cachedResultName": "n8n_delivery"
+        },
+        "deleteCommand": "delete",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -4100,
+        60
+      ],
+      "id": "898d79d5-e313-4188-ac20-185253e3158f",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
         "httpMethod": "POST",
-        "path": "tester-nuevo",
+        "path": "qeva",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -3140,
-        -520
+        -4080,
+        -300
       ],
       "id": "99108ca4-235a-4320-9e87-ded78d64ef71",
-      "name": "Webhook1",
+      "name": "Webhook",
       "webhookId": "160af03a-d560-413b-bea9-ea1007aa1570"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=cel:{{ $('Variables globales').item.json.msg.telefono }}",
+        "sessionTTL": 300,
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        1080,
+        -200
+      ],
+      "id": "bfa3869e-a39b-4d91-af4c-aece69c2f9a2",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "=msg:{{ $json.msg.telefono }}",
+        "messageData": "={{ JSON.stringify($json.msg) }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -2000,
+        -100
+      ],
+      "id": "5d7b4b4c-58b2-47e0-b8fd-debe7e4764b1",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "message",
+        "key": "=msg:{{ $('Variables globales').item.json.msg.telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1740,
+        -100
+      ],
+      "id": "0a587184-85e3-4297-bb6a-2b48cb4aabe2",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "37fa4c10-4aa3-4c88-8793-c66f540ea575",
+                    "leftValue": "={{ JSON.parse($json.message.last()).timestamp }}",
+                    "rightValue": "={{ $now.minus(5,'seconds').toLocal().toISO() }}",
+                    "operator": {
+                      "type": "dateTime",
+                      "operation": "before"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "seguir"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "302c2f76-f09c-4d60-bfee-e77b9efe825e",
+                    "leftValue": "ListaResponse",
+                    "rightValue": "={{ $('Variables globales').item.json.lista }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1480,
+        -100
+      ],
+      "id": "033aed30-e774-4a6a-883f-9972b1c90aa4",
+      "name": "Switch"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1200,
+        80
+      ],
+      "id": "dc2192a1-fbd9-4a29-9197-69f727dc7727",
+      "name": "Wait",
+      "webhookId": "31ebb3ff-4ccd-4bf1-ac16-b2dd2061d3b6"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=msg:{{ $('Variables globales').item.json.msg.telefono }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        -240
+      ],
+      "id": "ff3a74ed-1881-42aa-8395-01c7592ddfb5",
+      "name": "Redis3",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        -240
+      ],
+      "id": "52dcf207-76fb-4acb-b942-3a3a564714cc",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        -240
+      ],
+      "id": "bde97603-3ed2-4573-af90-7cd49d867387",
+      "name": "JSON Parse"
     },
     {
       "parameters": {
@@ -733,19 +1139,20 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json.mensaje }}",
-                    "rightValue": "#menu",
+                    "id": "726ef588-43c5-472e-89e8-a5bfb7656bba",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "conversation",
                     "operator": {
                       "type": "string",
-                      "operation": "equals"
-                    },
-                    "id": "85cdd9c5-906b-4b0c-a247-38ad4e625129"
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "Menu "
+              "outputKey": "texto"
             },
             {
               "conditions": {
@@ -757,35 +1164,33 @@
                 },
                 "conditions": [
                   {
-                    "id": "ab4b4d54-da81-4c55-8b48-048e260076d2",
-                    "leftValue": "={{ /^cat_.*/.test($json.id_row) }}",
-                    "rightValue": "={{ /^cat_.*/.test($json.id_row) }}",
+                    "id": "8cb854e2-c9dc-45e9-b6aa-5f6c0266b561",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "audioMessage",
                     "operator": {
-                      "type": "boolean",
-                      "operation": "true",
-                      "singleValue": true
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
                     }
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "Listas"
+              "outputKey": "audio"
             }
           ]
         },
-        "options": {
-          "fallbackOutput": "extra"
-        }
+        "options": {}
       },
+      "id": "ad530cc3-0d92-444d-a879-a28d98d6656d",
+      "name": "Message Type1",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -1400,
-        -540
-      ],
-      "id": "2c526418-f06c-43ad-89f1-1d037c7c4fd9",
-      "name": "Switch2"
+        -720,
+        -240
+      ]
     },
     {
       "parameters": {
@@ -798,12 +1203,12 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "numero_cliente": "={{ $json.TelefonoCliente }}",
-            "session_id": "={{ $json.idMensaje }}",
-            "url": "={{ $json.server_url }}",
-            "instancia": "={{ $json.nombreInstancia }}",
-            "apikey": "={{ $json.apikey }}",
-            "tittle": "={{ $json.id_row }}"
+            "numero_cliente": "={{ $('Variables globales').item.json.msg.telefono }}",
+            "session_id": "={{ $('Variables globales').item.json.msg.idmsg }}",
+            "instancia": "={{ $('Variables globales').item.json.datos.instance }}",
+            "apikey": "={{ $('Variables globales').item.json.datos.apikey }}",
+            "tittle": "={{ $('Variables globales').item.json.lista.id_row }}",
+            "url": "={{ $('Variables globales').item.json.datos.server_url }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -866,76 +1271,460 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -1100,
-        -360
+        -2000,
+        -660
       ],
-      "id": "5ded0ce5-a216-4473-954d-0539a0197372",
+      "id": "a655acc4-b2d1-43a8-ae0b-b6755748d8f6",
       "name": "Listas"
     },
     {
       "parameters": {
-        "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Variables globales').item.json.TelefonoCliente }}",
-        "tableName": "n8n_delivery",
-        "contextWindowLength": 6
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7d210f0-6a18-456d-9e89-aa28f548b2a0",
+              "name": "body.data.message.base64",
+              "value": "={{ $('Webhook').item.json.body.data.message.base64 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
       },
-      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
-      "typeVersion": 1.3,
+      "id": "93f1c4e9-0e3c-4ee9-86d5-5e3d93721899",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
       "position": [
-        -640,
-        -180
+        -300,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "body.data.message.base64",
+        "options": {
+          "mimeType": "audio/mp3"
+        }
+      },
+      "id": "9990c300-ce95-4f38-9a20-5fa5554bfb4e",
+      "name": "Convert to File1",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -140,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        20,
+        -240
       ],
-      "id": "55749dfc-d01a-4f5d-9b2f-9023a9949f09",
-      "name": "delivery",
+      "id": "3b154b3e-0179-4da8-b6be-f644409e8425",
+      "name": "Transcribir",
       "credentials": {
-        "postgres": {
-          "id": "E1mi81N6Tmr5cHS5",
-          "name": "GENERICO"
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
         }
       }
     },
     {
       "parameters": {
-        "operation": "deleteTable",
-        "schema": {
-          "__rl": true,
-          "value": "public",
-          "mode": "list",
-          "cachedResultName": "public"
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        360,
+        -420
+      ],
+      "id": "6f81d178-6d04-43a9-a651-b585e3197fb1",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "timestamp"
+            }
+          ]
         },
-        "table": {
-          "__rl": true,
-          "value": "n8n_delivery",
-          "mode": "list",
-          "cachedResultName": "n8n_delivery"
-        },
-        "deleteCommand": "delete",
         "options": {}
       },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
       "position": [
-        160,
-        -180
+        520,
+        -420
       ],
-      "id": "898d79d5-e313-4188-ac20-185253e3158f",
-      "name": "Postgres",
-      "credentials": {
-        "postgres": {
-          "id": "E1mi81N6Tmr5cHS5",
-          "name": "GENERICO"
+      "id": "047f404b-f02b-4ad0-8a75-d6c3653290d2",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('Edit Fields1').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        180,
+        -240
+      ],
+      "id": "fe104e99-4718-4202-bc41-d2f5aeb6f225",
+      "name": "text"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "text",
+              "renameField": true,
+              "outputFieldName": "message"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        680,
+        -420
+      ],
+      "id": "d3748c92-c2fb-42a5-bf0a-4a4603a5d2e0",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0fae28c9-d30a-4250-9a50-5b68c61164cf",
+              "name": "message",
+              "value": "={{ $json.message.join(\"\\n\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        840,
+        -420
+      ],
+      "id": "ed8e037e-e979-44c6-8206-d72ee7917d23",
+      "name": "chatInput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $('JSON Parse').item.json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('JSON Parse').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -300,
+        -520
+      ],
+      "id": "ffe83397-3a91-45ae-8c70-e17ca1c5e4b6",
+      "name": "text1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $('JSON Parse').item.json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('JSON Parse').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -940,
+        -700
+      ],
+      "id": "3b304e8f-5b30-4ad0-866b-02786710c08e",
+      "name": "text2"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ /^cat_.*/.test($json.lista.id_row) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "29901a2b-7a51-4913-82e8-b76f745ec990"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Listas"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "fd254dd5-b87c-474c-847c-a95e32ab63da",
+                    "leftValue": "={{ $json.msg.content }}",
+                    "rightValue": "#menu",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Menu"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8389ffd3-a729-4622-b59f-b4948ba88079",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "texto"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
         }
-      }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2340,
+        -320
+      ],
+      "id": "57c3e937-1193-49cb-9f3a-aef54e5eb637",
+      "name": "Listas1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Variables globales').item.json.datos.server_url }}/message/sendList/{{ $('Variables globales').item.json.datos.instance }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Variables globales').item.json.datos.apikey}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('Variables globales').item.json.msg.telefono }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "footerText",
+              "value": "={{ $json.footerText }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1740,
+        -460
+      ],
+      "id": "d0dd7db0-260b-4461-91fc-e878ccdac3fc",
+      "name": "menu",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $('Variables globales').item.json.msg.ListaResponse }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('Variables globales').item.json.msg.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1740,
+        -280
+      ],
+      "id": "de3a3798-8dea-4205-b55e-2316d9d66c85",
+      "name": "text3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3724f9da-543d-4d38-8a62-1a49840dfedf",
+              "leftValue": "={{ $json.msg.ListaResponse }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2000,
+        -260
+      ],
+      "id": "6a68b247-2c8d-4dc6-82e7-79d96a3dbd33",
+      "name": "If1"
     }
   ],
   "pinData": {
-    "Webhook1": [
+    "Webhook": [
       {
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
             "user-agent": "axios/1.7.9",
-            "content-length": "886",
+            "content-length": "10546",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
             "x-forwarded-for": "172.18.0.1",
@@ -949,47 +1738,346 @@
           "query": {},
           "body": {
             "event": "messages.upsert",
-            "instance": "tester",
+            "instance": "qeva",
             "data": {
               "key": {
                 "remoteJid": "5492254423359@s.whatsapp.net",
                 "fromMe": false,
-                "id": "CF79778C16E52F6DD6ACC422D9AA4847"
+                "id": "83C117850B2E6511F5A5895DDCCDF77B"
               },
               "pushName": "Fer { }",
               "status": "DELIVERY_ACK",
               "message": {
-                "conversation": "Hola",
                 "messageContextInfo": {
                   "deviceListMetadata": {
-                    "senderKeyHash": "a0ebFmt5jO2yzg==",
-                    "senderTimestamp": "1746748763",
-                    "recipientKeyHash": "ReBBitAuv3H82w==",
-                    "recipientTimestamp": "1745502914"
+                    "senderKeyHash": "XCEUl9K6Uf8n1g==",
+                    "senderTimestamp": "1747842721",
+                    "recipientKeyHash": "Q8eaFJBuT8upuA==",
+                    "recipientTimestamp": "1747842817"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "dxPvO/hWYsf5PjYgrhPYaqhz+sqKz2najBgW/Ccms3c="
+                  "messageSecret": "R3XdSW4Gd+AjNQRv9oj1E9IUjH+0Cm6XMALlX71/swM="
+                },
+                "listResponseMessage": {
+                  "title": "American",
+                  "listType": "SINGLE_SELECT",
+                  "singleSelectReply": {
+                    "selectedRowId": "burger_american"
+                  },
+                  "contextInfo": {
+                    "stanzaId": "3EB02DCA29B43F395C96473CE408C9713BA9BBB2",
+                    "participant": "5492254596618@s.whatsapp.net",
+                    "quotedMessage": {
+                      "listMessage": {
+                        "title": "🍔 Burgers con Papas",
+                        "description": "Nuestras deliciosas hamburguesas vienen con papas fritas",
+                        "buttonText": "Ver Hamburguesas",
+                        "listType": "SINGLE_SELECT",
+                        "sections": [
+                          {
+                            "title": "🍔 Hamburguesas",
+                            "rows": [
+                              {
+                                "title": "Sistons",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, alioli de berenjena ahumada, pepinillos.\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900",
+                                "rowId": "burger_sistons"
+                              },
+                              {
+                                "title": "Candy",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, cebolla caramelizada\nSimple: $16.500 | Doble: $19.100 | Triple: $21.900",
+                                "rowId": "burger_candy"
+                              },
+                              {
+                                "title": "Crispy Onion",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, ali oli, mil islas, cebolla crispy, pepinillos (opcional)\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                                "rowId": "burger_crispy_onion"
+                              },
+                              {
+                                "title": "American",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, ketchup, mostaza, cebolla cubitos, pepinillos\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                                "rowId": "burger_american"
+                              },
+                              {
+                                "title": "Classic",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, salsa mil islas, cebollas, pepinillos, lechuga, tomate\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                                "rowId": "burger_classic"
+                              },
+                              {
+                                "title": "Tasty",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, lechuga, tomate, cebolla morada, aderezo tasty\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                                "rowId": "burger_tasty"
+                              },
+                              {
+                                "title": "Fried Onion",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, cebolla smasheada en la plancha\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                                "rowId": "burger_fried_onion"
+                              },
+                              {
+                                "title": "Fried Onion 2.0",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, cebolla smasheada en la plancha, ali oli, pepinillos (opcional)\nSimple: $15.800 | Doble: $18.800 | Triple: $21.000",
+                                "rowId": "burger_fried_onion2"
+                              },
+                              {
+                                "title": "Cheese Bacon",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900",
+                                "rowId": "burger_cheese_bacon"
+                              },
+                              {
+                                "title": "Stacker",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, salsa stacker\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900",
+                                "rowId": "burger_stacker"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "🧀 Hamburguesas con Quesos Especiales",
+                            "rows": [
+                              {
+                                "title": "Cheese Burger",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4\nSimple: $14.500 | Doble: $17.300",
+                                "rowId": "burger_cheese"
+                              },
+                              {
+                                "title": "Blue Cheese",
+                                "description": "Medallón 120gr (blend secreto), queso emmental x2, queso azul, bacon ahumado, cebolla morada\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900",
+                                "rowId": "burger_blue_cheese"
+                              },
+                              {
+                                "title": "Triple Queso",
+                                "description": "3 medallones 120gr (blend secreto), x6 cheddar\n$19.800",
+                                "rowId": "burger_triple_queso"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "🔥 Hamburguesas Especiales",
+                            "rows": [
+                              {
+                                "title": "Butter Sriracha",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, manteca, sriracha\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                                "rowId": "burger_sriracha"
+                              },
+                              {
+                                "title": "Gesell Burger",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, cebolla brunoise salteada, mayonesa heinz\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                                "rowId": "burger_gesell"
+                              },
+                              {
+                                "title": "Pina Burger",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, aros de cebolla, barbacoa, aioli ahumado\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                                "rowId": "burger_pina"
+                              },
+                              {
+                                "title": "Cheese Bacon Egg",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, huevo a la plancha\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                                "rowId": "burger_cheese_bacon_egg"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "🌟 Premium",
+                            "rows": [
+                              {
+                                "title": "Juicy",
+                                "description": "Medallón 120gr blend secreto, cheddar x4, bacon ahumado (2 fetas por medallón), cebolla morada, salsa secreta, pepinillos\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                                "rowId": "burger_juicy"
+                              },
+                              {
+                                "title": "Sistons Scott",
+                                "description": "Medallón 120gr (blend secreto), cheddar x4, ketchup, mostaza, cebolla en cubos, pepinillos, lechuga, bacon\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                                "rowId": "burger_sistons_scott"
+                              },
+                              {
+                                "title": "Chicken Burger",
+                                "description": "Pollo crispy, salsa caesar, lechuga, crispy, bacon, cheddar\n$16.700",
+                                "rowId": "burger_chicken"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "⬅️ Navegación",
+                            "rows": [
+                              {
+                                "title": "Volver al Menú Principal",
+                                "description": "Ver otras categorías",
+                                "rowId": "volver_menu"
+                              }
+                            ]
+                          }
+                        ],
+                        "footerText": "Todas incluyen medallón blend secreto y acompañan papas fritas"
+                      }
+                    }
+                  },
+                  "description": "Medallón 120gr (blend secreto), cheddar x4, ketchup, mostaza, cebolla cubitos, pepinillos\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000"
                 }
               },
-              "messageType": "conversation",
-              "messageTimestamp": 1747328983,
-              "instanceId": "4e9127df-d360-4ac0-a849-965bf5955398",
+              "contextInfo": {
+                "stanzaId": "3EB02DCA29B43F395C96473CE408C9713BA9BBB2",
+                "participant": "5492254596618@s.whatsapp.net",
+                "quotedMessage": {
+                  "listMessage": {
+                    "title": "🍔 Burgers con Papas",
+                    "description": "Nuestras deliciosas hamburguesas vienen con papas fritas",
+                    "buttonText": "Ver Hamburguesas",
+                    "listType": "SINGLE_SELECT",
+                    "sections": [
+                      {
+                        "title": "🍔 Hamburguesas",
+                        "rows": [
+                          {
+                            "title": "Sistons",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, alioli de berenjena ahumada, pepinillos.\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900",
+                            "rowId": "burger_sistons"
+                          },
+                          {
+                            "title": "Candy",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, cebolla caramelizada\nSimple: $16.500 | Doble: $19.100 | Triple: $21.900",
+                            "rowId": "burger_candy"
+                          },
+                          {
+                            "title": "Crispy Onion",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, ali oli, mil islas, cebolla crispy, pepinillos (opcional)\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                            "rowId": "burger_crispy_onion"
+                          },
+                          {
+                            "title": "American",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, ketchup, mostaza, cebolla cubitos, pepinillos\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                            "rowId": "burger_american"
+                          },
+                          {
+                            "title": "Classic",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, salsa mil islas, cebollas, pepinillos, lechuga, tomate\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                            "rowId": "burger_classic"
+                          },
+                          {
+                            "title": "Tasty",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, lechuga, tomate, cebolla morada, aderezo tasty\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                            "rowId": "burger_tasty"
+                          },
+                          {
+                            "title": "Fried Onion",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, cebolla smasheada en la plancha\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                            "rowId": "burger_fried_onion"
+                          },
+                          {
+                            "title": "Fried Onion 2.0",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, cebolla smasheada en la plancha, ali oli, pepinillos (opcional)\nSimple: $15.800 | Doble: $18.800 | Triple: $21.000",
+                            "rowId": "burger_fried_onion2"
+                          },
+                          {
+                            "title": "Cheese Bacon",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900",
+                            "rowId": "burger_cheese_bacon"
+                          },
+                          {
+                            "title": "Stacker",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, salsa stacker\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900",
+                            "rowId": "burger_stacker"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "🧀 Hamburguesas con Quesos Especiales",
+                        "rows": [
+                          {
+                            "title": "Cheese Burger",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4\nSimple: $14.500 | Doble: $17.300",
+                            "rowId": "burger_cheese"
+                          },
+                          {
+                            "title": "Blue Cheese",
+                            "description": "Medallón 120gr (blend secreto), queso emmental x2, queso azul, bacon ahumado, cebolla morada\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900",
+                            "rowId": "burger_blue_cheese"
+                          },
+                          {
+                            "title": "Triple Queso",
+                            "description": "3 medallones 120gr (blend secreto), x6 cheddar\n$19.800",
+                            "rowId": "burger_triple_queso"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "🔥 Hamburguesas Especiales",
+                        "rows": [
+                          {
+                            "title": "Butter Sriracha",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, manteca, sriracha\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                            "rowId": "burger_sriracha"
+                          },
+                          {
+                            "title": "Gesell Burger",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, cebolla brunoise salteada, mayonesa heinz\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000",
+                            "rowId": "burger_gesell"
+                          },
+                          {
+                            "title": "Pina Burger",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, aros de cebolla, barbacoa, aioli ahumado\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                            "rowId": "burger_pina"
+                          },
+                          {
+                            "title": "Cheese Bacon Egg",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, bacon ahumado, huevo a la plancha\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                            "rowId": "burger_cheese_bacon_egg"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "🌟 Premium",
+                        "rows": [
+                          {
+                            "title": "Juicy",
+                            "description": "Medallón 120gr blend secreto, cheddar x4, bacon ahumado (2 fetas por medallón), cebolla morada, salsa secreta, pepinillos\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                            "rowId": "burger_juicy"
+                          },
+                          {
+                            "title": "Sistons Scott",
+                            "description": "Medallón 120gr (blend secreto), cheddar x4, ketchup, mostaza, cebolla en cubos, pepinillos, lechuga, bacon\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900",
+                            "rowId": "burger_sistons_scott"
+                          },
+                          {
+                            "title": "Chicken Burger",
+                            "description": "Pollo crispy, salsa caesar, lechuga, crispy, bacon, cheddar\n$16.700",
+                            "rowId": "burger_chicken"
+                          }
+                        ]
+                      },
+                      {
+                        "title": "⬅️ Navegación",
+                        "rows": [
+                          {
+                            "title": "Volver al Menú Principal",
+                            "description": "Ver otras categorías",
+                            "rowId": "volver_menu"
+                          }
+                        ]
+                      }
+                    ],
+                    "footerText": "Todas incluyen medallón blend secreto y acompañan papas fritas"
+                  }
+                }
+              },
+              "messageType": "listResponseMessage",
+              "messageTimestamp": 1747971923,
+              "instanceId": "588f50d5-9323-4ec2-a701-6019611508c0",
               "source": "android"
             },
-            "destination": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
-            "date_time": "2025-05-15T14:09:44.070Z",
-            "sender": "5492254606018@s.whatsapp.net",
+            "destination": "https://n8n.innovasoftpro.dev/webhook/qeva",
+            "date_time": "2025-05-23T00:45:23.456Z",
+            "sender": "5492254596618@s.whatsapp.net",
             "server_url": "https://evo.innovasoftpro.dev",
-            "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
+            "apikey": "3463F236FF41-417E-8F0A-7F1D0F575FF9"
           },
-          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/qeva",
           "executionMode": "production"
         }
       }
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
   },
   "staticData": null,
   "tags": [
@@ -1001,6 +2089,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-05-16T01:07:13.769Z",
-  "versionId": "35b30a87-89a8-4be4-b34a-bc336ee2a95b"
+  "updatedAt": "2025-05-23T04:00:41.469Z",
+  "versionId": "15e6e2e2-7277-4e34-b479-d4dc52c00527"
 }
