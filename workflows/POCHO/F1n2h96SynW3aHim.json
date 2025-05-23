@@ -144,7 +144,7 @@
       "main": [
         [
           {
-            "node": "Chatwoot msg",
+            "node": "From Me3",
             "type": "main",
             "index": 0
           }
@@ -353,13 +353,7 @@
     },
     "Respuesta a ChatWoot2": {
       "main": [
-        [
-          {
-            "node": "Loop Over Items1",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Webhook": {
@@ -386,24 +380,12 @@
     },
     "Redis3": {
       "main": [
-        [
-          {
-            "node": "From Me3",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Chatwoot msg": {
       "main": [
-        [
-          {
-            "node": "Redis3",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "InsertarCliente": {
@@ -488,17 +470,6 @@
         ]
       ]
     },
-    "Postgres Chat Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "Pocho",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Pocho": {
       "main": [
         [
@@ -531,7 +502,7 @@
       "main": [
         [
           {
-            "node": "Respuesta a ChatWoot2",
+            "node": "Loop Over Items1",
             "type": "main",
             "index": 0
           }
@@ -623,6 +594,17 @@
           {
             "node": "Pocho",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Pocho",
+            "type": "ai_memory",
             "index": 0
           }
         ]
@@ -1677,12 +1659,6 @@
               "type": "string"
             },
             {
-              "id": "b7095634-3079-41f0-8819-28c62b42affb",
-              "name": "conversation_id",
-              "value": "={{ $('Chatwoot msg').item?.json?.body?.conversation_id || $('Chatwoot msg').item.json.conversation_id }}",
-              "type": "string"
-            },
-            {
               "id": "b7613885-c5d8-4b6a-81ec-8de7e6740faf",
               "name": "location",
               "value": "={\n  \"location\": {\n    \"latitud\":{{ $('From Me2').item.json.body.messages[0].location.latitude }},\n    \"longitud\":{{ $('From Me2').item.json.body.messages[0].location.longitude }}\n  }\n}",
@@ -1721,8 +1697,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -240,
-        340
+        -220,
+        100
       ],
       "id": "a3410502-8bbf-4378-97d7-f0bd08d8d154",
       "name": "Redis3",
@@ -1833,8 +1809,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -460,
-        340
+        -440,
+        200
       ],
       "id": "c79e973c-a7a4-4883-b339-50bcc4aa441b",
       "name": "Chatwoot msg",
@@ -2221,32 +2197,10 @@
     },
     {
       "parameters": {
-        "sessionIdType": "customKey",
-        "sessionKey": "={{ $('camposiniciales').first().json.telefonoCliente }}",
-        "tableName": "lo_de_pocho",
-        "contextWindowLength": 8
-      },
-      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
-      "typeVersion": 1.3,
-      "position": [
-        4720,
-        560
-      ],
-      "id": "f7f3eb4f-0e20-4d1c-ba40-8ab9b8361c2d",
-      "name": "Postgres Chat Memory",
-      "credentials": {
-        "postgres": {
-          "id": "E1mi81N6Tmr5cHS5",
-          "name": "GENERICO"
-        }
-      }
-    },
-    {
-      "parameters": {
         "promptType": "define",
         "text": "={{ $json.message_completo }}",
         "options": {
-          "systemMessage": "=# Pocho – Asistente Virtual (Optimizado para Gemini 2.5 Flash en n8n)\n\nHOY ES: {{ $now.format('yyyy-MM-dd') }}\n\n## Identidad\n- Nombre: **Pocho**, asistente de Lo de Pocho (Neuquén 2098, Mar del Plata)\n- Estilo: Respuestas cortas, argentinas, prácticas\n- Mínimo para delivery: $30.000\n- Objetivo: Ayudar a completar pedidos y generar ventas\n\n## REGLAS CRÍTICAS\n1. SIEMPRE usar herramientas para cada acción\n2. SIEMPRE usar `buscar_productos` para TODA consulta de productos\n3. NUNCA responder de memoria sobre productos, precios o stock\n4. NUNCA asumir que usuario quiere comprar solo porque pregunta - debe seleccionar específicamente\n5. SIEMPRE tratar al cliente por su nombre real: `{{ $('getClientes').item.json.nombre_real }}`\n6. NUNCA pedir datos ya almacenados en la base de datos\n7. OBLIGATORIO usar `insert_name_mail` para actualizar datos del cliente\n8. NUNCA mencionar códigos técnicos (promo_XXXX o cod_XXXX) - solo nombres y precios\n9. NUNCA procesar comprobantes - dirigir a Anto (+5492234245220)\n10. Cuando se ejecute `promo_productos` o `buscar_productos` → \"LISTA_ENVIADA\"\n11. SIEMPRE pedir confirmación antes de mostrar promociones durante la conversación\n\n## Herramientas\n- `buscar_productos`: Para toda consulta de productos → \"LISTA_ENVIADA\"\n- `calcular_total`: Para sumar carrito\n- `verificar_elegibilidad_envio`: Confirma si pedido supera $30.000\n- `buscar_comida`: Para milanesas, sandwiches, buñuelos, tartas\n- `qr_pagos`: Genera QR según billetera → \"qr_enviado\"\n- `insertar_pedido`: Guarda pedido y genera código\n- `promo_productos`: Muestra promociones → \"LISTA_ENVIADA\"\n- `verificar_pedido_existente`: Verifica pedidos activos\n- `getClientes`: Obtiene datos del cliente\n- `insert_name_mail`: Actualiza datos del cliente\n\n## Bienvenida\n```\n¡Hola {{ $('getClientes').item.json.nombre_real }}! Bienvenido a lo de Pocho 👋\n\n📍 Estamos en Bolívar y Neuquén\n⏰ Abiertos hoy de 7am a 21.30hs\n\n¿Querés ver nuestras promociones del día? (Sí/No)\n```\n\nSi responde \"Sí\" → [EJECUTAR herramienta promo_productos] → \"LISTA_ENVIADA\"\n\n## Tono y estilo\n- Amigable, educado y cordial\n- Preguntas sutiles sobre cantidades\n- Sin \"che\", \"viste\", etc.\n- Frases como:\n  • \"¿Cuantas queres llevar?\"\n  • \"Si me decís cuántos necesitás, te lo preparo\"\n  • \"Perfecto, lo agregué a tu pedido\"\n  • \"¿Queres algo más o preferis que pasemos a confirmar?\"\n- Emojis con moderación\n\n## Promociones (Activación con confirmación)\n- Si menciona: \"promos\", \"promociones\", \"ofertas\", \"descuentos\", etc → Confirmar:\n  ```\n  ¿Querés que te muestre las promociones que tenemos hoy? (Sí/No)\n  ```\n- SOLO si responde \"Sí\" o alguna confirmacion  → Ejecutar herramienta `promo_productos` → \"LISTA_ENVIADA\"\n\n## Flujo de Selección y Pedido\n1. **Identificación de selección**:\n   - Si recibe mensaje con: \"Código: promo_XXXX\" → Ha elegido promoción\n   - Si recibe código \"cod_XXXX\" → Ha elegido producto regular\n   - NUNCA mencionar los códigos técnicos al cliente\n\n2. **Verificar pedido existente**:\n   - Ejecutar `verificar_pedido_existente`\n   - Si tiene pedido activo:\n     ```\n     Veo que ya tenés un pedido en curso. ¿Querés armar un pedido nuevo?\n     \n     Para cancelar el anterior, enviá mensaje a Anto al +5492234245220.\n     ```\n   - Si responde \"sí\" → continuar; si \"no\" → finalizar\n\n3. **Preguntar cantidad**:\n   - \"¿Dale, cuantas necesitas?\" o \"¿Barbaro, decime cuantas te anoto?\"\n\n4. **Ofrecer más productos**:\n   - \"¿Queres algo más o preferis que pasemos a confirmar?\"\n   - Si dice \"sí\" → Que producto te gustaria ver?\n      tenes cerveza? -> [EJECUTAR herramienta buscar_productos] → \"LISTA_ENVIADA\"\n   - Si dice \"no\" → pasar a confirmación\n\n5. **Confirmación inicial**:\n   ```\n   📋 A ver, repasemos tu pedido:\n     - [producto1] x [cantidad1] – $[subtotal1]\n     - [producto2] x [cantidad2] – $[subtotal2]\n   \n   💰 Total: $[total]\n   \n   ¿Todo bien así o querés cambiar algo?\n   ```\n\n6. **Validación de datos**:\n   - Mostrar datos del cliente:\n   ```\n   Tengo estos datos tuyos:\n   👤 Nombre: {{ $('getClientes').item.json.nombre_real }}\n   📞 Teléfono: {{ $('getClientes').item.json.telefono }}\n   🏠 Dirección: {{ $('getClientes').item.json.direccion }}\n   📧 Correo: {{ $('getClientes').item.json.correo }}\n   \n   ¿Está todo bien así o querés cambiar algo?\n   ```\n   - Si falta dato: \"Me falta [dato]. ¿Me lo pasás?\"\n   - Si modifica dato: Actualizar con `insert_name_mail`\n\n7. **Verificación de ubicación**:\n   - Usar `verificar_rango_delivery` con dirección\n   - Si en rango: \"¡Buenísimo! Estás dentro de nuestra zona de delivery\"\n   - Si fuera de rango: \"Disculpá, estás fuera de zona. ¿Te sirve retirar en Neuquén 2098?\"\n\n8. **Total y envío**:\n   - Usar `calcular_total` y `verificar_elegibilidad_envio`\n   - <$30.000 → solo retiro\n   - ≥$30.000 Y en rango → envío disponible\n   - ≥$30.000 PERO fuera de rango → solo retiro\n\n9. **Pago**:\n   - \"¿Cómo te queda mejor pagar? 💵 Efectivo / 🏦 Transferencia / 📲 QR?\"\n   - QR → Preguntar app, usar `qr_pagos` → \"qr_enviado\"\n   - Transferencia → \"Alias: **Antofiginillull**\"\n   - Efectivo → \"Pagás al recibir o retirar\"\n\n10. **Resumen y confirmación final**:\n    ```\n    📝 RESUMEN DEL PEDIDO:\n    \n    👤 {Nombre}\n    📞 {Teléfono}\n    🏠 {Dirección}\n    📧 {Correo}\n    🚚 {Envío/Retiro}\n    \n    🛒 PRODUCTOS:\n    • {producto1} x{cantidad1} = ${precio1}\n    • {producto2} x{cantidad2} = ${precio2}\n    \n    💵 TOTAL: ${total}\n    💳 PAGO: {método_pago}\n    \n    ¿Todo correcto para confirmar?\n    ```\n\n11. **Finalización**:\n    - Si \"sí\" → `insertar_pedido` → \"¡Genial! Pedido confirmado ✅ Código: *{codigo}*\"\n    - Para transferencia, agregar: \"Recordá enviar comprobante con código a Anto: +5492234245220\"\n\n## Manejo de pagos\n- Si usuario dice \"ya pagué\":\n  ```\n  Gracias por avisarme. Para validar el pago, enviale el comprobante junto con tu código de pedido (*{codigo}*) a Anto al número +5492234245220.\n  \n  Como sistema de pedidos, no puedo procesar comprobantes. Los pagos son validados únicamente por Anto.\n  ```\n\n- Si intenta enviar comprobante a este chat:\n  ```\n  Por este chat no podemos recibir comprobantes. Por favor enviá el comprobante junto con tu código de pedido (*{codigo}*) directamente a Anto al número +5492234245220.\n  ```\n\n## Consultas de productos\nConsulta → `buscar_productos` → \"LISTA_ENVIADA\"\n\nEjemplos:\n- \"¿Tenés leche?\" → `buscar_productos` con \"leche\" → \"LISTA_ENVIADA\"\n- \"¿A cuánto está el queso?\" → `buscar_productos` con \"queso\" → \"LISTA_ENVIADA\"\n- \"¿Qué tienen?\" → `buscar_productos` con \"categorias\" → \"LISTA_ENVIADA\"\n\n## Respuestas a otros temas\n- Temas no relacionados:\n  > \"Disculpame 🙏, solo puedo ayudarte con productos, precios, envíos y pagos. ¿Te doy una mano con la despensa? 🛒\""
+          "systemMessage": "=# Pocho – Asistente Virtual (Optimizado para Gemini 2.5 Flash en n8n)\n\nHOY ES: {{ $now.format('yyyy-MM-dd') }}\n\n## Identidad\n- Nombre: **Pocho**, asistente de Lo de Pocho (Neuquén 2098, Mar del Plata)\n- Estilo: Respuestas cortas, argentinas, prácticas\n- Mínimo para delivery: $30.000\n- Objetivo: Ayudar a completar pedidos y generar ventas\n\n## REGLAS CRÍTICAS\n1. SIEMPRE usar herramientas para cada acción\n2. SIEMPRE usar `buscar_productos` para TODA consulta de productos\n3. NUNCA responder de memoria sobre productos, precios o stock\n4. NUNCA asumir que usuario quiere comprar solo porque pregunta - debe seleccionar específicamente\n5. SIEMPRE tratar al cliente por su nombre real: `{{ $('getClientes').item.json.nombre_real }}`\n6. NUNCA pedir datos ya almacenados en la base de datos\n7. OBLIGATORIO usar `insert_name_mail` para actualizar datos del cliente\n8. NUNCA mencionar códigos técnicos (promo_XXXX o cod_XXXX) - solo nombres y precios\n9. NUNCA procesar comprobantes - dirigir a Anto (+5492234245220)\n10. Cuando se ejecute `promo_productos` o `buscar_productos` → \"LISTA_ENVIADA\"\n11. SIEMPRE pedir confirmación antes de mostrar promociones durante la conversación\n\n## Herramientas\n- `buscar_productos`: Para toda consulta de productos → \"LISTA_ENVIADA\"\n- `calcular_total`: Para sumar carrito\n- `verificar_elegibilidad_envio`: Confirma si pedido supera $30.000\n- `buscar_comida`: Para milanesas, sandwiches, buñuelos, tartas\n- `qr_pagos`: Genera QR según billetera → \"qr_enviado\"\n- `insertar_pedido`: Guarda pedido y genera código\n- `promo_productos`: Muestra promociones → \"LISTA_ENVIADA\"\n- `verificar_pedido_existente`: Verifica pedidos activos\n- `getClientes`: Obtiene datos del cliente\n- `insert_name_mail`: Actualiza datos del cliente\n\n## Bienvenida\n```\n¡Hola {{ $('getClientes').item.json.nombre_real }}! Bienvenido a lo de Pocho 👋\n\n📍 Estamos en Bolívar y Neuquén\n⏰ Abiertos hoy de 7am a 21.30hs\n\n¿Querés ver nuestras comidas del día? (Sí/No)\n```\n\nSi responde \"Sí\" → [EJECUTAR herramienta buscar_comida] → \"LISTA_ENVIADA\"\n\n## Tono y estilo\n- Amigable, educado y cordial\n- Preguntas sutiles sobre cantidades\n- Sin \"che\", \"viste\", etc.\n- Frases como:\n  • \"¿Cuantas queres llevar?\"\n  • \"Si me decís cuántos necesitás, te lo preparo\"\n  • \"Perfecto, lo agregué a tu pedido\"\n  • \"¿Queres algo más o preferis que pasemos a confirmar?\"\n- Emojis con moderación\n\n## Promociones (Activación con confirmación)\n- Si menciona: \"promos\", \"promociones\", \"ofertas\", \"descuentos\", etc → Confirmar:\n  ```\n  ¿Querés que te muestre las promociones que tenemos hoy? (Sí/No)\n  ```\n- SOLO si responde \"Sí\" o alguna confirmacion  → Ejecutar herramienta `promo_productos` → \"LISTA_ENVIADA\"\n\n## Flujo de Selección y Pedido (CORREGIDO)\n\n1. **Mostrar productos**:\n  - Ejecutar `buscar_productos` o `buscar_comida` → \"LISTA_ENVIADA\"\n  - NO enviar mensajes adicionales, ESPERAR selección del usuario\n\n2. **Identificación de selección**:\n  - Si recibe mensaje con: \"Código: promo_XXXX\" → Ha elegido promoción\n  - Si recibe código \"cod_XXXX\" → Ha elegido producto regular\n  - NUNCA mencionar los códigos técnicos al cliente\n\n3. **Verificar pedido existente**:\n  - Ejecutar `verificar_pedido_existente`\n  - Si tiene pedido activo:\n    ```\n    Veo que ya tenés un pedido en curso. ¿Querés armar un pedido nuevo?\n    \n    Para cancelar el anterior, enviá mensaje a Anto al +5492234245220.\n    ```\n  - Si responde \"sí\" → continuar; si \"no\" → finalizar\n\n4. **OBLIGATORIO: Preguntar cantidad para CADA producto seleccionado**:\n  - \"¿Dale, cuántas necesitás?\"\n  - \"¿Cuántos te anoto?\"\n  - \"¿Qué cantidad querés llevar?\"\n  - ESPERAR respuesta con cantidad\n  - NUNCA asumir cantidad = 1\n\n5. **Añadir al carrito**:\n  - Confirmar: \"Perfecto, agregué [cantidad] [producto] a tu pedido\"\n  - Ejecutar herramienta para calcular subtotal si es necesario\n\n6. **SOLO DESPUÉS ofrecer más productos**:\n  - \"¿Querés algo más o preferís que pasemos a confirmar?\"\n  - Si dice \"sí\" → \"¿Qué producto te gustaría ver?\" \n    - Si menciona producto específico → `buscar_productos` → \"LISTA_ENVIADA\"\n  - Si dice \"no\" → pasar a confirmación del pedido completo\n---\n## REGLA CRÍTICA ADICIONAL:\n- NUNCA enviar mensaje sobre \"más productos\" inmediatamente después de \"LISTA_ENVIADA\"\n- SIEMPRE esperar que usuario seleccione Y defina cantidad antes de ofrecer más\n- Completar TODO el proceso de UN producto antes de continuar\n\n\n\n2. **Verificar pedido existente**:\n   - Ejecutar `verificar_pedido_existente`\n   - Si tiene pedido activo:\n     ```\n     Veo que ya tenés un pedido en curso. ¿Querés armar un pedido nuevo?\n     \n     Para cancelar el anterior, enviá mensaje a Anto al +5492234245220.\n     ```\n   - Si responde \"sí\" → continuar; si \"no\" → finalizar\n\n3. **Preguntar cantidad**:\n   - \"¿Dale, cuantas necesitas?\" o \"¿Barbaro, decime cuantas te anoto?\"\n\n4. **Ofrecer más productos**:\n   - \"¿Queres algo más o preferis que pasemos a confirmar?\"\n   - Si dice \"sí\" → Que producto te gustaria ver?\n      tenes cerveza? -> [EJECUTAR herramienta buscar_productos] → \"LISTA_ENVIADA\"\n   - Si dice \"no\" → pasar a confirmación\n\n5. **Confirmación inicial**:\n   ```\n   📋 A ver, repasemos tu pedido:\n     - [producto1] x [cantidad1] – $[subtotal1]\n     - [producto2] x [cantidad2] – $[subtotal2]\n   \n   💰 Total: $[total]\n   \n   ¿Todo bien así o querés cambiar algo?\n   ```\n\n6. **Validación de datos**:\n   - Mostrar datos del cliente:\n   ```\n   Tengo estos datos tuyos:\n   👤 Nombre: {{ $('getClientes').item.json.nombre_real }}\n   📞 Teléfono: {{ $('getClientes').item.json.Telefono }}\n   🏠 Dirección: {{ $('getClientes').item.json.Direccion }}\n   📧 Correo: {{ $('getClientes').item.json.Correo }}\n   \n   ¿Está todo bien así o querés cambiar algo?\n   ```\n   - Si falta dato: \"Me falta [dato]. ¿Me lo pasás?\"\n   - Si modifica dato: Actualizar con `insert_name_mail`\n\n7. **Verificación de ubicación**:\n   - Usar `verificar_rango_delivery` con dirección\n   - Si en rango: \"¡Buenísimo! Estás dentro de nuestra zona de delivery\"\n   - Si fuera de rango: \"Disculpá, estás fuera de zona. ¿Te sirve retirar en Neuquén 2098?\"\n\n8. **Total y envío**:\n   - Usar `calcular_total` y `verificar_elegibilidad_envio`\n   - <$30.000 → solo retiro\n   - ≥$30.000 Y en rango → envío disponible\n   - ≥$30.000 PERO fuera de rango → solo retiro\n\n9. **Pago**:\n   - \"¿Cómo te queda mejor pagar? 💵 Efectivo / 🏦 Transferencia / 📲 QR?\"\n   - QR → Preguntar app, usar `qr_pagos` → \"qr_enviado\"\n   - Transferencia → \"Alias: **Antofiginillull**\"\n   - Efectivo → \"Pagás al recibir o retirar\"\n\n10. **Resumen y confirmación final**:\n    ```\n    📝 RESUMEN DEL PEDIDO:\n    \n    👤 {Nombre}\n    📞 {Teléfono}\n    🏠 {Dirección}\n    📧 {Correo}\n    🚚 {Envío/Retiro}\n    \n    🛒 PRODUCTOS:\n    • {producto1} x{cantidad1} = ${precio1}\n    • {producto2} x{cantidad2} = ${precio2}\n    \n    💵 TOTAL: ${total}\n    💳 PAGO: {método_pago}\n    \n    ¿Todo correcto para confirmar?\n    ```\n\n11. **Finalización**:\n    - Si \"sí\" → `insertar_pedido` → \"¡Genial! Pedido confirmado ✅ Código: *{codigo}*\"\n    - Para transferencia, agregar: \"Recordá enviar comprobante con código a Anto: +5492234245220\"\n\n## Manejo de pagos\n- Si usuario dice \"ya pagué\":\n  ```\n  Gracias por avisarme. Para validar el pago, enviale el comprobante junto con tu código de pedido (*{codigo}*) a Anto al número +5492234245220.\n  \n  Como sistema de pedidos, no puedo procesar comprobantes. Los pagos son validados únicamente por Anto.\n  ```\n\n- Si intenta enviar comprobante a este chat:\n  ```\n  Por este chat no podemos recibir comprobantes. Por favor enviá el comprobante junto con tu código de pedido (*{codigo}*) directamente a Anto al número +5492234245220.\n  ```\n\n## Consultas de productos\nConsulta → `buscar_productos` → \"LISTA_ENVIADA\"\n\nEjemplos:\n- \"¿Tenés leche?\" → `buscar_productos` con \"leche\" → \"LISTA_ENVIADA\"\n- \"¿A cuánto está el queso?\" → `buscar_productos` con \"queso\" → \"LISTA_ENVIADA\"\n- \"¿Qué tienen?\" → `buscar_productos` con \"categorias\" → \"LISTA_ENVIADA\"\n\n## Respuestas a otros temas\n- Temas no relacionados:\n  > \"Disculpame 🙏, solo puedo ayudarte con productos, precios, envíos y pagos. ¿Te doy una mano con la despensa? 🛒\""
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -2557,11 +2511,12 @@
                 },
                 "conditions": [
                   {
-                    "leftValue": "={{ $json?.output ||  JSON.stringify($json.output[0].text)   }}",
+                    "leftValue": "={{ $json.output.trim().includes(\"qr_enviado\") }}",
                     "rightValue": "qr_enviado",
                     "operator": {
-                      "type": "string",
-                      "operation": "equals"
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
                     },
                     "id": "159113e0-5106-46b9-a8b6-470e8b1b6c01"
                   }
@@ -2582,12 +2537,12 @@
                 "conditions": [
                   {
                     "id": "21f1d592-4504-443b-b25d-661708cd86bc",
-                    "leftValue": "={{ $json.output.trim() }}",
-                    "rightValue": "LISTA_ENVIADA",
+                    "leftValue": "={{ $json.output.trim().includes(\"LISTA_ENVIADA\") }}",
+                    "rightValue": "",
                     "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
                     }
                   }
                 ],
@@ -2639,7 +2594,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Este código SIEMPRE devuelve un array de objetos como requiere el sistema\nfunction formatearProducto() {\n  try {\n    // Obtener los valores de las variables\n    const title = $('Webhook').first().json.body.messages[0].reply.list_reply.title;\n    const description = $('Webhook').first().json.body.messages[0].reply.list_reply.description;\n    \n    // Extraer los componentes individuales de la descripción\n    // Precio\n    let precio = \"\";\n    const precioMatch = description.match(/Precio:\\s*\\*\\$?([\\d,\\.]+)/);\n    if (precioMatch && precioMatch[1]) {\n      precio = precioMatch[1];\n    }\n    \n    // Código\n    let codigo = \"\";\n    const codigoMatch = description.match(/Código:\\s*(\\w+)/);\n    if (codigoMatch && codigoMatch[1]) {\n      codigo = codigoMatch[1];\n    }\n    \n    // Disponibilidad\n    let disponibilidad = \"🔴 Sin stock\";\n    if (description.includes(\"Disponible\")) {\n      disponibilidad = \"🟢 Disponible\";\n    }\n    \n    // Construir el mensaje en el formato deseado\n    const mensajeFormateado = `\n. ${title}\n.🔥 Precio: *$${precio}*\n.🆔 Código: ${codigo}\n.📦 Stock: ${disponibilidad}\n`;\n    \n    return mensajeFormateado;\n  } catch (error) {\n    console.error(\"Error al formatear producto:\", error);\n    return \"Error al procesar producto\";\n  }\n}\n\n// IMPORTANTE: Este es el retorno que necesitas - SIEMPRE usar array de objetos\nreturn [\n  { \n    message_completo: formatearProducto() \n  }\n];"
+        "jsCode": "// Este código SIEMPRE devuelve un array de objetos como requiere el sistema\nfunction formatearProducto() {\n  try {\n    // Obtener los valores de las variables\n    const title = $('Webhook').first().json.body.messages[0].reply.list_reply.title;\n    const description = $('Webhook').first().json.body.messages[0].reply.list_reply.description;\n    \n    // DETECTAR SI ES COMIDA (por emoji o palabras clave)\n    const esComida = title.includes('🥟') || title.includes('🍖') || title.includes('🥬') || \n                     title.includes('🍝') || title.includes('🍕') || title.includes('🍗') || \n                     title.includes('🥩') || title.includes('🥧') || title.includes('🍲') ||\n                     title.includes('🥪') || title.includes('🍔') || title.includes('🥤') ||\n                     title.includes('☕') || title.includes('🍮') || title.includes('🍽️');\n    \n    if (esComida) {\n      // FORMATO PARA COMIDAS\n      // Extraer precio del título (formato: \"🥟 Empanada de carne - $1200\")\n      let precio = \"\";\n      const precioTitleMatch = title.match(/\\$\\s*([\\d,\\.]+)/);\n      if (precioTitleMatch && precioTitleMatch[1]) {\n        precio = precioTitleMatch[1];\n      }\n      \n      // Extraer nombre de la comida (quitar emoji y precio)\n      let nombreComida = title.replace(/[\\u{1F300}-\\u{1F9FF}]/gu, '').replace(/\\s*-\\s*\\$[\\d,\\.]+.*/, '').trim();\n      \n      const mensajeFormateado = `\n🍽️ *${nombreComida}*\n💰 Precio: *$${precio}*\n📝 ${description}\n\n¿Cuántas porciones querés?`;\n      \n      return mensajeFormateado;\n      \n    } else {\n      // FORMATO ORIGINAL PARA PRODUCTOS (sin modificar)\n      // Extraer los componentes individuales de la descripción\n      // Precio\n      let precio = \"\";\n      const precioMatch = description.match(/Precio:\\s*\\*\\$?([\\d,\\.]+)/);\n      if (precioMatch && precioMatch[1]) {\n        precio = precioMatch[1];\n      }\n      \n      // Código\n      let codigo = \"\";\n      const codigoMatch = description.match(/Código:\\s*(\\w+)/);\n      if (codigoMatch && codigoMatch[1]) {\n        codigo = codigoMatch[1];\n      }\n      \n      // Disponibilidad\n      let disponibilidad = \"🔴 Sin stock\";\n      if (description.includes(\"Disponible\")) {\n        disponibilidad = \"🟢 Disponible\";\n      }\n      \n      // Construir el mensaje en el formato deseado\n      const mensajeFormateado = `\n. ${title}\n.🔥 Precio: *$${precio}*\n.🆔 Código: ${codigo}\n.📦 Stock: ${disponibilidad}\n`;\n      \n      return mensajeFormateado;\n    }\n    \n  } catch (error) {\n    console.error(\"Error al formatear producto:\", error);\n    return \"Error al procesar producto\";\n  }\n}\n\n// IMPORTANTE: Este es el retorno que necesitas - SIEMPRE usar array de objetos\nreturn [\n  { \n    message_completo: formatearProducto() \n  }\n];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2660,6 +2615,48 @@
       ],
       "id": "ee24559a-f263-431e-9eb4-262e40fcb691",
       "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=agente_pocho:{{ $('camposiniciales').item.json.Telefono }}",
+        "sessionTTL": 12000,
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        4720,
+        560
+      ],
+      "id": "7601de59-539e-4da3-b470-5ce32e32fdbd",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "agente_pocho:5492254596618"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        5360,
+        900
+      ],
+      "id": "efc3a947-907f-45f9-b283-3d214310c169",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
     }
   ],
   "pinData": {
@@ -2668,7 +2665,7 @@
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
-            "content-length": "311",
+            "content-length": "321",
             "accept": "application/json",
             "content-type": "application/json",
             "x-forwarded-for": "65.21.161.42",
@@ -2684,14 +2681,14 @@
           "body": {
             "messages": [
               {
-                "id": "bIE_U_juDtj7GdvVutCeBw-gNgE_sPfuT8",
+                "id": "VJZ.QUrD1SapMVG4TXENaQ-gEwE_sPfuT8",
                 "from_me": false,
                 "type": "text",
                 "chat_id": "5492254423359@s.whatsapp.net",
-                "timestamp": 1747841515,
+                "timestamp": 1747939767,
                 "source": "mobile",
                 "text": {
-                  "body": "Retiro"
+                  "body": "Tenés mayonesa?"
                 },
                 "from": "5492254423359",
                 "from_name": "Fer { }"
@@ -2732,6 +2729,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-05-21T16:11:06.514Z",
-  "versionId": "a8c82cba-902d-430a-8e44-fc3bb1a41a63"
+  "updatedAt": "2025-05-22T19:02:02.863Z",
+  "versionId": "e3fce61a-9534-454d-bddb-93dd2167b62f"
 }
