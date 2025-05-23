@@ -12,44 +12,22 @@
         ]
       ]
     },
-    "vars": {
-      "main": [
-        [
-          {
-            "node": "Redis1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "NocoDB": {
       "main": [
         [
           {
-            "node": "Aggregate",
+            "node": "Split Out",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Aggregate": {
+    "If2": {
       "main": [
         [
           {
-            "node": "Productos",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If1": {
-      "main": [
-        [
-          {
-            "node": "Merge",
+            "node": "Merge1",
             "type": "main",
             "index": 0
           }
@@ -63,29 +41,18 @@
         ]
       ]
     },
-    "Redis1": {
+    "Merge1": {
       "main": [
         [
           {
-            "node": "Productos2",
+            "node": "Limit1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Productos2": {
-      "main": [
-        [
-          {
-            "node": "If1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge": {
+    "Promociones": {
       "main": [
         [
           {
@@ -96,22 +63,66 @@
         ]
       ]
     },
-    "Productos1": {
+    "Split Out": {
       "main": [
         [
           {
-            "node": "Merge",
+            "node": "Merge1",
             "type": "main",
             "index": 1
           }
         ]
       ]
     },
-    "Productos": {
+    "vars": {
       "main": [
         [
           {
-            "node": "Productos1",
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis1": {
+      "main": [
+        [
+          {
+            "node": "Productos5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Productos5": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit1": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Promociones",
             "type": "main",
             "index": 0
           }
@@ -128,26 +139,6 @@
   "nodes": [
     {
       "parameters": {
-        "operation": "delete",
-        "key": "comidas:5492254423359"
-      },
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        -2040,
-        500
-      ],
-      "id": "8f927e1b-0745-4719-9d32-bee0e035df19",
-      "name": "Redis2",
-      "credentials": {
-        "redis": {
-          "id": "JMklVOvkU7koL2UG",
-          "name": "Redis"
-        }
-      }
-    },
-    {
-      "parameters": {
         "workflowInputs": {
           "values": [
             {
@@ -162,11 +153,187 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -3680,
-        20
+        -3980,
+        1260
       ],
       "id": "cd606992-d34f-4299-bf73-ba69864f9fc1",
       "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pc1g3m0ih934pz9",
+        "table": "mmc2qmh5d09oy85",
+        "returnAll": true,
+        "options": {
+          "fields": []
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -2920,
+        1380
+      ],
+      "id": "09c03fdd-4d0c-4258-9f9a-095956f09428",
+      "name": "NocoDB",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "272539cb-ae4d-4110-8940-8d85d6088487",
+              "name": "response",
+              "value": "LISTA_ENVIADA",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -660,
+        860
+      ],
+      "id": "e5ace295-b469-4971-b296-30a76ab8d976",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fd06524c-64b9-494c-b07c-866a083aed27",
+              "leftValue": "={{ $json.productos }}",
+              "rightValue": "null",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3120,
+        1260
+      ],
+      "id": "ceb87ec7-d539-43f9-8ee2-f405ebeebdd1",
+      "name": "If2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -2460,
+        1260
+      ],
+      "id": "da07bcf7-a3de-4f1a-bc45-115d123c018e",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/interactive",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "header",
+              "value": "={{ $json.header }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.action }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.type }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1800,
+        1260
+      ],
+      "id": "6b081d85-0b2e-46a3-8113-a2dfdec6d575",
+      "name": "Promociones"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "Producto, Descripcion, Precio",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -2700,
+        1380
+      ],
+      "id": "3692ddbe-056a-43dd-8905-d5eab3348b0a",
+      "name": "Split Out"
     },
     {
       "parameters": {
@@ -185,108 +352,34 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -3440,
-        20
+        -3780,
+        1260
       ],
-      "id": "a7ab1094-1f51-4deb-9621-7055bf87ebe1",
+      "id": "03e94fe2-63e8-48b3-80a4-decf65d95c04",
       "name": "vars"
     },
     {
       "parameters": {
-        "authentication": "nocoDbApiToken",
-        "operation": "getAll",
-        "projectId": "pc1g3m0ih934pz9",
-        "table": "mmc2qmh5d09oy85",
-        "returnAll": true,
-        "options": {
-          "fields": []
-        }
-      },
-      "type": "n8n-nodes-base.nocoDb",
-      "typeVersion": 3,
-      "position": [
-        -2580,
-        200
-      ],
-      "id": "09c03fdd-4d0c-4258-9f9a-095956f09428",
-      "name": "NocoDB",
-      "credentials": {
-        "nocoDbApiToken": {
-          "id": "CawnXo6TfhLoivTw",
-          "name": "NocoDB Token account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "aggregate": "aggregateAllItemData",
-        "destinationFieldName": "comidas",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.aggregate",
-      "typeVersion": 1,
-      "position": [
-        -2380,
-        200
-      ],
-      "id": "6c9162b8-7f27-4211-9019-2df0465e977f",
-      "name": "Aggregate"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "fd06524c-64b9-494c-b07c-866a083aed27",
-              "leftValue": "={{ $json.comidas }}",
-              "rightValue": "",
-              "operator": {
-                "type": "array",
-                "operation": "notEmpty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -2740,
-        20
-      ],
-      "id": "179bf58d-c8f5-4eb1-86d7-d46dd36411d7",
-      "name": "If1"
-    },
-    {
-      "parameters": {
         "operation": "get",
-        "propertyName": "=comidas",
-        "key": "=comidas:{{ $('Workflow Input Trigger').item.json.Telefono }}",
+        "propertyName": "=Promociones",
+        "key": "=promo",
         "options": {}
       },
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -3220,
-        20
+        -3560,
+        1260
       ],
-      "id": "0abaf8d1-6821-450b-8a0a-f0c0770b23a1",
+      "id": "aa6b60e6-fe0d-4b7f-b47a-775510540ce1",
       "name": "Redis1",
       "credentials": {
         "redis": {
           "id": "JMklVOvkU7koL2UG",
           "name": "Redis"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -294,8 +387,8 @@
           "assignments": [
             {
               "id": "a36ae4f2-54a0-4d2d-b58e-1a8c013faf22",
-              "name": "comidas",
-              "value": "={{ $json.comidas }}",
+              "name": "productos",
+              "value": "={{ $json.Promociones }}",
               "type": "array"
             }
           ]
@@ -305,54 +398,46 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2980,
-        20
+        -3340,
+        1260
       ],
-      "id": "0683364d-47fb-49ab-b868-2e648a530359",
-      "name": "Productos2"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        -1640,
-        20
-      ],
-      "id": "55d0053f-cf0d-4ae2-a4ac-5482023b64ea",
-      "name": "Merge"
+      "id": "809975b1-37a1-4ca1-bf78-2bd7ed726684",
+      "name": "Productos5"
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "5b1f7094-6f76-4c92-b112-059537c4d552",
-              "name": "comidas",
-              "value": "={{ $json.comidas }}",
-              "type": "array"
-            }
-          ]
-        },
-        "options": {}
+        "maxItems": 25
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
       "position": [
-        -1840,
-        200
+        -2240,
+        1260
       ],
-      "id": "8f6ae874-3742-43ab-a184-5c56b35dab71",
-      "name": "Productos1"
+      "id": "748c65f5-7c42-444e-a533-f33446edd8e6",
+      "name": "Limit1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Teléfono dinámico del cliente\nconst remoteJid = $('Workflow Input Trigger').first().json.Telefono || \"\";\n\n// Función para asignar emojis basados en el tipo de comida\nfunction asignarEmojiComida(nombre) {\n  const nombreLower = nombre.toLowerCase();\n  \n  // Empanadas y tartas\n  if (nombreLower.includes('empanada')) return '🥟';\n  if (nombreLower.includes('tarta')) return '🥧';\n  \n  // Carnes\n  if (nombreLower.includes('asado') || nombreLower.includes('parrilla')) return '🥩';\n  if (nombreLower.includes('milanesa')) return '🍖';\n  if (nombreLower.includes('bife') || nombreLower.includes('carne')) return '🥩';\n  if (nombreLower.includes('pollo')) return '🍗';\n  if (nombreLower.includes('chorizo') || nombreLower.includes('morcilla')) return '🌭';\n  \n  // Pastas\n  if (nombreLower.includes('pasta') || nombreLower.includes('fideos') || nombreLower.includes('ñoquis') || nombreLower.includes('ravioles')) return '🍝';\n  if (nombreLower.includes('lasagna') || nombreLower.includes('lasaña')) return '🍝';\n  \n  // Pizza y similares\n  if (nombreLower.includes('pizza')) return '🍕';\n  if (nombreLower.includes('focaccia')) return '🍞';\n  \n  // Pescados y mariscos\n  if (nombreLower.includes('pescado') || nombreLower.includes('merluza') || nombreLower.includes('salmón')) return '🐟';\n  if (nombreLower.includes('camarón') || nombreLower.includes('langostino')) return '🦐';\n  \n  // Verduras y ensaladas\n  if (nombreLower.includes('ensalada')) return '🥗';\n  if (nombreLower.includes('verdura')) return '🥬';\n  \n  // Sopas\n  if (nombreLower.includes('sopa') || nombreLower.includes('caldo')) return '🍲';\n  \n  // Postres\n  if (nombreLower.includes('flan') || nombreLower.includes('postre')) return '🍮';\n  if (nombreLower.includes('helado')) return '🍨';\n  if (nombreLower.includes('torta')) return '🎂';\n  \n  // Bebidas\n  if (nombreLower.includes('jugo') || nombreLower.includes('agua')) return '🥤';\n  if (nombreLower.includes('café')) return '☕';\n  if (nombreLower.includes('gaseosa') || nombreLower.includes('coca')) return '🥤';\n  \n  // Sandwich y hamburguesas\n  if (nombreLower.includes('sandwich') || nombreLower.includes('sándwich')) return '🥪';\n  if (nombreLower.includes('hamburguesa')) return '🍔';\n  \n  // Arroz y guisos\n  if (nombreLower.includes('arroz')) return '🍚';\n  if (nombreLower.includes('guiso') || nombreLower.includes('estofado')) return '🍲';\n  \n  // Default para comida general\n  return '🍽️';\n}\n\n// Función para limpiar precio y formatear\nfunction formatearPrecio(precio) {\n  // Convertir a string y limpiar\n  let precioLimpio = precio.toString().replace(/[^\\d]/g, '');\n  \n  // Si es solo número, añadir $\n  if (precioLimpio && !isNaN(precioLimpio)) {\n    return `$${precioLimpio}`;\n  }\n  \n  // Si ya tiene formato, devolverlo\n  return precio.toString();\n}\n\n// Obtener datos de todos los elementos del nodo Limit1\nconst limitData = $input.all();\n\n// Crear arrays para almacenar los datos\nconst productos = [];\nconst descripciones = [];\nconst precios = [];\n\n// Procesar cada item del limit\nlimitData.forEach(item => {\n  if (item.json && item.json.Producto) { // Solo procesar items que tengan producto\n    productos.push(item.json.Producto);\n    descripciones.push(item.json.Descripcion || \"\");\n    precios.push(item.json.Precio || \"0\");\n  }\n});\n\n// Validar que tengamos datos\nconst cantidad = productos.length;\nconst rows = [];\n\nfor (let i = 0; i < cantidad; i++) {\n  const idProducto = `menu_${i + 1}`;\n  const nombre = productos[i];\n  const descripcion = descripciones[i] || \"\";\n  const precio = precios[i] || \"0\";\n  \n  // Asignar emoji basado en el tipo de comida\n  const emojiComida = asignarEmojiComida(nombre);\n  const precioFormateado = formatearPrecio(precio);\n  \n  // INCLUIR PRECIO EN EL TÍTULO para que sea visible\n  const tituloCompleto = `${emojiComida} ${nombre} - ${precioFormateado}`;\n  \n  // La descripción será solo la descripción del producto\n  rows.push({\n    id: idProducto,\n    title: tituloCompleto,\n    description: descripcion\n  });\n}\n\nconst sections = [\n  {\n    title: \"🥶 MENÚ ANTIFRÍO x MENOS DE $5000 🥶\",\n    rows: rows\n  }\n];\n\nconst telefonoContacto = \"2235246842\";\nconst direccion = \"Bolívar y Neuquén\";\n\nconst requestBody = {\n  header: { text: \"🥶 MENÚ ANTIFRÍO x MENOS DE $5000 🥶\" },\n  body: { text: \"🟢 Seleccioná tu plato para combatir el frío y escribí la cantidad que quieras\" },\n  footer: { text: `📲 Hacé tu pedido y\\n📍 Retirá en ${direccion} o\\n 🚚 Consultá el envío` },\n  action: {\n    list: {\n      sections,\n      label: \" 🔺 Ver Menú \"\n    }\n  },\n  type: \"list\",\n  to: remoteJid\n};\n\nreturn [{ json: requestBody }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2020,
+        1260
+      ],
+      "id": "4067b2c2-28fd-45e1-8a13-b9f13942f330",
+      "name": "Code2"
     },
     {
       "parameters": {
         "assignments": {
           "assignments": [
             {
-              "id": "1931bd85-0ac1-497b-a706-9d5785b6fd21",
-              "name": "comidas",
-              "value": "={{ JSON.stringify($json.comidas) }}",
+              "id": "272539cb-ae4d-4110-8940-8d85d6088487",
+              "name": "response",
+              "value": "LISTA_ENVIADA",
               "type": "string"
             }
           ]
@@ -362,42 +447,19 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1140,
-        20
+        -1580,
+        1260
       ],
-      "id": "3f94b19e-66c8-45e5-bdbb-d837244410a0",
+      "id": "51dc3ea4-795b-4e56-b260-48651fe544ff",
       "name": "Edit Fields"
-    },
-    {
-      "parameters": {
-        "operation": "set",
-        "key": "=comidas:{{ $('Workflow Input Trigger').item.json.Telefono }}",
-        "value": "={{ JSON.stringify($json.comidas) }}",
-        "expire": true,
-        "ttl": 10800
-      },
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        -2120,
-        200
-      ],
-      "id": "1771dacb-57c9-4363-afec-81f034185626",
-      "name": "Productos",
-      "credentials": {
-        "redis": {
-          "id": "JMklVOvkU7koL2UG",
-          "name": "Redis"
-        }
-      }
     }
   ],
   "pinData": {
     "Workflow Input Trigger": [
       {
         "json": {
-          "descripcion": "Vendes comida?",
-          "Telefono": "5492254423359"
+          "descripcion": "Menú del dia",
+          "Telefono": "5492254596618"
         }
       }
     ]
@@ -415,6 +477,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-10T14:15:06.451Z",
-  "versionId": "c75016cd-a784-4a38-9b85-dea78d0db379"
+  "updatedAt": "2025-05-22T18:35:16.376Z",
+  "versionId": "41515c12-3151-4fea-a0fd-54beb22c56e6"
 }
