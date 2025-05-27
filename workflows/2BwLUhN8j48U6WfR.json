@@ -377,7 +377,7 @@
           {
             "node": "Merge1",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
@@ -408,7 +408,7 @@
           {
             "node": "Merge1",
             "type": "main",
-            "index": 1
+            "index": 0
           }
         ]
       ]
@@ -433,11 +433,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Call n8n Workflow Tool": {
-      "ai_tool": [
-        []
       ]
     },
     "NocoDB": {
@@ -466,8 +461,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1060,
-        240
+        -1160,
+        -240
       ],
       "id": "bf25e0cf-b29e-458f-b6bc-fa53e8c9face",
       "name": "Lista General"
@@ -527,8 +522,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        2500,
-        -160
+        2280,
+        -420
       ]
     },
     {
@@ -538,8 +533,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2320,
-        40
+        2100,
+        -220
       ],
       "id": "8392157c-243c-426b-a54b-10824f1dcf49",
       "name": "Separa datos"
@@ -552,7 +547,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        1860,
+        1620,
         500
       ],
       "id": "aec5b216-0d45-40db-bfa2-43a330d49dda",
@@ -588,8 +583,8 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        -2060,
-        520
+        -2360,
+        400
       ],
       "id": "0dfcf41e-c777-4333-8e48-bb4fd3383a6a",
       "name": "Crypto"
@@ -622,8 +617,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2280,
-        420
+        -2580,
+        300
       ],
       "id": "20208830-2805-4548-8c01-6e88d90337b1",
       "name": "If2"
@@ -658,8 +653,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2940,
-        420
+        -3700,
+        300
       ]
     },
     {
@@ -690,8 +685,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2720,
-        420
+        -3480,
+        300
       ],
       "id": "6a514313-7c6d-43b9-85b1-4d029aca4711",
       "name": "If"
@@ -722,8 +717,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -1840,
-        520
+        -2140,
+        400
       ],
       "id": "3cebb634-63d3-4de5-8e95-41dfdec85ff8",
       "name": "Insertar Lead",
@@ -849,8 +844,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1600,
-        400
+        -1900,
+        280
       ],
       "notesInFlow": true
     },
@@ -868,8 +863,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -2500,
-        420
+        -2800,
+        300
       ],
       "id": "47a72902-531f-4c7e-afab-af2653f49fe8",
       "name": "getCliente",
@@ -924,8 +919,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -3160,
-        420
+        -3920,
+        300
       ],
       "id": "e71a9a80-2b08-4b9b-b8f8-afd1ac9cd70f",
       "name": "Webhook",
@@ -941,7 +936,7 @@
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        2020,
+        1780,
         500
       ],
       "id": "8807f907-9745-43f8-af13-f895d3d88275",
@@ -963,8 +958,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -1060,
-        600
+        -1180,
+        680
       ],
       "id": "2d0e5fcc-472b-421d-8733-6d9b0a9d7671",
       "name": "Redis",
@@ -985,8 +980,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -800,
-        600
+        -980,
+        680
       ],
       "id": "5de9dc4e-844c-4703-9529-1afe3715f5ef",
       "name": "Redis1",
@@ -1013,7 +1008,7 @@
                   {
                     "id": "37fa4c10-4aa3-4c88-8793-c66f540ea575",
                     "leftValue": "={{ JSON.parse($json.message.last()).timestamp }}",
-                    "rightValue": "={{ $now.minus(5,'seconds').toLocal().toISO() }}",
+                    "rightValue": "={{ $now.minus(1,'seconds').toLocal().toISO() }}",
                     "operator": {
                       "type": "dateTime",
                       "operation": "before"
@@ -1057,8 +1052,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -540,
-        600
+        -780,
+        680
       ],
       "id": "aaf6610d-0419-45be-94b2-b2429e8c121a",
       "name": "Switch"
@@ -1070,8 +1065,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -260,
-        780
+        -500,
+        860
       ],
       "id": "a61487c4-9226-44b9-9142-7b25b0c0e020",
       "name": "Wait",
@@ -1085,8 +1080,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -260,
-        460
+        -500,
+        660
       ],
       "id": "aedb9c43-b97f-4a7b-99ff-bcbdc6493ef7",
       "name": "Redis3",
@@ -1105,8 +1100,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -100,
-        460
+        -340,
+        660
       ],
       "id": "00bfe911-ed3d-4b75-9913-08b92280dc6c",
       "name": "Split Out1"
@@ -1120,8 +1115,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        60,
-        460
+        -180,
+        660
       ],
       "id": "0bbd8df4-fe01-4e19-90b8-d9c5bc9fb9c4",
       "name": "JSON Parse"
@@ -1189,8 +1184,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        220,
-        460
+        -20,
+        660
       ]
     },
     {
@@ -1272,8 +1267,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -1060,
-        40
+        -1160,
+        -460
       ],
       "id": "be39c842-0fe9-453f-88fa-4944af4b8fce",
       "name": "Listas"
@@ -1298,8 +1293,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        640,
-        460
+        260,
+        720
       ]
     },
     {
@@ -1315,8 +1310,8 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        800,
-        460
+        420,
+        720
       ]
     },
     {
@@ -1328,8 +1323,8 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        960,
-        460
+        580,
+        720
       ],
       "id": "0407209d-de5c-4baf-975e-4670078a51e1",
       "name": "Transcribir",
@@ -1347,7 +1342,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        1300,
+        1120,
         280
       ],
       "id": "dfb1693b-e5ee-4784-a02a-1d1c7a0c9d57",
@@ -1396,8 +1391,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1120,
-        460
+        740,
+        720
       ],
       "id": "27a14cef-329c-4184-9d24-1e9b6da99093",
       "name": "text"
@@ -1470,40 +1465,11 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        640,
-        180
+        280,
+        280
       ],
       "id": "c3aa690b-d18a-45e6-8b94-4597abbf226d",
       "name": "text1"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
-              "name": "text",
-              "value": "={{ $('JSON Parse').item.json.content }}",
-              "type": "string"
-            },
-            {
-              "id": "1b82679b-242a-47f8-a614-662442de52ac",
-              "name": "timestamp",
-              "value": "={{ $('JSON Parse').item.json.timestamp }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        0,
-        0
-      ],
-      "id": "39bc1ba8-7fd4-4560-97c8-3c36f647b002",
-      "name": "text2"
     },
     {
       "parameters": {
@@ -1592,8 +1558,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -1400,
-        380
+        -1640,
+        260
       ],
       "id": "7145a677-bd29-4e4e-9650-7b8c514c50c0",
       "name": "Listas1"
@@ -1646,8 +1612,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -800,
-        240
+        -900,
+        -240
       ],
       "id": "55c022a9-0dc1-4c2f-bd65-b2ad4b874be1",
       "name": "menu",
@@ -1677,8 +1643,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -800,
-        420
+        280,
+        60
       ],
       "id": "61370456-3b51-4e43-9420-72ff89f8a2dd",
       "name": "text3"
@@ -1711,23 +1677,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1060,
-        440
+        -1160,
+        80
       ],
       "id": "4e16282d-7bc8-4559-a8d9-56ae424ded82",
       "name": "If1"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -3380,
-        400
-      ],
-      "id": "42b3c22f-0692-4861-b8d4-d3d9533c0c5f",
-      "name": "When Executed by Another Workflow",
-      "disabled": true
     },
     {
       "parameters": {
@@ -1761,8 +1715,8 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        2360,
-        580
+        2280,
+        480
       ],
       "id": "513aab94-49b9-4128-9c56-161009481205",
       "name": "Insertar",
@@ -1795,76 +1749,10 @@
     },
     {
       "parameters": {
-        "name": "inserta_recordatorio",
-        "description": "llamaras a esta herramienta siempre que quieras o necesites agendar un recordatorio o reunion",
-        "workflowId": {
-          "__rl": true,
-          "value": "COacYBAv28kctTqI",
-          "mode": "list",
-          "cachedResultName": "My Sub-Workflow 1"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "mensaje",
-              "displayName": "mensaje",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": true
-            },
-            {
-              "id": "fecha_hora",
-              "displayName": "fecha_hora",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": true
-            },
-            {
-              "id": "destinatario",
-              "displayName": "destinatario",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": true
-            },
-            {
-              "id": "estado",
-              "displayName": "estado",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 2.1,
-      "position": [
-        2180,
-        600
-      ],
-      "id": "26fc9bc9-0572-43c0-a062-e3f62c9d389c",
-      "name": "Call n8n Workflow Tool"
-    },
-    {
-      "parameters": {
-        "authentication": "nocoDbApiToken"
+        "authentication": "nocoDbApiToken",
+        "projectId": "pgzahexmtqessds",
+        "table": "mlqtf9yegpk7jr5",
+        "id": "={{ $fromAI('Row_ID_Value', ``, 'string') }}"
       },
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
@@ -1949,6 +1837,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-05-25T04:00:41.636Z",
-  "versionId": "2c6bcf37-fcef-4288-bc60-cdf38acd6e9a"
+  "updatedAt": "2025-05-26T18:51:52.089Z",
+  "versionId": "c31ef672-f8a2-4110-af75-16414af5646f"
 }
