@@ -1,0 +1,72 @@
+{
+  "active": true,
+  "connections": {
+    "NocoDB": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-26T19:03:27.996Z",
+  "id": "9UX4KzPpjZee7dtF",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 10",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "666fc014-bbc9-4b66-a458-64d4b43e10dd"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b67e691d-c6cb-4b86-b24e-2520f77db611",
+      "name": "MCP Server Trigger",
+      "webhookId": "666fc014-bbc9-4b66-a458-64d4b43e10dd"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pgzahexmtqessds",
+        "table": "mlqtf9yegpk7jr5",
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        20,
+        200
+      ],
+      "id": "029b1ac7-08be-4296-83b0-b09fa7e83d26",
+      "name": "NocoDB",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-27T04:00:41.458Z",
+  "versionId": "8c57b77b-59bd-4f9c-80ed-a8cd51b0da3c"
+}
