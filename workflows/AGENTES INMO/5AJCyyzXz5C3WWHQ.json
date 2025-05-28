@@ -59,6 +59,11 @@
             "node": "Success1",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -129,14 +134,14 @@
       "main": [
         [
           {
-            "node": "Google Calendar1",
+            "node": "Datos de la propiedad",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Google Calendar",
+            "node": "Datos de la propiedad1",
             "type": "main",
             "index": 0
           }
@@ -215,6 +220,28 @@
         [
           {
             "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos de la propiedad1": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos de la propiedad": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar1",
             "type": "main",
             "index": 0
           }
@@ -358,8 +385,8 @@
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        -2080,
-        540
+        -1680,
+        880
       ],
       "id": "305f5c1a-e231-4f10-983e-d3054fd5250b",
       "name": "Google Calendar",
@@ -375,14 +402,11 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $('Calendario').first().json.url_evo }}/message/sendList/{{ $('Calendario').first().json.instance }}",
+        "url": "={{ $('Calendario').first().json.url_evo }}/waInstance{{ $('Calendario').first().json.instance }}/sendList/{{ $('Calendario').first().json.apikey }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('Calendario').first().json.apikey }}"
-            }
+            {}
           ]
         },
         "sendBody": true,
@@ -390,11 +414,11 @@
         "bodyParameters": {
           "parameters": [
             {
-              "name": "number",
+              "name": "chatId",
               "value": "={{ $('Calendario').first().json.numero_telefono }}"
             },
             {
-              "name": "title",
+              "name": "message",
               "value": "={{ $json.title }}"
             },
             {
@@ -407,7 +431,7 @@
             },
             {
               "name": "footerText",
-              "value": "="
+              "value": "={{ $json.footerText }}"
             },
             {
               "name": "sections",
@@ -420,8 +444,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -980,
-        640
+        -700,
+        980
       ],
       "id": "a36506e8-1dd9-4450-ae36-0d7af61dfcaa",
       "name": "HTTP Request2",
@@ -447,19 +471,19 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -760,
-        640
+        -480,
+        980
       ]
     },
     {
       "parameters": {
-        "jsCode": "// Obtener los datos del nodo anterior\nconst datos = $input.first()?.json?.resultados || [];\nconsole.log(\"DEBUG - Datos recibidos:\", JSON.stringify(datos).substring(0, 200) + \"...\");\n\n// Verificar si tenemos datos\nif (!datos || !datos.length) {\n  console.log(\"DEBUG - No hay datos disponibles\");\n  return [{\n    json: {\n      error: \"No se encontraron eventos\",\n      message: \"El nodo anterior no devolvió ningún horario disponible\"\n    },\n    pairedItem: 0\n  }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\"; // Otoño\n  if (mes >= 6 && mes <= 8) return \"❄️\"; // Invierno\n  if (mes >= 9 && mes <= 11) return \"🌸\"; // Primavera\n  return \"☀️\"; // Verano\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Nombres de los días de la semana\nconst nombresDias = {\n  0: 'Domingo',\n  1: 'Lunes',\n  2: 'Martes',\n  3: 'Miércoles',\n  4: 'Jueves',\n  5: 'Viernes',\n  6: 'Sábado'\n};\n\n// Extraer fecha de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  \n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    const diaSemana = nombresDias[fechaCompleta.getDay()];\n    \n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: diaSemana\n    };\n  }\n  return null;\n}\n\n// Función para formatear el rango de hora correctamente (12:00 a 12:30)\nfunction formatearRangoHora(horaInicio, horaFin) {\n  // Extraer horas y minutos de ambos horarios\n  const inicioMatch = horaInicio.match(/^(\\d+):(\\d+)/);\n  const finMatch = horaFin.match(/^(\\d+):(\\d+)/);\n  \n  // Formatear correctamente con horas y minutos\n  const horaInicioFormateada = inicioMatch ? `${inicioMatch[1]}:${inicioMatch[2]}` : horaInicio;\n  const horaFinFormateada = finMatch ? `${finMatch[1]}:${finMatch[2]}` : horaFin;\n  \n  return `${horaInicioFormateada} a ${horaFinFormateada}`;\n}\n\n// Obtener la fecha y hora actual\nconst ahora = new Date();\nconsole.log(`DEBUG - Fecha actual: ${ahora.toISOString()}`);\nconsole.log(`DEBUG - Fecha local: ${ahora.toString()}`);\n\n// Agrupar horarios por mes y día\nconst mesesAgrupados = {};\n\n// Procesar los horarios disponibles de todos los eventos\ndatos.forEach(evento => {\n  if (!evento.horariosDisponibles || !evento.horariosDisponibles.length) return;\n  \n  evento.horariosDisponibles.forEach(horario => {\n    try {\n      // Obtener la fecha de inicio del horario\n      const fechaHorario = new Date(horario.inicio);\n      \n      // Para debug\n      console.log(`DEBUG - Evaluando horario: ${horario.inicio}`);\n      \n      // COMPARACIÓN SIMPLE: Verificar si la fecha ya pasó\n      if (fechaHorario <= ahora) {\n        console.log(`DEBUG - FILTRADA: Fecha ya pasó`);\n        return; // Saltar este horario porque ya pasó\n      }\n      \n      // Extraer componentes de la fecha para agrupar\n      const fechaInicio = extraerFechaYHora(horario.inicio);\n      if (!fechaInicio) {\n        console.log(`DEBUG - Error al extraer fecha y hora de: ${horario.inicio}`);\n        return;\n      }\n      \n      const mes = fechaInicio.mes;\n      const dia = fechaInicio.dia;\n      const nombreMes = nombresMeses[mes];\n      const diaSemana = fechaInicio.diaSemana;\n      \n      // Inicializar el grupo del mes si no existe\n      if (!mesesAgrupados[nombreMes]) {\n        mesesAgrupados[nombreMes] = {\n          mes: mes,\n          fechas: []\n        };\n      }\n      \n      // Evitar duplicados\n      const yaExiste = mesesAgrupados[nombreMes].fechas.some(\n        e => e.dia === dia && e.horaInicio === horario.horaInicio\n      );\n      \n      if (!yaExiste) {\n        mesesAgrupados[nombreMes].fechas.push({\n          dia,\n          horaInicio: horario.horaInicio,\n          horaFin: horario.horaFin,\n          mes,\n          diaSemana,\n          resumen: evento.eventoPrincipal.resumen,\n          rowId: `${mes}-${dia}-${horario.horaInicio.replace(\":\", \"\")}`\n        });\n      }\n    } catch (error) {\n      console.log(`ERROR procesando horario: ${error.message}`);\n    }\n  });\n});\n\n// Armar la estructura para WhatsApp SendList\nconst sections = [];\n\n// Crear una sección para cada mes\nfor (const [nombreMes, datosMes] of Object.entries(mesesAgrupados)) {\n  const filas = datosMes.fechas;\n  if (filas.length === 0) continue;\n  \n  // Obtener el emoji estacional para este mes\n  const emoji = getEmojiEstacional(datosMes.mes);\n  \n  // Ordenar filas por día y hora\n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n  \n  const rowsDelMes = [];\n  filas.forEach(f => {\n    const horaFormateada = formatearRangoHora(f.horaInicio, f.horaFin);\n    rowsDelMes.push({\n      title: `🕒 ${f.dia} de ${nombreMes} : ${horaFormateada}`,\n      description: `${f.diaSemana}`,\n      rowId: f.rowId\n    });\n  });\n  \n  // Agregar la sección del mes con el emoji estacional\n  if (rowsDelMes.length > 0) {\n    sections.push({\n      title: `${emoji} ${nombreMes}`,\n      rows: rowsDelMes\n    });\n  }\n}\n\n// Sección por defecto si no hay nada\nif (sections.length === 0) {\n  sections.push({\n    title: \"⚠️ Sin horarios disponibles\",\n    rows: [{\n      title: \"No hay horarios disponibles\",\n      description: \"Intenta más tarde\",\n      rowId: \"no-disponible\"\n    }]\n  });\n}\n\n// Obtener número de cliente desde otro nodo o poner uno por defecto\nconst remoteJid = $('Calendario').first().json.numero_cliente;\n\n// JSON final para enviar por WhatsApp\nconst requestBody = {\n  number: remoteJid,\n  title: \"📅 Fechas Disponibles\",\n  description: \"Seleccioná una fecha y hora para agendar tu visita\\n🕒 Cada visita tiene una duración de 30 minutos aprox.\",\n  buttonText: \"Seleccioná 👆\",\n  footerText: \"\", // Ya incluimos la información de duración en la descripción\n  sections\n};\n\n// Retornar el mensaje final en el formato que espera n8n\nreturn [{\n  json: requestBody,\n  pairedItem: 0 // Agregamos pairedItem para mantener el enlace con el elemento de entrada\n}];"
+        "jsCode": "// Obtener los datos del nodo anterior\nconst datos = $input.first()?.json?.resultados || [];\nconsole.log(\"DEBUG - Datos recibidos:\", JSON.stringify(datos).substring(0, 200) + \"...\");\n\n// Verificar si tenemos datos\nif (!datos || !datos.length) {\n  console.log(\"DEBUG - No hay datos disponibles\");\n  return [{\n    json: {\n      error: \"No se encontraron eventos\",\n      message: \"El nodo anterior no devolvió ningún horario disponible\"\n    },\n    pairedItem: 0\n  }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\"; // Otoño\n  if (mes >= 6 && mes <= 8) return \"❄️\"; // Invierno\n  if (mes >= 9 && mes <= 11) return \"🌸\"; // Primavera\n  return \"☀️\"; // Verano\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Nombres de los días de la semana\nconst nombresDias = {\n  0: 'Domingo',\n  1: 'Lunes',\n  2: 'Martes',\n  3: 'Miércoles',\n  4: 'Jueves',\n  5: 'Viernes',\n  6: 'Sábado'\n};\n\n// Extraer fecha de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  \n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    const diaSemana = nombresDias[fechaCompleta.getDay()];\n    \n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: diaSemana\n    };\n  }\n  return null;\n}\n\n// Función para formatear el rango de hora correctamente (12:00 a 12:30)\nfunction formatearRangoHora(horaInicio, horaFin) {\n  // Extraer horas y minutos de ambos horarios\n  const inicioMatch = horaInicio.match(/^(\\d+):(\\d+)/);\n  const finMatch = horaFin.match(/^(\\d+):(\\d+)/);\n  \n  // Formatear correctamente con horas y minutos\n  const horaInicioFormateada = inicioMatch ? `${inicioMatch[1]}:${inicioMatch[2]}` : horaInicio;\n  const horaFinFormateada = finMatch ? `${finMatch[1]}:${finMatch[2]}` : horaFin;\n  \n  return `${horaInicioFormateada} a ${horaFinFormateada}`;\n}\n\n// Función para formatear número de teléfono para Green API\nfunction formatearChatId(numeroTelefono) {\n  // Verificar si el número existe\n  if (!numeroTelefono) {\n    console.log(\"ERROR - numeroTelefono no definido\");\n    return \"11001234567@c.us\"; // Número por defecto\n  }\n  \n  // Convertir a string si no lo es\n  const numeroStr = String(numeroTelefono);\n  \n  // Remover cualquier carácter que no sea número\n  let numero = numeroStr.replace(/\\D/g, '');\n  \n  // Si el número no tiene código de país, agregar el de Argentina (54)\n  if (numero.length === 10 && numero.startsWith('11')) {\n    numero = '549' + numero;\n  } else if (numero.length === 11 && numero.startsWith('011')) {\n    numero = '549' + numero.substring(1);\n  } else if (!numero.startsWith('549')) {\n    numero = '549' + numero;\n  }\n  \n  // Formato para Green API: número@c.us\n  return numero + '@c.us';\n}\n\n// Obtener la fecha y hora actual\nconst ahora = new Date();\nconsole.log(`DEBUG - Fecha actual: ${ahora.toISOString()}`);\nconsole.log(`DEBUG - Fecha local: ${ahora.toString()}`);\n\n// Agrupar horarios por mes y día\nconst mesesAgrupados = {};\n\n// Procesar los horarios disponibles de todos los eventos\ndatos.forEach(evento => {\n  if (!evento.horariosDisponibles || !evento.horariosDisponibles.length) return;\n  \n  evento.horariosDisponibles.forEach(horario => {\n    try {\n      // Obtener la fecha de inicio del horario\n      const fechaHorario = new Date(horario.inicio);\n      \n      // Para debug\n      console.log(`DEBUG - Evaluando horario: ${horario.inicio}`);\n      \n      // COMPARACIÓN SIMPLE: Verificar si la fecha ya pasó\n      if (fechaHorario <= ahora) {\n        console.log(`DEBUG - FILTRADA: Fecha ya pasó`);\n        return; // Saltar este horario porque ya pasó\n      }\n      \n      // Extraer componentes de la fecha para agrupar\n      const fechaInicio = extraerFechaYHora(horario.inicio);\n      if (!fechaInicio) {\n        console.log(`DEBUG - Error al extraer fecha y hora de: ${horario.inicio}`);\n        return;\n      }\n      \n      const mes = fechaInicio.mes;\n      const dia = fechaInicio.dia;\n      const nombreMes = nombresMeses[mes];\n      const diaSemana = fechaInicio.diaSemana;\n      \n      // Inicializar el grupo del mes si no existe\n      if (!mesesAgrupados[nombreMes]) {\n        mesesAgrupados[nombreMes] = {\n          mes: mes,\n          fechas: []\n        };\n      }\n      \n      // Evitar duplicados\n      const yaExiste = mesesAgrupados[nombreMes].fechas.some(\n        e => e.dia === dia && e.horaInicio === horario.horaInicio\n      );\n      \n      if (!yaExiste) {\n        mesesAgrupados[nombreMes].fechas.push({\n          dia,\n          horaInicio: horario.horaInicio,\n          horaFin: horario.horaFin,\n          mes,\n          diaSemana,\n          resumen: evento.eventoPrincipal.resumen,\n          rowId: `${mes}-${dia}-${horario.horaInicio.replace(\":\", \"\")}`\n        });\n      }\n    } catch (error) {\n      console.log(`ERROR procesando horario: ${error.message}`);\n    }\n  });\n});\n\n// Armar la estructura para Green API SendListMessage\nconst sections = [];\n\n// Crear una sección para cada mes\nfor (const [nombreMes, datosMes] of Object.entries(mesesAgrupados)) {\n  const filas = datosMes.fechas;\n  if (filas.length === 0) continue;\n  \n  // Obtener el emoji estacional para este mes\n  const emoji = getEmojiEstacional(datosMes.mes);\n  \n  // Ordenar filas por día y hora\n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n  \n  const rowsDelMes = [];\n  filas.forEach(f => {\n    const horaFormateada = formatearRangoHora(f.horaInicio, f.horaFin);\n    rowsDelMes.push({\n      title: `🕒 ${f.dia} de ${nombreMes} : ${horaFormateada}`,\n      rowId: f.rowId,\n      description: `${f.diaSemana}` // Description siempre presente para Green API\n    });\n  });\n  \n  // Agregar la sección del mes con el emoji estacional\n  if (rowsDelMes.length > 0) {\n    sections.push({\n      title: `${emoji} ${nombreMes}`,\n      rows: rowsDelMes\n    });\n  }\n}\n\n// Sección por defecto si no hay nada\nif (sections.length === 0) {\n  sections.push({\n    title: \"⚠️ Sin horarios disponibles\",\n    rows: [{\n      title: \"No hay horarios disponibles\",\n      rowId: \"no-disponible\",\n      description: \"Intenta más tarde\"\n    }]\n  });\n}\n\n// Obtener número de cliente y formatearlo para Green API\nlet numeroCliente;\ntry {\n  numeroCliente = $('Calendario').first().json.numero_cliente;\n} catch (error) {\n  console.log(\"ERROR - No se pudo obtener numero_cliente:\", error.message);\n  numeroCliente = \"1123456789\"; // Número por defecto\n}\n\nconst chatId = formatearChatId(numeroCliente);\n\nconsole.log(`DEBUG - Número original: ${numeroCliente}`);\nconsole.log(`DEBUG - ChatId formateado: ${chatId}`);\n\n// JSON final para Green API sendListMessage - FORMATO EXACTO\nconst requestBody = {\n  chatId: chatId,\n  message: \"Seleccioná una fecha y hora para agendar tu visita\\n🕒 Cada visita tiene una duración de 30 minutos aprox.\",\n  buttonText: \"Seleccioná 👆\",\n  title: \"📅 Fechas Disponibles\",\n  footer: \"\", // Footer vacío\n  sections: sections\n};\n\nconsole.log(\"DEBUG - JSON final:\", JSON.stringify(requestBody, null, 2));\n\n// Retornar el mensaje final en el formato que espera n8n\nreturn [{\n  json: requestBody,\n  pairedItem: 0\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1200,
-        640
+        -920,
+        980
       ],
       "id": "ae9a13fb-b9b6-4237-ae12-338898fce69e",
       "name": "Lista"
@@ -479,13 +503,13 @@
     },
     {
       "parameters": {
-        "jsCode": "// 🚀 Leer todos los eventos\nconst eventos = $input.all();\nconst codigoBusqueda = $('Code').first().json.ultimoCodigo?.toUpperCase();\n\n// Agregar logs para depuración\nconsole.log(\"Código a buscar:\", codigoBusqueda);\n\n// 🚀 Funciones auxiliares\nconst extraerMinutos = (isoString) => {\n  if (!isoString) return null;\n  const hora = isoString.substring(11,16).split(':');\n  return parseInt(hora[0]) * 60 + parseInt(hora[1]);\n};\n\nconst minutosAHora = (totalMinutos) => {\n  const horas = Math.floor(totalMinutos / 60);\n  const minutos = totalMinutos % 60;\n  return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;\n};\n\nconst crearFechaISO = (fechaBase, horaStr) => {\n  return fechaBase.substring(0, 11) + horaStr + fechaBase.substring(16);\n};\n\n// 🚀 Recolectar eventos válidos (asumiendo que todos son colorID 10)\nconst eventosColorID10 = [];\nconst eventosRojos = []; // Mantenemos esta estructura vacía por ahora\n\nfor (const item of eventos) {\n  const ev = item.json;\n  const start = ev.start?.dateTime || ev.start?.date || ev.start;\n  const end = ev.end?.dateTime || ev.end?.date || ev.end;\n  \n  // Filtrar elementos que no tienen fecha o tienen solo zona horaria\n  if (!start || !end || \n      start === \"America/Argentina/Buenos_Aires\" || \n      end === \"America/Argentina/Buenos_Aires\") continue;\n  \n  const summary = ev.summary || \"\";\n  \n  // Buscar si summary contiene \"Codigo:XXXXX\"\n  const summaryUpper = summary.toUpperCase();\n  const patronBusqueda = \"CODIGO:\" + codigoBusqueda;\n  const coincide = summaryUpper.includes(patronBusqueda);\n  \n  // Log para depuración\n  console.log(\"Evaluando evento:\", summary);\n  console.log(\"Patrón buscado:\", patronBusqueda);\n  console.log(\"¿Coincide?\", coincide);\n  \n  // Si coincide, añadirlo a eventos con colorID 10\n  if (coincide) {\n    // Simulamos que tiene colorID 10\n    eventosColorID10.push({ \n      start, \n      end, \n      summary, \n      location: ev.location || \"\",\n      colorId: \"10\" // Asignamos explícitamente colorID 10\n    });\n  }\n}\n\n// 🚀 Si no hay eventos colorID 10, devolver mensaje\nif (eventosColorID10.length === 0) {\n  return [{\n    json: {\n      noMatchingEvents: true,\n      message: \"No se encontraron eventos disponibles para la propiedad.\"\n    }\n  }];\n}\n\n// 🚀 Procesar horarios disponibles\nconst resultados = eventosColorID10.map(evento => {\n  const inicioEventoMin = extraerMinutos(evento.start);\n  const finEventoMin = extraerMinutos(evento.end);\n  \n  // Creamos bloques de 30 minutos para todo el evento\n  const bloques = [];\n  for (let m = inicioEventoMin; m + 30 <= finEventoMin; m += 30) {\n    const horaInicio = minutosAHora(m);\n    const horaFin = minutosAHora(m + 30);\n    bloques.push({\n      horaInicio: horaInicio,\n      horaFin: horaFin,\n      inicio: crearFechaISO(evento.start, horaInicio),\n      fin: crearFechaISO(evento.start, horaFin)\n    });\n  }\n  \n  return {\n    eventoPrincipal: {\n      resumen: evento.summary,\n      location: evento.location,\n      inicio: evento.start,\n      fin: evento.end,\n      horaInicio: minutosAHora(inicioEventoMin),\n      horaFin: minutosAHora(finEventoMin),\n      colorId: \"10\" // Incluir colorId en la respuesta\n    },\n    horariosDisponibles: bloques\n  };\n});\n\n// 🚀 Devolver la respuesta\nreturn [{\n  json: {\n    resultados: resultados\n  }\n}];"
+        "jsCode": "// 🚀 ANÁLISIS DEL CÓDIGO ORIGINAL Y MEJORAS\n\n// === LO QUE HACE EL CÓDIGO ACTUAL ===\n// 1. Busca eventos que contengan \"CODIGO:XXXXX\" en el summary\n// 2. Los trata como eventos disponibles (colorId 10)\n// 3. Divide cada evento en bloques de 30 minutos\n// 4. Devuelve los horarios disponibles\n\n// === CÓDIGO MEJORADO CON TIEMPO DINÁMICO ===\n\nconsole.log(\"=== GENERADOR DE HORARIOS DISPONIBLES ===\");\n\n// 🚀 Leer datos de entrada\nconst eventos = $input.all();\nconst codigoBusqueda = $('Code').first().json.ultimoCodigo?.toUpperCase();\nconst tiempoReserva = $('Datos de la propiedad1').first().json.Tiempo; // ⭐ NUEVA VARIABLE\n\nconsole.log(\"Código a buscar:\", codigoBusqueda);\nconsole.log(\"Tiempo de reserva original:\", tiempoReserva);\n\n// Validar datos de entrada\nif (!codigoBusqueda) {\n    console.log(\"❌ No se proporcionó código de búsqueda\");\n    return [{\n        json: {\n            error: true,\n            message: \"No se proporcionó código de búsqueda\"\n        }\n    }];\n}\n\nif (!tiempoReserva) {\n    console.log(\"❌ No se proporcionó tiempo de reserva\");\n    return [{\n        json: {\n            error: true,\n            message: \"No se proporcionó tiempo de reserva\"\n        }\n    }];\n}\n\n// 🚀 PARSEAR EL TIEMPO CORRECTAMENTE (ej: \"1hs\" = 60min, \"30min\" = 30min)\nconst parsearTiempo = (tiempoStr) => {\n    if (!tiempoStr || typeof tiempoStr !== 'string') {\n        return null;\n    }\n    \n    const tiempoLower = tiempoStr.toLowerCase().trim();\n    console.log(\"Parseando tiempo:\", tiempoLower);\n    \n    // Buscar patrones como \"1hs\", \"2hs\", \"30min\", \"45min\", etc.\n    if (tiempoLower.includes('hs') || tiempoLower.includes('hora')) {\n        // Extraer número de horas\n        const horasMatch = tiempoLower.match(/(\\d+(?:\\.\\d+)?)\\s*(?:hs|hora)/);\n        if (horasMatch) {\n            const horas = parseFloat(horasMatch[1]);\n            const minutos = horas * 60;\n            console.log(`${horas} horas = ${minutos} minutos`);\n            return minutos;\n        }\n    } else if (tiempoLower.includes('min')) {\n        // Extraer número de minutos\n        const minutosMatch = tiempoLower.match(/(\\d+(?:\\.\\d+)?)\\s*min/);\n        if (minutosMatch) {\n            const minutos = parseFloat(minutosMatch[1]);\n            console.log(`${minutos} minutos`);\n            return minutos;\n        }\n    } else {\n        // Intentar parsear como número directo (asumir minutos)\n        const numero = parseFloat(tiempoLower);\n        if (!isNaN(numero)) {\n            console.log(`Número directo: ${numero} (asumiendo minutos)`);\n            return numero;\n        }\n    }\n    \n    return null;\n};\n\nconst tiempoReservaMin = parsearTiempo(tiempoReserva);\n\nif (tiempoReservaMin === null || tiempoReservaMin <= 0) {\n    console.log(\"❌ No se pudo parsear el tiempo de reserva:\", tiempoReserva);\n    return [{\n        json: {\n            error: true,\n            message: `Formato de tiempo inválido: \"${tiempoReserva}\". Use formatos como \"1hs\", \"30min\", etc.`\n        }\n    }];\n}\n\nconsole.log(\"Tiempo de reserva convertido:\", tiempoReservaMin, \"minutos\");\n\n// ⭐ CONTAR EVENTOS ROJOS BASÁNDOSE EN colorId\nlet eventosRojosData = [];\nlet contadorEventosRojos = 0;\n\ntry {\n    console.log(\"\\n🔍 Analizando todos los eventos para encontrar eventos rojos (colorId = 11)...\");\n    \n    // Recorrer todos los eventos de entrada para encontrar los rojos\n    eventos.forEach((item, index) => {\n        const evento = item.json;\n        \n        // Verificar si es un evento rojo (colorId = 11)\n        const esEventoRojo = evento.colorId === 11 || evento.colorId === \"11\";\n        \n        console.log(`Evento ${index + 1}: colorId = ${evento.colorId}, ¿Es rojo? ${esEventoRojo}`);\n        \n        if (esEventoRojo) {\n            // Filtrar eventos que no tienen fechas válidas\n            const start = evento.start?.dateTime || evento.start?.date || evento.start;\n            const end = evento.end?.dateTime || evento.end?.date || evento.end;\n            \n            if (start && end && \n                start !== \"America/Argentina/Buenos_Aires\" && \n                end !== \"America/Argentina/Buenos_Aires\") {\n                \n                eventosRojosData.push(evento);\n                contadorEventosRojos++;\n                \n                console.log(`✅ Evento rojo válido encontrado: ${evento.summary || 'Sin título'}`);\n            } else {\n                console.log(`❌ Evento rojo descartado por fechas inválidas`);\n            }\n        }\n    });\n    \n    console.log(`📊 Total eventos rojos encontrados: ${contadorEventosRojos}`);\n    \n} catch (error) {\n    console.log(\"⚠️ Error al analizar eventos rojos:\", error.message);\n    eventosRojosData = [];\n    contadorEventosRojos = 0;\n}\n\nconsole.log(\"Eventos rojos encontrados:\", contadorEventosRojos);\nconsole.log(\"Datos de eventos rojos:\", eventosRojosData);\n\n// 🚀 Funciones auxiliares mejoradas\nconst extraerMinutos = (isoString) => {\n    if (!isoString) return null;\n    try {\n        console.log(\"Extrayendo minutos de:\", isoString);\n        \n        // PROBLEMA: JavaScript convierte automáticamente a timezone local\n        // Necesitamos extraer la hora directamente del string ISO\n        \n        // Buscar el patrón de hora en el string ISO: YYYY-MM-DDTHH:MM:SS\n        const horaMatch = isoString.match(/T(\\d{2}):(\\d{2}):(\\d{2})/);\n        \n        if (horaMatch) {\n            const horas = parseInt(horaMatch[1]);\n            const minutos = parseInt(horaMatch[2]);\n            const totalMinutos = horas * 60 + minutos;\n            \n            console.log(`Hora extraída directamente: ${horas}:${minutos.toString().padStart(2, '0')} = ${totalMinutos} minutos`);\n            return totalMinutos;\n        }\n        \n        // Fallback: usar Date object (puede tener problemas de timezone)\n        const fecha = new Date(isoString);\n        const totalMinutosFallback = fecha.getHours() * 60 + fecha.getMinutes();\n        console.log(`Fallback con Date object: ${fecha.getHours()}:${fecha.getMinutes()} = ${totalMinutosFallback} minutos`);\n        console.log(`Fecha completa: ${fecha.toString()}`);\n        \n        return totalMinutosFallback;\n    } catch (error) {\n        console.log(\"Error parseando fecha:\", isoString, error);\n        return null;\n    }\n};\n\nconst minutosAHora = (totalMinutos) => {\n    const horas = Math.floor(totalMinutos / 60);\n    const minutos = totalMinutos % 60;\n    return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;\n};\n\nconst crearFechaISO = (fechaBase, horaStr) => {\n    try {\n        console.log(\"Creando fecha ISO con:\");\n        console.log(\"- fechaBase:\", fechaBase);\n        console.log(\"- horaStr:\", horaStr);\n        \n        // Extraer la parte de fecha (YYYY-MM-DD) y timezone del string original\n        const fechaMatch = fechaBase.match(/^(\\d{4}-\\d{2}-\\d{2})T.*?([-+]\\d{2}:\\d{2})$/);\n        \n        if (fechaMatch) {\n            const fechaParte = fechaMatch[1]; // 2025-05-30\n            const timezone = fechaMatch[2]; // -03:00\n            \n            // Crear nueva fecha manteniendo la timezone original\n            const nuevaFechaISO = `${fechaParte}T${horaStr}:00${timezone}`;\n            console.log(\"Nueva fecha ISO creada:\", nuevaFechaISO);\n            \n            return nuevaFechaISO;\n        }\n        \n        // Fallback: reemplazar solo la parte de hora\n        const fechaModificada = fechaBase.replace(/T\\d{2}:\\d{2}/, `T${horaStr}`);\n        console.log(\"Fecha modificada (fallback):\", fechaModificada);\n        \n        return fechaModificada;\n    } catch (error) {\n        console.log(\"Error creando fecha ISO:\", fechaBase, horaStr, error);\n        return fechaBase;\n    }\n};\n\n// 🚀 Recolectar eventos válidos\nconsole.log(\"\\n--- BUSCANDO EVENTOS ---\");\nconst eventosDisponibles = [];\n\nfor (const item of eventos) {\n    const ev = item.json;\n    const start = ev.start?.dateTime || ev.start?.date || ev.start;\n    const end = ev.end?.dateTime || ev.end?.date || ev.end;\n    \n    // Filtrar elementos que no tienen fecha válida\n    if (!start || !end || \n        start === \"America/Argentina/Buenos_Aires\" || \n        end === \"America/Argentina/Buenos_Aires\") {\n        console.log(\"⏭️ Saltando evento sin fechas válidas\");\n        continue;\n    }\n    \n    const summary = ev.summary || \"\";\n    \n    // Buscar si summary contiene \"Codigo:XXXXX\"\n    const summaryUpper = summary.toUpperCase();\n    const patronBusqueda = \"CODIGO:\" + codigoBusqueda;\n    const coincide = summaryUpper.includes(patronBusqueda);\n    \n    console.log(`📅 Evento: \"${summary}\"`);\n    console.log(`🔍 Buscando: \"${patronBusqueda}\"`);\n    console.log(`✅ ¿Coincide? ${coincide}`);\n    \n    if (coincide) {\n        // Validar que las fechas se puedan parsear\n        const fechaInicio = new Date(start);\n        const fechaFin = new Date(end);\n        \n        if (isNaN(fechaInicio.getTime()) || isNaN(fechaFin.getTime())) {\n            console.log(\"❌ Fechas inválidas en evento:\", start, end);\n            continue;\n        }\n        \n        eventosDisponibles.push({ \n            start, \n            end, \n            summary, \n            location: ev.location || \"\",\n            colorId: \"10\",\n            fechaInicioParsed: fechaInicio.toISOString(),\n            fechaFinParsed: fechaFin.toISOString()\n        });\n        \n        console.log(\"✅ Evento agregado a disponibles\");\n    }\n}\n\nconsole.log(`\\n📊 Total eventos disponibles encontrados: ${eventosDisponibles.length}`);\n\n// 🚀 Procesar eventos rojos (visitas agendadas) para exclusión\nconsole.log(\"\\n--- PROCESANDO EVENTOS ROJOS (OCUPADOS) ---\");\nconst bloquesOcupados = [];\n\n// Validar que hay eventos rojos para procesar\nif (contadorEventosRojos === 0) {\n    console.log(\"ℹ️ No hay eventos rojos (colorId = 11) para procesar. Todos los horarios estarán disponibles.\");\n} else {\n    console.log(`✅ ${contadorEventosRojos} eventos rojos encontrados, procesando exclusiones...`);\n\n    // Procesar cada evento rojo encontrado\n    eventosRojosData.forEach((eventoRojo, index) => {\n        console.log(`\\n🔴 Procesando evento rojo ${index + 1}:`);\n        console.log(\"ColorId:\", eventoRojo.colorId);\n        console.log(\"Summary:\", eventoRojo.summary || \"Sin título\");\n        console.log(\"Evento completo:\", JSON.stringify(eventoRojo, null, 2));\n        \n        // Extraer fechas del evento rojo\n        let fechaInicioRojo, fechaFinRojo;\n        \n        if (eventoRojo.start && eventoRojo.start.dateTime) {\n            fechaInicioRojo = eventoRojo.start.dateTime;\n        } else if (eventoRojo.start) {\n            fechaInicioRojo = eventoRojo.start;\n        }\n        \n        if (eventoRojo.end && eventoRojo.end.dateTime) {\n            fechaFinRojo = eventoRojo.end.dateTime;\n        } else if (eventoRojo.end) {\n            fechaFinRojo = eventoRojo.end;\n        }\n        \n        if (fechaInicioRojo && fechaFinRojo) {\n            const inicioMin = extraerMinutos(fechaInicioRojo);\n            const finMin = extraerMinutos(fechaFinRojo);\n            \n            if (inicioMin !== null && finMin !== null) {\n                // Extraer fecha base (YYYY-MM-DD) para comparar con eventos disponibles\n                const fechaBaseMatch = fechaInicioRojo.match(/^(\\d{4}-\\d{2}-\\d{2})/);\n                const fechaBase = fechaBaseMatch ? fechaBaseMatch[1] : null;\n                \n                const bloqueOcupado = {\n                    fechaBase: fechaBase,\n                    inicioMin: inicioMin,\n                    finMin: finMin,\n                    fechaInicioCompleta: fechaInicioRojo,\n                    fechaFinCompleta: fechaFinRojo,\n                    summary: eventoRojo.summary || \"Visita agendada\",\n                    colorId: eventoRojo.colorId\n                };\n                \n                bloquesOcupados.push(bloqueOcupado);\n                \n                console.log(`✅ Bloque ocupado: ${fechaBase} de ${minutosAHora(inicioMin)} a ${minutosAHora(finMin)} (${eventoRojo.summary || 'Sin título'})`);\n            } else {\n                console.log(\"❌ No se pudieron extraer minutos del evento rojo\");\n            }\n        } else {\n            console.log(\"❌ No se pudieron extraer fechas del evento rojo\");\n        }\n    });\n}\n\nconsole.log(`\\n📋 Total bloques ocupados: ${bloquesOcupados.length}`);\n\n// Función para verificar si un bloque está ocupado\nconst estaOcupado = (fechaBase, inicioMin, finMin) => {\n    return bloquesOcupados.some(ocupado => {\n        // Debe ser la misma fecha\n        if (ocupado.fechaBase !== fechaBase) return false;\n        \n        // Verificar superposición de tiempo:\n        // Un bloque está ocupado si hay ANY superposición con un evento rojo\n        const haySuperpocision = (\n            // El nuevo bloque empieza antes de que termine el ocupado Y\n            inicioMin < ocupado.finMin &&\n            // El nuevo bloque termina después de que empiece el ocupado\n            finMin > ocupado.inicioMin\n        );\n        \n        if (haySuperpocision) {\n            console.log(`❌ Bloque ${minutosAHora(inicioMin)}-${minutosAHora(finMin)} ocupado por: ${ocupado.summary}`);\n        }\n        \n        return haySuperpocision;\n    });\n};\n\n// 🚀 Si no hay eventos disponibles\nif (eventosDisponibles.length === 0) {\n    return [{\n        json: {\n            noMatchingEvents: true,\n            message: `No se encontraron eventos disponibles para el código: ${codigoBusqueda}`,\n            debug: {\n                codigoBuscado: codigoBusqueda,\n                patronBusqueda: \"CODIGO:\" + codigoBusqueda,\n                totalEventosAnalizados: eventos.length\n            }\n        }\n    }];\n}\n\n// 🚀 Procesar horarios disponibles con tiempo dinámico\nconsole.log(`\\n--- GENERANDO BLOQUES DE ${tiempoReservaMin} MINUTOS ---`);\n\nconst resultados = eventosDisponibles.map((evento, index) => {\n    console.log(`\\n🏗️ Procesando evento ${index + 1}: \"${evento.summary}\"`);\n    \n    const inicioEventoMin = extraerMinutos(evento.start);\n    const finEventoMin = extraerMinutos(evento.end);\n    \n    if (inicioEventoMin === null || finEventoMin === null) {\n        console.log(\"❌ No se pudieron extraer minutos del evento\");\n        return {\n            eventoPrincipal: {\n                resumen: evento.summary,\n                location: evento.location,\n                inicio: evento.start,\n                fin: evento.end,\n                colorId: \"10\",\n                error: \"No se pudieron procesar las horas\"\n            },\n            horariosDisponibles: []\n        };\n    }\n    \n    console.log(`⏰ Evento de ${minutosAHora(inicioEventoMin)} a ${minutosAHora(finEventoMin)}`);\n    console.log(`📏 Duración total: ${finEventoMin - inicioEventoMin} minutos`);\n    \n    // Crear bloques basados en el tiempo de reserva\n    const bloques = [];\n    let bloquesGenerados = 0;\n    let bloquesExcluidos = 0;\n    \n    // Extraer fecha base del evento para comparar con eventos rojos\n    const fechaBaseEvento = evento.start.match(/^(\\d{4}-\\d{2}-\\d{2})/);\n    const fechaBase = fechaBaseEvento ? fechaBaseEvento[1] : null;\n    \n    for (let m = inicioEventoMin; m + tiempoReservaMin <= finEventoMin; m += tiempoReservaMin) {\n        const horaInicio = minutosAHora(m);\n        const horaFin = minutosAHora(m + tiempoReservaMin);\n        \n        // ⭐ VERIFICAR SI ESTE BLOQUE ESTÁ OCUPADO\n        const bloqueOcupado = estaOcupado(fechaBase, m, m + tiempoReservaMin);\n        \n        if (bloqueOcupado) {\n            bloquesExcluidos++;\n            console.log(`  ❌ Bloque ${horaInicio} - ${horaFin} EXCLUIDO (ocupado)`);\n            continue; // Saltar este bloque\n        }\n        \n        const bloque = {\n            horaInicio: horaInicio,\n            horaFin: horaFin,\n            inicio: crearFechaISO(evento.start, horaInicio),\n            fin: crearFechaISO(evento.start, horaFin),\n            duracionMinutos: tiempoReservaMin\n        };\n        \n        bloques.push(bloque);\n        bloquesGenerados++;\n        \n        console.log(`  ✅ Bloque ${bloquesGenerados}: ${horaInicio} - ${horaFin} DISPONIBLE`);\n    }\n    \n    console.log(`✅ Total bloques disponibles: ${bloquesGenerados}`);\n    console.log(`❌ Total bloques excluidos: ${bloquesExcluidos}`);\n    \n    return {\n        eventoPrincipal: {\n            resumen: evento.summary,\n            location: evento.location,\n            inicio: evento.start,\n            fin: evento.end,\n            horaInicio: minutosAHora(inicioEventoMin),\n            horaFin: minutosAHora(finEventoMin),\n            colorId: \"10\",\n            duracionTotalMinutos: finEventoMin - inicioEventoMin,\n            tiempoReservaMinutos: tiempoReservaMin\n        },\n        horariosDisponibles: bloques,\n        estadisticas: {\n            totalBloques: bloquesGenerados,\n            bloquesExcluidos: bloquesExcluidos,\n            duracionBloque: tiempoReservaMin,\n            duracionEvento: finEventoMin - inicioEventoMin\n        }\n    };\n});\n\n// 🚀 Calcular estadísticas generales\nconst totalBloques = resultados.reduce((sum, resultado) => sum + resultado.horariosDisponibles.length, 0);\nconst totalExcluidos = resultados.reduce((sum, resultado) => sum + (resultado.estadisticas?.bloquesExcluidos || 0), 0);\n\nconsole.log(`\\n📈 RESUMEN FINAL:`);\nconsole.log(`- Eventos disponibles: ${eventosDisponibles.length}`);\nconsole.log(`- Total bloques de tiempo DISPONIBLES: ${totalBloques}`);\nconsole.log(`- Total bloques EXCLUIDOS (ocupados): ${totalExcluidos}`);\nconsole.log(`- Duración por bloque: ${tiempoReservaMin} minutos`);\nconsole.log(`- Eventos rojos (colorId=11) encontrados: ${contadorEventosRojos}`);\n\n// 🚀 Devolver la respuesta\nreturn [{\n    json: {\n        resultados: resultados,\n        resumen: {\n            codigoBuscado: codigoBusqueda,\n            tiempoReservaMinutos: tiempoReservaMin,\n            eventosEncontrados: eventosDisponibles.length,\n            totalBloquesDisponibles: totalBloques,\n            totalBloquesExcluidos: totalExcluidos,\n            eventosRojosEncontrados: contadorEventosRojos\n        }\n    }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1640,
-        540
+        -1320,
+        880
       ],
       "id": "e8ad3a77-dca2-4e50-a840-1fbd4f3a5187",
       "name": "getForCode"
@@ -498,8 +522,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -1860,
-        540
+        -1500,
+        880
       ],
       "id": "5bdf6fd1-d1b3-42b4-8ca8-ffb7aaba17cb",
       "name": "Split Out"
@@ -531,8 +555,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1420,
-        540
+        -1140,
+        880
       ],
       "id": "f29796f5-987b-4b1b-a419-448eb760e7c8",
       "name": "If1"
@@ -556,8 +580,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1200,
-        440
+        -920,
+        780
       ]
     },
     {
@@ -588,8 +612,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -2300,
-        340
+        -2260,
+        360
       ],
       "id": "04879fbb-87a8-49dc-91e7-8235bc0b09b4",
       "name": "If2"
@@ -610,8 +634,8 @@
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        -2080,
-        140
+        -1680,
+        -20
       ],
       "id": "9bbc5406-f79e-486e-96e7-037773d23987",
       "name": "Google Calendar1",
@@ -670,8 +694,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -980,
-        240
+        -580,
+        80
       ],
       "id": "a4ff3271-c078-4b9e-bae1-38ab121066ac",
       "name": "HTTP Request",
@@ -697,8 +721,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -760,
-        240
+        -360,
+        80
       ]
     },
     {
@@ -708,8 +732,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1200,
-        240
+        -800,
+        80
       ],
       "id": "2da1d5a4-b775-44f5-8130-195fee697e1b",
       "name": "Lista1"
@@ -721,8 +745,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1640,
-        -120
+        180,
+        -320
       ],
       "id": "517488c1-b309-4971-974e-59aa27d61c99",
       "name": "getForCode1"
@@ -735,8 +759,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -1860,
-        140
+        -1460,
+        -20
       ],
       "id": "17ab3e84-17d0-4733-8ecb-879d58ae6930",
       "name": "Split Out1"
@@ -753,11 +777,12 @@
           "conditions": [
             {
               "id": "b272870f-2db7-43e9-b82f-131ed3160b38",
-              "leftValue": "={{ $json.message }}",
-              "rightValue": "=No se encontraron eventos disponibles para la propiedad.",
+              "leftValue": "={{ $json.resultados[0].horariosDisponibles }}",
+              "rightValue": "=",
               "operator": {
-                "type": "string",
-                "operation": "equals"
+                "type": "array",
+                "operation": "empty",
+                "singleValue": true
               }
             }
           ],
@@ -768,8 +793,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1420,
-        140
+        -1020,
+        -20
       ],
       "id": "15f7b69e-b6b4-4bb1-abba-cc52525be075",
       "name": "If3"
@@ -793,22 +818,158 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1200,
-        40
+        -800,
+        -120
       ]
     },
     {
       "parameters": {
-        "jsCode": "// 🚀 Leer todos los eventos\nconst eventos = $input.all();\nconst codigoBusqueda = $('Code').first().json.ultimoCodigo?.toUpperCase();\n\n// Agregar logs para depuración\nconsole.log(\"Código a buscar:\", codigoBusqueda);\n\n// 🚀 Funciones auxiliares\nconst extraerMinutos = (isoString) => {\n  if (!isoString) return null;\n  const hora = isoString.substring(11,16).split(':');\n  return parseInt(hora[0]) * 60 + parseInt(hora[1]);\n};\n\nconst minutosAHora = (totalMinutos) => {\n  const horas = Math.floor(totalMinutos / 60);\n  const minutos = totalMinutos % 60;\n  return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;\n};\n\nconst crearFechaISO = (fechaBase, horaStr) => {\n  return fechaBase.substring(0, 11) + horaStr + fechaBase.substring(16);\n};\n\n// 🚀 Recolectar eventos válidos (asumiendo que todos son colorID 10)\nconst eventosColorID10 = [];\nconst eventosRojos = []; // Mantenemos esta estructura vacía por ahora\n\nfor (const item of eventos) {\n  const ev = item.json;\n  const start = ev.start?.dateTime || ev.start?.date || ev.start;\n  const end = ev.end?.dateTime || ev.end?.date || ev.end;\n  \n  // Filtrar elementos que no tienen fecha o tienen solo zona horaria\n  if (!start || !end || \n      start === \"America/Argentina/Buenos_Aires\" || \n      end === \"America/Argentina/Buenos_Aires\") continue;\n  \n  const summary = ev.summary || \"\";\n  \n  // Buscar si summary contiene \"Codigo:XXXXX\"\n  const summaryUpper = summary.toUpperCase();\n  const patronBusqueda = \"CODIGO:\" + codigoBusqueda;\n  const coincide = summaryUpper.includes(patronBusqueda);\n  \n  // Log para depuración\n  console.log(\"Evaluando evento:\", summary);\n  console.log(\"Patrón buscado:\", patronBusqueda);\n  console.log(\"¿Coincide?\", coincide);\n  \n  // Si coincide, añadirlo a eventos con colorID 10\n  if (coincide) {\n    // Simulamos que tiene colorID 10\n    eventosColorID10.push({ \n      start, \n      end, \n      summary, \n      location: ev.location || \"\",\n      colorId: \"10\" // Asignamos explícitamente colorID 10\n    });\n  }\n}\n\n// 🚀 Si no hay eventos colorID 10, devolver mensaje\nif (eventosColorID10.length === 0) {\n  return [{\n    json: {\n      noMatchingEvents: true,\n      message: \"No se encontraron eventos disponibles para la propiedad.\"\n    }\n  }];\n}\n\n// 🚀 Procesar horarios disponibles\nconst resultados = eventosColorID10.map(evento => {\n  const inicioEventoMin = extraerMinutos(evento.start);\n  const finEventoMin = extraerMinutos(evento.end);\n  \n  // Creamos bloques de 30 minutos para todo el evento\n  const bloques = [];\n  for (let m = inicioEventoMin; m + 30 <= finEventoMin; m += 30) {\n    const horaInicio = minutosAHora(m);\n    const horaFin = minutosAHora(m + 30);\n    bloques.push({\n      horaInicio: horaInicio,\n      horaFin: horaFin,\n      inicio: crearFechaISO(evento.start, horaInicio),\n      fin: crearFechaISO(evento.start, horaFin)\n    });\n  }\n  \n  return {\n    eventoPrincipal: {\n      resumen: evento.summary,\n      location: evento.location,\n      inicio: evento.start,\n      fin: evento.end,\n      horaInicio: minutosAHora(inicioEventoMin),\n      horaFin: minutosAHora(finEventoMin),\n      colorId: \"10\" // Incluir colorId en la respuesta\n    },\n    horariosDisponibles: bloques\n  };\n});\n\n// 🚀 Devolver la respuesta\nreturn [{\n  json: {\n    resultados: resultados\n  }\n}];"
+        "jsCode": "// 🚀 ANÁLISIS DEL CÓDIGO ORIGINAL Y MEJORAS\n\n// === LO QUE HACE EL CÓDIGO ACTUAL ===\n// 1. Busca eventos que contengan \"CODIGO:XXXXX\" en el summary\n// 2. Los trata como eventos disponibles (colorId 10)\n// 3. Divide cada evento en bloques de 30 minutos\n// 4. Devuelve los horarios disponibles\n\n// === CÓDIGO MEJORADO CON TIEMPO DINÁMICO ===\n\nconsole.log(\"=== GENERADOR DE HORARIOS DISPONIBLES ===\");\n\n// 🚀 Leer datos de entrada\nconst eventos = $input.all();\nconst codigoBusqueda = $('Code').first().json.ultimoCodigo?.toUpperCase();\nconst tiempoReserva = $('Datos de la propiedad').first().json.Tiempo; // ⭐ NUEVA VARIABLE\n\nconsole.log(\"Código a buscar:\", codigoBusqueda);\nconsole.log(\"Tiempo de reserva original:\", tiempoReserva);\n\n// Validar datos de entrada\nif (!codigoBusqueda) {\n    console.log(\"❌ No se proporcionó código de búsqueda\");\n    return [{\n        json: {\n            error: true,\n            message: \"No se proporcionó código de búsqueda\"\n        }\n    }];\n}\n\nif (!tiempoReserva) {\n    console.log(\"❌ No se proporcionó tiempo de reserva\");\n    return [{\n        json: {\n            error: true,\n            message: \"No se proporcionó tiempo de reserva\"\n        }\n    }];\n}\n\n// 🚀 PARSEAR EL TIEMPO CORRECTAMENTE (ej: \"1hs\" = 60min, \"30min\" = 30min)\nconst parsearTiempo = (tiempoStr) => {\n    if (!tiempoStr || typeof tiempoStr !== 'string') {\n        return null;\n    }\n    \n    const tiempoLower = tiempoStr.toLowerCase().trim();\n    console.log(\"Parseando tiempo:\", tiempoLower);\n    \n    // Buscar patrones como \"1hs\", \"2hs\", \"30min\", \"45min\", etc.\n    if (tiempoLower.includes('hs') || tiempoLower.includes('hora')) {\n        // Extraer número de horas\n        const horasMatch = tiempoLower.match(/(\\d+(?:\\.\\d+)?)\\s*(?:hs|hora)/);\n        if (horasMatch) {\n            const horas = parseFloat(horasMatch[1]);\n            const minutos = horas * 60;\n            console.log(`${horas} horas = ${minutos} minutos`);\n            return minutos;\n        }\n    } else if (tiempoLower.includes('min')) {\n        // Extraer número de minutos\n        const minutosMatch = tiempoLower.match(/(\\d+(?:\\.\\d+)?)\\s*min/);\n        if (minutosMatch) {\n            const minutos = parseFloat(minutosMatch[1]);\n            console.log(`${minutos} minutos`);\n            return minutos;\n        }\n    } else {\n        // Intentar parsear como número directo (asumir minutos)\n        const numero = parseFloat(tiempoLower);\n        if (!isNaN(numero)) {\n            console.log(`Número directo: ${numero} (asumiendo minutos)`);\n            return numero;\n        }\n    }\n    \n    return null;\n};\n\nconst tiempoReservaMin = parsearTiempo(tiempoReserva);\n\nif (tiempoReservaMin === null || tiempoReservaMin <= 0) {\n    console.log(\"❌ No se pudo parsear el tiempo de reserva:\", tiempoReserva);\n    return [{\n        json: {\n            error: true,\n            message: `Formato de tiempo inválido: \"${tiempoReserva}\". Use formatos como \"1hs\", \"30min\", etc.`\n        }\n    }];\n}\n\nconsole.log(\"Tiempo de reserva convertido:\", tiempoReservaMin, \"minutos\");\n\n// ⭐ CONTAR EVENTOS ROJOS BASÁNDOSE EN colorId\nlet eventosRojosData = [];\nlet contadorEventosRojos = 0;\n\ntry {\n    console.log(\"\\n🔍 Analizando todos los eventos para encontrar eventos rojos (colorId = 11)...\");\n    \n    // Recorrer todos los eventos de entrada para encontrar los rojos\n    eventos.forEach((item, index) => {\n        const evento = item.json;\n        \n        // Verificar si es un evento rojo (colorId = 11)\n        const esEventoRojo = evento.colorId === 11 || evento.colorId === \"11\";\n        \n        console.log(`Evento ${index + 1}: colorId = ${evento.colorId}, ¿Es rojo? ${esEventoRojo}`);\n        \n        if (esEventoRojo) {\n            // Filtrar eventos que no tienen fechas válidas\n            const start = evento.start?.dateTime || evento.start?.date || evento.start;\n            const end = evento.end?.dateTime || evento.end?.date || evento.end;\n            \n            if (start && end && \n                start !== \"America/Argentina/Buenos_Aires\" && \n                end !== \"America/Argentina/Buenos_Aires\") {\n                \n                eventosRojosData.push(evento);\n                contadorEventosRojos++;\n                \n                console.log(`✅ Evento rojo válido encontrado: ${evento.summary || 'Sin título'}`);\n            } else {\n                console.log(`❌ Evento rojo descartado por fechas inválidas`);\n            }\n        }\n    });\n    \n    console.log(`📊 Total eventos rojos encontrados: ${contadorEventosRojos}`);\n    \n} catch (error) {\n    console.log(\"⚠️ Error al analizar eventos rojos:\", error.message);\n    eventosRojosData = [];\n    contadorEventosRojos = 0;\n}\n\nconsole.log(\"Eventos rojos encontrados:\", contadorEventosRojos);\nconsole.log(\"Datos de eventos rojos:\", eventosRojosData);\n\n// 🚀 Funciones auxiliares mejoradas\nconst extraerMinutos = (isoString) => {\n    if (!isoString) return null;\n    try {\n        console.log(\"Extrayendo minutos de:\", isoString);\n        \n        // PROBLEMA: JavaScript convierte automáticamente a timezone local\n        // Necesitamos extraer la hora directamente del string ISO\n        \n        // Buscar el patrón de hora en el string ISO: YYYY-MM-DDTHH:MM:SS\n        const horaMatch = isoString.match(/T(\\d{2}):(\\d{2}):(\\d{2})/);\n        \n        if (horaMatch) {\n            const horas = parseInt(horaMatch[1]);\n            const minutos = parseInt(horaMatch[2]);\n            const totalMinutos = horas * 60 + minutos;\n            \n            console.log(`Hora extraída directamente: ${horas}:${minutos.toString().padStart(2, '0')} = ${totalMinutos} minutos`);\n            return totalMinutos;\n        }\n        \n        // Fallback: usar Date object (puede tener problemas de timezone)\n        const fecha = new Date(isoString);\n        const totalMinutosFallback = fecha.getHours() * 60 + fecha.getMinutes();\n        console.log(`Fallback con Date object: ${fecha.getHours()}:${fecha.getMinutes()} = ${totalMinutosFallback} minutos`);\n        console.log(`Fecha completa: ${fecha.toString()}`);\n        \n        return totalMinutosFallback;\n    } catch (error) {\n        console.log(\"Error parseando fecha:\", isoString, error);\n        return null;\n    }\n};\n\nconst minutosAHora = (totalMinutos) => {\n    const horas = Math.floor(totalMinutos / 60);\n    const minutos = totalMinutos % 60;\n    return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;\n};\n\nconst crearFechaISO = (fechaBase, horaStr) => {\n    try {\n        console.log(\"Creando fecha ISO con:\");\n        console.log(\"- fechaBase:\", fechaBase);\n        console.log(\"- horaStr:\", horaStr);\n        \n        // Extraer la parte de fecha (YYYY-MM-DD) y timezone del string original\n        const fechaMatch = fechaBase.match(/^(\\d{4}-\\d{2}-\\d{2})T.*?([-+]\\d{2}:\\d{2})$/);\n        \n        if (fechaMatch) {\n            const fechaParte = fechaMatch[1]; // 2025-05-30\n            const timezone = fechaMatch[2]; // -03:00\n            \n            // Crear nueva fecha manteniendo la timezone original\n            const nuevaFechaISO = `${fechaParte}T${horaStr}:00${timezone}`;\n            console.log(\"Nueva fecha ISO creada:\", nuevaFechaISO);\n            \n            return nuevaFechaISO;\n        }\n        \n        // Fallback: reemplazar solo la parte de hora\n        const fechaModificada = fechaBase.replace(/T\\d{2}:\\d{2}/, `T${horaStr}`);\n        console.log(\"Fecha modificada (fallback):\", fechaModificada);\n        \n        return fechaModificada;\n    } catch (error) {\n        console.log(\"Error creando fecha ISO:\", fechaBase, horaStr, error);\n        return fechaBase;\n    }\n};\n\n// 🚀 Recolectar eventos válidos\nconsole.log(\"\\n--- BUSCANDO EVENTOS ---\");\nconst eventosDisponibles = [];\n\nfor (const item of eventos) {\n    const ev = item.json;\n    const start = ev.start?.dateTime || ev.start?.date || ev.start;\n    const end = ev.end?.dateTime || ev.end?.date || ev.end;\n    \n    // Filtrar elementos que no tienen fecha válida\n    if (!start || !end || \n        start === \"America/Argentina/Buenos_Aires\" || \n        end === \"America/Argentina/Buenos_Aires\") {\n        console.log(\"⏭️ Saltando evento sin fechas válidas\");\n        continue;\n    }\n    \n    const summary = ev.summary || \"\";\n    \n    // Buscar si summary contiene \"Codigo:XXXXX\"\n    const summaryUpper = summary.toUpperCase();\n    const patronBusqueda = \"CODIGO:\" + codigoBusqueda;\n    const coincide = summaryUpper.includes(patronBusqueda);\n    \n    console.log(`📅 Evento: \"${summary}\"`);\n    console.log(`🔍 Buscando: \"${patronBusqueda}\"`);\n    console.log(`✅ ¿Coincide? ${coincide}`);\n    \n    if (coincide) {\n        // Validar que las fechas se puedan parsear\n        const fechaInicio = new Date(start);\n        const fechaFin = new Date(end);\n        \n        if (isNaN(fechaInicio.getTime()) || isNaN(fechaFin.getTime())) {\n            console.log(\"❌ Fechas inválidas en evento:\", start, end);\n            continue;\n        }\n        \n        eventosDisponibles.push({ \n            start, \n            end, \n            summary, \n            location: ev.location || \"\",\n            colorId: \"10\",\n            fechaInicioParsed: fechaInicio.toISOString(),\n            fechaFinParsed: fechaFin.toISOString()\n        });\n        \n        console.log(\"✅ Evento agregado a disponibles\");\n    }\n}\n\nconsole.log(`\\n📊 Total eventos disponibles encontrados: ${eventosDisponibles.length}`);\n\n// 🚀 Procesar eventos rojos (visitas agendadas) para exclusión\nconsole.log(\"\\n--- PROCESANDO EVENTOS ROJOS (OCUPADOS) ---\");\nconst bloquesOcupados = [];\n\n// Validar que hay eventos rojos para procesar\nif (contadorEventosRojos === 0) {\n    console.log(\"ℹ️ No hay eventos rojos (colorId = 11) para procesar. Todos los horarios estarán disponibles.\");\n} else {\n    console.log(`✅ ${contadorEventosRojos} eventos rojos encontrados, procesando exclusiones...`);\n\n    // Procesar cada evento rojo encontrado\n    eventosRojosData.forEach((eventoRojo, index) => {\n        console.log(`\\n🔴 Procesando evento rojo ${index + 1}:`);\n        console.log(\"ColorId:\", eventoRojo.colorId);\n        console.log(\"Summary:\", eventoRojo.summary || \"Sin título\");\n        console.log(\"Evento completo:\", JSON.stringify(eventoRojo, null, 2));\n        \n        // Extraer fechas del evento rojo\n        let fechaInicioRojo, fechaFinRojo;\n        \n        if (eventoRojo.start && eventoRojo.start.dateTime) {\n            fechaInicioRojo = eventoRojo.start.dateTime;\n        } else if (eventoRojo.start) {\n            fechaInicioRojo = eventoRojo.start;\n        }\n        \n        if (eventoRojo.end && eventoRojo.end.dateTime) {\n            fechaFinRojo = eventoRojo.end.dateTime;\n        } else if (eventoRojo.end) {\n            fechaFinRojo = eventoRojo.end;\n        }\n        \n        if (fechaInicioRojo && fechaFinRojo) {\n            const inicioMin = extraerMinutos(fechaInicioRojo);\n            const finMin = extraerMinutos(fechaFinRojo);\n            \n            if (inicioMin !== null && finMin !== null) {\n                // Extraer fecha base (YYYY-MM-DD) para comparar con eventos disponibles\n                const fechaBaseMatch = fechaInicioRojo.match(/^(\\d{4}-\\d{2}-\\d{2})/);\n                const fechaBase = fechaBaseMatch ? fechaBaseMatch[1] : null;\n                \n                const bloqueOcupado = {\n                    fechaBase: fechaBase,\n                    inicioMin: inicioMin,\n                    finMin: finMin,\n                    fechaInicioCompleta: fechaInicioRojo,\n                    fechaFinCompleta: fechaFinRojo,\n                    summary: eventoRojo.summary || \"Visita agendada\",\n                    colorId: eventoRojo.colorId\n                };\n                \n                bloquesOcupados.push(bloqueOcupado);\n                \n                console.log(`✅ Bloque ocupado: ${fechaBase} de ${minutosAHora(inicioMin)} a ${minutosAHora(finMin)} (${eventoRojo.summary || 'Sin título'})`);\n            } else {\n                console.log(\"❌ No se pudieron extraer minutos del evento rojo\");\n            }\n        } else {\n            console.log(\"❌ No se pudieron extraer fechas del evento rojo\");\n        }\n    });\n}\n\nconsole.log(`\\n📋 Total bloques ocupados: ${bloquesOcupados.length}`);\n\n// Función para verificar si un bloque está ocupado\nconst estaOcupado = (fechaBase, inicioMin, finMin) => {\n    return bloquesOcupados.some(ocupado => {\n        // Debe ser la misma fecha\n        if (ocupado.fechaBase !== fechaBase) return false;\n        \n        // Verificar superposición de tiempo:\n        // Un bloque está ocupado si hay ANY superposición con un evento rojo\n        const haySuperpocision = (\n            // El nuevo bloque empieza antes de que termine el ocupado Y\n            inicioMin < ocupado.finMin &&\n            // El nuevo bloque termina después de que empiece el ocupado\n            finMin > ocupado.inicioMin\n        );\n        \n        if (haySuperpocision) {\n            console.log(`❌ Bloque ${minutosAHora(inicioMin)}-${minutosAHora(finMin)} ocupado por: ${ocupado.summary}`);\n        }\n        \n        return haySuperpocision;\n    });\n};\n\n// 🚀 Si no hay eventos disponibles\nif (eventosDisponibles.length === 0) {\n    return [{\n        json: {\n            noMatchingEvents: true,\n            message: `No se encontraron eventos disponibles para el código: ${codigoBusqueda}`,\n            debug: {\n                codigoBuscado: codigoBusqueda,\n                patronBusqueda: \"CODIGO:\" + codigoBusqueda,\n                totalEventosAnalizados: eventos.length\n            }\n        }\n    }];\n}\n\n// 🚀 Procesar horarios disponibles con tiempo dinámico\nconsole.log(`\\n--- GENERANDO BLOQUES DE ${tiempoReservaMin} MINUTOS ---`);\n\nconst resultados = eventosDisponibles.map((evento, index) => {\n    console.log(`\\n🏗️ Procesando evento ${index + 1}: \"${evento.summary}\"`);\n    \n    const inicioEventoMin = extraerMinutos(evento.start);\n    const finEventoMin = extraerMinutos(evento.end);\n    \n    if (inicioEventoMin === null || finEventoMin === null) {\n        console.log(\"❌ No se pudieron extraer minutos del evento\");\n        return {\n            eventoPrincipal: {\n                resumen: evento.summary,\n                location: evento.location,\n                inicio: evento.start,\n                fin: evento.end,\n                colorId: \"10\",\n                error: \"No se pudieron procesar las horas\"\n            },\n            horariosDisponibles: []\n        };\n    }\n    \n    console.log(`⏰ Evento de ${minutosAHora(inicioEventoMin)} a ${minutosAHora(finEventoMin)}`);\n    console.log(`📏 Duración total: ${finEventoMin - inicioEventoMin} minutos`);\n    \n    // Crear bloques basados en el tiempo de reserva\n    const bloques = [];\n    let bloquesGenerados = 0;\n    let bloquesExcluidos = 0;\n    \n    // Extraer fecha base del evento para comparar con eventos rojos\n    const fechaBaseEvento = evento.start.match(/^(\\d{4}-\\d{2}-\\d{2})/);\n    const fechaBase = fechaBaseEvento ? fechaBaseEvento[1] : null;\n    \n    for (let m = inicioEventoMin; m + tiempoReservaMin <= finEventoMin; m += tiempoReservaMin) {\n        const horaInicio = minutosAHora(m);\n        const horaFin = minutosAHora(m + tiempoReservaMin);\n        \n        // ⭐ VERIFICAR SI ESTE BLOQUE ESTÁ OCUPADO\n        const bloqueOcupado = estaOcupado(fechaBase, m, m + tiempoReservaMin);\n        \n        if (bloqueOcupado) {\n            bloquesExcluidos++;\n            console.log(`  ❌ Bloque ${horaInicio} - ${horaFin} EXCLUIDO (ocupado)`);\n            continue; // Saltar este bloque\n        }\n        \n        const bloque = {\n            horaInicio: horaInicio,\n            horaFin: horaFin,\n            inicio: crearFechaISO(evento.start, horaInicio),\n            fin: crearFechaISO(evento.start, horaFin),\n            duracionMinutos: tiempoReservaMin\n        };\n        \n        bloques.push(bloque);\n        bloquesGenerados++;\n        \n        console.log(`  ✅ Bloque ${bloquesGenerados}: ${horaInicio} - ${horaFin} DISPONIBLE`);\n    }\n    \n    console.log(`✅ Total bloques disponibles: ${bloquesGenerados}`);\n    console.log(`❌ Total bloques excluidos: ${bloquesExcluidos}`);\n    \n    return {\n        eventoPrincipal: {\n            resumen: evento.summary,\n            location: evento.location,\n            inicio: evento.start,\n            fin: evento.end,\n            horaInicio: minutosAHora(inicioEventoMin),\n            horaFin: minutosAHora(finEventoMin),\n            colorId: \"10\",\n            duracionTotalMinutos: finEventoMin - inicioEventoMin,\n            tiempoReservaMinutos: tiempoReservaMin\n        },\n        horariosDisponibles: bloques,\n        estadisticas: {\n            totalBloques: bloquesGenerados,\n            bloquesExcluidos: bloquesExcluidos,\n            duracionBloque: tiempoReservaMin,\n            duracionEvento: finEventoMin - inicioEventoMin\n        }\n    };\n});\n\n// 🚀 Calcular estadísticas generales\nconst totalBloques = resultados.reduce((sum, resultado) => sum + resultado.horariosDisponibles.length, 0);\nconst totalExcluidos = resultados.reduce((sum, resultado) => sum + (resultado.estadisticas?.bloquesExcluidos || 0), 0);\n\nconsole.log(`\\n📈 RESUMEN FINAL:`);\nconsole.log(`- Eventos disponibles: ${eventosDisponibles.length}`);\nconsole.log(`- Total bloques de tiempo DISPONIBLES: ${totalBloques}`);\nconsole.log(`- Total bloques EXCLUIDOS (ocupados): ${totalExcluidos}`);\nconsole.log(`- Duración por bloque: ${tiempoReservaMin} minutos`);\nconsole.log(`- Eventos rojos (colorId=11) encontrados: ${contadorEventosRojos}`);\n\n// 🚀 Devolver la respuesta\nreturn [{\n    json: {\n        resultados: resultados,\n        resumen: {\n            codigoBuscado: codigoBusqueda,\n            tiempoReservaMinutos: tiempoReservaMin,\n            eventosEncontrados: eventosDisponibles.length,\n            totalBloquesDisponibles: totalBloques,\n            totalBloquesExcluidos: totalExcluidos,\n            eventosRojosEncontrados: contadorEventosRojos\n        }\n    }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1640,
-        140
+        -1240,
+        -20
       ],
       "id": "0d444a0d-f4b3-42dc-a66e-24c6cc1b8515",
       "name": "getForCode2"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4",
+          "mode": "list",
+          "cachedResultName": "Cliente:00_urls_francisco",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "CODIGO",
+              "lookupValue": "={{ $('Code').first().json.ultimoCodigo }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -1880,
+        -20
+      ],
+      "id": "2e1d6fcc-e7d6-475c-9447-ededc9763e21",
+      "name": "Datos de la propiedad",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lRj57XPEqOXW9kOd",
+          "name": "Qeva Solutions Sheet"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4",
+          "mode": "list",
+          "cachedResultName": "Cliente:00_urls_francisco",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "CODIGO",
+              "lookupValue": "={{ $('Code').first().json.ultimoCodigo }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -1860,
+        880
+      ],
+      "id": "0cda5006-a4fa-4bf2-a56d-97950cc711eb",
+      "name": "Datos de la propiedad1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lRj57XPEqOXW9kOd",
+          "name": "Qeva Solutions Sheet"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Fechas disponibles, muestra la disponiblidad de un codigo en especifico de propiedad",
+        "height": 580,
+        "width": 1820,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2000,
+        620
+      ],
+      "typeVersion": 1,
+      "id": "cc8a1aa4-9c6a-40de-b73f-793d7f553b60",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Reagendar visita",
+        "height": 660,
+        "width": 1840,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2020,
+        -280
+      ],
+      "typeVersion": 1,
+      "id": "de956f6a-bab0-4df2-aa74-46bf2672deb9",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://{{apiUrl}}/waInstance{{idInstance}}/sendListMessage/{{apiTokenInstance}}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"chatId\": \"11001234567@c.us\",\n  \"message\": \"Текст сообщения\",\n  \"buttonText\": \"Список действий\",\n  \"title\": \"заголовок\",\n  \"footer\": \"подвал\",\n  \"sections\": [\n    {\n      \"title\": \"Секция 1\",\n      \"rows\": [\n        {\n          \"title\": \"Вариант 1\",\n          \"rowId\": \"option1\"\n        },\n        {\n          \"title\": \"Вариант 2\",\n          \"rowId\": \"option2\",\n          \"description\": \"Пояснение\"\n        }\n      ]\n    },\n    {\n      \"title\": \"Секция 2\",\n      \"rows\": [\n        {\n          \"title\": \"Опция 3\",\n          \"rowId\": \"option3\"\n        },\n        {\n          \"title\": \"Опция 4\",\n          \"rowId\": \"option4\",\n          \"description\": \"Пояснение\"\n        }\n      ]\n    }\n  ]\n}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -280,
+        980
+      ],
+      "id": "26030d69-8f88-4ec3-98b8-441e1381f2c2",
+      "name": "HTTP Request1"
     }
   ],
   "pinData": {
@@ -816,11 +977,11 @@
       {
         "json": {
           "Evento": "consultar",
-          "session_id": "bb51bf53-69b7-4f56-9b7b-d9027c9ee92b",
-          "url_evo": "https://evo.innovasoftpro.dev",
-          "instance": "tester",
-          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
-          "numero_telefono": "5492254423359"
+          "session_id": "C725CDEBBA5EED8C19EE3DB017BB281B",
+          "url_evo": "https://7105.api.greenapi.com",
+          "instance": "7105250621",
+          "apikey": "0e64cc32278648c495f6322c5fb14634669021ca2fb5407780",
+          "numero_telefono": "5492254423359@c.us"
         }
       }
     ]
@@ -841,6 +1002,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-22T18:14:08.049Z",
-  "versionId": "5c95d51d-0fb1-4ca2-b986-973c63694ce8"
+  "updatedAt": "2025-05-28T02:58:48.658Z",
+  "versionId": "7f164ba6-4120-41ca-87b3-d020c3757da6"
 }
