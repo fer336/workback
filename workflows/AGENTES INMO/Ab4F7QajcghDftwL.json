@@ -184,7 +184,7 @@
       "main": [
         [
           {
-            "node": "Escribiendo...1",
+            "node": "Hora actual",
             "type": "main",
             "index": 0
           }
@@ -195,7 +195,7 @@
       "main": [
         [
           {
-            "node": "Escribiendo...",
+            "node": "Respuesta Éxito",
             "type": "main",
             "index": 0
           }
@@ -240,28 +240,6 @@
         [
           {
             "node": "¿Hay Datos en Redis?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Escribiendo...1": {
-      "main": [
-        [
-          {
-            "node": "Reaction",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Escribiendo...": {
-      "main": [
-        [
-          {
-            "node": "Reaction1",
             "type": "main",
             "index": 0
           }
@@ -427,7 +405,7 @@
       "main": [
         [
           {
-            "node": "Reaction4",
+            "node": "Contador",
             "type": "main",
             "index": 0
           }
@@ -485,28 +463,6 @@
         ]
       ]
     },
-    "Reaction": {
-      "main": [
-        [
-          {
-            "node": "Hora actual",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Reaction1": {
-      "main": [
-        [
-          {
-            "node": "Respuesta Éxito",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Reaction3": {
       "main": [
         [
@@ -531,13 +487,7 @@
     },
     "Reaction4": {
       "main": [
-        [
-          {
-            "node": "Contador",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
@@ -992,7 +942,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1940,
+        1540,
         660
       ],
       "id": "257ef0e6-9a35-4c59-a57d-4811bed3ad40",
@@ -1127,61 +1077,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "={{ $('URL datos').item.json.url }}/chat/sendPresence/{{ $('URL datos').item.json.instance }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('URL datos').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n    \"number\": \"{{ $('URL datos').item.json.numero_telefono }}\",\n    \"delay\": 3000,\n    \"presence\": \"composing\"\n}",
-        "options": {}
-      },
-      "id": "ee21555f-227d-44f9-bd66-39bc1dacee86",
-      "name": "Escribiendo...1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -240,
-        60
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('URL datos').item.json.url }}/chat/sendPresence/{{ $('URL datos').item.json.instance }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('URL datos').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n    \"number\": \"{{ $('URL datos').item.json.numero_telefono }}\",\n    \"delay\": 3000,\n    \"presence\": \"composing\"\n}",
-        "options": {}
-      },
-      "id": "d6685648-49aa-4087-b203-68e4826f1ecf",
-      "name": "Escribiendo...",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1520,
-        660
-      ],
-      "disabled": true
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -1203,8 +1098,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        160,
-        60
+        -240,
+        -20
       ],
       "id": "a5db4bb7-aaac-4bf5-b324-ea852f117845",
       "name": "Hora actual"
@@ -1782,60 +1677,6 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={   \n    \"key\": {\n        \"remoteJid\": \"{{ $('URL datos').item.json.numero_telefono }}@s.whatsapp.net\",\n        \"fromMe\":false,\n        \"id\": \"{{ $('URL datos').item.json.idMensaje }}\"\n    },\n    \"reaction\": \"⌛\"\n} ",
-        "options": {}
-      },
-      "id": "5413cd81-f473-4e1a-9dfa-b071d8699efa",
-      "name": "Reaction",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -40,
-        60
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('URL datos').item.json.url }}/message/sendReaction/tester",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('URL datos').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={   \n    \"key\": {\n        \"remoteJid\": \"{{ $('URL datos').item.json.numero_telefono }}@s.whatsapp.net\",\n        \"fromMe\":false,\n        \"id\": \"{{ $('URL datos').item.json.idMensaje }}\"\n    },\n    \"reaction\": \"✅\"\n} ",
-        "options": {}
-      },
-      "id": "bc64c42c-e5cd-4f19-98d5-81ba112e110d",
-      "name": "Reaction1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1740,
-        660
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('URL datos').item.json.url }}/message/sendReaction/tester",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('URL datos').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
         "jsonBody": "={   \n    \"key\": {\n        \"remoteJid\": \"{{ $('URL datos').item.json.numero_telefono }}@s.whatsapp.net\",\n        \"fromMe\":false,\n        \"id\": \"{{ $('URL datos').item.json.idMensaje }}\"\n    },\n    \"reaction\": \"🕦\"\n} ",
         "options": {}
       },
@@ -1912,24 +1753,11 @@
       "typeVersion": 4.2,
       "position": [
         -1780,
-        -100
+        -280
       ]
     }
   ],
   "pinData": {
-    "URL datos": [
-      {
-        "json": {
-          "session_id": "0f65a551-6534-4b58-8161-96c26197774e",
-          "consulta_usuario": "https://www.zonaprop.com.ar/propiedades/clasificado/veclapin-departamento-en-retiro-venta-2-ambientes-56206335.html ",
-          "numero_telefono": "5492254423359",
-          "url": "https://evo.innovasoftpro.dev",
-          "instance": "tester",
-          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
-          "idMensaje": "3EB06B05218AFA65DE10AB"
-        }
-      }
-    ],
     "Scraping Bee": [
       {
         "json": {
@@ -1941,6 +1769,19 @@
       {
         "json": {
           "text": "```json\n{\n  \"Cod:\": \"45-GAV-9\",\n  \"detalle_propiedad\": {\n    \"tipo_propiedad\": \"Departamento\",\n    \"operacion\": \"Venta\",\n    \"precio_valor\": 85000,\n    \"precio_moneda\": \"USD\",\n    \"expensas\": 192000\n  },\n  \"ubicacion\": {\n    \"direccion\": \"Juncal al 700\",\n    \"barrio\": \"Recoleta\",\n    \"ciudad\": \"Capital Federal\",\n    \"provincia\": \"Capital Federal\"\n  },\n  \"caracteristicas\": {\n    \"superficie_total\": 38,\n    \"superficie_cubierta\": 38,\n    \"ambientes\": 2,\n    \"dormitorios\": 1,\n    \"banos\": 1,\n    \"cocheras\": 0,\n    \"antiguedad\": \"75 años\",\n    \"estado\": \"Excelente\"\n  },\n  \"descripcion\": \"Excelente departamento 2 ambientes en Retiro. Frente al Estrugamou 38 m2 192.000 expensas Piso alto Cod:45-GAV-9 Corredor interviniente: Juan Eloy Gramajo CMCPSI 6760, CUCICBA 9368 La tasación, intermediación y la conclusión de las operaciones sobre esta propiedades son actividades exclusivas de este corredor matriculado, conforme las previsiones de la Ley 20.266, la Ley CABA 2340, la ley provincial 10.973 y sus modif. y las normas reglamentarias dictadas por los colegios departamentales. Las oficinas asociadas a la red Keller Williams actúan en forma independiente, brindando servicios a corredores, agentes y al publico en general, y su intervención se limita a la prestación de servicios inmobiliarios que no incluyen actos de corretaje ni intermediación inmobiliaria. Se encuentra prohibido cobrar comisiones inmobiliarias y gastos de gestoría de informes a los inquilinos que sean personas físicas. Para los casos de alquiler de vivienda, el monto máximo de comisión que se le puede requerir a los propietarios será el equivalente al cuatro con quince centésimos por ciento (4,15%) del valor total del respectivo contrato.\",\n  \"amenities\": \"N/A\",\n  \"fotos\": [\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975514965.jpg?isFirstImage=true\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007465.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007467.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007466.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007460.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975514964.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007464.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975514963.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007463.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007461.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007462.jpg\"\n  ]\n}\n```"
+        }
+      }
+    ],
+    "URL datos": [
+      {
+        "json": {
+          "session_id": null,
+          "consulta_usuario": "https://departamento.mercadolibre.com.ar/MLA-1496875227-departamento-en-retiro-venta-2-ambientes-_JM",
+          "numero_telefono": "5492254423359@c.us",
+          "url": "https://7105.api.greenapi.com",
+          "instance": "7105250621",
+          "apikey": "0e64cc32278648c495f6322c5fb14634669021ca2fb5407780",
+          "idMensaje": "B4CF2C99EBE286BCB2010C144516000C"
         }
       }
     ]
@@ -1958,6 +1799,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-22T03:41:44.528Z",
-  "versionId": "3939ca3f-ac18-4454-837d-f53f5745cc9b"
+  "updatedAt": "2025-05-28T02:40:49.478Z",
+  "versionId": "f7cda0d8-ab4a-4400-bc40-3bac57b24d75"
 }
