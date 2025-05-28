@@ -52,17 +52,6 @@
         ]
       ]
     },
-    "Crear Visita": {
-      "main": [
-        [
-          {
-            "node": "Limpia fecha",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "getForCode": {
       "main": [
         [
@@ -89,7 +78,7 @@
       "main": [
         [
           {
-            "node": "Calcula fecha",
+            "node": "Datos de la propiedad",
             "type": "main",
             "index": 0
           }
@@ -107,7 +96,17 @@
       "main": [
         [
           {
-            "node": "Crear Visita",
+            "node": "Propietario",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Agente inmobiliario",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Cliente",
             "type": "main",
             "index": 0
           }
@@ -217,6 +216,61 @@
     "NocoDB1": {
       "main": [
         []
+      ]
+    },
+    "Datos de la propiedad": {
+      "main": [
+        [
+          {
+            "node": "Calcula fecha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Propietario": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Agente inmobiliario": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cliente": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Limpia fecha",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -379,43 +433,6 @@
     },
     {
       "parameters": {
-        "calendar": {
-          "__rl": true,
-          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
-          "mode": "list",
-          "cachedResultName": "Francisco"
-        },
-        "start": "={{ $json.fechaInicio }}",
-        "end": "={{ $json.fechaFin }}",
-        "useDefaultReminders": false,
-        "additionalFields": {
-          "attendees": [
-            "={{ $('Calendario').first().json.correo_electronico }}"
-          ],
-          "color": "11",
-          "description": "=Telefono: https://wa.me/{{ $json.telefono }}\nCodigo propiedad: {{ $('getForCode').first().json.codigo }}",
-          "location": "={{ $json.description }}",
-          "showMeAs": "opaque",
-          "summary": "=Direccion: {{ $json.description }} - Interesado: {{ $json.nombreCliente }} - {{ $json.nombreInmobiliaria }}"
-        }
-      },
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.3,
-      "position": [
-        -600,
-        -760
-      ],
-      "id": "a45d84e9-941a-47f7-8459-666b71d21ecb",
-      "name": "Crear Visita",
-      "credentials": {
-        "googleCalendarOAuth2Api": {
-          "id": "248CSUaxOr8MEWUN",
-          "name": "Google Calendar account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "jsCode": "// Obtener el código de propiedad que queremos buscar\nconst codigoPropiedad = $('Code').first().json.ultimoCodigo;\n\n// Procesar todos los eventos de entrada\nconst events = $input.all();\n\n// Para debugging\nconsole.log(\"Número total de eventos a procesar:\", events.length);\nconsole.log(\"Código de propiedad a buscar:\", codigoPropiedad);\n\n// Arrays para almacenar los eventos filtrados\nconst eventosVerdes = [];\nconst eventosRojos = [];\n\n// Mapa para almacenar las relaciones entre ubicaciones y códigos\n// Esto nos ayudará a relacionar eventos rojos con códigos de propiedad\nconst relacionUbicacionCodigo = new Map();\n\n// PASO 1: Escanear eventos verdes para recopilar relaciones ubicación->código\nconsole.log(\"\\n=== FASE 1: ESCANEO DE UBICACIONES Y CÓDIGOS ===\");\nevents.forEach(item => {\n  const event = item.json;\n  \n  // Ignorar objetos que son solo timezone\n  if (event.start === \"America/Argentina/Buenos_Aires\" && \n      event.end === \"America/Argentina/Buenos_Aires\") {\n    return;\n  }\n  \n  // Detectar eventos verdes con \"Codigo:XXX\"\n  if ((event.colorId === \"10\" || event.colorId === 10) && \n      event.summary && \n      event.summary.includes(\"Codigo:\") && \n      event.location) {\n    \n    // Extraer el código de la propiedad\n    const codigoMatch = event.summary.match(/Codigo:([A-Za-z0-9-_]+)/i);\n    if (codigoMatch) {\n      const codigo = codigoMatch[1];\n      // Guardar la relación ubicación -> código\n      relacionUbicacionCodigo.set(event.location, codigo);\n      console.log(`Ubicación ${event.location} asociada con código ${codigo}`);\n    }\n  }\n});\n\n// PASO 2: Procesar todos los eventos\nconsole.log(\"\\n=== FASE 2: PROCESAMIENTO DE EVENTOS ===\");\nevents.forEach(item => {\n  const event = item.json;\n  \n  // Ignorar objetos que son solo timezone\n  if (event.start === \"America/Argentina/Buenos_Aires\" && \n      event.end === \"America/Argentina/Buenos_Aires\") {\n    return;\n  }\n  \n  // CASO 1: Eventos verdes (colorId=2)\n  if (event.colorId === \"10\" || event.colorId === 10) {\n    // Extraer código directamente del summary\n    let codigoEvento = null;\n    const codigoMatch = event.summary && event.summary.match(/Codigo:([A-Za-z0-9-_]+)/i);\n    \n    if (codigoMatch) {\n      codigoEvento = codigoMatch[1];\n    }\n    \n    // Verificar si el código coincide con el buscado\n    if (codigoEvento === codigoPropiedad) {\n      console.log(`Evento VERDE con código coincidente: ${event.summary}`);\n      eventosVerdes.push({\n        ...event,\n        tipo: \"verde\"\n      });\n    }\n  }\n  // CASO 2: Eventos rojos (colorId=11)\n  else if (event.colorId === \"11\" || event.colorId === 11) {\n    // Para eventos rojos, verificar:\n    // 1. Si tiene un formato \"Direccion: XXX\" y la ubicación coincide con un código conocido\n    // 2. O si contiene directamente el código de propiedad\n    \n    let coincideRojo = false;\n    \n    // Verificar si su ubicación está asociada con el código buscado\n    if (event.location && relacionUbicacionCodigo.has(event.location)) {\n      const codigoAsociado = relacionUbicacionCodigo.get(event.location);\n      if (codigoAsociado === codigoPropiedad) {\n        coincideRojo = true;\n        console.log(`Evento ROJO coincide por ubicación ${event.location}`);\n      }\n    }\n    \n    // También verificar si el summary contiene el código directamente\n    if (event.summary && event.summary.includes(codigoPropiedad)) {\n      coincideRojo = true;\n      console.log(`Evento ROJO coincide por mención directa del código`);\n    }\n    \n    if (coincideRojo) {\n      eventosRojos.push({\n        ...event,\n        tipo: \"rojo\"\n      });\n    }\n  }\n});\n\n// Si no encontramos eventos, hacer una segunda pasada más flexible\nif (eventosVerdes.length === 0 && eventosRojos.length === 0) {\n  console.log(\"\\n=== NO SE ENCONTRARON EVENTOS EXACTOS, BUSCANDO POR UBICACIÓN ===\");\n  \n  // Si hay eventos rojos pero no se relacionaron correctamente,\n  // intentar buscar por coincidencia exacta de ubicación\n  const eventosVerdesBuscados = events.filter(item => {\n    const event = item.json;\n    return (event.colorId === \"10\" || event.colorId === 10) && \n           event.summary && \n           event.summary.includes(`Codigo:${codigoPropiedad}`);\n  }).map(item => item.json);\n  \n  // Si encontramos eventos verdes con el código buscado...\n  if (eventosVerdesBuscados.length > 0) {\n    console.log(`Encontrados ${eventosVerdesBuscados.length} eventos verdes con el código buscado`);\n    \n    // Extraer las ubicaciones de estos eventos verdes\n    const ubicacionesBuscadas = eventosVerdesBuscados\n      .filter(event => event.location)\n      .map(event => event.location);\n    \n    console.log(\"Ubicaciones asociadas al código:\", ubicacionesBuscadas);\n    \n    // Buscar eventos rojos con estas ubicaciones\n    events.forEach(item => {\n      const event = item.json;\n      \n      // Verificar si es un evento rojo con ubicación coincidente\n      if ((event.colorId === \"11\" || event.colorId === 11) && \n          event.location && \n          ubicacionesBuscadas.includes(event.location)) {\n        \n        console.log(`Evento ROJO coincide por ubicación (segunda pasada): ${event.summary}`);\n        eventosRojos.push({\n          ...event,\n          tipo: \"rojo\"\n        });\n      }\n    });\n    \n    // Añadir los eventos verdes encontrados\n    eventosVerdesBuscados.forEach(event => {\n      eventosVerdes.push({\n        ...event,\n        tipo: \"verde\"\n      });\n    });\n  }\n}\n\n// Si todavía no encontramos eventos, mostrar todos los eventos coloreados\nif (eventosVerdes.length === 0 && eventosRojos.length === 0) {\n  console.log(\"\\n=== ÚLTIMO RECURSO: DEVOLVIENDO TODOS LOS EVENTOS COLOREADOS ===\");\n  \n  // Capturar todos los eventos verdes (colorId=10)\n  events.forEach(item => {\n    const event = item.json;\n    \n    // Ignorar objetos timezone\n    if (event.start === \"America/Argentina/Buenos_Aires\" && \n        event.end === \"America/Argentina/Buenos_Aires\") {\n      return;\n    }\n    \n    if (event.colorId === \"10\" || event.colorId === 10) {\n      eventosVerdes.push({\n        ...event,\n        tipo: \"verde\"\n      });\n    }\n    else if (event.colorId === \"11\" || event.colorId === 11) {\n      eventosRojos.push({\n        ...event,\n        tipo: \"rojo\"\n      });\n    }\n  });\n}\n\n// Registrar el resultado final\nconsole.log(`\\nResultado final: ${eventosVerdes.length} eventos verdes y ${eventosRojos.length} eventos rojos para el código ${codigoPropiedad}`);\n\n// Devolver eventos encontrados\nreturn [{\n  json: {\n    codigo: codigoPropiedad,\n    eventosVerdes: eventosVerdes,\n    eventosRojos: eventosRojos,\n    totalEventos: eventosVerdes.length + eventosRojos.length\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
@@ -476,13 +493,13 @@
     },
     {
       "parameters": {
-        "jsCode": "// 1. Obtener los datos\nconst datosCalendario = $('Calendario').first().json;\n\n// Verificar que existen los datos necesarios en getForCode\nlet eventosVerdes = null;\ntry {\n  // Intentar obtener el primer evento verde\n  const getForCodeResult = $('getForCode').first().json;\n  if (getForCodeResult && getForCodeResult.eventosVerdes && getForCodeResult.eventosVerdes.length > 0) {\n    eventosVerdes = getForCodeResult.eventosVerdes[0];\n  } else {\n    console.log(\"No se encontraron eventos verdes\");\n  }\n} catch (error) {\n  console.log(\"Error al obtener eventos verdes:\", error);\n}\n\n// 2. Extraer variables con valores predeterminados para evitar errores\nconst nombreCliente = datosCalendario?.Nombre || \"\";\nconst telefono = datosCalendario?.numero_cliente || \"\";\nconst nombreInmobiliaria = datosCalendario?.nombre_inmobiliaria || \"\";\nconst tipoPropiedad = datosCalendario?.Tipo || \"\";\n\n// Usar valores predeterminados si eventosVerdes es null o sus propiedades no existen\nconst ubicacion = eventosVerdes?.location || \"Dirección no especificada\";\nconst idInput = eventosVerdes?.id || \"\";\nconst idEvento = eventosVerdes?.id || \"\";\nconst summary = eventosVerdes?.summary || \"\";\n\n// 3. Tomar la **fecha elegida por el usuario** con verificación\nif (!datosCalendario?.fecha_cita) {\n  return [{\n    json: {\n      error: \"No se proporcionó una fecha de cita válida\"\n    }\n  }];\n}\nconst fechaCitaOriginal = datosCalendario.fecha_cita; // EJ: 2025-04-08T14:30:00-03:00\n\n// 4. Parseo correcto SIN cambio de zona\nconst [fechaParte, horaParteCompleta] = fechaCitaOriginal.split('T');\nconst [horaParte] = horaParteCompleta.split('-'); // Agarra solo la hora limpia\n// Crear la fecha base\nconst [anio, mes, dia] = fechaParte.split('-').map(Number);\nconst [hora, minutos, segundos] = horaParte.split(':').map(Number);\nconst fechaInicio = new Date(anio, mes - 1, dia, hora, minutos, segundos);\n\n// 5. Sumar 30 minutos\nconst fechaFin = new Date(fechaInicio.getTime() + 30 * 60000);\n\n// 6. Formatear fecha\nconst formatDate = (date) => {\n  const year = date.getFullYear();\n  const month = String(date.getMonth() + 1).padStart(2, '0');\n  const day = String(date.getDate()).padStart(2, '0');\n  const hour = String(date.getHours()).padStart(2, '0');\n  const minute = String(date.getMinutes()).padStart(2, '0');\n  const second = String(date.getSeconds()).padStart(2, '0');\n  \n  return `${year}-${month}-${day}T${hour}:${minute}:${second}.000-03:00`;\n};\n\nconst fechaInicioFormateada = formatDate(fechaInicio);\nconst fechaFinFormateada = formatDate(fechaFin);\n\n// 7. Crear el objeto de salida\nreturn [{\n  json: {\n    idInput,\n    idEvento,\n    colorId: \"10\", // Añadido explícitamente el colorId 10\n    summary: `Dirección: ${ubicacion} - Interesado: ${nombreCliente}${nombreInmobiliaria ? ' - ' + nombreInmobiliaria : ''}`,\n    description: ubicacion,\n    tipoPropiedad,\n    nombreCliente,\n    telefono,\n    nombreInmobiliaria,\n    fechaInicio: fechaInicioFormateada,\n    fechaFin: fechaFinFormateada\n  }\n}];"
+        "jsCode": "// 1. Obtener los datos\nconst datosCalendario = $('Calendario').first().json;\n\n// Obtener datos de la propiedad (Google Sheets)\nconst datosPropiedad = $('Datos de la propiedad').first().json;\n\n// Verificar que existen los datos necesarios en getForCode\nlet eventosVerdes = null;\ntry {\n  // Intentar obtener el primer evento verde\n  const getForCodeResult = $('getForCode').first().json;\n  if (getForCodeResult && getForCodeResult.eventosVerdes && getForCodeResult.eventosVerdes.length > 0) {\n    eventosVerdes = getForCodeResult.eventosVerdes[0];\n  } else {\n    console.log(\"No se encontraron eventos verdes\");\n  }\n} catch (error) {\n  console.log(\"Error al obtener eventos verdes:\", error);\n}\n\n// 2. Extraer variables con valores predeterminados para evitar errores\nconst nombreCliente = datosCalendario?.Nombre || \"\";\nconst telefono = datosCalendario?.numero_cliente || \"\";\nconst nombreInmobiliaria = datosCalendario?.nombre_inmobiliaria || \"\";\nconst tipoPropiedad = datosCalendario?.Tipo || \"\";\n\n// Usar valores predeterminados si eventosVerdes es null o sus propiedades no existen\nconst ubicacion = eventosVerdes?.location || \"Dirección no especificada\";\nconst idInput = eventosVerdes?.id || \"\";\nconst idEvento = eventosVerdes?.id || \"\";\nconst summary = eventosVerdes?.summary || \"\";\n\n// 3. Obtener tiempo dinámico desde Google Sheets\n// Convertir el valor de tiempo a minutos\nlet tiempoVisitaMinutos = 30; // Valor por defecto\n\nif (datosPropiedad?.Tiempo) {\n  const tiempoTexto = datosPropiedad.Tiempo.toString().toLowerCase();\n  \n  // Extraer número del texto (ej: \"1hs\" -> 1, \"30mins\" -> 30)\n  const numeroMatch = tiempoTexto.match(/\\d+/);\n  \n  if (numeroMatch) {\n    const numero = parseInt(numeroMatch[0]);\n    \n    // Determinar si son horas o minutos\n    if (tiempoTexto.includes('h') || tiempoTexto.includes('hora')) {\n      tiempoVisitaMinutos = numero * 60; // Convertir horas a minutos\n    } else if (tiempoTexto.includes('min')) {\n      tiempoVisitaMinutos = numero;\n    } else {\n      // Si no especifica unidad, asumir que son minutos\n      tiempoVisitaMinutos = numero;\n    }\n  }\n}\n\nconsole.log(`Tiempo de visita configurado: ${tiempoVisitaMinutos} minutos`);\n\n// 4. Tomar la **fecha elegida por el usuario** con verificación\nif (!datosCalendario?.fecha_cita) {\n  return [{\n    json: {\n      error: \"No se proporcionó una fecha de cita válida\"\n    }\n  }];\n}\n\nconst fechaCitaOriginal = datosCalendario.fecha_cita; // EJ: 2025-04-08T14:30:00-03:00\n\n// 5. Parseo correcto SIN cambio de zona\nconst [fechaParte, horaParteCompleta] = fechaCitaOriginal.split('T');\nconst [horaParte] = horaParteCompleta.split('-'); // Agarra solo la hora limpia\n\n// Crear la fecha base\nconst [anio, mes, dia] = fechaParte.split('-').map(Number);\nconst [hora, minutos, segundos] = horaParte.split(':').map(Number);\nconst fechaInicio = new Date(anio, mes - 1, dia, hora, minutos, segundos);\n\n// 6. Sumar el tiempo dinámico de la visita\nconst fechaFin = new Date(fechaInicio.getTime() + tiempoVisitaMinutos * 60000);\n\n// 7. Formatear fecha\nconst formatDate = (date) => {\n  const year = date.getFullYear();\n  const month = String(date.getMonth() + 1).padStart(2, '0');\n  const day = String(date.getDate()).padStart(2, '0');\n  const hour = String(date.getHours()).padStart(2, '0');\n  const minute = String(date.getMinutes()).padStart(2, '0');\n  const second = String(date.getSeconds()).padStart(2, '0');\n  \n  return `${year}-${month}-${day}T${hour}:${minute}:${second}.000-03:00`;\n};\n\nconst fechaInicioFormateada = formatDate(fechaInicio);\nconst fechaFinFormateada = formatDate(fechaFin);\n\n// 8. Crear el objeto de salida\nreturn [{\n  json: {\n    idInput,\n    idEvento,\n    colorId: \"10\", // Añadido explícitamente el colorId 10\n    summary: `Dirección: ${ubicacion} - Interesado: ${nombreCliente}${nombreInmobiliaria ? ' - ' + nombreInmobiliaria : ''}`,\n    description: ubicacion,\n    tipoPropiedad,\n    nombreCliente,\n    telefono,\n    nombreInmobiliaria,\n    fechaInicio: fechaInicioFormateada,\n    fechaFin: fechaFinFormateada,\n    tiempoVisita: `${tiempoVisitaMinutos} minutos` // Para debugging\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -820,
-        -760
+        -460,
+        -740
       ],
       "id": "0f599010-4717-4fab-8541-1ce9b78e01d5",
       "name": "Calcula fecha"
@@ -520,13 +537,13 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -840,
-        -420
+        -740,
+        -500
       ]
     },
     {
       "parameters": {
-        "jsCode": "// Obtener los eventos rojos y la fecha que está intentando reservar\nlet eventosRojosData = $input.first().json.eventosRojos;\nconst fechaCitaUsuario = $('Calendario').first().json.fecha_cita;\n\n// Parsear la fecha de cita del usuario a un objeto Date\nconst fechaCitaDate = new Date(fechaCitaUsuario);\nconsole.log(\"Fecha y hora que el usuario intenta agendar:\", fechaCitaUsuario);\nconsole.log(\"Fecha parseada:\", fechaCitaDate.toISOString());\n\n// Mostrar los datos crudos para depuración\nconsole.log(\"Datos crudos de eventosRojos:\", JSON.stringify(eventosRojosData, null, 2));\nconsole.log(\"Tipo de eventosRojos:\", typeof eventosRojosData);\n\n// Convertir a un formato consistente (array de eventos)\nlet eventos = [];\nif (Array.isArray(eventosRojosData)) {\n  eventos = eventosRojosData;\n} else if (eventosRojosData && typeof eventosRojosData === 'object') {\n  eventos = [eventosRojosData];\n}\n\n// Inicializar la variable de verificación\nlet conflictoEncontrado = false;\n\n// Verificar cada evento de manera robusta\nconsole.log(\"\\nVerificando eventos:\");\nif (eventos.length === 0) {\n  console.log(\"No hay eventos para verificar\");\n} else {\n  eventos.forEach((evento, index) => {\n    console.log(`\\nEvento #${index + 1}:`);\n    console.log(\"Evento completo:\", JSON.stringify(evento, null, 2));\n    \n    // Extraer valores relevantes\n    const colorId = evento.colorId;\n    const tipo = evento.tipo;\n    \n    // Obtener la fecha y hora del evento\n    let fechaEventoInicio, fechaEventoFin;\n    \n    if (evento.start && evento.start.dateTime) {\n      fechaEventoInicio = new Date(evento.start.dateTime);\n      console.log(\"Fecha de inicio del evento:\", fechaEventoInicio.toISOString());\n    } else if (evento.start) {\n      fechaEventoInicio = new Date(evento.start);\n      console.log(\"Fecha de inicio del evento (formato alternativo):\", fechaEventoInicio.toISOString());\n    }\n    \n    if (evento.end && evento.end.dateTime) {\n      fechaEventoFin = new Date(evento.end.dateTime);\n      console.log(\"Fecha de fin del evento:\", fechaEventoFin.toISOString());\n    } else if (evento.end) {\n      fechaEventoFin = new Date(evento.end);\n      console.log(\"Fecha de fin del evento (formato alternativo):\", fechaEventoFin.toISOString());\n    }\n    \n    // Verificación robusta de color y tipo\n    const esColor11 = colorId === 11 || colorId === \"11\" || String(colorId) === \"11\";\n    const esRojo = tipo === \"rojo\" || tipo === \"Rojo\" || String(tipo).toLowerCase() === \"rojo\";\n    \n    console.log(`¿Es color 11? ${esColor11}`);\n    console.log(`¿Es tipo rojo? ${esRojo}`);\n    \n    // Verificar superposición de tiempo\n    let hayConflictoTiempo = false;\n    \n    if (fechaEventoInicio && fechaEventoFin) {\n      // Verificamos si la cita del usuario cae dentro del rango del evento existente\n      hayConflictoTiempo = (\n        // La cita comienza durante un evento existente\n        (fechaCitaDate >= fechaEventoInicio && fechaCitaDate < fechaEventoFin) ||\n        // O el evento existente comienza justo a la misma hora\n        fechaCitaDate.getTime() === fechaEventoInicio.getTime()\n      );\n      \n      console.log(`¿Hay conflicto de tiempo? ${hayConflictoTiempo}`);\n      \n      // Mostrar detalles de la comparación\n      if (hayConflictoTiempo) {\n        console.log(\"DETALLES DEL CONFLICTO:\");\n        console.log(`Cita solicitada: ${fechaCitaDate.toISOString()}`);\n        console.log(`Evento existente: ${fechaEventoInicio.toISOString()} - ${fechaEventoFin.toISOString()}`);\n      }\n    } else {\n      console.log(\"No se pudo determinar las fechas del evento\");\n    }\n    \n    // Si es un evento rojo, con color 11 y hay conflicto de tiempo\n    if (esRojo && esColor11 && hayConflictoTiempo) {\n      console.log(\"⚠️ CONFLICTO ENCONTRADO - Este horario ya está reservado\");\n      conflictoEncontrado = true;\n    }\n  });\n}\n\n// Determinar disponibilidad\nconst disponible = !conflictoEncontrado;\n\nconsole.log(\"\\nResultado final:\");\nconsole.log(`¿Hay conflicto con eventos existentes? ${conflictoEncontrado}`);\nconsole.log(`Disponibilidad para ${fechaCitaUsuario}: ${disponible ? \"DISPONIBLE\" : \"NO DISPONIBLE\"}`);\n\n// Retornar el resultado\nreturn [{\n  json: {\n    disponible: disponible,\n    mensaje: disponible \n      ? \"✅ Horario disponible, se puede agendar.\"\n      : \"🚫 El horario ya está ocupado, elegí otra fecha.\"\n  }\n}];"
+        "jsCode": "// Obtener TODOS los eventos rojos y la fecha que está intentando reservar\nlet eventosRojosData = $input.first().json.eventosRojos;\nconst fechaCitaUsuario = $('Calendario').first().json.fecha_cita;\n\nconsole.log(\"=== VERIFICADOR DE DISPONIBILIDAD ===\");\nconsole.log(\"Fecha solicitada por el usuario:\", fechaCitaUsuario);\nconsole.log(\"Eventos rojos recibidos:\", JSON.stringify(eventosRojosData, null, 2));\n\n// Validar que tenemos datos\nif (!eventosRojosData) {\n    console.log(\"❌ No hay eventos rojos para verificar\");\n    return [{\n        json: {\n            disponible: true,\n            mensaje: \"✅ Horario disponible (no hay eventos para verificar).\",\n            debug: { razon: \"eventosRojosData está vacío o undefined\" }\n        }\n    }];\n}\n\nif (!fechaCitaUsuario) {\n    console.log(\"❌ No se proporcionó fecha de cita\");\n    return [{\n        json: {\n            disponible: false,\n            mensaje: \"🚫 Error: No se proporcionó fecha de cita.\",\n            debug: { razon: \"fechaCitaUsuario está vacío o undefined\" }\n        }\n    }];\n}\n\n// Parsear la fecha de la cita del usuario (formato: 2025-05-30T12:00:00-03:00)\nconst fechaCitaDate = new Date(fechaCitaUsuario);\nif (isNaN(fechaCitaDate.getTime())) {\n    console.log(\"❌ Fecha de cita inválida:\", fechaCitaUsuario);\n    return [{\n        json: {\n            disponible: false,\n            mensaje: \"🚫 Error: Fecha de cita inválida.\",\n            debug: { razon: \"No se pudo parsear fechaCitaUsuario\", fechaOriginal: fechaCitaUsuario }\n        }\n    }];\n}\n\nconsole.log(\"Fecha de cita original:\", fechaCitaUsuario);\nconsole.log(\"Fecha de cita parseada a UTC:\", fechaCitaDate.toISOString());\nconsole.log(\"Fecha de cita en timestamp:\", fechaCitaDate.getTime());\n\n// Normalizar los eventos a un array\nlet todosLosEventos = [];\nif (Array.isArray(eventosRojosData)) {\n    todosLosEventos = eventosRojosData;\n} else if (eventosRojosData && typeof eventosRojosData === 'object') {\n    todosLosEventos = [eventosRojosData];\n}\n\nconsole.log(`\\nTotal de eventos a analizar: ${todosLosEventos.length}`);\n\n// Variables para el análisis\nlet conflictoEncontrado = false;\nlet eventosAnalizados = 0;\nlet eventosRojosEncontrados = 0;\nlet eventosConConflicto = [];\nlet todosLosDetalles = [];\n\n// Analizar CADA evento\ntodosLosEventos.forEach((evento, index) => {\n    eventosAnalizados++;\n    \n    console.log(`\\n--- EVENTO ${index + 1} ---`);\n    \n    // Guardar detalles del evento para debug\n    const detalleEvento = {\n        index: index + 1,\n        colorId: evento.colorId,\n        tipo: evento.tipo,\n        summary: evento.summary || \"Sin título\",\n        start: evento.start,\n        end: evento.end,\n        esEventoRojo: false,\n        tieneConflictoTiempo: false,\n        razonDescarte: null\n    };\n    \n    // Verificar si es un evento rojo (sin filtrar por color aún)\n    const tipo = evento.tipo;\n    const esRojo = tipo === \"rojo\" || tipo === \"Rojo\" || String(tipo).toLowerCase() === \"rojo\";\n    \n    console.log(`Tipo del evento: \"${tipo}\" -> ¿Es rojo? ${esRojo}`);\n    \n    if (!esRojo) {\n        detalleEvento.razonDescarte = `Tipo \"${tipo}\" no es \"rojo\"`;\n        console.log(`❌ Descartado: ${detalleEvento.razonDescarte}`);\n        todosLosDetalles.push(detalleEvento);\n        return; // Siguiente evento\n    }\n    \n    // Es un evento rojo\n    eventosRojosEncontrados++;\n    detalleEvento.esEventoRojo = true;\n    \n    console.log(\"✅ Es un evento ROJO, verificando horarios...\");\n    console.log(\"Detalles del evento:\", JSON.stringify(evento, null, 2));\n    \n    // Obtener fechas del evento\n    let fechaEventoInicio, fechaEventoFin;\n    \n    // Intentar múltiples formatos de fecha\n    if (evento.start && evento.start.dateTime) {\n        fechaEventoInicio = new Date(evento.start.dateTime);\n        console.log(\"Fecha inicio desde start.dateTime:\", evento.start.dateTime);\n    } else if (evento.start && typeof evento.start === 'string') {\n        fechaEventoInicio = new Date(evento.start);\n        console.log(\"Fecha inicio desde start (string):\", evento.start);\n    } else if (evento.start && evento.start.date) {\n        fechaEventoInicio = new Date(evento.start.date);\n        console.log(\"Fecha inicio desde start.date:\", evento.start.date);\n    }\n    \n    if (evento.end && evento.end.dateTime) {\n        fechaEventoFin = new Date(evento.end.dateTime);\n        console.log(\"Fecha fin desde end.dateTime:\", evento.end.dateTime);\n    } else if (evento.end && typeof evento.end === 'string') {\n        fechaEventoFin = new Date(evento.end);\n        console.log(\"Fecha fin desde end (string):\", evento.end);\n    } else if (evento.end && evento.end.date) {\n        fechaEventoFin = new Date(evento.end.date);\n        console.log(\"Fecha fin desde end.date:\", evento.end.date);\n    }\n    \n    // Validar que se pudieron obtener las fechas\n    if (!fechaEventoInicio || isNaN(fechaEventoInicio.getTime())) {\n        detalleEvento.razonDescarte = \"No se pudo parsear fecha de inicio\";\n        console.log(`❌ ${detalleEvento.razonDescarte}`);\n        todosLosDetalles.push(detalleEvento);\n        return;\n    }\n    \n    if (!fechaEventoFin || isNaN(fechaEventoFin.getTime())) {\n        detalleEvento.razonDescarte = \"No se pudo parsear fecha de fin\";\n        console.log(`❌ ${detalleEvento.razonDescarte}`);\n        todosLosDetalles.push(detalleEvento);\n        return;\n    }\n    \n    // Guardar fechas parseadas en el detalle\n    detalleEvento.fechaInicioParsed = fechaEventoInicio.toISOString();\n    detalleEvento.fechaFinParsed = fechaEventoFin.toISOString();\n    \n    console.log(`Evento inicia: ${fechaEventoInicio.toISOString()} (timestamp: ${fechaEventoInicio.getTime()})`);\n    console.log(`Evento termina: ${fechaEventoFin.toISOString()} (timestamp: ${fechaEventoFin.getTime()})`);\n    console.log(`Cita solicitada: ${fechaCitaDate.toISOString()} (timestamp: ${fechaCitaDate.getTime()})`);\n    \n    // Verificar superposición de tiempo con comparación de timestamps para mayor precisión\n    // La cita conflicta si:\n    // 1. La cita está dentro del rango del evento existente\n    // 2. La cita empieza exactamente cuando empieza el evento\n    \n    const timestampCita = fechaCitaDate.getTime();\n    const timestampEventoInicio = fechaEventoInicio.getTime();\n    const timestampEventoFin = fechaEventoFin.getTime();\n    \n    const citaDentroDelEvento = timestampCita >= timestampEventoInicio && timestampCita < timestampEventoFin;\n    const citaEsMismaHoraInicio = timestampCita === timestampEventoInicio;\n    \n    console.log(`¿Cita dentro del evento? ${citaDentroDelEvento} (${timestampCita} >= ${timestampEventoInicio} && ${timestampCita} < ${timestampEventoFin})`);\n    console.log(`¿Cita es misma hora de inicio? ${citaEsMismaHoraInicio} (${timestampCita} === ${timestampEventoInicio})`);\n    \n    const hayConflicto = citaDentroDelEvento || citaEsMismaHoraInicio;\n    detalleEvento.tieneConflictoTiempo = hayConflicto;\n    \n    if (hayConflicto) {\n        console.log(\"🚨 ¡CONFLICTO DETECTADO!\");\n        conflictoEncontrado = true;\n        eventosConConflicto.push({\n            evento: index + 1,\n            summary: evento.summary || \"Sin título\",\n            tipo: evento.tipo,\n            colorId: evento.colorId,\n            inicioEvento: fechaEventoInicio.toISOString(),\n            finEvento: fechaEventoFin.toISOString(),\n            citaSolicitada: fechaCitaDate.toISOString()\n        });\n    } else {\n        console.log(\"✅ No hay conflicto de tiempo\");\n    }\n    \n    todosLosDetalles.push(detalleEvento);\n});\n\n// Resultado final\nconst disponible = !conflictoEncontrado;\n\nconsole.log(\"\\n=== RESUMEN FINAL ===\");\nconsole.log(`Eventos analizados: ${eventosAnalizados}`);\nconsole.log(`Eventos rojos encontrados: ${eventosRojosEncontrados}`);\nconsole.log(`Conflictos detectados: ${eventosConConflicto.length}`);\nconsole.log(`Resultado: ${disponible ? \"DISPONIBLE\" : \"NO DISPONIBLE\"}`);\n\nif (eventosConConflicto.length > 0) {\n    console.log(\"Detalles de conflictos:\");\n    eventosConConflicto.forEach(conflicto => {\n        console.log(`- Evento \"${conflicto.summary}\" del ${conflicto.inicioEvento} al ${conflicto.finEvento}`);\n    });\n}\n\nreturn [{\n    json: {\n        disponible: disponible,\n        mensaje: disponible \n            ? \"✅ Horario disponible, se puede agendar.\"\n            : `🚫 El horario ya está ocupado por ${eventosConConflicto.length} evento(s). Elegí otra fecha.`,\n        debug: {\n            fechaCitaSolicitada: fechaCitaDate.toISOString(),\n            totalEventosAnalizados: eventosAnalizados,\n            eventosRojosEncontrados: eventosRojosEncontrados,\n            conflictosDetectados: eventosConConflicto.length,\n            detallesConflictos: eventosConConflicto,\n            todosLosEventosAnalizados: todosLosDetalles\n        }\n    }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -540,7 +557,7 @@
     {
       "parameters": {
         "sendTo": "={{ $('Calendario').first().json.correo_electronico }}",
-        "subject": "=Visita a la propiedad: {{ $('Crear Visita').item.json.location }}",
+        "subject": "=Visita a la propiedad: {{ $json.direccion }}",
         "message": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Confirmación de Visita Agendada</title>\n<style>\n    /* Estilos generales para el cuerpo del correo */\n    body {\n        margin: 0;\n        padding: 0;\n        font-family: Arial, sans-serif;\n        background-color: #f4f4f4;\n    }\n    /* Contenedor principal */\n    .email-container {\n        max-width: 600px;\n        margin: 20px auto;\n        background-color: #ffffff;\n        border: 1px solid #dddddd;\n        overflow: hidden; /* Para contener bordes redondeados si se añaden */\n    }\n    /* Cabecera */\n    .header {\n        background-color: #0056b3; /* Azul corporativo, puedes cambiarlo */\n        color: #ffffff;\n        padding: 20px;\n        text-align: center;\n    }\n    .header h1 {\n        margin: 0;\n        font-size: 24px;\n    }\n    /* Contenido principal */\n    .content {\n        padding: 30px;\n        font-size: 16px;\n        line-height: 1.6;\n        color: #333333;\n    }\n    .content p {\n        margin-bottom: 20px;\n    }\n    /* Tabla de detalles */\n    .details-table {\n        width: 100%;\n        border-collapse: collapse; /* Une los bordes de las celdas */\n        margin-bottom: 20px;\n    }\n    .details-table th, .details-table td {\n        border: 1px solid #dddddd;\n        padding: 12px;\n        text-align: left;\n        font-size: 14px;\n    }\n    .details-table th {\n        background-color: #f8f8f8; /* Fondo claro para las cabeceras */\n        width: 120px; /* Ancho fijo para etiquetas */\n        font-weight: bold;\n        color: #555555;\n    }\n    .details-table td {\n        color: #555555;\n    }\n    /* Información del agente */\n    .agent-info {\n        margin-top: 20px;\n        padding: 15px;\n        background-color: #eef7ff; /* Fondo sutil para destacar */\n        border-left: 4px solid #0056b3; /* Línea decorativa */\n    }\n    .agent-info strong {\n        color: #333333;\n    }\n    /* Pie de página */\n    .footer {\n        background-color: #f4f4f4;\n        color: #888888;\n        text-align: center;\n        padding: 20px;\n        font-size: 12px;\n    }\n    .footer a {\n        color: #0056b3;\n        text-decoration: none;\n    }\n</style>\n</head>\n<body>\n    <table width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" bgcolor=\"#f4f4f4\">\n        <tr>\n            <td align=\"center\">\n                <table class=\"email-container\" width=\"600\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"max-width: 600px; margin: 20px auto; background-color: #ffffff; border: 1px solid #dddddd;\">\n                    <tr>\n                        <td class=\"header\" style=\"background-color: #0056b3; color: #ffffff; padding: 20px; text-align: center;\">\n                            <h1 style=\"margin: 0; font-size: 24px; font-family: Arial, sans-serif;\">Confirmación de Visita</h1>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td class=\"content\" style=\"padding: 30px; font-size: 16px; line-height: 1.6; color: #333333; font-family: Arial, sans-serif;\">\n                            <p>Hola <strong>{{ $('Calendario').first().json.Nombre }}</strong>,</p>\n                            <p>¡Buenas noticias! Confirmamos que tu visita a la propiedad ha sido agendada con éxito. A continuación, encontrarás todos los detalles:</p>\n\n                            <table class=\"details-table\" width=\"100%\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse; margin-bottom: 20px; width: 100%;\">\n                                <tr>\n                                    <th style=\"border: 1px solid #dddddd; padding: 12px; text-align: left; font-size: 14px; background-color: #f8f8f8; width: 120px; font-weight: bold; color: #555555; font-family: Arial, sans-serif;\">Fecha:</th>\n                                    <td style=\"border: 1px solid #dddddd; padding: 12px; text-align: left; font-size: 14px; color: #555555; font-family: Arial, sans-serif;\">{{ $json.dia_semana }} {{ $json.fecha }}</td>\n                                </tr>\n                                <tr>\n                                    <th style=\"border: 1px solid #dddddd; padding: 12px; text-align: left; font-size: 14px; background-color: #f8f8f8; width: 120px; font-weight: bold; color: #555555; font-family: Arial, sans-serif;\">Hora:</th>\n                                    <td style=\"border: 1px solid #dddddd; padding: 12px; text-align: left; font-size: 14px; color: #555555; font-family: Arial, sans-serif;\">{{ $json.hora }}</td>\n                                </tr>\n                                <tr>\n                                    <th style=\"border: 1px solid #dddddd; padding: 12px; text-align: left; font-size: 14px; background-color: #f8f8f8; width: 120px; font-weight: bold; color: #555555; font-family: Arial, sans-serif; vertical-align: top;\">Dirección:</th>\n                                    <td style=\"border: 1px solid #dddddd; padding: 12px; text-align: left; font-size: 14px; color: #555555; font-family: Arial, sans-serif;\">\n                                        {{ $json.direccion }}\n                                        </td>\n                                </tr>\n                            </table>\n\n                            <div class=\"agent-info\" style=\"margin-top: 20px; padding: 15px; background-color: #eef7ff; border-left: 4px solid #0056b3;\">\n                                <p style=\"margin-bottom: 10px; font-family: Arial, sans-serif;\"><strong>Tu agente asignado para esta visita es:</strong></p>\n                                <p style=\"margin-bottom: 5px; font-family: Arial, sans-serif;\"><strong style=\"color: #333333;\">Nombre:</strong>Francisco</p>\n                                <p style=\"margin-bottom: 5px; font-family: Arial, sans-serif;\"><strong style=\"color: #333333;\">Teléfono:</strong>5491140841598</p>\n                                <p style=\"margin-bottom: 15px; font-family: Arial, sans-serif;\"><strong style=\"color: #333333;\">Email:</strong>francisco@realstateiq.com</p>\n                                <p style=\"margin-bottom: 0; font-family: Arial, sans-serif; font-size: 14px; color: #555555;\">Por favor, no dudes en contactar a Francisco si tienes alguna consulta previa o necesitas realizar algún cambio.</p>\n                            </div>\n\n                            <p style=\"margin-top: 30px;\">Te recomendamos llegar unos minutos antes de la hora programada. ¡Esperamos que la propiedad sea de tu agrado!</p>\n                            <p>Saludos cordiales,<br>El equipo de <strong>RealState IQ</strong></p>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td class=\"footer\" style=\"background-color: #f4f4f4; color: #888888; text-align: center; padding: 20px; font-size: 12px; font-family: Arial, sans-serif;\">\n                            <p style=\"margin: 0;\">[Nombre de tu Inmobiliaria] | [Dirección de la Oficina] | [Teléfono General]</p>\n                            <p style=\"margin: 5px 0 0 0;\">\n                                <a href=\"https://donweb.com/es-int/\" style=\"color: #0056b3; text-decoration: none;\">Visita nuestro sitio web</a>\n                                </p>\n                        </td>\n                    </tr>\n                </table>\n            </td>\n        </tr>\n    </table>\n</body>\n</html>",
         "options": {
           "appendAttribution": false
@@ -551,8 +568,8 @@
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        -160,
-        -760
+        380,
+        -740
       ],
       "webhookId": "f8eebafe-721f-448a-8ae9-4c7d9301d1ba",
       "credentials": {
@@ -564,13 +581,13 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtener la fecha ISO y la dirección\nconst fechaISO = $('Calendario').first().json.fecha_cita;\nconst direccionCompleta = $('Crear Visita').first().json.location;\n\n// Obtener datos adicionales\nconst nombreInteresado = $('Calendario').first().json.Nombre || \"No disponible\";\nconst telefonoCliente = $('Calendario').first().json.numero_cliente || \"No disponible\";\nconst nombreInmobiliaria = $('Calendario').first().json.nombre_inmobiliaria || \"No especificada\";\n\n// Función para extraer todos los componentes de la fecha\nfunction extraerComponentesFecha(fechaISO) {\n  // Si no hay fecha, devolver valores predeterminados\n  if (!fechaISO) return {\n    dia: \"No disponible\",\n    fecha: \"No disponible\",\n    hora: \"No disponible\"\n  };\n  \n  try {\n    // Crear un objeto Date a partir de la fecha ISO\n    const fecha = new Date(fechaISO);\n    \n    // Extraer día de la semana\n    const diasSemana = [\"Domingo\", \"Lunes\", \"Martes\", \"Miércoles\", \"Jueves\", \"Viernes\", \"Sábado\"];\n    const diaSemana = diasSemana[fecha.getDay()];\n    \n    // Extraer componentes de fecha\n    const dia = fecha.getDate().toString().padStart(2, '0');\n    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');\n    const anio = fecha.getFullYear();\n    \n    // Extraer componentes de hora\n    const horas = fecha.getHours();\n    const minutos = fecha.getMinutes().toString().padStart(2, '0');\n    \n    // Formatear cada componente\n    return {\n      dia: diaSemana,\n      fecha: `${dia}-${mes}-${anio}`,\n      hora: `${horas}:${minutos}hs`\n    };\n  } catch (error) {\n    console.error(\"Error al extraer componentes de la fecha:\", error);\n    return {\n      dia: \"Error\",\n      fecha: \"Error\",\n      hora: \"Error\"\n    };\n  }\n}\n\n// Extraer componentes de la fecha\nconst componentes = extraerComponentesFecha(fechaISO);\n\n// Procesar dirección\nfunction procesarDireccion(direccionCompleta) {\n  if (!direccionCompleta) return \"Dirección no disponible\";\n  \n  // Aquí puedes agregar lógica adicional para formatear la dirección si es necesario\n  return direccionCompleta;\n}\n\n// Obtener la dirección formateada\nconst direccion = procesarDireccion(direccionCompleta);\n\n// Formatear teléfono (si es necesario)\nfunction formatearTelefono(telefono) {\n  if (!telefono) return \"No disponible\";\n  \n  // Aquí puedes agregar lógica para formatear el teléfono si es necesario\n  return telefono;\n}\n\n// Teléfono formateado\nconst telefono = formatearTelefono(telefonoCliente);\n\n// Mostrar los resultados\nconsole.log(\"Día de la semana:\", componentes.dia);\nconsole.log(\"Fecha:\", componentes.fecha);\nconsole.log(\"Hora:\", componentes.hora);\nconsole.log(\"Dirección:\", direccion);\nconsole.log(\"Interesado:\", nombreInteresado);\nconsole.log(\"Teléfono:\", telefono);\nconsole.log(\"Inmobiliaria:\", nombreInmobiliaria);\n\n// Para usar directamente en tu flujo\nreturn [{\n  json: {\n    dia_semana: componentes.dia,\n    fecha: componentes.fecha,\n    hora: componentes.hora,\n    direccion: direccion,\n    interesado: nombreInteresado,\n    telefono: telefono,\n    inmobiliaria: nombreInmobiliaria\n  }\n}];"
+        "jsCode": "// Obtener la fecha ISO y la dirección\nconst fechaISO = $('Calendario').first().json.fecha_cita;\nconst direccionCompleta = $('Propietario').first().json.location;\n\n// Obtener datos adicionales\nconst nombreInteresado = $('Calendario').first().json.Nombre || \"No disponible\";\nconst telefonoCliente = $('Calendario').first().json.numero_cliente || \"No disponible\";\nconst nombreInmobiliaria = $('Calendario').first().json.nombre_inmobiliaria || \"No especificada\";\n\n// Función para extraer todos los componentes de la fecha\nfunction extraerComponentesFecha(fechaISO) {\n  // Si no hay fecha, devolver valores predeterminados\n  if (!fechaISO) return {\n    dia: \"No disponible\",\n    fecha: \"No disponible\",\n    hora: \"No disponible\"\n  };\n  \n  try {\n    // Crear un objeto Date a partir de la fecha ISO\n    const fecha = new Date(fechaISO);\n    \n    // Extraer día de la semana\n    const diasSemana = [\"Domingo\", \"Lunes\", \"Martes\", \"Miércoles\", \"Jueves\", \"Viernes\", \"Sábado\"];\n    const diaSemana = diasSemana[fecha.getDay()];\n    \n    // Extraer componentes de fecha\n    const dia = fecha.getDate().toString().padStart(2, '0');\n    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');\n    const anio = fecha.getFullYear();\n    \n    // Extraer componentes de hora\n    const horas = fecha.getHours();\n    const minutos = fecha.getMinutes().toString().padStart(2, '0');\n    \n    // Formatear cada componente\n    return {\n      dia: diaSemana,\n      fecha: `${dia}-${mes}-${anio}`,\n      hora: `${horas}:${minutos}hs`\n    };\n  } catch (error) {\n    console.error(\"Error al extraer componentes de la fecha:\", error);\n    return {\n      dia: \"Error\",\n      fecha: \"Error\",\n      hora: \"Error\"\n    };\n  }\n}\n\n// Extraer componentes de la fecha\nconst componentes = extraerComponentesFecha(fechaISO);\n\n// Procesar dirección\nfunction procesarDireccion(direccionCompleta) {\n  if (!direccionCompleta) return \"Dirección no disponible\";\n  \n  // Aquí puedes agregar lógica adicional para formatear la dirección si es necesario\n  return direccionCompleta;\n}\n\n// Obtener la dirección formateada\nconst direccion = procesarDireccion(direccionCompleta);\n\n// Formatear teléfono (si es necesario)\nfunction formatearTelefono(telefono) {\n  if (!telefono) return \"No disponible\";\n  \n  // Aquí puedes agregar lógica para formatear el teléfono si es necesario\n  return telefono;\n}\n\n// Teléfono formateado\nconst telefono = formatearTelefono(telefonoCliente);\n\n// Mostrar los resultados\nconsole.log(\"Día de la semana:\", componentes.dia);\nconsole.log(\"Fecha:\", componentes.fecha);\nconsole.log(\"Hora:\", componentes.hora);\nconsole.log(\"Dirección:\", direccion);\nconsole.log(\"Interesado:\", nombreInteresado);\nconsole.log(\"Teléfono:\", telefono);\nconsole.log(\"Inmobiliaria:\", nombreInmobiliaria);\n\n// Para usar directamente en tu flujo\nreturn [{\n  json: {\n    dia_semana: componentes.dia,\n    fecha: componentes.fecha,\n    hora: componentes.hora,\n    direccion: direccion,\n    interesado: nombreInteresado,\n    telefono: telefono,\n    inmobiliaria: nombreInmobiliaria\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -380,
-        -760
+        200,
+        -740
       ],
       "id": "b201e50f-ebc5-4cc3-9416-fc4980ddbb59",
       "name": "Limpia fecha"
@@ -587,7 +604,9 @@
         -660
       ],
       "id": "d5f03c51-a01e-48a5-ad68-30d679124d68",
-      "name": "Split Out"
+      "name": "Split Out",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -666,8 +685,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        720,
-        -660
+        1260,
+        -640
       ],
       "id": "f6f33091-87a1-478b-8690-c0b8297bb445",
       "name": "Recordatorio de cita",
@@ -685,8 +704,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        60,
-        -760
+        600,
+        -740
       ],
       "id": "e048dd66-1dcf-4873-a001-b66b9874ba84",
       "name": "Code1"
@@ -705,8 +724,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        280,
-        -760
+        820,
+        -740
       ],
       "id": "5698e204-9e5a-4232-abc6-358a84faee67",
       "name": "NocoDB",
@@ -747,8 +766,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        500,
-        -760
+        1040,
+        -740
       ],
       "id": "e481df27-f88c-408a-99a5-47f1d177e2c5",
       "name": "If2"
@@ -783,8 +802,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        720,
-        -860
+        1260,
+        -840
       ],
       "id": "6b86ab52-f008-4852-a490-37a7f0c32ecd",
       "name": "NocoDB1",
@@ -797,6 +816,84 @@
     },
     {
       "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4",
+          "mode": "list",
+          "cachedResultName": "Cliente:00_urls_francisco",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "CODIGO",
+              "lookupValue": "={{ $('Code').first().json.ultimoCodigo }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -740,
+        -740
+      ],
+      "id": "e30607f9-993d-4c67-9650-38b8ea951534",
+      "name": "Datos de la propiedad",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lRj57XPEqOXW9kOd",
+          "name": "Qeva Solutions Sheet"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "start": "={{ $json.fechaInicio }}",
+        "end": "={{ $json.fechaFin }}",
+        "useDefaultReminders": false,
+        "additionalFields": {
+          "attendees": [
+            "={{ $('Datos de la propiedad').item.json.Mail }}"
+          ],
+          "color": "1",
+          "description": "=",
+          "location": "={{ $json.description }}",
+          "showMeAs": "opaque",
+          "summary": "=Agente inmobiliario: {{ $('Datos de la propiedad').item.json[\"Agente inmobiliario\"] }}\nInmobiliaria: {{ $('Datos de la propiedad').item.json[\"Nombre inmobiliaria\"] }}\n"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -220,
+        -740
+      ],
+      "id": "a45d84e9-941a-47f7-8459-666b71d21ecb",
+      "name": "Propietario",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "248CSUaxOr8MEWUN",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
         "calendar": {
           "__rl": true,
           "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
@@ -811,20 +908,20 @@
             "={{ $('Calendario').first().json.correo_electronico }}"
           ],
           "color": "11",
-          "description": "=Telefono: https://wa.me/{{ $json.telefono }}\nCodigo propiedad: {{ $('getForCode').first().json.codigo }}",
+          "description": "=",
           "location": "={{ $json.description }}",
           "showMeAs": "opaque",
-          "summary": "=Direccion: {{ $json.description }} - Interesado: {{ $json.nombreCliente }} - {{ $json.nombreInmobiliaria }}"
+          "summary": "=Interesado:{{ $json.nombreCliente }}\nTeléfono:{{ $('Calendario').first().json.numero_cliente }}\nCódigo:{{ $('getForCode').item.json.codigo }}"
         }
       },
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        -600,
-        -960
+        -220,
+        -900
       ],
       "id": "c89b803d-d206-4fef-a638-b39ee576ee59",
-      "name": "Crear Visita1",
+      "name": "Agente inmobiliario",
       "credentials": {
         "googleCalendarOAuth2Api": {
           "id": "248CSUaxOr8MEWUN",
@@ -857,31 +954,44 @@
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        -600,
+        -220,
         -560
       ],
       "id": "c4691b9b-71ca-49a2-a8f2-7c0e9125fa7e",
-      "name": "Crear Visita2",
+      "name": "Cliente",
       "credentials": {
         "googleCalendarOAuth2Api": {
           "id": "248CSUaxOr8MEWUN",
           "name": "Google Calendar account"
         }
       }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        20,
+        -740
+      ],
+      "id": "a15e6e3a-2e7e-41b6-b7ad-8a8aa3542468",
+      "name": "Merge"
     }
   ],
   "pinData": {
     "Calendario": [
       {
         "json": {
-          "numero_cliente": "5491140841598",
-          "fecha_cita": "2025-05-23T16:00:00",
-          "Nombre": "Francisco",
+          "numero_cliente": "5492254423359",
+          "fecha_cita": "2025-05-30T12:00:00",
+          "Nombre": "Juan pelotas",
           "Evento": "agendar",
-          "correo_electronico": "fjmuiz@gmail.com",
-          "nombre_inmobiliaria": "",
-          "session_id": "1b624f85-eea3-4640-b52a-6157ab4102bc",
-          "idMensaje": "3AB2206E9ECA26BF0F1C"
+          "correo_electronico": "casserafernando@gmail.com",
+          "nombre_inmobiliaria": "Dinamismo",
+          "session_id": null,
+          "idMensaje": "E8B6061CFC26B8EA4D72366ADA91A780"
         }
       }
     ]
@@ -902,6 +1012,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-24T17:28:38.651Z",
-  "versionId": "1b8e281c-838b-432d-92c9-590025ff1d14"
+  "updatedAt": "2025-05-27T22:18:11.769Z",
+  "versionId": "b874bbc7-6c5f-4933-aaa8-b9729e1519cf"
 }
