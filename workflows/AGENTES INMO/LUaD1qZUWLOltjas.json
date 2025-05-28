@@ -123,17 +123,6 @@
         ]
       ]
     },
-    "GetCliente": {
-      "ai_tool": [
-        [
-          {
-            "node": "Tester Prompt",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Consultar disponibilidad": {
       "ai_tool": [
         [
@@ -184,7 +173,7 @@
       "main": [
         [
           {
-            "node": "Codigo1",
+            "node": "DistinguirTipoSeleccion1",
             "type": "main",
             "index": 0
           }
@@ -226,22 +215,16 @@
         ],
         [
           {
-            "node": "Merge",
+            "node": "Encolado de msg",
             "type": "main",
-            "index": 2
+            "index": 0
           }
         ]
       ]
     },
     "Codigo1": {
       "main": [
-        [
-          {
-            "node": "Cancelar evento",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Cancelar": {
@@ -313,11 +296,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Merge1": {
-      "main": [
-        []
       ]
     },
     "Sort": {
@@ -441,6 +419,28 @@
           }
         ]
       ]
+    },
+    "GetCliente": {
+      "ai_tool": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DistinguirTipoSeleccion1": {
+      "main": [
+        [
+          {
+            "node": "Cancelar evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-02-26T13:00:31.939Z",
@@ -471,19 +471,29 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{$node[\"Webhook\"].json.body.server_url}}/message/sendText/{{$node[\"Webhook\"].json.body.instance}}",
+        "url": "={{ $('V1').first().json.datos.server_url }}/waInstance{{ $('V1').first().json.datos.instance }}/sendMessage/{{ $('V1').first().json.datos.apikey }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
-              "name": "apikey",
-              "value": "={{$node[\"Webhook\"].json.body.apikey}}"
+              "name": "Content-Type",
+              "value": "application/json"
             }
           ]
         },
         "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{ $('Variables globales').item.json.msg.telefono }}\",\n    \"text\": \"{{ $json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chatId",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            },
+            {
+              "name": "message",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
         "options": {}
       },
       "id": "dc5eccb5-0d31-44c9-bda4-47a3ca2c667e",
@@ -512,7 +522,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "tester-nuevo",
+        "path": "greenapi",
         "options": {}
       },
       "id": "3290af3f-5f6b-4429-932b-ead310ac7368",
@@ -520,8 +530,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -23040,
-        -8000
+        -23380,
+        -8020
       ],
       "webhookId": "3ba6ce2e-1b02-4b06-8edd-9c60afb2db89"
     },
@@ -780,8 +790,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        -22060,
-        -6935
+        -17240,
+        -8980
       ],
       "id": "172a1223-f6eb-4951-a3ea-6c1fbe8f884a",
       "name": "Postgres2",
@@ -803,13 +813,12 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "numero_telefono": "={{ $('Variables globales').item.json.TelefonoCliente }}",
-            "instance": "={{ $('Variables globales').item.json.nombreInstancia }}",
-            "apikey": "={{ $('Variables globales').item.json.apikey }}",
-            "url_evo": "={{ $('Variables globales').item.json.server_url }}",
-            "session_id": "={{ $('getCliente').item.json.Key }}",
-            "Evento": "={{ $json.singleSelectReply.selectedRowId }}",
-            "fecha_cita": "={{ $json.detalles.fecha_iso }}"
+            "numero_telefono": "={{ $('V1').item.json.msg.telefono }}",
+            "instance": "={{ $('V1').item.json.datos.instance }}",
+            "apikey": "={{ $('V1').item.json.datos.apikey }}",
+            "url_evo": "={{ $('V1').item.json.datos.server }}",
+            "session_id": "={{ $('Variables globales').item.json.msg.idmsg }}",
+            "Evento": "={{ $json.tipo }}"
           },
           "matchingColumns": [
             "Evento"
@@ -883,7 +892,7 @@
               "display": true,
               "canBeUsedToMatch": true,
               "type": "string",
-              "removed": false
+              "removed": true
             }
           ],
           "attemptToConvertTypes": true,
@@ -895,7 +904,7 @@
       "typeVersion": 1.2,
       "position": [
         -20460,
-        -9000
+        -9020
       ],
       "id": "df2bb443-440e-4462-a860-701beda423b1",
       "name": "Cancelar evento"
@@ -1024,11 +1033,11 @@
             "nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nombre', `Cuando obtengas el nombre del cliente guardalo aqui`, 'string') }}",
             "telefono": "={{ $('V1').item.json.msg.telefono }}",
             "correo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo', `Guarda el email del cliente`, 'string') }}",
-            "server": "={{ $('V1').item.json.datos.server }}",
+            "server": "={{ $('V1').item.json.datos.server_db }}",
             "tipoCliente": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('tipoCliente', `Debes obtener el tipo de cliente si es particular o agente`, 'string') }}",
             "Inmobiliaria": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Inmobiliaria', `capturar el nombre de la inmobiliaria`, 'string') }}",
             "Id": "={{ $('Validar Cliente').item.json.Id }}",
-            "table": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('table', ``, 'string') }}"
+            "table": "={{ $('V1').first().json.datos.tabla }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -1125,7 +1134,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -18560,
+        -18280,
         -8040
       ],
       "id": "d8a2e2c0-5101-45be-a0ea-0407482aacb8",
@@ -1146,7 +1155,7 @@
           "value": {
             "numero_telefono": "={{ $('V1').item.json.msg.telefono }}",
             "consulta_usuario": "={{ $('V1').item.json.msg.content }}",
-            "url": "={{ $('V1').item.json.datos.server }}",
+            "url": "={{ $('V1').item.json.datos.server_url }}",
             "instance": "={{ $('V1').item.json.datos.instance }}",
             "apikey": "={{ $('V1').item.json.datos.apikey }}",
             "idMensaje": "={{ $('V1').item.json.msg.idmsg }}"
@@ -1226,39 +1235,11 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -18440,
+        -18420,
         -8040
       ],
       "id": "a4ec7ed8-97a1-4d14-a44a-fdba91637a80",
       "name": "validar_pagina"
-    },
-    {
-      "parameters": {
-        "descriptionType": "manual",
-        "toolDescription": "Llama a esta herramienta cuando quieras necesites verificar la informacion del cliente",
-        "authentication": "nocoDbApiToken",
-        "operation": "getAll",
-        "projectId": "p311nqyjsnx0fqq",
-        "table": "m65ab1wqt3e0skg",
-        "returnAll": true,
-        "options": {
-          "where": "=(Telefono,eq,{{ $('V1').item.json.msg.telefono }})"
-        }
-      },
-      "type": "n8n-nodes-base.nocoDbTool",
-      "typeVersion": 3,
-      "position": [
-        -18320,
-        -8040
-      ],
-      "id": "e338664f-7796-44d5-add1-edb77e4a9921",
-      "name": "GetCliente",
-      "credentials": {
-        "nocoDbApiToken": {
-          "id": "CawnXo6TfhLoivTw",
-          "name": "NocoDB Token account"
-        }
-      }
     },
     {
       "parameters": {
@@ -1350,7 +1331,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -18200,
+        -18160,
         -8040
       ],
       "id": "b53bd7da-1780-4622-8a66-5fdfa9a293e3",
@@ -1380,12 +1361,13 @@
       "parameters": {
         "content": "## RESET BBDD",
         "height": 240,
+        "width": 260,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -22130,
-        -7015
+        -17300,
+        -9060
       ],
       "typeVersion": 1,
       "id": "f291a10b-88ac-42ce-8232-69af783f08cc",
@@ -1596,7 +1578,7 @@
                 "conditions": [
                   {
                     "id": "b8ec469c-1812-4701-bce3-96a548649d76",
-                    "leftValue": "={{ $json.ListResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+                    "leftValue": "={{ $json.msg.Tittle }}",
                     "rightValue": "📅 Visitas Programadas",
                     "operator": {
                       "type": "string",
@@ -1646,7 +1628,7 @@
                   {
                     "id": "0cb14635-2673-408e-86db-ce9e0373674b",
                     "leftValue": "={{ $json.msg.type }}",
-                    "rightValue": "conversation",
+                    "rightValue": "textMessage",
                     "operator": {
                       "type": "string",
                       "operation": "equals",
@@ -1670,7 +1652,7 @@
                 "conditions": [
                   {
                     "id": "eb565653-33f7-4f16-a17c-b840b8b94e67",
-                    "leftValue": "={{ $json.ListResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+                    "leftValue": "={{ $json.msg.cancelar_visita }}",
                     "rightValue": "❌ Cancelar Visitas",
                     "operator": {
                       "type": "string",
@@ -1743,20 +1725,20 @@
                 },
                 "conditions": [
                   {
-                    "id": "50afc3bd-517b-4423-b68e-0b59a82577d5",
-                    "leftValue": "={{ $json.msg.ListaResponse && $json.msg.ListaResponse.startsWith('🕒') }}",
-                    "rightValue": "listResponseMessage",
+                    "id": "0a12a31e-5a75-4907-be35-8f163cd48d24",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "extendedTextMessage",
                     "operator": {
-                      "type": "boolean",
-                      "operation": "true",
-                      "singleValue": true
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
                     }
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "ListResponse"
+              "outputKey": "extendedTextMessage"
             }
           ]
         },
@@ -1778,8 +1760,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -20700,
-        -9000
+        -20580,
+        -9380
       ],
       "id": "f39d70a3-8583-4b79-9d9c-cc8790ad573e",
       "name": "Codigo1"
@@ -1795,12 +1777,12 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "numero_telefono": "={{ $('Variables globales').item.json.TelefonoCliente }}",
+            "numero_telefono": "={{ $('V1').item.json.msg.telefono }}",
             "Evento": "reagendar",
-            "session_id": "={{ $('Variables globales').item.json.idMensaje }}",
-            "url_evo": "={{ $('Variables globales').item.json.server_url }}",
-            "instance": "={{ $('Message Type').item.json.nombreInstancia }}",
-            "apikey": "={{ $('Variables globales').item.json.apikey }}"
+            "session_id": "={{ $('V1').item.json.msg.idmsg }}",
+            "url_evo": "={{ $('V1').item.json.datos.server }}",
+            "instance": "={{ $('V1').item.json.datos.instance }}",
+            "apikey": "={{ $('V1').item.json.datos.apikey }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -1867,8 +1849,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -20240,
-        -9000
+        -20220,
+        -9020
       ],
       "id": "f1213444-43dd-46d3-8699-8148a6e5eefe",
       "name": "Reagendar List"
@@ -1886,14 +1868,14 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "numero_cliente": "={{ $('Variables globales').first().json.TelefonoCliente }}",
+            "numero_cliente": "={{ $('V1').item.json.msg.telefono }}",
             "Evento": "cancelar",
             "correo_electronico": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo_electronico', `guarda si o si el email del cliente`, 'string') }}",
             "Nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Nombre', `El nombre que recogiste del usuario`, 'string') }}",
-            "session_id": "={{ $('Variables globales').first().json.Key }}",
-            "url": "={{ $('Variables globales').first().json.server_url }}",
-            "instancia": "={{ $('Variables globales').first().json.nombreInstancia }}",
-            "apikey": "={{ $('Variables globales').first().json.apikey }}"
+            "session_id": "={{ $('V1').item.json.msg.idmsg }}",
+            "url": "={{ $('V1').item.json.datos.server }}",
+            "instancia": "={{ $('V1').item.json.datos.instance }}",
+            "apikey": "={{ $('V1').item.json.datos.apikey }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -1981,7 +1963,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -18080,
+        -18020,
         -8040
       ],
       "id": "cd97185d-eb19-4fee-9b41-c329ab5682ea",
@@ -1998,13 +1980,12 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "numero_telefono": "={{ $('Variables globales').item.json.TelefonoCliente }}",
-            "instance": "={{ $('Variables globales').item.json.nombreInstancia }}",
-            "apikey": "={{ $('Variables globales').item.json.apikey }}",
-            "url_evo": "={{ $('Variables globales').item.json.server_url }}",
-            "session_id": "={{ $('getCliente').item.json.Key }}",
-            "Evento": "={{ $json.singleSelectReply.selectedRowId }}",
-            "fecha_cita": "={{ $json.detalles.fecha_iso }}"
+            "numero_telefono": "={{ $('V1').item.json.msg.telefono }}",
+            "instance": "={{ $('V1').item.json.datos.instance }}",
+            "apikey": "={{ $('V1').item.json.datos.apikey }}",
+            "url_evo": "={{ $('V1').item.json.datos.server }}",
+            "session_id": "={{ $('V1').item.json.msg.idmsg }}",
+            "Evento": "={{ $json.singleSelectReply }}"
           },
           "matchingColumns": [
             "Evento"
@@ -2078,7 +2059,7 @@
               "display": true,
               "canBeUsedToMatch": true,
               "type": "string",
-              "removed": false
+              "removed": true
             }
           ],
           "attemptToConvertTypes": true,
@@ -2170,8 +2151,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -19160,
-        -8360
+        -19540,
+        -8140
       ],
       "id": "1af1df42-65ea-435b-af3a-dd043ac9ac9b",
       "name": "Redis",
@@ -2338,17 +2319,6 @@
       "name": "Encolado de msg"
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.1,
-      "position": [
-        -19940,
-        -8720
-      ],
-      "id": "60389bd3-e5a2-48f9-a9eb-f6492cc0fa28",
-      "name": "Merge1"
-    },
-    {
       "parameters": {
         "sortFieldsUi": {
           "sortField": [
@@ -2362,7 +2332,7 @@
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        -19480,
+        -19820,
         -8600
       ],
       "id": "91032df7-ede0-4cff-a6aa-267f9639f46a",
@@ -2384,7 +2354,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        -19320,
+        -19660,
         -8600
       ],
       "id": "227c13ca-76b5-471c-8178-c8403107e200",
@@ -2407,7 +2377,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -19160,
+        -19500,
         -8600
       ],
       "id": "69dd79fc-1534-4543-831b-1740181334fd",
@@ -2476,7 +2446,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -21840,
+        -21700,
         -8040
       ],
       "notesInFlow": true
@@ -2493,11 +2463,11 @@
           "conditions": [
             {
               "id": "60a730ae-12a3-4199-88e0-86b27dcbd9cc",
-              "leftValue": "={{ $json.msg.telefono.match(/@g\\.us$/) !== null }}",
+              "leftValue": "={{ $json.msg.telefono }}",
               "rightValue": "",
               "operator": {
-                "type": "boolean",
-                "operation": "false",
+                "type": "string",
+                "operation": "notEmpty",
                 "singleValue": true
               }
             }
@@ -2511,7 +2481,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -22500,
+        -22540,
         -8020
       ]
     },
@@ -2522,79 +2492,115 @@
             {
               "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
               "name": "msg.telefono",
-              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.remoteJid.replace(/\\D/g, '') || $('Webhook').item?.json?.body?.meta?.sender?.identifier.replace(/\\D/g, '') || null}}",
+              "value": "={{ $json.body.senderData.chatId }}",
               "type": "string"
             },
             {
               "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
               "name": "msg.nombre",
-              "value": "={{ $('Webhook').item?.json?.body?.data?.pushName || $('Webhook').item.json.body.meta.sender.name }}",
+              "value": "={{ $json.body.senderData.chatName }}",
               "type": "string"
             },
             {
               "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
               "name": "msg.type",
-              "value": "={{ $('Webhook').item?.json?.body?.data?.messageType || $('Webhook').item.json.body.messages[0].content_type }}",
+              "value": "={{ $json.body.messageData.typeMessage }}",
               "type": "string"
             },
             {
               "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
               "name": "msg.ListaResponse",
-              "value": "={{ $('Webhook').item.json.body.data.message.listResponseMessage.title }}\n{{ $('Webhook').item.json.body.data.message.listResponseMessage.description }}",
+              "value": "=",
               "type": "string"
             },
             {
               "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
               "name": "msg.content",
-              "value": "={{ $('Webhook').item.json.body.data.message.conversation }}",
+              "value": "={{ $json?.body?.messageData?.textMessageData?.textMessage || $json?.body?.messageData?.fileMessageData?.downloadUrl || $json.body.messageData.extendedTextMessageData.text }}",
               "type": "string"
             },
             {
               "id": "01710423-6391-4a34-81e1-06d4779caf4d",
               "name": "msg.timestamp",
-              "value": "={{ $('Webhook').item.json.body.data.messageTimestamp.toDateTime('s').toLocal().toISO()}}",
+              "value": "={{ $json.body.timestamp.toDateTime('s').toLocal().toISO() }}",
               "type": "string"
             },
             {
               "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
               "name": "msg.idmsg",
-              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.id || $('Webhook').item.json.body.contact_inbox.source_id }}",
+              "value": "={{ $json.body.idMessage }}",
               "type": "string"
             },
             {
               "id": "cfaf2792-627a-4d9f-a039-5741c802749f",
               "name": "datos.instance",
-              "value": "={{ $('Webhook').item.json.body.instance }}",
-              "type": "string"
-            },
-            {
-              "id": "01238a36-6907-4aec-ab21-26345ed5fc96",
-              "name": "datos.server",
-              "value": "={{ $json.body.server_url }}",
+              "value": "={{ $json.body.instanceData.idInstance }}",
               "type": "string"
             },
             {
               "id": "076ad2d4-b8ea-440f-9c02-f7e8417a984d",
               "name": "datos.apikey",
-              "value": "={{ $('Webhook').item?.json?.body?.apikey || '084938B823FE-4BA9-974E-8C8951DB4277' }}",
+              "value": "=0e64cc32278648c495f6322c5fb14634669021ca2fb5407780",
               "type": "string"
             },
             {
               "id": "d2215ba8-1fc7-46c2-bcc0-7bd813badd5b",
               "name": "msg.tittle_row_id",
-              "value": "={{ $('Webhook').item.json.body.data.message.listResponseMessage.title }}",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.title || \"\" }}",
               "type": "string"
             },
             {
               "id": "e8e6023d-7c0e-4f8b-815f-2abdff369912",
               "name": "datos.server_url",
-              "value": "={{ $('Webhook').item?.json?.body?.server_url || 'https://evo.innovasoftpro.dev'}}",
+              "value": "=https://7105.api.greenapi.com",
               "type": "string"
             },
             {
               "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
               "name": "datos.server_db",
               "value": "https://db.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "be83160a-e151-4f62-bfde-590af142ae74",
+              "name": "db.table_clientes",
+              "value": "mwk4ui7lirmxc8h",
+              "type": "string"
+            },
+            {
+              "id": "c85ab512-ca17-401b-b025-4b6fc11ac818",
+              "name": "db.token_db",
+              "value": "BAWLISa1QL05FMwlWzJCpo9ONDaZ8_dXO0OULjhB",
+              "type": "string"
+            },
+            {
+              "id": "b35f8372-5cc4-44ad-b2ec-89199dae7e39",
+              "name": "msg.base64",
+              "value": "={{ $json?.body?.data?.message?.base64 || \"\"}}",
+              "type": "string"
+            },
+            {
+              "id": "74ee121e-f109-4425-9b1e-ff7b6c49ae45",
+              "name": "datos.tabla",
+              "value": "m65ab1wqt3e0skg",
+              "type": "string"
+            },
+            {
+              "id": "b687f976-bd60-46f1-a7ea-616553c55d22",
+              "name": "msg.Tittle",
+              "value": "={{ $json.body.data.message.listResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+              "type": "string"
+            },
+            {
+              "id": "67c72328-f2fd-4ced-9a14-703a38327fed",
+              "name": "msg.SelectRepley",
+              "value": "={{ $json.body.data.message.listResponseMessage.singleSelectReply.selectedRowId }}",
+              "type": "string"
+            },
+            {
+              "id": "82426625-5ed5-49a9-abb1-d4ed246fddf2",
+              "name": "msg.row_id",
+              "value": "={{ $json.body.data.message.listResponseMessage.singleSelectReply.selectedRowId }}",
               "type": "string"
             }
           ]
@@ -2606,7 +2612,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -22740,
+        -22920,
         -8020
       ],
       "notesInFlow": true
@@ -2647,19 +2653,19 @@
       "typeVersion": 2,
       "position": [
         -20520,
-        -8080
+        -8000
       ],
       "id": "e2644af4-5c27-4578-be9c-ea95abf31e9e",
       "name": "DetectorTipoSeleccion"
     },
     {
       "parameters": {
-        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle = listResponseMessage?.title || \"\";\n    const singleSelectReply = listResponseMessage?.singleSelectReply || null;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Obtener el título y la descripción\n        const title = listResponseMessage.title || \"\";\n        \n        // Verificar si hay información adicional en el nodo que indique el tipo de lista\n        // Por ejemplo, podríamos buscar en quotedMessage o contextInfo\n        let tipoLista = \"\";\n        \n        // Intentar obtener tipo de lista desde lista completa si está disponible\n        try {\n          const quotedMessage = listResponseMessage?.contextInfo?.quotedMessage;\n          if (quotedMessage && quotedMessage.listMessage) {\n            const listMessageTitle = quotedMessage.listMessage.title || \"\";\n            if (listMessageTitle.includes(\"Visitas Programadas\")) {\n              tipoLista = \"fechas_reprogramacion\";\n            } else if (listMessageTitle.includes(\"Fechas Disponibles\")) {\n              tipoLista = \"fechas_disponibles\";\n            }\n          }\n        } catch (e) {\n          console.log(\"Error al intentar obtener tipo de lista desde quoted message:\", e);\n        }\n        \n        // Si no pudimos detectar el tipo desde el contexto, intentamos inferirlo\n        if (!tipoLista) {\n          // Buscar elementos específicos en el input que puedan indicar el tipo\n          const inputJson = $input.first()?.json || {};\n          \n          // SOLUCIÓN: Verificar si hay algún indicador en el formato del rowId o en los datos\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            // Si tiene formato de fecha (mes-dia-hora), asumimos que es fechas_disponibles\n            tipoLista = \"fechas_disponibles\";\n          } else if (title.includes(\"Visitas Programadas\") || \n                   inputJson.footerText?.includes(\"visitas\") ||\n                   inputJson.description?.includes(\"visitas programadas\")) {\n            tipoLista = \"fechas_reprogramacion\";\n          }\n          \n          // Si aún no tenemos tipo, hacemos una última verificación\n          if (!tipoLista) {\n            if (title.match(/\\d+ de [A-Za-z]+ - \\d+:\\d+/)) {\n              tipoLista = \"fechas_disponibles\"; // Si tiene formato de fecha, es disponibilidad\n            } else {\n              tipoLista = \"disponibilidad\"; // Valor por defecto\n            }\n          }\n        }\n        \n        // Usamos el tipo detectado\n        if (tipoLista === \"fechas_reprogramacion\") {\n          return {\n            tipo: \"fechas_reprogramacion\",\n            eventId: eventId,\n            detalles: {\n              visita_id: eventId,\n              texto_visita: title\n            },\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Para fechas_disponibles o disponibilidad\n          // Procesamos la fecha\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO - CAMBIO AQUÍ: Eliminado los segundos (:00)\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Extraer información del title\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                // CAMBIO AQUÍ: Eliminado los segundos (:00)\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n                \n                return {\n                  tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Fallback para selecciones desconocidas\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Resto del código para mensajes y confirmaciones igual...\n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje = $input.first()?.json?.mensaje || \"\";\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
+        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle =$input.first().json.msg.tittle_row_id || \"\";\n    const singleSelectReply = $input.first().json.msg.SelectRepley;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Obtener el título y la descripción\n        const title = listResponseMessage.title || \"\";\n        \n        // Verificar si hay información adicional en el nodo que indique el tipo de lista\n        // Por ejemplo, podríamos buscar en quotedMessage o contextInfo\n        let tipoLista = \"\";\n        \n        // Intentar obtener tipo de lista desde lista completa si está disponible\n        try {\n          const quotedMessage = listResponseMessage?.contextInfo?.quotedMessage;\n          if (quotedMessage && quotedMessage.listMessage) {\n            const listMessageTitle = quotedMessage.listMessage.title || \"\";\n            if (listMessageTitle.includes(\"Visitas Programadas\")) {\n              tipoLista = \"fechas_reprogramacion\";\n            } else if (listMessageTitle.includes(\"Fechas Disponibles\")) {\n              tipoLista = \"fechas_disponibles\";\n            }\n          }\n        } catch (e) {\n          console.log(\"Error al intentar obtener tipo de lista desde quoted message:\", e);\n        }\n        \n        // Si no pudimos detectar el tipo desde el contexto, intentamos inferirlo\n        if (!tipoLista) {\n          // Buscar elementos específicos en el input que puedan indicar el tipo\n          const inputJson = $input.first()?.json || {};\n          \n          // SOLUCIÓN: Verificar si hay algún indicador en el formato del rowId o en los datos\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            // Si tiene formato de fecha (mes-dia-hora), asumimos que es fechas_disponibles\n            tipoLista = \"fechas_disponibles\";\n          } else if (title.includes(\"Visitas Programadas\") || \n                   inputJson.footerText?.includes(\"visitas\") ||\n                   inputJson.description?.includes(\"visitas programadas\")) {\n            tipoLista = \"fechas_reprogramacion\";\n          }\n          \n          // Si aún no tenemos tipo, hacemos una última verificación\n          if (!tipoLista) {\n            if (title.match(/\\d+ de [A-Za-z]+ - \\d+:\\d+/)) {\n              tipoLista = \"fechas_disponibles\"; // Si tiene formato de fecha, es disponibilidad\n            } else {\n              tipoLista = \"disponibilidad\"; // Valor por defecto\n            }\n          }\n        }\n        \n        // Usamos el tipo detectado\n        if (tipoLista === \"fechas_reprogramacion\") {\n          return {\n            tipo: \"fechas_reprogramacion\",\n            eventId: eventId,\n            detalles: {\n              visita_id: eventId,\n              texto_visita: title\n            },\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Para fechas_disponibles o disponibilidad\n          // Procesamos la fecha\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO - CAMBIO AQUÍ: Eliminado los segundos (:00)\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Extraer información del title\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                // CAMBIO AQUÍ: Eliminado los segundos (:00)\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n                \n                return {\n                  tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Fallback para selecciones desconocidas\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Resto del código para mensajes y confirmaciones igual...\n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje =$input.first().json.msg.ListaResponse ;\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -20440,
+        -20520,
         -7780
       ],
       "id": "76695f3f-52b0-4a2a-8be0-6923f7947cfa",
@@ -2674,8 +2680,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -19740,
-        -8660
+        -19960,
+        -8700
       ],
       "typeVersion": 1,
       "id": "ea7321e5-a589-4c10-a32c-11971a57f717",
@@ -2712,6 +2718,541 @@
       "typeVersion": 1,
       "id": "4c9737ef-2dc9-4d6a-a705-f522adc761bc",
       "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "## Variables Generales y necesarias",
+        "height": 380,
+        "width": 340,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -23040,
+        -8180
+      ],
+      "typeVersion": 1,
+      "id": "246e8425-2fdf-4029-b791-8047fff42ed6",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Variables de BD",
+        "height": 380,
+        "width": 340,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -21820,
+        -8180
+      ],
+      "typeVersion": 1,
+      "id": "b9e5e965-11c3-4f0a-8d28-c27aca257ec5",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Llama a esta herramienta cuando  necesites verificar la informacion del cliente",
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p4sjkkdf4pdtyvh",
+        "table": "m65ab1wqt3e0skg",
+        "returnAll": true,
+        "options": {
+          "where": "=(Telefono,eq,{{ $('V1').first().json.msg.telefono }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        -18540,
+        -8040
+      ],
+      "id": "dc11199f-3976-471f-b820-376bf0cfb5ad",
+      "name": "GetCliente",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "agente:5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -16880,
+        -8980
+      ],
+      "id": "21c82ec0-3201-4500-beac-d845e0dc1f27",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## RESET BBDD",
+        "height": 240,
+        "width": 260,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -16920,
+        -9060
+      ],
+      "typeVersion": 1,
+      "id": "1e91d466-e468-4ae9-bce6-e849eb93db50",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Función principal para procesar la selección o mensaje\nconst procesarSeleccion = () => {\n  try {\n    // Obtener el ListResponseMessage desde el input\n    const listResponseMessage = $input.first()?.json?.ListResponseMessage;\n    \n    // Variables solicitadas para incluir en cualquier respuesta\n    const listTitle =$input.first().json.msg.tittle_row_id || \"\";\n    const singleSelectReply = $input.first().json.msg.SelectRepley;\n    \n    // Obtener el eventId directamente de la ruta especificada\n    if (listResponseMessage && listResponseMessage.singleSelectReply) {\n      const eventId = listResponseMessage.singleSelectReply.selectedRowId;\n      \n      if (eventId) {\n        console.log(\"eventId encontrado:\", eventId);\n        \n        // Obtener el título y la descripción\n        const title = listResponseMessage.title || \"\";\n        \n        // Verificar si hay información adicional en el nodo que indique el tipo de lista\n        // Por ejemplo, podríamos buscar en quotedMessage o contextInfo\n        let tipoLista = \"\";\n        \n        // Intentar obtener tipo de lista desde lista completa si está disponible\n        try {\n          const quotedMessage = listResponseMessage?.contextInfo?.quotedMessage;\n          if (quotedMessage && quotedMessage.listMessage) {\n            const listMessageTitle = quotedMessage.listMessage.title || \"\";\n            if (listMessageTitle.includes(\"Visitas Programadas\")) {\n              tipoLista = \"fechas_reprogramacion\";\n            } else if (listMessageTitle.includes(\"Fechas Disponibles\")) {\n              tipoLista = \"fechas_disponibles\";\n            }\n          }\n        } catch (e) {\n          console.log(\"Error al intentar obtener tipo de lista desde quoted message:\", e);\n        }\n        \n        // Si no pudimos detectar el tipo desde el contexto, intentamos inferirlo\n        if (!tipoLista) {\n          // Buscar elementos específicos en el input que puedan indicar el tipo\n          const inputJson = $input.first()?.json || {};\n          \n          // SOLUCIÓN: Verificar si hay algún indicador en el formato del rowId o en los datos\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            // Si tiene formato de fecha (mes-dia-hora), asumimos que es fechas_disponibles\n            tipoLista = \"fechas_disponibles\";\n          } else if (title.includes(\"Visitas Programadas\") || \n                   inputJson.footerText?.includes(\"visitas\") ||\n                   inputJson.description?.includes(\"visitas programadas\")) {\n            tipoLista = \"fechas_reprogramacion\";\n          }\n          \n          // Si aún no tenemos tipo, hacemos una última verificación\n          if (!tipoLista) {\n            if (title.match(/\\d+ de [A-Za-z]+ - \\d+:\\d+/)) {\n              tipoLista = \"fechas_disponibles\"; // Si tiene formato de fecha, es disponibilidad\n            } else {\n              tipoLista = \"disponibilidad\"; // Valor por defecto\n            }\n          }\n        }\n        \n        // Usamos el tipo detectado\n        if (tipoLista === \"fechas_reprogramacion\") {\n          return {\n            tipo: \"fechas_reprogramacion\",\n            eventId: eventId,\n            detalles: {\n              visita_id: eventId,\n              texto_visita: title\n            },\n            listTitle: listTitle,\n            singleSelectReply: singleSelectReply\n          };\n        } else {\n          // Para fechas_disponibles o disponibilidad\n          // Procesamos la fecha\n          if (eventId.match(/^\\d+-\\d+-\\d+$/)) {\n            const partes = eventId.split('-');\n            const mesNumero = partes[0];\n            const dia = partes[1];\n            \n            // Formatea la hora\n            let horarioRaw = partes[2].toString().padStart(4, '0');\n            const hora = horarioRaw.slice(0, 2);\n            const minutos = horarioRaw.slice(2, 4);\n            const horarioFormateado = `${hora}:${minutos}`;\n            \n            // Fecha ISO - CAMBIO AQUÍ: Eliminado los segundos (:00)\n            const now = new Date();\n            const anioActual = now.getFullYear();\n            const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${horarioFormateado}`;\n            \n            const nombresMeses = {\n              '1': 'Enero', '2': 'Febrero', '3': 'Marzo', '4': 'Abril',\n              '5': 'Mayo', '6': 'Junio', '7': 'Julio', '8': 'Agosto',\n              '9': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'\n            };\n            \n            return {\n              tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n              detalles: {\n                dia: dia,\n                mes: mesNumero,\n                mes_nombre: nombresMeses[mesNumero],\n                hora: horarioFormateado,\n                fecha_iso: fechaISO,\n                texto_legible: `${dia} de ${nombresMeses[mesNumero]} a las ${horarioFormateado}`\n              },\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          } else {\n            // Extraer información del title\n            const fechaMatch = title.match(/(\\d+) de ([A-Za-zÁáÉéÍíÓóÚú]+) - (\\d+):(\\d+)/i);\n            \n            if (fechaMatch) {\n              const dia = fechaMatch[1];\n              const mesTexto = fechaMatch[2];\n              const hora = fechaMatch[3];\n              const minutos = fechaMatch[4];\n              \n              // Mapeo de nombres de meses a números\n              const mesesMap = {\n                'enero': '1', 'febrero': '2', 'marzo': '3', 'abril': '4',\n                'mayo': '5', 'junio': '6', 'julio': '7', 'agosto': '8',\n                'septiembre': '9', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n              };\n              \n              const mesNumero = mesesMap[mesTexto.toLowerCase()];\n              if (mesNumero) {\n                const now = new Date();\n                const anioActual = now.getFullYear();\n                // CAMBIO AQUÍ: Eliminado los segundos (:00)\n                const fechaISO = `${anioActual}-${mesNumero.padStart(2, '0')}-${dia.padStart(2, '0')}T${hora.padStart(2, '0')}:${minutos.padStart(2, '0')}`;\n                \n                return {\n                  tipo: tipoLista, // \"fechas_disponibles\" o el tipo detectado\n                  detalles: {\n                    dia: dia,\n                    mes: mesNumero,\n                    mes_nombre: mesTexto,\n                    hora: `${hora}:${minutos}`,\n                    fecha_iso: fechaISO,\n                    texto_legible: title\n                  },\n                  listTitle: listTitle,\n                  singleSelectReply: singleSelectReply\n                };\n              }\n            }\n            \n            // Fallback para selecciones desconocidas\n            return {\n              tipo: \"seleccion_simple\",\n              eventId: eventId,\n              title: title || \"Selección\",\n              listTitle: listTitle,\n              singleSelectReply: singleSelectReply\n            };\n          }\n        }\n      }\n    }\n    \n    // Resto del código para mensajes y confirmaciones igual...\n    // Verificar si es un mensaje de texto (confirmación)\n    const mensaje =$input.first().json.msg.ListaResponse ;\n    if (typeof mensaje === 'string' && mensaje.toLowerCase) {\n      const mensajeTexto = mensaje.toLowerCase();\n      if (mensajeTexto.includes(\"son correctos\") || mensajeTexto === \"si\" || \n          mensajeTexto === \"sí\" || mensajeTexto.includes(\"si claro\")) {\n        return {\n          tipo: \"confirmacion_datos\",\n          mensaje: mensajeTexto,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n      \n      if (mensajeTexto.length > 0) {\n        return {\n          tipo: \"mensaje_normal\",\n          mensaje: mensaje,\n          listTitle: listTitle,\n          singleSelectReply: singleSelectReply\n        };\n      }\n    }\n    \n    return {\n      tipo: \"mensaje_normal\",\n      mensaje: mensaje || \"\",\n      listTitle: listTitle,\n      singleSelectReply: singleSelectReply\n    };\n    \n  } catch (error) {\n    console.error(\"Error procesando selección:\", error);\n    return {\n      error: true,\n      mensaje: error.message,\n      listTitle: \"\",\n      singleSelectReply: null\n    };\n  }\n};\n\n// IMPORTANTE: Devolver los datos en el formato que espera n8n\n// Un array de objetos con pairedItem\nreturn [{\n  json: procesarSeleccion(),\n  pairedItem: 0\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -20720,
+        -9020
+      ],
+      "id": "6a715309-3a44-4b31-a766-03676f87b9a3",
+      "name": "DistinguirTipoSeleccion1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "79a702ff-5f8c-4814-bddf-5e3acb5a5f2e",
+              "name": "msg",
+              "value": "={{ JSON.stringify($('V').first().json.msg) }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6af6bf77-ff00-431d-83b2-bb01c2ae4e00",
+      "name": "Variables globales1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -21700,
+        -8600
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "msg.telefono",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.remoteJid.replace(/\\D/g, '') || $('Webhook').item?.json?.body?.meta?.sender?.identifier.replace(/\\D/g, '') || null}}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "msg.nombre",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.pushName || $('Webhook').item.json.body.meta.sender.name }}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "msg.type",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.messageType || $('Webhook').item.json.body.messages[0].content_type }}",
+              "type": "string"
+            },
+            {
+              "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
+              "name": "msg.ListaResponse",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.title || \"\" }}\n{{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.description || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "msg.content",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.message.conversation || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
+              "name": "msg.timestamp",
+              "value": "={{ $('Webhook').item.json.body.data.messageTimestamp.toDateTime('s').toLocal().toISO()}}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "msg.idmsg",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.id || $('Webhook').item.json.body.contact_inbox.source_id }}",
+              "type": "string"
+            },
+            {
+              "id": "cfaf2792-627a-4d9f-a039-5741c802749f",
+              "name": "datos.instance",
+              "value": "={{ $('Webhook').item.json.body.instance }}",
+              "type": "string"
+            },
+            {
+              "id": "01238a36-6907-4aec-ab21-26345ed5fc96",
+              "name": "datos.server",
+              "value": "={{ $json.body.server_url }}",
+              "type": "string"
+            },
+            {
+              "id": "076ad2d4-b8ea-440f-9c02-f7e8417a984d",
+              "name": "datos.apikey",
+              "value": "={{ $('Webhook').item?.json?.body?.apikey || '084938B823FE-4BA9-974E-8C8951DB4277' }}",
+              "type": "string"
+            },
+            {
+              "id": "d2215ba8-1fc7-46c2-bcc0-7bd813badd5b",
+              "name": "msg.tittle_row_id",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.title || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "e8e6023d-7c0e-4f8b-815f-2abdff369912",
+              "name": "datos.server_url",
+              "value": "={{ $('Webhook').item?.json?.body?.server_url || 'https://evo.innovasoftpro.dev'}}",
+              "type": "string"
+            },
+            {
+              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
+              "name": "datos.server_db",
+              "value": "https://db.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "be83160a-e151-4f62-bfde-590af142ae74",
+              "name": "db.table_clientes",
+              "value": "mwk4ui7lirmxc8h",
+              "type": "string"
+            },
+            {
+              "id": "c85ab512-ca17-401b-b025-4b6fc11ac818",
+              "name": "db.token_db",
+              "value": "BAWLISa1QL05FMwlWzJCpo9ONDaZ8_dXO0OULjhB",
+              "type": "string"
+            },
+            {
+              "id": "b35f8372-5cc4-44ad-b2ec-89199dae7e39",
+              "name": "msg.base64",
+              "value": "={{ $json?.body?.data?.message?.base64 || \"\"}}",
+              "type": "string"
+            },
+            {
+              "id": "74ee121e-f109-4425-9b1e-ff7b6c49ae45",
+              "name": "datos.tabla",
+              "value": "m65ab1wqt3e0skg",
+              "type": "string"
+            },
+            {
+              "id": "b687f976-bd60-46f1-a7ea-616553c55d22",
+              "name": "msg.Tittle",
+              "value": "={{ $json.body.data.message.listResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+              "type": "string"
+            },
+            {
+              "id": "67c72328-f2fd-4ced-9a14-703a38327fed",
+              "name": "msg.SelectRepley",
+              "value": "={{ $json.body.data.message.listResponseMessage.singleSelectReply.selectedRowId }}",
+              "type": "string"
+            },
+            {
+              "id": "82426625-5ed5-49a9-abb1-d4ed246fddf2",
+              "name": "msg.row_id",
+              "value": "={{ $json.body.data.message.listResponseMessage.singleSelectReply.selectedRowId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "00ed8993-c9be-49c6-bc36-b3b01b04ca35",
+      "name": "V",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -22920,
+        -8580
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "content": "## Variables Generales y necesarias",
+        "height": 380,
+        "width": 340,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -21780,
+        -8740
+      ],
+      "typeVersion": 1,
+      "id": "d9faa387-fc5e-46b2-86d4-37bbe2dcf065",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "content": "## Variables de BD",
+        "height": 380,
+        "width": 340,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -23040,
+        -8740
+      ],
+      "typeVersion": 1,
+      "id": "1477fb6d-0624-4e6d-8773-ec4f29817d59",
+      "name": "Sticky Note12"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$node[\"Webhook\"].json.body.server_url}}/message/sendText/{{$node[\"Webhook\"].json.body.instance}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$node[\"Webhook\"].json.body.apikey}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{ $('Variables globales').first().json.msg.telefono }}\",\n    \"text\": \"{{ $json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
+        "options": {}
+      },
+      "id": "4c355ee8-a6ac-4ae4-bd58-7bf6fde4ab7e",
+      "name": "MESSAGE1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -16360,
+        -8920
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Evolution",
+        "height": 220,
+        "width": 350
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -16480,
+        -8980
+      ],
+      "typeVersion": 1,
+      "id": "84cc4f2b-1e05-458c-96b8-3e6cae9cf8c5",
+      "name": "Sticky Note13"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b8ec469c-1812-4701-bce3-96a548649d76",
+                    "leftValue": "={{ $json.msg.Tittle }}",
+                    "rightValue": "📅 Visitas Programadas",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "📅 Visitas Programadas"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c203e3f3-cdae-4308-b7ca-2300800248e7"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0cb14635-2673-408e-86db-ce9e0373674b",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "eb565653-33f7-4f16-a17c-b840b8b94e67",
+                    "leftValue": "={{ $json.msg.cancelar_visita }}",
+                    "rightValue": "❌ Cancelar Visitas",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "❌ Cancelar Visitas"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "004fd6bb-488c-4f22-b1d2-7ce04855f172",
+                    "leftValue": "={{ $json.ListResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+                    "rightValue": "📅 Fechas de Reprogramación",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "📅 Fechas de Reprogramación"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3d2b908a-5bdf-41b5-b195-d4e9298c58e8",
+                    "leftValue": "={{ $json.ListResponseMessage.contextInfo.quotedMessage.listMessage.title }}",
+                    "rightValue": "=📅 Fechas Disponibles",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "📅 Fechas Disponibles"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "50afc3bd-517b-4423-b68e-0b59a82577d5",
+                    "leftValue": "={{ $json.msg.ListaResponse && $json.msg.ListaResponse.startsWith('🕒') }}",
+                    "rightValue": "listResponseMessage",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ListResponse"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a2c90d1d-7295-4a05-96a5-305ec20ed80d",
+      "name": "Message Type1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -15960,
+        -8880
+      ]
     }
   ],
   "pinData": {
@@ -2720,57 +3261,44 @@
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
-            "user-agent": "axios/1.7.9",
-            "content-length": "955",
-            "accept-encoding": "gzip, compress, deflate, br",
-            "content-type": "application/json",
-            "x-forwarded-for": "172.18.0.1",
+            "user-agent": "GREEN-API",
+            "content-length": "425",
+            "accept": "application/json, text/plain, */*",
+            "content-type": "application/json; charset=utf-8",
+            "x-forwarded-for": "104.248.252.93",
             "x-forwarded-host": "n8n.innovasoftpro.dev",
             "x-forwarded-port": "443",
             "x-forwarded-proto": "https",
             "x-forwarded-server": "575dad520f0e",
-            "x-real-ip": "172.18.0.1"
+            "x-real-ip": "104.248.252.93",
+            "accept-encoding": "gzip"
           },
           "params": {},
           "query": {},
           "body": {
-            "event": "messages.upsert",
-            "instance": "tester",
-            "data": {
-              "key": {
-                "remoteJid": "5492254423359@s.whatsapp.net",
-                "fromMe": false,
-                "id": "3EB0D655F3EB20DE006795"
-              },
-              "pushName": "Fer { }",
-              "status": "DELIVERY_ACK",
-              "message": {
-                "conversation": "entonces me llamo oscar verdad?",
-                "messageContextInfo": {
-                  "deviceListMetadata": {
-                    "senderKeyHash": "XCEUl9K6Uf8n1g==",
-                    "senderTimestamp": "1747842721",
-                    "senderAccountType": "E2EE",
-                    "receiverAccountType": "E2EE",
-                    "recipientKeyHash": "2XE6Qyb4UwHAfw==",
-                    "recipientTimestamp": "1747589471"
-                  },
-                  "deviceListMetadataVersion": 2,
-                  "messageSecret": "u6f09iHCac9kcG3X+9QOsU0vRKm+rBuYjGyyCdRtr6U="
-                }
-              },
-              "messageType": "conversation",
-              "messageTimestamp": 1748326792,
-              "instanceId": "4e9127df-d360-4ac0-a849-965bf5955398",
-              "source": "web"
+            "typeWebhook": "incomingMessageReceived",
+            "instanceData": {
+              "idInstance": 7105250621,
+              "wid": "5492254606018@c.us",
+              "typeInstance": "whatsapp"
             },
-            "destination": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
-            "date_time": "2025-05-27T03:19:52.382Z",
-            "sender": "5492254606018@s.whatsapp.net",
-            "server_url": "https://evo.innovasoftpro.dev",
-            "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
+            "timestamp": 1748400128,
+            "idMessage": "C725CDEBBA5EED8C19EE3DB017BB281B",
+            "senderData": {
+              "chatId": "5492254423359@c.us",
+              "chatName": "Fer",
+              "sender": "5492254423359@c.us",
+              "senderName": "Fer",
+              "senderContactName": "Fer"
+            },
+            "messageData": {
+              "typeMessage": "textMessage",
+              "textMessageData": {
+                "textMessage": "Si"
+              }
+            }
           },
-          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/greenapi",
           "executionMode": "production"
         }
       }
@@ -2792,6 +3320,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-05-27T06:23:31.213Z",
-  "versionId": "043a8575-b15f-4f53-8227-ed868b3e0a3a"
+  "updatedAt": "2025-05-28T02:43:00.992Z",
+  "versionId": "3da7bde4-42be-4fcd-8445-09e1ab5b3d35"
 }
