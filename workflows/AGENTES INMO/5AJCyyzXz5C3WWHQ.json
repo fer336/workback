@@ -52,22 +52,6 @@
         ]
       ]
     },
-    "HTTP Request2": {
-      "main": [
-        [
-          {
-            "node": "Success1",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "HTTP Request1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Lista": {
       "main": [
         [
@@ -181,11 +165,6 @@
         ]
       ]
     },
-    "getForCode1": {
-      "main": [
-        []
-      ]
-    },
     "Split Out1": {
       "main": [
         [
@@ -247,6 +226,28 @@
           }
         ]
       ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Success1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-03-29T19:14:29.563Z",
@@ -262,18 +263,6 @@
           "values": [
             {
               "name": "Evento"
-            },
-            {
-              "name": "session_id"
-            },
-            {
-              "name": "url_evo"
-            },
-            {
-              "name": "instance"
-            },
-            {
-              "name": "apikey"
             },
             {
               "name": "numero_telefono"
@@ -401,59 +390,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "={{ $('Calendario').first().json.url_evo }}/waInstance{{ $('Calendario').first().json.instance }}/sendList/{{ $('Calendario').first().json.apikey }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {}
-          ]
-        },
-        "sendBody": true,
-        "contentType": "form-urlencoded",
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "chatId",
-              "value": "={{ $('Calendario').first().json.numero_telefono }}"
-            },
-            {
-              "name": "message",
-              "value": "={{ $json.title }}"
-            },
-            {
-              "name": "description",
-              "value": "={{ $json.description }}"
-            },
-            {
-              "name": "buttonText",
-              "value": "={{ $json.buttonText }}"
-            },
-            {
-              "name": "footerText",
-              "value": "={{ $json.footerText }}"
-            },
-            {
-              "name": "sections",
-              "value": "={{ $json.sections }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -700,
-        980
-      ],
-      "id": "a36506e8-1dd9-4450-ae36-0d7af61dfcaa",
-      "name": "HTTP Request2",
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -477,7 +413,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtener los datos del nodo anterior\nconst datos = $input.first()?.json?.resultados || [];\nconsole.log(\"DEBUG - Datos recibidos:\", JSON.stringify(datos).substring(0, 200) + \"...\");\n\n// Verificar si tenemos datos\nif (!datos || !datos.length) {\n  console.log(\"DEBUG - No hay datos disponibles\");\n  return [{\n    json: {\n      error: \"No se encontraron eventos\",\n      message: \"El nodo anterior no devolvió ningún horario disponible\"\n    },\n    pairedItem: 0\n  }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\"; // Otoño\n  if (mes >= 6 && mes <= 8) return \"❄️\"; // Invierno\n  if (mes >= 9 && mes <= 11) return \"🌸\"; // Primavera\n  return \"☀️\"; // Verano\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Nombres de los días de la semana\nconst nombresDias = {\n  0: 'Domingo',\n  1: 'Lunes',\n  2: 'Martes',\n  3: 'Miércoles',\n  4: 'Jueves',\n  5: 'Viernes',\n  6: 'Sábado'\n};\n\n// Extraer fecha de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  \n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    const diaSemana = nombresDias[fechaCompleta.getDay()];\n    \n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: diaSemana\n    };\n  }\n  return null;\n}\n\n// Función para formatear el rango de hora correctamente (12:00 a 12:30)\nfunction formatearRangoHora(horaInicio, horaFin) {\n  // Extraer horas y minutos de ambos horarios\n  const inicioMatch = horaInicio.match(/^(\\d+):(\\d+)/);\n  const finMatch = horaFin.match(/^(\\d+):(\\d+)/);\n  \n  // Formatear correctamente con horas y minutos\n  const horaInicioFormateada = inicioMatch ? `${inicioMatch[1]}:${inicioMatch[2]}` : horaInicio;\n  const horaFinFormateada = finMatch ? `${finMatch[1]}:${finMatch[2]}` : horaFin;\n  \n  return `${horaInicioFormateada} a ${horaFinFormateada}`;\n}\n\n// Función para formatear número de teléfono para Green API\nfunction formatearChatId(numeroTelefono) {\n  // Verificar si el número existe\n  if (!numeroTelefono) {\n    console.log(\"ERROR - numeroTelefono no definido\");\n    return \"11001234567@c.us\"; // Número por defecto\n  }\n  \n  // Convertir a string si no lo es\n  const numeroStr = String(numeroTelefono);\n  \n  // Remover cualquier carácter que no sea número\n  let numero = numeroStr.replace(/\\D/g, '');\n  \n  // Si el número no tiene código de país, agregar el de Argentina (54)\n  if (numero.length === 10 && numero.startsWith('11')) {\n    numero = '549' + numero;\n  } else if (numero.length === 11 && numero.startsWith('011')) {\n    numero = '549' + numero.substring(1);\n  } else if (!numero.startsWith('549')) {\n    numero = '549' + numero;\n  }\n  \n  // Formato para Green API: número@c.us\n  return numero + '@c.us';\n}\n\n// Obtener la fecha y hora actual\nconst ahora = new Date();\nconsole.log(`DEBUG - Fecha actual: ${ahora.toISOString()}`);\nconsole.log(`DEBUG - Fecha local: ${ahora.toString()}`);\n\n// Agrupar horarios por mes y día\nconst mesesAgrupados = {};\n\n// Procesar los horarios disponibles de todos los eventos\ndatos.forEach(evento => {\n  if (!evento.horariosDisponibles || !evento.horariosDisponibles.length) return;\n  \n  evento.horariosDisponibles.forEach(horario => {\n    try {\n      // Obtener la fecha de inicio del horario\n      const fechaHorario = new Date(horario.inicio);\n      \n      // Para debug\n      console.log(`DEBUG - Evaluando horario: ${horario.inicio}`);\n      \n      // COMPARACIÓN SIMPLE: Verificar si la fecha ya pasó\n      if (fechaHorario <= ahora) {\n        console.log(`DEBUG - FILTRADA: Fecha ya pasó`);\n        return; // Saltar este horario porque ya pasó\n      }\n      \n      // Extraer componentes de la fecha para agrupar\n      const fechaInicio = extraerFechaYHora(horario.inicio);\n      if (!fechaInicio) {\n        console.log(`DEBUG - Error al extraer fecha y hora de: ${horario.inicio}`);\n        return;\n      }\n      \n      const mes = fechaInicio.mes;\n      const dia = fechaInicio.dia;\n      const nombreMes = nombresMeses[mes];\n      const diaSemana = fechaInicio.diaSemana;\n      \n      // Inicializar el grupo del mes si no existe\n      if (!mesesAgrupados[nombreMes]) {\n        mesesAgrupados[nombreMes] = {\n          mes: mes,\n          fechas: []\n        };\n      }\n      \n      // Evitar duplicados\n      const yaExiste = mesesAgrupados[nombreMes].fechas.some(\n        e => e.dia === dia && e.horaInicio === horario.horaInicio\n      );\n      \n      if (!yaExiste) {\n        mesesAgrupados[nombreMes].fechas.push({\n          dia,\n          horaInicio: horario.horaInicio,\n          horaFin: horario.horaFin,\n          mes,\n          diaSemana,\n          resumen: evento.eventoPrincipal.resumen,\n          rowId: `${mes}-${dia}-${horario.horaInicio.replace(\":\", \"\")}`\n        });\n      }\n    } catch (error) {\n      console.log(`ERROR procesando horario: ${error.message}`);\n    }\n  });\n});\n\n// Armar la estructura para Green API SendListMessage\nconst sections = [];\n\n// Crear una sección para cada mes\nfor (const [nombreMes, datosMes] of Object.entries(mesesAgrupados)) {\n  const filas = datosMes.fechas;\n  if (filas.length === 0) continue;\n  \n  // Obtener el emoji estacional para este mes\n  const emoji = getEmojiEstacional(datosMes.mes);\n  \n  // Ordenar filas por día y hora\n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n  \n  const rowsDelMes = [];\n  filas.forEach(f => {\n    const horaFormateada = formatearRangoHora(f.horaInicio, f.horaFin);\n    rowsDelMes.push({\n      title: `🕒 ${f.dia} de ${nombreMes} : ${horaFormateada}`,\n      rowId: f.rowId,\n      description: `${f.diaSemana}` // Description siempre presente para Green API\n    });\n  });\n  \n  // Agregar la sección del mes con el emoji estacional\n  if (rowsDelMes.length > 0) {\n    sections.push({\n      title: `${emoji} ${nombreMes}`,\n      rows: rowsDelMes\n    });\n  }\n}\n\n// Sección por defecto si no hay nada\nif (sections.length === 0) {\n  sections.push({\n    title: \"⚠️ Sin horarios disponibles\",\n    rows: [{\n      title: \"No hay horarios disponibles\",\n      rowId: \"no-disponible\",\n      description: \"Intenta más tarde\"\n    }]\n  });\n}\n\n// Obtener número de cliente y formatearlo para Green API\nlet numeroCliente;\ntry {\n  numeroCliente = $('Calendario').first().json.numero_cliente;\n} catch (error) {\n  console.log(\"ERROR - No se pudo obtener numero_cliente:\", error.message);\n  numeroCliente = \"1123456789\"; // Número por defecto\n}\n\nconst chatId = formatearChatId(numeroCliente);\n\nconsole.log(`DEBUG - Número original: ${numeroCliente}`);\nconsole.log(`DEBUG - ChatId formateado: ${chatId}`);\n\n// JSON final para Green API sendListMessage - FORMATO EXACTO\nconst requestBody = {\n  chatId: chatId,\n  message: \"Seleccioná una fecha y hora para agendar tu visita\\n🕒 Cada visita tiene una duración de 30 minutos aprox.\",\n  buttonText: \"Seleccioná 👆\",\n  title: \"📅 Fechas Disponibles\",\n  footer: \"\", // Footer vacío\n  sections: sections\n};\n\nconsole.log(\"DEBUG - JSON final:\", JSON.stringify(requestBody, null, 2));\n\n// Retornar el mensaje final en el formato que espera n8n\nreturn [{\n  json: requestBody,\n  pairedItem: 0\n}];"
+        "jsCode": "// Función para formatear el rango de hora correctamente\nfunction formatearRangoHora(horaInicio, horaFin) {\n  const inicioMatch = horaInicio.match(/^(\\d+):(\\d+)/);\n  const finMatch = horaFin.match(/^(\\d+):(\\d+)/);\n  \n  const horaInicioFormateada = inicioMatch ? `${inicioMatch[1]}:${inicioMatch[2]}` : horaInicio;\n  const horaFinFormateada = finMatch ? `${finMatch[1]}:${finMatch[2]}` : horaFin;\n  \n  return `${horaInicioFormateada} a ${horaFinFormateada}`;\n}\n\n// Función para crear fecha en formato ISO con timezone de Argentina\nfunction crearFechaISO(anio, mes, dia, hora) {\n  // Parsear la hora (formato \"HH:MM\")\n  const [horas, minutos] = hora.split(':').map(Number);\n  \n  // Crear fecha en timezone de Argentina\n  const fecha = new Date(anio, mes - 1, dia, horas, minutos, 0);\n  \n  // Formatear en ISO simple sin prefijos\n  const year = fecha.getFullYear();\n  const month = String(fecha.getMonth() + 1).padStart(2, '0');\n  const day = String(fecha.getDate()).padStart(2, '0');\n  const hour = String(fecha.getHours()).padStart(2, '0');\n  const minute = String(fecha.getMinutes()).padStart(2, '0');\n  \n  // Retornar formato ISO limpio\n  return `${year}-${month}-${day}T${hour}:${minute}:00.000-03:00`;\n}// Obtener los datos del nodo anterior\nconst datos = $input.first()?.json?.resultados || [];\nconsole.log(\"DEBUG - Datos recibidos:\", JSON.stringify(datos).substring(0, 200) + \"...\");\n\n// Teléfono del cliente dinámico - obtener de nodo Calendario\nlet remoteJid = \"\";\ntry {\n  const numeroTelefono = $('Calendario').first().json.numero_telefono;\n  remoteJid = numeroTelefono || \"\";\n  console.log(\"DEBUG - Número obtenido del nodo Calendario:\", numeroTelefono);\n} catch (error) {\n  console.log(\"ERROR - No se pudo obtener numero_telefono:\", error.message);\n  remoteJid = \"\"; // Número vacío por defecto\n}\n\n// Verificar si tenemos datos\nif (!datos || !datos.length) {\n  console.log(\"DEBUG - No hay datos disponibles\");\n  \n  const mensajeSinFechas = {\n    to: remoteJid,\n    type: \"text\",\n    text: `📅🕒 *AGENDA DIGITAL* 🕒📅\\n\\n━━━━━━━━━━━━━━━━━━━━\\n\\n📆 *Información de Horarios*\\n\\nActualmente no hay fechas disponibles.\\n\\nPor favor, intenta nuevamente más tarde. 🙏\\n\\n━━━━━━━━━━━━━━━━━━━━`\n  };\n  \n  console.log(\"DEBUG - Enviando mensaje sin fechas a:\", remoteJid);\n  return [{ json: mensajeSinFechas }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\"; // Otoño\n  if (mes >= 6 && mes <= 8) return \"❄️\"; // Invierno\n  if (mes >= 9 && mes <= 11) return \"🌸\"; // Primavera\n  return \"☀️\"; // Verano\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Nombres de los días de la semana\nconst nombresDias = {\n  0: 'Domingo', 1: 'Lunes', 2: 'Martes', 3: 'Miércoles',\n  4: 'Jueves', 5: 'Viernes', 6: 'Sábado'\n};\n\n// Extraer fecha de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  \n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    const diaSemana = nombresDias[fechaCompleta.getDay()];\n    \n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: diaSemana\n    };\n  }\n  return null;\n}\n\n// Función para crear fecha en formato ISO con timezone de Argentina\nfunction crearFechaISO(anio, mes, dia, hora) {\n  // Parsear la hora (formato \"HH:MM\")\n  const [horas, minutos] = hora.split(':').map(Number);\n  \n  // Crear fecha en timezone de Argentina (UTC-3)\n  const fecha = new Date(anio, mes - 1, dia, horas, minutos, 0);\n  \n  // Convertir a ISO con timezone de Argentina (-03:00)\n  const offsetArgentina = -3; // UTC-3\n  const fechaUTC = new Date(fecha.getTime() - (offsetArgentina * 60 * 60 * 1000));\n  \n  // Formatear manualmente para incluir el timezone\n  const year = fecha.getFullYear();\n  const month = String(fecha.getMonth() + 1).padStart(2, '0');\n  const day = String(fecha.getDate()).padStart(2, '0');\n  const hour = String(fecha.getHours()).padStart(2, '0');\n  const minute = String(fecha.getMinutes()).padStart(2, '0');\n  const second = String(fecha.getSeconds()).padStart(2, '0');\n  \n  return `${year}-${month}-${day}T${hour}:${minute}:${second}.000-03:00`;\n}\n\n// Obtener la fecha y hora actual\nconst ahora = new Date();\nconsole.log(`DEBUG - Fecha actual: ${ahora.toISOString()}`);\n\n// Agrupar horarios por mes (igual que categorías en el primer código)\nconst mesesAgrupados = {};\n\n// Procesar los horarios disponibles de todos los eventos\ndatos.forEach(evento => {\n  if (!evento.horariosDisponibles || !evento.horariosDisponibles.length) return;\n  \n  evento.horariosDisponibles.forEach(horario => {\n    try {\n      const fechaHorario = new Date(horario.inicio);\n      \n      console.log(`DEBUG - Evaluando horario: ${horario.inicio}`);\n      \n      // Verificar si la fecha ya pasó\n      if (fechaHorario <= ahora) {\n        console.log(`DEBUG - FILTRADA: Fecha ya pasó`);\n        return;\n      }\n      \n      const fechaInicio = extraerFechaYHora(horario.inicio);\n      if (!fechaInicio) {\n        console.log(`DEBUG - Error al extraer fecha y hora de: ${horario.inicio}`);\n        return;\n      }\n      \n      const mes = fechaInicio.mes;\n      const dia = fechaInicio.dia;\n      const nombreMes = nombresMeses[mes];\n      const diaSemana = fechaInicio.diaSemana;\n      \n      // Inicializar el grupo del mes si no existe (como categorías)\n      if (!mesesAgrupados[nombreMes]) mesesAgrupados[nombreMes] = [];\n\n      // Evitar duplicados\n      const yaExiste = mesesAgrupados[nombreMes].some(\n        e => e.dia === dia && e.horaInicio === horario.horaInicio\n      );\n      \n      if (!yaExiste) {\n        // Crear fecha ISO para el rowId\n        const fechaISO = crearFechaISO(fechaInicio.anio, fechaInicio.mes, fechaInicio.dia, horario.horaInicio);\n        \n        mesesAgrupados[nombreMes].push({\n          id: fechaISO, // El ID será la fecha en formato ISO\n          dia: dia,\n          horaInicio: horario.horaInicio,\n          horaFin: horario.horaFin,\n          mes: mes,\n          diaSemana: diaSemana,\n          resumen: evento.eventoPrincipal.resumen || \"\"\n        });\n      }\n    } catch (error) {\n      console.log(`ERROR procesando horario: ${error.message}`);\n    }\n  });\n});\n\n// Orden de meses (como orden de categorías en el primer código)\nconst ordenMeses = [\n  \"Enero\", \"Febrero\", \"Marzo\", \"Abril\", \"Mayo\", \"Junio\",\n  \"Julio\", \"Agosto\", \"Septiembre\", \"Octubre\", \"Noviembre\", \"Diciembre\"\n];\n\n// Filtro de búsqueda (igual que en el primer código)\nlet consultaUsuario = \"\";\ntry {\n  consultaUsuario = $('Workflow Input Trigger').first().json.query.Descripcion || \"\";\n} catch {\n  consultaUsuario = \"\";\n}\n\nif (consultaUsuario && consultaUsuario.trim() !== \"\") {\n  const mesesFiltrados = {};\n  let hayFechasFiltradas = false;\n\n  for (const mes in mesesAgrupados) {\n    if (mes.toLowerCase().includes(consultaUsuario.toLowerCase())) {\n      mesesFiltrados[mes] = mesesAgrupados[mes];\n      hayFechasFiltradas = true;\n    } else {\n      const filtrados = mesesAgrupados[mes].filter(f =>\n        f.diaSemana.toLowerCase().includes(consultaUsuario.toLowerCase()) ||\n        f.resumen.toLowerCase().includes(consultaUsuario.toLowerCase())\n      );\n      if (filtrados.length > 0) {\n        mesesFiltrados[mes] = filtrados;\n        hayFechasFiltradas = true;\n      }\n    }\n  }\n  if (hayFechasFiltradas) {\n    for (const key in mesesAgrupados) delete mesesAgrupados[key];\n    Object.assign(mesesAgrupados, mesesFiltrados);\n  }\n}\n\n// Ordenar meses (como categorías ordenadas)\nconst mesesOrdenados = Object.keys(mesesAgrupados).sort((a, b) => {\n  const idxA = ordenMeses.indexOf(a);\n  const idxB = ordenMeses.indexOf(b);\n  if (idxA !== -1 && idxB !== -1) return idxA - idxB;\n  if (idxA !== -1) return -1;\n  if (idxB !== -1) return 1;\n  return a.localeCompare(b);\n});\n\n// Crear sections (igual que en el primer código)\nconst sections = [];\n\nfor (const nombreMes of mesesOrdenados) {\n  const fechas = mesesAgrupados[nombreMes];\n  if (fechas.length === 0) continue;\n\n  // Ordenar fechas por día y hora (como productos por nombre)\n  fechas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n\n  // Obtener emoji estacional para el mes\n  const emojiMes = getEmojiEstacional(fechas[0].mes);\n\n  // Crear rows exactamente como en las capturas\n  const rows = fechas.map(f => {\n    const horaFormateada = formatearRangoHora(f.horaInicio, f.horaFin);\n    \n    return {\n      id: f.id, // Este será el formato ISO: 2025-05-30T12:30:00.000-03:00\n      title: `🕒 ${f.dia} de ${nombreMes} : ${horaFormateada}`,\n      description: `${f.diaSemana}`\n    };\n  });\n\n  // Agregar section con formato exacto de las capturas\n  sections.push({\n    title: `${emojiMes} ${nombreMes}`,\n    rows\n  });\n}\n\n// Título del calendario (simple como en las capturas)\nconst tituloCita = \"📅 Fechas Disponibles\";\n\n// Objetos header, body, footer y action EXACTAMENTE como las capturas\nconst headerObj = {\n  text: tituloCita\n};\n\nconst bodyObj = {\n  text: `Seleccioná una fecha y hora para agendar tu visita\\n🕒 Cada visita tiene una duración de 30 minutos aprox.`\n};\n\nconst footerObj = {\n  text: \"\"\n};\n\nconst actionObj = {\n  list: {\n    sections: sections,\n    label: \"Seleccioná 👆\"\n  }\n};\n\n// Request body EXACTAMENTE igual al primer código\nconst requestBody = {\n  header: headerObj,\n  body: bodyObj,\n  footer: footerObj,\n  action: actionObj,\n  type: \"list\",\n  to: remoteJid\n};\n\nconsole.log(\"DEBUG - Número final para envío:\", remoteJid);\nconsole.log(\"DEBUG - Request body generado:\", JSON.stringify(requestBody, null, 2));\n\nreturn [{ json: requestBody }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -740,19 +676,6 @@
     },
     {
       "parameters": {
-        "jsCode": "// 🚀 Leer todos los eventos\nconst eventos = $input.all();\nconst codigoBusqueda = $('Code').first().json.ultimoCodigo?.toLowerCase();\n\n// 🚀 Funciones auxiliares\nconst extraerMinutos = (isoString) => {\n  if (!isoString) return null;\n  const hora = isoString.substring(11,16).split(':');\n  return parseInt(hora[0]) * 60 + parseInt(hora[1]);\n};\n\nconst minutosAHora = (totalMinutos) => {\n  const horas = Math.floor(totalMinutos / 60);\n  const minutos = totalMinutos % 60;\n  return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;\n};\n\nconst crearFechaISO = (fechaBase, horaStr) => {\n  return fechaBase.substring(0, 11) + horaStr + fechaBase.substring(16);\n};\n\n// 🚀 Clasificar eventos\nconst eventosVerdes = [];\nconst eventosRojos = [];\n\nfor (const item of eventos) {\n  const ev = item.json;\n  const start = ev.start?.dateTime || ev.start?.date || ev.start;\n  const end = ev.end?.dateTime || ev.end?.date || ev.end;\n\n  if (!start || !end) continue;\n\n  const summary = ev.summary?.toLowerCase() || \"\";\n  const location = ev.location?.toLowerCase() || \"\";\n  const description = ev.description?.toLowerCase() || \"\";\n  const colorId = ev.colorId?.toString();\n\n  const coincide = summary.includes(codigoBusqueda) || location.includes(codigoBusqueda) || description.includes(codigoBusqueda);\n\n  if (!coincide) continue;\n\n  if (colorId === \"2\") {\n    eventosVerdes.push({ start, end, summary, location });\n  } else if (colorId === \"11\") {\n    eventosRojos.push({ start, end });\n  }\n}\n\n// 🚀 Si no hay verdes, devolver mensaje\nif (eventosVerdes.length === 0) {\n  return [{\n    json: {\n      noMatchingEvents: true,\n      message: \"No se encontraron eventos disponibles para la propiedad.\"\n    }\n  }];\n}\n\n// 🚀 Procesar horarios disponibles\nconst resultados = eventosVerdes.map(evento => {\n  const inicioVerdeMin = extraerMinutos(evento.start);\n  const finVerdeMin = extraerMinutos(evento.end);\n\n  const bloques = [];\n\n  for (let m = inicioVerdeMin; m + 30 <= finVerdeMin; m += 30) {\n    let bloqueOk = true;\n\n    for (const rojo of eventosRojos) {\n      const inicioRojoMin = extraerMinutos(rojo.start);\n      const finRojoMin = extraerMinutos(rojo.end);\n\n      if (inicioRojoMin === null || finRojoMin === null) continue;\n\n      // Verificar solapamiento\n      if (!(m + 30 <= inicioRojoMin || m >= finRojoMin)) {\n        bloqueOk = false;\n        break;\n      }\n    }\n\n    if (bloqueOk) {\n      const horaInicio = minutosAHora(m);\n      const horaFin = minutosAHora(m + 30);\n\n      bloques.push({\n        horaInicio: horaInicio,\n        horaFin: horaFin,\n        inicio: crearFechaISO(evento.start, horaInicio),\n        fin: crearFechaISO(evento.start, horaFin)\n      });\n    }\n  }\n\n  return {\n    eventoPrincipal: {\n      resumen: evento.summary,\n      location: evento.location,\n      inicio: evento.start,\n      fin: evento.end,\n      horaInicio: minutosAHora(inicioVerdeMin),\n      horaFin: minutosAHora(finVerdeMin)\n    },\n    horariosDisponibles: bloques\n  };\n});\n\n// 🚀 Devolver la respuesta\nreturn [{\n  json: {\n    resultados: resultados\n  }\n}];\n"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        180,
-        -320
-      ],
-      "id": "517488c1-b309-4971-974e-59aa27d61c99",
-      "name": "getForCode1"
-    },
-    {
-      "parameters": {
         "fieldToSplitOut": "summary, start, end, location, colorId, description, id",
         "options": {}
       },
@@ -951,25 +874,152 @@
     },
     {
       "parameters": {
+        "jsCode": "// Obtener todos los productos del nodo Limit\nconst datosProductos = $input.all();\nconst hayDatos = datosProductos && datosProductos.length > 0;\n\n// Teléfono del cliente dinámico\nconst remoteJid = $('Workflow Input Trigger').first().json.Telefono || \"\";\n\nif (!hayDatos) {\n  const mensajeSinProductos = {\n    to: remoteJid,\n    type: \"text\",\n    text: `📱🛒 *CATÁLOGO DIGITAL* 🛒📱\\n\\n━━━━━━━━━━━━━━━━━━━━\\n\\n🥫 *Información del Catálogo*\\n\\nActualmente no hay productos disponibles.\\n\\nPor favor, intenta nuevamente más tarde. 🙏\\n\\n━━━━━━━━━━━━━━━━━━━━`\n  };\n  \n  return [{ json: mensajeSinProductos }];\n}\n\n// Emojis para categorías estilo despensa/supermercado\nconst emojiCategorias = {\n  \"LÁCTEOS\": \"🥛🧀\",\n  \"BEBIDAS\": \"🥤🍹\",\n  \"GALLETITAS Y SNACKS\": \"🍪🍫\",\n  \"ALIMENTOS SECOS\": \"🥖🌾\",\n  \"ENLATADOS\": \"🥫📦\",\n  \"LIMPIEZA\": \"🧴🧽\",\n  \"VARIOS\": \"🛍️🛒\"\n};\n\nconst categorias = {};\n\ndatosProductos.forEach(item => {\n  const producto = item.json;\n  const nombreProducto = producto.Producto || \"\";\n  const precioProducto = producto[\"['P. Venta']\"] || \"$0.00\";\n  const stockProducto = producto.Stock || \"Disponible\";\n\n  let categoria = \"VARIOS\";\n  const nombreLower = nombreProducto.toLowerCase();\n\n  if (nombreLower.includes(\"leche\") || nombreLower.includes(\"yogur\") || nombreLower.includes(\"queso\")) {\n    categoria = \"LÁCTEOS\";\n  } else if (nombreLower.includes(\"agua\") || nombreLower.includes(\"gaseosa\") || nombreLower.includes(\"jugo\")) {\n    categoria = \"BEBIDAS\";\n  } else if (nombreLower.includes(\"galleta\") || nombreLower.includes(\"snack\") || nombreLower.includes(\"chocolate\")) {\n    categoria = \"GALLETITAS Y SNACKS\";\n  } else if (nombreLower.includes(\"arroz\") || nombreLower.includes(\"fideos\") || nombreLower.includes(\"harina\")) {\n    categoria = \"ALIMENTOS SECOS\";\n  } else if (nombreLower.includes(\"atun\") || nombreLower.includes(\"conserva\") || nombreLower.includes(\"lata\")) {\n    categoria = \"ENLATADOS\";\n  } else if (nombreLower.includes(\"detergente\") || nombreLower.includes(\"jabon\") || nombreLower.includes(\"limpia\")) {\n    categoria = \"LIMPIEZA\";\n  } else {\n    const palabras = nombreProducto.split(' ');\n    if (palabras.length > 0 && palabras[0].length > 2) {\n      categoria = palabras[0].toUpperCase();\n    }\n  }\n\n  if (!categorias[categoria]) categorias[categoria] = [];\n\n  const productoId = `cod_${Math.floor(Math.random() * 10000)}`;\n\n  categorias[categoria].push({\n    id: productoId,\n    nombre: nombreProducto,\n    precio: precioProducto,\n    stock: stockProducto\n  });\n});\n\nconst ordenCategorias = [\n  \"LÁCTEOS\", \"BEBIDAS\", \"GALLETITAS Y SNACKS\", \"ALIMENTOS SECOS\",\n  \"ENLATADOS\", \"LIMPIEZA\", \"VARIOS\"\n];\n\nlet consultaUsuario = \"\";\ntry {\n  consultaUsuario = $('Workflow Input Trigger').first().json.query.Descripcion || \"\";\n} catch {\n  consultaUsuario = \"\";\n}\n\nif (consultaUsuario && consultaUsuario.trim() !== \"\") {\n  const productosFiltrados = {};\n  let hayProductosFiltrados = false;\n\n  for (const categoria in categorias) {\n    if (categoria.toLowerCase().includes(consultaUsuario.toLowerCase())) {\n      productosFiltrados[categoria] = categorias[categoria];\n      hayProductosFiltrados = true;\n    } else {\n      const filtrados = categorias[categoria].filter(p =>\n        p.nombre.toLowerCase().includes(consultaUsuario.toLowerCase())\n      );\n      if (filtrados.length > 0) {\n        productosFiltrados[categoria] = filtrados;\n        hayProductosFiltrados = true;\n      }\n    }\n  }\n  if (hayProductosFiltrados) {\n    for (const key in categorias) delete categorias[key];\n    Object.assign(categorias, productosFiltrados);\n  }\n}\n\nconst categoriasOrdenadas = Object.keys(categorias).sort((a, b) => {\n  const idxA = ordenCategorias.indexOf(a);\n  const idxB = ordenCategorias.indexOf(b);\n  if (idxA !== -1 && idxB !== -1) return idxA - idxB;\n  if (idxA !== -1) return -1;\n  if (idxB !== -1) return 1;\n  return a.localeCompare(b);\n});\n\nconst sections = [];\n\nfor (const cat of categoriasOrdenadas) {\n  const productos = categorias[cat];\n  if (productos.length === 0) continue;\n\n  productos.sort((a, b) => a.nombre.localeCompare(b.nombre));\n\n  const emojiCat = emojiCategorias[cat] || \"📦🛒\";\n\n  const rows = productos.map(p => {\n    const precioFormateado = p.precio.replace(/(\\d)(?=(\\d{3})+(?!\\d))/g, '$1.');\n    const stockEmoji = p.stock.toLowerCase() === \"disponible\" ? \"🟢\" : \"🔴\";\n    const stockText = p.stock.length > 15 ? p.stock.slice(0, 12) + \"…\" : p.stock;\n\n    return {\n      id: p.id,\n      title: `${p.nombre}`,\n      description:\n        `🔥 Precio: *${precioFormateado}*\\n` +\n        `🆔 Código: ${p.id}\\n` +\n        `📦 Stock: ${stockEmoji} ${stockText}`\n    };\n  });\n\n  sections.push({\n    title: `${emojiCat}  ${cat}`,\n    rows\n  });\n}\n\nconst tituloCatalogo = consultaUsuario && consultaUsuario.trim() !== \"\"\n  ? `🟠 Menú de ${consultaUsuario.toLowerCase()} 🛒`\n  : \"🟠 Menú de Productos 🛒\";\n\nconst headerObj = {\n  text: tituloCatalogo\n};\n\nconst bodyObj = {\n  text: `✅ Seleccioná el producto \\n🟣 Escribe la cantidad que quieras`\n};\n\nconst footerObj = {\n  text: \"🏍️ Envios a domicilio 📦 | Neuquén 2098\"\n};\n\nconst actionObj = {\n  list: {\n    sections: sections,\n    label: \"🛒 Ver Menú 🔥\"\n  }\n};\n\nconst requestBody = {\n  header: headerObj,\n  body: bodyObj,\n  footer: footerObj,\n  action: actionObj,\n  type: \"list\",\n  to: remoteJid\n};\n\nreturn [{ json: requestBody }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -700,
+        780
+      ],
+      "id": "2f901033-e50c-4b0c-8f51-fc0affae597a",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
         "method": "POST",
-        "url": "http://{{apiUrl}}/waInstance{{idInstance}}/sendListMessage/{{apiTokenInstance}}",
+        "url": "https://gate.whapi.cloud/messages/interactive",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
         "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "{\n  \"chatId\": \"11001234567@c.us\",\n  \"message\": \"Текст сообщения\",\n  \"buttonText\": \"Список действий\",\n  \"title\": \"заголовок\",\n  \"footer\": \"подвал\",\n  \"sections\": [\n    {\n      \"title\": \"Секция 1\",\n      \"rows\": [\n        {\n          \"title\": \"Вариант 1\",\n          \"rowId\": \"option1\"\n        },\n        {\n          \"title\": \"Вариант 2\",\n          \"rowId\": \"option2\",\n          \"description\": \"Пояснение\"\n        }\n      ]\n    },\n    {\n      \"title\": \"Секция 2\",\n      \"rows\": [\n        {\n          \"title\": \"Опция 3\",\n          \"rowId\": \"option3\"\n        },\n        {\n          \"title\": \"Опция 4\",\n          \"rowId\": \"option4\",\n          \"description\": \"Пояснение\"\n        }\n      ]\n    }\n  ]\n}",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "header",
+              "value": "={{ $json.header }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.action }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.type }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Workflow Input Trigger').first().json.Telefono }}"
+            }
+          ]
+        },
         "options": {
-          "redirect": {
-            "redirect": {}
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
           }
         }
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -280,
+        -480,
+        780
+      ],
+      "id": "e49f6b25-7778-432f-866d-6b16c8e1cfc9",
+      "name": "HTTP Request3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/interactive",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "header",
+              "value": "={{ $json.header }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.action }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.type }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Calendario').first().json.numero_telefono }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -700,
         980
       ],
-      "id": "26030d69-8f88-4ec3-98b8-441e1381f2c2",
-      "name": "HTTP Request1"
+      "id": "5e91d3af-eec5-4e6f-9113-28487ddd1f09",
+      "name": "HTTP Request2"
     }
   ],
   "pinData": {
@@ -977,11 +1027,7 @@
       {
         "json": {
           "Evento": "consultar",
-          "session_id": "C725CDEBBA5EED8C19EE3DB017BB281B",
-          "url_evo": "https://7105.api.greenapi.com",
-          "instance": "7105250621",
-          "apikey": "0e64cc32278648c495f6322c5fb14634669021ca2fb5407780",
-          "numero_telefono": "5492254423359@c.us"
+          "numero_telefono": "5492254423359"
         }
       }
     ]
@@ -1002,6 +1048,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-28T02:58:48.658Z",
-  "versionId": "7f164ba6-4120-41ca-87b3-d020c3757da6"
+  "updatedAt": "2025-05-28T14:32:12.520Z",
+  "versionId": "bdc08b13-0528-4beb-901f-85814724d097"
 }
