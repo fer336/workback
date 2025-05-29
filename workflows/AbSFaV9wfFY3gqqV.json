@@ -1,0 +1,80 @@
+{
+  "active": true,
+  "connections": {
+    "Redis Trigger": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-05-29T03:02:26.612Z",
+  "id": "AbSFaV9wfFY3gqqV",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 11",
+  "nodes": [
+    {
+      "parameters": {
+        "channels": "__keyevent@0__:expired",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redisTrigger",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        -120
+      ],
+      "id": "54fa7497-a370-4f4a-af46-b244e75decd7",
+      "name": "Redis Trigger",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "1",
+        "value": "hola",
+        "expire": true,
+        "ttl": 30
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -80
+      ],
+      "id": "b1cd8c1a-b845-41f4-af0b-1ab3a3a00b04",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Redis Trigger": [
+      {
+        "json": {
+          "channel": "__keyevent@0__:expired",
+          "message": "1"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-29T04:00:41.595Z",
+  "versionId": "b8eb1211-31dc-4c56-bb7a-cc2b4b0a8a01"
+}
