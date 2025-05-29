@@ -96,17 +96,17 @@
       "main": [
         [
           {
-            "node": "Propietario",
+            "node": "Propietario azul",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Agente inmobiliario",
+            "node": "Agente inmobiliario rojo",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Cliente",
+            "node": "Cliente violeta",
             "type": "main",
             "index": 0
           }
@@ -161,23 +161,7 @@
       "main": [
         [
           {
-            "node": "Code1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Recordatorio de cita": {
-      "main": [
-        []
-      ]
-    },
-    "Code1": {
-      "main": [
-        [
-          {
-            "node": "NocoDB",
+            "node": "Calcular Recordatorios",
             "type": "main",
             "index": 0
           }
@@ -186,36 +170,25 @@
     },
     "NocoDB": {
       "main": [
-        [
-          {
-            "node": "If2",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "If2": {
       "main": [
         [
           {
-            "node": "NocoDB1",
+            "node": "NocoDB2",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Recordatorio de cita",
+            "node": "NocoDB3",
             "type": "main",
             "index": 0
           }
         ]
-      ]
-    },
-    "NocoDB1": {
-      "main": [
-        []
       ]
     },
     "Datos de la propiedad": {
@@ -229,44 +202,66 @@
         ]
       ]
     },
-    "Propietario": {
+    "Cliente violeta": {
       "main": [
         [
           {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Agente inmobiliario": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Cliente": {
-      "main": [
-        [
-          {
-            "node": "Merge",
+            "node": "Merge1",
             "type": "main",
             "index": 2
           }
         ]
       ]
     },
-    "Merge": {
+    "Propietario azul": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Agente inmobiliario rojo": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
       "main": [
         [
           {
             "node": "Limpia fecha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular Recordatorios": {
+      "main": [
+        [
+          {
+            "node": "NocoDB1",
             "type": "main",
             "index": 0
           }
@@ -290,7 +285,7 @@
               "type": "any"
             },
             {
-              "name": "fecha_cita",
+              "name": "Fecha_cita",
               "type": "any"
             },
             {
@@ -307,10 +302,10 @@
               "name": "nombre_inmobiliaria"
             },
             {
-              "name": "session_id"
+              "name": "idMensaje"
             },
             {
-              "name": "idMensaje"
+              "name": "Id_cliente_db"
             }
           ]
         }
@@ -319,7 +314,7 @@
       "typeVersion": 1.1,
       "position": [
         -3020,
-        -560
+        -540
       ],
       "id": "f8832bdf-6990-44c3-892a-4fe2812aaeef",
       "name": "Calendario"
@@ -335,7 +330,7 @@
       "typeVersion": 1,
       "position": [
         -2800,
-        -560
+        -540
       ],
       "id": "a0b60582-4a37-4771-a774-f79b4a0ece4c",
       "name": "Redis",
@@ -363,7 +358,7 @@
       "typeVersion": 1.3,
       "position": [
         -2140,
-        -660
+        -640
       ],
       "id": "6577b176-2582-4c7d-beff-b5bd7b14e523",
       "name": "Obtener eventos",
@@ -403,7 +398,7 @@
       "typeVersion": 2.2,
       "position": [
         -2360,
-        -560
+        -540
       ],
       "id": "d4113959-30d1-4acd-a3b1-0852ab674e1a",
       "name": "If1"
@@ -426,7 +421,7 @@
       "typeVersion": 3.4,
       "position": [
         -2140,
-        -460
+        -400
       ],
       "id": "c7a1b1f3-6e09-4f5a-8cf0-0b0cd2b3eb31",
       "name": "Response null Codigo"
@@ -439,7 +434,7 @@
       "typeVersion": 2,
       "position": [
         -1700,
-        -660
+        -640
       ],
       "id": "e062fcaa-7da7-4c9a-a720-cdad728bf552",
       "name": "getForCode"
@@ -452,7 +447,7 @@
       "typeVersion": 2,
       "position": [
         -2580,
-        -560
+        -540
       ],
       "id": "2310ca3c-9fba-4713-80a9-ce66c1e5bad9",
       "name": "Code"
@@ -486,20 +481,20 @@
       "typeVersion": 2.2,
       "position": [
         -1040,
-        -660
+        -640
       ],
       "id": "56ee1482-9d3d-4b7f-94f9-88c935b68166",
       "name": "If"
     },
     {
       "parameters": {
-        "jsCode": "// 1. Obtener los datos\nconst datosCalendario = $('Calendario').first().json;\n\n// Obtener datos de la propiedad (Google Sheets)\nconst datosPropiedad = $('Datos de la propiedad').first().json;\n\n// Verificar que existen los datos necesarios en getForCode\nlet eventosVerdes = null;\ntry {\n  // Intentar obtener el primer evento verde\n  const getForCodeResult = $('getForCode').first().json;\n  if (getForCodeResult && getForCodeResult.eventosVerdes && getForCodeResult.eventosVerdes.length > 0) {\n    eventosVerdes = getForCodeResult.eventosVerdes[0];\n  } else {\n    console.log(\"No se encontraron eventos verdes\");\n  }\n} catch (error) {\n  console.log(\"Error al obtener eventos verdes:\", error);\n}\n\n// 2. Extraer variables con valores predeterminados para evitar errores\nconst nombreCliente = datosCalendario?.Nombre || \"\";\nconst telefono = datosCalendario?.numero_cliente || \"\";\nconst nombreInmobiliaria = datosCalendario?.nombre_inmobiliaria || \"\";\nconst tipoPropiedad = datosCalendario?.Tipo || \"\";\n\n// Usar valores predeterminados si eventosVerdes es null o sus propiedades no existen\nconst ubicacion = eventosVerdes?.location || \"Dirección no especificada\";\nconst idInput = eventosVerdes?.id || \"\";\nconst idEvento = eventosVerdes?.id || \"\";\nconst summary = eventosVerdes?.summary || \"\";\n\n// 3. Obtener tiempo dinámico desde Google Sheets\n// Convertir el valor de tiempo a minutos\nlet tiempoVisitaMinutos = 30; // Valor por defecto\n\nif (datosPropiedad?.Tiempo) {\n  const tiempoTexto = datosPropiedad.Tiempo.toString().toLowerCase();\n  \n  // Extraer número del texto (ej: \"1hs\" -> 1, \"30mins\" -> 30)\n  const numeroMatch = tiempoTexto.match(/\\d+/);\n  \n  if (numeroMatch) {\n    const numero = parseInt(numeroMatch[0]);\n    \n    // Determinar si son horas o minutos\n    if (tiempoTexto.includes('h') || tiempoTexto.includes('hora')) {\n      tiempoVisitaMinutos = numero * 60; // Convertir horas a minutos\n    } else if (tiempoTexto.includes('min')) {\n      tiempoVisitaMinutos = numero;\n    } else {\n      // Si no especifica unidad, asumir que son minutos\n      tiempoVisitaMinutos = numero;\n    }\n  }\n}\n\nconsole.log(`Tiempo de visita configurado: ${tiempoVisitaMinutos} minutos`);\n\n// 4. Tomar la **fecha elegida por el usuario** con verificación\nif (!datosCalendario?.fecha_cita) {\n  return [{\n    json: {\n      error: \"No se proporcionó una fecha de cita válida\"\n    }\n  }];\n}\n\nconst fechaCitaOriginal = datosCalendario.fecha_cita; // EJ: 2025-04-08T14:30:00-03:00\n\n// 5. Parseo correcto SIN cambio de zona\nconst [fechaParte, horaParteCompleta] = fechaCitaOriginal.split('T');\nconst [horaParte] = horaParteCompleta.split('-'); // Agarra solo la hora limpia\n\n// Crear la fecha base\nconst [anio, mes, dia] = fechaParte.split('-').map(Number);\nconst [hora, minutos, segundos] = horaParte.split(':').map(Number);\nconst fechaInicio = new Date(anio, mes - 1, dia, hora, minutos, segundos);\n\n// 6. Sumar el tiempo dinámico de la visita\nconst fechaFin = new Date(fechaInicio.getTime() + tiempoVisitaMinutos * 60000);\n\n// 7. Formatear fecha\nconst formatDate = (date) => {\n  const year = date.getFullYear();\n  const month = String(date.getMonth() + 1).padStart(2, '0');\n  const day = String(date.getDate()).padStart(2, '0');\n  const hour = String(date.getHours()).padStart(2, '0');\n  const minute = String(date.getMinutes()).padStart(2, '0');\n  const second = String(date.getSeconds()).padStart(2, '0');\n  \n  return `${year}-${month}-${day}T${hour}:${minute}:${second}.000-03:00`;\n};\n\nconst fechaInicioFormateada = formatDate(fechaInicio);\nconst fechaFinFormateada = formatDate(fechaFin);\n\n// 8. Crear el objeto de salida\nreturn [{\n  json: {\n    idInput,\n    idEvento,\n    colorId: \"10\", // Añadido explícitamente el colorId 10\n    summary: `Dirección: ${ubicacion} - Interesado: ${nombreCliente}${nombreInmobiliaria ? ' - ' + nombreInmobiliaria : ''}`,\n    description: ubicacion,\n    tipoPropiedad,\n    nombreCliente,\n    telefono,\n    nombreInmobiliaria,\n    fechaInicio: fechaInicioFormateada,\n    fechaFin: fechaFinFormateada,\n    tiempoVisita: `${tiempoVisitaMinutos} minutos` // Para debugging\n  }\n}];"
+        "jsCode": "// 1. Obtener los datos\nconst datosCalendario = $('Calendario').first().json;\n\n// Obtener datos de la propiedad (Google Sheets)\nconst datosPropiedad = $('Datos de la propiedad').first().json;\n\n// Verificar que existen los datos necesarios en getForCode\nlet eventosVerdes = null;\ntry {\n  // Intentar obtener el primer evento verde\n  const getForCodeResult = $('getForCode').first().json;\n  if (getForCodeResult && getForCodeResult.eventosVerdes && getForCodeResult.eventosVerdes.length > 0) {\n    eventosVerdes = getForCodeResult.eventosVerdes[0];\n  } else {\n    console.log(\"No se encontraron eventos verdes\");\n  }\n} catch (error) {\n  console.log(\"Error al obtener eventos verdes:\", error);\n}\n\n// 2. Extraer variables con valores predeterminados para evitar errores\nconst nombreCliente = datosCalendario?.Nombre || \"\";\nconst telefono = datosCalendario?.numero_cliente || \"\";\nconst nombreInmobiliaria = datosCalendario?.nombre_inmobiliaria || \"\";\nconst tipoPropiedad = datosCalendario?.Tipo || \"\";\n\n// Usar valores predeterminados si eventosVerdes es null o sus propiedades no existen\nconst ubicacion = eventosVerdes?.location || \"Dirección no especificada\";\nconst idInput = eventosVerdes?.id || \"\";\nconst idEvento = eventosVerdes?.id || \"\";\nconst summary = eventosVerdes?.summary || \"\";\n\n// 3. Obtener tiempo dinámico desde Google Sheets\n// Convertir el valor de tiempo a minutos\nlet tiempoVisitaMinutos = 30; // Valor por defecto\n\nif (datosPropiedad?.Tiempo) {\n  const tiempoTexto = datosPropiedad.Tiempo.toString().toLowerCase();\n  \n  // Extraer número del texto (ej: \"1hs\" -> 1, \"30mins\" -> 30)\n  const numeroMatch = tiempoTexto.match(/\\d+/);\n  \n  if (numeroMatch) {\n    const numero = parseInt(numeroMatch[0]);\n    \n    // Determinar si son horas o minutos\n    if (tiempoTexto.includes('h') || tiempoTexto.includes('hora')) {\n      tiempoVisitaMinutos = numero * 60; // Convertir horas a minutos\n    } else if (tiempoTexto.includes('min')) {\n      tiempoVisitaMinutos = numero;\n    } else {\n      // Si no especifica unidad, asumir que son minutos\n      tiempoVisitaMinutos = numero;\n    }\n  }\n}\n\nconsole.log(`Tiempo de visita configurado: ${tiempoVisitaMinutos} minutos`);\n\n// 4. CORRECCIÓN: Verificar ambas versiones de la fecha\n// Buscar fecha_cita o Fecha_cita (con mayúscula)\nconst fechaCitaOriginal = datosCalendario?.fecha_cita || datosCalendario?.Fecha_cita;\n\nif (!fechaCitaOriginal) {\n  console.log(\"Datos disponibles en calendario:\", Object.keys(datosCalendario || {}));\n  return [{\n    json: {\n      error: \"No se proporcionó una fecha de cita válida\",\n      datosDisponibles: Object.keys(datosCalendario || {}),\n      fechaEncontrada: fechaCitaOriginal\n    }\n  }];\n}\n\nconsole.log(\"Fecha original recibida:\", fechaCitaOriginal);\n\n// 5. MEJORA: Manejo más robusto del parseo de fecha\nlet fechaInicio;\n\ntry {\n  // Si viene en formato ISO completo\n  if (fechaCitaOriginal.includes('T') && fechaCitaOriginal.includes('-')) {\n    // Parseo mejorado para manejar diferentes formatos\n    const [fechaParte, horaParteCompleta] = fechaCitaOriginal.split('T');\n    \n    // Obtener solo la parte de hora sin zona horaria\n    let horaParte;\n    if (horaParteCompleta.includes('-')) {\n      horaParte = horaParteCompleta.split('-')[0];\n    } else if (horaParteCompleta.includes('+')) {\n      horaParte = horaParteCompleta.split('+')[0];\n    } else {\n      horaParte = horaParteCompleta;\n    }\n    \n    // Crear la fecha base\n    const [anio, mes, dia] = fechaParte.split('-').map(Number);\n    const [hora, minutos, segundos = 0] = horaParte.split(':').map(Number);\n    \n    fechaInicio = new Date(anio, mes - 1, dia, hora, minutos, segundos || 0);\n  } \n  // Si viene en otro formato, intentar parseo directo\n  else {\n    fechaInicio = new Date(fechaCitaOriginal);\n  }\n  \n  // Verificar que la fecha es válida\n  if (isNaN(fechaInicio.getTime())) {\n    throw new Error(\"Fecha inválida después del parseo\");\n  }\n  \n} catch (error) {\n  console.log(\"Error al parsear fecha:\", error);\n  return [{\n    json: {\n      error: \"Error al procesar la fecha proporcionada\",\n      fechaOriginal: fechaCitaOriginal,\n      errorDetalle: error.message\n    }\n  }];\n}\n\nconsole.log(\"Fecha de inicio parseada:\", fechaInicio);\n\n// 6. Sumar el tiempo dinámico de la visita\nconst fechaFin = new Date(fechaInicio.getTime() + tiempoVisitaMinutos * 60000);\n\nconsole.log(\"Fecha de fin calculada:\", fechaFin);\n\n// 7. Formatear fecha mejorado\nconst formatDate = (date) => {\n  const year = date.getFullYear();\n  const month = String(date.getMonth() + 1).padStart(2, '0');\n  const day = String(date.getDate()).padStart(2, '0');\n  const hour = String(date.getHours()).padStart(2, '0');\n  const minute = String(date.getMinutes()).padStart(2, '0');\n  const second = String(date.getSeconds()).padStart(2, '0');\n  \n  return `${year}-${month}-${day}T${hour}:${minute}:${second}.000-03:00`;\n};\n\nconst fechaInicioFormateada = formatDate(fechaInicio);\nconst fechaFinFormateada = formatDate(fechaFin);\n\nconsole.log(\"Fecha inicio formateada:\", fechaInicioFormateada);\nconsole.log(\"Fecha fin formateada:\", fechaFinFormateada);\n\n// 8. Crear el objeto de salida\nreturn [{\n  json: {\n    idInput,\n    idEvento,\n    colorId: \"10\",\n    summary: `Dirección: ${ubicacion} - Interesado: ${nombreCliente}${nombreInmobiliaria ? ' - ' + nombreInmobiliaria : ''}`,\n    description: ubicacion,\n    tipoPropiedad,\n    nombreCliente,\n    telefono,\n    nombreInmobiliaria,\n    fechaInicio: fechaInicioFormateada,\n    fechaFin: fechaFinFormateada,\n    tiempoVisita: `${tiempoVisitaMinutos} minutos`,\n    // Debug info\n    fechaOriginalRecibida: fechaCitaOriginal,\n    fechaInicioCalculada: fechaInicio.toString(),\n    fechaFinCalculada: fechaFin.toString()\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -460,
-        -740
+        -500,
+        -700
       ],
       "id": "0f599010-4717-4fab-8541-1ce9b78e01d5",
       "name": "Calcula fecha"
@@ -513,7 +508,7 @@
       "typeVersion": 1,
       "position": [
         -1920,
-        -660
+        -640
       ],
       "id": "ca3ccbdf-786c-46a5-985d-b90613b81e5f",
       "name": "Split Out2"
@@ -537,7 +532,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -740,
+        -760,
         -500
       ]
     },
@@ -549,7 +544,7 @@
       "typeVersion": 2,
       "position": [
         -1260,
-        -660
+        -640
       ],
       "id": "daec7129-5083-4ba2-b889-5c6e2f068533",
       "name": "verificador"
@@ -569,7 +564,7 @@
       "typeVersion": 2.1,
       "position": [
         380,
-        -740
+        -560
       ],
       "webhookId": "f8eebafe-721f-448a-8ae9-4c7d9301d1ba",
       "credentials": {
@@ -581,13 +576,13 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtener la fecha ISO y la dirección\nconst fechaISO = $('Calendario').first().json.fecha_cita;\nconst direccionCompleta = $('Propietario').first().json.location;\n\n// Obtener datos adicionales\nconst nombreInteresado = $('Calendario').first().json.Nombre || \"No disponible\";\nconst telefonoCliente = $('Calendario').first().json.numero_cliente || \"No disponible\";\nconst nombreInmobiliaria = $('Calendario').first().json.nombre_inmobiliaria || \"No especificada\";\n\n// Función para extraer todos los componentes de la fecha\nfunction extraerComponentesFecha(fechaISO) {\n  // Si no hay fecha, devolver valores predeterminados\n  if (!fechaISO) return {\n    dia: \"No disponible\",\n    fecha: \"No disponible\",\n    hora: \"No disponible\"\n  };\n  \n  try {\n    // Crear un objeto Date a partir de la fecha ISO\n    const fecha = new Date(fechaISO);\n    \n    // Extraer día de la semana\n    const diasSemana = [\"Domingo\", \"Lunes\", \"Martes\", \"Miércoles\", \"Jueves\", \"Viernes\", \"Sábado\"];\n    const diaSemana = diasSemana[fecha.getDay()];\n    \n    // Extraer componentes de fecha\n    const dia = fecha.getDate().toString().padStart(2, '0');\n    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');\n    const anio = fecha.getFullYear();\n    \n    // Extraer componentes de hora\n    const horas = fecha.getHours();\n    const minutos = fecha.getMinutes().toString().padStart(2, '0');\n    \n    // Formatear cada componente\n    return {\n      dia: diaSemana,\n      fecha: `${dia}-${mes}-${anio}`,\n      hora: `${horas}:${minutos}hs`\n    };\n  } catch (error) {\n    console.error(\"Error al extraer componentes de la fecha:\", error);\n    return {\n      dia: \"Error\",\n      fecha: \"Error\",\n      hora: \"Error\"\n    };\n  }\n}\n\n// Extraer componentes de la fecha\nconst componentes = extraerComponentesFecha(fechaISO);\n\n// Procesar dirección\nfunction procesarDireccion(direccionCompleta) {\n  if (!direccionCompleta) return \"Dirección no disponible\";\n  \n  // Aquí puedes agregar lógica adicional para formatear la dirección si es necesario\n  return direccionCompleta;\n}\n\n// Obtener la dirección formateada\nconst direccion = procesarDireccion(direccionCompleta);\n\n// Formatear teléfono (si es necesario)\nfunction formatearTelefono(telefono) {\n  if (!telefono) return \"No disponible\";\n  \n  // Aquí puedes agregar lógica para formatear el teléfono si es necesario\n  return telefono;\n}\n\n// Teléfono formateado\nconst telefono = formatearTelefono(telefonoCliente);\n\n// Mostrar los resultados\nconsole.log(\"Día de la semana:\", componentes.dia);\nconsole.log(\"Fecha:\", componentes.fecha);\nconsole.log(\"Hora:\", componentes.hora);\nconsole.log(\"Dirección:\", direccion);\nconsole.log(\"Interesado:\", nombreInteresado);\nconsole.log(\"Teléfono:\", telefono);\nconsole.log(\"Inmobiliaria:\", nombreInmobiliaria);\n\n// Para usar directamente en tu flujo\nreturn [{\n  json: {\n    dia_semana: componentes.dia,\n    fecha: componentes.fecha,\n    hora: componentes.hora,\n    direccion: direccion,\n    interesado: nombreInteresado,\n    telefono: telefono,\n    inmobiliaria: nombreInmobiliaria\n  }\n}];"
+        "jsCode": "// Obtener la fecha ISO y la dirección\nconst fechaISO = $('Calendario').first().json.Fecha_cita;\nconst direccionCompleta = $('Agente inmobiliario rojo').first().json.location;\n\n// Obtener datos adicionales\nconst nombreInteresado = $('Calendario').first().json.Nombre || \"No disponible\";\nconst telefonoCliente = $('Calendario').first().json.numero_cliente || \"No disponible\";\nconst nombreInmobiliaria = $('Calendario').first().json.nombre_inmobiliaria || \"No especificada\";\n\n// Función para extraer todos los componentes de la fecha\nfunction extraerComponentesFecha(fechaISO) {\n  // Si no hay fecha, devolver valores predeterminados\n  if (!fechaISO) return {\n    dia: \"No disponible\",\n    fecha: \"No disponible\",\n    hora: \"No disponible\"\n  };\n  \n  try {\n    // Crear un objeto Date a partir de la fecha ISO\n    const fecha = new Date(fechaISO);\n    \n    // Extraer día de la semana\n    const diasSemana = [\"Domingo\", \"Lunes\", \"Martes\", \"Miércoles\", \"Jueves\", \"Viernes\", \"Sábado\"];\n    const diaSemana = diasSemana[fecha.getDay()];\n    \n    // Extraer componentes de fecha\n    const dia = fecha.getDate().toString().padStart(2, '0');\n    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');\n    const anio = fecha.getFullYear();\n    \n    // Extraer componentes de hora\n    const horas = fecha.getHours();\n    const minutos = fecha.getMinutes().toString().padStart(2, '0');\n    \n    // Formatear cada componente\n    return {\n      dia: diaSemana,\n      fecha: `${dia}-${mes}-${anio}`,\n      hora: `${horas}:${minutos}hs`\n    };\n  } catch (error) {\n    console.error(\"Error al extraer componentes de la fecha:\", error);\n    return {\n      dia: \"Error\",\n      fecha: \"Error\",\n      hora: \"Error\"\n    };\n  }\n}\n\n// Extraer componentes de la fecha\nconst componentes = extraerComponentesFecha(fechaISO);\n\n// Procesar dirección\nfunction procesarDireccion(direccionCompleta) {\n  if (!direccionCompleta) return \"Dirección no disponible\";\n  \n  // Aquí puedes agregar lógica adicional para formatear la dirección si es necesario\n  return direccionCompleta;\n}\n\n// Obtener la dirección formateada\nconst direccion = procesarDireccion(direccionCompleta);\n\n// Formatear teléfono (si es necesario)\nfunction formatearTelefono(telefono) {\n  if (!telefono) return \"No disponible\";\n  \n  // Aquí puedes agregar lógica para formatear el teléfono si es necesario\n  return telefono;\n}\n\n// Teléfono formateado\nconst telefono = formatearTelefono(telefonoCliente);\n\n// Mostrar los resultados\nconsole.log(\"Día de la semana:\", componentes.dia);\nconsole.log(\"Fecha:\", componentes.fecha);\nconsole.log(\"Hora:\", componentes.hora);\nconsole.log(\"Dirección:\", direccion);\nconsole.log(\"Interesado:\", nombreInteresado);\nconsole.log(\"Teléfono:\", telefono);\nconsole.log(\"Inmobiliaria:\", nombreInmobiliaria);\n\n// Para usar directamente en tu flujo\nreturn [{\n  json: {\n    dia_semana: componentes.dia,\n    fecha: componentes.fecha,\n    hora: componentes.hora,\n    direccion: direccion,\n    interesado: nombreInteresado,\n    telefono: telefono,\n    inmobiliaria: nombreInmobiliaria\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        200,
-        -740
+        160,
+        -560
       ],
       "id": "b201e50f-ebc5-4cc3-9416-fc4980ddbb59",
       "name": "Limpia fecha"
@@ -601,7 +596,7 @@
       "typeVersion": 1,
       "position": [
         -1480,
-        -660
+        -640
       ],
       "id": "d5f03c51-a01e-48a5-ad68-30d679124d68",
       "name": "Split Out",
@@ -634,98 +629,19 @@
     {
       "parameters": {
         "authentication": "nocoDbApiToken",
-        "operation": "create",
-        "projectId": "p311nqyjsnx0fqq",
-        "table": "mdyqlno73gz7aly",
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldName": "Nombre",
-              "fieldValue": "={{ $('Calendario').first().json.Nombre }}"
-            },
-            {
-              "fieldName": "Telefono",
-              "fieldValue": "={{ $('Calendario').first().json.numero_cliente }}"
-            },
-            {
-              "fieldName": "Fecha_cita",
-              "fieldValue": "={{ $('Code1').item.json.fecha_cita }}"
-            },
-            {
-              "fieldName": "Propiedad",
-              "fieldValue": "={{ $('Limpia fecha').item.json.direccion }}"
-            },
-            {
-              "fieldName": "Estado",
-              "fieldValue": "ocupado"
-            },
-            {
-              "fieldName": "recordatorio_24h_enviado",
-              "fieldValue": "={{ $('Code1').item.json.recordatorio_24h }}"
-            },
-            {
-              "fieldName": "recordatorio_1h_enviado",
-              "fieldValue": "={{ $('Code1').item.json.recordatorio_1h }}"
-            },
-            {
-              "fieldName": "recordatorio_1h",
-              "fieldValue": "no enviado"
-            },
-            {
-              "fieldName": "recordatorio_24h",
-              "fieldValue": "no enviado"
-            },
-            {
-              "fieldName": "id_mensaje",
-              "fieldValue": "={{ $node['Calendario'].json.idMensaje }}"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.nocoDb",
-      "typeVersion": 3,
-      "position": [
-        1260,
-        -640
-      ],
-      "id": "f6f33091-87a1-478b-8690-c0b8297bb445",
-      "name": "Recordatorio de cita",
-      "credentials": {
-        "nocoDbApiToken": {
-          "id": "CawnXo6TfhLoivTw",
-          "name": "NocoDB Token account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsCode": "// Este código toma una fecha de cita y calcula cuándo deben enviarse los recordatorios\n// Obtener la fecha de cita del input\nconst fechaCita = $('Calendario').first().json.fecha_cita;\nconsole.log(`Fecha de cita original: ${fechaCita}`);\n\n// Crear objetos Date para poder manipular las fechas\nconst citaDate = new Date(fechaCita);\n\n// Calcular momento para recordatorio de 24 horas (1 día antes, misma hora)\nconst recordatorio24hDate = new Date(citaDate);\nrecordatorio24hDate.setDate(recordatorio24hDate.getDate() - 1);\n\n// Calcular momento para recordatorio de 1 hora (misma fecha, 1 hora antes)\nconst recordatorio1hDate = new Date(citaDate);\nrecordatorio1hDate.setHours(recordatorio1hDate.getHours() - 1);\n\n// Función para formatear fechas en formato YYYY-MM-DDTHH:MM\nfunction formatearFechaSimplificada(fecha) {\n  // Obtener componentes de la fecha\n  const year = fecha.getFullYear();\n  const month = String(fecha.getMonth() + 1).padStart(2, '0');\n  const day = String(fecha.getDate()).padStart(2, '0');\n  const hours = String(fecha.getHours()).padStart(2, '0');\n  const minutes = String(fecha.getMinutes()).padStart(2, '0');\n  \n  // Construir el string con formato YYYY-MM-DDTHH:MM\n  return `${year}-${month}-${day}T${hours}:${minutes}`;\n}\n\n// Formatear las fechas al formato simplificado\nconst fechaCitaFormateada = formatearFechaSimplificada(citaDate);\nconst recordatorio24h = formatearFechaSimplificada(recordatorio24hDate);\nconst recordatorio1h = formatearFechaSimplificada(recordatorio1hDate);\n\n// Log para verificar los cálculos\nconsole.log(`Fecha de cita: ${fechaCitaFormateada}`);\nconsole.log(`Momento para recordatorio 24h: ${recordatorio24h}`);\nconsole.log(`Momento para recordatorio 1h: ${recordatorio1h}`);\n\n// Retornar los resultados\nreturn {\n  json: {\n    fecha_cita: fechaCitaFormateada,\n    recordatorio_24h: recordatorio24h,\n    recordatorio_1h: recordatorio1h\n  }\n};"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        600,
-        -740
-      ],
-      "id": "e048dd66-1dcf-4873-a001-b66b9874ba84",
-      "name": "Code1"
-    },
-    {
-      "parameters": {
-        "authentication": "nocoDbApiToken",
         "operation": "getAll",
-        "projectId": "p311nqyjsnx0fqq",
-        "table": "mdyqlno73gz7aly",
+        "projectId": "p4sjkkdf4pdtyvh",
+        "table": "mwk4ui7lirmxc8h",
         "returnAll": true,
         "options": {
-          "where": "=(Fecha_cita,eq,{{ $json.fecha_cita }})"
+          "where": "=(Telefono,eq,{{ $('Calendario').first().json.numero_cliente }})"
         }
       },
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        820,
-        -740
+        160,
+        -920
       ],
       "id": "5698e204-9e5a-4232-abc6-358a84faee67",
       "name": "NocoDB",
@@ -767,52 +683,10 @@
       "typeVersion": 2.2,
       "position": [
         1040,
-        -740
+        -560
       ],
       "id": "e481df27-f88c-408a-99a5-47f1d177e2c5",
       "name": "If2"
-    },
-    {
-      "parameters": {
-        "authentication": "nocoDbApiToken",
-        "operation": "update",
-        "projectId": "p311nqyjsnx0fqq",
-        "table": "mdyqlno73gz7aly",
-        "fieldsUi": {
-          "fieldValues": [
-            {
-              "fieldName": "recordatorio_24h_enviado",
-              "fieldValue": "={{ $('Code1').item.json.recordatorio_24h }}"
-            },
-            {
-              "fieldName": "recordatorio_1h_enviado",
-              "fieldValue": "={{ $('Code1').item.json.recordatorio_1h }}"
-            },
-            {
-              "fieldName": "Fecha_cita",
-              "fieldValue": "={{ $('Code1').item.json.fecha_cita }}"
-            },
-            {
-              "fieldName": "Id",
-              "fieldValue": "={{ $('NocoDB').item.json.Id }}"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.nocoDb",
-      "typeVersion": 3,
-      "position": [
-        1260,
-        -840
-      ],
-      "id": "6b86ab52-f008-4852-a490-37a7f0c32ecd",
-      "name": "NocoDB1",
-      "credentials": {
-        "nocoDbApiToken": {
-          "id": "CawnXo6TfhLoivTw",
-          "name": "NocoDB Token account"
-        }
-      }
     },
     {
       "parameters": {
@@ -843,8 +717,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        -740,
-        -740
+        -760,
+        -700
       ],
       "id": "e30607f9-993d-4c67-9650-38b8ea951534",
       "name": "Datos de la propiedad",
@@ -868,83 +742,9 @@
         "useDefaultReminders": false,
         "additionalFields": {
           "attendees": [
-            "={{ $('Datos de la propiedad').item.json.Mail }}"
-          ],
-          "color": "1",
-          "description": "=",
-          "location": "={{ $json.description }}",
-          "showMeAs": "opaque",
-          "summary": "=Agente inmobiliario: {{ $('Datos de la propiedad').item.json[\"Agente inmobiliario\"] }}\nInmobiliaria: {{ $('Datos de la propiedad').item.json[\"Nombre inmobiliaria\"] }}\n"
-        }
-      },
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.3,
-      "position": [
-        -220,
-        -740
-      ],
-      "id": "a45d84e9-941a-47f7-8459-666b71d21ecb",
-      "name": "Propietario",
-      "credentials": {
-        "googleCalendarOAuth2Api": {
-          "id": "248CSUaxOr8MEWUN",
-          "name": "Google Calendar account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "calendar": {
-          "__rl": true,
-          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
-          "mode": "list",
-          "cachedResultName": "Francisco"
-        },
-        "start": "={{ $json.fechaInicio }}",
-        "end": "={{ $json.fechaFin }}",
-        "useDefaultReminders": false,
-        "additionalFields": {
-          "attendees": [
             "={{ $('Calendario').first().json.correo_electronico }}"
           ],
-          "color": "11",
-          "description": "=",
-          "location": "={{ $json.description }}",
-          "showMeAs": "opaque",
-          "summary": "=Interesado:{{ $json.nombreCliente }}\nTeléfono:{{ $('Calendario').first().json.numero_cliente }}\nCódigo:{{ $('getForCode').item.json.codigo }}"
-        }
-      },
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.3,
-      "position": [
-        -220,
-        -900
-      ],
-      "id": "c89b803d-d206-4fef-a638-b39ee576ee59",
-      "name": "Agente inmobiliario",
-      "credentials": {
-        "googleCalendarOAuth2Api": {
-          "id": "248CSUaxOr8MEWUN",
-          "name": "Google Calendar account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "calendar": {
-          "__rl": true,
-          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
-          "mode": "list",
-          "cachedResultName": "Francisco"
-        },
-        "start": "={{ $json.fechaInicio }}",
-        "end": "={{ $json.fechaFin }}",
-        "useDefaultReminders": false,
-        "additionalFields": {
-          "attendees": [
-            "={{ $('Calendario').first().json.correo_electronico }}"
-          ],
-          "color": "11",
+          "color": "3",
           "description": "=Telefono: https://wa.me/{{ $json.telefono }}\nCodigo propiedad: {{ $('getForCode').first().json.codigo }}",
           "location": "={{ $json.description }}",
           "showMeAs": "opaque",
@@ -954,11 +754,11 @@
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
       "position": [
-        -220,
-        -560
+        -240,
+        -500
       ],
       "id": "c4691b9b-71ca-49a2-a8f2-7c0e9125fa7e",
-      "name": "Cliente",
+      "name": "Cliente violeta",
       "credentials": {
         "googleCalendarOAuth2Api": {
           "id": "248CSUaxOr8MEWUN",
@@ -968,34 +768,266 @@
     },
     {
       "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "start": "={{ $json.fechaInicio }}",
+        "end": "={{ $json.fechaFin }}",
+        "useDefaultReminders": false,
+        "additionalFields": {
+          "attendees": [
+            "={{ $('Datos de la propiedad').item.json.MailPropietario }}"
+          ],
+          "color": "=7",
+          "description": "=",
+          "location": "={{ $json.description }}",
+          "showMeAs": "opaque",
+          "summary": "=Agente inmobiliario: {{ $('Datos de la propiedad').item.json[\"Agente inmobiliario\"] }}\nInmobiliaria: {{ $('Datos de la propiedad').item.json[\"Nombre inmobiliaria\"] }}\n"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -240,
+        -700
+      ],
+      "id": "a45d84e9-941a-47f7-8459-666b71d21ecb",
+      "name": "Propietario azul",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "248CSUaxOr8MEWUN",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "start": "={{ $json.fechaInicio }}",
+        "end": "={{ $json.fechaFin }}",
+        "useDefaultReminders": false,
+        "additionalFields": {
+          "attendees": [
+            "={{ $('Datos de la propiedad').item.json.MailAgente }}"
+          ],
+          "color": "=11",
+          "description": "=",
+          "location": "={{ $json.description }}",
+          "showMeAs": "opaque",
+          "summary": "=Interesado:{{ $json.nombreCliente }}\nTeléfono:{{ $('Calendario').first().json.numero_cliente }}\nCódigo:{{ $('getForCode').first().json.codigo }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -240,
+        -900
+      ],
+      "id": "c89b803d-d206-4fef-a638-b39ee576ee59",
+      "name": "Agente inmobiliario rojo",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "248CSUaxOr8MEWUN",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "p4sjkkdf4pdtyvh",
+        "table": "mqjswve4r6jiqxv",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Fecha_cita",
+              "fieldValue": "={{ $('Calcular Recordatorios').item.json.fecha_cita }}"
+            },
+            {
+              "fieldName": "Propiedad",
+              "fieldValue": "={{ $('Limpia fecha').item.json.direccion }}"
+            },
+            {
+              "fieldName": "recordatorio_24h",
+              "fieldValue": "={{ $('Calcular Recordatorios').item.json.recordatorio_24h }}"
+            },
+            {
+              "fieldName": "recordatorio_24h_enviado",
+              "fieldValue": "no enviado"
+            },
+            {
+              "fieldName": "recordatorio_1h",
+              "fieldValue": "={{ $('Calcular Recordatorios').item.json.recordatorio_1h }}"
+            },
+            {
+              "fieldName": "recordatorio_1h_enviado",
+              "fieldValue": "no enviado"
+            },
+            {
+              "fieldName": "eventid",
+              "fieldValue": "={{ $('Calcular Recordatorios').item.json.event_id }}"
+            },
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.Id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1260,
+        -660
+      ],
+      "id": "b7dac21d-4ce4-4e21-836c-22f93912cd15",
+      "name": "NocoDB2",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "p4sjkkdf4pdtyvh",
+        "table": "mqjswve4r6jiqxv",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Fecha_cita",
+              "fieldValue": "={{ $('Calcular Recordatorios').item.json.fecha_cita }}"
+            },
+            {
+              "fieldName": "Propiedad",
+              "fieldValue": "={{ $('Limpia fecha').item.json.direccion }}"
+            },
+            {
+              "fieldName": "recordatorio_24h",
+              "fieldValue": "={{ $('Calcular Recordatorios').item.json.recordatorio_24h }}"
+            },
+            {
+              "fieldName": "recordatorio_24h_enviado",
+              "fieldValue": "no enviado"
+            },
+            {
+              "fieldName": "recordatorio_1h",
+              "fieldValue": "={{ $('Calcular Recordatorios').item.json.recordatorio_1h }}"
+            },
+            {
+              "fieldName": "recordatorio_1h_enviado",
+              "fieldValue": "no enviado"
+            },
+            {
+              "fieldName": "eventid",
+              "fieldValue": "={{ $('Calcular Recordatorios').item.json.event_id }}"
+            },
+            {
+              "fieldName": "Clientes_id",
+              "fieldValue": "={{ $('Calendario').first().json.Id_cliente_db }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1260,
+        -460
+      ],
+      "id": "44b609ff-63ff-4f18-9fdd-3c2f70cc8228",
+      "name": "NocoDB3",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p4sjkkdf4pdtyvh",
+        "table": "mqjswve4r6jiqxv",
+        "returnAll": true,
+        "options": {
+          "where": "=(Clientes_id,eq,{{ $('Calendario').first().json.Id_cliente_db }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        820,
+        -560
+      ],
+      "id": "2951bbda-f9dd-4bc7-b7e7-356c059aea97",
+      "name": "NocoDB1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "joinMode": "keepNonMatches",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        0,
+        120
+      ],
+      "id": "9601fba8-a693-4983-94c1-d3b2647894de",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
         "numberInputs": 3
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        20,
-        -740
+        -20,
+        -700
       ],
-      "id": "a15e6e3a-2e7e-41b6-b7ad-8a8aa3542468",
-      "name": "Merge"
+      "id": "6ff256a5-49a6-4c83-b9d0-ab819afb3083",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Este código toma una fecha de cita y calcula cuándo deben enviarse los recordatorios\n// Obtener la fecha de cita del input\nconst fechaCita = $('Calendario').first().json.Fecha_cita;\nconst eventId =$('Merge1').first().json.id ; // Viene del merge\n\n// Crear objetos Date para poder manipular las fechas\nconst citaDate = new Date(fechaCita);\n\n// Calcular momento para recordatorio de 24 horas (1 día antes, misma hora)\nconst recordatorio24hDate = new Date(citaDate);\nrecordatorio24hDate.setDate(recordatorio24hDate.getDate() - 1);\n\n// Calcular momento para recordatorio de 1 hora (misma fecha, 1 hora antes)\nconst recordatorio1hDate = new Date(citaDate);\nrecordatorio1hDate.setHours(recordatorio1hDate.getHours() - 1);\n\n// Función para formatear fechas en formato YYYY-MM-DDTHH:MM\nfunction formatearFechaSimplificada(fecha) {\n  // Obtener componentes de la fecha\n  const year = fecha.getFullYear();\n  const month = String(fecha.getMonth() + 1).padStart(2, '0');\n  const day = String(fecha.getDate()).padStart(2, '0');\n  const hours = String(fecha.getHours()).padStart(2, '0');\n  const minutes = String(fecha.getMinutes()).padStart(2, '0');\n  \n  // Construir el string con formato YYYY-MM-DDTHH:MM\n  return `${year}-${month}-${day}T${hours}:${minutes}`;\n}\n\n// Formatear las fechas al formato simplificado\nconst fechaCitaFormateada = formatearFechaSimplificada(citaDate);\nconst recordatorio24h = formatearFechaSimplificada(recordatorio24hDate);\nconst recordatorio1h = formatearFechaSimplificada(recordatorio1hDate);\n\n// Log para verificar los cálculos\nconsole.log(`Fecha de cita: ${fechaCitaFormateada}`);\nconsole.log(`Momento para recordatorio 24h: ${recordatorio24h}`);\nconsole.log(`Momento para recordatorio 1h: ${recordatorio1h}`);\n\n// Retornar los resultados\nreturn {\n  json: {\n    event_id: eventId,\n    fecha_cita: fechaCitaFormateada,\n    recordatorio_24h: recordatorio24h,\n    recordatorio_1h: recordatorio1h\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        600,
+        -560
+      ],
+      "id": "e048dd66-1dcf-4873-a001-b66b9874ba84",
+      "name": "Calcular Recordatorios"
     }
   ],
-  "pinData": {
-    "Calendario": [
-      {
-        "json": {
-          "numero_cliente": "5492254423359",
-          "fecha_cita": "2025-05-30T12:00:00",
-          "Nombre": "Juan pelotas",
-          "Evento": "agendar",
-          "correo_electronico": "casserafernando@gmail.com",
-          "nombre_inmobiliaria": "Dinamismo",
-          "session_id": null,
-          "idMensaje": "E8B6061CFC26B8EA4D72366ADA91A780"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "timezone": "America/Argentina/Buenos_Aires",
@@ -1012,6 +1044,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-27T22:18:11.769Z",
-  "versionId": "b874bbc7-6c5f-4933-aaa8-b9729e1519cf"
+  "updatedAt": "2025-05-29T02:29:39.085Z",
+  "versionId": "59fad129-45d1-4aad-a320-a6dfd89697ba"
 }
