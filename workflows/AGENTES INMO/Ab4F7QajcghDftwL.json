@@ -74,7 +74,7 @@
         ],
         [
           {
-            "node": "Reaction3",
+            "node": "Respuesta Código No Encontrado",
             "type": "main",
             "index": 0
           }
@@ -457,17 +457,6 @@
         [
           {
             "node": "Code3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Reaction3": {
-      "main": [
-        [
-          {
-            "node": "Respuesta Código No Encontrado",
             "type": "main",
             "index": 0
           }
@@ -1604,19 +1593,6 @@
     },
     {
       "parameters": {
-        "content": "## HACER DINAMICA LA LISTA DE REDIS PARA LAS URL"
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -1860,
-        900
-      ],
-      "typeVersion": 1,
-      "id": "de41d750-8385-4677-b4db-719fdfc18bb5",
-      "name": "Sticky Note7"
-    },
-    {
-      "parameters": {
         "content": "## Resteo de variables",
         "height": 420,
         "width": 1480,
@@ -1685,35 +1661,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -3140,
-        320
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('URL datos').item.json.url }}/message/sendReaction/tester",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('URL datos').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={   \n    \"key\": {\n        \"remoteJid\": \"{{ $('URL datos').item.json.numero_telefono }}@s.whatsapp.net\",\n        \"fromMe\":false,\n        \"id\": \"{{ $('URL datos').item.json.idMensaje }}\"\n    },\n    \"reaction\": \"❌\"\n} ",
-        "options": {}
-      },
-      "id": "b0f77148-5764-4716-9848-e3adbd0f035c",
-      "name": "Reaction3",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        200,
-        680
+        -1940,
+        -800
       ]
     },
     {
@@ -1752,8 +1701,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1780,
-        -280
+        -1760,
+        -800
       ]
     }
   ],
@@ -1771,19 +1720,6 @@
           "text": "```json\n{\n  \"Cod:\": \"45-GAV-9\",\n  \"detalle_propiedad\": {\n    \"tipo_propiedad\": \"Departamento\",\n    \"operacion\": \"Venta\",\n    \"precio_valor\": 85000,\n    \"precio_moneda\": \"USD\",\n    \"expensas\": 192000\n  },\n  \"ubicacion\": {\n    \"direccion\": \"Juncal al 700\",\n    \"barrio\": \"Recoleta\",\n    \"ciudad\": \"Capital Federal\",\n    \"provincia\": \"Capital Federal\"\n  },\n  \"caracteristicas\": {\n    \"superficie_total\": 38,\n    \"superficie_cubierta\": 38,\n    \"ambientes\": 2,\n    \"dormitorios\": 1,\n    \"banos\": 1,\n    \"cocheras\": 0,\n    \"antiguedad\": \"75 años\",\n    \"estado\": \"Excelente\"\n  },\n  \"descripcion\": \"Excelente departamento 2 ambientes en Retiro. Frente al Estrugamou 38 m2 192.000 expensas Piso alto Cod:45-GAV-9 Corredor interviniente: Juan Eloy Gramajo CMCPSI 6760, CUCICBA 9368 La tasación, intermediación y la conclusión de las operaciones sobre esta propiedades son actividades exclusivas de este corredor matriculado, conforme las previsiones de la Ley 20.266, la Ley CABA 2340, la ley provincial 10.973 y sus modif. y las normas reglamentarias dictadas por los colegios departamentales. Las oficinas asociadas a la red Keller Williams actúan en forma independiente, brindando servicios a corredores, agentes y al publico en general, y su intervención se limita a la prestación de servicios inmobiliarios que no incluyen actos de corretaje ni intermediación inmobiliaria. Se encuentra prohibido cobrar comisiones inmobiliarias y gastos de gestoría de informes a los inquilinos que sean personas físicas. Para los casos de alquiler de vivienda, el monto máximo de comisión que se le puede requerir a los propietarios será el equivalente al cuatro con quince centésimos por ciento (4,15%) del valor total del respectivo contrato.\",\n  \"amenities\": \"N/A\",\n  \"fotos\": [\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975514965.jpg?isFirstImage=true\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007465.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007467.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007466.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007460.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975514964.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007464.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975514963.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007463.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007461.jpg\",\n    \"https://imgar.zonapropcdn.com/avisos/resize/1/00/56/20/63/35/1200x1200/1975007462.jpg\"\n  ]\n}\n```"
         }
       }
-    ],
-    "URL datos": [
-      {
-        "json": {
-          "session_id": null,
-          "consulta_usuario": "https://departamento.mercadolibre.com.ar/MLA-1496875227-departamento-en-retiro-venta-2-ambientes-_JM",
-          "numero_telefono": "5492254423359@c.us",
-          "url": "https://7105.api.greenapi.com",
-          "instance": "7105250621",
-          "apikey": "0e64cc32278648c495f6322c5fb14634669021ca2fb5407780",
-          "idMensaje": "B4CF2C99EBE286BCB2010C144516000C"
-        }
-      }
     ]
   },
   "settings": {
@@ -1799,6 +1735,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-28T02:40:49.478Z",
-  "versionId": "f7cda0d8-ab4a-4400-bc40-3bac57b24d75"
+  "updatedAt": "2025-05-29T00:46:16.460Z",
+  "versionId": "2002e4a8-c061-4ed4-bcc9-e33d5e2d2b7c"
 }
