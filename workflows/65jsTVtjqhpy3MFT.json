@@ -313,6 +313,128 @@
       "main": [
         []
       ]
+    },
+    "Preparar Consultas": {
+      "main": [
+        [
+          {
+            "node": "Obtener Citas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Citas": {
+      "main": [
+        [
+          {
+            "node": "¿Hay citas?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay citas?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Procesar Citas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Procesar Citas": {
+      "main": [
+        [
+          {
+            "node": "Generar Mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar Mensaje": {
+      "main": [
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Wait 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar Estado": {
+      "main": [
+        [
+          {
+            "node": "Procesar Citas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Configuración2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuración2": {
+      "main": [
+        [
+          {
+            "node": "Preparar Consultas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "node": "Enviar WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-04-29T17:18:10.783Z",
@@ -340,7 +462,8 @@
         -2000,
         -160
       ],
-      "id": "ac52463a-e1ef-4b2a-94e3-b639023c6e01"
+      "id": "ac52463a-e1ef-4b2a-94e3-b639023c6e01",
+      "disabled": true
     },
     {
       "parameters": {
@@ -633,7 +756,8 @@
         -1980,
         215
       ],
-      "id": "07faef13-6d40-4f3c-8e33-270e3464936a"
+      "id": "07faef13-6d40-4f3c-8e33-270e3464936a",
+      "disabled": true
     },
     {
       "parameters": {
@@ -1005,6 +1129,257 @@
       ],
       "id": "b5349e2f-7c09-441c-824a-7b21fdee097b",
       "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener timestamp actual\nconst timestamp = $input.first().json.timestamp;\n\n// Crear consultas para ambos tipos de recordatorio\nconst queries = [\n  {\n    tipo: '24h',\n    campo: 'recordatorio_24h_enviado',\n    where: `(recordatorio_24h_enviado,eq,${timestamp})`,\n    updateField: 'recordatorio_24h'\n  },\n  {\n    tipo: '1h', \n    campo: 'recordatorio_1h_enviado',\n    where: `(recordatorio_1h_enviado,eq,${timestamp})`,\n    updateField: 'recordatorio_1h'\n  }\n];\n\nreturn queries.map(query => ({\n  json: {\n    ...($input.first().json),\n    tipoRecordatorio: query.tipo,\n    whereCondition: query.where,\n    updateField: query.updateField\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1720,
+        -800
+      ],
+      "id": "667d32da-8f08-4372-8f25-1b14c3544b6d",
+      "name": "Preparar Consultas"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p4sjkkdf4pdtyvh",
+        "table": "=mqjswve4r6jiqxv",
+        "returnAll": true,
+        "options": {
+          "where": "={{ $json.whereCondition }}"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -1520,
+        -800
+      ],
+      "id": "aa0ed82f-896d-4d7d-8026-4111cd00235c",
+      "name": "Obtener Citas",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.length }}",
+              "rightValue": "0",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1320,
+        -800
+      ],
+      "id": "8f199574-0cc8-48e8-8c18-e0167349dbbd",
+      "name": "¿Hay citas?"
+    },
+    {
+      "parameters": {
+        "batchSize": "1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1100,
+        -820
+      ],
+      "id": "9f9c88c1-c39a-46ca-8976-12426ce84eea",
+      "name": "Procesar Citas"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener datos de la cita y configuración\nconst cita = $input.item(0).json;\nconst config = $input.item(1).json;\nconst tipoRecordatorio = config.tipoRecordatorio;\n\n// Extraer información de la cita\nconst nombre = cita.Nombre || \"Cliente\";\nconst propiedad = cita.Propiedad || \"la propiedad\";\nconst fechaCita = cita.Fecha_cita || \"\";\nconst telefono = cita.Telefono || \"\";\n\n// Formatear fecha\nfunction formatearFecha(fechaStr) {\n  try {\n    if (!fechaStr) return { hora: \"\" };\n    const [fecha, hora] = fechaStr.split('T');\n    return { hora: hora };\n  } catch (e) {\n    return { hora: \"\" };\n  }\n}\n\nconst infoFecha = formatearFecha(fechaCita);\n\n// Generar mensaje según tipo de recordatorio\nlet mensaje = \"\";\n\nif (tipoRecordatorio === \"24h\") {\n  mensaje = `Hola ${nombre} te escribo para confirmarte la visita de mañana en ${propiedad} a las ${infoFecha.hora}hs. Te esperamos.\\n\\n*Este es un mensaje automatizado, no hace falta que responda.*`;\n} else if (tipoRecordatorio === \"1h\") {\n  mensaje = `Hola ${nombre} te escribo para recordarle que en una hora lo espero en ${propiedad} a las ${infoFecha.hora}hs.`;\n}\n\nreturn {\n  json: {\n    ...cita,\n    ...config,\n    mensaje: mensaje,\n    telefono_limpio: telefono.replace(/\\D/g, '')\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -920,
+        -840
+      ],
+      "id": "a49706c6-9944-4af9-8537-072c155d1feb",
+      "name": "Generar Mensaje"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.server_evolution }}/message/sendText/tester",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"delay\": 1600,\n  \"number\": \"{{ $json.Telefono }}\",\n  \"text\": \"{{ $json.mensaje.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -520,
+        -840
+      ],
+      "id": "8aa59d53-edd6-4638-bcab-ac6edfdaa26c",
+      "name": "Enviar WhatsApp"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -320,
+        -840
+      ],
+      "id": "a636bfad-2126-4f25-b7d2-c82780df4dd9",
+      "name": "Wait 2",
+      "webhookId": "9289d75e-bc9e-4cbd-acec-94e4f7553265"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "p4sjkkdf4pdtyvh",
+        "table": "=mqjswve4r6jiqxv",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.Id }}"
+            },
+            {
+              "fieldName": "={{ $json.updateField }}",
+              "fieldValue": "enviado"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -120,
+        -840
+      ],
+      "id": "3954b273-9f90-49ce-8795-4196a3fb7c6c",
+      "name": "Actualizar Estado",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": "1"
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger2",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2120,
+        -800
+      ],
+      "id": "fed4689b-abc3-44da-9f9c-45bc84ce159e"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "server",
+              "name": "server",
+              "value": "https://db.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "server_evolution",
+              "name": "server_evolution",
+              "value": "https://evo.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "apikey",
+              "name": "apikey",
+              "value": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F",
+              "type": "string"
+            },
+            {
+              "id": "table",
+              "name": "table",
+              "value": "mdyqlno73gz7aly",
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ DateTime.fromISO($json.timestamp).toFormat(\"yyyy-MM-dd'T'HH:mm\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1920,
+        -800
+      ],
+      "id": "bd53c880-e199-4944-a1be-8bb648c46711",
+      "name": "Configuración2"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -720,
+        -840
+      ],
+      "id": "96f96ffd-9f23-4e97-8d4e-89407a849aec",
+      "name": "Wait4",
+      "webhookId": "3bae24be-defe-4dd7-9771-56a360825198"
     }
   ],
   "pinData": {
@@ -1038,10 +1413,13 @@
     },
     "node:Schedule Trigger1": {
       "recurrenceRules": []
+    },
+    "node:Schedule Trigger2": {
+      "recurrenceRules": []
     }
   },
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2025-05-22T11:49:49.503Z",
-  "versionId": "a91954f4-f012-4598-aab5-1d680e570c25"
+  "triggerCount": 1,
+  "updatedAt": "2025-05-30T06:18:33.658Z",
+  "versionId": "707b3ab5-aa0c-463b-9702-7b3d81d8971c"
 }
