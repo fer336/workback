@@ -143,22 +143,11 @@
         ]
       ]
     },
-    "HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "Success3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Lista1": {
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "HTTP Request4",
             "type": "main",
             "index": 0
           }
@@ -227,22 +216,22 @@
         ]
       ]
     },
-    "Code1": {
+    "HTTP Request2": {
       "main": [
         [
           {
-            "node": "HTTP Request3",
+            "node": "Success1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "HTTP Request2": {
+    "HTTP Request4": {
       "main": [
         [
           {
-            "node": "Success1",
+            "node": "Success3",
             "type": "main",
             "index": 0
           }
@@ -584,62 +573,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "={{ $('Calendario').first().json.url_evo }}/message/sendList/{{ $('Calendario').first().json.instance }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('Calendario').first().json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "form-urlencoded",
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number",
-              "value": "={{ $('Calendario').first().json.numero_telefono }}"
-            },
-            {
-              "name": "title",
-              "value": "={{ $json.title }}"
-            },
-            {
-              "name": "description",
-              "value": "={{ $json.description }}"
-            },
-            {
-              "name": "buttonText",
-              "value": "={{ $json.buttonText }}"
-            },
-            {
-              "name": "footerText",
-              "value": "={{ $json.footerText }}"
-            },
-            {
-              "name": "sections",
-              "value": "={{ $json.sections }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -580,
-        80
-      ],
-      "id": "a4ff3271-c078-4b9e-bae1-38ab121066ac",
-      "name": "HTTP Request",
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -663,7 +596,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtener los datos del nodo anterior\nconst datos = $input.first()?.json?.resultados || [];\nconsole.log(\"DEBUG - Datos recibidos:\", JSON.stringify(datos).substring(0, 200) + \"...\");\n\n// Verificar si tenemos datos\nif (!datos || !datos.length) {\n  console.log(\"DEBUG - No hay datos disponibles\");\n  return [{\n    json: {\n      error: \"No se encontraron eventos\",\n      message: \"El nodo anterior no devolvió ningún horario disponible\"\n    },\n    pairedItem: 0\n  }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\"; // Otoño\n  if (mes >= 6 && mes <= 8) return \"❄️\"; // Invierno\n  if (mes >= 9 && mes <= 11) return \"🌸\"; // Primavera\n  return \"☀️\"; // Verano\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Nombres de los días de la semana\nconst nombresDias = {\n  0: 'Domingo',\n  1: 'Lunes',\n  2: 'Martes',\n  3: 'Miércoles',\n  4: 'Jueves',\n  5: 'Viernes',\n  6: 'Sábado'\n};\n\n// Extraer fecha de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  \n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    const diaSemana = nombresDias[fechaCompleta.getDay()];\n    \n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: diaSemana\n    };\n  }\n  return null;\n}\n\n// Función para formatear el rango de hora correctamente (12:00 a 12:30)\nfunction formatearRangoHora(horaInicio, horaFin) {\n  // Extraer horas y minutos de ambos horarios\n  const inicioMatch = horaInicio.match(/^(\\d+):(\\d+)/);\n  const finMatch = horaFin.match(/^(\\d+):(\\d+)/);\n  \n  // Formatear correctamente con horas y minutos\n  const horaInicioFormateada = inicioMatch ? `${inicioMatch[1]}:${inicioMatch[2]}` : horaInicio;\n  const horaFinFormateada = finMatch ? `${finMatch[1]}:${finMatch[2]}` : horaFin;\n  \n  return `${horaInicioFormateada} a ${horaFinFormateada}`;\n}\n\n// Obtener la fecha y hora actual\nconst ahora = new Date();\nconsole.log(`DEBUG - Fecha actual: ${ahora.toISOString()}`);\nconsole.log(`DEBUG - Fecha local: ${ahora.toString()}`);\n\n// Agrupar horarios por mes y día\nconst mesesAgrupados = {};\n\n// Procesar los horarios disponibles de todos los eventos\ndatos.forEach(evento => {\n  if (!evento.horariosDisponibles || !evento.horariosDisponibles.length) return;\n  \n  evento.horariosDisponibles.forEach(horario => {\n    try {\n      // Obtener la fecha de inicio del horario\n      const fechaHorario = new Date(horario.inicio);\n      \n      // Para debug\n      console.log(`DEBUG - Evaluando horario: ${horario.inicio}`);\n      \n      // COMPARACIÓN SIMPLE: Verificar si la fecha ya pasó\n      if (fechaHorario <= ahora) {\n        console.log(`DEBUG - FILTRADA: Fecha ya pasó`);\n        return; // Saltar este horario porque ya pasó\n      }\n      \n      // Extraer componentes de la fecha para agrupar\n      const fechaInicio = extraerFechaYHora(horario.inicio);\n      if (!fechaInicio) {\n        console.log(`DEBUG - Error al extraer fecha y hora de: ${horario.inicio}`);\n        return;\n      }\n      \n      const mes = fechaInicio.mes;\n      const dia = fechaInicio.dia;\n      const nombreMes = nombresMeses[mes];\n      const diaSemana = fechaInicio.diaSemana;\n      \n      // Inicializar el grupo del mes si no existe\n      if (!mesesAgrupados[nombreMes]) {\n        mesesAgrupados[nombreMes] = {\n          mes: mes,\n          fechas: []\n        };\n      }\n      \n      // Evitar duplicados\n      const yaExiste = mesesAgrupados[nombreMes].fechas.some(\n        e => e.dia === dia && e.horaInicio === horario.horaInicio\n      );\n      \n      if (!yaExiste) {\n        mesesAgrupados[nombreMes].fechas.push({\n          dia,\n          horaInicio: horario.horaInicio,\n          horaFin: horario.horaFin,\n          mes,\n          diaSemana,\n          resumen: evento.eventoPrincipal.resumen,\n          rowId: `${mes}-${dia}-${horario.horaInicio.replace(\":\", \"\")}`\n        });\n      }\n    } catch (error) {\n      console.log(`ERROR procesando horario: ${error.message}`);\n    }\n  });\n});\n\n// Armar la estructura para WhatsApp SendList\nconst sections = [];\n\n// Crear una sección para cada mes\nfor (const [nombreMes, datosMes] of Object.entries(mesesAgrupados)) {\n  const filas = datosMes.fechas;\n  if (filas.length === 0) continue;\n  \n  // Obtener el emoji estacional para este mes\n  const emoji = getEmojiEstacional(datosMes.mes);\n  \n  // Ordenar filas por día y hora\n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n  \n  const rowsDelMes = [];\n  filas.forEach(f => {\n    const horaFormateada = formatearRangoHora(f.horaInicio, f.horaFin);\n    rowsDelMes.push({\n      title: `🕒 ${f.dia} de ${nombreMes} : ${horaFormateada}`,\n      description: `${f.diaSemana}`,\n      rowId: f.rowId\n    });\n  });\n  \n  // Agregar la sección del mes con el emoji estacional\n  if (rowsDelMes.length > 0) {\n    sections.push({\n      title: `${emoji} ${nombreMes}`,\n      rows: rowsDelMes\n    });\n  }\n}\n\n// Sección por defecto si no hay nada\nif (sections.length === 0) {\n  sections.push({\n    title: \"⚠️ Sin horarios disponibles\",\n    rows: [{\n      title: \"No hay horarios disponibles\",\n      description: \"Intenta más tarde\",\n      rowId: \"no-disponible\"\n    }]\n  });\n}\n\n// Obtener número de cliente desde otro nodo o poner uno por defecto\nconst remoteJid = $('Calendario').first().json.numero_cliente;\n\n// JSON final para enviar por WhatsApp\nconst requestBody = {\n  number: remoteJid,\n  title: \"📅 Fechas de Reprogramación\",\n  description: \"Seleccioná una fecha y hora para reagendar tu visita\",\n  buttonText: \"Seleccioná 👆\",\n  footerText: \"🕒 Cada visita tiene una duración de 30 minutos aprox\", // Ya incluimos la información de duración en la descripción\n  sections\n};\n\n// Retornar el mensaje final en el formato que espera n8n\nreturn [{\n  json: requestBody,\n  pairedItem: 0 // Agregamos pairedItem para mantener el enlace con el elemento de entrada\n}];"
+        "jsCode": "// Obtener los datos del nodo anterior\nconst datos = $input.first()?.json?.resultados || [];\nconsole.log(\"DEBUG - Datos recibidos:\", JSON.stringify(datos).substring(0, 200) + \"...\");\n\n// Verificar si tenemos datos\nif (!datos || !datos.length) {\n  console.log(\"DEBUG - No hay datos disponibles\");\n  return [{\n    json: {\n      to: $('Calendario').first().json.numero_cliente || \"\",\n      type: \"text\",\n      text: \"No hay fechas disponibles para reprogramar la visita en este momento. Intentá más tarde.\"\n    },\n    pairedItem: 0\n  }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\";\n  if (mes >= 6 && mes <= 8) return \"❄️\";\n  if (mes >= 9 && mes <= 11) return \"🌸\";\n  return \"☀️\";\n}\n\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\nconst nombresDias = {\n  0: 'Domingo', 1: 'Lunes', 2: 'Martes', 3: 'Miércoles',\n  4: 'Jueves', 5: 'Viernes', 6: 'Sábado'\n};\n\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    const diaSemana = nombresDias[fechaCompleta.getDay()];\n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: diaSemana\n    };\n  }\n  return null;\n}\n\nfunction formatearRangoHora(horaInicio, horaFin) {\n  const inicioMatch = horaInicio.match(/^(\\d+):(\\d+)/);\n  const finMatch = horaFin.match(/^(\\d+):(\\d+)/);\n  const horaInicioFormateada = inicioMatch ? `${inicioMatch[1]}:${inicioMatch[2]}` : horaInicio;\n  const horaFinFormateada = finMatch ? `${finMatch[1]}:${finMatch[2]}` : horaFin;\n  return `${horaInicioFormateada} a ${horaFinFormateada}`;\n}\n\nconst ahora = new Date();\n\n// Agrupar horarios por mes, guardando el año real para el ISO\nconst mesesAgrupados = {};\ndatos.forEach(evento => {\n  if (!evento.horariosDisponibles || !evento.horariosDisponibles.length) return;\n  evento.horariosDisponibles.forEach(horario => {\n    try {\n      const fechaHorario = new Date(horario.inicio);\n      if (fechaHorario <= ahora) return;\n      const fechaInicio = extraerFechaYHora(horario.inicio);\n      if (!fechaInicio) return;\n      const mes = fechaInicio.mes;\n      const dia = fechaInicio.dia;\n      const anio = fechaInicio.anio; // <- AÑO REAL!\n      const nombreMes = nombresMeses[mes];\n      const diaSemana = fechaInicio.diaSemana;\n      if (!mesesAgrupados[nombreMes]) mesesAgrupados[nombreMes] = [];\n      const yaExiste = mesesAgrupados[nombreMes].some(\n        e => e.dia === dia && e.horaInicio === horario.horaInicio\n      );\n      if (!yaExiste) {\n        mesesAgrupados[nombreMes].push({\n          id: null, // Se define luego (ISO)\n          anio,\n          mes,\n          dia,\n          horaInicio: horario.horaInicio,\n          horaFin: horario.horaFin,\n          diaSemana,\n          resumen: evento.eventoPrincipal ? evento.eventoPrincipal.resumen : \"\"\n        });\n      }\n    } catch (error) {\n      console.log(`ERROR procesando horario: ${error.message}`);\n    }\n  });\n});\n\n// Crear sections en formato SendList WHAPI\nconst sections = [];\nconst ordenMeses = [\n  \"Enero\", \"Febrero\", \"Marzo\", \"Abril\", \"Mayo\", \"Junio\",\n  \"Julio\", \"Agosto\", \"Septiembre\", \"Octubre\", \"Noviembre\", \"Diciembre\"\n];\nconst mesesOrdenados = Object.keys(mesesAgrupados).sort((a, b) => {\n  const idxA = ordenMeses.indexOf(a);\n  const idxB = ordenMeses.indexOf(b);\n  if (idxA !== -1 && idxB !== -1) return idxA - idxB;\n  if (idxA !== -1) return -1;\n  if (idxB !== -1) return 1;\n  return a.localeCompare(b);\n});\nfor (const nombreMes of mesesOrdenados) {\n  const filas = mesesAgrupados[nombreMes];\n  if (filas.length === 0) continue;\n  const mes = filas[0].mes;\n  const emoji = getEmojiEstacional(mes);\n\n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n\n  const rows = filas.map(f => {\n    // Armar fecha ISO con año real\n    const mesIso = String(f.mes).padStart(2, '0');\n    const diaIso = String(f.dia).padStart(2, '0');\n    const horaIso = f.horaInicio.length === 5 ? f.horaInicio : f.horaInicio.padStart(5, '0');\n    const fechaIso = `${f.anio}-${mesIso}-${diaIso}T${horaIso}`; // Ej: 2025-05-29T15:42\n    return {\n      id: fechaIso, // row_id en formato ISO corto\n      title: `🕒 ${f.dia} de ${nombreMes} : ${formatearRangoHora(f.horaInicio, f.horaFin)}`,\n      description: `${f.diaSemana}`\n    };\n  });\n\n  if (rows.length > 0) {\n    sections.push({\n      title: `${emoji} ${nombreMes}`,\n      rows\n    });\n  }\n}\n\n// Obtener número de cliente desde otro nodo o poner uno por defecto\nconst remoteJid = $('Calendario').first().json.numero_cliente || \"\";\n\n// JSON final para enviar por WhatsApp (formato WHAPI SendList unificado)\nconst headerObj = {\n  text: \"📅 Fechas de Reprogramación\"\n};\nconst bodyObj = {\n  text: `Seleccioná una nueva fecha y hora para reprogramar tu visita.\\n🕒 Cada visita tiene una duración de 30 minutos aprox.`\n};\nconst footerObj = {\n  text: \"\"\n};\nconst actionObj = {\n  list: {\n    sections: sections,\n    label: \"Seleccioná 👆\"\n  }\n};\n\nconst requestBody = {\n  header: headerObj,\n  body: bodyObj,\n  footer: footerObj,\n  action: actionObj,\n  type: \"list\",\n  to: remoteJid\n};\n\n// Retornar el mensaje final en el formato que espera n8n\nreturn [{\n  json: requestBody,\n  pairedItem: 0\n}];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -858,7 +791,7 @@
     },
     {
       "parameters": {
-        "content": "## Reagendar visita",
+        "content": "## Reagendar visita, envia lista ",
         "height": 660,
         "width": 1840,
         "color": 6
@@ -871,87 +804,6 @@
       "typeVersion": 1,
       "id": "de956f6a-bab0-4df2-aa74-46bf2672deb9",
       "name": "Sticky Note1"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Obtener todos los productos del nodo Limit\nconst datosProductos = $input.all();\nconst hayDatos = datosProductos && datosProductos.length > 0;\n\n// Teléfono del cliente dinámico\nconst remoteJid = $('Workflow Input Trigger').first().json.Telefono || \"\";\n\nif (!hayDatos) {\n  const mensajeSinProductos = {\n    to: remoteJid,\n    type: \"text\",\n    text: `📱🛒 *CATÁLOGO DIGITAL* 🛒📱\\n\\n━━━━━━━━━━━━━━━━━━━━\\n\\n🥫 *Información del Catálogo*\\n\\nActualmente no hay productos disponibles.\\n\\nPor favor, intenta nuevamente más tarde. 🙏\\n\\n━━━━━━━━━━━━━━━━━━━━`\n  };\n  \n  return [{ json: mensajeSinProductos }];\n}\n\n// Emojis para categorías estilo despensa/supermercado\nconst emojiCategorias = {\n  \"LÁCTEOS\": \"🥛🧀\",\n  \"BEBIDAS\": \"🥤🍹\",\n  \"GALLETITAS Y SNACKS\": \"🍪🍫\",\n  \"ALIMENTOS SECOS\": \"🥖🌾\",\n  \"ENLATADOS\": \"🥫📦\",\n  \"LIMPIEZA\": \"🧴🧽\",\n  \"VARIOS\": \"🛍️🛒\"\n};\n\nconst categorias = {};\n\ndatosProductos.forEach(item => {\n  const producto = item.json;\n  const nombreProducto = producto.Producto || \"\";\n  const precioProducto = producto[\"['P. Venta']\"] || \"$0.00\";\n  const stockProducto = producto.Stock || \"Disponible\";\n\n  let categoria = \"VARIOS\";\n  const nombreLower = nombreProducto.toLowerCase();\n\n  if (nombreLower.includes(\"leche\") || nombreLower.includes(\"yogur\") || nombreLower.includes(\"queso\")) {\n    categoria = \"LÁCTEOS\";\n  } else if (nombreLower.includes(\"agua\") || nombreLower.includes(\"gaseosa\") || nombreLower.includes(\"jugo\")) {\n    categoria = \"BEBIDAS\";\n  } else if (nombreLower.includes(\"galleta\") || nombreLower.includes(\"snack\") || nombreLower.includes(\"chocolate\")) {\n    categoria = \"GALLETITAS Y SNACKS\";\n  } else if (nombreLower.includes(\"arroz\") || nombreLower.includes(\"fideos\") || nombreLower.includes(\"harina\")) {\n    categoria = \"ALIMENTOS SECOS\";\n  } else if (nombreLower.includes(\"atun\") || nombreLower.includes(\"conserva\") || nombreLower.includes(\"lata\")) {\n    categoria = \"ENLATADOS\";\n  } else if (nombreLower.includes(\"detergente\") || nombreLower.includes(\"jabon\") || nombreLower.includes(\"limpia\")) {\n    categoria = \"LIMPIEZA\";\n  } else {\n    const palabras = nombreProducto.split(' ');\n    if (palabras.length > 0 && palabras[0].length > 2) {\n      categoria = palabras[0].toUpperCase();\n    }\n  }\n\n  if (!categorias[categoria]) categorias[categoria] = [];\n\n  const productoId = `cod_${Math.floor(Math.random() * 10000)}`;\n\n  categorias[categoria].push({\n    id: productoId,\n    nombre: nombreProducto,\n    precio: precioProducto,\n    stock: stockProducto\n  });\n});\n\nconst ordenCategorias = [\n  \"LÁCTEOS\", \"BEBIDAS\", \"GALLETITAS Y SNACKS\", \"ALIMENTOS SECOS\",\n  \"ENLATADOS\", \"LIMPIEZA\", \"VARIOS\"\n];\n\nlet consultaUsuario = \"\";\ntry {\n  consultaUsuario = $('Workflow Input Trigger').first().json.query.Descripcion || \"\";\n} catch {\n  consultaUsuario = \"\";\n}\n\nif (consultaUsuario && consultaUsuario.trim() !== \"\") {\n  const productosFiltrados = {};\n  let hayProductosFiltrados = false;\n\n  for (const categoria in categorias) {\n    if (categoria.toLowerCase().includes(consultaUsuario.toLowerCase())) {\n      productosFiltrados[categoria] = categorias[categoria];\n      hayProductosFiltrados = true;\n    } else {\n      const filtrados = categorias[categoria].filter(p =>\n        p.nombre.toLowerCase().includes(consultaUsuario.toLowerCase())\n      );\n      if (filtrados.length > 0) {\n        productosFiltrados[categoria] = filtrados;\n        hayProductosFiltrados = true;\n      }\n    }\n  }\n  if (hayProductosFiltrados) {\n    for (const key in categorias) delete categorias[key];\n    Object.assign(categorias, productosFiltrados);\n  }\n}\n\nconst categoriasOrdenadas = Object.keys(categorias).sort((a, b) => {\n  const idxA = ordenCategorias.indexOf(a);\n  const idxB = ordenCategorias.indexOf(b);\n  if (idxA !== -1 && idxB !== -1) return idxA - idxB;\n  if (idxA !== -1) return -1;\n  if (idxB !== -1) return 1;\n  return a.localeCompare(b);\n});\n\nconst sections = [];\n\nfor (const cat of categoriasOrdenadas) {\n  const productos = categorias[cat];\n  if (productos.length === 0) continue;\n\n  productos.sort((a, b) => a.nombre.localeCompare(b.nombre));\n\n  const emojiCat = emojiCategorias[cat] || \"📦🛒\";\n\n  const rows = productos.map(p => {\n    const precioFormateado = p.precio.replace(/(\\d)(?=(\\d{3})+(?!\\d))/g, '$1.');\n    const stockEmoji = p.stock.toLowerCase() === \"disponible\" ? \"🟢\" : \"🔴\";\n    const stockText = p.stock.length > 15 ? p.stock.slice(0, 12) + \"…\" : p.stock;\n\n    return {\n      id: p.id,\n      title: `${p.nombre}`,\n      description:\n        `🔥 Precio: *${precioFormateado}*\\n` +\n        `🆔 Código: ${p.id}\\n` +\n        `📦 Stock: ${stockEmoji} ${stockText}`\n    };\n  });\n\n  sections.push({\n    title: `${emojiCat}  ${cat}`,\n    rows\n  });\n}\n\nconst tituloCatalogo = consultaUsuario && consultaUsuario.trim() !== \"\"\n  ? `🟠 Menú de ${consultaUsuario.toLowerCase()} 🛒`\n  : \"🟠 Menú de Productos 🛒\";\n\nconst headerObj = {\n  text: tituloCatalogo\n};\n\nconst bodyObj = {\n  text: `✅ Seleccioná el producto \\n🟣 Escribe la cantidad que quieras`\n};\n\nconst footerObj = {\n  text: \"🏍️ Envios a domicilio 📦 | Neuquén 2098\"\n};\n\nconst actionObj = {\n  list: {\n    sections: sections,\n    label: \"🛒 Ver Menú 🔥\"\n  }\n};\n\nconst requestBody = {\n  header: headerObj,\n  body: bodyObj,\n  footer: footerObj,\n  action: actionObj,\n  type: \"list\",\n  to: remoteJid\n};\n\nreturn [{ json: requestBody }];\n"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -700,
-        780
-      ],
-      "id": "2f901033-e50c-4b0c-8f51-fc0affae597a",
-      "name": "Code1"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://gate.whapi.cloud/messages/interactive",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "application/json"
-            },
-            {
-              "name": "authorization",
-              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
-            },
-            {
-              "name": "content-type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "header",
-              "value": "={{ $json.header }}"
-            },
-            {
-              "name": "body",
-              "value": "={{ $json.body }}"
-            },
-            {
-              "name": "footer",
-              "value": "={{ $json.footer }}"
-            },
-            {
-              "name": "action",
-              "value": "={{ $json.action }}"
-            },
-            {
-              "name": "type",
-              "value": "={{ $json.type }}"
-            },
-            {
-              "name": "to",
-              "value": "={{ $('Workflow Input Trigger').first().json.Telefono }}"
-            }
-          ]
-        },
-        "options": {
-          "response": {
-            "response": {
-              "fullResponse": true,
-              "responseFormat": "json"
-            }
-          }
-        }
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -480,
-        780
-      ],
-      "id": "e49f6b25-7778-432f-866d-6b16c8e1cfc9",
-      "name": "HTTP Request3"
     },
     {
       "parameters": {
@@ -1020,13 +872,81 @@
       ],
       "id": "5e91d3af-eec5-4e6f-9113-28487ddd1f09",
       "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/interactive",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "header",
+              "value": "={{ $json.header }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.action }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.type }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Calendario').first().json.numero_telefono }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -580,
+        80
+      ],
+      "id": "0bcb1e55-844d-4f8b-94ec-e042ad97d324",
+      "name": "HTTP Request4"
     }
   ],
   "pinData": {
     "Calendario": [
       {
         "json": {
-          "Evento": "consultar",
+          "Evento": "reagendar",
           "numero_telefono": "5492254423359"
         }
       }
@@ -1048,6 +968,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-28T14:32:12.520Z",
-  "versionId": "bdc08b13-0528-4beb-901f-85814724d097"
+  "updatedAt": "2025-05-30T00:30:27.627Z",
+  "versionId": "1c2dede4-52b8-4f18-a1ff-630f6a90dfc4"
 }
