@@ -74,17 +74,6 @@
         ]
       ]
     },
-    "Reagendar": {
-      "main": [
-        [
-          {
-            "node": "Success1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Lista1": {
       "main": [
         [
@@ -98,13 +87,7 @@
     },
     "cancelar": {
       "main": [
-        [
-          {
-            "node": "Success",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "If": {
@@ -122,14 +105,14 @@
       "main": [
         [
           {
-            "node": "FERNANDO1",
+            "node": "Texto",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Reagendar",
+            "node": "HTTP Request2",
             "type": "main",
             "index": 0
           }
@@ -140,21 +123,21 @@
       "main": [
         [
           {
-            "node": "FERNANDO",
+            "node": "Texto2",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "cancelar",
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "FERNANDO1": {
+    "Texto": {
       "main": [
         [
           {
@@ -165,7 +148,34 @@
         ]
       ]
     },
-    "FERNANDO": {
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Success1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Texto1": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Texto2": {
       "main": [
         [
           {
@@ -202,12 +212,10 @@
         "workflowInputs": {
           "values": [
             {
-              "name": "numero_cliente",
-              "type": "any"
+              "name": "numero_cliente"
             },
             {
-              "name": "fecha_cita",
-              "type": "any"
+              "name": "fecha_cita"
             },
             {
               "name": "Nombre"
@@ -217,21 +225,6 @@
             },
             {
               "name": "correo_electronico",
-              "type": "any"
-            },
-            {
-              "name": "session_id"
-            },
-            {
-              "name": "url",
-              "type": "any"
-            },
-            {
-              "name": "instancia",
-              "type": "any"
-            },
-            {
-              "name": "apikey",
               "type": "any"
             }
           ]
@@ -319,7 +312,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtener los datos del nodo anterior (eventos rojos filtrados)\nconst datosEventos = $input.first()?.json?.eventosRojos || [];\n// Verificar si tenemos datos\nconst hayDatos = datosEventos && datosEventos.length > 0;\n// Si NO hay datos, enviar un mensaje simple en lugar de una lista\nif (!hayDatos) {\n  // Obtener número de cliente\n  const remoteJid = $('Calendario')?.first()?.json?.numero_cliente || \"CLIENT_PHONE_NUMBER\";\n  \n  // Crear un mensaje de texto simple (no una lista)\n  const mensajeSinVisitas = {\n    number: remoteJid,\n    type: \"text\", // Tipo de mensaje: texto simple\n    message: `*No tenes visitas agendadas* 📅\\n\\nActualmente no hay visitas programadas en tu agenda. Cuando agendes una nueva visita, podrás verla y gestionarla desde acá.\\n\\nSi necesitas agendar una visita, por favor comparte el enlace de la propiedad que te interesa.`,\n    // Puedes ajustar este mensaje según tus necesidades\n  };\n  \n  // Retornar el mensaje simple\n  return [{\n    json: mensajeSinVisitas\n  }];\n}\n\n// Si hay datos, continuar con el código original para mostrar la lista\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\"; // Otoño\n  if (mes >= 6 && mes <= 8) return \"❄️\"; // Invierno\n  if (mes >= 9 && mes <= 11) return \"🌸\"; // Primavera\n  return \"☀️\"; // Verano\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Extraer fecha y hora de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  \n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`\n    };\n  }\n  return null;\n}\n\n// Función para extraer el código de propiedad de la descripción o summary\nfunction extraerCodigoPropiedad(evento) {\n  let codigo = \"Sin código\";\n  \n  if (evento.description) {\n    const matchDescripcion = evento.description.match(/[Cc][oó]digo\\s*(?:propiedad|de\\s*propiedad)?:\\s*([A-Za-z0-9-_]+)/i);\n    if (matchDescripcion) {\n      codigo = matchDescripcion[1];\n    }\n  }\n  \n  if (codigo === \"Sin código\" && evento.summary) {\n    const matchSummary = evento.summary.match(/[Cc][oó]digo:\\s*([A-Za-z0-9-_]+)/i);\n    if (matchSummary) {\n      codigo = matchSummary[1];\n    }\n  }\n  \n  return codigo;\n}\n\n// Función para extraer dirección o ubicación\nfunction extraerDireccion(evento) {\n  let direccion = evento.location || \"Sin dirección\";\n  \n  if (evento.summary) {\n    const matchDireccion = evento.summary.match(/[Dd]irecci[oó]n:\\s*([^-]+)/);\n    if (matchDireccion) {\n      direccion = matchDireccion[1].trim();\n    }\n  }\n  \n  return direccion;\n}\n\n// Función para extraer el nombre del interesado\nfunction extraerInteresado(evento) {\n  let interesado = \"Cliente\";\n  \n  if (evento.summary) {\n    const matchInteresado = evento.summary.match(/[Ii]nteresado:\\s*([^-]+)/);\n    if (matchInteresado) {\n      interesado = matchInteresado[1].trim();\n    }\n  }\n  \n  return interesado;\n}\n\n// Agrupar eventos por mes y día\nconst mesesAgrupados = {};\n\n// Procesar todos los eventos rojos\ndatosEventos.forEach(evento => {\n  const fechaInicio = extraerFechaYHora(evento.start);\n  const fechaFin = extraerFechaYHora(evento.end);\n  \n  if (!fechaInicio || !fechaFin) return;\n  \n  const mes = fechaInicio.mes;\n  const dia = fechaInicio.dia;\n  const nombreMes = nombresMeses[mes];\n  \n  const codigoPropiedad = extraerCodigoPropiedad(evento);\n  const direccion = extraerDireccion(evento);\n  const interesado = extraerInteresado(evento);\n  const email = evento['attendees[0].email'] || \n                (evento.attendees && evento.attendees[0] && evento.attendees[0].email) || \n                \"Sin email\";\n  \n  if (!mesesAgrupados[nombreMes]) {\n    mesesAgrupados[nombreMes] = [];\n  }\n  \n  const yaExiste = mesesAgrupados[nombreMes].some(\n    e => e.dia === dia && \n         e.horaInicio === fechaInicio.hora && \n         e.direccion === direccion\n  );\n  \n  if (!yaExiste) {\n    mesesAgrupados[nombreMes].push({\n      dia,\n      horaInicio: fechaInicio.hora,\n      horaFin: fechaFin.hora,\n      mes,\n      direccion,\n      interesado,\n      codigoPropiedad,\n      email,\n      resumen: evento.summary || \"Visita programada\",\n      eventId: evento.id // ⚡ Guardamos el eventId real para usarlo luego\n    });\n  }\n});\n\n// Armar la estructura para WhatsApp SendList\nconst sections = [];\n\nconst mesesOrdenados = Object.keys(mesesAgrupados).sort((a, b) => {\n  const mesA = Object.keys(nombresMeses).find(key => nombresMeses[key] === a);\n  const mesB = Object.keys(nombresMeses).find(key => nombresMeses[key] === b);\n  return parseInt(mesA) - parseInt(mesB);\n});\n\nfor (const nombreMes of mesesOrdenados) {\n  const filas = mesesAgrupados[nombreMes];\n  if (filas.length === 0) continue;\n  \n  const mes = filas[0].mes;\n  const emoji = getEmojiEstacional(mes);\n  \n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n  \n  const rows = filas.map(f => ({\n    title: `📅 ${f.dia} de ${nombreMes} - ${f.horaInicio}`,\n    description: `📍 ${f.direccion}\\n👤 ${f.interesado}\\n📧 ${f.email}\\n🏠 Código: ${f.codigoPropiedad}`,\n    rowId: f.eventId // ⚡ rowId ahora es el eventId\n  }));\n  \n  if (rows.length > 0) {\n    sections.push({\n      title: `${emoji} ${nombreMes}`,\n      rows\n    });\n  }\n}\n\n// Obtener número de cliente\nconst remoteJid = $('Calendario')?.first()?.json?.numero_cliente || \"CLIENT_PHONE_NUMBER\";\n\n// JSON final para enviar por WhatsApp (solo se usa cuando hay datos)\nconst requestBody = {\n  number: remoteJid,\n  title: \"📅 Visitas Programadas\",\n  description: \"Lista de visitas a propiedades programadas\",\n  buttonText: \"✅ Fecha a reprogramar\",\n  footerText: \"🟢 Visitas Programadas\",\n  sections\n};\n\n// Retornar el mensaje final (solo cuando hay datos)\nreturn [{\n  json: requestBody\n}];"
+        "jsCode": "// Obtener los datos del nodo anterior (eventos rojos filtrados)\nconst datosEventos = $input.first()?.json?.eventosRojos || [];\n// Verificar si tenemos datos\nconst hayDatos = datosEventos && datosEventos.length > 0;\n\n// Teléfono del cliente dinámico\nlet remoteJid = \"\";\ntry {\n  remoteJid = $('Calendario').first().json.numero_cliente || \"\";\n} catch {\n  remoteJid = \"\";\n}\n\n// Si NO hay datos, enviar un mensaje simple en lugar de una lista\nif (!hayDatos) {\n  const mensajeSinVisitas = {\n    to: remoteJid,\n    type: \"text\",\n    text: `*No tenés visitas agendadas* 📅\\n\\nActualmente no hay visitas programadas en tu agenda. Cuando agendes una nueva visita, podrás verla y gestionarla desde acá.\\n\\nSi necesitás agendar una visita, por favor compartí el enlace de la propiedad que te interesa.`\n  };\n  return [{ json: mensajeSinVisitas }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\";\n  if (mes >= 6 && mes <= 8) return \"❄️\";\n  if (mes >= 9 && mes <= 11) return \"🌸\";\n  return \"☀️\";\n}\n\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\nconst nombresDias = {\n  0: 'Domingo', 1: 'Lunes', 2: 'Martes', 3: 'Miércoles',\n  4: 'Jueves', 5: 'Viernes', 6: 'Sábado'\n};\n\n// Extraer fecha y hora de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: nombresDias[fechaCompleta.getDay()],\n      isoString: `${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}` // Agregar formato ISO requerido\n    };\n  }\n  return null;\n}\n\nfunction formatearRangoHora(horaInicio, horaFin) {\n  // Simplemente unificamos el formato como en la otra lista\n  return `${horaInicio} a ${horaFin}`;\n}\n\n// Función para extraer el código de propiedad de la descripción o summary\nfunction extraerCodigoPropiedad(evento) {\n  let codigo = \"Sin código\";\n  if (evento.description) {\n    const matchDescripcion = evento.description.match(/[Cc][oó]digo\\s*(?:propiedad|de\\s*propiedad)?:\\s*([A-Za-z0-9-_]+)/i);\n    if (matchDescripcion) codigo = matchDescripcion[1];\n  }\n  if (codigo === \"Sin código\" && evento.summary) {\n    const matchSummary = evento.summary.match(/[Cc][oó]digo:\\s*([A-Za-z0-9-_]+)/i);\n    if (matchSummary) codigo = matchSummary[1];\n  }\n  return codigo;\n}\n\nfunction extraerDireccion(evento) {\n  let direccion = evento.location || \"Sin dirección\";\n  if (evento.summary) {\n    const matchDireccion = evento.summary.match(/[Dd]irecci[oó]n:\\s*([^-]+)/);\n    if (matchDireccion) direccion = matchDireccion[1].trim();\n  }\n  return direccion;\n}\n\nfunction extraerInteresado(evento) {\n  let interesado = \"Cliente\";\n  if (evento.summary) {\n    const matchInteresado = evento.summary.match(/[Ii]nteresado:\\s*([^-]+)/);\n    if (matchInteresado) interesado = matchInteresado[1].trim();\n  }\n  return interesado;\n}\n\n// Agrupar eventos por mes\nconst mesesAgrupados = {};\nconst mapaEventos = {}; // Mapa para guardar los datos completos por ID\n\ndatosEventos.forEach(evento => {\n  const fechaInicio = extraerFechaYHora(evento.start);\n  const fechaFin = extraerFechaYHora(evento.end);\n  if (!fechaInicio || !fechaFin) return;\n\n  const mes = fechaInicio.mes;\n  const dia = fechaInicio.dia;\n  const nombreMes = nombresMeses[mes];\n  const diaSemana = fechaInicio.diaSemana;\n\n  const codigoPropiedad = extraerCodigoPropiedad(evento);\n  const direccion = extraerDireccion(evento);\n  const interesado = extraerInteresado(evento);\n  const email = evento['attendees[0].email'] ||\n                (evento.attendees && evento.attendees[0] && evento.attendees[0].email) ||\n                \"Sin email\";\n\n  if (!mesesAgrupados[nombreMes]) mesesAgrupados[nombreMes] = [];\n  \n  const yaExiste = mesesAgrupados[nombreMes].some(\n    e => e.dia === dia && e.horaInicio === fechaInicio.hora && e.direccion === direccion\n  );\n  \n  if (!yaExiste) {\n    const eventoData = {\n      id: evento.id, // El rowId será el eventId del calendario\n      dia,\n      horaInicio: fechaInicio.hora,\n      horaFin: fechaFin.hora,\n      mes,\n      diaSemana,\n      direccion,\n      interesado,\n      codigoPropiedad,\n      email,\n      resumen: evento.summary || \"Visita programada\",\n      fechaIsoInicio: fechaInicio.isoString, // Fecha ISO de inicio\n      fechaIsoFin: fechaFin.isoString // Fecha ISO de fin\n    };\n    \n    mesesAgrupados[nombreMes].push(eventoData);\n    \n    // Guardar en el mapa usando la fecha ISO como clave\n    mapaEventos[fechaInicio.isoString] = eventoData;\n  }\n});\n\n// Orden de meses\nconst ordenMeses = [\n  \"Enero\", \"Febrero\", \"Marzo\", \"Abril\", \"Mayo\", \"Junio\",\n  \"Julio\", \"Agosto\", \"Septiembre\", \"Octubre\", \"Noviembre\", \"Diciembre\"\n];\nconst mesesOrdenados = Object.keys(mesesAgrupados).sort((a, b) => {\n  const idxA = ordenMeses.indexOf(a);\n  const idxB = ordenMeses.indexOf(b);\n  if (idxA !== -1 && idxB !== -1) return idxA - idxB;\n  if (idxA !== -1) return -1;\n  if (idxB !== -1) return 1;\n  return a.localeCompare(b);\n});\n\n// Crear sections en formato SendList\nconst sections = [];\nfor (const nombreMes of mesesOrdenados) {\n  const filas = mesesAgrupados[nombreMes];\n  if (filas.length === 0) continue;\n  const mes = filas[0].mes;\n  const emoji = getEmojiEstacional(mes);\n\n  // Ordenar por día y hora\n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n\n  const rows = filas.map(f => ({\n    id: f.fechaIsoInicio, // CAMBIO: usar la fecha ISO como ID del row\n    title: `📅 ${f.dia} de ${nombreMes} : ${formatearRangoHora(f.horaInicio, f.horaFin)}`,\n    description: `📍 ${f.direccion}\\n👤 ${f.interesado}\\n🏠 Código: ${f.codigoPropiedad}`\n  }));\n\n  sections.push({\n    title: `${emoji} ${nombreMes}`,\n    rows\n  });\n}\n\n// JSON final para enviar por WhatsApp (idéntico al formato SendList del primer código)\nconst headerObj = {\n  text: \"🔔 Visitas Agendadas\"\n};\nconst bodyObj = {\n  text: `Seleccioná una visita para reprogramar o cancelar\\n🕒 Cada visita tiene una duración de 30 minutos aprox.`\n};\nconst footerObj = {\n  text: \"\"\n};\nconst actionObj = {\n  list: {\n    sections: sections,\n    label: \"Seleccioná 👆\"\n  }\n};\n\nconst requestBody = {\n  header: headerObj,\n  body: bodyObj,\n  footer: footerObj,\n  action: actionObj,\n  type: \"list\",\n  to: remoteJid,\n  // Agregar metadata con el mapa de eventos para poder recuperar los datos\n  metadata: {\n    eventosMap: mapaEventos\n  }\n};\n\n// Para manejar la respuesta cuando se selecciona un item:\n// Función auxiliar para obtener datos del evento seleccionado\nfunction obtenerDatosEventoSeleccionado(fechaIsoSeleccionada) {\n  const evento = mapaEventos[fechaIsoSeleccionada];\n  if (evento) {\n    return {\n      fecha_iso: fechaIsoSeleccionada, // La fecha ISO que se seleccionó\n      event_id: evento.id, // El ID original del evento del calendario\n      fecha_iso_inicio: evento.fechaIsoInicio,\n      fecha_iso_fin: evento.fechaIsoFin,\n      direccion: evento.direccion,\n      interesado: evento.interesado,\n      codigo_propiedad: evento.codigoPropiedad,\n      email: evento.email\n    };\n  }\n  return null;\n}\n\n// Agregar la función al contexto global para uso posterior\nif (typeof global !== 'undefined') {\n  global.obtenerDatosEventoSeleccionado = obtenerDatosEventoSeleccionado;\n  global.mapaEventosActual = mapaEventos;\n}\n\nreturn [{ json: requestBody }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -332,7 +325,7 @@
     },
     {
       "parameters": {
-        "jsCode": "\nlet emailBuscado = '';\ntry {\n  const inputData = $input.first().json;\n  if (inputData && inputData['attendees[0].email']) {\n    emailBuscado = inputData['attendees[0].email'];\n  } else if (inputData && inputData.attendees && inputData.attendees[0] && inputData.attendees[0].email) {\n    emailBuscado = inputData.attendees[0].email;\n  }\n} catch (error) {\n  console.log(\"Error al obtener el email:\", error.message);\n}\n\n// Procesar todos los eventos de entrada\nconst events = $input.all();\n\n// Para debugging\nconsole.log(\"Número total de eventos a procesar:\", events.length);\nconsole.log(\"Email a buscar:\", emailBuscado || \"No se encontró email\");\n\n// Array para almacenar los eventos rojos que coinciden con el email\nconst eventosRojosFiltrados = [];\n\n// Verificar si tenemos un email para buscar\nif (!emailBuscado) {\n  console.log(\"No se encontró un email válido para filtrar. Devolviendo todos los eventos rojos.\");\n  \n  // Devolver todos los eventos rojos ya que no hay email para filtrar\n  events.forEach(item => {\n    const event = item.json;\n    \n    // Ignorar objetos que son solo timezone\n    if (event && typeof event === 'object' && \n        event.start === \"America/Argentina/Buenos_Aires\" && \n        event.end === \"America/Argentina/Buenos_Aires\") {\n      return;\n    }\n    \n    // Verificar que event y colorId existan\n    if (event && typeof event === 'object' && \n        (event.colorId === \"11\" || event.colorId === 11)) {\n      eventosRojosFiltrados.push({\n        ...event,\n        tipo: \"rojo\",\n        sinEmail: true\n      });\n    }\n  });\n} else {\n  // Si tenemos email, procesar eventos normalmente\n  console.log(\"\\n=== PROCESAMIENTO DE EVENTOS POR EMAIL ===\");\n  \n  // Convertir email a minúsculas para comparación insensible a mayúsculas\n  const emailBuscadoLowerCase = emailBuscado.toLowerCase();\n  \n  events.forEach(item => {\n    // Verificar que item.json existe\n    if (!item || !item.json) return;\n    \n    const event = item.json;\n    \n    // Ignorar objetos que son solo timezone\n    if (event.start === \"America/Argentina/Buenos_Aires\" && \n        event.end === \"America/Argentina/Buenos_Aires\") {\n      return;\n    }\n    \n    // Filtrar solo eventos ROJOS (colorId=11)\n    if (event.colorId === \"11\" || event.colorId === 11) {\n      let coincideEmail = false;\n      \n      // Verificar si el evento tiene attendees (asistentes)\n      if (event.attendees && Array.isArray(event.attendees)) {\n        // Buscar si alguno de los asistentes tiene el email buscado\n        coincideEmail = event.attendees.some(attendee => \n          attendee && attendee.email && \n          attendee.email.toLowerCase() === emailBuscadoLowerCase\n        );\n      }\n      \n      // Si no coincide por attendees, buscar en todo el evento\n      if (!coincideEmail) {\n        try {\n          const eventString = JSON.stringify(event).toLowerCase();\n          coincideEmail = eventString.includes(emailBuscadoLowerCase);\n        } catch (error) {\n          console.log(`Error al procesar evento: ${error.message}`);\n        }\n      }\n      \n      // Si encontramos coincidencia, agregar a la lista\n      if (coincideEmail) {\n        console.log(`Evento ROJO con email coincidente: ${event.summary || 'Sin título'}`);\n        eventosRojosFiltrados.push({\n          ...event,\n          tipo: \"rojo\"\n        });\n      }\n    }\n  });\n  \n  // Si no encontramos eventos con el email, devolver todos los eventos rojos\n  if (eventosRojosFiltrados.length === 0) {\n    console.log(\"\\n=== NO SE ENCONTRARON COINCIDENCIAS. DEVOLVIENDO TODOS LOS EVENTOS ROJOS ===\");\n    \n    events.forEach(item => {\n      if (!item || !item.json) return;\n      \n      const event = item.json;\n      \n      // Ignorar objetos timezone\n      if (event.start === \"America/Argentina/Buenos_Aires\" && \n          event.end === \"America/Argentina/Buenos_Aires\") {\n        return;\n      }\n      \n      if (event.colorId === \"11\" || event.colorId === 11) {\n        eventosRojosFiltrados.push({\n          ...event,\n          tipo: \"rojo\",\n          sinCoincidencia: true\n        });\n      }\n    });\n  }\n}\n\n// Registrar el resultado final\nconsole.log(`\\nResultado final: ${eventosRojosFiltrados.length} eventos rojos${emailBuscado ? ` para el email ${emailBuscado}` : ''}`);\n\n// Devolver eventos encontrados\nreturn [{\n  json: {\n    email: emailBuscado || \"No especificado\",\n    eventosRojos: eventosRojosFiltrados,\n    totalEventos: eventosRojosFiltrados.length\n  }\n}];"
+        "jsCode": "\nlet emailBuscado = '';\ntry {\n  const inputData = $input.first().json;\n  if (inputData && inputData['attendees[0].email']) {\n    emailBuscado = inputData['attendees[0].email'];\n  } else if (inputData && inputData.attendees && inputData.attendees[0] && inputData.attendees[0].email) {\n    emailBuscado = inputData.attendees[0].email;\n  }\n} catch (error) {\n  console.log(\"Error al obtener el email:\", error.message);\n}\n\n// Procesar todos los eventos de entrada\nconst events = $input.all();\n\n// Para debugging\nconsole.log(\"Número total de eventos a procesar:\", events.length);\nconsole.log(\"Email a buscar:\", emailBuscado || \"No se encontró email\");\n\n// Array para almacenar los eventos rojos que coinciden con el email\nconst eventosRojosFiltrados = [];\n\n// Verificar si tenemos un email para buscar\nif (!emailBuscado) {\n  console.log(\"No se encontró un email válido para filtrar. Devolviendo todos los eventos rojos.\");\n  \n  // Devolver todos los eventos rojos ya que no hay email para filtrar\n  events.forEach(item => {\n    const event = item.json;\n    \n    // Ignorar objetos que son solo timezone\n    if (event && typeof event === 'object' && \n        event.start === \"America/Argentina/Buenos_Aires\" && \n        event.end === \"America/Argentina/Buenos_Aires\") {\n      return;\n    }\n    \n    // Verificar que event y colorId existan\n    if (event && typeof event === 'object' && \n        (event.colorId === \"3\" || event.colorId === 3)) {\n      eventosRojosFiltrados.push({\n        ...event,\n        tipo: \"rojo\",\n        sinEmail: true\n      });\n    }\n  });\n} else {\n  // Si tenemos email, procesar eventos normalmente\n  console.log(\"\\n=== PROCESAMIENTO DE EVENTOS POR EMAIL ===\");\n  \n  // Convertir email a minúsculas para comparación insensible a mayúsculas\n  const emailBuscadoLowerCase = emailBuscado.toLowerCase();\n  \n  events.forEach(item => {\n    // Verificar que item.json existe\n    if (!item || !item.json) return;\n    \n    const event = item.json;\n    \n    // Ignorar objetos que son solo timezone\n    if (event.start === \"America/Argentina/Buenos_Aires\" && \n        event.end === \"America/Argentina/Buenos_Aires\") {\n      return;\n    }\n    \n    // Filtrar solo eventos ROJOS (colorId=11)\n    if (event.colorId === \"3\" || event.colorId === 3) {\n      let coincideEmail = false;\n      \n      // Verificar si el evento tiene attendees (asistentes)\n      if (event.attendees && Array.isArray(event.attendees)) {\n        // Buscar si alguno de los asistentes tiene el email buscado\n        coincideEmail = event.attendees.some(attendee => \n          attendee && attendee.email && \n          attendee.email.toLowerCase() === emailBuscadoLowerCase\n        );\n      }\n      \n      // Si no coincide por attendees, buscar en todo el evento\n      if (!coincideEmail) {\n        try {\n          const eventString = JSON.stringify(event).toLowerCase();\n          coincideEmail = eventString.includes(emailBuscadoLowerCase);\n        } catch (error) {\n          console.log(`Error al procesar evento: ${error.message}`);\n        }\n      }\n      \n      // Si encontramos coincidencia, agregar a la lista\n      if (coincideEmail) {\n        console.log(`Evento ROJO con email coincidente: ${event.summary || 'Sin título'}`);\n        eventosRojosFiltrados.push({\n          ...event,\n          tipo: \"rojo\"\n        });\n      }\n    }\n  });\n  \n  // Si no encontramos eventos con el email, devolver todos los eventos rojos\n  if (eventosRojosFiltrados.length === 0) {\n    console.log(\"\\n=== NO SE ENCONTRARON COINCIDENCIAS. DEVOLVIENDO TODOS LOS EVENTOS ROJOS ===\");\n    \n    events.forEach(item => {\n      if (!item || !item.json) return;\n      \n      const event = item.json;\n      \n      // Ignorar objetos timezone\n      if (event.start === \"America/Argentina/Buenos_Aires\" && \n          event.end === \"America/Argentina/Buenos_Aires\") {\n        return;\n      }\n      \n      if (event.colorId === \"3\" || event.colorId === 3) {\n        eventosRojosFiltrados.push({\n          ...event,\n          tipo: \"rojo\",\n          sinCoincidencia: true\n        });\n      }\n    });\n  }\n}\n\n// Registrar el resultado final\nconsole.log(`\\nResultado final: ${eventosRojosFiltrados.length} eventos rojos${emailBuscado ? ` para el email ${emailBuscado}` : ''}`);\n\n// Devolver eventos encontrados\nreturn [{\n  json: {\n    email: emailBuscado || \"No especificado\",\n    eventosRojos: eventosRojosFiltrados,\n    totalEventos: eventosRojosFiltrados.length\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -411,62 +404,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "={{ $('Calendario').first().json.url }}/message/sendList/{{ $('Calendario').first().json.instancia }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('Calendario').first().json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "form-urlencoded",
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number",
-              "value": "={{ $json.number }}"
-            },
-            {
-              "name": "title",
-              "value": "={{ $json.title }}"
-            },
-            {
-              "name": "description",
-              "value": "={{ $json.description }}"
-            },
-            {
-              "name": "buttonText",
-              "value": "={{ $json.buttonText }}"
-            },
-            {
-              "name": "footerText",
-              "value": "={{ $json.footerText }}"
-            },
-            {
-              "name": "sections",
-              "value": "={{ $json.sections }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -460,
-        -220
-      ],
-      "id": "51517db1-3bc0-4e1d-bd4e-83ba48ed5865",
-      "name": "Reagendar",
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -490,7 +427,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Obtener los datos del nodo anterior (eventos rojos filtrados)\nconst datosEventos = $input.first()?.json?.eventosRojos || [];\n\n// Verificar si tenemos datos\nconst hayDatos = datosEventos && datosEventos.length > 0;\n\n// Si NO hay datos, enviar un mensaje simple en lugar de una lista\nif (!hayDatos) {\n  // Obtener número de cliente\n  const remoteJid = $('Calendario')?.first()?.json?.numero_cliente || \"CLIENT_PHONE_NUMBER\";\n  \n  // Crear un mensaje de texto simple (no una lista)\n  const mensajeSinVisitas = {\n    number: remoteJid,\n    type: \"text\", // Tipo de mensaje: texto simple\n    message: `*No tienes visitas para cancelar* ❌\\n\\nActualmente no hay visitas programadas que puedas cancelar. Cuando tengas visitas agendadas, podrás usar esta opción para cancelarlas.\\n\\nSi deseas agendar una nueva visita, por favor comparte el enlace de la propiedad que te interesa.`,\n    // Puedes ajustar este mensaje según tus necesidades\n  };\n  \n  // Retornar el mensaje simple\n  return [{\n    json: mensajeSinVisitas\n  }];\n}\n\n// Si hay datos, continuar con el código original para mostrar la lista\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\"; // Otoño\n  if (mes >= 6 && mes <= 8) return \"❄️\"; // Invierno\n  if (mes >= 9 && mes <= 11) return \"🌸\"; // Primavera\n  return \"☀️\"; // Verano\n}\n\n// Nombres de los meses\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\n// Extraer fecha y hora de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  \n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`\n    };\n  }\n  return null;\n}\n\n// Función para extraer el código de propiedad de la descripción o summary\nfunction extraerCodigoPropiedad(evento) {\n  let codigo = \"Sin código\";\n  \n  if (evento.description) {\n    const matchDescripcion = evento.description.match(/[Cc][oó]digo\\s*(?:propiedad|de\\s*propiedad)?:\\s*([A-Za-z0-9-_]+)/i);\n    if (matchDescripcion) {\n      codigo = matchDescripcion[1];\n    }\n  }\n  \n  if (codigo === \"Sin código\" && evento.summary) {\n    const matchSummary = evento.summary.match(/[Cc][oó]digo:\\s*([A-Za-z0-9-_]+)/i);\n    if (matchSummary) {\n      codigo = matchSummary[1];\n    }\n  }\n  \n  return codigo;\n}\n\n// Función para extraer dirección o ubicación\nfunction extraerDireccion(evento) {\n  let direccion = evento.location || \"Sin dirección\";\n  \n  if (evento.summary) {\n    const matchDireccion = evento.summary.match(/[Dd]irecci[oó]n:\\s*([^-]+)/);\n    if (matchDireccion) {\n      direccion = matchDireccion[1].trim();\n    }\n  }\n  \n  return direccion;\n}\n\n// Función para extraer el nombre del interesado\nfunction extraerInteresado(evento) {\n  let interesado = \"Cliente\";\n  \n  if (evento.summary) {\n    const matchInteresado = evento.summary.match(/[Ii]nteresado:\\s*([^-]+)/);\n    if (matchInteresado) {\n      interesado = matchInteresado[1].trim();\n    }\n  }\n  \n  return interesado;\n}\n\n// Agrupar eventos por mes y día\nconst mesesAgrupados = {};\n\n// Procesar todos los eventos rojos\ndatosEventos.forEach(evento => {\n  const fechaInicio = extraerFechaYHora(evento.start);\n  const fechaFin = extraerFechaYHora(evento.end);\n  \n  if (!fechaInicio || !fechaFin) return;\n  \n  const mes = fechaInicio.mes;\n  const dia = fechaInicio.dia;\n  const nombreMes = nombresMeses[mes];\n  \n  const codigoPropiedad = extraerCodigoPropiedad(evento);\n  const direccion = extraerDireccion(evento);\n  const interesado = extraerInteresado(evento);\n  const email = evento['attendees[0].email'] || \n                (evento.attendees && evento.attendees[0] && evento.attendees[0].email) || \n                \"Sin email\";\n  \n  if (!mesesAgrupados[nombreMes]) {\n    mesesAgrupados[nombreMes] = [];\n  }\n  \n  const yaExiste = mesesAgrupados[nombreMes].some(\n    e => e.dia === dia && \n         e.horaInicio === fechaInicio.hora && \n         e.direccion === direccion\n  );\n  \n  if (!yaExiste) {\n    mesesAgrupados[nombreMes].push({\n      dia,\n      horaInicio: fechaInicio.hora,\n      horaFin: fechaFin.hora,\n      mes,\n      direccion,\n      interesado,\n      codigoPropiedad,\n      email,\n      resumen: evento.summary || \"Visita programada\",\n      eventId: evento.id // ⚡ Guardamos el eventId real para usarlo luego\n    });\n  }\n});\n\n// Armar la estructura para WhatsApp SendList\nconst sections = [];\n\nconst mesesOrdenados = Object.keys(mesesAgrupados).sort((a, b) => {\n  const mesA = Object.keys(nombresMeses).find(key => nombresMeses[key] === a);\n  const mesB = Object.keys(nombresMeses).find(key => nombresMeses[key] === b);\n  return parseInt(mesA) - parseInt(mesB);\n});\n\nfor (const nombreMes of mesesOrdenados) {\n  const filas = mesesAgrupados[nombreMes];\n  if (filas.length === 0) continue;\n  \n  const mes = filas[0].mes;\n  const emoji = getEmojiEstacional(mes);\n  \n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n  \n  const rows = filas.map(f => ({\n    title: `📅 ${f.dia} de ${nombreMes} - ${f.horaInicio}`,\n    description: `📍 ${f.direccion}\\n👤 ${f.interesado}\\n📧 ${f.email}\\n🏠 Código: ${f.codigoPropiedad}`,\n    rowId: f.eventId // ⚡ rowId ahora es el eventId\n  }));\n  \n  if (rows.length > 0) {\n    sections.push({\n      title: `${emoji} ${nombreMes}`,\n      rows\n    });\n  }\n}\n\n// Obtener número de cliente\nconst remoteJid = $('Calendario')?.first()?.json?.numero_cliente || \"CLIENT_PHONE_NUMBER\";\n\n// JSON final para enviar por WhatsApp (solo se usa cuando hay datos)\nconst requestBody = {\n  number: remoteJid,\n  title: \"❌ Cancelar Visitas\",\n  description: \"Lista de visitas a propiedades que puedes cancelar\",\n  buttonText: \"❌ Seleccionar\",\n  footerText: \"🔴 Selecciona la visita que deseas cancelar\",\n  sections\n};\n\n// Retornar el mensaje final (solo cuando hay datos)\nreturn [{\n  json: requestBody\n}];"
+        "jsCode": "// Obtener los datos del nodo anterior (eventos rojos filtrados)\nconst datosEventos = $input.first()?.json?.eventosRojos || [];\n\n// Verificar si tenemos datos\nconst hayDatos = datosEventos && datosEventos.length > 0;\n\n// Teléfono del cliente dinámico\nlet remoteJid = \"\";\ntry {\n  remoteJid = $('Calendario').first().json.numero_cliente || \"\";\n} catch {\n  remoteJid = \"\";\n}\n\n// Si NO hay datos, enviar un mensaje simple en lugar de una lista\nif (!hayDatos) {\n  const mensajeSinVisitas = {\n    to: remoteJid,\n    type: \"text\",\n    text: `*No tenés visitas para cancelar* ❌\\n\\nActualmente no hay visitas programadas que puedas cancelar. Cuando tengas visitas agendadas, podrás usar esta opción para cancelarlas.\\n\\nSi necesitás agendar una nueva visita, por favor compartí el enlace de la propiedad que te interesa.`\n  };\n  return [{ json: mensajeSinVisitas }];\n}\n\n// Función para obtener el emoji estacional según el mes (hemisferio sur)\nfunction getEmojiEstacional(mes) {\n  if (mes >= 3 && mes <= 5) return \"🍂\";\n  if (mes >= 6 && mes <= 8) return \"❄️\";\n  if (mes >= 9 && mes <= 11) return \"🌸\";\n  return \"☀️\";\n}\n\nconst nombresMeses = {\n  1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',\n  5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',\n  9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'\n};\n\nconst nombresDias = {\n  0: 'Domingo', 1: 'Lunes', 2: 'Martes', 3: 'Miércoles',\n  4: 'Jueves', 5: 'Viernes', 6: 'Sábado'\n};\n\n// Extraer fecha y hora de una cadena ISO\nfunction extraerFechaYHora(isoString) {\n  if (!isoString) return null;\n  const match = isoString.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const fechaCompleta = new Date(`${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}:00`);\n    return {\n      anio: parseInt(match[1], 10),\n      mes: parseInt(match[2], 10),\n      dia: parseInt(match[3], 10),\n      hora: `${match[4]}:${match[5]}`,\n      fechaCompleta: fechaCompleta,\n      diaSemana: nombresDias[fechaCompleta.getDay()],\n      isoString: `${match[1]}-${match[2]}-${match[3]}T${match[4]}:${match[5]}` // Agregar formato ISO requerido\n    };\n  }\n  return null;\n}\n\nfunction formatearRangoHora(horaInicio, horaFin) {\n  // Mismo formato que en la otra lista\n  return `${horaInicio} a ${horaFin}`;\n}\n\nfunction extraerCodigoPropiedad(evento) {\n  let codigo = \"Sin código\";\n  if (evento.description) {\n    const matchDescripcion = evento.description.match(/[Cc][oó]digo\\s*(?:propiedad|de\\s*propiedad)?:\\s*([A-Za-z0-9-_]+)/i);\n    if (matchDescripcion) codigo = matchDescripcion[1];\n  }\n  if (codigo === \"Sin código\" && evento.summary) {\n    const matchSummary = evento.summary.match(/[Cc][oó]digo:\\s*([A-Za-z0-9-_]+)/i);\n    if (matchSummary) codigo = matchSummary[1];\n  }\n  return codigo;\n}\n\nfunction extraerDireccion(evento) {\n  let direccion = evento.location || \"Sin dirección\";\n  if (evento.summary) {\n    const matchDireccion = evento.summary.match(/[Dd]irecci[oó]n:\\s*([^-]+)/);\n    if (matchDireccion) direccion = matchDireccion[1].trim();\n  }\n  return direccion;\n}\n\nfunction extraerInteresado(evento) {\n  let interesado = \"Cliente\";\n  if (evento.summary) {\n    const matchInteresado = evento.summary.match(/[Ii]nteresado:\\s*([^-]+)/);\n    if (matchInteresado) interesado = matchInteresado[1].trim();\n  }\n  return interesado;\n}\n\n// Agrupar eventos por mes\nconst mesesAgrupados = {};\nconst mapaEventos = {}; // Mapa para guardar los datos completos por fecha ISO\n\ndatosEventos.forEach(evento => {\n  const fechaInicio = extraerFechaYHora(evento.start);\n  const fechaFin = extraerFechaYHora(evento.end);\n  if (!fechaInicio || !fechaFin) return;\n\n  const mes = fechaInicio.mes;\n  const dia = fechaInicio.dia;\n  const nombreMes = nombresMeses[mes];\n  const diaSemana = fechaInicio.diaSemana;\n\n  const codigoPropiedad = extraerCodigoPropiedad(evento);\n  const direccion = extraerDireccion(evento);\n  const interesado = extraerInteresado(evento);\n  const email = evento['attendees[0].email'] ||\n                (evento.attendees && evento.attendees[0] && evento.attendees[0].email) ||\n                \"Sin email\";\n\n  if (!mesesAgrupados[nombreMes]) mesesAgrupados[nombreMes] = [];\n  \n  const yaExiste = mesesAgrupados[nombreMes].some(\n    e => e.dia === dia && e.horaInicio === fechaInicio.hora && e.direccion === direccion\n  );\n  \n  if (!yaExiste) {\n    const eventoData = {\n      id: evento.id, // El ID original del evento del calendario\n      dia,\n      horaInicio: fechaInicio.hora,\n      horaFin: fechaFin.hora,\n      mes,\n      diaSemana,\n      direccion,\n      interesado,\n      codigoPropiedad,\n      email,\n      resumen: evento.summary || \"Visita programada\",\n      fechaIsoInicio: fechaInicio.isoString, // Fecha ISO de inicio\n      fechaIsoFin: fechaFin.isoString // Fecha ISO de fin\n    };\n    \n    mesesAgrupados[nombreMes].push(eventoData);\n    \n    // Guardar en el mapa usando la fecha ISO como clave\n    mapaEventos[fechaInicio.isoString] = eventoData;\n  }\n});\n\n// Orden de meses\nconst ordenMeses = [\n  \"Enero\", \"Febrero\", \"Marzo\", \"Abril\", \"Mayo\", \"Junio\",\n  \"Julio\", \"Agosto\", \"Septiembre\", \"Octubre\", \"Noviembre\", \"Diciembre\"\n];\nconst mesesOrdenados = Object.keys(mesesAgrupados).sort((a, b) => {\n  const idxA = ordenMeses.indexOf(a);\n  const idxB = ordenMeses.indexOf(b);\n  if (idxA !== -1 && idxB !== -1) return idxA - idxB;\n  if (idxA !== -1) return -1;\n  if (idxB !== -1) return 1;\n  return a.localeCompare(b);\n});\n\n// Crear sections en formato SendList\nconst sections = [];\nfor (const nombreMes of mesesOrdenados) {\n  const filas = mesesAgrupados[nombreMes];\n  if (filas.length === 0) continue;\n  const mes = filas[0].mes;\n  const emoji = getEmojiEstacional(mes);\n\n  filas.sort((a, b) => {\n    if (a.dia !== b.dia) return a.dia - b.dia;\n    return a.horaInicio.localeCompare(b.horaInicio);\n  });\n\n  const rows = filas.map(f => ({\n    id: f.fechaIsoInicio, // CAMBIO: usar la fecha ISO como ID del row\n    title: `📅 ${f.dia} de ${nombreMes} : ${formatearRangoHora(f.horaInicio, f.horaFin)}`,\n    description: `📍 ${f.direccion}\\n👤 ${f.interesado}\\n🏠 Código: ${f.codigoPropiedad}`\n  }));\n\n  sections.push({\n    title: `${emoji} ${nombreMes}`,\n    rows\n  });\n}\n\n// JSON final para enviar por WhatsApp (idéntico al formato SendList del primer código)\nconst headerObj = {\n  text: \"❌ Cancelar Visitas\"\n};\nconst bodyObj = {\n  text: `Seleccioná una visita para cancelar\\n🕒 Cada visita tiene una duración de 30 minutos aprox.`\n};\nconst footerObj = {\n  text: \"🔴 Seleccioná la visita que deseás cancelar\"\n};\nconst actionObj = {\n  list: {\n    sections: sections,\n    label: \"Seleccioná 👆\"\n  }\n};\n\nconst requestBody = {\n  header: headerObj,\n  body: bodyObj,\n  footer: footerObj,\n  action: actionObj,\n  type: \"list\",\n  to: remoteJid,\n  // Agregar metadata con el mapa de eventos para poder recuperar los datos\n  metadata: {\n    eventosMap: mapaEventos\n  }\n};\n\n// Para manejar la respuesta cuando se selecciona un item:\n// Función auxiliar para obtener datos del evento seleccionado\nfunction obtenerDatosEventoCancelacion(fechaIsoSeleccionada) {\n  const evento = mapaEventos[fechaIsoSeleccionada];\n  if (evento) {\n    return {\n      fecha_iso: fechaIsoSeleccionada, // La fecha ISO que se seleccionó\n      event_id: evento.id, // El ID original del evento del calendario\n      fecha_iso_inicio: evento.fechaIsoInicio,\n      fecha_iso_fin: evento.fechaIsoFin,\n      direccion: evento.direccion,\n      interesado: evento.interesado,\n      codigo_propiedad: evento.codigoPropiedad,\n      email: evento.email\n    };\n  }\n  return null;\n}\n\n// Agregar la función al contexto global para uso posterior\nif (typeof global !== 'undefined') {\n  global.obtenerDatosEventoCancelacion = obtenerDatosEventoCancelacion;\n  global.mapaEventosCancelacion = mapaEventos;\n}\n\nreturn [{ json: requestBody }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -549,7 +486,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -460,
+        240,
         180
       ],
       "id": "b5ada944-3e65-4ac0-8370-1b5312dad334",
@@ -627,55 +564,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "={{ $('Calendario').item.json.url }}/message/sendText/{{ $('Calendario').item.json.instancia }}",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpBasicAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "apikey",
-              "value": "={{ $('Calendario').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number",
-              "value": "={{ $('Calendario').item.json.numero_cliente }}"
-            },
-            {
-              "name": "text",
-              "value": "={{ $json.message }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "name": "FERNANDO1",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 3,
-      "position": [
-        -460,
-        -420
-      ],
-      "id": "69251cb2-aba6-4f55-9bfc-98afeb3adf34",
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "OpgdvMlLy6Zxc6ii",
-          "name": "NOCODB"
-        }
-      }
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -706,57 +594,6 @@
       ],
       "id": "24a5267e-7ae1-4937-81be-0724c579cf94",
       "name": "If2"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('Calendario').item.json.url }}/message/sendText/{{ $('Calendario').item.json.instancia }}",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpBasicAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "apikey",
-              "value": "={{ $('Calendario').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number",
-              "value": "={{ $('Calendario').item.json.numero_cliente }}"
-            },
-            {
-              "name": "text",
-              "value": "={{ $json.message }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "name": "FERNANDO",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 3,
-      "position": [
-        -460,
-        -20
-      ],
-      "id": "6daca6f7-75a0-42bc-85f1-9f7ddd3efbeb",
-      "alwaysOutputData": true,
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "OpgdvMlLy6Zxc6ii",
-          "name": "NOCODB"
-        }
-      },
-      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -812,27 +649,360 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1960,
-        -540
+        -2240,
+        -720
       ],
       "typeVersion": 1,
       "id": "d99301b2-54ab-4e39-adf0-2504bc89b1ef",
       "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "=Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.text.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Calendario').first().json.numero_cliente }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -460,
+        -420
+      ],
+      "id": "5c392d24-6cc6-46d0-bf7a-ed8b63ad3410",
+      "name": "Texto"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/interactive",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "header",
+              "value": "={{ $json.header }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.action }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.type }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Calendario').first().json.numero_cliente }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -460,
+        -220
+      ],
+      "id": "dd52eb9f-f911-4f4b-b46b-7556f33e33cc",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "=Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.message.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Calendario').first().json.numero_cliente }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1000,
+        320
+      ],
+      "id": "35da78dc-54ce-4f97-9487-6140e88bff1a",
+      "name": "Texto1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/interactive",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "header",
+              "value": "={{ $json.header }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.action }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.type }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Calendario').first().json.numero_cliente }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -460,
+        200
+      ],
+      "id": "e13323eb-0ed6-4131-9bb3-0c1be4ec2fad",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "=Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.text.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Calendario').first().json.numero_cliente }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -460,
+        0
+      ],
+      "id": "b7b684ab-703b-4ad1-b238-34da5f72a2ff",
+      "name": "Texto2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Calendario').first().json.url }}/message/sendList/{{ $('Calendario').first().json.instancia }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Calendario').first().json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.number }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "footerText",
+              "value": "={{ $json.footerText }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -780,
+        -620
+      ],
+      "id": "51517db1-3bc0-4e1d-bd4e-83ba48ed5865",
+      "name": "Reagendar",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
+    "cancelar": [
+      {
+        "json": {
+          "error": {
+            "code": "ERR_INVALID_URL",
+            "input": "/message/sendList/"
+          }
+        }
+      }
+    ],
     "Calendario": [
       {
         "json": {
           "numero_cliente": "5492254423359",
           "fecha_cita": null,
-          "Nombre": "Juan Chito",
+          "Nombre": "Fernando",
           "Evento": "cancelar",
-          "correo_electronico": "fercassera@gmail.com",
-          "session_id": "81E422C4D729DF3E5C4862B1FA359ED8",
-          "url": "https://evo.innovasoftpro.dev",
-          "instancia": "tester",
-          "apikey": "89EBC4C29BD1-4035-982B-DDF76B7D0A5F"
+          "correo_electronico": "casserafernando@gmail.com"
         }
       }
     ]
@@ -850,6 +1020,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-27T16:43:52.142Z",
-  "versionId": "a344c164-805f-4e7d-abb0-1177c9f0310d"
+  "updatedAt": "2025-05-30T02:47:55.578Z",
+  "versionId": "93e6f079-4ba1-43c6-9234-6446b5c18879"
 }
