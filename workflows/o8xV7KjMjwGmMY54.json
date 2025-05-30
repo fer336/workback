@@ -56,20 +56,9 @@
       "main": [
         [
           {
-            "node": "Get clientes1",
+            "node": "Get cliente",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Get clientes1": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
           }
         ]
       ]
@@ -86,6 +75,17 @@
             "node": "response",
             "type": "main",
             "index": 0
+          }
+        ]
+      ]
+    },
+    "Get cliente": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
           }
         ]
       ]
@@ -209,12 +209,11 @@
           "conditions": [
             {
               "id": "e02fa309-efdc-4424-a35e-232970a746cf",
-              "leftValue": "={{ $json.list[0].Telefono }}",
-              "rightValue": "",
+              "leftValue": "={{ $('Datos').item.json.numero }}",
+              "rightValue": "={{ $json.list[0].Telefono }}",
               "operator": {
                 "type": "string",
-                "operation": "exists",
-                "singleValue": true
+                "operation": "equals"
               }
             }
           ],
@@ -275,18 +274,18 @@
           "parameters": [
             {
               "name": "Telefono",
-              "value": "="
+              "value": "={{ $('Datos').item.json.numero }}"
             },
             {
               "name": "pushname",
               "value": "={{ $('Datos').item.json.pushname }}"
             },
             {
-              "name": "estado",
+              "name": "bot_estado",
               "value": "on"
             },
             {
-              "name": "key",
+              "name": "Key",
               "value": "={{ $json.data }}"
             }
           ]
@@ -301,54 +300,6 @@
       ],
       "id": "09c9ee37-f2a6-4862-994c-bf35e1baa4ca",
       "name": "InsertarCliente"
-    },
-    {
-      "parameters": {
-        "url": "={{ $node[\"Datos\"].json.servidor_db}}/api/v2/tables/{{ $node[\"Datos\"].json.idTabla }}/records",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "limit",
-              "value": "25"
-            },
-            {
-              "name": "shuffle",
-              "value": "0"
-            },
-            {
-              "name": "offset",
-              "value": "0"
-            },
-            {
-              "name": "where",
-              "value": "=({{ $('Datos').item.json.nombre_columna }},eq,{{ $('Datos').item.json.numero }})"
-            }
-          ]
-        },
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "application/json"
-            },
-            {
-              "name": "xc-token",
-              "value": "={{ $('Datos').item.json.token }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        840,
-        80
-      ],
-      "id": "dc5af331-c6f3-4047-9916-e00a187fb374",
-      "name": "Get clientes1"
     },
     {
       "parameters": {
@@ -407,6 +358,54 @@
       ],
       "id": "6a7f36bf-a340-4de2-859b-666ad63a40e5",
       "name": "Merge"
+    },
+    {
+      "parameters": {
+        "url": "={{ $node[\"Datos\"].json.servidor_db}}/api/v2/tables/{{ $node[\"Datos\"].json.idTabla }}/records",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            },
+            {
+              "name": "shuffle",
+              "value": "0"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            },
+            {
+              "name": "where",
+              "value": "=({{ $('Datos').item.json.nombre_columna }},eq,{{ $('Datos').item.json.numero }})"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "xc-token",
+              "value": "={{ $('Datos').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        840,
+        80
+      ],
+      "id": "dc5af331-c6f3-4047-9916-e00a187fb374",
+      "name": "Get cliente"
     }
   ],
   "pinData": {
@@ -431,6 +430,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-05-28T22:04:51.743Z",
-  "versionId": "365fdeb6-84c0-489b-b495-10ddb2bb1365"
+  "updatedAt": "2025-05-29T19:11:47.976Z",
+  "versionId": "e9cfe8e6-15a7-420b-921a-5aec8c486390"
 }
