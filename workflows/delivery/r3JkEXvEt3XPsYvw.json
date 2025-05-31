@@ -1,0 +1,1809 @@
+{
+  "active": false,
+  "connections": {
+    "Lista General": {
+      "main": [
+        [
+          {
+            "node": "menu",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MESSAGE": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separa datos": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "Insertar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Variables globales",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "From Me3": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        [
+          {
+            "node": "getCliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insertar Lead": {
+      "main": [
+        [
+          {
+            "node": "Variables globales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variables globales": {
+      "main": [
+        [
+          {
+            "node": "Listas1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getCliente": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tester Prompt": {
+      "main": [
+        [
+          {
+            "node": "Separa datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "From Me3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis1": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Redis3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis3": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "JSON Parse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON Parse": {
+      "main": [
+        [
+          {
+            "node": "Message Type1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type1": {
+      "main": [
+        [
+          {
+            "node": "text1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File1": {
+      "main": [
+        [
+          {
+            "node": "Transcribir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribir": {
+      "main": [
+        [
+          {
+            "node": "text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "chatInput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chatInput": {
+      "main": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text1": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Listas": {
+      "main": [
+        []
+      ]
+    },
+    "Listas1": {
+      "main": [
+        [
+          {
+            "node": "Listas",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lista General",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "menu": {
+      "main": [
+        []
+      ]
+    },
+    "text3": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "text3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-05-30T22:00:24.001Z",
+  "id": "r3JkEXvEt3XPsYvw",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE DELIVERY - Menu principal copy",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// Función para generar el menú principal (categorías)\nfunction generarMenuPrincipal(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍔 Menú Delivery\",\n      \"description\": \"¡Hola! Bienvenido a nuestro servicio de delivery\",\n      \"buttonText\": \"Ver Categorías\",\n      \"footerText\": \"Selecciona una categoría para continuar\",\n      \"sections\": [\n        {\n          \"title\": \"🍔 Nuestro Menú\",\n          \"rows\": [\n            {\n              \"title\": \"Burgers con papas\",\n              \"description\": \"Hamburguesas gourmet con papas fritas incluidas\",\n              \"rowId\": \"cat_burgers\"\n            },\n            {\n              \"title\": \"Veggies con papas\",\n              \"description\": \"Hamburguesas vegetarianas con papas fritas incluidas\",\n              \"rowId\": \"cat_veggies\"\n            },\n            {\n              \"title\": \"Fries\",\n              \"description\": \"Papas fritas y toppings especiales\",\n              \"rowId\": \"cat_fries\"\n            },\n            {\n              \"title\": \"Ensaladas\",\n              \"description\": \"Opciones frescas y saludables\",\n              \"rowId\": \"cat_ensaladas\"\n            },\n            {\n              \"title\": \"Menu Kids\",\n              \"description\": \"Opciones especiales para los más pequeños\",\n              \"rowId\": \"cat_kids\"\n            },\n            {\n              \"title\": \"Tostados con papas\",\n              \"description\": \"Tostados gourmet con papas fritas incluidas\",\n              \"rowId\": \"cat_tostados\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🥤 Bebidas\",\n          \"rows\": [\n            {\n              \"title\": \"Bebidas sin alcohol\",\n              \"description\": \"Refrescos, jugos y aguas\",\n              \"rowId\": \"cat_bebidas\"\n            },\n            {\n              \"title\": \"Cerveza Artesanal MINGA\",\n              \"description\": \"Variedad de cervezas artesanales\",\n              \"rowId\": \"cat_cervezas\"\n            },\n            {\n              \"title\": \"Tragos\",\n              \"description\": \"Bebidas con alcohol y cócteles\",\n              \"rowId\": \"cat_tragos\"\n            }\n          ]\n        },\n        {\n          \"title\": \"✨ Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Invitados especiales\",\n              \"description\": \"Nuestras creaciones destacadas\",\n              \"rowId\": \"cat_invitados\"\n            },\n            {\n              \"title\": \"Combo Del día\",\n              \"description\": \"La mejor opción al mejor precio\",\n              \"rowId\": \"cat_combo\"\n            },\n            {\n              \"title\": \"Promos\",\n              \"description\": \"Ofertas y promociones especiales\",\n              \"rowId\": \"cat_promos\"\n            },\n            {\n              \"title\": \"Postres\",\n              \"description\": \"Dulces para completar tu experiencia\",\n              \"rowId\": \"cat_postres\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar el menú de hamburguesas cuando se selecciona \"Burgers con papas\"\nfunction generarMenuBurgers(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍔 Burgers con Papas\",\n      \"description\": \"Selecciona la hamburguesa que deseas ordenar\",\n      \"buttonText\": \"Ver Hamburguesas\",\n      \"footerText\": \"Todas nuestras hamburguesas incluyen papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"⭐ Hamburguesas Clásicas\",\n          \"rows\": [\n            {\n              \"title\": \"Cheese Burger\",\n              \"description\": \"Medallón 120gr (blend secreto), cheddar x4\\nSimple: $14.500 | Doble: $17.300\",\n              \"rowId\": \"burger_cheese\"\n            },\n            {\n              \"title\": \"American\",\n              \"description\": \"Medallón 120gr, cheddar x4, ketchup, mostaza, cebolla cubitos, pepinillos\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_american\"\n            },\n            {\n              \"title\": \"Classic\",\n              \"description\": \"Medallón 120gr, cheddar x4, salsa mil islas, cebollas, pepinillos, lechuga, tomate\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_classic\"\n            },\n            {\n              \"title\": \"Tasty\",\n              \"description\": \"Medallón 120gr, cheddar x4, lechuga, tomate, cebolla morada, aderezo tasty\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_tasty\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🥓 Hamburguesas con Bacon\",\n          \"rows\": [\n            {\n              \"title\": \"Cheese Bacon\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_cheese_bacon\"\n            },\n            {\n              \"title\": \"Sistons\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, aioli de berenjena ahumada, pepinillos\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_sistons\"\n            },\n            {\n              \"title\": \"Candy\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, cebolla caramelizada\\nSimple: $16.500 | Doble: $19.100 | Triple: $21.900\",\n              \"rowId\": \"burger_candy\"\n            },\n            {\n              \"title\": \"Cheese Bacon Egg\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, huevo a la plancha\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_egg\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🧅 Hamburguesas con Cebolla\",\n          \"rows\": [\n            {\n              \"title\": \"Fried Onion\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla smasheada en la plancha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion\"\n            },\n            {\n              \"title\": \"Fried Onion 2.0\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla smasheada, ali oli, pepinillos (opcional)\\nSimple: $15.800 | Doble: $18.800 | Triple: $21.000\",\n              \"rowId\": \"burger_fried_onion2\"\n            },\n            {\n              \"title\": \"Crispy Onion\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, ali oli, mil islas, cebolla crispy, pepinillos\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_crispy_onion\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🌟 Hamburguesas Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Blue Cheese\",\n              \"description\": \"Medallón 120gr, queso emmental x2, queso azul, bacon ahumado, cebolla morada\\nSimple: $16.500 | Doble: $19.000 | Triple: $21.900\",\n              \"rowId\": \"burger_blue_cheese\"\n            },\n            {\n              \"title\": \"Butter Sriracha\",\n              \"description\": \"Medallón 120gr, cheddar x4, manteca, sriracha\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_sriracha\"\n            },\n            {\n              \"title\": \"Gesell Burger\",\n              \"description\": \"Medallón 120gr, cheddar x4, cebolla brunoise salteada, mayonesa heinz\\nSimple: $15.300 | Doble: $18.100 | Triple: $21.000\",\n              \"rowId\": \"burger_gesell\"\n            },\n            {\n              \"title\": \"Pina Burger\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado, aros de cebolla, barbacoa, aioli ahumado\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_pina\"\n            }\n          ]\n        },\n        {\n          \"title\": \"🔝 Premium\",\n          \"rows\": [\n            {\n              \"title\": \"Juicy\",\n              \"description\": \"Medallón 120gr, cheddar x4, bacon ahumado (2 fetas), cebolla morada, salsa secreta, pepinillos\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_juicy\"\n            },\n            {\n              \"title\": \"Sistons Scott\",\n              \"description\": \"Medallón 120gr, cheddar x4, ketchup, mostaza, cebolla, pepinillos, lechuga, bacon\\nSimple: $16.700 | Doble: $19.800 | Triple: $22.900\",\n              \"rowId\": \"burger_sistons_scott\"\n            },\n            {\n              \"title\": \"Triple Queso\",\n              \"description\": \"3 medallones 120gr (blend secreto), x6 cheddar\\n$19.800\",\n              \"rowId\": \"burger_triple_queso\"\n            },\n            {\n              \"title\": \"Chicken Burger\",\n              \"description\": \"Pollo crispy, salsa caesar, lechuga, crispy, bacon, cheddar\\n$16.700\",\n              \"rowId\": \"burger_chicken\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para mostrar opciones de una hamburguesa específica (Simple/Doble/Triple)\nfunction generarOpcionesHamburguesa(numeroCliente, burgerId, nombreHamburguesa) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": `🍔 ${nombreHamburguesa}`,\n      \"description\": \"Selecciona el tamaño de tu hamburguesa\",\n      \"buttonText\": \"Seleccionar Tamaño\",\n      \"footerText\": \"Todas nuestras hamburguesas incluyen papas fritas\",\n      \"sections\": [\n        {\n          \"title\": \"🔄 Selecciona el Tamaño\",\n          \"rows\": [\n            {\n              \"title\": \"Simple\",\n              \"description\": \"1 medallón de carne de 120gr\",\n              \"rowId\": `${burgerId}_simple`\n            },\n            {\n              \"title\": \"Doble\",\n              \"description\": \"2 medallones de carne de 120gr\",\n              \"rowId\": `${burgerId}_doble`\n            },\n            {\n              \"title\": \"Triple\",\n              \"description\": \"3 medallones de carne de 120gr\",\n              \"rowId\": `${burgerId}_triple`\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver a Hamburguesas\",\n              \"description\": \"Ver otras opciones\",\n              \"rowId\": \"volver_burgers\"\n            },\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar la lista de bebidas sin alcohol\nfunction generarMenuBebidas(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🥤 Bebidas sin Alcohol\",\n      \"description\": \"Selecciona la bebida que deseas ordenar\",\n      \"buttonText\": \"Ver Bebidas\",\n      \"footerText\": \"Bebidas refrescantes para acompañar tu comida\",\n      \"sections\": [\n        {\n          \"title\": \"🥤 Gaseosas\",\n          \"rows\": [\n            {\n              \"title\": \"Coca-Cola 500ml\",\n              \"description\": \"Gaseosa sabor cola\\n$1.800\",\n              \"rowId\": \"bebida_coca_500\"\n            },\n            {\n              \"title\": \"Sprite 500ml\",\n              \"description\": \"Gaseosa sabor lima-limón\\n$1.800\",\n              \"rowId\": \"bebida_sprite_500\"\n            },\n            {\n              \"title\": \"Fanta 500ml\",\n              \"description\": \"Gaseosa sabor naranja\\n$1.800\",\n              \"rowId\": \"bebida_fanta_500\"\n            },\n            {\n              \"title\": \"Coca-Cola Zero 500ml\",\n              \"description\": \"Gaseosa sabor cola sin azúcar\\n$1.800\",\n              \"rowId\": \"bebida_coca_zero_500\"\n            }\n          ]\n        },\n        {\n          \"title\": \"💧 Agua y Jugos\",\n          \"rows\": [\n            {\n              \"title\": \"Agua Mineral 500ml\",\n              \"description\": \"Agua mineral sin gas\\n$1.500\",\n              \"rowId\": \"bebida_agua_500\"\n            },\n            {\n              \"title\": \"Agua con Gas 500ml\",\n              \"description\": \"Agua mineral con gas\\n$1.500\",\n              \"rowId\": \"bebida_agua_gas_500\"\n            },\n            {\n              \"title\": \"Jugo de Naranja Natural\",\n              \"description\": \"Exprimido al momento\\n$2.200\",\n              \"rowId\": \"bebida_jugo_naranja\"\n            },\n            {\n              \"title\": \"Limonada\",\n              \"description\": \"Con menta y jengibre\\n$2.200\",\n              \"rowId\": \"bebida_limonada\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para generar el menú de cervezas artesanales\nfunction generarMenuCervezas(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🍺 Cerveza Artesanal MINGA\",\n      \"description\": \"Selecciona la cerveza que deseas ordenar\",\n      \"buttonText\": \"Ver Cervezas\",\n      \"footerText\": \"Cervezas artesanales de producción local\",\n      \"sections\": [\n        {\n          \"title\": \"🍺 Cervezas MINGA\",\n          \"rows\": [\n            {\n              \"title\": \"IPA\",\n              \"description\": \"Indian Pale Ale, con notas cítricas y amargor pronunciado\\nPinta: $2.900\",\n              \"rowId\": \"cerveza_ipa\"\n            },\n            {\n              \"title\": \"Golden\",\n              \"description\": \"Rubia suave y refrescante, fácil de tomar\\nPinta: $2.700\",\n              \"rowId\": \"cerveza_golden\"\n            },\n            {\n              \"title\": \"Amber\",\n              \"description\": \"Roja con notas a caramelo y cuerpo medio\\nPinta: $2.700\",\n              \"rowId\": \"cerveza_amber\"\n            },\n            {\n              \"title\": \"Stout\",\n              \"description\": \"Negra con notas a café y chocolate\\nPinta: $2.900\",\n              \"rowId\": \"cerveza_stout\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para los combos del día\nfunction generarMenuCombos(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🔥 Combos del Día\",\n      \"description\": \"Nuestras mejores ofertas de hoy\",\n      \"buttonText\": \"Ver Combos\",\n      \"footerText\": \"Aprovecha nuestras promociones especiales\",\n      \"sections\": [\n        {\n          \"title\": \"🔥 Combos Especiales\",\n          \"rows\": [\n            {\n              \"title\": \"Combo Individual\",\n              \"description\": \"Hamburguesa Simple + Bebida\\nCon 20% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_individual\"\n            },\n            {\n              \"title\": \"Combo Pareja\",\n              \"description\": \"2 Hamburguesas Dobles + 2 Bebidas\\nCon 25% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_pareja\"\n            },\n            {\n              \"title\": \"Combo Familiar\",\n              \"description\": \"4 Hamburguesas + 4 Bebidas + 2 Postres\\nCon 30% de descuento sobre el precio individual\",\n              \"rowId\": \"combo_familiar\"\n            }\n          ]\n        },\n        {\n          \"title\": \"⬅️ Navegación\",\n          \"rows\": [\n            {\n              \"title\": \"Volver al Menú Principal\",\n              \"description\": \"Ver otras categorías\",\n              \"rowId\": \"volver_menu\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para solicitar dirección de entrega\nfunction solicitarDireccion(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"type\": \"text\",\n      \"text\": \"🏠 Por favor, indícanos la dirección de entrega para tu pedido. Incluye calle, número, piso/departamento (si aplica) y referencias que nos ayuden a encontrar tu domicilio.\"\n    }\n  ];\n}\n\n// Función para solicitar método de pago\nfunction solicitarMetodoPago(numeroCliente) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"💰 Método de Pago\",\n      \"description\": \"Selecciona cómo deseas pagar tu pedido\",\n      \"buttonText\": \"Seleccionar Pago\",\n      \"footerText\": \"Elige el método de pago más conveniente\",\n      \"sections\": [\n        {\n          \"title\": \"💳 Opciones de Pago\",\n          \"rows\": [\n            {\n              \"title\": \"Efectivo\",\n              \"description\": \"Pagaré en efectivo al momento de la entrega\",\n              \"rowId\": \"pago_efectivo\"\n            },\n            {\n              \"title\": \"Tarjeta (en delivery)\",\n              \"description\": \"Pagaré con tarjeta al momento de la entrega\",\n              \"rowId\": \"pago_tarjeta\"\n            },\n            {\n              \"title\": \"Transferencia\",\n              \"description\": \"Realizaré una transferencia bancaria\",\n              \"rowId\": \"pago_transferencia\"\n            },\n            {\n              \"title\": \"Mercado Pago\",\n              \"description\": \"Pagaré usando Mercado Pago\",\n              \"rowId\": \"pago_mercadopago\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Función para procesar mensajes de la IA (personalización de hamburguesa)\nfunction mensajeIA(numeroCliente, nombreHamburguesa, tamano) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"type\": \"text\",\n      \"text\": `¡Excelente elección! Has seleccionado una ${nombreHamburguesa} ${tamano}.\\n\\n¿Deseas personalizar tu hamburguesa? Puedes decirme si quieres quitar o agregar algún ingrediente.\\n\\nPor ejemplo:\\n- \"Sin cebolla\"\\n- \"Sin ketchup\"\\n- \"Extra queso\"\\n- \"Agregar bacon\"\\n\\nO simplemente dime \"Está bien así\" para continuar con tu pedido.`\n    }\n  ];\n}\n\n// Función para confirmar el pedido final\nfunction confirmarPedido(numeroCliente, detallePedido, precioTotal) {\n  return [\n    {\n      \"number\": numeroCliente,\n      \"title\": \"🛒 Confirmar Pedido\",\n      \"description\": `Tu pedido:\\n${detallePedido}\\n\\nTotal: $${precioTotal}`,\n      \"buttonText\": \"Confirmar\",\n      \"footerText\": \"Verifica que tu pedido esté correcto\",\n      \"sections\": [\n        {\n          \"title\": \"✅ Finalizar\",\n          \"rows\": [\n            {\n              \"title\": \"Confirmar Pedido\",\n              \"description\": \"Proceder con la compra\",\n              \"rowId\": \"confirmar_pedido\"\n            },\n            {\n              \"title\": \"Editar Pedido\",\n              \"description\": \"Realizar cambios\",\n              \"rowId\": \"editar_pedido\"\n            },\n            {\n              \"title\": \"Cancelar\",\n              \"description\": \"Cancelar todo el pedido\",\n              \"rowId\": \"cancelar_pedido\"\n            }\n          ]\n        }\n      ]\n    }\n  ];\n}\n\n// Exportar las funciones para su uso\nmodule.exports = {\n  generarMenuPrincipal,\n  generarMenuBurgers,\n  generarOpcionesHamburguesa,\n  generarMenuBebidas,\n  generarMenuCervezas,\n  generarMenuCombos,\n  solicitarDireccion,\n  solicitarMetodoPago,\n  mensajeIA,\n  confirmarPedido\n};\n\n// Si se ejecuta directamente, retornar el menú principal por defecto\n// (Con un número de cliente de ejemplo, debe ser reemplazado por el número real)\nreturn generarMenuPrincipal($input.first().json.numero_cliente);"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2000,
+        -460
+      ],
+      "id": "b32ecee7-403c-4b2b-a7e5-3034e323deb6",
+      "name": "Lista General"
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "77787e83-3398-4c18-87a0-280809ba1281",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1880,
+        -440
+      ],
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$node[\"Webhook\"].json.body.server_url}}/message/sendText/{{$node[\"Webhook\"].json.body.instance}}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$node[\"Webhook\"].json.body.apikey}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\":\"{{ $('Variables globales').item.json.msg.telefono }}\",\n    \"text\": \"{{ $('Loop Over Items').first().json.text.replace(/\\n/g,'\\\\n').replace(/\\\"/g,'\\'') }}\"\n\n}",
+        "options": {}
+      },
+      "id": "04ca9ee5-4ca1-4aba-83d7-7e5dfcddbd8e",
+      "name": "MESSAGE",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2100,
+        -440
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "options": {}
+      },
+      "id": "69a5ff9d-4d0b-4cbd-bc0c-1c7f467d1314",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1660,
+        -440
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para procesar el texto y dividirlo inteligentemente\nfunction processAndSplitText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un array vacío\n    if (text === null || text === undefined) {\n      return [];\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) { // Intentamos extraer de un campo 'output'\n          // Si output es un string, lo usamos\n          if (typeof text.output === 'string') {\n              text = text.output;\n          } else { // Si output es un objeto o array, intentamos extraer de ahí\n              const extracted = extractTextContent(text.output); // Usamos la función de extracción\n              if (extracted) {\n                  text = extracted;\n              } else {\n                   // Si no pudimos extraer, intentamos convertir todo el objeto a string\n                   try {\n                       text = JSON.stringify(text);\n                   } catch (e) {\n                       console.error(\"No se pudo serializar el objeto a string:\", e);\n                       return []; // Si falla la serialización, devolvemos vacío\n                   }\n              }\n          }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n           console.error(\"No se pudo serializar el objeto a string:\", e);\n           return []; // Si falla la serialización, devolvemos vacío\n        }\n      }\n    } else { // Si no es string, objeto, null o undefined, devolvemos vacío\n       console.warn(\"Entrada a processAndSplitText no es string, objeto, null o undefined:\", typeof text);\n       return [];\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n      return [];\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '');         // Elimina signos de exclamación e interrogación iniciales y finales\n\n  // Divide en líneas para análisis\n  const lines = processedText.split('\\n');\n\n  // Grupos para almacenar los mensajes\n  const messages = [];\n  let currentMessage = [];\n  let inNumberedSection = false;\n  let currentSectionNumber = null;\n\n  // Detectar secciones numeradas y agrupables\n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i];\n    // Detecta si la línea es un encabezado numerado (ej: \"1. Tipo de propiedad:\")\n    const numberedHeaderMatch = line.match(/^\\s*(\\d+)\\.\\s+([^:]+):/);\n\n    if (numberedHeaderMatch) {\n      const sectionNumber = parseInt(numberedHeaderMatch[1]);\n\n      // Si estamos empezando una nueva sección numerada O si el número no es el siguiente esperado\n      if (!inNumberedSection || (inNumberedSection && sectionNumber !== currentSectionNumber + 1)) {\n         // Si tenemos contenido previo, guardamos como mensaje separado\n         if (currentMessage.length > 0) {\n             messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n             currentMessage = [];\n         }\n         inNumberedSection = true;\n      }\n      currentSectionNumber = sectionNumber; // Actualizamos el número de sección actual\n       currentMessage.push(line); // Agregamos la línea al mensaje actual\n\n    } else if (line.trim() === '') { // Línea vacía\n        // Una línea vacía puede terminar una sección si hay contenido previo\n        if (currentMessage.length > 0) {\n             // Si no estamos en una sección numerada, una línea vacía termina el mensaje actual\n             if (!inNumberedSection) {\n                 messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n                 currentMessage = [];\n             } else {\n                 // Si estamos en una sección numerada, una línea vacía se agrega al mensaje actual,\n                 // podría terminar la sección si hay otra línea vacía o fin de texto después.\n                 currentMessage.push(line);\n             }\n        }\n         // Si currentMessage está vacío, una línea vacía consecutiva no hace nada\n\n    } else { // Línea con contenido que no es un encabezado numerado\n        currentMessage.push(line);\n        inNumberedSection = false; // Salimos de la sección numerada si el contenido no sigue el patrón\n    }\n  }\n\n  // Agregar el último mensaje si queda algo\n  if (currentMessage.length > 0) {\n    messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n  }\n\n  // Filtrar mensajes vacíos y limpiar líneas vacías extra\n  return messages\n    .filter(msg => msg.length > 0) // Filtrar cadenas vacías después del trim\n    .map(msg => {\n      // Eliminar líneas vacías múltiples dentro del mensaje\n      return msg.replace(/\\n{2,}/g, '\\n\\n');\n    });\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n       const extracted = extractTextContent(item); // Llamada recursiva para elementos del array\n       if (extracted) {\n           return extracted; // Devolvemos el primer texto que encontramos\n       }\n    }\n    return null; // Si no encontramos texto en ningún elemento del array\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él (puede ser string, array u objeto)\n    if (data.output !== undefined && data.output !== null) {\n         const extracted = extractTextContent(data.output); // Llamada recursiva para el campo output\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'response', intentamos extraer texto de él\n     if (data.response !== undefined && data.response !== null) {\n         const extracted = extractTextContent(data.response); // Llamada recursiva para el campo response\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'json', intentamos extraer texto de él\n     if (data.json !== undefined && data.json !== null) {\n         const extracted = extractTextContent(data.json); // Llamada recursiva para el campo json\n         if (extracted) {\n             return extracted;\n         }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n     try {\n         return JSON.stringify(data);\n     } catch (e) {\n         console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n         return null; // Si falla la serialización\n     }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const textArray = processAndSplitText(textToProcess);\n    // Devolvemos un array con un objeto que contiene el array de texto\n    return [{json: {text: textArray}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un array vacío\n    return [{json: {text: []}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {text: [], error: error.message}}];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        -440
+      ],
+      "id": "9852162e-036a-4c64-8a23-8c1f28fbfc70",
+      "name": "Separa datos"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-04-17",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        920,
+        -200
+      ],
+      "id": "3498ba51-f876-4d66-869d-a24aefe6ee56",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9O8uUWkp7h4KwsVD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message }}",
+        "options": {
+          "systemMessage": "=### Ejemplo de Identificación y Consulta por Categoría:\n\n```\nUsuario: burger_sistons\nMingo Bot: Excelente elección. La Sistons incluye medallón blend secreto, cheddar x4, bacon ahumado, alioli de berenjena ahumada, pepinillos. ¿La preferís simple, doble o triple?\n\nUsuario: simple\nMingo Bot: Perfecto. Una Sistons simple ha sido añadida a tu pedido. ¿Querés personalizarla o agregar algo más?\n\nUsuario: cerveza_juicy_lite\nMingo Bot: Has seleccionado JUICY LITE IPA - SRM 4 / ABV 5.2. ¿Preferís pinta o media pinta?\n\nUsuario: pinta\nMingo Bot: Excelente. Una pinta de JUICY LITE IPA ha sido añadida a tu pedido. ¿Deseás agregar algo más?\n\nUsuario: bebida_agua_saborizada\nMingo Bot: Has seleccionado Agua saborizada. Contamos con los siguientes sabores: Pomelo, Manzana, Pera y Uva. ¿Cuál preferís?\n\nUsuario: pomelo\nMingo Bot: Perfecto. Un Agua saborizada sabor pomelo ha sido añadida a tu pedido. ¿Deseás agregar algo más?\n```### Ejemplo Adicional - Cerveza y Confirmación de Selección:\n\n```\nUsuario: #menu\nMingo Bot: [muestra menú completo con opciones de bebidas]\n\nUsuario: quiero una cerveza\nMingo Bot: Tenemos varias opciones de cervezas disponibles:\n• Rubia IPA\n• Roja Irish\n• Negra Stout\n• Honey\nPor favor, confirmá exactamente cuál deseás seleccionar.\n\nUsuario: Rubia IPA\nMingo Bot: Has seleccionado Cerveza Rubia IPA. ¿Preferís pinta o media pinta?\n\nUsuario: pinta\nMingo Bot: Perfecto. Una pinta de Cerveza Rubia IPA añadida a tu pedido. ¿Deseás agregar algo más?\n```# Prompt Mejorado — Mingo Bot (Delivery de Hamburguesas)\n\n## 1. Identidad y Personalidad\n\nEres **«Mingo Bot»**, el asistente virtual exclusivo de **MINGA Burgers**, una hamburguesería premium con auténtico sabor argentino. Tu misión es gestionar pedidos de delivery con eficiencia, cordialidad y un tono profesional con identidad argentina.\n\n**Personalidad:**\n- **Tono argentino profesional:** Usás expresiones como \"excelente\", \"perfecto\", \"genial\", \"correcto\", \"por supuesto\", \"entendido\", con acento en la segunda persona (\"vos\", \"querés\", \"podés\").\n- **Actitud:** Cordial, atento y eficiente. Entusiasta sobre los productos pero manteniendo un tono profesional.\n- **Comunicación:** Mensajes claros y concisos (máximo 3 líneas por respuesta) y emojis discretos cuando sea apropiado (🍔 👍 ✅).\n\n**Instrucciones iniciales:**\n- En tu primer mensaje, SIEMPRE indicarle al usuario que puede escribir **#menu** en cualquier momento para ver las opciones disponibles.\n- Recordarle esta opción si parece estar confundido o pregunta por opciones no disponibles.\n\n## 2. Funciones Principales\n\n1. **Gestión de pedidos:** Traducís códigos `row_id` a productos reconocibles y mantenés un carrito actualizado.\n2. **Interpretar códigos y selecciones:** Cualquier `row_id` o selección directa del menú mostrado debe ser reconocida como válida e incorporada al carrito inmediatamente. NUNCA rechazar opciones que el usuario seleccionó directamente.\n3. **Tamaño de productos:**\n   - Para TODA hamburguesa, SIEMPRE preguntar: \"¿La preferís simple, doble o triple?\" y esperar respuesta.\n   - Para TODA cerveza, SIEMPRE preguntar: \"¿Preferís pinta o media pinta?\" y esperar respuesta.\n   - NUNCA agregar estos productos al carrito hasta confirmar el tamaño.\n4. **Confirmación:** Procesás la dirección, método de pago y emitís `PEDIDO_CONFIRMADO`.\n5. **Experiencia:** Respondés con velocidad y confirmación clara de cada acción.\n\n## 3. Especificaciones Técnicas\n\n### Estructura del Carrito (interno)\n```json\n{\n  \"carrito\": [\n    {\n      \"row_id\": \"burger_cheese\", \n      \"nombre_display\": \"Cheese Burger\",\n      \"precio_unitario\": 12500,\n      \"cantidad\": 2, \n      \"modifs\": [\"sin cebolla\", \"extra bacon\"],\n      \"subtotal\": 25000\n    }\n  ],\n  \"total_pedido\": 25000,\n  \"estado_pedido\": \"en_proceso\",\n  \"direccion\": \"\",\n  \"metodo_pago\": \"\"\n}\n```\n\n### Manejo de Opciones de Producto\n- **CRUCIAL:** El bot debe reconocer CUALQUIER selección que provenga de los listados n8n como válida (burger_xxx, veggie_xxx, fries_xxx, etc.)\n- Cuando el usuario selecciona un ítem, el bot debe **primero identificar qué tipo de producto es** y luego preguntar las opciones específicas según la categoría:\n  - **Hamburguesas:** Preguntar si quiere simple, doble o triple\n  - **Cervezas:** Preguntar si quiere pinta o media pinta\n  - **Aguas saborizadas:** Preguntar qué sabor quiere (pomelo, manzana, pera, uva)\n  - **Otros productos con opciones:** Identificar las opciones disponibles consultando el listado\n\n### Reglas de Validación\n- **IMPORTANTE:** Cualquier `row_id` o selección que provenga del flujo n8n o que aparezca en los menús SIEMPRE debe ser considerado válido y procesarse según las reglas específicas de cada categoría. NUNCA responder que \"no está en el menú\" para opciones que el usuario seleccionó del menú mostrado.\n- Si el usuario escribe texto libre que no corresponde a ningún código o selección del menú: \"Por favor, seleccioná una de las opciones del menú disponible o escribí #menu para ver todas las opciones\"\n- Si solicita modificar un ítem no añadido aún: \"Primero necesitamos agregar la hamburguesa al pedido, luego podremos personalizarla según tus preferencias\"\n- Tiempo de inactividad (3 minutos): \"¿Continuamos con tu pedido? Estamos listos para asistirte. Recordá que podés escribir #menu para ver todas las opciones disponibles\"\n\n## 4. Frases y Modismos Argentinos Profesionales para Usar\n\n- \"¡Buen día! ¿En qué puedo ayudarte hoy?\"\n- \"Excelente elección, añadido a tu pedido\"\n- \"Tu selección ha sido registrada con éxito\"\n- \"¿Te gustaría personalizarla de alguna manera?\"\n- \"Perfecto, ya tenemos todo listo\"\n- \"¿Deseás agregar algo más a tu pedido?\"\n- \"Por favor, indicame la dirección de entrega\"\n- \"Tu pedido está en preparación\"\n- \"Esta combinación es muy recomendada por nuestros clientes\"\n- \"No hay problema, lo modificamos enseguida\"\n\n## 5. Flujo de Interacción Optimizado\n\n1. **Inicio:** Saludo personalizado con menú actual\n2. **Selección:** Usuario elige mediante `row_id` o selección directa del menú → SIEMPRE aceptar como válido\n3. **Confirmación de selección:** Si la selección proviene de un listado con múltiples opciones, confirmar específicamente cuál eligió\n4. **Tamaños obligatorios:** \n   - Para TODA hamburguesa, preguntar: \"¿La preferís simple, doble o triple?\" \n   - Para TODA cerveza, preguntar: \"¿Preferís pinta o media pinta?\"\n5. **Personalización:** Una vez confirmado el tamaño, aceptar modificaciones con feedback claro\n6. **Resumen:** Muestra carrito cuando el usuario escribe \"ver pedido\", \"resumen\" o similar\n7. **Confirmación:** Al recibir \"confirmar\" → solicita dirección → solicita método de pago\n8. **Finalización:** Emite `PEDIDO_CONFIRMADO` con resumen final y tiempo estimado\n\n**IMPORTANTE:** \n- Cuando el usuario selecciona un ítem directamente del menú, SIEMPRE aceptarlo como válido, nunca indicar que no existe.\n- Para hamburguesas y cervezas, OBLIGATORIAMENTE preguntar por el tamaño antes de añadir al carrito.\n- Cuando el usuario selecciona de un listado con múltiples opciones, SIEMPRE confirmar específicamente qué eligió.\n\n## 6. Ejemplos Mejorados de Conversación\n\n### Escenario Principal:\n\n```\nUsuario: Hola\nMingo Bot: ¡Buen día! Soy Mingo de MINGA Burgers. ¿En qué puedo ayudarte hoy? Podés escribir #menu en cualquier momento para ver todas nuestras opciones disponibles.\n[muestra menú inicial]\n\nUsuario: #menu\nMingo Bot: [muestra menú completo con códigos]\n\nUsuario: Sistons\nMingo Bot: Excelente elección. La Sistons incluye medallón blend secreto, cheddar x4, bacon ahumado, alioli de berenjena ahumada y pepinillos. ¿La preferís simple, doble o triple?\n\nUsuario: simple\nMingo Bot: Perfecto. Una Sistons simple ha sido añadida a tu pedido. ¿Querés personalizarla o agregar algo más?\n\nUsuario: sin cebolla y extra bacon\nMingo Bot: Entendido. Tu Sistons simple será preparada sin cebolla y con extra de bacon. ¿Deseás agregar algo más a tu pedido?\n\nUsuario: papas_grandes\nMingo Bot: Excelente. Papas Grandes añadidas a tu pedido. ¿Deseás agregar algo más o procedemos a confirmar?\n\nUsuario: ver pedido\nMingo Bot: Tu pedido hasta ahora:\n• 1× Sistons Simple ($16.500) - sin cebolla, extra bacon\n• 1× Papas Grandes ($5.500)\nTOTAL: $22.000\n¿Confirmamos el pedido o deseás realizar algún cambio?\n\nUsuario: confirmar\nMingo Bot: Excelente. Por favor, indicame la dirección de entrega (calle, número, piso/departamento)\n\nUsuario: Av. Corrientes 1234 5B\nMingo Bot: Dirección registrada. ¿Qué método de pago preferís?\n• Efectivo (indicá con cuánto vas a pagar)\n• Mercado Pago\n• Tarjeta (en el local)\n• Transferencia\n\nUsuario: efectivo con 20000\nMingo Bot: Perfecto. Tu pedido ha sido confirmado.\n• Tiempo estimado de entrega: 30-45 minutos\n• Cambio a preparar: $2.000\n\n**PEDIDO_CONFIRMADO**\n```\n\n### Escenario de Cancelación:\n\n```\nUsuario: quiero cancelar\nMingo Bot: ¿Estás seguro de que deseás cancelar tu pedido? Por favor, escribí \"si\" para confirmar o \"no\" para continuar.\n\nUsuario: si\nMingo Bot: Pedido cancelado. Gracias por considerarnos. Estaremos disponibles cuando desees realizar un nuevo pedido.\n\n**PEDIDO_CANCELADO**\n```\n\n## 7. Capacidades Avanzadas\n\n- **Recomendaciones personalizadas:** \"¿Te copa probar nuestra Burger Doble que va bárbaro con tus papas?\"\n- **Manejo de promociones:** Detecta combinaciones válidas para descuentos\n- **Memoria de pedidos frecuentes:** \"¿Querés repetir lo mismo de la última vez?\"\n- **Gestión de incidencias:** Protocolo especial para demoras o problemas\n- **Feedback post-entrega:** Solicitud de valoración después de la entrega\n\n## 8. Limitaciones Claras\n\n- **Estrictamente delivery:** No gestiona reservas, reclamos ni atención en local\n- **Sin modificación de precios:** Precios fijos según base de datos\n- **Restricción geográfica:** Solo entregas en zona predefinida\n- **Sin horarios extraordinarios:** Respeta horarios de operación\n- **Información limitada:** Solo datos relativos a productos y pedidos actuales\n\n## 9. Integraciones\n\n- **Base de datos en tiempo real:** Sincronización automática con inventario\n- **Geolocalización:** Validación de direcciones dentro del radio de entrega\n- **Sistema de pagos:** Verificación de pagos digitales\n- **Notificaciones:** Alertas sobre estado del pedido"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        1040,
+        -440
+      ],
+      "id": "2926ba94-9cbb-44e1-9468-9be66ddcb0c0",
+      "name": "Tester Prompt"
+    },
+    {
+      "parameters": {
+        "action": "generate"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        -3000,
+        -180
+      ],
+      "id": "c2a49f3c-5a0f-44b6-b6e2-95658c86bcc5",
+      "name": "Crypto"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e02fa309-efdc-4424-a35e-232970a746cf",
+              "leftValue": "={{ $json.telefono }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3220,
+        -280
+      ],
+      "id": "64339ec6-2f8a-4da4-93d2-ea379b5001ef",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "60a730ae-12a3-4199-88e0-86b27dcbd9cc",
+              "leftValue": "={{ $json.body.data.key.remoteJid.match(/@g\\.us$/) !== null }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8aea6ba3-ad5f-4f8d-bb9e-d1dcedc5c00a",
+      "name": "From Me3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3880,
+        -280
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bc1dbc77-10d2-48f4-ad72-0b5cffc255c7",
+              "leftValue": "={{ $json.body.data.key.fromMe }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3660,
+        -280
+      ],
+      "id": "3efebe3f-38fc-42aa-89a4-84ae9df61afa",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "pp0ryisp756shl2",
+        "table": "mokibxtj81aic9y",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "pushname",
+              "fieldValue": "={{ $node[\"Webhook\"].json.body.data.pushName }}"
+            },
+            {
+              "fieldName": "telefono",
+              "fieldValue": "={{ $node[\"Webhook\"].json.body.data.key.remoteJid.replace(/\\D/g, '') }}"
+            },
+            {
+              "fieldName": "key",
+              "fieldValue": "={{ $json.data }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -2780,
+        -180
+      ],
+      "id": "5e6f047e-b05d-450d-9e6a-ec67faa5b49e",
+      "name": "Insertar Lead",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "msg.telefono",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.remoteJid.replace(/\\D/g, '') || $('Webhook').item?.json?.body?.meta?.sender?.identifier.replace(/\\D/g, '') || null}}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "msg.nombre",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.pushName || $('Webhook').item.json.body.meta.sender.name }}",
+              "type": "string"
+            },
+            {
+              "id": "01238a36-6907-4aec-ab21-26345ed5fc96",
+              "name": "datos.server",
+              "value": "={{ $('Webhook').item.json.body.instance }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "msg.content",
+              "value": "={{ \n  $('Webhook').item?.json?.body?.content?.mensaje?.extendedTextMessage?.text ||\n     $('Webhook').item?.json?.body?.data?.message?.extendedTextMessage?.text ||\n  $('Webhook').item?.json?.body?.data?.message?.imageMessage?.caption || \n  $('Webhook').item?.json?.body?.data?.message?.conversation || \n  $('Webhook').item?.json?.message?.text || \n  $('Webhook').item?.json?.message?.caption || $('Webhook').item.json.body.data.message.audioMessage \n}}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "msg.type",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.messageType || $('Webhook').item.json.body.messages[0].content_type }}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "msg.idmsg",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.key?.id || $('Webhook').item.json.body.contact_inbox.source_id }}",
+              "type": "string"
+            },
+            {
+              "id": "076ad2d4-b8ea-440f-9c02-f7e8417a984d",
+              "name": "datos.apikey",
+              "value": "={{ $('Webhook').item?.json?.body?.apikey || '084938B823FE-4BA9-974E-8C8951DB4277' }}",
+              "type": "string"
+            },
+            {
+              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
+              "name": "msg.timestamp",
+              "value": "={{ $('Webhook').item.json.body.data.messageTimestamp.toDateTime('s').toLocal().toISO()}}",
+              "type": "string"
+            },
+            {
+              "id": "e8e6023d-7c0e-4f8b-815f-2abdff369912",
+              "name": "datos.server_url",
+              "value": "={{ $('Webhook').item?.json?.body?.server_url || 'https://evo.innovasoftpro.dev'}}",
+              "type": "string"
+            },
+            {
+              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
+              "name": "datos.server_db",
+              "value": "https://db.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "5553db2c-49aa-4a58-bafe-f8794ce8832d",
+              "name": "datos.cliente_key",
+              "value": "={{ $('getCliente').item.json.key }}",
+              "type": "string"
+            },
+            {
+              "id": "720d2599-daac-474d-904e-0ea0ee40689b",
+              "name": "datos.cliente_id",
+              "value": "={{ $('getCliente').item.json.Id }}",
+              "type": "number"
+            },
+            {
+              "id": "9115b918-14e1-4b2c-95ae-a926e65f61ca",
+              "name": "bot.activo",
+              "value": "={{ $json.activo }}",
+              "type": "string"
+            },
+            {
+              "id": "16fd7a29-5af4-4a04-9efb-ab0c249bf230",
+              "name": "lista.id_row",
+              "value": "={{ $('From Me3').item.json.body.data.message.listResponseMessage.singleSelectReply.selectedRowId }}",
+              "type": "string"
+            },
+            {
+              "id": "cfaf2792-627a-4d9f-a039-5741c802749f",
+              "name": "datos.instance",
+              "value": "={{ $('Webhook').item.json.body.instance }}",
+              "type": "string"
+            },
+            {
+              "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
+              "name": "msg.ListaResponse",
+              "value": "={{ $('Webhook').item.json.body.data.message.listResponseMessage.title }}\n{{ $('Webhook').item.json.body.data.message.listResponseMessage.description }}",
+              "type": "string"
+            },
+            {
+              "id": "d2215ba8-1fc7-46c2-bcc0-7bd813badd5b",
+              "name": "msg.tittle_row_id",
+              "value": "={{ $('Webhook').item.json.body.data.message.listResponseMessage.title }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4fd388d4-af49-4356-9e59-da0d66c208c6",
+      "name": "Variables globales",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2540,
+        -300
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pp0ryisp756shl2",
+        "table": "mokibxtj81aic9y",
+        "returnAll": true,
+        "options": {
+          "where": "=(telefono,eq,{{ $('Webhook').first().json.body.data.key.remoteJid.replace(/\\D/g, '') }}) "
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -3440,
+        -280
+      ],
+      "id": "97d15b83-a37a-4dc1-9eee-499b94d47320",
+      "name": "getCliente",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_delivery",
+          "mode": "list",
+          "cachedResultName": "n8n_delivery"
+        },
+        "deleteCommand": "delete",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -4100,
+        60
+      ],
+      "id": "f66d1977-842b-435c-8d43-e788ea1b48b2",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ab93e759-1e5f-4afb-ab11-e01426dc4840",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -4100,
+        -280
+      ],
+      "id": "1f95e74d-e537-401a-879e-1b31809f3a8b",
+      "name": "Webhook",
+      "webhookId": "ab93e759-1e5f-4afb-ab11-e01426dc4840"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=cel:{{ $('Variables globales').item.json.msg.telefono }}",
+        "sessionTTL": 300,
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        1080,
+        -200
+      ],
+      "id": "fbbf5cd1-11b2-4758-aa7a-bee67af0eb91",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "=msg:{{ $json.msg.telefono }}",
+        "messageData": "={{ JSON.stringify($json.msg) }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -2000,
+        -100
+      ],
+      "id": "e6ea6f14-7686-457a-824c-c60551491e03",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "message",
+        "key": "=msg:{{ $('Variables globales').item.json.msg.telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1740,
+        -100
+      ],
+      "id": "5822e1e9-71d4-4db5-a953-bfbac1cfe27c",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "37fa4c10-4aa3-4c88-8793-c66f540ea575",
+                    "leftValue": "={{ JSON.parse($json.message.last()).timestamp }}",
+                    "rightValue": "={{ $now.minus(5,'seconds').toLocal().toISO() }}",
+                    "operator": {
+                      "type": "dateTime",
+                      "operation": "before"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "seguir"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "302c2f76-f09c-4d60-bfee-e77b9efe825e",
+                    "leftValue": "ListaResponse",
+                    "rightValue": "={{ $('Variables globales').item.json.lista }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1480,
+        -100
+      ],
+      "id": "2c1aa9bd-7139-4e06-b968-e818eca69947",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "path": "214fbdc8-ac96-44f1-a130-0c4167595c72"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1200,
+        80
+      ],
+      "id": "3912c594-c235-4663-b29c-1126e91c71dc",
+      "name": "Wait",
+      "webhookId": "214fbdc8-ac96-44f1-a130-0c4167595c72"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=msg:{{ $('Variables globales').item.json.msg.telefono }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        -240
+      ],
+      "id": "c50f970c-281e-4792-94af-e239433165d9",
+      "name": "Redis3",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        -240
+      ],
+      "id": "f78dda01-c705-48f2-9e64-99f5b53d1218",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        -240
+      ],
+      "id": "c7383a02-82ef-4e76-b2d0-2572e7a8cdd5",
+      "name": "JSON Parse"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "726ef588-43c5-472e-89e8-a5bfb7656bba",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "texto"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8cb854e2-c9dc-45e9-b6aa-5f6c0266b561",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "audio"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9b12cb0e-b3b1-4777-b272-188f68919bfa",
+      "name": "Message Type1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -720,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "X7HpeR5PlAtWKQXi",
+          "mode": "list",
+          "cachedResultName": "AGENTE DELIVERY - LISTAS"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_cliente": "={{ $('Variables globales').item.json.msg.telefono }}",
+            "session_id": "={{ $('Variables globales').item.json.msg.idmsg }}",
+            "instancia": "={{ $('Variables globales').item.json.datos.instance }}",
+            "apikey": "={{ $('Variables globales').item.json.datos.apikey }}",
+            "tittle": "={{ $('Variables globales').item.json.lista.id_row }}",
+            "url": "={{ $('Variables globales').item.json.datos.server_url }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero_cliente",
+              "displayName": "numero_cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "instancia",
+              "displayName": "instancia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tittle",
+              "displayName": "tittle",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -2000,
+        -660
+      ],
+      "id": "df900c80-1c5c-46ed-863d-935c2d78a664",
+      "name": "Listas"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7d210f0-6a18-456d-9e89-aa28f548b2a0",
+              "name": "body.data.message.base64",
+              "value": "={{ $('Webhook').item.json.body.data.message.base64 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "24fb9de3-6974-4682-a61e-b2922780b6c7",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -300,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "body.data.message.base64",
+        "options": {
+          "mimeType": "audio/mp3"
+        }
+      },
+      "id": "801e9848-865d-404f-a515-46fec778e2dd",
+      "name": "Convert to File1",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -140,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        20,
+        -240
+      ],
+      "id": "f81d3650-d336-4b33-9c44-920b253ba97d",
+      "name": "Transcribir",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        360,
+        -420
+      ],
+      "id": "33f1bea3-7c7b-4de7-9658-cc56752a9ec8",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "timestamp"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        520,
+        -420
+      ],
+      "id": "065381a5-57c6-4ac9-9638-2ea9ecaff48a",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('Edit Fields1').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        180,
+        -240
+      ],
+      "id": "ce74da98-8bdf-4b84-83ac-e0a57576bdeb",
+      "name": "text"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "text",
+              "renameField": true,
+              "outputFieldName": "message"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        680,
+        -420
+      ],
+      "id": "22421da0-8483-4674-8dbf-508a2a180ad1",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0fae28c9-d30a-4250-9a50-5b68c61164cf",
+              "name": "message",
+              "value": "={{ $json.message.join(\"\\n\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        840,
+        -440
+      ],
+      "id": "a224c58c-96c7-43a0-a50b-a0d396e5fe92",
+      "name": "chatInput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $('JSON Parse').item.json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('JSON Parse').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -300,
+        -520
+      ],
+      "id": "57583500-11d6-469b-aa10-d84925eb2a1f",
+      "name": "text1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $('JSON Parse').item.json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('JSON Parse').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -940,
+        -700
+      ],
+      "id": "9d0956f1-ebc9-4a66-a3dc-25592c5e9bee",
+      "name": "text2"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ /^cat_.*/.test($json.lista.id_row) }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "29901a2b-7a51-4913-82e8-b76f745ec990"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Listas"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "fd254dd5-b87c-474c-847c-a95e32ab63da",
+                    "leftValue": "={{ $json.msg.content }}",
+                    "rightValue": "#menu",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Menu"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8389ffd3-a729-4622-b59f-b4948ba88079",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "texto"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -2340,
+        -320
+      ],
+      "id": "6b8d05dd-1f1a-4d47-b4b5-2e5ef91ebc11",
+      "name": "Listas1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Variables globales').item.json.datos.server_url }}/message/sendList/{{ $('Variables globales').item.json.datos.instance }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Variables globales').item.json.datos.apikey}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('Variables globales').item.json.msg.telefono }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "footerText",
+              "value": "={{ $json.footerText }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1740,
+        -460
+      ],
+      "id": "abb95b85-b3a1-4575-9dc8-239c44cd9027",
+      "name": "menu",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $('Variables globales').item.json.msg.ListaResponse }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('Variables globales').item.json.msg.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1740,
+        -280
+      ],
+      "id": "30380f1a-f144-4155-b89a-88164f6b1efb",
+      "name": "text3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3724f9da-543d-4d38-8a62-1a49840dfedf",
+              "leftValue": "={{ $json.msg.ListaResponse }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2000,
+        -260
+      ],
+      "id": "ecd46938-f149-4922-9aca-6caa8012ef04",
+      "name": "If1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -4320,
+        -300
+      ],
+      "id": "a4e87b0e-e4fb-46f2-a46d-976dc5f29e84",
+      "name": "When Executed by Another Workflow",
+      "disabled": true
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.innovasoftpro.dev",
+            "user-agent": "axios/1.7.9",
+            "content-length": "758",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8n.innovasoftpro.dev",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "575dad520f0e",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "event": "messages.upsert",
+            "instance": "qeva",
+            "data": {
+              "key": {
+                "remoteJid": "5492234245220@s.whatsapp.net",
+                "fromMe": true,
+                "id": "158378CEF12D6C9E11A9A1A3C17F0444"
+              },
+              "pushName": "Automátizaciones AI",
+              "status": "SERVER_ACK",
+              "message": {
+                "reactionMessage": {
+                  "key": {
+                    "remoteJid": "5492234245220@s.whatsapp.net",
+                    "fromMe": false,
+                    "id": "3A60F2572CA9BA11E944"
+                  },
+                  "text": "👍🏻",
+                  "senderTimestampMs": "1748029326072"
+                }
+              },
+              "messageType": "reactionMessage",
+              "messageTimestamp": 1748029325,
+              "instanceId": "588f50d5-9323-4ec2-a701-6019611508c0",
+              "source": "android"
+            },
+            "destination": "https://n8n.innovasoftpro.dev/webhook/qeva",
+            "date_time": "2025-05-23T16:42:05.690Z",
+            "sender": "5492254596618@s.whatsapp.net",
+            "server_url": "https://evo.innovasoftpro.dev",
+            "apikey": "3463F236FF41-417E-8F0A-7F1D0F575FF9"
+          },
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/qeva",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-05-15T01:36:11.776Z",
+      "updatedAt": "2025-05-15T01:36:11.776Z",
+      "id": "d3d6zb9nCLfGQXaG",
+      "name": "delivery"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-30T22:00:24.001Z",
+  "versionId": "c1d5ee4f-19d6-4907-8bd5-ff3a07098c08"
+}
