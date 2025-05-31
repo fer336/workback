@@ -125,7 +125,7 @@
         "promptType": "define",
         "text": "={{ $json.msg }}",
         "options": {
-          "systemMessage": "Eres el Procesador Automático de Escalaciones de RealStateIQ.\n\nAnaliza el input del cliente y genera ÚNICAMENTE el mensaje para Francisco.\n\nREGLAS ESTRICTAS:\n- NO escribas \"Aquí tienes\", \"Aquí está\", \"Para Francisco\" o similares\n- NO agregues introducciones ni explicaciones\n- SOLO devuelve el mensaje directo que Francisco debe recibir\n- Comienza directamente con el saludo a Francisco\n\n🚨 *¡ATENCIÓN URGENTE, FRANCISCO!* 🚨\n\n🙋‍♂️ *Nuevo contacto recibido:*\n\n- 👤 *Nombre:* [Nombre del cliente]\n- 📱 *Teléfono:* [Número]\n- 📧 *Email:* [Email]  \n- 🏢 *Tipo de cliente:* [Particular / Agente de Inmobiliaria]\n\n---\n\n💬 *Consulta recibida:*\n\"[Motivo exacto del mensaje]\"\n\n🏠 *Propiedad vinculada:* [Datos de la propiedad, si corresponde]\n\n---\n\n📌 *Sugerencias/Recomendaciones:*  \n[Sugerencias breves y directas para Francisco]\n\n⏳ *Por favor, responder antes de:* [Plazo según urgencia]\n\n\nIMPORTANTE: \n- Extraer el \"motivo\" del JSON entrante \n- Incluirlo textualmente en la sección \"Motivo de la consulta\"\n- Usar las palabras clave del motivo para determinar urgencia y sugerencias\n\nResponde SOLO con el mensaje formateado, sin preámbulos."
+          "systemMessage": "=Eres el Procesador Automático de Escalaciones de RealStateIQ.\n\nAnaliza el input del cliente y genera ÚNICAMENTE el mensaje para Francisco.\n\nREGLAS ESTRICTAS:\n- NO escribas \"Aquí tienes\", \"Aquí está\", \"Para Francisco\" o similares\n- NO agregues introducciones ni explicaciones\n- SOLO devuelve el mensaje directo que Francisco debe recibir\n- Comienza directamente con el saludo a Francisco\n\n\n```\n🔔 NUEVO CLIENTE PARA CONTACTAR\n\n👤 **Cliente:** {nombre_cliente}\n📞 **Teléfono:** {telefono}\n📧 **Correo:** {correo_electronico}\n🏢 **Tipo:** {tipo_cliente}\n\n📋 **MOTIVO DE CONSULTA:**\n{motivo_contacto}\n\n🏠 **PROPIEDAD RELACIONADA:**\n{propiedad_consultada || \"Consulta general\"}\n\nℹ️ **CONTEXTO ADICIONAL:**\n{contexto_adicional}\n\n⏰ **URGENCIA:** {urgencia}\n🕐 **MEJOR HORARIO:** {horario_preferido}\n\n---\nGenerado por Martín - {fecha_actual}\n```\n\nIMPORTANTE: \n- Extraer el \"motivo\" del JSON entrante \n- Incluirlo textualmente en la sección \"Motivo de la consulta\"\n- Usar las palabras clave del motivo para determinar urgencia y sugerencias\n\nResponde SOLO con el mensaje formateado, sin preámbulos."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -187,7 +187,7 @@
             },
             {
               "name": "to",
-              "value": "={{ $('sendMsg').item.json.numero }}"
+              "value": "=5492254423359"
             }
           ]
         },
@@ -284,6 +284,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-05-30T06:13:23.895Z",
-  "versionId": "3e372f2f-02df-4577-9db5-fbd11f5b37d2"
+  "updatedAt": "2025-05-30T16:15:13.473Z",
+  "versionId": "ebe8b14b-f1f7-468f-917b-9e46ad0c4b24"
 }
