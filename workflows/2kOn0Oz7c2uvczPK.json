@@ -288,7 +288,7 @@
     {
       "parameters": {
         "chatId": "164729397",
-        "text": "=⚠️ Error en Flujo de Trabajo ⚠️\n\n. ID de Ejecución: {{$json.execution.id}}\n. Nombre del Flujo: {{$json.workflow.name}}\n. ID del Flujo: {{$json.workflow.id}}\n. Error: {{ $json.execution.error.message }}\n. Nodo donde ocurrió: {{ $json.execution.lastNodeExecuted }} \n. Modo de ejecución: {{ $json.execution.mode }}  . URL de ejecución: {{ $json.execution.url }}",
+        "text": "=🚨 **ALERTA DE SISTEMA** 🚨\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n❌ **Error en Flujo de Trabajo**\n\n📋 **DETALLES DEL ERROR:**\n┌─────────────────────────────────────────\n│ 🆔 **ID de Ejecución:** {{$json.execution.id}}\n│ 📂 **Nombre del Flujo:** {{$json.workflow.name}}\n│ 🔗 **ID del Flujo:** {{$json.workflow.id}}\n│ ⚡ **Modo de Ejecución:** {{$json.execution.mode}}\n└─────────────────────────────────────────\n\n🔴 **DESCRIPCIÓN DEL ERROR:**\n```\n{{ $json.execution.error.message }}\n```\n\n📍 **Nodo Afectado:** `{{ $json.execution.lastNodeExecuted }}`\n\n🌐 **URL de Ejecución:**\n{{ $json.execution.url }}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n⏰ Error reportado el: {{$now}}\n🔧 Revisar inmediatamente para resolución",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -379,6 +379,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-04-22T19:48:46.187Z",
-  "versionId": "54f04a8b-8a8e-4cb6-a57d-670aac340d51"
+  "updatedAt": "2025-05-30T20:06:03.477Z",
+  "versionId": "3aa53276-5f71-4753-a571-48580b4f2213"
 }
