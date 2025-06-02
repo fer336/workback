@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "NocoDB": {
       "ai_tool": [
@@ -11,10 +11,55 @@
           }
         ]
       ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-05-26T19:03:27.996Z",
   "id": "9UX4KzPpjZee7dtF",
+  "isArchived": false,
   "meta": {
     "templateCredsSetupCompleted": true
   },
@@ -27,7 +72,7 @@
       "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
       "typeVersion": 1,
       "position": [
-        0,
+        20,
         0
       ],
       "id": "b67e691d-c6cb-4b86-b24e-2520f77db611",
@@ -38,15 +83,15 @@
       "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "getAll",
-        "projectId": "pgzahexmtqessds",
-        "table": "mlqtf9yegpk7jr5",
+        "projectId": "pb41si7fkkjcq88",
+        "table": "mz4zbwk60tzr8ky",
         "returnAll": true,
         "options": {}
       },
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        20,
+        -80,
         200
       ],
       "id": "029b1ac7-08be-4296-83b0-b09fa7e83d26",
@@ -57,6 +102,93 @@
           "name": "NocoDB Token account"
         }
       }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        420,
+        0
+      ],
+      "id": "9e9b7976-d330-417f-9b7e-e1578f064009",
+      "name": "When chat message received",
+      "webhookId": "a6d4f4e3-721d-48cd-842f-c47c74afde82"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        640,
+        0
+      ],
+      "id": "77c04af7-d4a5-40ee-a511-4cd765472109",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        740,
+        220
+      ],
+      "id": "56b85fb7-6c13-4302-8595-d9081c688317",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-05-20",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        520,
+        260
+      ],
+      "id": "5601e3d0-b243-4ce8-9e33-8293aa56b400",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9O8uUWkp7h4KwsVD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "https://n8n.innovasoftpro.dev/mcp-test/666fc014-bbc9-4b66-a458-64d4b43e10dd/sse"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        900,
+        220
+      ],
+      "id": "c63fefd9-a54d-46c4-9900-5da29642ae5a",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "5e26af56-3ba3-4444-84a0-3f29b05d7341",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        140,
+        340
+      ],
+      "id": "68b29612-372d-4970-b73c-b5b6f76d8810",
+      "name": "Webhook",
+      "webhookId": "5e26af56-3ba3-4444-84a0-3f29b05d7341"
     }
   ],
   "pinData": {},
@@ -66,7 +198,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2025-05-27T23:14:10.523Z",
-  "versionId": "8c57b77b-59bd-4f9c-80ed-a8cd51b0da3c"
+  "triggerCount": 3,
+  "updatedAt": "2025-06-01T19:57:25.697Z",
+  "versionId": "80dc0db1-37b6-479f-8015-88aa4c7f0572"
 }
