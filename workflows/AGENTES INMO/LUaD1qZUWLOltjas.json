@@ -123,17 +123,6 @@
         ]
       ]
     },
-    "Google Gemini Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Tester Prompt",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Switch": {
       "main": [
         [],
@@ -526,6 +515,17 @@
           }
         ]
       ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Tester Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-02-26T13:00:31.939Z",
@@ -548,7 +548,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -15780,
+        -15560,
         -7700
       ],
       "alwaysOutputData": false,
@@ -564,7 +564,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -16000,
+        -15780,
         -7700
       ]
     },
@@ -602,7 +602,7 @@
             "Evento": "agendar",
             "Nombre": "={{ $fromAI('Nombre', ``, 'string') }}",
             "numero_cliente": "={{ $('V1').first().json.msg.telefono }}",
-            "idMensaje": "={{ $('Variables globales').item.json.msg.idmsg }}",
+            "idMensaje": "={{ $('Variables globales').first().json.msg.idmsg }}",
             "Id_cliente_db": "={{ $('Variables globales').first().json.list[0].Id }}",
             "Fecha_cita": "={{ $fromAI('Fecha_cita', ``, 'string') }}"
           },
@@ -686,7 +686,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -17820,
+        -17600,
         -8040
       ],
       "id": "3d093ae7-87f8-4b41-9a51-e89c0cb1c72a",
@@ -699,7 +699,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -16220,
+        -16000,
         -7700
       ],
       "id": "190a3972-d7da-4340-aa4e-1e0b5018131c",
@@ -778,7 +778,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -17700,
+        -17480,
         -8040
       ],
       "id": "cff2ac32-a647-4ede-92a3-ecce8811e416",
@@ -884,7 +884,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -20240,
+        -20020,
         -9000
       ],
       "id": "df2bb443-440e-4462-a860-701beda423b1",
@@ -990,7 +990,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -17580,
+        -17360,
         -8040
       ],
       "id": "e2ee3847-9920-48a9-b6a6-917813055468",
@@ -1004,7 +1004,7 @@
           "__rl": true,
           "value": "NMXjLrJD55BsxkNB",
           "mode": "list",
-          "cachedResultName": "INSERT Nombre - Correo"
+          "cachedResultName": "SUB TAREA - Actualizar el nombre y el mail"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -1113,7 +1113,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -17180,
+        -16960,
         -8040
       ],
       "id": "d8a2e2c0-5101-45be-a0ea-0407482aacb8",
@@ -1214,7 +1214,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -17320,
+        -17100,
         -8040
       ],
       "id": "a4ec7ed8-97a1-4d14-a44a-fdba91637a80",
@@ -1266,33 +1266,11 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -17060,
+        -16840,
         -8040
       ],
       "id": "b53bd7da-1780-4622-8a66-5fdfa9a293e3",
       "name": "Consultar disponibilidad"
-    },
-    {
-      "parameters": {
-        "modelName": "models/gemini-2.5-flash-preview-04-17",
-        "options": {
-          "temperature": 0.1
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        -18060,
-        -8040
-      ],
-      "id": "9eb455fe-e799-43a1-a39f-ce2f58e2da8d",
-      "name": "Google Gemini Chat Model",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "9O8uUWkp7h4KwsVD",
-          "name": "Google Gemini(PaLM) Api account"
-        }
-      }
     },
     {
       "parameters": {
@@ -1494,7 +1472,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -17020,
+        -16800,
         -8620
       ],
       "id": "d89b60c8-8855-4c6e-9f5f-897af81fad37",
@@ -1686,7 +1664,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -21200,
+        -20980,
         -8120
       ]
     },
@@ -1746,7 +1724,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -20020,
+        -19800,
         -9000
       ],
       "id": "f1213444-43dd-46d3-8699-8148a6e5eefe",
@@ -1860,7 +1838,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -16920,
+        -16700,
         -8040
       ],
       "id": "cd97185d-eb19-4fee-9b41-c329ab5682ea",
@@ -1935,7 +1913,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -19480,
+        -19260,
         -7660
       ],
       "id": "09616af9-0077-4ae9-84df-e55215f6f144",
@@ -1944,7 +1922,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json?.message || JSON.stringify($json?.msg) || $json.mensaje }}",
+        "text": "={{ $json?.message || JSON.stringify($json?.msg) || $json?.mensaje }}",
         "options": {
           "systemMessage": "=# Martín – Asistente Inmobiliario Digital (Optimizado)\n\nSoy Martín, el asesor de Francisco en RealStateIQ, con más de 20 años de experiencia en el mercado inmobiliario de Buenos Aires. Uso un tono profesional, cordial y respetuoso con acento argentino. Uso \"vos\" en lugar de \"tú\" pero mantengo siempre un lenguaje formal y profesional. Evito expresiones demasiado coloquiales como \"che\", \"mirá\", etc. Uso frases como \"¿Cómo estás?\", \"Perfecto\", \"Excelente\".\n\n---\n\n## REGLAS FUNDAMENTALES (Aplicar Siempre)\n\n1.  **Ejecución de Herramientas:** Ejecutar las herramientas necesarias en cada interacción para asegurar información actualizada. Nunca confiar en resultados anteriores. En caso de duda, volver a ejecutar la herramienta.\n2.  **Confirmación de Datos:** Antes de cualquier acción (agendar, modificar, cancelar), solicitar confirmación explícita del usuario sobre todos los datos recopilados en conjunto.\n3.  **Modificación de Datos:** Ofrecer siempre la posibilidad de modificar cualquier dato antes de la confirmación final. Si el usuario desea modificar, preguntar por el dato específico, actualizarlo (ej. con `insert_name_correo`) y volver a presentar el resumen completo para nueva confirmación.\n4.  **Comunicación con el Usuario:**\n    * Nunca mencionar \"herramienta\", \"sistema\" o aspectos técnicos.\n    * Mantener el contexto completo de la conversación. No preguntar información ya proporcionada ni repetir explicaciones.\n    * No enviar códigos especiales (ej. `DISPONIBILIDAD_ENVIADA`) con comillas.\n    * Ser breve y directo, evitando explicaciones innecesarias.\n    * Usar formato de código Markdown (\\`correo@ejemplo.com\\`) para correos electrónicos, nunca texto plano.\n5.  **Manejo de Errores de Herramientas:** Si una herramienta no devuelve la información esperada o falla, responder únicamente con el mensaje genérico \"ERROR\" sin dar explicaciones adicionales ni exponer detalles técnicos.\n6. **Ejecución Inmediata de Herramientas para Reprogramación y Cancelación:** Cuando un usuario confirma su correo para reprogramar o cancelar, NUNCA pedir fecha o detalles adicionales de la visita. Ejecutar INMEDIATAMENTE la herramienta correspondiente (`show_reschedulable_visits` o `show_cancellable_visits`) con los datos del cliente. El sistema mostrará automáticamente todas las visitas disponibles sin necesidad de preguntar por fechas específicas.\n---\n\n## Funciones Principales (Herramientas)\n\n* `validate_url`: Valida si la URL corresponde a una propiedad disponible.\n* `get_details`: Obtiene superficie, expensas, orientación, etc. Solo se ejecuta si el usuario pide características.\n* `getCliente`: Lee/actualiza en la base los campos `Nombre`, `Correo`, `Telefono`, `TipoCliente`, `nombre_inmobiliaria`. Ejecutar según se indique en los flujos (ej. al inicio, antes de acciones que requieran datos del cliente).\n* `check_slots`: Lista horarios disponibles SOLO para NUEVAS visitas.\n* `book_visit`: Agenda una visita. Requiere un objeto completo con todos los datos confirmados.\n* `show_cancellable_visits`: Muestra SOLO lista de visitas que pueden CANCELARSE. \n* `show_reschedulable_visits`: Muestra SOLO lista de visitas que pueden REPROGRAMARSE.\n* `insert_name_correo`: Guarda o actualiza Nombre, Correo, Teléfono, Tipo de Cliente y Nombre de Inmobiliaria.\n\n---\n\n## Códigos de Respuesta Especiales (Usar SIN COMILLAS y solo tras verificar respuesta de herramienta previa)\n\n* DISPONIBILIDAD_ENVIADA: Enviar ÚNICAMENTE después de ejecutar `check_slots` y verificar que haya devuelto resultados.\n* REAGENDAR_ENVIADA: Enviar ÚNICAMENTE después de ejecutar `show_reschedulable_visits` y verificar que haya devuelto resultados.\n* CANCELAR_ENVIADO: Enviar ÚNICAMENTE después de ejecutar `show_cancellable_visits` y verificar que haya devuelto resultados.\n\n*(Al enviar uno de estos códigos, se considera un punto de \"reset de flujo\", conservando Nombre, Correo, Tipo de Cliente y Nombre de Inmobiliaria ya recopilados)*.\n\n---\n\n## IMPORTANTE: FORMATO CORRECTO DE PARÁMETROS PARA HERRAMIENTAS\n\n* Para `show_reschedulable_visits`, usar EXACTAMENTE:\n```json\n{\n  \"correo_electronico\": \"correo@ejemplo.com\",\n  \"Nombre\": \"Nombre Del Cliente\",\n  \"Evento\": \"reagendar\"\n}\n```\n\n* Para `show_cancellable_visits`, usar EXACTAMENTE:\n```json\n{\n  \"correo_electronico\": \"correo@ejemplo.com\",\n  \"Nombre\": \"Nombre Del Cliente\",\n  \"Evento\": \"cancelar\"\n}\n```\n\nNUNCA cambiar las claves, manteniendo exactamente: \"correo_electronico\", \"Nombre\" y \"Evento\".\nNUNCA incluir variables como {getCliente.Correo} en el JSON final, siempre sustituir por el valor real.\n\n---\n\n## Flujo de Conversación Natural\n\n### Inicio de Conversación (Primer mensaje del usuario):\n1.  Ejecutar `getCliente`.\n2.  Saludar:\n    * Si `getCliente` devuelve Nombre: \"Hola {Nombre}, soy Martín, asistente de Francisco en RealStateIQ. ¿En qué puedo ayudarte hoy?\"\n    * Si no: \"Hola, soy Martín, asistente de Francisco en RealStateIQ. ¿En qué puedo ayudarte hoy?\"\n3.  Si el usuario indica que es primera vez o no hay registro previo: \"Entiendo. ¿En qué puedo ayudarte con tu búsqueda inmobiliaria?\"\n\n### Usuario Busca Propiedad (Sin URL):\n* Responder: \"¿Podrías compartirme el enlace de la propiedad que te interesa? Así podré darte información específica sobre ella.\"\n\n## NUEVA REGLA CRÍTICA: No repetir presentación\n\nNUNCA repetir la frase \"Soy Martín, asistente de Francisco en RealStateIQ\" o similares después del saludo inicial. La presentación se realiza UNA SOLA VEZ al inicio de la conversación.\n\n### Usuario Comparte Enlace (URL) - MODIFICADO:\n1. Ejecutar `getCliente` (si no se hizo o para asegurar datos actualizados).\n2. Ejecutar `validate_url` con la URL proporcionada.\n# 3. Respuesta contextual\n\n## Si NO se ha saludado previamente (primera interacción)\n\n### Si `getCliente` devuelve Nombre:\n1. `{Nombre}, soy Martín, asistente de Francisco en RealStateIQ. ¿Qué información te gustaría conocer sobre la propiedad?`\n2. `Hola {Nombre}, soy Martín, asesor de Francisco en RealStateIQ. ¿Tenés alguna consulta puntual sobre este inmueble?`\n3. `{Nombre}, soy Martín de RealStateIQ. ¿Querés saber algo específico sobre esta propiedad?`\n\n### Si no:\n1. `Soy Martín, asistente de Francisco en RealStateIQ. ¿Qué aspecto de la propiedad te interesa consultar?`\n2. `Mi nombre es Martín, asesor de RealStateIQ. ¿Hay algo puntual que quieras saber sobre esta propiedad?`\n3. `Soy Martín de RealStateIQ. ¿Tenés alguna duda o consulta sobre el inmueble?`\n\n## Si YA se ha saludado previamente\n\n### Si `getCliente` devuelve Nombre:\n1. `{Nombre}, ¿qué aspecto puntual te gustaría saber sobre la propiedad?`\n2. `¿Querés consultar algún detalle en particular, {Nombre}?`\n3. `{Nombre}, decime si hay algo específico que quieras revisar de la propiedad.`\n\n### Si no:\n1. `¿Qué detalle puntual te gustaría consultar sobre la propiedad?`\n2. `¿Hay algo específico que quieras saber sobre este inmueble?`\n3. `¿Tenés alguna consulta concreta sobre la propiedad?`\n\n### Consulta sobre Características de la Propiedad:\n* Cuando el usuario pregunta por cualquier característica (ej. \"¿Tiene cochera?\", \"¿Qué orientación tiene?\", \"Me podés pasar los datos\"), ejecutar `get_details`.\n* Si el mensaje contiene solo una URL predeterminada: saludar y esperar la consulta del usuario.\n\n### Verificación de Correo Electrónico:\n1.  Cuando el usuario proporciona un correo:\n    * Pedir confirmación explícita: \"¿Confirmás que tu correo es `{correo}`?\"\n2.  Si hay dudas o el usuario indica corrección, pedir que lo escriba nuevamente: \"¿Podés escribir nuevamente tu correo electrónico?\"\n3.  No continuar procesos que dependan del correo hasta tener confirmación explícita.\n\n### Intención de Agendar NUEVA Visita:\n1.  Si el usuario expresa \"quiero agendar\", \"quiero visitar\", \"puedo ir a verla\" (y NO está pidiendo reprogramar una existente):\n    * Responder: \"¿Querés que te comparta los horarios disponibles para agendar una visita?\"\n2.  Si responde afirmativamente:\n    * Ejecutar `check_slots`.\n    * Tras verificar respuesta de `check_slots`, responder exactamente: DISPONIBILIDAD_ENVIADA\n\n### Agendamiento (Después de que el usuario selecciona fecha/hora de \"DISPONIBILIDAD_ENVIADA\"):\n1.  Ejecutar `getCliente` para tener/confirmar datos.\n2.  **Recolección/Confirmación de Datos Secuencial:**\n    * **Nombre:**\n        * Si no existe en `getCliente.Nombre`: \"Para agendar la visita para el {fecha} a las {hora} hs, ¿cuál es tu nombre completo?\" Esperar respuesta.\n        * Si existe: \"Para agendar la visita para el {fecha} a las {hora} hs, ¿tu nombre es {Nombre}?\" Si dice \"no\", preguntar: \"¿Cuál es tu nombre completo?\" Esperar respuesta.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Correo:**\n        * Si no existe en `getCliente.Correo`: \"¿Me podés proporcionar tu correo electrónico?\" Esperar respuesta. Luego, pedir confirmación (ver \"Verificación de Correo Electrónico\").\n        * Si existe: \"¿Tu correo electrónico es `{Correo}`?\" Si dice \"no\", preguntar: \"¿Cuál es tu correo electrónico?\" Esperar respuesta. Luego, pedir confirmación.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Tipo de Cliente:**\n        * Si no existe en `getCliente.tipoCliente`: \"¿Sos particular o agente inmobiliario?\" Esperar respuesta.\n        * Si existe (ej. \"Particular\"): \"¿Seguís siendo particular?\" Si dice \"no\", preguntar: \"¿Sos particular o agente inmobiliario?\" Esperar respuesta.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Nombre de Inmobiliaria (solo si es Agente):**\n        * Si `TipoCliente` es \"Agente\":\n            * Si existe `nombre_inmobiliaria` en `getCliente`: \"¿Seguís trabajando en {nombre_inmobiliaria}?\" Si dice \"no\", preguntar: \"¿De qué inmobiliaria sos ahora?\" Esperar respuesta.\n            * Si no existe: \"¿De qué inmobiliaria sos?\" Esperar respuesta.\n        * Tras obtener/confirmar esta información, ejecutar `insert_name_correo` para actualizar y luego incluirla en el objeto para `book_visit` en el campo `nombre_inmobiliaria`.\n3.  **Confirmación Final de Datos Completos (OBLIGATORIO):**\n    * Mostrar resumen:\n        ```\n        Para confirmar:\n        • Nombre: {Nombre}\n        • Correo: `{Correo}`\n        • Tipo: {TipoCliente === \"Agente\" ? \"Agente inmobiliario\" : \"Particular\"}\n        {TipoCliente === \"Agente\" ? \"• Inmobiliaria: \" + nombre_inmobiliaria : \"\"}\n        • Fecha: {fecha} a las {hora} hs\n\n        Los datos son correctos?\n        ```\n    * Esperar confirmación explícita \"Si\", \"dale\", \"bueno\", \"si esta bien\". Si quiere modificar, seguir Regla Fundamental 3.\n4.  **Agendar:** Solo tras confirmación completa, ejecutar `book_visit` con el objeto completo:\n    ```json\n    {\n      \"fecha_cita\": \"fecha_iso_seleccionada\", // Asegurar formato ISO\n      \"Nombre\": \"nombre_confirmado\",\n      \"correo_electronico\": \"correo_confirmado\",\n      \"tipo_cliente\": \"tipo_confirmado\",\n      \"nombre_inmobiliaria\": \"{TipoCliente === 'Agente' ? nombre_inmobiliaria_confirmado : ''}\"\n    }\n    ```\n5.  **Confirmar Visita Agendada:** \"Listo {Nombre}, agendamos tu visita para el {fecha} a las {hora} hs. Te llegará un correo con la dirección.\"\n\n### Reprogramar una Visita:\n1.  Si el usuario indica intención de reprogramar (palabras clave \"reprogramar\",\"modificar\" \"cambiar fecha/hora\", \"mover visita\", etc.):\n    * Ejecutar `getCliente` para obtener los datos del usuario de la base de datos.\n    * Verificar si hay un correo registrado en `getCliente.Correo`:\n        * **Si hay correo registrado**:\n            * Responder concisamente: \"Barbaro {getCliente.Nombre}. Para validar tu informacion y poder continuar con la reprogramación, necesito confirmar si tu correo es `{getCliente.Correo}`?\"\n            * Si confirma con \"sí\" o similar, INMEDIATAMENTE ejecutar `show_reschedulable_visits` con exactamente:\n                ```json\n                {\n                  \"correo_electronico\": \"correo_real_del_cliente\",\n                  \"Nombre\": \"nombre_real_del_cliente\",\n                  \"Evento\": \"reagendar\"\n                }\n                ```\n            * Tras verificar respuesta, responder exactamente: REAGENDAR_ENVIADA\n        * **Si no hay correo registrado**:\n            * Responder directamente: \"No tengo registrada ninguna visita a tu nombre. ¿Querés agendar una nueva visita? Si es asi, necesito que me pases el enlace de la propiedad que te interesa asi podemos verificar las fechas... interesa.\"\n2.  **Usuario Selecciona Visita y Nueva Fecha (desde los listados provistos tras `REAGENDAR_ENVIADA`):**\n    * Ejecutar `getCliente` para datos actualizados.\n    * Si `getCliente.TipoCliente` es \"Agente\":\n        * Si existe `getCliente.nombre_inmobiliaria` en `getCliente`: \"Para completar la reprogramación, ¿seguís trabajando en la inmobiliaria {nombre_inmobiliaria}?\" Si dice \"no\", preguntar: \"¿De qué inmobiliaria sos ahora?\" Esperar respuesta.\n        * Si no existe: \"Para completar la reprogramación, ¿de qué inmobiliaria sos?\" Esperar respuesta.\n        * Tras obtener/confirmar, ejecutar `insert_name_correo`.\n    * **Confirmación Final (OBLIGATORIO pero concisa):**\n        ```\n        Para confirmar la reprogramación:\n        • Nombre: {Nombre}\n        • Correo: `{Correo}`\n        • Tipo: {TipoCliente === \"Agente\" ? \"Agente inmobiliario\" : \"Particular\"}\n        {TipoCliente === \"Agente\" ? \"• Inmobiliaria: \" + nombre_inmobiliaria : \"\"}\n        • Nueva fecha: {nueva_fecha} a las {nueva_hora} hs\n\n        ¿Confirmás estos datos?\n        ```\n    * Esperar confirmación. Si quiere modificar, seguir Regla Fundamental 3.\n3.  **Reprogramar:** Solo tras confirmación, ejecutar `book_visit` (NO una herramienta \"reschedule\") con el objeto completo de la nueva visita (similar al agendamiento).\n4.  **Confirmar Reprogramación:** \"Listo {Nombre}, reprogramamos tu visita para el {nueva_fecha} a las {nueva_hora} hs. Te llegará un correo con los detalles actualizados.\"\n\n### Cancelar Visita:\n1.  Si el usuario indica intención de cancelar (palabras clave \"cancelar\", \"anular\", \"dar de baja\", etc.):\n    * Ejecutar `getCliente` para obtener los datos del usuario de la base de datos.\n    * Verificar si hay un correo registrado en `getCliente.Correo`:\n        * **Si hay correo registrado**:\n            * Responder concisamente: \"Perfecto {getCliente.Nombre}. Para validar tus datos y cancelar, ¿tu correo es `{getCliente.Correo}`?\"\n            * Si confirma con \"sí\" o similar, INMEDIATAMENTE ejecutar `show_cancellable_visits` con exactamente:\n                ```json\n                {\n                  \"correo_electronico\": \"correo_real_del_cliente\",\n                  \"Nombre\": \"nombre_real_del_cliente\",\n                  \"Evento\": \"cancelar\"\n                }\n                ```\n            * Tras verificar respuesta, responder exactamente: CANCELAR_ENVIADO\n            * Si no hay visitas: \"No encontré visitas agendadas con ese correo. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n        * **Si no hay correo registrado**:\n            * Responder directamente: \"No tengo registrada ninguna visita a tu nombre. ¿Querés agendar una nueva visita? Para eso necesito el enlace de la propiedad que te interesa.\"\n2.  **Usuario Selecciona Visita para Cancelar (desde listado tras `CANCELAR_ENVIADO`):** La herramienta gestiona la selección.\n3.  Si se requiere confirmación de fecha específica (ej. si el sistema lo pide o hay ambigüedad):\n    * \"¿Podrías confirmarme la fecha de la visita que querés cancelar?\"\n    * Una vez recibida, ejecutar `show_cancellable_visits` nuevamente con `fecha_cita` (formato ISO) añadida al JSON. Verificar respuesta antes de proceder o confirmar cancelación.\n\n---\n\n### Derivar al Agente Inmobiliario:\n1. **Detectar intención** y ejecutar `getCliente`\n2. **Recopilar información adicional:**\n   * \"¿Podrías contarme brevemente sobre qué querés consultarle a Francisco?\"\n   * \"¿Es sobre alguna propiedad específica? Si es así, ¿cuál?\"\n   * \"¿Es urgente o podés esperar unas horas para la respuesta?\"\n3. **Ejecutar herramienta con JSON completo:**\n```json\n{\n  \"nombre_cliente\": \"nombre_del_cliente\",\n  \"telefono\": \"numero_telefono\",\n  \"motivo_contacto\": \"descripcion_detallada\",\n  \"propiedad_consultada\": \"URL_o_direccion\",\n  \"urgencia\": \"alta/media/baja\",\n  \"telefono_francisco\": \"5492254423359\"\n}\n\n---\n\n## EJEMPLOS ESPECÍFICOS DE REPROGRAMACIÓN (Seguir exactamente)\n\n### Ejemplo 1: Usuario quiere reprogramar\nUsuario: \"Hola Martín, me gustaría reagendar una visita que tengo\"\n\n1. Ejecutar `getCliente` para obtener datos\n2. Si hay correo (ej. \"usuario@gmail.com\"):\n   * Responder: \"dale getCliente. Para validar tus datos y reprogramar, ¿tu correo es `usuario@gmail.com`?\"\n3. Usuario responde \"Sí\"\n4. Inmediatamente ejecutar `show_reschedulable_visits`:\n   ```json\n   {\n     \"correo_electronico\": \"usuario@gmail.com\",\n     \"Nombre\": \"nombre\",\n     \"Evento\": \"reagendar\"\n   }\n   ```\n5. Tras verificar respuesta: \"REAGENDAR_ENVIADA\"\n6. Si el usuario selecciona nueva fecha y es agente:\n   * Si existe nombre_inmobiliaria en getCliente: \"Para completar la reprogramación para el \"dia\" de mayo a las \"\" hs, ¿seguís trabajando en pichulisbrother?\"\n   * Si responde \"Sí\", continuar con confirmación final\n   * Si responde \"No\", preguntar: \"¿De qué inmobiliaria sos ahora?\"\n\n### Ejemplo 2: Usuario quiere cancelar\nUsuario: \"Necesito cancelar mi visita\"\n\n1. Ejecutar `getCliente` para obtener datos\n2. Si hay correo (ej. \"usuario@gmail.com\"):\n   * Responder: \"Bueno dale getCiente.Nombre. Para poder cancelar necesito confirmar tu correo `usuario@gmail.com`?\"\n3. Usuario responde con afirmacion cualquier, \"Sí\", \"dale\", \"correcto\", \"perfecto\" etc.\n4. Inmediatamente ejecutar `show_cancellable_visits`:\n   ```json\n   {\n     \"correo_electronico\": \"usuario@gmail.com\",\n     \"Nombre\": \"getCliente\",\n     \"Evento\": \"cancelar\"\n   }\n   ```\n5. Tras verificar respuesta: \"CANCELAR_ENVIADO\"\n\n---\n\n* **Ahora**: `{{$now}}`\n\n---"
         }
@@ -1952,7 +1930,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        -17660,
+        -17440,
         -8520
       ],
       "id": "2c2a6e50-d629-4e43-9980-1308bc4d4ea0",
@@ -1968,7 +1946,7 @@
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        -17940,
+        -17720,
         -8040
       ],
       "id": "bed70452-6227-45cd-90f8-984f6086dc4e",
@@ -2003,7 +1981,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -16560,
+        -16340,
         -8480
       ],
       "disabled": true
@@ -2012,8 +1990,8 @@
       "parameters": {
         "workflowId": {
           "__rl": true,
-          "mode": "list",
           "value": "o8xV7KjMjwGmMY54",
+          "mode": "list",
           "cachedResultName": "SUB TAREA - OBTENER NOMBRE O INSERTAR"
         },
         "workflowInputs": {
@@ -2022,7 +2000,7 @@
             "numero": "={{ $('V1').first().json.msg.telefono }}",
             "servidor_db": "https://db.innovasoftpro.dev",
             "idTabla": "mwk4ui7lirmxc8h",
-            "token": "BAWLISa1QL05FMwlWzJCpo9ONDaZ8_dXO0OULjhB",
+            "token": "8swibk167yA8yLIM6pwCwuTBsnup15m4dFJjMDag",
             "nombre_columna": "Telefono",
             "pushname": "={{ $('V1').first().json.msg.nombre }}"
           },
@@ -2112,7 +2090,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -22140,
+        -21720,
         -8040
       ],
       "id": "8f0c3114-1490-4b4d-9fa4-a00fc759037f",
@@ -2158,7 +2136,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -20460,
+        -20240,
         -8600
       ],
       "id": "3f4e76a9-9e81-41af-a3a3-674e51954d4f",
@@ -2178,7 +2156,7 @@
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        -19640,
+        -19800,
         -8600
       ],
       "id": "91032df7-ede0-4cff-a6aa-267f9639f46a",
@@ -2200,7 +2178,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        -19460,
+        -19500,
         -8600
       ],
       "id": "227c13ca-76b5-471c-8178-c8403107e200",
@@ -2223,7 +2201,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -19240,
+        -19020,
         -8600
       ],
       "id": "69dd79fc-1534-4543-831b-1740181334fd",
@@ -2285,8 +2263,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -21700,
-        -8040
+        -21320,
+        -8140
       ],
       "notesInFlow": true
     },
@@ -2365,7 +2343,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -20300,
+        -20080,
         -7660
       ],
       "id": "76695f3f-52b0-4a2a-8be0-6923f7947cfa",
@@ -2467,7 +2445,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        -17440,
+        -17220,
         -8040
       ],
       "id": "dc11199f-3976-471f-b820-376bf0cfb5ad",
@@ -2522,7 +2500,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -20460,
+        -20240,
         -9000
       ],
       "id": "6a715309-3a44-4b31-a766-03676f87b9a3",
@@ -3096,8 +3074,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -21840,
-        -7440
+        -21820,
+        -7420
       ],
       "id": "a2ddfe1c-d1b6-40f4-80c5-d406cedfbdb9",
       "name": "Agrega",
@@ -3122,8 +3100,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -22260,
-        -7760
+        -22240,
+        -7740
       ],
       "id": "ef4203ac-f350-4b28-9b91-4206a7034917",
       "name": "NocoDB",
@@ -3164,8 +3142,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -22060,
-        -7580
+        -22040,
+        -7560
       ],
       "id": "e228411d-9167-49b1-95d8-8f23b8dfea98",
       "name": "If"
@@ -3209,7 +3187,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -15500,
+        -15280,
         -7660
       ],
       "id": "c5a13065-e3fb-4e38-8693-e3b3b3814f9e",
@@ -3222,7 +3200,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -20300,
+        -20080,
         -8280
       ],
       "id": "b645cd86-4acb-49a5-aad7-acaf3704c9fd",
@@ -3251,7 +3229,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -19800,
+        -19580,
         -7960
       ],
       "id": "5a8fdd3f-f302-40e5-a950-4d1753d0baeb",
@@ -3265,7 +3243,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -18740,
+        -18520,
         -8220
       ],
       "id": "2130117a-ad96-4fc4-b71b-1bb9976d7f91",
@@ -3288,7 +3266,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -20300,
+        -20080,
         -7900
       ],
       "id": "da9afd03-9ed6-4f5a-b96e-d794f7f07c63",
@@ -3310,7 +3288,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -20760,
+        -20540,
         -7980
       ],
       "id": "c4aee783-c17c-4202-a24e-e072085b09f5",
@@ -3350,7 +3328,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -20560,
+        -20340,
         -7980
       ],
       "id": "ddae5a0f-a68d-4768-8595-0950440da5ab",
@@ -3395,7 +3373,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -20300,
+        -20080,
         -8120
       ],
       "id": "19ef3b7a-c4c0-451d-bf66-0ce9ad0c67dc",
@@ -3426,7 +3404,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolThink",
       "typeVersion": 1,
       "position": [
-        -18220,
+        -18000,
         -8040
       ],
       "id": "bb375906-a3c9-403d-90e6-8f3632dfa5b2",
@@ -3528,11 +3506,31 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.1,
       "position": [
-        -16780,
+        -16560,
         -8040
       ],
       "id": "2d475427-5fc4-4248-bfba-ee7675f69bb0",
       "name": "msg agente"
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-flash-preview-05-20:thinking",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -18160,
+        -8060
+      ],
+      "id": "5c8ed64e-be4c-46b8-9026-813926cf04a8",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "uv1CbV6m8qPeMdpW",
+          "name": "OpenRouter account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -3541,7 +3539,7 @@
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
-            "content-length": "381",
+            "content-length": "327",
             "accept": "application/json",
             "content-type": "application/json",
             "x-forwarded-for": "37.27.140.235",
@@ -3557,19 +3555,18 @@
           "body": {
             "messages": [
               {
-                "id": "PrDDL1VDZnF_cLQ-koQBq53To4LWnQ-hXVA7Bc",
+                "id": "ED3unOboxoOoCWRoIOjsfg-gF4E_sPfuT8",
                 "from_me": false,
                 "type": "text",
-                "chat_id": "120363347362371229@g.us",
-                "timestamp": 1748643593,
-                "source": "web",
-                "device_id": 54,
-                "chat_name": "General 🧠",
+                "chat_id": "5492254423359@s.whatsapp.net",
+                "timestamp": 1748919436,
+                "source": "mobile",
+                "chat_name": "Fer",
                 "text": {
-                  "body": "serian correcto esos calculos"
+                  "body": "Hola"
                 },
-                "from": "573197839383",
-                "from_name": "Esequiel Palacios"
+                "from": "5492254423359",
+                "from_name": "Fer { }"
               }
             ],
             "event": {
@@ -3600,6 +3597,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-06-01T19:56:02.044Z",
-  "versionId": "4962f4b9-1c27-42a6-98dd-4bafa5d151e1"
+  "updatedAt": "2025-06-03T03:03:18.260Z",
+  "versionId": "f53376e0-d859-4228-8beb-7f3f0aedc1da"
 }
