@@ -117,7 +117,7 @@
       "name": "sendMsg",
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "position": [
-        80,
+        520,
         220
       ]
     },
@@ -126,13 +126,13 @@
         "promptType": "define",
         "text": "={{ $json.msg }}",
         "options": {
-          "systemMessage": "=Eres el Procesador Automático de Escalaciones de RealStateIQ.\n\nAnaliza el input del cliente y genera ÚNICAMENTE el mensaje para Francisco.\n\nREGLAS ESTRICTAS:\n- NO escribas \"Aquí tienes\", \"Aquí está\", \"Para Francisco\" o similares\n- NO agregues introducciones ni explicaciones\n- SOLO devuelve el mensaje directo que Francisco debe recibir\n- Comienza directamente con el saludo a Francisco\n\n\n```\n🔔 NUEVO CLIENTE PARA CONTACTAR\n\n👤 **Cliente:** {nombre_cliente}\n📞 **Teléfono:** {telefono}\n📧 **Correo:** {correo_electronico}\n🏢 **Tipo:** {tipo_cliente}\n\n📋 **MOTIVO DE CONSULTA:**\n{motivo_contacto}\n\n🏠 **PROPIEDAD RELACIONADA:**\n{propiedad_consultada || \"Consulta general\"}\n\nℹ️ **CONTEXTO ADICIONAL:**\n{contexto_adicional}\n\n⏰ **URGENCIA:** {urgencia}\n🕐 **MEJOR HORARIO:** {horario_preferido}\n\n---\nGenerado por Martín - {fecha_actual}\n```\n\nIMPORTANTE: \n- Extraer el \"motivo\" del JSON entrante \n- Incluirlo textualmente en la sección \"Motivo de la consulta\"\n- Usar las palabras clave del motivo para determinar urgencia y sugerencias\n\nResponde SOLO con el mensaje formateado, sin preámbulos."
+          "systemMessage": "=Eres el Procesador Automático de Escalaciones de RealStateIQ.\n\nAnaliza el input del cliente y genera ÚNICAMENTE el mensaje para Francisco.\n\nREGLAS ESTRICTAS:\n- NO escribas \"Aquí tienes\", \"Aquí está\", \"Para Francisco\" o similares\n- NO agregues introducciones ni explicaciones\n- SOLO devuelve el mensaje directo que Francisco debe recibir\n- Comienza directamente con el saludo a Francisco\n\n\n```\n🔔 NUEVO CLIENTE PARA CONTACTAR\n\n👤 **Cliente:** {nombre_cliente}\n📞 **Teléfono:** https://wa.me/{telefono}\n📧 **Correo:** {correo_electronico}\n🏢 **Tipo:** {tipo_cliente}\n\n📋 **MOTIVO DE CONSULTA:**\n{motivo_contacto}\n\n🏠 **PROPIEDAD RELACIONADA:**\n{propiedad_consultada || \"Consulta general\"}\n\nℹ️ **CONTEXTO ADICIONAL:**\n{contexto_adicional}\n\n⏰ **URGENCIA:** {urgencia}\n🕐 **MEJOR HORARIO:** {horario_preferido}\n\n---\nGenerado por Martín - {{ $now.format('yyyy-MM-dd') }}\n```\n\nIMPORTANTE: \n- Extraer el \"motivo\" del JSON entrante \n- Incluirlo textualmente en la sección \"Motivo de la consulta\"\n- Usar las palabras clave del motivo para determinar urgencia y sugerencias\n\nResponde SOLO con el mensaje formateado, sin preámbulos."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        340,
+        780,
         220
       ],
       "id": "74dea226-d254-4f6b-be48-68c053db6aa6",
@@ -146,7 +146,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        200,
+        640,
         420
       ],
       "id": "02694a87-b06b-4e3d-8ec7-7692a14bc301",
@@ -197,7 +197,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1380,
+        1820,
         340
       ],
       "id": "b0f61c80-0a99-4368-b1ce-5809496c60fc",
@@ -215,7 +215,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1160,
+        1600,
         220
       ],
       "alwaysOutputData": false,
@@ -231,7 +231,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        940,
+        1380,
         220
       ]
     },
@@ -242,7 +242,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        720,
+        1160,
         220
       ],
       "id": "34e7ffdc-0953-4fbd-a46b-cdb3a18e4c13",
@@ -251,13 +251,14 @@
     {
       "parameters": {
         "sessionIdType": "customKey",
-        "sessionKey": "=agente:{{ $('sendMsg').item.json.numero }}"
+        "sessionKey": "=agente:{{ $('sendMsg').item.json.numero }}",
+        "sessionTTL": 3600
       },
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        440,
-        440
+        880,
+        500
       ],
       "id": "adf35d4d-01b4-4d00-800b-5139f8f1c5f2",
       "name": "Redis Chat Memory",
@@ -280,11 +281,13 @@
     ]
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner"
   },
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-05-30T16:15:13.473Z",
-  "versionId": "ebe8b14b-f1f7-468f-917b-9e46ad0c4b24"
+  "updatedAt": "2025-06-04T18:17:31.950Z",
+  "versionId": "282a0455-5f6a-4455-8b70-7ecbfcb5247e"
 }
