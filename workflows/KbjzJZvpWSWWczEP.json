@@ -1,37 +1,14 @@
 {
   "active": false,
   "connections": {
-    "Obtener Participantes": {
-      "main": [
-        [
-          {
-            "node": "Preparar Mensaje",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Preparar Mensaje": {
       "main": [
-        [
-          {
-            "node": "Code",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Code": {
       "main": [
-        [
-          {
-            "node": "FERNANDO",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "FERNANDO": {
@@ -59,7 +36,29 @@
       "main": [
         [
           {
-            "node": "Obtener Participantes",
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Preparar Mensaje1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Mensaje1": {
+      "main": [
+        [
+          {
+            "node": "Texto",
             "type": "main",
             "index": 0
           }
@@ -77,49 +76,14 @@
   "nodes": [
     {
       "parameters": {
-        "url": "={{ $json.url }}/group/participants/{{ $json.instance }}?groupJid={{ $json.number }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {}
-          ]
-        },
-        "options": {
-          "redirect": {
-            "redirect": {
-              "followRedirects": true
-            }
-          }
-        }
-      },
-      "name": "Obtener Participantes",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 3,
-      "position": [
-        -440,
-        1080
-      ],
-      "id": "cf711e0d-2322-49d4-87cd-b5742ded8660"
-    },
-    {
-      "parameters": {
         "jsCode": "// Obtener los datos de participantes y configuración\nconst participantes = $input.item.json.participants || [];\nconst config = $node[\"vars\"].json;\n// Cambia \"Configuración\" por \"vars\"\n\n// Verificar que participantes sea un array\nif (!Array.isArray(participantes)) {\n  throw new Error(\"Los participantes no son un array válido\");\n}\n\n// Crear menciones para todos los participantes\nconst mentions = participantes.map(participante => {\n  return {\n    mentioned: participante.id,\n    name: '\\u200E' // Carácter invisible U+200E (Left-to-Right Mark)\n  };\n});\n\n// Crear el cuerpo de la solicitud\nconst requestData = {\n  number: config.number,\n  options: {\n    delay: config.options.delay,\n    presence: config.options.presence\n  },\n  textMessage: {\n    text: config.text,\n    mentions: mentions\n  }\n};\n\n// Esta línea es crucial - debes devolver un objeto con una propiedad json\nreturn {json: requestData};"
       },
       "name": "Preparar Mensaje",
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        -220,
-        1080
+        -140,
+        880
       ],
       "id": "6036c74c-8077-421d-a60b-ea2e115ecdc5"
     },
@@ -130,21 +94,21 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        0,
-        1080
+        80,
+        1200
       ],
       "id": "bb462e51-8317-466b-80a4-b0b598949ae5",
       "name": "Code"
     },
     {
       "parameters": {
-        "content": "## Grupo buitres 5491138677828-1439064022@g.us\n\n## Grupo General IA \"120363409752146229@g.us\"\n\n## Grupo TRAID general \"120363347362371229@g.us\"\n\n## Grupo Inmobiliario \"120363407640794586@g.us\"",
+        "content": "## Grupo buitres 5491138677828-1439064022@g.us\n\n## Grupo General IA \"120363409752146229@g.us\"\n\n## Grupo TRAID general \"120363347362371229@g.us\"\n\n## Grupo Inmobiliario \"120363407640794586@g.us\"\n\n## GRUPO RUBEN \"120363150353486693@g.us\"",
         "height": 660,
         "width": 580
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -360,
+        -340,
         240
       ],
       "typeVersion": 1,
@@ -318,8 +282,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        220,
-        1080
+        280,
+        880
       ],
       "id": "948a1325-ab71-4e2d-8f04-80084d5e3137",
       "credentials": {
@@ -346,7 +310,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "ferc33",
+        "path": "solutions",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
@@ -477,6 +441,104 @@
       ],
       "id": "4d448bde-b5b2-4007-a7ee-3e52d8ae13e6",
       "name": "vars"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "=Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.mentions }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        280,
+        1080
+      ],
+      "id": "b653112a-bf0c-4c0c-8430-3bcb8c6b56f6",
+      "name": "Texto"
+    },
+    {
+      "parameters": {
+        "url": "https://gate.whapi.cloud/groups/120363150353486693@g.us",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "count",
+              "value": "200"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -420,
+        1080
+      ],
+      "id": "f2bc2863-9838-43f8-91de-48ab11953d39",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// VERSIÓN SIMPLE Y DIRECTA\nconst group = $input.item.json;\nconst config = $node[\"vars\"].json;\n\n// Extraer números de los participantes\nconst mentions = group.participants\n  .map(p => p.id.replace('@s.whatsapp.net', ''))\n  .filter(num => num && num !== 'status@broadcast');\n\n// Crear mensaje\nconst body = ` ${config.text} `;\n\n// Devolver objeto para WhAPI\nreturn {\n  json: {\n    to: group.id,\n    body: body,\n    mentions: mentions,\n    typing_time: 3\n  }\n};"
+      },
+      "name": "Preparar Mensaje1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        1080
+      ],
+      "id": "defc02ce-d3af-4ac7-a379-9452879d920d"
     }
   ],
   "pinData": {
@@ -485,49 +547,43 @@
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
-            "user-agent": "axios/1.7.9",
-            "content-length": "1036",
-            "accept-encoding": "gzip, compress, deflate, br",
+            "content-length": "335",
+            "accept": "application/json",
             "content-type": "application/json",
-            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-for": "37.27.140.235",
             "x-forwarded-host": "n8n.innovasoftpro.dev",
             "x-forwarded-port": "443",
             "x-forwarded-proto": "https",
             "x-forwarded-server": "575dad520f0e",
-            "x-real-ip": "172.18.0.1"
+            "x-real-ip": "37.27.140.235",
+            "accept-encoding": "gzip"
           },
           "params": {},
           "query": {},
           "body": {
-            "event": "messages.upsert",
-            "instance": "fernando",
-            "data": {
-              "key": {
-                "remoteJid": "120363407640794586@g.us",
-                "fromMe": true,
-                "id": "9C0CB1B18CF8673E18CADD4EF4C293D0",
-                "participant": "5492254423359@s.whatsapp.net"
-              },
-              "pushName": "Fer { }",
-              "status": "SERVER_ACK",
-              "message": {
-                "conversation": "Consulta.\n\nTanto para reagendar y cancelar, prefieren que sigamos con la misma metodología de listas? Que muestre un listado con todos los eventos que tiene ese usuario y que pueda cancelar o reagendar desde ahí? O prefieren que directamente le pase el correo y le diga los eventos que tiene en formato texto?",
-                "messageContextInfo": {
-                  "messageSecret": "vmnp24CdzLEDar+OY4fN9vEpDQdKAzAy0gD1tONZ5pE="
-                }
-              },
-              "messageType": "conversation",
-              "messageTimestamp": 1744026443,
-              "instanceId": "587a952b-d0d7-429c-956f-165783f2d30e",
-              "source": "android"
+            "messages": [
+              {
+                "id": ".5b.bClo3dXscQOqtQBn9w-kukBq53gt.mqJA-BP7D37k_",
+                "from_me": false,
+                "type": "text",
+                "chat_id": "120363403539229220@g.us",
+                "timestamp": 1749240483,
+                "source": "mobile",
+                "chat_name": "Tedting",
+                "text": {
+                  "body": "H"
+                },
+                "from": "5492254423359",
+                "from_name": "Fer { }"
+              }
+            ],
+            "event": {
+              "type": "messages",
+              "event": "post"
             },
-            "destination": "https://n8n.innovasoftpro.dev/webhook/fer33",
-            "date_time": "2025-04-07T08:47:23.431Z",
-            "sender": "5492254423359@s.whatsapp.net",
-            "server_url": "https://evo.innovasoftpro.dev",
-            "apikey": "B8F21C0B3BFC-453F-A467-B69E2BB0D8E3"
+            "channel_id": "DRSTRG-R2GAJ"
           },
-          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/fer33",
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/solutions",
           "executionMode": "production"
         }
       }
@@ -539,7 +595,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 3,
-  "updatedAt": "2025-05-23T20:02:06.342Z",
-  "versionId": "13c79f36-1977-4622-98bd-d482a5e16eb0"
+  "triggerCount": 2,
+  "updatedAt": "2025-06-06T20:29:43.786Z",
+  "versionId": "22bef7c3-de00-4252-ace3-dcc27fae0277"
 }
