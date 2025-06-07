@@ -283,7 +283,7 @@
       "main": [
         [
           {
-            "node": "Guarda URL",
+            "node": "Guarda Info de propiedad",
             "type": "main",
             "index": 0
           },
@@ -408,17 +408,6 @@
         ]
       ]
     },
-    "Guarda URL": {
-      "main": [
-        [
-          {
-            "node": "Lista de url Scrapeadas",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Redis2": {
       "main": [
         [
@@ -489,6 +478,17 @@
         [
           {
             "node": "Preparar Datos para Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guarda Info de propiedad": {
+      "main": [
+        [
+          {
+            "node": "Lista de url Scrapeadas",
             "type": "main",
             "index": 0
           }
@@ -1472,29 +1472,6 @@
     {
       "parameters": {
         "operation": "set",
-        "key": "=codigo:{{ $json.codigo_propiedad }}",
-        "value": "={{ $json.analisis }}",
-        "expire": true,
-        "ttl": 12600
-      },
-      "type": "n8n-nodes-base.redis",
-      "typeVersion": 1,
-      "position": [
-        1380,
-        460
-      ],
-      "name": "Guarda URL",
-      "id": "c6b100ae-36d3-462a-988e-22ebf1267d86",
-      "credentials": {
-        "redis": {
-          "id": "JMklVOvkU7koL2UG",
-          "name": "Redis"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "set",
         "key": "urls",
         "value": "={{ $json.url_activa }}",
         "expire": true,
@@ -1800,20 +1777,54 @@
       ],
       "id": "8efa323f-63ef-4865-8566-8a10776dd3ec",
       "name": "Respuesta"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "=propiedades_historial_analisis",
+        "messageData": "={{ $('Respuesta').first().json.codigo_propiedad }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        900
+      ],
+      "name": "Añadir a Historial1",
+      "id": "3c9978b4-2dc8-4215-8d83-0107862acd71",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=codigo:{{ $json.codigo_propiedad }}",
+        "value": "={{ $json.analisis }}",
+        "expire": true,
+        "ttl": 12600
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1380,
+        460
+      ],
+      "name": "Guarda Info de propiedad",
+      "id": "c6b100ae-36d3-462a-988e-22ebf1267d86",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
     }
   ],
   "pinData": {
-    "URL datos": [
-      {
-        "json": {
-          "session_id": null,
-          "consulta_usuario": "https://ficha.info/p/796da3d0c4f24a6c9ee546e1b1061ab3",
-          "numero_telefono": "5492254423359",
-          "idMensaje": "PrCu0JbRGlTMtRM-gDYE_sPfuT8",
-          "Id": 54
-        }
-      }
-    ],
     "Scraping Bee": [
       {
         "json": {
@@ -1825,6 +1836,20 @@
       {
         "json": {
           "text": "```json\n{\n  \"Cod:\": \"42-UHG-32\",\n  \"detalle_propiedad\": {\n    \"tipo_propiedad\": \"Departamento\",\n    \"operacion\": \"Venta\",\n    \"precio_valor\": 780000,\n    \"precio_moneda\": \"USD\",\n    \"expensas\": 688885\n  },\n  \"ubicacion\": {\n    \"direccion\": \"Avenida Alvear al 1500\",\n    \"barrio\": \"Recoleta\",\n    \"ciudad\": \"Capital Federal\",\n    \"provincia\": \"Argentina\"\n  },\n  \"caracteristicas\": {\n    \"superficie_total\": 186,\n    \"superficie_cubierta\": 149,\n    \"ambientes\": 4,\n    \"dormitorios\": 3,\n    \"banos\": 2,\n    \"cocheras\": 1,\n    \"antiguedad\": \"65 años\",\n    \"estado\": \"N/A\"\n  },\n  \"descripcion\": \"Excelente departamento con 2 Terrazas y Espacio Guarda coches. Orientacion Noreste. 3 Habitaciones 2 Baños 1 Toilette Servicio 2 Terrazas a ALVEAR. (Parilla) Espacio Guarda Coches Edifico PEÑA Medidas Aproximadas P1: 110 m2 cubiertos y 19 m2 descubiertos P2: 39 m2 cubiertos y 19 m2 descubiertos Cod:42-UHG-32\",\n  \"amenities\": \"Cocina, Comedor, Dependencia, Suite, Hall, Lavadero, Living, Terraza, Toilette, Calefacción, Parrilla, Apto mascotas, Seguridad portería\",\n  \"fotos\": [\n    \"https://static.tokkobroker.com/pictures/7009268_99782547975125375862368696388838303767181063007269260072646408733076759795062.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_80438196291402676278793408086023035001174413795909920812570084348765745857576.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_103603895328946338320767598127484963162855259427363095373934267680986983837841.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_25736059058863362534403786684725881726804873234710498075576579810741163367399.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_1277321016180242732543093702875872816107354641763612855580842211580693720375.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_84351265703527135970585819770062161770941445302545117523190979491220686271536.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_90684075566213932061979060510932048752447917559925275657846541216185832096562.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_27569653734944024773242790080519131204616459339700353683732952130953194318822.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_40863662750124397662476940981952688865245721616450455213944669596779314478811.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_100694975860688546955350784347732208355112794286661150527465047291165922351739.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_14058866499346862558107540424065355257121238785451082289059908929337392809365.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_86941222279290670124916963777863436797158211043547246351209874252985311979006.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_18604371840845825192291128027767250015035615385348160352948225789180780581500.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_54866583042980096578362616538468104996928681030093733013513716979344718889391.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_14447043233488509429724189247034471559264509969748367546969518268575254284449.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_86740954483477046629757466282236141018414061723833715499902155270361732963313.jpg\",\n    \"https://static.tokkobroker.com/pictures/7009268_52584718654019742295336202420220299119168542991158370732508437623114558105547.jpg\"\n  ]\n}\n```"
+        }
+      }
+    ],
+    "URL datos": [
+      {
+        "json": {
+          "session_id": null,
+          "consulta_usuario": "Cuántos baños tiene",
+          "numero_telefono": "5492254423359",
+          "url": "https://ficha.info/p/796da3d0c4f24a6c9ee546e1b1061ab3",
+          "instance": null,
+          "apikey": null,
+          "idMensaje": "hhq1J3QojnEJxZmFylGBaA-gBwE_sPfuT8",
+          "Id": null
         }
       }
     ]
@@ -1842,6 +1867,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-06-05T00:02:26.959Z",
-  "versionId": "d00cd45f-37c7-46e7-9aa2-5c505722b69b"
+  "updatedAt": "2025-06-06T14:16:58.364Z",
+  "versionId": "95f6ed9b-1aaf-43e6-bf65-be6d3fe1ab6a"
 }
