@@ -35,37 +35,9 @@
         ]
       ]
     },
-    "Insertar pedido": {
-      "ai_tool": [
-        [
-          {
-            "node": "Pocho",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "replace": {
       "main": [
-        [
-          {
-            "node": "Segmentos",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Promociones": {
-      "ai_tool": [
-        [
-          {
-            "node": "Pocho",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "QR": {
@@ -106,17 +78,6 @@
           {
             "node": "vars",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Buscar productos": {
-      "ai_tool": [
-        [
-          {
-            "node": "Pocho",
-            "type": "ai_tool",
             "index": 0
           }
         ]
@@ -317,7 +278,7 @@
       "main": [
         [
           {
-            "node": "Merge1",
+            "node": "msg",
             "type": "main",
             "index": 0
           }
@@ -421,17 +382,6 @@
         ]
       ]
     },
-    "Nombre": {
-      "ai_tool": [
-        [
-          {
-            "node": "Pocho",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Escribiendo": {
       "main": [
         [
@@ -446,17 +396,6 @@
     "Buscar promocion": {
       "ai_tool": [
         []
-      ]
-    },
-    "Buscar comida": {
-      "ai_tool": [
-        [
-          {
-            "node": "Pocho",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
       ]
     },
     "Google Gemini Chat Model": {
@@ -546,9 +485,9 @@
       "main": [
         [
           {
-            "node": "Merge1",
+            "node": "msg",
             "type": "main",
-            "index": 1
+            "index": 0
           }
         ]
       ]
@@ -559,7 +498,7 @@
         [],
         [
           {
-            "node": "replace",
+            "node": "Separa datos",
             "type": "main",
             "index": 0
           }
@@ -588,23 +527,94 @@
         ]
       ]
     },
-    "Merge1": {
-      "main": [
-        [
-          {
-            "node": "Pocho",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Redis Chat Memory": {
       "ai_memory": [
         [
           {
             "node": "Pocho",
             "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "insertar_pedido": {
+      "ai_tool": [
+        [
+          {
+            "node": "Pocho",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "promociones1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Pocho",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buscar_productos": {
+      "ai_tool": [
+        [
+          {
+            "node": "Pocho",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buscar_comida": {
+      "ai_tool": [
+        [
+          {
+            "node": "Pocho",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "nombre": {
+      "ai_tool": [
+        [
+          {
+            "node": "Pocho",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separa datos": {
+      "main": [
+        [
+          {
+            "node": "Segmentos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "msg": {
+      "main": [
+        [
+          {
+            "node": "Pocho",
+            "type": "main",
             "index": 0
           }
         ]
@@ -631,7 +641,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        6320,
+        6540,
         340
       ]
     },
@@ -644,7 +654,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        6760,
+        6980,
         265
       ],
       "webhookId": "8a810ad6-4ecf-4781-aed8-7f2b295770dc"
@@ -658,37 +668,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        6540,
+        6760,
         340
-      ]
-    },
-    {
-      "parameters": {
-        "name": "insertar_pedido",
-        "description": "llamaras a esta herramienta cuando el pedido este confirmado",
-        "workflowId": {
-          "__rl": true,
-          "value": "MA1amyL5ScIQzNJb",
-          "mode": "id"
-        },
-        "fields": {
-          "values": [
-            {
-              "name": "push_name",
-              "stringValue": "={{ $('camposiniciales').first().json.telefonoCliente }}"
-            }
-          ]
-        },
-        "specifyInputSchema": true,
-        "jsonSchemaExample": "\n  {\n    \"Nombre\": \"Juan Pérez\",\n    \"Productos\": [\n      {\n            \"Detalle\": \"Productos: Coca cola pack\",\n       \"Cantidad\": \"2\" ,\n      \"precio\": \"$300\"       \n    }],   \n    \"Total\":\"$1700\",\n    \"Telefono\": \"555-1234\",\n    \"Direccion\": \"Av. Principal #123 \",\n    \"Metodo de pago\": \"QR, TRANSCFERENCIA, OTRO\",\n    \"Retiro\": \"Local o domicilio\",\n    \"correo\":\"fercassera@gmail.com\",\n    \"Estado\": \"Pagado \",\n    \"Codigo pedido\":\"codigo generado\"\n  }\n"
-      },
-      "id": "8a3dcd21-ab81-4498-926c-3c282e9ef281",
-      "name": "Insertar pedido",
-      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 1.2,
-      "position": [
-        4840,
-        560
       ]
     },
     {
@@ -698,7 +679,7 @@
             {
               "id": "5d04d69d-cb9c-41be-a44a-95fac3c059f3",
               "name": "text",
-              "value": "={{ [$json.output.replace(/\\*\\*(.*?)\\*\\*/g, '*$1*').replace(/###\\s*/g, '').replace(/[¡¿!]/g, '')] }}",
+              "value": "={{ ($json.output[0]?.text || $json.output?.text || '').replace(/\\*\\*(.*?)\\*\\*/g, '*$1*').replace(/###\\s+/g, '').replace(/:/g, '') }}",
               "type": "array"
             }
           ]
@@ -710,37 +691,9 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        6100,
-        340
+        6240,
+        620
       ]
-    },
-    {
-      "parameters": {
-        "name": "promo_bancaria",
-        "description": "Llama a esta herramienta siempre que el usuario quiera saber las promociones bancarias",
-        "workflowId": {
-          "__rl": true,
-          "mode": "id",
-          "value": "yOh5hvWd7551O1Ez",
-          "cachedResultName": "DESPENSA - Promociones"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 2,
-      "position": [
-        4960,
-        560
-      ],
-      "id": "4f436f46-1af4-4e06-b71a-3955fb6afda7",
-      "name": "Promociones"
     },
     {
       "parameters": {
@@ -768,7 +721,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 1.2,
       "position": [
-        5080,
+        5300,
         560
       ]
     },
@@ -784,36 +737,6 @@
       ],
       "id": "2278b5e6-b903-4a81-8123-1d6bf9ba002f",
       "name": "Crypto"
-    },
-    {
-      "parameters": {
-        "name": "buscar_productos",
-        "description": "Llama a esta herramienta para saber sobre un producto o comidas",
-        "workflowId": {
-          "__rl": true,
-          "value": "4bACFIaEnJooL6W4",
-          "mode": "list",
-          "cachedResultName": "DESPENSA - Buscar productos"
-        },
-        "fields": {
-          "values": [
-            {
-              "name": "Telefono",
-              "stringValue": "={{ $('camposiniciales').first().json.telefonoCliente }}"
-            }
-          ]
-        },
-        "specifyInputSchema": true,
-        "jsonSchemaExample": "{\n\t\"Descripcion\": \"azucar\"\n}"
-      },
-      "id": "21f36ca6-3f09-435c-9589-ecac91b8bf97",
-      "name": "Buscar productos",
-      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 1.2,
-      "position": [
-        5200,
-        560
-      ]
     },
     {
       "parameters": {
@@ -1362,8 +1285,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4160,
-        340
+        4080,
+        260
       ]
     },
     {
@@ -1409,8 +1332,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        4480,
-        280
+        4420,
+        140
       ],
       "credentials": {
         "redis": {
@@ -1515,7 +1438,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        5320,
+        5540,
         560
       ],
       "id": "1d933774-cc4e-47c9-9bca-8a6ff86e7b9b",
@@ -1967,82 +1890,9 @@
       "type": "@n8n/n8n-nodes-langchain.toolCalculator",
       "typeVersion": 1,
       "position": [
-        5440,
+        5660,
         560
       ]
-    },
-    {
-      "parameters": {
-        "name": "insert_name_mail",
-        "description": "Llamaras a esta herramienta cuando tengas sus datos ",
-        "workflowId": {
-          "__rl": true,
-          "value": "MuBTjZBk3QgLNPG5",
-          "mode": "list",
-          "cachedResultName": "DESPENSA - Nombre real"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nombre', `Guardaras el nombre real del usuario`, 'string') }}",
-            "telefono": "={{ $('camposiniciales').first().json.telefonoCliente }}",
-            "correo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo', `envia el correo`, 'string') }}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "nombre",
-              "displayName": "nombre",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "telefono",
-              "displayName": "telefono",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Id",
-              "displayName": "Id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": true
-            },
-            {
-              "id": "correo",
-              "displayName": "correo",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 2,
-      "position": [
-        5560,
-        560
-      ],
-      "id": "b769de56-c438-4c10-8d1b-7e03f0e24e72",
-      "name": "Nombre"
     },
     {
       "parameters": {
@@ -2102,64 +1952,13 @@
     },
     {
       "parameters": {
-        "name": "buscar_comida",
-        "description": "Utilizaras esta herramienta siempre que un usuario quiera sobre las comidas que vendemos, empandas, sandwiches, tartas, ensaldas etc si son productos de despensa no ingresar",
-        "workflowId": {
-          "__rl": true,
-          "value": "95iu7FwWHLs11Vkc",
-          "mode": "list",
-          "cachedResultName": "DESPENSA - Comidas"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Telefono": "={{ $('camposiniciales').first().json.telefonoCliente }}",
-            "descripcion": "={{ $('Delete').item.json.message_completo }}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "descripcion",
-              "displayName": "descripcion",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": false
-            },
-            {
-              "id": "Telefono",
-              "displayName": "Telefono",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
-      "typeVersion": 2,
-      "position": [
-        5680,
-        560
-      ],
-      "id": "17dbb49e-55ef-4f12-be89-46f818c0a2ea",
-      "name": "Buscar comida"
-    },
-    {
-      "parameters": {
         "modelName": "models/gemini-2.5-flash-preview-04-17",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        4580,
+        4740,
         560
       ],
       "id": "7a2f3ab1-2fe2-4e2b-826e-18e1f279f7f2",
@@ -2202,13 +2001,13 @@
         "promptType": "define",
         "text": "={{ $json.message_completo }}",
         "options": {
-          "systemMessage": "=# Pocho – Asistente Virtual (Optimizado para Gemini 2.5 Flash en n8n)\n\nHOY ES: {{ $now.format('yyyy-MM-dd') }}\n\n## Identidad\n- Nombre: **Pocho**, asistente de Lo de Pocho (Neuquén 2098, Mar del Plata)\n- Estilo: Respuestas cortas, argentinas, prácticas\n- Mínimo para delivery: $30.000\n- Objetivo: Ayudar a completar pedidos y generar ventas\n\n## REGLAS CRÍTICAS\n1. SIEMPRE usar herramientas para cada acción\n2. SIEMPRE usar `buscar_productos` para TODA consulta de productos\n3. NUNCA responder de memoria sobre productos, precios o stock\n4. NUNCA asumir que usuario quiere comprar solo porque pregunta - debe seleccionar específicamente\n5. SIEMPRE tratar al cliente por su nombre real: `{{ $('getClientes').item.json.nombre_real }}`\n6. NUNCA pedir datos ya almacenados en la base de datos\n7. OBLIGATORIO usar `insert_name_mail` para actualizar datos del cliente\n8. NUNCA mencionar códigos técnicos (promo_XXXX o cod_XXXX) - solo nombres y precios\n9. NUNCA procesar comprobantes - dirigir a Anto (+5492234245220)\n10. Cuando se ejecute `promo_productos` o `buscar_productos` → \"LISTA_ENVIADA\"\n11. SIEMPRE pedir confirmación antes de mostrar promociones durante la conversación\n\n## Herramientas\n- `buscar_productos`: Para toda consulta de productos → \"LISTA_ENVIADA\"\n- `calcular_total`: Para sumar carrito\n- `verificar_elegibilidad_envio`: Confirma si pedido supera $30.000\n- `buscar_comida`: Para milanesas, sandwiches, buñuelos, tartas\n- `qr_pagos`: Genera QR según billetera → \"qr_enviado\"\n- `insertar_pedido`: Guarda pedido y genera código\n- `promo_productos`: Muestra promociones → \"LISTA_ENVIADA\"\n- `verificar_pedido_existente`: Verifica pedidos activos\n- `getClientes`: Obtiene datos del cliente\n- `insert_name_mail`: Actualiza datos del cliente\n\n## Bienvenida\n```\n¡Hola {{ $('getClientes').item.json.nombre_real }}! Bienvenido a lo de Pocho 👋\n\n📍 Estamos en Bolívar y Neuquén\n⏰ Abiertos hoy de 7am a 21.30hs\n\n¿Querés ver nuestras comidas del día? (Sí/No)\n```\n\nSi responde \"Sí\" → [EJECUTAR herramienta buscar_comida] → \"LISTA_ENVIADA\"\n\n## Tono y estilo\n- Amigable, educado y cordial\n- Preguntas sutiles sobre cantidades\n- Sin \"che\", \"viste\", etc.\n- Frases como:\n  • \"¿Cuantas queres llevar?\"\n  • \"Si me decís cuántos necesitás, te lo preparo\"\n  • \"Perfecto, lo agregué a tu pedido\"\n  • \"¿Queres algo más o preferis que pasemos a confirmar?\"\n- Emojis con moderación\n\n## Promociones (Activación con confirmación)\n- Si menciona: \"promos\", \"promociones\", \"ofertas\", \"descuentos\", etc → Confirmar:\n  ```\n  ¿Querés que te muestre las promociones que tenemos hoy? (Sí/No)\n  ```\n- SOLO si responde \"Sí\" o alguna confirmacion  → Ejecutar herramienta `promo_productos` → \"LISTA_ENVIADA\"\n\n## Flujo de Selección y Pedido (CORREGIDO)\n\n1. **Mostrar productos**:\n  - Ejecutar `buscar_productos` o `buscar_comida` → \"LISTA_ENVIADA\"\n  - NO enviar mensajes adicionales, ESPERAR selección del usuario\n\n2. **Identificación de selección**:\n  - Si recibe mensaje con: \"Código: promo_XXXX\" → Ha elegido promoción\n  - Si recibe código \"cod_XXXX\" → Ha elegido producto regular\n  - NUNCA mencionar los códigos técnicos al cliente\n\n3. **Verificar pedido existente**:\n  - Ejecutar `verificar_pedido_existente`\n  - Si tiene pedido activo:\n    ```\n    Veo que ya tenés un pedido en curso. ¿Querés armar un pedido nuevo?\n    \n    Para cancelar el anterior, enviá mensaje a Anto al +5492234245220.\n    ```\n  - Si responde \"sí\" → continuar; si \"no\" → finalizar\n\n4. **OBLIGATORIO: Preguntar cantidad para CADA producto seleccionado**:\n  - \"¿Dale, cuántas necesitás?\"\n  - \"¿Cuántos te anoto?\"\n  - \"¿Qué cantidad querés llevar?\"\n  - ESPERAR respuesta con cantidad\n  - NUNCA asumir cantidad = 1\n\n5. **Añadir al carrito**:\n  - Confirmar: \"Perfecto, agregué [cantidad] [producto] a tu pedido\"\n  - Ejecutar herramienta para calcular subtotal si es necesario\n\n6. **SOLO DESPUÉS ofrecer más productos**:\n  - \"¿Querés algo más o preferís que pasemos a confirmar?\"\n  - Si dice \"sí\" → \"¿Qué producto te gustaría ver?\" \n    - Si menciona producto específico → `buscar_productos` → \"LISTA_ENVIADA\"\n  - Si dice \"no\" → pasar a confirmación del pedido completo\n---\n## REGLA CRÍTICA ADICIONAL:\n- NUNCA enviar mensaje sobre \"más productos\" inmediatamente después de \"LISTA_ENVIADA\"\n- SIEMPRE esperar que usuario seleccione Y defina cantidad antes de ofrecer más\n- Completar TODO el proceso de UN producto antes de continuar\n\n\n\n2. **Verificar pedido existente**:\n   - Ejecutar `verificar_pedido_existente`\n   - Si tiene pedido activo:\n     ```\n     Veo que ya tenés un pedido en curso. ¿Querés armar un pedido nuevo?\n     \n     Para cancelar el anterior, enviá mensaje a Anto al +5492234245220.\n     ```\n   - Si responde \"sí\" → continuar; si \"no\" → finalizar\n\n3. **Preguntar cantidad**:\n   - \"¿Dale, cuantas necesitas?\" o \"¿Barbaro, decime cuantas te anoto?\"\n\n4. **Ofrecer más productos**:\n   - \"¿Queres algo más o preferis que pasemos a confirmar?\"\n   - Si dice \"sí\" → Que producto te gustaria ver?\n      tenes cerveza? -> [EJECUTAR herramienta buscar_productos] → \"LISTA_ENVIADA\"\n   - Si dice \"no\" → pasar a confirmación\n\n5. **Confirmación inicial**:\n   ```\n   📋 A ver, repasemos tu pedido:\n     - [producto1] x [cantidad1] – $[subtotal1]\n     - [producto2] x [cantidad2] – $[subtotal2]\n   \n   💰 Total: $[total]\n   \n   ¿Todo bien así o querés cambiar algo?\n   ```\n\n6. **Validación de datos**:\n   - Mostrar datos del cliente:\n   ```\n   Tengo estos datos tuyos:\n   👤 Nombre: {{ $('getClientes').item.json.nombre_real }}\n   📞 Teléfono: {{ $('getClientes').item.json.Telefono }}\n   🏠 Dirección: {{ $('getClientes').item.json.Direccion }}\n   📧 Correo: {{ $('getClientes').item.json.Correo }}\n   \n   ¿Está todo bien así o querés cambiar algo?\n   ```\n   - Si falta dato: \"Me falta [dato]. ¿Me lo pasás?\"\n   - Si modifica dato: Actualizar con `insert_name_mail`\n\n7. **Verificación de ubicación**:\n   - Usar `verificar_rango_delivery` con dirección\n   - Si en rango: \"¡Buenísimo! Estás dentro de nuestra zona de delivery\"\n   - Si fuera de rango: \"Disculpá, estás fuera de zona. ¿Te sirve retirar en Neuquén 2098?\"\n\n8. **Total y envío**:\n   - Usar `calcular_total` y `verificar_elegibilidad_envio`\n   - <$30.000 → solo retiro\n   - ≥$30.000 Y en rango → envío disponible\n   - ≥$30.000 PERO fuera de rango → solo retiro\n\n9. **Pago**:\n   - \"¿Cómo te queda mejor pagar? 💵 Efectivo / 🏦 Transferencia / 📲 QR?\"\n   - QR → Preguntar app, usar `qr_pagos` → \"qr_enviado\"\n   - Transferencia → \"Alias: **Antofiginillull**\"\n   - Efectivo → \"Pagás al recibir o retirar\"\n\n10. **Resumen y confirmación final**:\n    ```\n    📝 RESUMEN DEL PEDIDO:\n    \n    👤 {Nombre}\n    📞 {Teléfono}\n    🏠 {Dirección}\n    📧 {Correo}\n    🚚 {Envío/Retiro}\n    \n    🛒 PRODUCTOS:\n    • {producto1} x{cantidad1} = ${precio1}\n    • {producto2} x{cantidad2} = ${precio2}\n    \n    💵 TOTAL: ${total}\n    💳 PAGO: {método_pago}\n    \n    ¿Todo correcto para confirmar?\n    ```\n\n11. **Finalización**:\n    - Si \"sí\" → `insertar_pedido` → \"¡Genial! Pedido confirmado ✅ Código: *{codigo}*\"\n    - Para transferencia, agregar: \"Recordá enviar comprobante con código a Anto: +5492234245220\"\n\n## Manejo de pagos\n- Si usuario dice \"ya pagué\":\n  ```\n  Gracias por avisarme. Para validar el pago, enviale el comprobante junto con tu código de pedido (*{codigo}*) a Anto al número +5492234245220.\n  \n  Como sistema de pedidos, no puedo procesar comprobantes. Los pagos son validados únicamente por Anto.\n  ```\n\n- Si intenta enviar comprobante a este chat:\n  ```\n  Por este chat no podemos recibir comprobantes. Por favor enviá el comprobante junto con tu código de pedido (*{codigo}*) directamente a Anto al número +5492234245220.\n  ```\n\n## Consultas de productos\nConsulta → `buscar_productos` → \"LISTA_ENVIADA\"\n\nEjemplos:\n- \"¿Tenés leche?\" → `buscar_productos` con \"leche\" → \"LISTA_ENVIADA\"\n- \"¿A cuánto está el queso?\" → `buscar_productos` con \"queso\" → \"LISTA_ENVIADA\"\n- \"¿Qué tienen?\" → `buscar_productos` con \"categorias\" → \"LISTA_ENVIADA\"\n\n## Respuestas a otros temas\n- Temas no relacionados:\n  > \"Disculpame 🙏, solo puedo ayudarte con productos, precios, envíos y pagos. ¿Te doy una mano con la despensa? 🛒\""
+          "systemMessage": "=# Pocho – Asistente Virtual (Optimizado para Gemini 2.5 Flash en n8n)\n\nHOY ES: {{ $now.format('yyyy-MM-dd') }}\n\n## Identidad\n- Nombre: **Pocho**, asistente de Lo de Pocho (Neuquén 2098, Mar del Plata)\n- Estilo: Respuestas cortas, argentinas, prácticas\n- Mínimo para delivery: $30.000\n- Objetivo: Ayudar a completar pedidos y generar ventas\n\n## REGLAS CRÍTICAS\n1. SIEMPRE usar herramientas para cada acción\n2. SIEMPRE usar `buscar_productos` para TODA consulta de productos\n3. NUNCA responder de memoria sobre productos, precios o stock\n4. NUNCA asumir que usuario quiere comprar solo porque pregunta - debe seleccionar específicamente\n5. SIEMPRE tratar al cliente por su nombre real: `{{ $('getClientes').item.json.nombre_real }}`\n6. NUNCA pedir datos ya almacenados en la base de datos\n7. OBLIGATORIO usar `insert_name_mail` para actualizar datos del cliente\n8. NUNCA mencionar códigos técnicos (promo_XXXX o cod_XXXX) - solo nombres y precios\n9. NUNCA procesar comprobantes - dirigir a Anto (+5492234245220)\n10. Cuando se ejecute `promo_productos` o `buscar_productos` → \"LISTA_ENVIADA\"\n11. SIEMPRE pedir confirmación antes de mostrar promociones durante la conversación\n12. **NUEVA REGLA CRÍTICA**: Si cliente pide productos sin seleccionar del menú, SIEMPRE explicar proceso correcto\n\n## Herramientas\n- `buscar_productos`: Para toda consulta de productos → \"LISTA_ENVIADA\"\n- `calcular_total`: Para sumar carrito\n- `verificar_elegibilidad_envio`: Confirma si pedido supera $30.000\n- `buscar_comida`: Para milanesas, sandwiches, buñuelos, tartas\n- `qr_pagos`: Genera QR según billetera → \"qr_enviado\"\n- `insertar_pedido`: Guarda pedido y genera código\n- `promo_productos`: Muestra promociones → \"LISTA_ENVIADA\"\n- `verificar_pedido_existente`: Verifica pedidos activos\n- `getClientes`: Obtiene datos del cliente\n- `insert_name_mail`: Actualiza datos del cliente\n\n## Bienvenida MEJORADA\n```\n¡Hola {{ $('getClientes').item.json.nombre_real }}! Bienvenido a lo de Pocho 👋\n\n📍 Estamos en Bolívar y Neuquén\n⏰ Abiertos hoy de 7am a 21.30hs\n\n🛒 **¿CÓMO FUNCIONA?**\n1️⃣ Te envío un menú con productos\n2️⃣ Vos SELECCIONÁS desde ese menú (tocando el producto)\n3️⃣ Me decís la cantidad\n4️⃣ Repetimos para cada producto que quieras\n\n¿Querés ver nuestras comidas del día? (Sí/No)\n```\n\nSi responde \"Sí\" → [EJECUTAR herramienta buscar_comida] → \"LISTA_ENVIADA\"\n\n## MANEJO DE PEDIDOS SIN SELECCIÓN (NUEVO)\n\n### Cuando cliente pide sin seleccionar del menú:\nSi el cliente escribe pidiendo productos sin haber seleccionado del menú enviado, responder SIEMPRE:\n\n```\n⚠️ {{ $('getClientes').item.json.nombre_real }}, para poder anotarte el pedido necesito que:\n\n1️⃣ SELECCIONES cada artículo desde el menú que te pasé\n2️⃣ Me digas la cantidad cuando te pregunte\n\nSin eso no puedo armar tu pedido. \n\n¿Volvemos a empezar? Te busco lo que necesitás:\n¿Qué producto querés ver primero?\n```\n\n### Si cliente insiste o envía lista completa sin seleccionar:\n```\n{{ $('getClientes').item.json.nombre_real }}, entiendo que querés pedir varias cosas, pero el sistema funciona así:\n\n📱 Tenés que TOCAR/SELECCIONAR cada producto del menú que te envío\n❌ No puedo anotar pedidos escritos a mano\n\nEmpecemos de a uno. ¿Qué producto te busco primero?\n```\n\n## Flujo de Selección y Pedido (REFORZADO)\n\n1. **Mostrar productos**:\n   - Ejecutar `buscar_productos` o `buscar_comida` → \"LISTA_ENVIADA\"\n   - Agregar SIEMPRE después: \n   ```\n   👆 Tocá/Seleccioná el producto que querés del menú que te envié\n   ```\n\n2. **Identificación de selección**:\n   - Si recibe mensaje con: \"Código: promo_XXXX\" → Ha elegido promoción\n   - Si recibe código \"cod_XXXX\" → Ha elegido producto regular\n   - Si NO recibe código → Aplicar MANEJO DE PEDIDOS SIN SELECCIÓN\n\n3. **Verificar pedido existente**:\n   - Ejecutar `verificar_pedido_existente`\n   - Si tiene pedido activo:\n     ```\n     Veo que ya tenés un pedido en curso. ¿Querés armar un pedido nuevo?\n     \n     Para cancelar el anterior, enviá mensaje a Anto al +5492234245220.\n     ```\n   - Si responde \"sí\" → continuar; si \"no\" → finalizar\n\n4. **OBLIGATORIO: Preguntar cantidad para CADA producto seleccionado**:\n   - \"¿Dale, cuántas necesitás?\"\n   - \"¿Cuántos te anoto?\"\n   - \"¿Qué cantidad querés llevar?\"\n   - ESPERAR respuesta con cantidad\n   - NUNCA asumir cantidad = 1\n\n5. **Añadir al carrito**:\n   - Confirmar: \"Perfecto, agregué [cantidad] [producto] a tu pedido\"\n   - Ejecutar herramienta para calcular subtotal si es necesario\n\n6. **SOLO DESPUÉS ofrecer más productos**:\n   - \"¿Querés algo más o preferís que pasemos a confirmar?\"\n   - Si dice \"sí\" → \"¿Qué producto te gustaría ver?\" \n     - Si menciona producto específico → `buscar_productos` → \"LISTA_ENVIADA\"\n     - Recordar: \"👆 Tocá/Seleccioná el producto que querés\"\n   - Si dice \"no\" → pasar a confirmación del pedido completo\n\n## REGLAS ADICIONALES PARA EVITAR CONFUSIÓN:\n- NUNCA enviar mensaje sobre \"más productos\" inmediatamente después de \"LISTA_ENVIADA\"\n- SIEMPRE esperar que usuario seleccione Y defina cantidad antes de ofrecer más\n- Completar TODO el proceso de UN producto antes de continuar\n- Si cliente menciona múltiples productos a la vez, responder:\n  ```\n  Veo que querés varias cosas. Vamos de a una así no nos confundimos.\n  ¿Cuál te busco primero?\n  ```\n\n## Tono y estilo\n- Amigable, educado y cordial\n- Claro y directo sobre el proceso\n- Sin \"che\", \"viste\", etc.\n- Frases como:\n  • \"Recordá seleccionar desde el menú\"\n  • \"Tocá el producto que querés\"\n  • \"Sin seleccionar no puedo anotarte nada\"\n- Emojis con moderación\n\n## Confirmación y cierre (sin cambios)\n[Mantener el resto del flujo igual desde el punto 5 del flujo original hasta el final]\n\n## Consultas de productos\nConsulta → `buscar_productos` → \"LISTA_ENVIADA\" → \"👆 Tocá/Seleccioná el producto que querés\"\n\n## Respuestas a otros temas\n- Temas no relacionados:\n  > \"Disculpame 🙏, solo puedo ayudarte con productos, precios, envíos y pagos. ¿Te doy una mano con la despensa? 🛒\"\n\n## FRASES CLAVE PARA REFORZAR EL PROCESO:\n- \"Necesito que selecciones desde el menú\"\n- \"Sin tocar el producto no puedo anotarte nada\"\n- \"El sistema funciona seleccionando del menú\"\n- \"Vamos de a un producto por vez\"\n- \"Primero seleccioná, después me decís cantidad\""
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        5060,
+        5280,
         280
       ],
       "id": "dbf21b06-d762-412b-b6ad-7d9966bcd5d7",
@@ -2226,8 +2025,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        3040,
-        40
+        2360,
+        -100
       ],
       "credentials": {
         "redis": {
@@ -2310,8 +2109,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        6980,
-        265
+        7200,
+        260
       ],
       "id": "1347c2b6-663a-45d7-b21b-eff486ff5c50",
       "name": "Texto"
@@ -2462,7 +2261,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        5820,
+        6040,
         560
       ],
       "id": "989a1c4e-d65c-42fc-8b44-b04358238590",
@@ -2473,8 +2272,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.1,
       "position": [
-        2720,
-        60
+        2060,
+        -100
       ],
       "id": "fef8c5df-7343-44e1-895e-5bc34aaa0beb",
       "name": "Merge"
@@ -2489,8 +2288,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        4480,
-        480
+        4300,
+        520
       ],
       "credentials": {
         "redis": {
@@ -2562,7 +2361,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        5640,
+        5860,
         300
       ],
       "id": "8d9d6f6e-98ec-4e87-98b0-f297fc101e72",
@@ -2582,7 +2381,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        6000,
+        6220,
         560
       ],
       "id": "0ab3ccfa-accd-4f42-84cc-81fafe9896e6",
@@ -2608,17 +2407,6 @@
       "name": "Code"
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.1,
-      "position": [
-        4720,
-        260
-      ],
-      "id": "ee24559a-f263-431e-9eb4-262e40fcb691",
-      "name": "Merge1"
-    },
-    {
       "parameters": {
         "sessionIdType": "customKey",
         "sessionKey": "=agente_pocho:{{ $('camposiniciales').first().json.Telefono }}",
@@ -2628,7 +2416,7 @@
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        4720,
+        4900,
         560
       ],
       "id": "7601de59-539e-4da3-b470-5ce32e32fdbd",
@@ -2643,7 +2431,7 @@
     {
       "parameters": {
         "operation": "delete",
-        "key": "agente_pocho:5492254596618"
+        "key": "agente_pocho:5492235979689"
       },
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
@@ -2659,6 +2447,318 @@
           "name": "Redis"
         }
       }
+    },
+    {
+      "parameters": {
+        "model": "anthropic/claude-3.7-sonnet",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        4780,
+        780
+      ],
+      "id": "8b7c8cdd-c0a6-4a87-a463-7fb698350d49",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "uv1CbV6m8qPeMdpW",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "Tenes que elegir unicamente de cada menu que te comparto, no puepasar asi el medido."
+            },
+            {
+              "name": "to",
+              "value": "={{ $('camposiniciales').first().json.telefonoCliente }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        6940,
+        760
+      ],
+      "id": "e4805b1f-f5b7-4d06-8b68-77c6e04010b5",
+      "name": "Texto1"
+    },
+    {
+      "parameters": {
+        "name": "insertar_pedido",
+        "description": "llamaras a esta herramienta cuando el pedido este confirmado",
+        "workflowId": {
+          "__rl": true,
+          "value": "MA1amyL5ScIQzNJb",
+          "mode": "id"
+        },
+        "fields": {
+          "values": [
+            {
+              "name": "push_name",
+              "stringValue": "={{ $('camposiniciales').first().json.telefonoCliente }}"
+            }
+          ]
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "\n  {\n    \"Nombre\": \"Juan Pérez\",\n    \"Productos\": [\n      {\n            \"Detalle\": \"Productos: Coca cola pack\",\n       \"Cantidad\": \"2\" ,\n      \"precio\": \"$300\"       \n    }],   \n    \"Total\":\"$1700\",\n    \"Telefono\": \"555-1234\",\n    \"Direccion\": \"Av. Principal #123 \",\n    \"Metodo de pago\": \"QR, TRANSCFERENCIA, OTRO\",\n    \"Retiro\": \"Local o domicilio\",\n    \"correo\":\"fercassera@gmail.com\",\n    \"Estado\": \"Pagado \",\n    \"Codigo pedido\":\"codigo generado\"\n  }\n"
+      },
+      "id": "8a3dcd21-ab81-4498-926c-3c282e9ef281",
+      "name": "insertar_pedido",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        5060,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "name": "promo_bancaria",
+        "description": "Llama a esta herramienta siempre que el usuario quiera saber las promociones bancarias",
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "yOh5hvWd7551O1Ez",
+          "cachedResultName": "DESPENSA - Promociones"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        5180,
+        560
+      ],
+      "id": "4f436f46-1af4-4e06-b71a-3955fb6afda7",
+      "name": "promociones1"
+    },
+    {
+      "parameters": {
+        "name": "buscar_productos",
+        "description": "Llama a esta herramienta para saber sobre un producto o comidas",
+        "workflowId": {
+          "__rl": true,
+          "value": "4bACFIaEnJooL6W4",
+          "mode": "list",
+          "cachedResultName": "DESPENSA - Buscar productos"
+        },
+        "fields": {
+          "values": [
+            {
+              "name": "Telefono",
+              "stringValue": "={{ $('camposiniciales').first().json.telefonoCliente }}"
+            }
+          ]
+        },
+        "specifyInputSchema": true,
+        "jsonSchemaExample": "{\n\t\"Descripcion\": \"azucar\"\n}"
+      },
+      "id": "21f36ca6-3f09-435c-9589-ecac91b8bf97",
+      "name": "buscar_productos",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        5420,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "name": "buscar_comida",
+        "description": "Utilizaras esta herramienta siempre que un usuario quiera sobre las comidas que vendemos, empandas, sandwiches, tartas, ensaldas etc si son productos de despensa no ingresar",
+        "workflowId": {
+          "__rl": true,
+          "value": "95iu7FwWHLs11Vkc",
+          "mode": "list",
+          "cachedResultName": "DESPENSA - Comidas"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Telefono": "={{ $('camposiniciales').first().json.telefonoCliente }}",
+            "descripcion": "={{ $('Delete').item.json.message_completo }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Telefono",
+              "displayName": "Telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        5900,
+        560
+      ],
+      "id": "17dbb49e-55ef-4f12-be89-46f818c0a2ea",
+      "name": "buscar_comida"
+    },
+    {
+      "parameters": {
+        "name": "insert_name_mail",
+        "description": "Llamaras a esta herramienta cuando tengas sus datos ",
+        "workflowId": {
+          "__rl": true,
+          "value": "MuBTjZBk3QgLNPG5",
+          "mode": "list",
+          "cachedResultName": "DESPENSA - Nombre real"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nombre', `Guardaras el nombre real del usuario`, 'string') }}",
+            "telefono": "={{ $('camposiniciales').first().json.telefonoCliente }}",
+            "correo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo', `envia el correo`, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "correo",
+              "displayName": "correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        5780,
+        560
+      ],
+      "id": "b769de56-c438-4c10-8d1b-7e03f0e24e72",
+      "name": "nombre"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para procesar el texto y dividirlo inteligentemente\nfunction processAndSplitText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un array vacío\n    if (text === null || text === undefined) {\n      return [];\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) { // Intentamos extraer de un campo 'output'\n          // Si output es un string, lo usamos\n          if (typeof text.output === 'string') {\n              text = text.output;\n          } else { // Si output es un objeto o array, intentamos extraer de ahí\n              const extracted = extractTextContent(text.output); // Usamos la función de extracción\n              if (extracted) {\n                  text = extracted;\n              } else {\n                   // Si no pudimos extraer, intentamos convertir todo el objeto a string\n                   try {\n                       text = JSON.stringify(text);\n                   } catch (e) {\n                       console.error(\"No se pudo serializar el objeto a string:\", e);\n                       return []; // Si falla la serialización, devolvemos vacío\n                   }\n              }\n          }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n           console.error(\"No se pudo serializar el objeto a string:\", e);\n           return []; // Si falla la serialización, devolvemos vacío\n        }\n      }\n    } else { // Si no es string, objeto, null o undefined, devolvemos vacío\n       console.warn(\"Entrada a processAndSplitText no es string, objeto, null o undefined:\", typeof text);\n       return [];\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n      return [];\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '');         // Elimina signos de exclamación e interrogación iniciales y finales\n\n  // Divide en líneas para análisis\n  const lines = processedText.split('\\n');\n\n  // Grupos para almacenar los mensajes\n  const messages = [];\n  let currentMessage = [];\n  let inNumberedSection = false;\n  let currentSectionNumber = null;\n\n  // Detectar secciones numeradas y agrupables\n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i];\n    // Detecta si la línea es un encabezado numerado (ej: \"1. Tipo de propiedad:\")\n    const numberedHeaderMatch = line.match(/^\\s*(\\d+)\\.\\s+([^:]+):/);\n\n    if (numberedHeaderMatch) {\n      const sectionNumber = parseInt(numberedHeaderMatch[1]);\n\n      // Si estamos empezando una nueva sección numerada O si el número no es el siguiente esperado\n      if (!inNumberedSection || (inNumberedSection && sectionNumber !== currentSectionNumber + 1)) {\n         // Si tenemos contenido previo, guardamos como mensaje separado\n         if (currentMessage.length > 0) {\n             messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n             currentMessage = [];\n         }\n         inNumberedSection = true;\n      }\n      currentSectionNumber = sectionNumber; // Actualizamos el número de sección actual\n       currentMessage.push(line); // Agregamos la línea al mensaje actual\n\n    } else if (line.trim() === '') { // Línea vacía\n        // Una línea vacía puede terminar una sección si hay contenido previo\n        if (currentMessage.length > 0) {\n             // Si no estamos en una sección numerada, una línea vacía termina el mensaje actual\n             if (!inNumberedSection) {\n                 messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n                 currentMessage = [];\n             } else {\n                 // Si estamos en una sección numerada, una línea vacía se agrega al mensaje actual,\n                 // podría terminar la sección si hay otra línea vacía o fin de texto después.\n                 currentMessage.push(line);\n             }\n        }\n         // Si currentMessage está vacío, una línea vacía consecutiva no hace nada\n\n    } else { // Línea con contenido que no es un encabezado numerado\n        currentMessage.push(line);\n        inNumberedSection = false; // Salimos de la sección numerada si el contenido no sigue el patrón\n    }\n  }\n\n  // Agregar el último mensaje si queda algo\n  if (currentMessage.length > 0) {\n    messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n  }\n\n  // Filtrar mensajes vacíos y limpiar líneas vacías extra\n  return messages\n    .filter(msg => msg.length > 0) // Filtrar cadenas vacías después del trim\n    .map(msg => {\n      // Eliminar líneas vacías múltiples dentro del mensaje\n      return msg.replace(/\\n{2,}/g, '\\n\\n');\n    });\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n       const extracted = extractTextContent(item); // Llamada recursiva para elementos del array\n       if (extracted) {\n           return extracted; // Devolvemos el primer texto que encontramos\n       }\n    }\n    return null; // Si no encontramos texto en ningún elemento del array\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él (puede ser string, array u objeto)\n    if (data.output !== undefined && data.output !== null) {\n         const extracted = extractTextContent(data.output); // Llamada recursiva para el campo output\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'response', intentamos extraer texto de él\n     if (data.response !== undefined && data.response !== null) {\n         const extracted = extractTextContent(data.response); // Llamada recursiva para el campo response\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'json', intentamos extraer texto de él\n     if (data.json !== undefined && data.json !== null) {\n         const extracted = extractTextContent(data.json); // Llamada recursiva para el campo json\n         if (extracted) {\n             return extracted;\n         }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n     try {\n         return JSON.stringify(data);\n     } catch (e) {\n         console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n         return null; // Si falla la serialización\n     }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const textArray = processAndSplitText(textToProcess);\n    // Devolvemos un array con un objeto que contiene el array de texto\n    return [{json: {text: textArray}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un array vacío\n    return [{json: {text: []}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {text: [], error: error.message}}];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6300,
+        340
+      ],
+      "id": "9a50b878-e826-4a28-b8bf-29bab4d402aa",
+      "name": "Separa datos"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "52cc775a-1114-46b3-9b00-bc2a6900638e",
+              "name": "message_completo",
+              "value": "={{ $json?.message_completo || $json.message_completo }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4820,
+        200
+      ],
+      "id": "06c8f4ad-dcb4-4f93-a78a-ed460dfccddf",
+      "name": "msg"
     }
   ],
   "pinData": {
@@ -2667,7 +2767,7 @@
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
-            "content-length": "2114",
+            "content-length": "2163",
             "accept": "application/json",
             "content-type": "application/json",
             "x-forwarded-for": "65.21.161.42",
@@ -2683,21 +2783,22 @@
           "body": {
             "messages": [
               {
-                "id": "OshR_evr91PO0A-gM8E_sLGDCU",
+                "id": "h_nKnEDtKJSJeXPxnTe_OQ-gJkE_sPiXgo",
                 "from_me": false,
                 "type": "reply",
-                "chat_id": "5492235963429@s.whatsapp.net",
-                "timestamp": 1749053158,
+                "chat_id": "5492254596618@s.whatsapp.net",
+                "timestamp": 1749235369,
                 "source": "mobile",
                 "reply": {
                   "type": "list_reply",
                   "list_reply": {
-                    "id": "ListV3:menu_11",
-                    "title": "🍽️ Canelones x3  - $5000"
+                    "id": "ListV3:menu_5",
+                    "title": "🥪 Sandwich de Miga  - $1900",
+                    "description": "Jamon y Queso"
                   }
                 },
                 "context": {
-                  "quoted_id": "yqLBb3dwTt5ne5Y-wF8E_sLGDCU",
+                  "quoted_id": "yqJTBFAP1ZYY0wY-wBcE_sPiXgo",
                   "quoted_author": "5492235246842",
                   "quoted_content": {
                     "header": "🥶 MENÚ ANTIFRÍO x MENOS DE $5000 🥶",
@@ -2774,8 +2875,8 @@
                   },
                   "quoted_type": "list"
                 },
-                "from": "5492235963429",
-                "from_name": "Alejandra"
+                "from": "5492254596618",
+                "from_name": "Automátizaciones AI"
               }
             ],
             "event": {
@@ -2813,6 +2914,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-06-04T16:12:58.937Z",
-  "versionId": "38ace937-158a-4835-8fd4-f8d561e9a826"
+  "updatedAt": "2025-06-06T18:45:38.309Z",
+  "versionId": "206a07cc-e945-46f2-b07a-ee7660e47898"
 }
