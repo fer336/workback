@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Preparar Mensaje": {
       "main": [
@@ -20,7 +20,7 @@
       "main": [
         [
           {
-            "node": "vars",
+            "node": "vars1",
             "type": "main",
             "index": 0
           }
@@ -34,13 +34,7 @@
     },
     "vars": {
       "main": [
-        [
-          {
-            "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "HTTP Request": {
@@ -59,6 +53,39 @@
         [
           {
             "node": "Texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "vars1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Preparar Mensaje2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Mensaje2": {
+      "main": [
+        [
+          {
+            "node": "es-wa",
             "type": "main",
             "index": 0
           }
@@ -94,7 +121,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        80,
+        860,
         1200
       ],
       "id": "bb462e51-8317-466b-80a4-b0b598949ae5",
@@ -108,7 +135,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -340,
+        -360,
         240
       ],
       "typeVersion": 1,
@@ -165,8 +192,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        -880,
-        1340
+        1000,
+        1320
       ],
       "id": "26951623-760e-4013-931a-7cb12e2ec413",
       "disabled": true
@@ -300,13 +327,12 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -880,
-        1080
+        -1080,
+        1340
       ],
       "id": "528b9244-f3d2-4e20-88fa-5ae8d8bd5f92",
       "name": "When chat message received",
-      "webhookId": "09c51867-0f21-4154-a0cf-d2bcb70e31bb",
-      "disabled": true
+      "webhookId": "09c51867-0f21-4154-a0cf-d2bcb70e31bb"
     },
     {
       "parameters": {
@@ -377,8 +403,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -220,
-        1320
+        780,
+        980
       ],
       "id": "169aea44-6800-41ca-b669-c96d841f5d24",
       "name": "vars2"
@@ -539,6 +565,195 @@
         1080
       ],
       "id": "defc02ce-d3af-4ac7-a379-9452879d920d"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23189e14-968e-44f2-be6c-32e7889d5294",
+              "name": "number",
+              "value": "=120363407640794586@g.us",
+              "type": "string"
+            },
+            {
+              "id": "c403ade0-2efe-493c-96e6-a45fcb270920",
+              "name": "url",
+              "value": "=https://evo.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "237b606f-962f-485e-8945-2409e46b5ed8",
+              "name": "apikey",
+              "value": "=B8F21C0B3BFC-453F-A467-B69E2BB0D8E3",
+              "type": "string"
+            },
+            {
+              "id": "6b637992-7137-4ec6-adb4-db6fa6706671",
+              "name": "instance",
+              "value": "=fernando",
+              "type": "string"
+            },
+            {
+              "id": "c584414f-8f84-450d-8999-3071701de88c",
+              "name": "options",
+              "value": "={delay: 1200,presence: 'composing'}",
+              "type": "object"
+            },
+            {
+              "id": "d7e9739d-f087-4f35-bd14-b39bb38ab224",
+              "name": "text",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "0def1f68-c153-4d34-8b8a-90014d5be372",
+              "name": "mentions",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -820,
+        1340
+      ],
+      "id": "d670e6c3-d847-4473-882e-6ac63db9ef53",
+      "name": "vars1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "=Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.mentions }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        1340
+      ],
+      "id": "d0bebc97-1659-44c1-a927-1d8127a13885",
+      "name": "Texto1"
+    },
+    {
+      "parameters": {
+        "url": "https://us.api-wa.me/2522xe636258b15/groups/120363407640794586@g.us",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -620,
+        1340
+      ],
+      "id": "22a8d1bb-ffc3-42cb-accd-94216d6ded01",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// VERSIÓN ADAPTADA - SOLO PARTICIPANTES\nconst response = $input.item.json;\nconst config = $node[\"vars1\"].json;\n\n// Acceder a los datos del grupo desde la nueva estructura\nconst groupData = Array.isArray(response) ? response[0].data : response.data;\n\n// OPCIÓN 1: TODOS LOS PARTICIPANTES (sin quitar el @lid)\nconst mentions = groupData.participants.map(p => p.id);\n\n// OPCIÓN 2: TODOS LOS PARTICIPANTES (quitando @lid para obtener solo números)\n// const mentions = groupData.participants.map(p => p.id.replace('@lid', ''));\n\n// OPCIÓN 3: EXCLUIR AL OWNER/ADMIN (si no quieres mencionar al creador del grupo)\n// const mentions = groupData.participants\n//   .filter(p => p.id !== groupData.owner)\n//   .map(p => p.id);\n\n// OPCIÓN 4: SOLO PARTICIPANTES NO-ADMIN\n// const mentions = groupData.participants\n//   .filter(p => !p.admin)\n//   .map(p => p.id);\n\n// Crear mensaje\nconst body = ` ${config.text} `;\n\n// Devolver objeto para WhAPI\nreturn {\n  json: {\n    to: groupData.id,\n    body: body,\n    mentions: mentions,\n    typing_time: 3\n  }\n};\n\n// ALTERNATIVA: Si necesitas incluir el @lid en las menciones\n// (depende de cómo funcione tu API de WhatsApp)\n/*\nconst mentionsWithLid = groupData.participants\n  .map(p => p.id)\n  .filter(id => id && id !== 'status@broadcast');\n\nreturn {\n  json: {\n    to: groupData.id,\n    body: body,\n    mentions: mentionsWithLid,\n    typing_time: 3\n  }\n};\n*/\n\n// VERSIÓN CON VALIDACIÓN ADICIONAL\n/*\n// Verificar que tenemos datos válidos\nif (!response || (Array.isArray(response) && response.length === 0)) {\n  throw new Error('No se recibieron datos del grupo');\n}\n\nconst groupData = Array.isArray(response) ? response[0].data : response.data;\n\nif (!groupData || !groupData.participants) {\n  throw new Error('Estructura de datos inválida');\n}\n\n// Extraer números con validación\nconst mentions = groupData.participants\n  .filter(p => p && p.id) // Verificar que el participante y su ID existen\n  .map(p => p.id.replace('@lid', ''))\n  .filter(num => num && num !== 'status@broadcast');\n\n// Log para debugging\nconsole.log('Grupo ID:', groupData.id);\nconsole.log('Participantes encontrados:', mentions.length);\nconsole.log('Menciones:', mentions);\n\nconst body = ` ${config.text} `;\n\nreturn {\n  json: {\n    to: groupData.id,\n    body: body,\n    mentions: mentions,\n    typing_time: 3\n  }\n};\n*/"
+      },
+      "name": "Preparar Mensaje2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        1340
+      ],
+      "id": "c0d7ccf7-440e-414c-847b-bc9bdbeb796e"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xe636258b15/message/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.mentions }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        1340
+      ],
+      "id": "922f52e1-f147-464d-b0fb-831de9ff56d3",
+      "name": "es-wa"
     }
   ],
   "pinData": {
@@ -595,7 +810,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2025-06-09T04:10:05.013Z",
-  "versionId": "9c50a277-cd09-4598-8ee6-f6a1e433e860"
+  "triggerCount": 2,
+  "updatedAt": "2025-06-09T16:48:08.533Z",
+  "versionId": "42de80c6-3bcc-4d5d-9778-d21d99fa437c"
 }
