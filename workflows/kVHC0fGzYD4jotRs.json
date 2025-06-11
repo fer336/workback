@@ -1,0 +1,461 @@
+{
+  "active": true,
+  "connections": {
+    "TechnoGas": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        []
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-10T17:54:53.878Z",
+  "id": "kVHC0fGzYD4jotRs",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Techno Gas",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "es-wa",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        -80
+      ],
+      "id": "0ddced40-5f5b-40a4-ad6e-510e83eeb242",
+      "name": "TechnoGas",
+      "webhookId": "9ba09d30-2eb8-4bdf-8785-2bfc45e3f63d"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a5c6018a-4c67-4407-85e8-68aff5c67dc8",
+              "name": "instance-key",
+              "value": "={{ $json.headers[\"instance-key\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "68fde312-8efc-46c7-aca9-3e58eadbce04",
+              "name": "=type",
+              "value": "={{ $json.body.type }}",
+              "type": "string"
+            },
+            {
+              "id": "d8566b0a-f2e4-4586-904e-ac76ea9db70d",
+              "name": "id",
+              "value": "={{ $json?.body?.data[\"0\"]?.id || $json.body.data.key.id }}",
+              "type": "string"
+            },
+            {
+              "id": "bfe85be5-748a-485d-9e24-a50eb3d6de22",
+              "name": "chatId",
+              "value": "={{ $json?.body?.data['0']?.chatId || $json.body.data.key.remoteJid }}",
+              "type": "string"
+            },
+            {
+              "id": "14baf8c4-80ee-442a-9f9b-930de1b3f8de",
+              "name": "={{ $json.body.data.messageType }}",
+              "value": "=conversation",
+              "type": "string"
+            },
+            {
+              "id": "75d77ca4-a8a3-4aee-bdd2-c77acc0f14c9",
+              "name": "chatid",
+              "value": "={{ $json.body.data[\"0\"].chatId }}",
+              "type": "string"
+            },
+            {
+              "id": "e111caba-ef09-4b40-a1b3-1c29475e26f1",
+              "name": "msg",
+              "value": "⚡ TECHNO GAS ⚡\n\n━━━━━━━━━━━━━━\n\n🌐 TIENDA 100% DIGITAL\n\n📲 WhatsApp Only\n\n🚀 DELIVERY EXPRESS\n└─ 🏖️ Toda la costa atlántica\n   🛠️ CATÁLOGO:\n    ├─ 🔥 Sistemas de encendido\n    ├─ 💧 Repuestos para calefones\n    ├─ 🔧 Accesorios para gas\n    └─ 📦 Stock variable \n\n⏰ 24/7 | 365 días\n💯 Calidad garantizada\n🚫 Sin llamadas telefónicas\n💬 Tu consulta 👇",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -100,
+        -80
+      ],
+      "id": "c1a19324-9716-4944-8239-247823e16226",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "call",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "0dc28710-36fa-4b53-9f10-07cbfb7cb584"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d0a6c2f0-b239-4df0-b0ff-3471c569d599",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "message",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        100,
+        160
+      ],
+      "id": "b24270e6-2999-4b5e-b5c0-3ac930aa4d5a",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xe636258b15/message/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.chatId }}"
+            },
+            {
+              "name": "text",
+              "value": "=🔴 IMPORTANTE 🔴\n\n❌ LLAMADAS NO DISPONIBLES ❌\n\n✅ Solo mensajes de texto\n\n📩 Respuesta garantizada\n\n🚨 Si es urgente, escriba #urgente en su mensaje"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        300,
+        -40
+      ],
+      "id": "ed134e5b-3370-4107-8187-27913a078be2",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xe636258b15/message/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $('Switch').item.json.chatId }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $('Edit Fields').item.json.msg }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        120
+      ],
+      "id": "f13e4d95-d76a-40fe-97fb-590b36479aec",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=numero:{{ $json.chatId }}",
+        "expire": true,
+        "ttl": 3600
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        320,
+        300
+      ],
+      "id": "08dd51cb-09a4-4ee6-901a-54b0a4775cce",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6b196db5-e8ba-412e-94cf-614a043047d3",
+              "leftValue": "={{ $json[\"numero:5492254423359@s.whatsapp.net\"] }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        580,
+        300
+      ],
+      "id": "ecaf421d-e53c-49b4-8d6d-765ecf9664af",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "url": "https://us.api-wa.me/2522xe636258b15/business/catalog",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        -320
+      ],
+      "id": "5df7477a-7a4f-4e09-9b8b-076e90bcf145",
+      "name": "HTTP Request2"
+    }
+  ],
+  "pinData": {
+    "TechnoGas": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.innovasoftpro.dev",
+            "user-agent": "axios/1.8.4",
+            "content-length": "11244",
+            "accept": "application/json, text/plain, */*",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "instance-key": "2522xe636258b15",
+            "x-forwarded-for": "144.126.133.227",
+            "x-forwarded-host": "n8n.innovasoftpro.dev",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "575dad520f0e",
+            "x-real-ip": "144.126.133.227"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "instance": "2522xe636258b15",
+            "type": "message",
+            "data": {
+              "messageId": "B7B78B344806C6B5D3C05939F7295C92",
+              "jid": "5492254606018:1@s.whatsapp.net",
+              "me": false,
+              "isGroup": false,
+              "remoteJid": "5492254423359",
+              "pushName": "Fer { }",
+              "key": {
+                "remoteJid": "5492254423359@s.whatsapp.net",
+                "fromMe": false,
+                "id": "B7B78B344806C6B5D3C05939F7295C92"
+              },
+              "messageType": "messageContextInfo",
+              "msgContent": {
+                "messageContextInfo": {
+                  "deviceListMetadata": {
+                    "senderKeyHash": "q07OgipDt4nouQ==",
+                    "senderTimestamp": "1749577794",
+                    "recipientKeyHash": "79dy1tWjHwbfcg==",
+                    "recipientTimestamp": "1749577808"
+                  },
+                  "deviceListMetadataVersion": 2,
+                  "messageSecret": "LlhEYZYw4XFRtG1ec1HfrxZNVaO8keLBhmQUziUERh0="
+                },
+                "orderMessage": {
+                  "orderId": "1758264214726447",
+                  "thumbnail": "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",
+                  "itemCount": 3,
+                  "status": "INQUIRY",
+                  "surface": "CATALOG",
+                  "message": "",
+                  "orderTitle": "Termostato de freidora, Bujias calefactor, Cabezales de piloto",
+                  "sellerJid": "5492254606018@s.whatsapp.net",
+                  "token": "Ad/YbEvMAPsBLqwu9h/4kglAL5Ra/vKHE4xMowPuEp/upA==",
+                  "messageVersion": 2
+                }
+              },
+              "messageTimestamp": 1749594417,
+              "source": "android",
+              "broadcast": false,
+              "isMedia": false
+            }
+          },
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/es-wa",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-06-11T04:00:38.798Z",
+  "versionId": "78adc76a-238f-430b-92b0-35295c824425"
+}
