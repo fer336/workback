@@ -78,11 +78,6 @@
         ]
       ]
     },
-    "Convert to File1": {
-      "main": [
-        []
-      ]
-    },
     "Transcribir": {
       "main": [
         [
@@ -400,23 +395,6 @@
     },
     {
       "parameters": {
-        "operation": "toBinary",
-        "sourceProperty": "body.data.message.base64",
-        "options": {
-          "mimeType": "audio/mpeg"
-        }
-      },
-      "id": "208c4540-249d-423c-b504-8fd7b01fbd8c",
-      "name": "Convert to File1",
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        2020,
-        -220
-      ]
-    },
-    {
-      "parameters": {
         "resource": "audio",
         "operation": "transcribe",
         "options": {}
@@ -489,7 +467,7 @@
       "typeVersion": 3.4,
       "position": [
         1720,
-        -120
+        -80
       ],
       "id": "14916505-d6c4-4f43-b0d7-e2c4f22b61fc",
       "name": "text1"
@@ -515,7 +493,7 @@
       "typeVersion": 3.1,
       "position": [
         2420,
-        -100
+        -60
       ],
       "id": "4438cdc3-1adc-47e4-8417-7b2f0e98a4ee",
       "name": "Merge"
@@ -523,7 +501,7 @@
     {
       "parameters": {
         "operation": "push",
-        "list": "=msg:{{ $json.msg.telefono }}",
+        "list": "=msg:{{ $json?.msg?.telefono || $json.list[0].Telefono }}",
         "messageData": "={{ JSON.stringify($json.msg) }}",
         "tail": true
       },
@@ -617,20 +595,20 @@
       {
         "json": {
           "msg": {
-            "telefono": "5492254423359",
-            "nombre": "Fer",
-            "type": "text",
+            "telefono": "5492254596618",
+            "nombre": null,
+            "type": "voice",
             "ListaResponse": "\n",
-            "content": "Si ese es",
-            "timestamp": "2025-05-29T18:57:18.000-03:00",
-            "idmsg": "8a98t01NKF1wGdzCsVJXPA-gL4E_sPfuT8",
+            "content": "https://s3.eu-central-1.wasabisys.com/in-files/5492235246842/oga-97ca928ae4b087aa8fe08bc8c100fd74-80fc04fec3e25e0a.oga",
+            "timestamp": "2025-06-12T09:59:40.000-03:00",
+            "idmsg": "l8qSiuSwh6qP4IvIwQD9dA-gPwE_sPiXgo",
             "row_id_fecha": null,
             "titulo_categoria": "",
             "eventId": null
           },
           "list": [
             {
-              "Id": 19
+              "Id": 310
             }
           ]
         }
@@ -645,6 +623,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-06-03T03:02:59.183Z",
-  "versionId": "5ef65d55-82b8-4d2c-a5fa-7eda92084e0c"
+  "updatedAt": "2025-06-12T13:05:18.108Z",
+  "versionId": "56f6a17b-112e-4d3c-aa69-13a3ebd87456"
 }
