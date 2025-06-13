@@ -1,0 +1,380 @@
+{
+  "active": false,
+  "connections": {
+    "Variables": {
+      "main": [
+        [
+          {
+            "node": "Get clientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Actualizar cliente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "noResponse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos": {
+      "main": [
+        [
+          {
+            "node": "Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar cliente": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get clientes": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-12T12:38:13.199Z",
+  "id": "7xq4d0FlRT3YJYdY",
+  "isArchived": false,
+  "meta": null,
+  "name": "SUB TAREA - Actualizar el nombre y el mail DESPENSA",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d8f5eb25-6872-41cc-94ae-80275636cfbc",
+              "name": "nombre_real",
+              "value": "={{ $json.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "1363eefb-3557-4dbb-92c2-cd61a4d90524",
+              "name": "telefono",
+              "value": "={{ $json.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "127a43ca-3f67-4283-8625-bf483e0f3329",
+              "name": "Id",
+              "value": "={{ $json.Id }}",
+              "type": "string"
+            },
+            {
+              "id": "0e056c9b-7d42-45ab-8bf6-a4ef28e37ed4",
+              "name": "correo",
+              "value": "={{ $json.correo }}",
+              "type": "string"
+            },
+            {
+              "id": "4d378be1-6e3c-41cf-bc48-39e2ed6f9a72",
+              "name": "tipoCliente",
+              "value": "={{ $json.tipoCliente }}",
+              "type": "string"
+            },
+            {
+              "id": "485b2a0e-48c2-4078-86ee-bcc5f7c630a1",
+              "name": "Inmobiliaria",
+              "value": "={{ $json.Inmobiliaria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        -40
+      ],
+      "id": "c65ccdf2-0803-4d29-bc4d-37f171e4c955",
+      "name": "Variables"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4488a487-cf78-43cf-83eb-0e7ae9aa4d2e",
+              "leftValue": "={{ $json.list }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -440,
+        -40
+      ],
+      "id": "36b1b8e3-7bcd-4a2b-9b1f-696ce14d4f80",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "17b74d7c-6c80-46b9-a37e-4ddf79b94508",
+              "name": "response",
+              "value": "=campo actualizado",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -140
+      ],
+      "id": "54103ed8-e2f9-40ba-ac69-11e7fe4334c7",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "17b74d7c-6c80-46b9-a37e-4ddf79b94508",
+              "name": "response",
+              "value": "no se actualizo ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -220,
+        60
+      ],
+      "id": "75b75fa4-68ec-416c-afe8-8a9d60c9d858",
+      "name": "noResponse"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "nombre"
+            },
+            {
+              "name": "telefono"
+            },
+            {
+              "name": "correo"
+            },
+            {
+              "name": "Id"
+            },
+            {
+              "name": "table",
+              "type": "any"
+            },
+            {
+              "name": "server"
+            }
+          ]
+        }
+      },
+      "id": "a4d37e5f-9501-4d3a-8638-6fda60e269fd",
+      "typeVersion": 1.1,
+      "name": "Datos",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -1100,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{$node[\"Datos\"].json.server}}/api/v2/tables/{{ $node[\"Datos\"].json.table}}/records",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "xc-token",
+              "value": "8swibk167yA8yLIM6pwCwuTBsnup15m4dFJjMDag"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Id",
+              "value": "={{ $('Get clientes').item.json.list[0].Id }}"
+            },
+            {
+              "name": "Telefono",
+              "value": "={{ $node[\"Datos\"].json.telefono }}"
+            },
+            {
+              "name": "Nombre",
+              "value": "={{ $node[\"Datos\"].json.nombre}}"
+            },
+            {
+              "name": "Correo",
+              "value": "={{ $node[\"Datos\"].json.correo}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -220,
+        -140
+      ],
+      "id": "a556ba0c-8250-4f51-b999-8bfbf14ce9aa",
+      "name": "Actualizar cliente"
+    },
+    {
+      "parameters": {
+        "url": "={{ $node[\"Datos\"].json.server}}/api/v2/tables/{{ $node[\"Datos\"].json.table }}/records",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            },
+            {
+              "name": "shuffle",
+              "value": "0"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            },
+            {
+              "name": "where",
+              "value": "=(Id,eq,{{ $json.Id }})"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "xc-token",
+              "value": "8swibk167yA8yLIM6pwCwuTBsnup15m4dFJjMDag"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -660,
+        -40
+      ],
+      "id": "cfdde3e1-7db7-4c89-872f-9d7c10a265a6",
+      "name": "Get clientes"
+    },
+    {
+      "parameters": {
+        "content": "## Actualizar nombre real y correo electronico",
+        "height": 240,
+        "width": 520,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -300,
+        -220
+      ],
+      "typeVersion": 1,
+      "id": "49851fc9-be2c-4721-bf0f-4ab5f8d8d8eb",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {
+    "Datos": [
+      {
+        "json": {
+          "nombre": "Fernando Ariel Alonso",
+          "telefono": "5492254423359",
+          "correo": "",
+          "Id": 43,
+          "table": "mwk4ui7lirmxc8h",
+          "server": "https://db.innovasoftpro.dev",
+          "viewId": null,
+          "tipoCliente": "",
+          "Inmobiliaria": ""
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-12T12:40:48.136Z",
+  "versionId": "cfacaef0-3623-476f-948d-d4cd3d87688b"
+}
