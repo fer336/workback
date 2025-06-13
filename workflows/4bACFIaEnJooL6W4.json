@@ -121,7 +121,7 @@
       "main": [
         [
           {
-            "node": "Traer datos",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
@@ -157,24 +157,12 @@
     },
     "Code": {
       "main": [
-        [
-          {
-            "node": "Limit",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Limit": {
       "main": [
-        [
-          {
-            "node": "Code1",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Code1": {
@@ -190,13 +178,12 @@
     },
     "HTTP Request2": {
       "main": [
-        [
-          {
-            "node": "Edit Fields",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        []
       ]
     }
   },
@@ -511,8 +498,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -440,
-        -420
+        -520,
+        -680
       ],
       "id": "4a1dda9c-c911-4158-88c0-aaa0b04943a7",
       "name": "Traer datos",
@@ -640,8 +627,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -220,
-        -420
+        -340,
+        -680
       ],
       "id": "d6c5f260-6302-478c-9581-c1389c187409",
       "name": "Code"
@@ -653,8 +640,8 @@
       "type": "n8n-nodes-base.limit",
       "typeVersion": 1,
       "position": [
-        0,
-        -420
+        -100,
+        -80
       ],
       "id": "66809c9e-b0a9-4fe5-b679-e560bd1eb8ac",
       "name": "Limit"
@@ -721,8 +708,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        460,
-        -420
+        160,
+        -720
       ],
       "id": "078ccd6f-23b9-4886-ad1a-ca22197d7d69",
       "name": "HTTP Request2"
@@ -734,8 +721,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        240,
-        -420
+        -60,
+        -720
       ],
       "id": "16f2c71b-fb3c-4a10-8cc6-b9d1a7a8fd01",
       "name": "Code1"
@@ -747,7 +734,7 @@
             {
               "id": "272539cb-ae4d-4110-8940-8d85d6088487",
               "name": "response",
-              "value": "LISTA_ENVIADA",
+              "value": "={{ JSON.stringify($json) }}",
               "type": "string"
             }
           ]
@@ -757,11 +744,31 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        680,
+        -260,
         -420
       ],
       "id": "7b9e1ae4-4831-485c-887d-eaa05eac15f6",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-05-20",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        -180
+      ],
+      "id": "639026a4-0df5-4c2b-8e55-0fd454f5b2ca",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9O8uUWkp7h4KwsVD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -769,7 +776,7 @@
       {
         "json": {
           "query": {
-            "Descripcion": "cerveza"
+            "Descripcion": "jamón y queso"
           },
           "Telefono": "5492254423359"
         }
@@ -784,6 +791,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-05-22T18:47:58.856Z",
-  "versionId": "8140c985-f3bc-4840-874a-780be8b3dfad"
+  "updatedAt": "2025-06-12T22:24:39.040Z",
+  "versionId": "79607222-5cec-4089-b7e1-66375bb19db4"
 }
