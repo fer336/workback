@@ -45,7 +45,7 @@
       "main": [
         [
           {
-            "node": "Limit1",
+            "node": "Code",
             "type": "main",
             "index": 0
           }
@@ -54,13 +54,7 @@
     },
     "Promociones": {
       "main": [
-        [
-          {
-            "node": "Edit Fields",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Split Out": {
@@ -107,22 +101,27 @@
         ]
       ]
     },
-    "Limit1": {
+    "Code2": {
       "main": [
         [
           {
-            "node": "Code2",
+            "node": "Promociones",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Code2": {
+    "Convert to File": {
+      "main": [
+        []
+      ]
+    },
+    "Code": {
       "main": [
         [
           {
-            "node": "Promociones",
+            "node": "Edit Fields2",
             "type": "main",
             "index": 0
           }
@@ -317,7 +316,7 @@
       "typeVersion": 4.2,
       "position": [
         -1800,
-        1260
+        1040
       ],
       "id": "6b081d85-0b2e-46a3-8113-a2dfdec6d575",
       "name": "Promociones"
@@ -403,30 +402,18 @@
         1260
       ],
       "id": "809975b1-37a1-4ca1-bf78-2bd7ed726684",
-      "name": "Productos5"
+      "name": "Productos5",
+      "disabled": true
     },
     {
       "parameters": {
-        "maxItems": 25
-      },
-      "type": "n8n-nodes-base.limit",
-      "typeVersion": 1,
-      "position": [
-        -2240,
-        1260
-      ],
-      "id": "748c65f5-7c42-444e-a533-f33446edd8e6",
-      "name": "Limit1"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Teléfono dinámico del cliente\nconst remoteJid = $('Workflow Input Trigger').first().json.Telefono || \"\";\n\n// Función para asignar emojis basados en el tipo de comida\nfunction asignarEmojiComida(nombre) {\n  const nombreLower = nombre.toLowerCase();\n  \n  // Empanadas y tartas\n  if (nombreLower.includes('empanada')) return '🥟';\n  if (nombreLower.includes('tarta')) return '🥧';\n  \n  // Carnes\n  if (nombreLower.includes('asado') || nombreLower.includes('parrilla')) return '🥩';\n  if (nombreLower.includes('milanesa')) return '🍖';\n  if (nombreLower.includes('bife') || nombreLower.includes('carne')) return '🥩';\n  if (nombreLower.includes('pollo')) return '🍗';\n  if (nombreLower.includes('chorizo') || nombreLower.includes('morcilla')) return '🌭';\n  \n  // Pastas\n  if (nombreLower.includes('pasta') || nombreLower.includes('fideos') || nombreLower.includes('ñoquis') || nombreLower.includes('ravioles')) return '🍝';\n  if (nombreLower.includes('lasagna') || nombreLower.includes('lasaña')) return '🍝';\n  \n  // Pizza y similares\n  if (nombreLower.includes('pizza')) return '🍕';\n  if (nombreLower.includes('focaccia')) return '🍞';\n  \n  // Pescados y mariscos\n  if (nombreLower.includes('pescado') || nombreLower.includes('merluza') || nombreLower.includes('salmón')) return '🐟';\n  if (nombreLower.includes('camarón') || nombreLower.includes('langostino')) return '🦐';\n  \n  // Verduras y ensaladas\n  if (nombreLower.includes('ensalada')) return '🥗';\n  if (nombreLower.includes('verdura')) return '🥬';\n  \n  // Sopas\n  if (nombreLower.includes('sopa') || nombreLower.includes('caldo')) return '🍲';\n  \n  // Postres\n  if (nombreLower.includes('flan') || nombreLower.includes('postre')) return '🍮';\n  if (nombreLower.includes('helado')) return '🍨';\n  if (nombreLower.includes('torta')) return '🎂';\n  \n  // Bebidas\n  if (nombreLower.includes('jugo') || nombreLower.includes('agua')) return '🥤';\n  if (nombreLower.includes('café')) return '☕';\n  if (nombreLower.includes('gaseosa') || nombreLower.includes('coca')) return '🥤';\n  \n  // Sandwich y hamburguesas\n  if (nombreLower.includes('sandwich') || nombreLower.includes('sándwich')) return '🥪';\n  if (nombreLower.includes('hamburguesa')) return '🍔';\n  \n  // Arroz y guisos\n  if (nombreLower.includes('arroz')) return '🍚';\n  if (nombreLower.includes('guiso') || nombreLower.includes('estofado')) return '🍲';\n  \n  // Default para comida general\n  return '🍽️';\n}\n\n// Función para limpiar precio y formatear\nfunction formatearPrecio(precio) {\n  // Convertir a string y limpiar\n  let precioLimpio = precio.toString().replace(/[^\\d]/g, '');\n  \n  // Si es solo número, añadir $\n  if (precioLimpio && !isNaN(precioLimpio)) {\n    return `$${precioLimpio}`;\n  }\n  \n  // Si ya tiene formato, devolverlo\n  return precio.toString();\n}\n\n// Obtener datos de todos los elementos del nodo Limit1\nconst limitData = $input.all();\n\n// Crear arrays para almacenar los datos\nconst productos = [];\nconst descripciones = [];\nconst precios = [];\n\n// Procesar cada item del limit\nlimitData.forEach(item => {\n  if (item.json && item.json.Producto) { // Solo procesar items que tengan producto\n    productos.push(item.json.Producto);\n    descripciones.push(item.json.Descripcion || \"\");\n    precios.push(item.json.Precio || \"0\");\n  }\n});\n\n// Validar que tengamos datos\nconst cantidad = productos.length;\nconst rows = [];\n\nfor (let i = 0; i < cantidad; i++) {\n  const idProducto = `menu_${i + 1}`;\n  const nombre = productos[i];\n  const descripcion = descripciones[i] || \"\";\n  const precio = precios[i] || \"0\";\n  \n  // Asignar emoji basado en el tipo de comida\n  const emojiComida = asignarEmojiComida(nombre);\n  const precioFormateado = formatearPrecio(precio);\n  \n  // INCLUIR PRECIO EN EL TÍTULO para que sea visible\n  const tituloCompleto = `${emojiComida} ${nombre} - ${precioFormateado}`;\n  \n  // La descripción será solo la descripción del producto\n  rows.push({\n    id: idProducto,\n    title: tituloCompleto,\n    description: descripcion\n  });\n}\n\nconst sections = [\n  {\n    title: \"🥶 MENÚ ANTIFRÍO x MENOS DE $5000 🥶\",\n    rows: rows\n  }\n];\n\nconst telefonoContacto = \"2235246842\";\nconst direccion = \"Bolívar y Neuquén\";\n\nconst requestBody = {\n  header: { text: \"🥶 MENÚ ANTIFRÍO x MENOS DE $5000 🥶\" },\n  body: { text: \"🟢 Seleccioná tu plato para combatir el frío y escribí la cantidad que quieras\" },\n  footer: { text: `📲 Hacé tu pedido y\\n📍 Retirá en ${direccion} o\\n 🚚 Consultá el envío` },\n  action: {\n    list: {\n      sections,\n      label: \" 🔺 Ver Menú \"\n    }\n  },\n  type: \"list\",\n  to: remoteJid\n};\n\nreturn [{ json: requestBody }];"
+        "jsCode": "// Teléfono dinámico del cliente\nconst remoteJid = $('Workflow Input Trigger').first().json.Telefono || \"\";\n\n// Función para asignar emojis basados en el tipo de comida\nfunction asignarEmojiComida(nombre) {\n  const nombreLower = nombre.toLowerCase();\n  \n  // Empanadas y tartas\n  if (nombreLower.includes('empanada')) return '🥟';\n  if (nombreLower.includes('tarta')) return '🥧';\n  \n  // Carnes\n  if (nombreLower.includes('asado') || nombreLower.includes('parrilla')) return '🥩';\n  if (nombreLower.includes('milanesa')) return '🍖';\n  if (nombreLower.includes('bife') || nombreLower.includes('carne')) return '🥩';\n  if (nombreLower.includes('pollo')) return '🍗';\n  if (nombreLower.includes('chorizo') || nombreLower.includes('morcilla')) return '🌭';\n  \n  // Pastas\n  if (nombreLower.includes('pasta') || nombreLower.includes('fideos') || nombreLower.includes('ñoquis') || nombreLower.includes('ravioles')) return '🍝';\n  if (nombreLower.includes('lasagna') || nombreLower.includes('lasaña')) return '🍝';\n  \n  // Pizza y similares\n  if (nombreLower.includes('pizza')) return '🍕';\n  if (nombreLower.includes('focaccia')) return '🍞';\n  \n  // Pescados y mariscos\n  if (nombreLower.includes('pescado') || nombreLower.includes('merluza') || nombreLower.includes('salmón')) return '🐟';\n  if (nombreLower.includes('camarón') || nombreLower.includes('langostino')) return '🦐';\n  \n  // Verduras y ensaladas\n  if (nombreLower.includes('ensalada')) return '🥗';\n  if (nombreLower.includes('verdura')) return '🥬';\n  \n  // Sopas\n  if (nombreLower.includes('sopa') || nombreLower.includes('caldo')) return '🍲';\n  \n  // Postres\n  if (nombreLower.includes('flan') || nombreLower.includes('postre')) return '🍮';\n  if (nombreLower.includes('helado')) return '🍨';\n  if (nombreLower.includes('torta')) return '🎂';\n  \n  // Bebidas\n  if (nombreLower.includes('jugo') || nombreLower.includes('agua')) return '🥤';\n  if (nombreLower.includes('café')) return '☕';\n  if (nombreLower.includes('gaseosa') || nombreLower.includes('coca')) return '🥤';\n  if (nombreLower.includes('vino')) return '🍷';\n  if (nombreLower.includes('cerveza')) return '🍺';\n  \n  // Sandwich y hamburguesas\n  if (nombreLower.includes('sandwich') || nombreLower.includes('sándwich')) return '🥪';\n  if (nombreLower.includes('hamburguesa')) return '🍔';\n  \n  // Arroz y guisos\n  if (nombreLower.includes('arroz')) return '🍚';\n  if (nombreLower.includes('guiso') || nombreLower.includes('estofado')) return '🍲';\n  \n  // Default para comida general\n  return '🍽️';\n}\n\n// Función para limpiar precio y formatear con separador de miles\nfunction formatearPrecio(precio) {\n  // Convertir a string y limpiar\n  let precioLimpio = precio.toString().replace(/[^\\d]/g, '');\n  \n  // Si es solo número, formatear con separador de miles\n  if (precioLimpio && !isNaN(precioLimpio)) {\n    const num = parseInt(precioLimpio);\n    return `$${num.toLocaleString('es-AR')}`;\n  }\n  \n  // Si ya tiene formato, devolverlo\n  return precio.toString();\n}\n\n// Función para categorizar productos por tipo\nfunction categorizarProducto(nombre) {\n  const nombreLower = nombre.toLowerCase();\n  \n  if (nombreLower.includes('sopa') || nombreLower.includes('caldo') || nombreLower.includes('guiso')) {\n    return 'sopas';\n  }\n  if (nombreLower.includes('pasta') || nombreLower.includes('fideos') || nombreLower.includes('ñoquis') || nombreLower.includes('ravioles')) {\n    return 'pastas';\n  }\n  if (nombreLower.includes('carne') || nombreLower.includes('pollo') || nombreLower.includes('milanesa') || nombreLower.includes('asado')) {\n    return 'carnes';\n  }\n  if (nombreLower.includes('tarta') || nombreLower.includes('empanada')) {\n    return 'tartas';\n  }\n  if (nombreLower.includes('postre') || nombreLower.includes('flan') || nombreLower.includes('torta')) {\n    return 'postres';\n  }\n  \n  return 'otros';\n}\n\n// Obtener datos de todos los elementos del nodo Limit1\nconst limitData = $input.all();\n\n// Crear objetos para almacenar productos por categoría\nconst productosPorCategoria = {\n  sopas: [],\n  pastas: [],\n  carnes: [],\n  tartas: [],\n  postres: [],\n  otros: []\n};\n\n// Procesar cada item del limit\nlimitData.forEach((item, index) => {\n  if (item.json && item.json.Producto) {\n    const nombre = item.json.Producto;\n    const descripcion = item.json.Descripcion || \"\";\n    const precio = item.json.Precio || \"0\";\n    const categoria = categorizarProducto(nombre);\n    \n    productosPorCategoria[categoria].push({\n      id: `menu_${index + 1}`,\n      nombre,\n      descripcion,\n      precio\n    });\n  }\n});\n\n// Crear secciones organizadas por categoría\nconst sections = [];\n\n// Sopas y caldos\nif (productosPorCategoria.sopas.length > 0) {\n  sections.push({\n    title: \"🍲 SOPAS Y CALDOS\",\n    rows: productosPorCategoria.sopas.map(prod => ({\n      id: prod.id,\n      title: `${asignarEmojiComida(prod.nombre)} ${prod.nombre}`,\n      description: `${prod.descripcion}${prod.descripcion ? ' • ' : ''}💰 ${formatearPrecio(prod.precio)}`\n    }))\n  });\n}\n\n// Pastas caseras\nif (productosPorCategoria.pastas.length > 0) {\n  sections.push({\n    title: \"🍝 PASTAS CASERAS\",\n    rows: productosPorCategoria.pastas.map(prod => ({\n      id: prod.id,\n      title: `${asignarEmojiComida(prod.nombre)} ${prod.nombre}`,\n      description: `${prod.descripcion}${prod.descripcion ? ' • ' : ''}💰 ${formatearPrecio(prod.precio)}`\n    }))\n  });\n}\n\n// Carnes\nif (productosPorCategoria.carnes.length > 0) {\n  sections.push({\n    title: \"🥩 CARNES\",\n    rows: productosPorCategoria.carnes.map(prod => ({\n      id: prod.id,\n      title: `${asignarEmojiComida(prod.nombre)} ${prod.nombre}`,\n      description: `${prod.descripcion}${prod.descripcion ? ' • ' : ''}💰 ${formatearPrecio(prod.precio)}`\n    }))\n  });\n}\n\n// Tartas y empanadas\nif (productosPorCategoria.tartas.length > 0) {\n  sections.push({\n    title: \"🥧 TARTAS Y EMPANADAS\",\n    rows: productosPorCategoria.tartas.map(prod => ({\n      id: prod.id,\n      title: `${asignarEmojiComida(prod.nombre)} ${prod.nombre}`,\n      description: `${prod.descripcion}${prod.descripcion ? ' • ' : ''}💰 ${formatearPrecio(prod.precio)}`\n    }))\n  });\n}\n\n// Postres\nif (productosPorCategoria.postres.length > 0) {\n  sections.push({\n    title: \"🍮 POSTRES\",\n    rows: productosPorCategoria.postres.map(prod => ({\n      id: prod.id,\n      title: `${asignarEmojiComida(prod.nombre)} ${prod.nombre}`,\n      description: `${prod.descripcion}${prod.descripcion ? ' • ' : ''}💰 ${formatearPrecio(prod.precio)}`\n    }))\n  });\n}\n\n// Otros platos\nif (productosPorCategoria.otros.length > 0) {\n  sections.push({\n    title: \"🍽️ OTROS PLATOS\",\n    rows: productosPorCategoria.otros.map(prod => ({\n      id: prod.id,\n      title: `${asignarEmojiComida(prod.nombre)} ${prod.nombre}`,\n      description: `${prod.descripcion}${prod.descripcion ? ' • ' : ''}💰 ${formatearPrecio(prod.precio)}`\n    }))\n  });\n}\n\n// Si no hay categorías con productos, crear una sección general\nif (sections.length === 0) {\n  const rows = [];\n  limitData.forEach((item, index) => {\n    if (item.json && item.json.Producto) {\n      const nombre = item.json.Producto;\n      const descripcion = item.json.Descripcion || \"\";\n      const precio = item.json.Precio || \"0\";\n      const emojiComida = asignarEmojiComida(nombre);\n      \n      rows.push({\n        id: `menu_${index + 1}`,\n        title: `${emojiComida} ${nombre}`,\n        description: `${descripcion}${descripcion ? ' • ' : ''}💰 ${formatearPrecio(precio)}`\n      });\n    }\n  });\n  \n  sections.push({\n    title: \"🥶 MENÚ ANTIFRÍO ESPECIAL 🥶\",\n    rows: rows\n  });\n}\n\nconst telefonoContacto = \"2235246842\";\nconst direccion = \"Bolívar y Neuquén\";\n\n// Obtener hora actual para personalizar el saludo\nconst hora = new Date().getHours();\nlet saludo = \"¡Buen día! ☀️\";\nif (hora >= 12 && hora < 20) saludo = \"¡Buenas tardes! 🌤️\";\nif (hora >= 20 || hora < 6) saludo = \"¡Buenas noches! 🌙\";\n\nconst requestBody = {\n  header: { \n    text: \"🔥 MENÚ ANTIFRÍO • MENOS DE $5000 🔥\" \n  },\n  body: { \n    text: `${saludo}\n\n🔥 *¡Menú especial para estos días fríos!*\n🍽️ Comida casera y reconfortante\n✨ Seleccioná tu plato favorito y escribí la cantidad` \n  },\n  footer: { \n    text: `📱 ${telefonoContacto} • 📍 ${direccion}\n🚚 Delivery disponible • 🏪 Retiro sin cargo` \n  },\n  action: {\n    list: {\n      sections,\n      label: \"🍽️ VER MENÚ COMPLETO\"\n    }\n  },\n  type: \"list\",\n  to: remoteJid\n};\n\nreturn [{ json: requestBody }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         -2020,
-        1260
+        1040
       ],
       "id": "4067b2c2-28fd-45e1-8a13-b9f13942f330",
       "name": "Code2"
@@ -438,7 +425,7 @@
             {
               "id": "272539cb-ae4d-4110-8940-8d85d6088487",
               "name": "response",
-              "value": "LISTA_ENVIADA",
+              "value": "={{ JSON.stringify($json) }}",
               "type": "string"
             }
           ]
@@ -448,19 +435,69 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1580,
+        -1400,
         1260
       ],
       "id": "51dc3ea4-795b-4e56-b260-48651fe544ff",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1dd1614-8244-4f9e-8ceb-b8b4470c5868",
+              "name": "msg",
+              "value": "={{ JSON.stringify($json.productos) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1960,
+        1260
+      ],
+      "id": "7f1417c0-f942-4f9f-9e44-7df9e23f2297",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const productos = items.map(i => i.json);\n\nreturn [\n  {\n    json: {\n      productos\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2200,
+        1260
+      ],
+      "id": "235bb346-c3fb-4f5d-8fc8-d9caa78a8a44",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -2140,
+        1460
+      ],
+      "id": "fa5ee685-51a1-4fe2-b275-2a8b18f540a4",
+      "name": "Convert to File"
     }
   ],
   "pinData": {
     "Workflow Input Trigger": [
       {
         "json": {
-          "descripcion": "Menú del dia",
-          "Telefono": "5492254596618"
+          "descripcion": "pastel de papa o guiso de lentejas",
+          "Telefono": "5492254423359"
         }
       }
     ]
@@ -478,6 +515,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-05-22T18:35:16.376Z",
-  "versionId": "41515c12-3151-4fea-a0fd-54beb22c56e6"
+  "updatedAt": "2025-06-13T01:23:17.169Z",
+  "versionId": "15666b5d-c90f-4f79-8a69-1a0b45f84502"
 }
