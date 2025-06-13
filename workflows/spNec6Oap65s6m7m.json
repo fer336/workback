@@ -1,0 +1,155 @@
+{
+  "active": false,
+  "connections": {
+    "Datos": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Button",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-12T14:28:09.450Z",
+  "id": "spNec6Oap65s6m7m",
+  "isArchived": false,
+  "meta": null,
+  "name": "DESPENSA - Confirmaciones",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "telefono"
+            },
+            {
+              "name": "body"
+            }
+          ]
+        }
+      },
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "Datos",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        260,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Versión con botones completamente dinámicos\n\n// Función para generar botones dinámicamente\nfunction generateButtons(buttonsData) {\n  // Si vienen botones personalizados\n  if ($json.buttons && Array.isArray($json.buttons)) {\n    return $json.buttons.map((button, index) => ({\n      type: \"quick_reply\",\n      title: button.title || button.text || `Botón ${index + 1}`,\n      id: button.id || String(index + 1)\n    }));\n  }\n  \n  // Si no, usar los botones por defecto\n  return [\n    {\n      type: \"quick_reply\",\n      title: $json.button1Text || 'Confirmar',\n      id: \"1\"\n    },\n    {\n      type: \"quick_reply\",\n      title: $json.button2Text || 'Cancelar',\n      id: \"2\"\n    }\n  ];\n}\n\nconst messageData = {\n  header: {\n    text: $json.headerText\n  },\n  body: {\n    text:$input.first().json.body\n  },\n  footer: {\n    text: $json.footerText || \"\"\n  },\n  action: {\n    buttons: generateButtons()\n  },\n  type: \"button\",\n  to: $input.first().json.telefono\n};\n\nreturn messageData;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        200
+      ],
+      "id": "33c50987-24d2-41fe-89d9-34105d7d52c4",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/interactive",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "header",
+              "value": "={{ $json.header }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.action }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.type }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        200
+      ],
+      "id": "c94a92f5-eee0-4c03-9f85-4cb115ecf7f2",
+      "name": "Button"
+    }
+  ],
+  "pinData": {
+    "Datos": [
+      {
+        "json": {
+          "telefono": "5492254423359",
+          "body": "2"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-12T15:11:56.833Z",
+  "versionId": "e5814230-8281-46e4-bf39-0778465e0a3f"
+}
