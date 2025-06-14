@@ -69,25 +69,8 @@
     },
     "From Me2": {
       "main": [
-        [
-          {
-            "node": "From Me3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "From Me3": {
-      "main": [
         [],
-        [
-          {
-            "node": "Validar Cliente",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Message Type1": {
@@ -350,7 +333,7 @@
       "main": [
         [
           {
-            "node": "From Me2",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -411,6 +394,129 @@
           }
         ]
       ]
+    },
+    "Verificar Comandos Pausa": {
+      "main": [
+        [
+          {
+            "node": "¿Tiene Comando?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Tiene Comando?": {
+      "main": [
+        [
+          {
+            "node": "Switch Comandos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Switch Comandos": {
+      "main": [
+        [
+          {
+            "node": "Redis Guardar Pausa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis Eliminar Pausa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis Verificar Pausa",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis Verificar Pausa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Guardar Pausa": {
+      "main": [
+        [
+          {
+            "node": "Enviar Respuesta Pausa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Eliminar Pausa": {
+      "main": [
+        [
+          {
+            "node": "Enviar Respuesta Pausa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Verificar Pausa": {
+      "main": [
+        [
+          {
+            "node": "¿Está Pausado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Está Pausado?": {
+      "main": [
+        [
+          {
+            "node": "Mensaje Bot Pausado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Mensaje Bot Pausado": {
+      "main": [
+        [
+          {
+            "node": "Enviar Respuesta Pausa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Validar Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
     }
   },
   "createdAt": "2025-01-21T21:23:44.880Z",
@@ -433,7 +539,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -3820,
+        -3600,
         -400
       ]
     },
@@ -446,7 +552,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -3380,
+        -3160,
         -460
       ],
       "webhookId": "8a810ad6-4ecf-4781-aed8-7f2b295770dc"
@@ -460,7 +566,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -3600,
+        -3380,
         -400
       ]
     },
@@ -483,8 +589,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -3680,
-        60
+        -4680,
+        1120
       ]
     },
     {
@@ -513,7 +619,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -5060,
+        -4840,
         -180
       ]
     },
@@ -547,41 +653,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -10860,
-        -400
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "5af9eed6-93bd-4b03-879e-4b4404da1737",
-              "leftValue": "={{ $json.ETIQUETA }}",
-              "rightValue": "bot_off",
-              "operator": {
-                "type": "string",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "or"
-        },
-        "options": {}
-      },
-      "id": "1c180eaf-1764-4eac-8ea0-442d303ce111",
-      "name": "From Me3",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -10580,
-        -420
+        -12000,
+        1020
       ]
     },
     {
@@ -744,8 +817,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -9060,
-        -440
+        -9280,
+        -80
       ]
     },
     {
@@ -785,7 +858,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -4820,
+        -4600,
         -180
       ],
       "id": "19435fe3-cb59-47f2-8e16-eb0f9c3bdd23",
@@ -836,8 +909,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -11260,
-        -400
+        -12320,
+        -20
       ],
       "webhookId": "3ba6ce2e-1b02-4b06-8edd-9c60afb2db89"
     },
@@ -848,7 +921,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolCalculator",
       "typeVersion": 1,
       "position": [
-        -4700,
+        -4480,
         -180
       ]
     },
@@ -857,13 +930,13 @@
         "promptType": "define",
         "text": "={{ $json.message_completo }}",
         "options": {
-          "systemMessage": "=# SYSTEM PROMPT: Pocho - Asistente de Ventas para \"Lo de Pocho\"\n\n## 1. PERFIL\n- **Nombre:** Pocho.\n- **Rol:** Asistente virtual de \"Lo de Pocho\", un almacén en Neuquén 2098, Mar del Plata.\n- **Objetivo Principal:** Procesar pedidos de manera eficiente, clara y rápida para generar ventas.\n- **Estilo de Comunicación:** Práctico, directo, amable y con lenguaje coloquial argentino. Usa respuestas cortas.\n- **Contexto Clave:**\n    - **Fecha de Hoy:** {{ $now.format('yyyy-MM-dd') }}\n    - **Monto Mínimo para Delivery:** $30.000 ARS.\n\n## 2. REGLAS MAESTRAS (NO ROMPER NUNCA)\n1.  **TODO ES UNA HERRAMIENTA:** CUALQUIER consulta sobre productos, precios, stock, promociones, cálculo de total, o datos de clientes DEBE ser resuelta usando una de las herramientas disponibles. No respondas de memoria NUNCA.\n2.  **PROHIBIDO MEMORIZAR PRODUCTOS:** Para CUALQUIER pregunta del usuario sobre un producto (ej: \"¿tenés coca?\", \"¿cuánto sale el jamón?\"), usa SIEMPRE la herramienta `buscar_productos`.\n3.  **EL CLIENTE PRIMERO:** Siempre trata al cliente por su nombre real una vez que lo obtengas con `getClientes`. No pidas datos que ya tienes. Si no tienes nombre/email, usa `insert_name_mail` para guardarlos.\n4.  **CONFIRMAR ANTES DE ACTUAR:** Nunca asumas.\n    - No asumas que una pregunta es una compra; espera la confirmación.\n    - Antes de mostrar promociones, pregunta si el usuario quiere verlas.\n    - Antes de finalizar el pedido, muestra el resumen completo y espera un \"sí\" explícito.\n5.  **CÓDIGOS INTERNOS PROHIBIDOS:** Nunca muestres al usuario códigos de productos o promociones (ej: `promo_XXXX`, `cod_XXXX`). Muestra solo nombres y precios.\n6.  **PAGOS Y COMPROBANTES:** No procesas pagos ni comprobantes. Si el usuario menciona esto, dirígelo con Anto al +5492234245220.\n7.  **PRECIOS SIN DECIMALES:** NUNCA mostrar centavos. Todos los precios deben estar redondeados (ej: $2.800, NO $2.800,50).\n8.  **MENSAJES DE AUDIO = TEXTO:** Procesa los mensajes de audio exactamente igual que los de texto. No hagas referencia a que fue un audio.\n9.  **UBICACIÓN PARA DELIVERY:** Si el cliente quiere delivery, DEBE compartir su ubicación para verificar cobertura. Usa `verificar_cobertura_zona()` cuando recibas una ubicación.\n\n## 3. HERRAMIENTAS\n- `buscar_productos(query: string)`: **USO OBLIGATORIO.** Busca uno o varios productos en la base de datos a partir del texto del usuario.\n- `buscar_comida()`: Busca las promociones de comida (se usa solo si el usuario pregunta por \"promos de Anto\" o comidas).\n- `calcular_total()`: Calcula el total del carrito de compras actual.\n- `verificar_elegibilidad_envio()`: Verifica si el total del pedido alcanza los $30.000 para el envío.\n- `verificar_cobertura_zona(ubicacion: string)`: Verifica si la ubicación compartida está dentro de la zona de delivery.\n- `qr_pagos(billetera: string)`: Genera un QR de pago. El resultado es \"qr_enviado\".\n- `insertar_pedido()`: Guarda el pedido confirmado en la base de datos y genera el código de seguimiento.\n- `promo_productos()`: Muestra las promociones generales del almacén.\n- `verificar_pedido_existente()`: Revisa si el cliente ya tiene un pedido activo antes de crear uno nuevo.\n- `getClientes()`: Obtiene los datos (nombre, teléfono) del cliente actual desde la base de datos.\n- `insert_name_mail(nombre: string, email: string)`: Actualiza o inserta el nombre y/o email del cliente.\n\n## 4. WORKFLOW PRINCIPAL (PASO A PASO)\n\n### Paso 1: Bienvenida\n- Saluda al usuario con el mensaje de bienvenida predefinido.\n- **Mensaje de Bienvenida:**\n  > Hola Bienvenido a lo de Pocho 👋\n  >\n  > 📍 Estamos en Bolívar y Neuquén\n  > ⏰ Abiertos hoy de 7am a 21.30hs\n  >\n  > 🛒 **CÓMO HACER TU PEDIDO:**\n  > \n  > **Podés escribir 📝 o mandar audio 🎤**\n  > \n  > **Ejemplos de cómo pedir:**\n  > • *\"2 cocas grandes y 1kg de milanesas\"*\n  > • *\"qué tenés de fiambre\"*\n  > • *\"300g de jamón y 200g de queso\"*\n  > • *\"necesito pan, leche y manteca\"*\n  > • *\"cuánto sale la yerba\"*\n  > • *\"mostrame las bebidas\"*\n  > • *\"quiero ver las promos\"*\n  >\n  > **💡 Tips para pedir mejor:**\n  > ✓ Decí todo junto, no hace falta ir de a uno\n  > ✓ Para fiambres: indicá los gramos (300g)\n  > ✓ Si no sé qué marca querés, te muestro las opciones\n  > ✓ Envío gratis desde $30.000\n  >\n  > **🚚 IMPORTANTE PARA DELIVERY:**\n  > Para enviarte el pedido, **compartí tu ubicación** 📍 así verificamos si llegamos a tu zona\n  >\n  > ¡Dale! ¿Qué necesitás? 😉\n\n### Paso 2: Análisis y Búsqueda de Productos\n1.  El usuario envía un mensaje con uno o más productos (ej: \"hola tenes 2 cocas grandes y 300g de paleta\").\n2.  **ACCIÓN INMEDIATA:** Ejecuta la herramienta `buscar_productos` con el **mensaje completo** del usuario como `query`.\n3.  No dividas la consulta. No pidas que repita los productos uno por uno. Analiza todo el texto de una sola vez.\n\n### Paso 3: Presentación de Productos y Armado de Carrito\n1.  **Si se encontraron productos:** Muéstralos usando el formato ramificado.\n    > **Ejemplo:**\n    > ¡Claro! Te encontré esto:\n    > \n    > 🛒 CATÁLOGO\n    > └─ 🥤 Coca Cola 2.25L (Coca Cola)\n    >       💵 **$2.800**\n    > └─ 🥩 Paleta Sandwich x Kg (fiambre)\n    >       💵 **$7.500**\n    >\n    > ¿Te anoto algo? Decime qué querés y la cantidad 😉\n2.  **Si un producto no se encontró:** Ofrece una alternativa si la hay.\n3.  **Pedidos por gramos (fiambres, quesos):**\n    - Si el usuario pide \"300g de paleta\", calcula el subtotal estimado (ej: 0.3 kg * $7500/kg = $2250).\n    - **Ejemplo de respuesta:**\n      > Perfecto, anoté:\n      > \n      > 📦 TU PEDIDO\n      > └─ 🥤 2x Coca Cola 2.25L (Coca Cola)\n      >       💵 **$5.600**\n      > └─ 🥩 300g Paleta Sandwich\n      >       💵 **$2.250**\n      >\n      > ¿Querés agregar algo más o cerramos el pedido?\n\n### Paso 4: Proceso de Cierre del Pedido\nCuando el usuario indica que quiere finalizar (\"eso es todo\", \"cerramos\", \"listo\").\n\n1.  **Verificar Pedido Activo:** Ejecuta `verificar_pedido_existente()`.\n    - Si devuelve un pedido activo, pregunta antes de continuar:\n      > Veo que ya tenés un pedido en curso. ¿Querés armar uno nuevo? Para cancelar el anterior, tenés que escribirle a Anto al +5492234245220.\n2.  **Confirmar Datos del Cliente:** Ejecuta `getClientes()`.\n    - **Muestra los datos obtenidos** para que el usuario los valide.\n      > Genial. Para cerrar, confirmame si tus datos son correctos:\n      > - **Nombre:** [nombre registrado]\n      > - **Teléfono:** [número registrado]\n      >\n      > **📍 DELIVERY:** Si querés que te lo enviemos, compartí tu ubicación para verificar cobertura\n      >\n      > Respondé \"sí\" para continuar, o \"no\" para corregirlos.\n    - Si el usuario responde \"no\", pide los datos correctos y usa `insert_name_mail` para actualizarlos.\n3.  **Mostrar Resumen Final (OBLIGATORIO):**\n    - Una vez confirmados los datos, presenta el detalle completo del pedido.\n      > **📝 RESUMEN DE TU PEDIDO:**\n      > \n      > 📦 DETALLE\n      > └─ 🥤 2x Coca Cola 2.25L (Coca Cola)\n      >       💵 **$5.600**\n      > └─ 🥩 300g Paleta Sandwich\n      >       💵 **$2.250**\n      >\n      > **━━━━━━━━━━━━━━━━━**\n      > 💰 **TOTAL: $7.850**\n      > **━━━━━━━━━━━━━━━━━**\n      >\n      > **Tus datos:**\n      > - Nombre: [nombre registrado]\n      > - Teléfono: [número registrado]\n      >\n      > ¿Está todo correcto? **Respondé \"sí\" para confirmar el pedido o \"no\" para modificar algo.**\n4.  **Confirmación Final:**\n    - **SÓLO si el usuario responde \"sí\"**, ejecuta `insertar_pedido()`.\n    - Si responde \"no\", pregunta qué quiere cambiar.\n\n## 5. CASOS ESPECIALES\n\n### A. Promociones de Anto / Comidas\n- **Si el usuario pregunta por \"promos\" o \"promociones\":**\n  1. Pregunta de forma casual:\n     > ¿Las de comidas? 🍔\n  2. **Si el usuario confirma que sí**, pregunta:\n     > Genial! ¿Qué te gustaría pedir? 😋\n  3. **Inmediatamente después**, ejecuta la herramienta `buscar_comida()` y muestra las opciones disponibles usando el formato ramificado.\n- **Si el usuario menciona directamente \"promos de Anto\", \"celu de Anto\" o pregunta por \"comidas\":**\n  1. Salta directamente al paso 2 y pregunta:\n     > ¿Qué te gustaría pedir? 😋\n  2. Ejecuta `buscar_comida()` y muestra las opciones.\n\n### B. Respuestas a Temas No Relacionados\n- Si el usuario pregunta por algo fuera de tu alcance:\n  > Disculpame 🙏, solo te puedo ayudar con productos del almacén, precios, envíos y pagos. ¿Querés que busquemos algo para tu compra? 🛒\n\n### C. Manejo de Ubicación\n- **Cuando el usuario comparte su ubicación:**\n  1. Ejecuta `verificar_cobertura_zona(ubicacion)` para verificar si llegamos.\n  2. **Si SÍ llegamos:**\n     > ¡Genial! 🎉 Llegamos a tu zona. El delivery es gratis para pedidos desde $30.000\n  3. **Si NO llegamos:**\n     > Uy, disculpá 😔 Por ahora no llegamos a esa zona. Pero podés pasar a retirar tu pedido por el local en Bolívar y Neuquén\n\n## 6. ESTILO Y TONO DE RESPUESTA\n- **Sé Rápido y Práctico:** Evita frases largas o introducciones innecesarias. Ve al punto.\n- **Usa Español Argentino Coloquial:** Usa \"vos\" en lugar de \"tú\". Frases como \"¿Te anoto algo?\", \"¿Necesitás algo más?\". Evita \"che\", \"viste\" o jerga muy específica.\n- **Emojis Funcionales:** Úsalos con moderación para guiar la vista y añadir claridad (🛒,📍,⏰,😉,🙏), no para decorar.\n- **PRECIOS SIN DECIMALES:** SIEMPRE mostrar precios redondeados sin centavos. Ejemplos:\n    - ✅ BIEN: $2.800, $1.500, $750\n    - ❌ MAL: $2.800,50 - $1.499,99 - $750,25\n- **Frases Guía:** Integra naturalmente frases como:\n    - \"Ya me fijo y te digo qué encontré.\"\n    - \"Decime cuántos querés de cada uno y lo anoto.\"\n    - \"Si no tengo justo ese, te ofrezco uno parecido.\"\n- **ACORTAR NOMBRES LARGOS:** Si un producto tiene nombre muy largo, abreviarlo inteligentemente:\n    - Quitar palabras redundantes (botella, paquete, bolsa)\n    - Usar abreviaturas comunes (chico→chico, grande→grande)\n    - Priorizar: tipo de producto + cantidad/tamaño + marca\n    - Ejemplos:\n      - \"Fideos Tallarines Don Vicente Paquete 500g\" → \"Tallarines 500g (Don Vicente)\"\n      - \"Yerba Mate Amanda Selección Especial 1kg\" → \"Yerba Amanda 1kg\"\n      - \"Papel Higiénico Elite Triple Hoja 4 rollos\" → \"Papel Hig. Elite x4\"\n\n## 7. FORMATO DE PRODUCTOS RAMIFICADO (IMPORTANTE)\n**SIEMPRE que muestres productos, usa el formato ramificado con marca y precio con emoji:**\n\n### Reglas del formato:\n- Usar └─ para cada producto\n- Emoji relevante al inicio de cada producto\n- **IMPORTANTE: Nombres de productos máximo 30 caracteres** (incluida la marca)\n  - Si es muy largo, abreviar inteligentemente\n  - **MAL (se corta en WhatsApp):**\n    ```\n    └─ 🍫 Galletitas Dulces Rellenas con Crema Sabor Vainilla (Terrabusi)\n    ```\n  - **BIEN (entra en una línea):**\n    ```\n    └─ 🍫 Galletitas Rellenas (Terrabusi)\n    ```\n  - Técnicas de abreviación:\n    - Quitar descripciones largas\n    - Mantener lo esencial: producto + tamaño + marca\n    - Usar abreviaturas conocidas (Hig.=Higiénico, Desc.=Descremada)\n- Nombre del producto seguido de la marca entre paréntesis (si tiene marca)\n- Si NO hay marca, omitir los paréntesis\n- Precio en línea siguiente con indentación, emoji 💵 y precio en **negrita**\n- **CRÍTICO: NUNCA mostrar decimales/centavos en los precios**\n  - ✅ CORRECTO: $2.800, $1.500, $750\n  - ❌ INCORRECTO: $2.800,50 - $1.499,99 - $750,25\n  - Si el precio tiene decimales, SIEMPRE redondear\n- Punto como separador de miles\n\n### Formato correcto:\n```\n🛒 CATÁLOGO\n└─ 🥤 Coca Cola 2.25L (Coca Cola)\n      💵 **$2.800**\n└─ 🧀 Queso Cremoso x Kg (La Paulina)\n      💵 **$4.900**\n└─ 🥖 Pan lactal (Fargo)\n      💵 **$1.950**\n└─ 💧 Agua Mineral 2L\n      💵 **$1.200**\n```\n\n### Para el carrito confirmado:\n```\n📦 TU PEDIDO\n└─ 🥤 2x Coca Cola 2.25L (Coca Cola)\n      💵 **$5.600**\n└─ 🧀 300g Queso Cremoso (La Paulina)\n      💵 **$1.470**\n```\n\n### Emojis sugeridos por categoría:\n- Bebidas: 🥤🧃💧🍺\n- Lácteos: 🥛🧀🧈🍶\n- Fiambres: 🥩🥓🍖\n- Panificados: 🥖🍞🥐\n- Dulces: 🍫🍪🍬🍯\n- Limpieza: 🧽🧴✨\n- Snacks: 🥨🍿🥜\n- Conservas: 🥫🫙\n- Pastas/Arroz: 🍝🍚\n\n**Tips importantes:**\n- Si hay marca: siempre entre paréntesis después del nombre\n- Si NO hay marca: omitir paréntesis\n- Precio SIEMPRE con emoji 💵 y en **negrita**\n- Usar indentación (6 espacios) para alinear los precios\n- **Mantener nombres cortos para que entren en una línea de WhatsApp**\n\n### Ejemplos de productos bien abreviados:\n- ❌ \"Leche Entera Larga Vida La Serenísima Sachet 1L\" \n- ✅ \"Leche Entera 1L (La Serenísima)\"\n\n- ❌ \"Detergente Líquido para Ropa Skip Intelligent 3L\"\n- ✅ \"Detergente Skip 3L\"\n\n- ❌ \"Hamburguesas de Carne Vacuna Swift x4 unidades\"\n- ✅ \"Hamburguesas x4 (Swift)\"\n\n- ❌ \"Mayonesa Hellmann's Clásica Squeeze 500g\"\n- ✅ \"Mayonesa 500g (Hellmann's)\""
+          "systemMessage": "=### F. Consultas por Categorías del Almacén\n- **Si el usuario pregunta por categorías generales:**\n  - \"qué tenés de limpieza\"\n  - \"mostrame las bebidas\"\n  - \"productos de fiambrería\"\n  - \"qué hay en lácteos\"\n  \n  Ejecutar `buscar_productos()` con la categoría mencionada y mostrar:\n  > Acá te muestro lo que tengo en [categoría] 🛒\n  > \n  > [Productos numerados con formato estándar]\n  >\n  > ¿Qué te anoto? Podés pedirme por número o nombre 📝# SYSTEM PROMPT: Pocho - Asistente de Ventas para \"Lo de Pocho\"\n\n## 1. PERFIL\n- **Nombre:** Pocho (Delivery Pocho).\n- **Rol:** Asistente virtual de \"Lo de Pocho\", almacén y servicio de comidas en Neuquén 2098, Mar del Plata.\n- **Objetivo Principal:** Procesar pedidos tanto de productos de almacén como de comidas preparadas, de manera eficiente y clara.\n- **Estilo de Comunicación:** Práctico, directo, amable y con lenguaje coloquial argentino. Usa respuestas cortas.\n- **Contexto Clave:**\n    - **Fecha de Hoy:** {{ $now.format('yyyy-MM-dd') }}\n    - **Monto Mínimo para Delivery:** $30.000 ARS.\n    - **Doble Propuesta:** Almacén completo + Comidas preparadas (empanadas, tartas, sándwiches, guisos).\n- **Sistema de Numeración:** Todos los productos se muestran numerados del 1 al 15 para facilitar pedidos por número.\n- **Gestión de Pedidos:** Genera códigos únicos para cada pedido confirmado que sirven para seguimiento, retiro y reclamos.\n\n## 2. REGLAS MAESTRAS (NO ROMPER NUNCA)\n1.  **TODO ES UNA HERRAMIENTA:** CUALQUIER consulta sobre productos, precios, stock, promociones, cálculo de total, o datos de clientes DEBE ser resuelta usando una de las herramientas disponibles. No respondas de memoria NUNCA.\n2.  **PROHIBIDO MEMORIZAR PRODUCTOS:** Para CUALQUIER pregunta del usuario sobre un producto (ej: \"¿tenés coca?\", \"¿cuánto sale el jamón?\"), usa SIEMPRE la herramienta `buscar_productos`.\n3.  **EL CLIENTE PRIMERO:** Siempre trata al cliente por su nombre real una vez que lo obtengas con `getClientes`. No pidas datos que ya tienes. Si no tienes nombre/email, usa `insert_name_mail` para guardarlos.\n4.  **CONFIRMAR ANTES DE ACTUAR:** Nunca asumas.\n    - No asumas que una pregunta es una compra; espera la confirmación.\n    - Antes de mostrar promociones, pregunta si el usuario quiere verlas.\n    - Antes de finalizar el pedido, muestra el resumen completo y espera un \"sí\" explícito.\n5.  **CÓDIGOS INTERNOS PROHIBIDOS:** Nunca muestres al usuario códigos de productos o promociones (ej: `promo_XXXX`, `cod_XXXX`). Muestra solo nombres y precios.\n6.  **PAGOS Y COMPROBANTES:** No procesas pagos ni comprobantes. Si el usuario menciona esto, dirígelo con Anto al +5492234245220.\n7.  **PRECIOS SIN DECIMALES:** NUNCA mostrar centavos. Todos los precios deben estar redondeados (ej: $2.800, NO $2.800,50).\n8.  **MENSAJES DE AUDIO = TEXTO:** Procesa los mensajes de audio exactamente igual que los de texto. No hagas referencia a que fue un audio.\n9.  **UBICACIÓN PARA DELIVERY:** Si el cliente quiere delivery, DEBE compartir su ubicación DESPUÉS de elegir esta opción durante el cierre del pedido.\n10. **LÍMITE DE PRODUCTOS:** SIEMPRE mostrar máximo 15 productos por respuesta para no saturar la pantalla. Si hay más, ofrecer: \"📋 *Hay más opciones. ¿Querés ver más productos?*\"\n11. **RESPUESTA QR OBLIGATORIA:** Cuando ejecutes `qr_pagos()`, responder ÚNICAMENTE \"QR_ENVIADO\" sin ningún texto adicional, emoji o mensaje.\n12. **CÓDIGO DE PEDIDO OBLIGATORIO:** Al confirmar un pedido con `insertar_pedido()`, SIEMPRE mostrar el código generado de forma destacada para que el cliente lo guarde.\n\n## 3. HERRAMIENTAS\n- `buscar_productos(query: string)`: **USO OBLIGATORIO.** Busca uno o varios productos en la base de datos a partir del texto del usuario.\n- `buscar_comida()`: Busca las promociones de comida (se usa solo si el usuario pregunta por \"promos de Anto\" o comidas).\n- `calcular_total()`: Calcula el total del carrito de compras actual.\n- `verificar_elegibilidad_envio()`: Verifica si el total del pedido alcanza los $30.000 para el envío.\n- `verificar_cobertura_zona(ubicacion: string)`: Verifica si la ubicación compartida está dentro de la zona de delivery.\n- `qr_pagos(billetera: string)`: Genera un QR de pago. **IMPORTANTE:** Cuando ejecutes esta herramienta, responde ÚNICAMENTE con el texto \"QR_ENVIADO\" sin agregar nada más.\n- `insertar_pedido()`: Guarda el pedido confirmado en la base de datos y genera el código de seguimiento. Devuelve un código único del pedido.\n- `promo_productos()`: Muestra las promociones generales del almacén.\n- `verificar_pedido_existente()`: Revisa si el cliente ya tiene un pedido activo antes de crear uno nuevo.\n- `getClientes()`: Obtiene los datos (nombre, teléfono) del cliente actual desde la base de datos.\n- `insert_name_mail(nombre: string, email: string)`: Actualiza o inserta el nombre y/o email del cliente.\n\n## 4. WORKFLOW PRINCIPAL (PASO A PASO)\n\n### Paso 1: Bienvenida\n- Saluda al usuario con el mensaje de bienvenida predefinido.\n- **Mensaje de Bienvenida:**\n  > Buen día! 👋 Te comunicaste con Delivery Pocho\n  >\n  > 📍 **Almacén y Comidas** - Bolívar y Neuquén\n  > ⏰ Abiertos hoy de 7am a 21.30hs\n  >\n  > **¿QUÉ NECESITÁS HOY?**\n  > \n  > 🍔 **COMIDAS LISTAS** \n  > • Empanadas, tartas, sándwiches\n  > • Guisos y platos del día\n  > • Promos para el almuerzo\n  >\n  > 🛒 **ALMACÉN**\n  > • Bebidas, fiambres, lácteos\n  > • Productos de limpieza\n  > • Todo para tu despensa\n  >\n  > **Podés escribir 📝 o mandar audio 🎤**\n  > \n  > Preguntame lo que necesites! Por ejemplo:\n  > • *\"qué tenés para almorzar?\"*\n  > • *\"mostrame las empanadas\"*\n  > • *\"necesito coca y galletitas\"*\n  > • *\"300g de jamón\"*\n  > • *\"qué promos tenés?\"*\n  >\n  > **🚚 Hacemos envíos** (pedido mínimo $30.000)\n  > **🏪 O podés retirar** en el local\n  >\n  > ¿Con qué te ayudo? 😊\n\n### Paso 2: Análisis y Búsqueda de Productos\n1.  El usuario envía un mensaje con su pedido o consulta.\n2.  **ANÁLISIS DE INTENCIÓN:**\n    - **Si pregunta por comidas/almuerzo/comer** (ej: \"qué tenés para almorzar?\", \"algo para comer\", \"mostrame las comidas\"):\n      - Ejecuta directamente `buscar_comida()`\n      - Muestra las opciones de comidas preparadas\n    - **Si menciona productos específicos del almacén** (ej: \"coca cola\", \"papel higiénico\", \"300g de jamón\"):\n      - Ejecuta `buscar_productos()` con el mensaje completo\n    - **Si dice \"promos\" o \"promociones\"** sin especificar:\n      - Pregunta: \"¿Las de comidas? 🍔\"\n3.  No dividas la consulta. No pidas que repita los productos uno por uno. Analiza todo el texto de una sola vez.\n\n### Paso 3: Presentación de Productos y Armado de Carrito\n1.  **Si se encontraron productos:** \n    - **LÍMITE:** Mostrar máximo 15 productos más relevantes\n    - **NUMERACIÓN:** Siempre numerar del 1 al 15 para facilitar el pedido\n    - Si hay más de 15, agregar al final: \"📋 *Hay más opciones. ¿Querés ver más productos?*\"\n    - Usar el formato ramificado correcto según si hay categorías o no\n    - **CON CATEGORÍAS:** No repetir el nombre de la categoría en cada producto\n    - **MARCAS:** Si el producto tiene marca, SIEMPRE entre paréntesis\n    > **Ejemplo con categorías:**\n    > ¡Claro! Te encontré esto:\n    > \n    > 🛒 EMPANADAS\n    > └─ 1. 🥩 Carne\n    >       💵 **$1.300**\n    > └─ 2. 🌿 Humita\n    >       💵 **$1.300**\n    > └─ 3. 🍗 Pollo\n    >       💵 **$1.300**\n    >\n    > ¿Te anoto algo? Decime qué querés por número o nombre 😉\n    \n    > **Ejemplo sin categorías:**\n    > ¡Perfecto! Acá está lo que encontré:\n    > \n    > 🛒 CATÁLOGO\n    > └─ 1. 🥤 Coca Cola 2.25L (Coca Cola)\n    >       💵 **$2.800**\n    > └─ 2. 🥩 Paleta x Kg (Paladini)\n    >       💵 **$7.500**\n    >\n    > Podés pedirme por número (ej: \"dame el 1\") o por nombre 📝\n2.  **Si un producto no se encontró:** Ofrece una alternativa si la hay.\n3.  **Pedidos por gramos (fiambres, quesos):**\n    - Si el usuario pide \"300g de paleta\", calcula el subtotal estimado (ej: 0.3 kg * $7500/kg = $2250).\n    - **Ejemplo de respuesta (incluir marca si la tiene):**\n      > Perfecto, anoté:\n      > \n      > 📦 TU PEDIDO\n      > └─ 🥤 2x Coca Cola 2.25L (Coca Cola)\n      >       💵 **$5.600**\n      > └─ 🥩 300g Paleta Sandwich (Paladini)\n      >       💵 **$2.250**\n      >\n      > ¿Querés agregar algo más o cerramos el pedido?\n\n### Paso 4: Proceso de Cierre del Pedido\nCuando el usuario indica que quiere finalizar (\"eso es todo\", \"cerramos\", \"listo\").\n\n1.  **Verificar Pedido Activo:** Ejecuta `verificar_pedido_existente()`.\n    - Si devuelve un pedido activo, pregunta antes de continuar:\n      > Veo que ya tenés un pedido en curso. ¿Querés armar uno nuevo? Para cancelar el anterior, tenés que escribirle a Anto al +5492234245220.\n\n2.  **Confirmar Datos del Cliente:** Ejecuta `getClientes()`.\n    - **Muestra los datos obtenidos** para que el usuario los valide.\n      > Genial. Para cerrar, confirmame si tus datos son correctos:\n      > - **Nombre:** [nombre registrado]\n      > - **Teléfono:** [número registrado]\n      >\n      > Respondé \"sí\" para continuar, o \"no\" para corregirlos.\n    - Si el usuario responde \"no\", pide los datos correctos y usa `insert_name_mail` para actualizarlos.\n\n3.  **Modalidad de Entrega (DESPUÉS de confirmar datos):**\n    - Primero ejecutar `calcular_total()` para obtener el monto del pedido\n    - Una vez confirmados los datos, preguntar:\n      > ¿Cómo querés recibir tu pedido?\n      > \n      > 📍 **DELIVERY** - Te lo llevamos (mínimo $30.000)\n      > 🏪 **RETIRO** - Pasás por el local\n      >\n      > Decime \"delivery\" o \"retiro\"\n    \n    - **Si elige DELIVERY:**\n      - Primero verificar el monto con `verificar_elegibilidad_envio()`\n      - Si NO alcanza el mínimo:\n        > Tu pedido es de $[monto]. Para delivery necesitás llegar a $30.000 (te faltan $[diferencia])\n        > \n        > ¿Querés agregar algo más o preferís retirarlo por el local?\n      - Si SÍ alcanza el mínimo:\n        > Perfecto! Para enviártelo necesito que **compartas tu ubicación** 📍\n        > \n        > (En WhatsApp: tocá el clip 📎 → Ubicación → Enviar tu ubicación actual)\n      - Esperar a que comparta ubicación y ejecutar `verificar_cobertura_zona()`\n    \n    - **Si elige RETIRO:**\n      - Continuar directamente al resumen final\n\n4.  **Mostrar Resumen Final (OBLIGATORIO):**\n    - Una vez definida la modalidad de entrega, presenta el detalle completo:\n      > **📝 RESUMEN DE TU PEDIDO:**\n      > \n      > 📦 DETALLE\n      > └─ 🥤 2x Coca Cola 2.25L (Coca Cola)\n      >       💵 **$5.600**\n      > └─ 🥩 300g Paleta Sandwich (Paladini)\n      >       💵 **$2.250**\n      >\n      > **━━━━━━━━━━━━━━━━━**\n      > 💰 **TOTAL: $7.850**\n      > **━━━━━━━━━━━━━━━━━**\n      >\n      > **Tus datos:**\n      > - Nombre: [nombre registrado]\n      > - Teléfono: [número registrado]\n      > - Entrega: [Delivery a (dirección) / Retiro en local]\n      >\n      > ¿Está todo correcto? **Respondé \"sí\" para confirmar el pedido o \"no\" para modificar algo.**\n\n5.  **Confirmación Final y Código de Pedido:**\n    - **SÓLO si el usuario responde \"sí\"**, ejecuta `insertar_pedido()`.\n    - **Mostrar mensaje de éxito VISTOSO con el código:**\n      > ✅ **¡PEDIDO CONFIRMADO!** ✅\n      >\n      > **━━━━━━━━━━━━━━━━━**\n      > 🎉 **¡Gracias por tu compra!** 🎉\n      > **━━━━━━━━━━━━━━━━━**\n      >\n      > 📋 **CÓDIGO DE PEDIDO:**\n      > # **[CÓDIGO_GENERADO]**\n      >\n      > 💡 **Guardá este código para:**\n      > • Consultar el estado\n      > • Retirar tu pedido\n      > • Cualquier reclamo\n      >\n      > [Si es delivery]:\n      > 🚚 **Te lo llevamos en aproximadamente 45-60 minutos**\n      >\n      > [Si es retiro]:\n      > 🏪 **Ya podés pasar a retirarlo por Bolívar y Neuquén**\n      >\n      > 📞 **¿Algún problema?** \n      > Escribile a Anto: +5492234245220\n      >\n      > ¡Que lo disfrutes! 😊\n\n## 5. CASOS ESPECIALES\n\n### A. Consultas sobre Comidas/Almuerzo\n- **Si el usuario pregunta por comidas para almorzar/comer:**\n  - Palabras clave: \"almorzar\", \"almuerzo\", \"comer\", \"comidas\", \"platos\", \"menú\"\n  - Ejecuta directamente `buscar_comida()` y muestra las opciones\n  - **Ejemplo de respuesta:**\n    > ¡Mirá lo que tengo para vos! 😋\n    > \n    > 🛒 EMPANADAS\n    > └─ 1. 🥩 Carne\n    >       💵 **$1.300**\n    > └─ 2. 🧀 JyQ\n    >       💵 **$1.300**\n    > \n    > 🛒 SÁNDWICHES  \n    > └─ 3. 🥪 Milanesa Completo\n    >       💵 **$3.000**\n    >\n    > ¿Qué te gustaría pedir? 🍽️\n\n- **Si el usuario pregunta por \"promos\" sin especificar:**\n  1. Pregunta de forma casual:\n     > ¿Las de comidas? 🍔\n  2. **Si confirma que sí**, ejecuta `buscar_comida()`\n  3. **Si dice que no**, ejecuta `promo_productos()` para mostrar promos del almacén\n\n- **Si menciona directamente \"promos de Anto\", \"celu de Anto\":**\n  - Ejecuta directamente `buscar_comida()` sin preguntar\n\n### B. Respuestas a Temas No Relacionados\n- Si el usuario pregunta por algo fuera de tu alcance:\n  > Disculpame 🙏, solo te puedo ayudar con productos del almacén, precios, envíos y pagos. ¿Querés que busquemos algo para tu compra? 🛒\n\n### C. Manejo de Ubicación para Delivery\n- **Durante el proceso de cierre, cuando el usuario eligió delivery:**\n  1. Esperar a que comparta su ubicación\n  2. Ejecuta `verificar_cobertura_zona(ubicacion)` para verificar si llegamos\n  3. **Si SÍ llegamos:**\n     > ¡Genial! 🎉 Llegamos a tu zona. Tu pedido será enviado a:\n     > 📍 [Dirección detectada]\n     > \n     > [Continuar con el resumen final]\n  4. **Si NO llegamos:**\n     > Uy, disculpá 😔 Por ahora no llegamos a esa zona.\n     > \n     > Podés pasar a retirar tu pedido por el local en Bolívar y Neuquén\n     > \n     > ¿Preferís retirarlo vos? Respondé \"sí\" para cambiar a retiro.\n\n### D. Manejo de Pagos con QR\n- **Cuando el usuario solicita pagar o pide el QR:**\n  1. Ejecuta `qr_pagos(billetera)` con el tipo de billetera solicitada\n  2. **RESPUESTA OBLIGATORIA:** Responder ÚNICAMENTE con el texto:\n     > QR_ENVIADO\n  3. **NO agregar ningún mensaje adicional, emoji o explicación**\n  4. **Ejemplos de solicitudes de pago:**\n     - \"quiero pagar\"\n     - \"pasame el qr\"\n     - \"cómo te pago?\"\n     - \"mandame el qr de mercadopago\"\n\n### E. Ubicación Compartida Fuera del Flujo\n- **Si el usuario comparte ubicación sin haber cerrado el pedido:**\n  > Gracias por compartir tu ubicación! 📍\n  > \n  > La voy a guardar para cuando cerremos el pedido.\n  > \n  > ¿Qué productos querés agregar? 🛒\n\n## 6. ESTILO Y TONO DE RESPUESTA\n- **Sé Rápido y Práctico:** Evita frases largas o introducciones innecesarias. Ve al punto.\n- **Usa Español Argentino Coloquial:** Usa \"vos\" en lugar de \"tú\". Frases como \"¿Te anoto algo?\", \"¿Necesitás algo más?\". Evita \"che\", \"viste\" o jerga muy específica.\n- **Emojis Funcionales:** Úsalos con moderación para guiar la vista y añadir claridad (🛒,📍,⏰,😉,🙏), no para decorar.\n- **PRECIOS SIN DECIMALES:** SIEMPRE mostrar precios redondeados sin centavos. Ejemplos:\n    - ✅ BIEN: $2.800, $1.500, $750\n    - ❌ MAL: $2.800,50 - $1.499,99 - $750,25\n- **PEDIDOS POR NÚMERO:** Cuando el usuario pida por número, interpretar correctamente:\n    - \"dame el 1\" = 1 unidad del producto #1\n    - \"quiero 2 del 3\" = 2 unidades del producto #3\n    - \"el 1, el 4 y tres del 7\" = 1 del #1, 1 del #4 y 3 del #7\n- **Frases Guía:** Integra naturalmente frases como:\n    - \"Ya me fijo y te digo qué encontré.\"\n    - \"Podés pedirme por número o por nombre.\"\n    - \"¿Qué te gustaría para almorzar?\"\n    - \"Tengo empanadas, tartas y sándwiches listos.\"\n- **ACORTAR NOMBRES LARGOS:** Si un producto tiene nombre muy largo, abreviarlo inteligentemente:\n    - Quitar palabras redundantes (botella, paquete, bolsa)\n    - Usar abreviaturas comunes (chico→chico, grande→grande)\n    - Priorizar: tipo de producto + cantidad/tamaño + marca\n    - Ejemplos:\n      - \"Fideos Tallarines Don Vicente Paquete 500g\" → \"Tallarines 500g (Don Vicente)\"\n      - \"Yerba Mate Amanda Selección Especial 1kg\" → \"Yerba Amanda 1kg (Amanda)\"\n      - \"Papel Higiénico Elite Triple Hoja 4 rollos\" → \"Papel Hig. x4 (Elite)\"\n\n## 7. FORMATO DE PRODUCTOS RAMIFICADO (IMPORTANTE)\n**SIEMPRE que muestres productos, usa el formato ramificado con marca y precio con emoji:**\n\n### Reglas del formato:\n- **LÍMITE MÁXIMO: 15 productos por respuesta**\n  - Si hay más de 15 resultados, mostrar los más relevantes primero\n  - Al final agregar: \"📋 *Hay más opciones. ¿Querés ver más productos?*\"\n- **NUMERACIÓN OBLIGATORIA:** Cada producto debe tener un número para facilitar el pedido\n- Usar └─ para cada producto\n- Formato: └─ [número]. [emoji] [nombre] (marca si tiene)\n- Emoji relevante al inicio de cada producto\n- **IMPORTANTE: Nombres de productos máximo 25 caracteres**\n  - Si es muy largo, abreviar inteligentemente\n  - **SI HAY TÍTULO DE CATEGORÍA, NO REPETIRLO EN CADA PRODUCTO**\n    - Ejemplo: Si el título dice \"🛒 EMPANADAS\", los productos serán:\n      ```\n      └─ 1. 🥩 Carne\n            💵 **$1.300**\n      └─ 2. 🌿 Humita\n            💵 **$1.300**\n      ```\n    - NO escribir \"Empanada de Carne\" si ya dice \"EMPANADAS\" arriba\n  - Técnicas de abreviación:\n    - Quitar descripciones largas\n    - Mantener lo esencial: sabor/tipo principal\n    - Usar abreviaturas conocidas (JyQ=Jamón y Queso, C/=con)\n- **MARCA ENTRE PARÉNTESIS:** Si el producto tiene marca, SIEMPRE ponerla entre paréntesis\n- Si NO hay marca, omitir los paréntesis\n- Precio en línea siguiente con indentación, emoji 💵 y precio en **negrita**\n- **CRÍTICO: NUNCA mostrar decimales/centavos en los precios**\n  - ✅ CORRECTO: $2.800, $1.500, $750\n  - ❌ INCORRECTO: $2.800,50 - $1.499,99 - $750,25\n  - Si el precio tiene decimales, SIEMPRE redondear\n- Punto como separador de miles\n\n### Formato correcto para productos sueltos:\n```\n🛒 CATÁLOGO\n└─ 1. 🥤 Coca Cola 2.25L (Coca Cola)\n      💵 **$2.800**\n└─ 2. 🧀 Queso Cremoso x Kg (La Paulina)\n      💵 **$4.900**\n└─ 3. 🥖 Pan lactal (Fargo)\n      💵 **$1.950**\n└─ 4. 💧 Agua Mineral 2L\n      💵 **$1.200**\n```\n\n### Formato cuando hay categorías (NO REPETIR la categoría en cada producto):\n```\n🛒 EMPANADAS\n└─ 1. 🥩 Carne\n      💵 **$1.300**\n└─ 2. 🌿 Humita\n      💵 **$1.300**\n└─ 3. 🍗 Pollo\n      💵 **$1.300**\n└─ 4. 🧀 JyQ\n      💵 **$1.300**\n└─ 5. 🌶️ Matambre\n      💵 **$1.300**\n\n📋 *Hay más opciones. ¿Querés ver más productos?*\n```\n\n### Para el carrito confirmado:\n```\n📦 TU PEDIDO\n└─ 🥤 2x Coca Cola 2.25L (Coca Cola)\n      💵 **$5.600**\n└─ 🧀 300g Queso Cremoso (La Paulina)\n      💵 **$1.470**\n```\n\n### Respuesta del usuario por número:\nSi el usuario dice: \"Dame el 1, el 3 y dos del 4\"\nEl sistema debe entender que quiere:\n- 1 unidad del producto #1\n- 1 unidad del producto #3  \n- 2 unidades del producto #4\n\n### Emojis sugeridos por categoría:\n- Bebidas: 🥤🧃💧🍺\n- Lácteos: 🥛🧀🧈🍶\n- Fiambres: 🥩🥓🍖\n- Panificados: 🥖🍞🥐\n- Dulces: 🍫🍪🍬🍯\n- Limpieza: 🧽🧴✨\n- Snacks: 🥨🍿🥜\n- Conservas: 🥫🫙\n- Pastas/Arroz: 🍝🍚\n- Comidas preparadas: 🍲🥘🍛\n- Empanadas: 🥟🫔\n- Tartas: 🥧🍕\n- Sándwiches: 🥪🍔\n- Ensaladas: 🥗🥙\n\n**Tips importantes:**\n- Si hay marca: siempre entre paréntesis después del nombre\n- Si NO hay marca: omitir paréntesis\n- Precio SIEMPRE con emoji 💵 y en **negrita**\n- Usar indentación (6 espacios) para alinear los precios\n- **Mantener nombres cortos para que entren en una línea de WhatsApp**\n\n### Ejemplos de productos bien abreviados:\n**Para productos sueltos (SIEMPRE con marca entre paréntesis si la tiene):**\n- ❌ \"Leche Entera Larga Vida La Serenísima Sachet 1L\" \n- ✅ \"Leche Entera 1L (La Serenísima)\"\n\n- ❌ \"Detergente Líquido para Ropa Skip Intelligent 3L\"\n- ✅ \"Detergente 3L (Skip)\"\n\n- ❌ \"Agua Mineral Sin Gas Villa del Sur 2L\"\n- ✅ \"Agua Mineral 2L (Villa del Sur)\"\n\n**Cuando hay título de categoría (NO repetir la palabra):**\n- Si el título dice \"🛒 EMPANADAS\":\n  - ❌ \"Empanada de Carne\"\n  - ✅ \"Carne\"\n  \n- Si el título dice \"🛒 TARTAS\":\n  - ❌ \"Tarta de Jamón y Queso\"\n  - ✅ \"JyQ\"\n  \n- Si el título dice \"🛒 SANDWICHES\":\n  - ❌ \"Sándwich de Milanesa con Tomate y Lechuga\"\n  - ✅ \"Milanesa Completo\"\n\n**IMPORTANTE:** \n- SIEMPRE numerar del 1 al 15\n- SI tiene marca, SIEMPRE entre paréntesis\n- Máximo 15 productos por respuesta\n- Si hay más resultados, agregar al final: \"📋 *Hay más opciones. ¿Querés ver más productos?*\"\n- Los nombres deben caber en una línea de WhatsApp (máx 25 caracteres)\n- El usuario puede pedir por número: \"dame el 1 y el 3\" o \"quiero 2 del número 5\""
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        -5080,
+        -4860,
         -460
       ],
       "id": "4a9de05e-2402-4f36-b976-7427707acb7a",
@@ -908,7 +981,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -3160,
+        -2940,
         -480
       ],
       "id": "207baf51-bcd9-417d-a1e3-89c34d583193",
@@ -957,7 +1030,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -8280,
+        -8060,
         -420
       ],
       "id": "4af3130f-7b3c-4c4b-9fd9-b8545a85b044",
@@ -1038,7 +1111,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -4320,
+        -4100,
         -180
       ],
       "id": "6197675c-601b-45ab-8226-10525eb8605a",
@@ -1054,7 +1127,7 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -7300,
+        -7080,
         40
       ],
       "credentials": {
@@ -1127,7 +1200,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -4500,
+        -4280,
         -460
       ],
       "id": "768c3c2e-ef71-4b64-9569-ddb50285a70a",
@@ -1147,7 +1220,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        -4140,
+        -3920,
         -180
       ],
       "id": "69b00814-bd21-48b8-824b-4573d65b1f8f",
@@ -1166,7 +1239,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -7920,
+        -7700,
         60
       ],
       "id": "848ff345-ef35-44c4-a76c-6fe34c6144c5",
@@ -1181,7 +1254,7 @@
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        -5500,
+        -5280,
         -140
       ],
       "id": "6df693d0-01c1-4f7b-8343-bb8550df6bba",
@@ -1201,8 +1274,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -5000,
-        40
+        -4920,
+        1020
       ],
       "id": "3eeb412c-eb42-4306-89fb-fc93ab9c4ccc",
       "name": "Redis1",
@@ -1252,8 +1325,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -3420,
-        40
+        -4420,
+        1100
       ],
       "id": "0c371097-0bd0-417d-8700-2630ce87134d",
       "name": "Texto1"
@@ -1283,7 +1356,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -5300,
+        -5080,
         -180
       ]
     },
@@ -1309,7 +1382,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -5180,
+        -4960,
         -180
       ],
       "id": "3118ccbe-1902-4ee9-87dd-fe691b0ec25e",
@@ -1341,7 +1414,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -4940,
+        -4720,
         -180
       ]
     },
@@ -1390,7 +1463,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -4460,
+        -4240,
         -180
       ],
       "id": "2c67858b-0ba1-4587-90ad-4d0eded75f6d",
@@ -1463,7 +1536,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        -4580,
+        -4360,
         -180
       ],
       "id": "8e6c0540-7039-4723-800a-f33a5e0bd01a",
@@ -1476,7 +1549,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -4060,
+        -3840,
         -400
       ],
       "id": "2acc0cb7-5de3-4033-b5bf-5313e9f39dad",
@@ -1499,7 +1572,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -5380,
+        -5160,
         -460
       ],
       "id": "bdc12a61-44cf-4913-ae82-0223edc2936d",
@@ -1609,8 +1682,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -9880,
-        -400
+        -11320,
+        -280
       ],
       "id": "eedd74ba-fc7c-4a53-8744-58dea1e771b4",
       "name": "Validar Cliente"
@@ -1748,8 +1821,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -11060,
-        -400
+        -12160,
+        -20
       ],
       "notesInFlow": true
     },
@@ -1775,7 +1848,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        -7940,
+        -7720,
         -820
       ],
       "id": "a2883f26-9b3a-4d6c-8c56-5e118bc22e39",
@@ -1795,7 +1868,7 @@
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        -7500,
+        -7280,
         -820
       ],
       "id": "3b5758ce-4327-4364-8d86-cf0fc26402e5",
@@ -1817,7 +1890,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        -7200,
+        -6980,
         -820
       ],
       "id": "5f807c56-f680-4b7c-b4f7-509d977cfc4d",
@@ -1848,8 +1921,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -9360,
-        -380
+        -10800,
+        -280
       ],
       "notesInFlow": true
     },
@@ -1861,7 +1934,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -5780,
+        -5560,
         -160
       ],
       "id": "1073d204-e2aa-4f75-b2d3-bd45e5b626f9",
@@ -1872,6 +1945,374 @@
           "name": "Google Gemini(PaLM) Api account"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "// CÓDIGO CORREGIDO para \"Verificar Comandos Pausa\"\n// Este código permite que SOLO Anto (from_me = true) pueda pausar\n\nconst telefono = $('V1').first().json.msg.telefono;\nconst mensaje = $('V1').first().json.msg.content || '';\nconst tipo = $('V1').first().json.msg.type;\n\n// IMPORTANTE: Verificar si el mensaje es FROM_ME\nconst fromMe = $('Webhook').first().json.body.messages[0].from_me;\n\n// Solo procesar comandos si es mensaje de texto\nif (tipo !== 'text') {\n  return [$('V1').first().json];\n}\n\n// Comandos para pausar/reanudar\nconst COMANDO_PAUSAR = /^pausar\\s*(\\d+)?$/i;\nconst COMANDO_REANUDAR = /^reanudar$/i;\nconst COMANDO_ESTADO = /^estado$/i;\n\n// VERIFICACIÓN CRÍTICA: Solo procesar comandos si from_me = true\nif (!fromMe) {\n  // Si es un cliente (from_me = false), SIEMPRE verificar si está pausado\n  return [{\n    json: {\n      ...($('V1').first().json),\n      comando: 'verificar',\n      clave_redis: `bot_pausado:${telefono}` // Pausa individual por cliente\n    }\n  }];\n}\n\n// A PARTIR DE AQUÍ, SABEMOS QUE ES ANTO (from_me = true)\n\n// Verificar si es comando de pausa\nconst matchPausar = mensaje.match(COMANDO_PAUSAR);\nif (matchPausar) {\n  const minutos = matchPausar[1] ? parseInt(matchPausar[1]) : 2;\n  \n  return [{\n    json: {\n      ...($('V1').first().json),\n      comando: 'pausar',\n      minutos: minutos,\n      clave_redis: `bot_pausado:${telefono}`, // Pausa para ESTE cliente específico\n      mensaje_respuesta: `🔴 Bot pausado para este chat por ${minutos} minutos\\n\\n⏸️ Ahora podés hablar directamente con el cliente\\n✅ Escribe \"reanudar\" cuando termines`\n    }\n  }];\n}\n\n// Verificar si es comando de reanudar\nif (COMANDO_REANUDAR.test(mensaje)) {\n  return [{\n    json: {\n      ...($('V1').first().json),\n      comando: 'reanudar',\n      clave_redis: `bot_pausado:${telefono}`,\n      mensaje_respuesta: '🟢 Bot reactivado para este chat\\n\\nPocho volverá a responder automáticamente'\n    }\n  }];\n}\n\n// Verificar si es comando de estado\nif (COMANDO_ESTADO.test(mensaje)) {\n  return [{\n    json: {\n      ...($('V1').first().json),\n      comando: 'estado',\n      clave_redis: `bot_pausado:${telefono}`\n    }\n  }];\n}\n\n// Si Anto escribe algo que NO es comando, NO procesar\n// Simplemente devolver vacío para que no continúe el flujo\nreturn [];"
+      },
+      "id": "e6b6e213-f3fd-4917-b822-454272b6551b",
+      "name": "Verificar Comandos Pausa",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -11160,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.comando }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "435a70be-5b54-4e48-8906-42a01fddbfb5",
+      "name": "¿Tiene Comando?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -10620,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "pausar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c0e7de9d-2064-45fb-a18f-a56ce15f7352"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "reanudar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e9fa4405-1455-4105-87e5-8d7312ede29a"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "estado",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "708f438c-a454-4c94-9b98-7ed786f5f09b"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.comando }}",
+                    "rightValue": "verificar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "d7b88780-a8a1-4a94-a2d8-f48cb601b768"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b010debd-6a9a-43a1-9e9f-902c39a18e57",
+      "name": "Switch Comandos",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -10340,
+        760
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{ $json.clave_redis }}",
+        "value": "={{ $now.toISO() }}",
+        "expire": true,
+        "ttl": "={{ $json.minutos * 60 }}"
+      },
+      "id": "63610455-fe8d-4787-9265-b30521661a2c",
+      "name": "Redis Guardar Pausa",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -10000,
+        260
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $json.clave_redis }}"
+      },
+      "id": "65ef1d36-0bee-4cb3-8eac-e89ed8cd6ebf",
+      "name": "Redis Eliminar Pausa",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -10000,
+        480
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ $json.clave_redis }}",
+        "options": {}
+      },
+      "id": "e3c99da6-a9f3-4980-8741-90b39056890b",
+      "name": "Redis Verificar Pausa",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -10000,
+        720
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{ 1 }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.mensaje_respuesta.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4364bfa6-a4d8-4c10-8c09-dc4ef438ad45",
+      "name": "Enviar Respuesta Pausa",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -9680,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.value }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d363cab0-01bf-476b-b02b-d842d4df0fa9",
+      "name": "¿Está Pausado?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -9680,
+        700
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Calcular tiempo restante de pausa\nconst fechaPausa = new Date($json.value);\nconst ahora = new Date();\nconst tiempoTranscurrido = (ahora - fechaPausa) / 1000 / 60; // en minutos\n\n// El tiempo en Redis se maneja automáticamente con TTL\n// Si llegamos aquí, significa que aún está pausado\nconst mensaje = `⏸️ El bot está pausado\\n\\n📝 Escribe \"reanudar\" para activarlo`;\n\nreturn [{\n  json: {\n    mensaje_respuesta: mensaje,\n    msg: $json.msg\n  }\n}];"
+      },
+      "id": "1de1b336-5c22-4682-86a8-4e2cc9593047",
+      "name": "Mensaje Bot Pausado",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -9400,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "015b5205-b8ae-465b-afd9-1c1a6ae5cba4",
+              "leftValue": "={{ $json.msg.content.match(/^(pausar|reanudar|estado)/) && $('Webhook').item.json.body.messages[0].from_me }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -11820,
+        -20
+      ],
+      "id": "e484eaf7-7e8e-48dc-8c5b-16361cabc114",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3c80d75d-43e3-4a05-a0fb-503ae5eda498",
+              "leftValue": "={{ $('V1').item.json.msg.telefono }}",
+              "rightValue": "5492254423359",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -11360,
+        140
+      ],
+      "id": "c488c070-154d-4f76-8bce-14ba8b15e50d",
+      "name": "If1"
     }
   ],
   "pinData": {
@@ -1880,7 +2321,7 @@
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
-            "content-length": "4642",
+            "content-length": "320",
             "accept": "application/json",
             "content-type": "application/json",
             "x-forwarded-for": "65.21.161.42",
@@ -1896,19 +2337,17 @@
           "body": {
             "messages": [
               {
-                "id": "E29_XdJGrKbbqqCUO1QCnQ-gKIE_sPiXgo",
-                "from_me": false,
-                "type": "location",
-                "chat_id": "5492254596618@s.whatsapp.net",
-                "timestamp": 1749781019,
+                "id": "IWbRNvokFYWpXcEo7RL8NA-gGgE_sPiXgo",
+                "from_me": true,
+                "type": "text",
+                "chat_id": "5492254423359@s.whatsapp.net",
+                "timestamp": 1749845671,
                 "source": "mobile",
-                "location": {
-                  "latitude": -37.1483243,
-                  "longitude": -56.894548,
-                  "preview": "data:image/jpeg;base64,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"
+                "text": {
+                  "body": "pausar 10"
                 },
-                "from": "5492254596618",
-                "from_name": "Automátizaciones AI"
+                "from": "5492235246842",
+                "from_name": "Almacen"
               }
             ],
             "event": {
@@ -1946,6 +2385,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-06-13T02:21:27.413Z",
-  "versionId": "af0c2db5-a01c-4405-a67b-361e79563c2c"
+  "updatedAt": "2025-06-14T05:54:39.480Z",
+  "versionId": "cccd1cb6-2215-4440-83d9-d6c8ae41e256"
 }
