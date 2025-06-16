@@ -1,0 +1,58 @@
+{
+  "active": false,
+  "connections": {
+    "datos": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-16T05:55:41.064Z",
+  "id": "ZsFRTsq745Q0BDJ2",
+  "isArchived": false,
+  "meta": null,
+  "name": "AGENTE TECHNO GAS - Buttons confirm",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// Función para enviar mensajes con botones a WhatsApp\nasync function sendWhatsAppButtonMessage({\n  phoneNumber,\n  headerTitle = \"\",\n  hasMediaAttachment = false,\n  messageText,\n  footerText = \"\",\n  buttons = []\n}) {\n  \n  // Validaciones\n  if (!phoneNumber) {\n    throw new Error(\"El número de teléfono es obligatorio\");\n  }\n  \n  if (!messageText) {\n    throw new Error(\"El texto del mensaje es obligatorio\");\n  }\n  \n  if (!Array.isArray(buttons) || buttons.length === 0) {\n    throw new Error(\"Debe proporcionar al menos un botón\");\n  }\n  \n  if (buttons.length > 3) {\n    throw new Error(\"WhatsApp permite máximo 3 botones\");\n  }\n  \n  // Construcción del payload\n  const payload = {\n    to: phoneNumber,\n    header: {\n      title: headerTitle,\n      hasMediaAttachment: hasMediaAttachment\n    },\n    text: messageText,\n    footer: footerText,\n    buttons: buttons.map((button, index) => ({\n      type: \"quick_reply\",\n      id: button.id || `btn_${index + 1}_${Date.now()}`,\n      text: button.text\n    }))\n  };\n  \n  // Configuración de la petición\n  const apiUrl = \"https://us.api-wa.me/2522xe636258b15/message/button_reply\";\n  \n  try {\n    const response = await fetch(apiUrl, {\n      method: \"POST\",\n      headers: {\n        \"accept\": \"*/*\",\n        \"Content-Type\": \"application/json\"\n      },\n      body: JSON.stringify(payload)\n    });\n    \n    if (!response.ok) {\n      throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);\n    }\n    \n    const result = await response.json();\n    console.log(\"Mensaje enviado exitosamente:\", result);\n    return result;\n    \n  } catch (error) {\n    console.error(\"Error al enviar mensaje:\", error);\n    throw error;\n  }\n}\n\n// Función específica para productos de Techno Gas\nasync function sendProductButtons({\n  phoneNumber,\n  productName,\n  price,\n  stock,\n  buttons\n}) {\n  \n  const headerTitle = \"🔧 Techno Gas - Producto Disponible\";\n  const messageText = `\n🎯 **${productName}**\n\n💰 Precio: $${price}\n📦 Stock: ${stock} unidades disponibles\n\n🚚 Envíos a Villa Gesell, Madariaga y Costa Esmeralda\n  `.trim();\n  \n  const footerText = \"¿Qué querés hacer?\";\n  \n  return await sendWhatsAppButtonMessage({\n    phoneNumber,\n    headerTitle,\n    messageText,\n    footerText,\n    buttons\n  });\n}\n\n// Función para confirmación de pedidos\nasync function sendOrderConfirmation({\n  phoneNumber,\n  customerName,\n  productName,\n  price,\n  orderCode\n}) {\n  \n  const headerTitle = \"✅ Pedido Confirmado\";\n  const messageText = `\n🎉 ¡Hola ${customerName}!\n\n📋 Código: ${orderCode}\n📦 Producto: ${productName}\n💰 Total: $${price}\n🏦 Alias: techno.gas.arg\n\nTu producto está reservado.\n  `.trim();\n  \n  const footerText = \"Opciones disponibles:\";\n  \n  const buttons = [\n    { id: \"pay_transfer\", text: \"💳 Ya transferí\" },\n    { id: \"pay_later\", text: \"⏰ Pago después\" },\n    { id: \"cancel_order\", text: \"❌ Cancelar\" }\n  ];\n  \n  return await sendWhatsAppButtonMessage({\n    phoneNumber,\n    headerTitle,\n    messageText,\n    footerText,\n    buttons\n  });\n}\n\n// Función para múltiples opciones de productos\nasync function sendMultipleProductOptions({\n  phoneNumber,\n  products = []\n}) {\n  \n  const headerTitle = \"🔍 Productos Encontrados\";\n  \n  let messageText = \"Encontré estas opciones para vos:\\n\\n\";\n  \n  products.forEach((product, index) => {\n    messageText += `🥇 **OPCIÓN ${index + 1}**\\n`;\n    messageText += `📦 ${product.name}\\n`;\n    messageText += `💰 $${product.price}\\n`;\n    messageText += `📊 Stock: ${product.stock}\\n\\n`;\n  });\n  \n  const footerText = \"¿Cuál te interesa?\";\n  \n  // Generar botones dinámicamente (máximo 3)\n  const buttons = products.slice(0, 3).map((product, index) => ({\n    id: `product_${product.id || index}`,\n    text: `${index + 1}. $${product.price}`\n  }));\n  \n  return await sendWhatsAppButtonMessage({\n    phoneNumber,\n    headerTitle,\n    messageText,\n    footerText,\n    buttons\n  });\n}\n\n// Función genérica para respuestas rápidas\nasync function sendQuickReplyButtons({\n  phoneNumber,\n  title,\n  message,\n  options = []\n}) {\n  \n  const buttons = options.map((option, index) => ({\n    id: option.id || `option_${index}`,\n    text: option.text\n  }));\n  \n  return await sendWhatsAppButtonMessage({\n    phoneNumber,\n    headerTitle: title,\n    messageText: message,\n    footerText: \"Elegí una opción:\",\n    buttons\n  });\n}\n\n// EJEMPLOS DE USO:\n\n// 1. Producto simple\n/*\nawait sendProductButtons({\n  phoneNumber: \"5492254423359\",\n  productName: \"Termocupla Universal 600mm\",\n  price: \"4.500\",\n  stock: \"5\",\n  buttons: [\n    { id: \"buy_now\", text: \"🛒 Comprar\" },\n    { id: \"more_info\", text: \"ℹ️ Más info\" },\n    { id: \"other_product\", text: \"🔍 Buscar otro\" }\n  ]\n});\n*/\n\n// 2. Múltiples productos\n/*\nawait sendMultipleProductOptions({\n  phoneNumber: \"5492254423359\",\n  products: [\n    { id: \"1\", name: \"Termocupla Universal\", price: \"4.500\", stock: \"5\" },\n    { id: \"2\", name: \"Termocupla Longvie\", price: \"5.200\", stock: \"2\" },\n    { id: \"3\", name: \"Termocupla Italiana\", price: \"6.800\", stock: \"3\" }\n  ]\n});\n*/\n\n// 3. Confirmación de pedido\n/*\nawait sendOrderConfirmation({\n  phoneNumber: \"5492254423359\",\n  customerName: \"Juan Pérez\",\n  productName: \"Termocupla Universal 600mm\",\n  price: \"4.500\",\n  orderCode: \"PED-789456\"\n});\n*/\n\n// 4. Respuesta rápida genérica\n/*\nawait sendQuickReplyButtons({\n  phoneNumber: \"5492254423359\",\n  title: \"🔧 Techno Gas\",\n  message: \"¿En qué te puedo ayudar hoy?\",\n  options: [\n    { id: \"search_product\", text: \"🔍 Buscar producto\" },\n    { id: \"check_order\", text: \"📋 Ver mi pedido\" },\n    { id: \"contact_support\", text: \"💬 Contactar\" }\n  ]\n});\n*/\n\n// Exportar las funciones para uso en otros módulos\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = {\n    sendWhatsAppButtonMessage,\n    sendProductButtons,\n    sendOrderConfirmation,\n    sendMultipleProductOptions,\n    sendQuickReplyButtons\n  };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        380,
+        300
+      ],
+      "id": "e9cea8f7-f994-4157-846f-88c9697ef72d",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "datos",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        120,
+        300
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-16T05:58:23.191Z",
+  "versionId": "48986689-1022-4f53-bd3d-7d01b0b5c016"
+}
