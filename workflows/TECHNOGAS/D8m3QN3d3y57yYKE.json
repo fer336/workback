@@ -1,0 +1,513 @@
+{
+  "active": false,
+  "connections": {
+    "Get clientes": {
+      "main": [
+        []
+      ]
+    },
+    "Datos": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "Insert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "InsertarCliente": {
+      "main": [
+        []
+      ]
+    },
+    "response": {
+      "main": [
+        []
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get cliente": {
+      "main": [
+        []
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-15T22:20:21.514Z",
+  "id": "D8m3QN3d3y57yYKE",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "SUB TAREA - OBTENER NOMBRE O INSERTAR SUPABASE",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $node[\"Datos\"].json.servidor_db}}/api/v2/tables/{{ $node[\"Datos\"].json.idTabla }}/records",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            },
+            {
+              "name": "shuffle",
+              "value": "0"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            },
+            {
+              "name": "where",
+              "value": "=({{ $json.nombre_columna }},eq,{{ $json.numero.replace(/\\D/g, '') }})"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "xc-token",
+              "value": "={{ $json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        260
+      ],
+      "id": "5aa5b7f4-ac9e-4c72-ae27-1c75a61d85cd",
+      "name": "Get clientes"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "servidor_db"
+            },
+            {
+              "name": "idTabla"
+            },
+            {
+              "name": "token"
+            },
+            {
+              "name": "numero"
+            },
+            {
+              "name": "nombre_columna"
+            },
+            {
+              "name": "pushname"
+            },
+            {
+              "name": "servidor_evo"
+            },
+            {
+              "name": "id_mensaje"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -620,
+        40
+      ],
+      "id": "0e2d4e41-e70b-4a97-a514-e4d60ef41d43",
+      "name": "Datos"
+    },
+    {
+      "parameters": {
+        "action": "generate"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        420,
+        140
+      ],
+      "id": "99dbd28e-ab12-4194-b799-31f22b54cae6",
+      "name": "Crypto"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e02fa309-efdc-4424-a35e-232970a746cf",
+              "leftValue": "={{ $('Datos').item.json.numero }}",
+              "rightValue": "={{ $json.telefono }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        120,
+        0
+      ],
+      "id": "095fe4c2-c0b6-42f7-b97e-2141eb14031d",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $node[\"Datos\"].json.servidor_db}}/api/v2/tables/{{ $node[\"Datos\"].json.idTabla }}/records",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            },
+            {
+              "name": "shuffle",
+              "value": "0"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "xc-token",
+              "value": "={{ $('Datos').item.json.token }}"
+            },
+            {
+              "name": "key",
+              "value": "={{ $json.data }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Telefono",
+              "value": "={{ $('Datos').item.json.numero }}"
+            },
+            {
+              "name": "pushname",
+              "value": "={{ $('Datos').item.json.pushname }}"
+            },
+            {
+              "name": "bot",
+              "value": "off"
+            },
+            {
+              "name": "Key",
+              "value": "={{ $json.data }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1160,
+        260
+      ],
+      "id": "58774c04-9206-4ee3-8dee-34bfd699f9e3",
+      "name": "InsertarCliente"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "707c0860-914c-4a11-a6f5-d20fe6c95aa1",
+              "name": "list[0].Id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "659ca2a9-315e-4b33-86e7-e0ab8d9add95",
+              "name": "list[0].Telefono",
+              "value": "={{ $json.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "f6276ac3-809e-4a3f-88db-e01182a6abb0",
+              "name": "list[0].pushname",
+              "value": "={{ $json.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "9c7d0d78-4fb3-4ef6-96b4-905da06a71e1",
+              "name": "list[0].key",
+              "value": "={{ $json.key }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1440,
+        0
+      ],
+      "id": "d32329d7-2ca3-4fda-a52d-0c418264a08e",
+      "name": "response"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1240,
+        0
+      ],
+      "id": "f6d6a817-72be-46aa-9f23-b3c555baa4c5",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "url": "={{ $node[\"Datos\"].json.servidor_db}}/api/v2/tables/{{ $node[\"Datos\"].json.idTabla }}/records",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            },
+            {
+              "name": "shuffle",
+              "value": "0"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            },
+            {
+              "name": "where",
+              "value": "=({{ $('Datos').item.json.nombre_columna }},eq,{{ $('Datos').item.json.numero }})"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "xc-token",
+              "value": "={{ $('Datos').item.json.token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        860,
+        420
+      ],
+      "id": "b5139258-2e96-48a6-ade6-4baa6a4a7c8f",
+      "name": "Get cliente"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "clientes",
+        "returnAll": true,
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "telefono",
+              "condition": "eq",
+              "keyValue": "={{ $json.numero }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        40
+      ],
+      "id": "75af8829-dd73-4d7f-8915-7d589eac25e1",
+      "name": "Supabase",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "6XtAHX7iNwsvDQR4",
+          "name": "Inventario"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "tableId": "clientes",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "key",
+              "fieldValue": "={{ $json.data }}"
+            },
+            {
+              "fieldId": "telefono",
+              "fieldValue": "={{ $('Datos').item.json.numero }}"
+            },
+            {
+              "fieldId": "pushname",
+              "fieldValue": "={{ $('Datos').item.json.pushname }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        660,
+        140
+      ],
+      "id": "2c44a415-1c55-4267-95db-be293b2dfa11",
+      "name": "Insert",
+      "alwaysOutputData": false,
+      "credentials": {
+        "supabaseApi": {
+          "id": "6XtAHX7iNwsvDQR4",
+          "name": "Inventario"
+        }
+      },
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {
+    "Datos": [
+      {
+        "json": {
+          "servidor_db": "https://db.innovasoftpro.dev",
+          "idTabla": "mwk4ui7lirmxc8h",
+          "token": "8swibk167yA8yLIM6pwCwuTBsnup15m4dFJjMDag",
+          "numero": "5492254423359",
+          "nombre_columna": "telefono",
+          "pushname": "Fer",
+          "servidor_evo": null,
+          "id_mensaje": null
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-06-15T22:16:42.436Z",
+      "updatedAt": "2025-06-15T22:16:42.436Z",
+      "id": "SxJ7ohpTo0WIgInK",
+      "name": "TECHNOGAS"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-15T23:38:25.503Z",
+  "versionId": "a0a87eb8-d336-4cc8-bdfe-11eef752d59c"
+}
