@@ -24,17 +24,6 @@
         ]
       ]
     },
-    "Webhook": {
-      "main": [
-        [
-          {
-            "node": "V1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Agendar visita": {
       "ai_tool": [
         [
@@ -320,24 +309,6 @@
         ]
       ]
     },
-    "From Me": {
-      "main": [
-        [
-          {
-            "node": "Validar Cliente",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "NocoDB",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "DistinguirTipoSeleccion": {
       "main": [
         [
@@ -365,17 +336,6 @@
         [
           {
             "node": "Cancelar evento",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "V1": {
-      "main": [
-        [
-          {
-            "node": "From Me",
             "type": "main",
             "index": 0
           }
@@ -594,6 +554,130 @@
           }
         ]
       ]
+    },
+    "From Me2": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "V1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Redis5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "V1": {
+      "main": [
+        [
+          {
+            "node": "From Me2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis5": {
+      "main": [
+        [
+          {
+            "node": "Texto2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis6": {
+      "main": [
+        [
+          {
+            "node": "If5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If5": {
+      "main": [
+        [
+          {
+            "node": "Validar Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis7": {
+      "main": [
+        [
+          {
+            "node": "Redis4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "Redis7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis4": {
+      "main": [
+        [
+          {
+            "node": "Texto3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-06-14T05:54:56.704Z",
@@ -635,22 +719,6 @@
         -14460,
         -7700
       ]
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "1b5a51c5-99df-4eb0-b09c-dbb8a646c2ac",
-        "options": {}
-      },
-      "id": "911f0e14-0a20-4afb-9221-88be6f198e37",
-      "name": "Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -23380,
-        -8020
-      ],
-      "webhookId": "1b5a51c5-99df-4eb0-b09c-dbb8a646c2ac"
     },
     {
       "parameters": {
@@ -2318,66 +2386,13 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "loose",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "60a730ae-12a3-4199-88e0-86b27dcbd9cc",
-              "leftValue": "={{ $('Webhook').item.json.body.messages[0].from_me }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "false",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "ea40fe45-cb76-4989-b1e7-c97a18e4a3de",
-              "leftValue": "={{ $json.grupo }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "false",
-                "singleValue": true
-              }
-            },
-            {
-              "id": "1257bd3f-f40a-42e5-8cec-c0e5fc757115",
-              "leftValue": "={{ $json.msg.telefono }}",
-              "rightValue": "={{5492254423359 || 5491140841598}}",
-              "operator": {
-                "type": "string",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "eb9884ad-bbc1-4713-a4ca-4ef7e3c39293",
-      "name": "From Me",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -22540,
-        -8020
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "// Obtener datos de entrada\nconst row_id_fecha = $input.first().json.msg.row_id_fecha;\nconst eventId = $input.first().json.msg.eventId || $json.eventid || \"\";\n\n// Obtener el título del webhook\nconst title = $('Webhook').first().json.body.messages[0].reply.list_reply.title;\n\n// Función para convertir nombre de mes a número\nfunction mesANumero(nombreMes) {\n  const meses = {\n    'enero': '01', 'febrero': '02', 'marzo': '03', 'abril': '04',\n    'mayo': '05', 'junio': '06', 'julio': '07', 'agosto': '08',\n    'septiembre': '09', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n  };\n  return meses[nombreMes.toLowerCase()] || '01';\n}\n\n// Función para extraer fecha ISO del título\nfunction extraerFechaISODelTitulo(title) {\n  // Ejemplo: \"📅 30 de Mayo : 12:00 a 12:30\"\n  const regex = /📅\\s*(\\d+)\\s*de\\s*(\\w+)\\s*:\\s*(\\d{2}):(\\d{2})/i;\n  const match = title.match(regex);\n  \n  if (match) {\n    const dia = match[1].padStart(2, '0'); // \"30\" -> \"30\"\n    const mes = mesANumero(match[2]); // \"Mayo\" -> \"05\"\n    const hora = match[3]; // \"12\"\n    const minutos = match[4]; // \"00\"\n    \n    // Obtener el año actual (puedes modificar esto si necesitas otro año)\n    const anioActual = new Date().getFullYear();\n    \n    // Formar la fecha ISO: 2025-05-30T12:00\n    return `${anioActual}-${mes}-${dia}T${hora}:${minutos}`;\n  }\n  \n  return null;\n}\n\n// Extraer la fecha ISO del row_id_fecha (método original)\nconst partes = row_id_fecha.split(\":\");\nconst fechaISOOriginal = partes[partes.length - 1];\n\n// Extraer la fecha ISO del título\nconst fechaISODelTitulo = extraerFechaISODelTitulo(title);\n\n// Usar la fecha ISO del título si está disponible, sino usar la original\nconst fechaISO = fechaISODelTitulo || fechaISOOriginal;\n\n// Armar el mensaje\nconst mensaje = `Fecha seleccionada para agendar nuevamente:\\n${fechaISO}\\n\\nID del evento:\\n${eventId}\\n\\nTítulo original:\\n${title}`;\n\n// Devolver resultado\nreturn [{\n  json: {\n    fechaISO,\n    eventId,\n    mensaje,\n    title,\n    fechaISODelTitulo,\n    fechaISOOriginal\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         -18760,
-        -7660
+        -7800
       ],
       "id": "303b6007-049c-4b73-8cf4-9c2161fab1da",
       "name": "DistinguirTipoSeleccion"
@@ -2919,126 +2934,6 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
-              "name": "msg.telefono",
-              "value": "={{ $json.body.messages[0].chat_id.replace(/\\D/g, '') }}",
-              "type": "string"
-            },
-            {
-              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
-              "name": "msg.nombre",
-              "value": "={{ $json.body.messages[0].chat_name }}",
-              "type": "string"
-            },
-            {
-              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
-              "name": "msg.type",
-              "value": "={{ $json.body.messages[0].type }}",
-              "type": "string"
-            },
-            {
-              "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
-              "name": "msg.ListaResponse",
-              "value": "={{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.title || \"\" }}\n{{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.description || \"\" }}",
-              "type": "string"
-            },
-            {
-              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
-              "name": "msg.content",
-              "value": "={{ $json?.body?.messages[0]?.text?.body || $json?.body?.messages[0]?.voice?.link || $json?.body?.messages[0]?.link_preview.url ||  $json.body.messages[0].voice.id }}",
-              "type": "string"
-            },
-            {
-              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
-              "name": "msg.timestamp",
-              "value": "={{ $json.body.messages[0].timestamp.toDateTime('s').toLocal().toISO() }}",
-              "type": "string"
-            },
-            {
-              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
-              "name": "msg.idmsg",
-              "value": "={{ $json.body.messages[0].id }}",
-              "type": "string"
-            },
-            {
-              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
-              "name": "datos.server_db",
-              "value": "https://db.innovasoftpro.dev",
-              "type": "string"
-            },
-            {
-              "id": "be83160a-e151-4f62-bfde-590af142ae74",
-              "name": "db.table_clientes",
-              "value": "mwk4ui7lirmxc8h",
-              "type": "string"
-            },
-            {
-              "id": "c85ab512-ca17-401b-b025-4b6fc11ac818",
-              "name": "db.token_db",
-              "value": "BAWLISa1QL05FMwlWzJCpo9ONDaZ8_dXO0OULjhB",
-              "type": "string"
-            },
-            {
-              "id": "74ee121e-f109-4425-9b1e-ff7b6c49ae45",
-              "name": "datos.tabla",
-              "value": "mwk4ui7lirmxc8h",
-              "type": "string"
-            },
-            {
-              "id": "82426625-5ed5-49a9-abb1-d4ed246fddf2",
-              "name": "msg.row_id_fecha",
-              "value": "={{ $json.body.messages[0].reply.list_reply.id }}",
-              "type": "string"
-            },
-            {
-              "id": "6fedaf9c-efe8-46e5-bb61-b42525ddafa1",
-              "name": "grupo",
-              "value": "={{ $json.body.messages[0].chat_id.endsWith('@g.us') }}",
-              "type": "boolean"
-            },
-            {
-              "id": "7f846767-8866-43e5-845a-d1feda60451c",
-              "name": "datos.token",
-              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
-              "type": "string"
-            },
-            {
-              "id": "865ae94f-3e98-4b1b-943c-fafa6c059e45",
-              "name": "msg.titulo_categoria",
-              "value": "={{ $json?.body?.messages[0]?.context?.quoted_content?.header || \"\"}}",
-              "type": "string"
-            },
-            {
-              "id": "f71f1502-02e3-4de1-a62a-232537d8f402",
-              "name": "datos.server_whapi",
-              "value": "https://gate.whapi.cloud",
-              "type": "string"
-            },
-            {
-              "id": "2ccc2ae6-79a4-4998-8ef8-681fbb4876cc",
-              "name": "msg.eventId",
-              "value": "={{ $json.body.messages[0].context.quoted_id }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "438996fa-9bd1-4036-bee6-57d3b318c172",
-      "name": "V1",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -22940,
-        -8020
-      ],
-      "notesInFlow": true
-    },
-    {
-      "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "create",
         "projectId": "pgzahexmtqessds",
@@ -3059,8 +2954,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -21820,
-        -7420
+        -20000,
+        -8700
       ],
       "id": "5e273419-1c96-4cce-b829-f4aee2a3837d",
       "name": "Agrega",
@@ -3085,8 +2980,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -22240,
-        -7740
+        -20500,
+        -8980
       ],
       "id": "78921301-2d59-452e-b75e-2a050d3455fc",
       "name": "NocoDB",
@@ -3127,8 +3022,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -22040,
-        -7560
+        -20220,
+        -8840
       ],
       "id": "689e3db0-e594-478b-8cda-8727ae8221ba",
       "name": "If"
@@ -3214,8 +3109,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -18440,
-        -7900
+        -18320,
+        -7860
       ],
       "id": "315f80a4-5c16-4c36-bb33-12d06b5b86a2",
       "name": "fecha_iso"
@@ -3228,8 +3123,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -18080,
-        -7900
+        -17760,
+        -7860
       ],
       "id": "7b1ed40f-7db7-44aa-916b-1b98bff0f93a",
       "name": "Redis",
@@ -3252,7 +3147,7 @@
       "typeVersion": 1,
       "position": [
         -18760,
-        -7900
+        -7080
       ],
       "id": "a85ecf72-82e1-483a-9243-1af405a7f3c6",
       "name": "Lista de fechas",
@@ -3273,8 +3168,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -19220,
-        -7980
+        -19460,
+        -7660
       ],
       "id": "d928d012-8365-43b7-8084-064be3c4c83d",
       "name": "Redis2",
@@ -3313,8 +3208,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -19020,
-        -7980
+        -19200,
+        -7660
       ],
       "id": "5c0e0778-31af-4832-bbf0-47f14f61f534",
       "name": "If2"
@@ -3358,8 +3253,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -18760,
-        -8120
+        -18780,
+        -7420
       ],
       "id": "58e7c66e-861a-4fbb-8fa3-409ad7fa518f",
       "name": "Texto1"
@@ -3676,8 +3571,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -21120,
-        -8020
+        -21100,
+        -8040
       ],
       "id": "124239f1-6d6b-425c-87e2-df5cd9a8b22b",
       "name": "If3"
@@ -3696,8 +3591,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        -21500,
-        -8020
+        -21480,
+        -8040
       ],
       "id": "f9acf82a-80cb-419b-93fd-94369a301ca2",
       "name": "Valida BOT",
@@ -3707,6 +3602,509 @@
           "name": "NocoDB Token account"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "94746291-c0f3-44f3-b635-1fe696d7d74e",
+              "leftValue": "={{ $('Webhook').item.json.body.messages[0].from_me }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "09dbddc9-e75b-4b94-910e-d6e10d1065f4",
+      "name": "From Me2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -23640,
+        -8080
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "solutions",
+        "options": {}
+      },
+      "id": "559c02cb-3d63-4f48-8361-1299a4fce293",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -24280,
+        -8080
+      ],
+      "webhookId": "3ba6ce2e-1b02-4b06-8edd-9c60afb2db89"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=bot:{{ $json.msg.telefono }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -22640,
+        -8880
+      ],
+      "id": "8da07446-c27e-40d9-bede-3ce21d6f660d",
+      "name": "Redis4",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.msg.off }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -22840,
+        -9220
+      ],
+      "id": "85dc6a6e-a7e8-4350-b8ac-fe3f16d444a0",
+      "name": "Texto2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7c646201-9638-4381-ba78-8b2ede680b4d",
+              "leftValue": "={{ $('Webhook').item.json.body.messages[0].from }}",
+              "rightValue": "5492254596618",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "60e15f5b-bbc9-47ea-a160-5df35f39a4a9",
+              "leftValue": "={{ $('Webhook').item.json.body.messages[0].text.body.toLowerCase() === 'off' }}",
+              "rightValue": "={{pausar}}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -23340,
+        -8960
+      ],
+      "id": "fa0c7b92-a37b-4ddf-bcac-4d778a017777",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "msg.telefono",
+              "value": "={{ $json.body.messages[0].chat_id.replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "msg.nombre",
+              "value": "={{ $json.body.messages[0].chat_name }}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "msg.type",
+              "value": "={{ $json.body.messages[0].type }}",
+              "type": "string"
+            },
+            {
+              "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
+              "name": "msg.ListaResponse",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.title || \"\" }}\n{{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.description || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "msg.content",
+              "value": "={{ $json?.body?.messages[0]?.text?.body || $json?.body?.messages[0]?.voice?.link || $json?.body?.messages[0]?.link_preview.url ||  $json.body.messages[0].voice.id }}",
+              "type": "string"
+            },
+            {
+              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
+              "name": "msg.timestamp",
+              "value": "={{ $json.body.messages[0].timestamp.toDateTime('s').toLocal().toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "msg.idmsg",
+              "value": "={{ $json.body.messages[0].id }}",
+              "type": "string"
+            },
+            {
+              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
+              "name": "datos.server_db",
+              "value": "https://db.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "be83160a-e151-4f62-bfde-590af142ae74",
+              "name": "db.table_clientes",
+              "value": "mwk4ui7lirmxc8h",
+              "type": "string"
+            },
+            {
+              "id": "c85ab512-ca17-401b-b025-4b6fc11ac818",
+              "name": "db.token_db",
+              "value": "BAWLISa1QL05FMwlWzJCpo9ONDaZ8_dXO0OULjhB",
+              "type": "string"
+            },
+            {
+              "id": "74ee121e-f109-4425-9b1e-ff7b6c49ae45",
+              "name": "datos.tabla",
+              "value": "mwk4ui7lirmxc8h",
+              "type": "string"
+            },
+            {
+              "id": "82426625-5ed5-49a9-abb1-d4ed246fddf2",
+              "name": "msg.row_id_fecha",
+              "value": "={{ $json.body.messages[0].reply.list_reply.id }}",
+              "type": "string"
+            },
+            {
+              "id": "6fedaf9c-efe8-46e5-bb61-b42525ddafa1",
+              "name": "grupo",
+              "value": "={{ $json.body.messages[0].chat_id.endsWith('@g.us') }}",
+              "type": "boolean"
+            },
+            {
+              "id": "7f846767-8866-43e5-845a-d1feda60451c",
+              "name": "datos.token",
+              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
+              "type": "string"
+            },
+            {
+              "id": "865ae94f-3e98-4b1b-943c-fafa6c059e45",
+              "name": "msg.titulo_categoria",
+              "value": "={{ $json?.body?.messages[0]?.context?.quoted_content?.header || \"\"}}",
+              "type": "string"
+            },
+            {
+              "id": "f71f1502-02e3-4de1-a62a-232537d8f402",
+              "name": "datos.server_whapi",
+              "value": "https://gate.whapi.cloud",
+              "type": "string"
+            },
+            {
+              "id": "2ccc2ae6-79a4-4998-8ef8-681fbb4876cc",
+              "name": "msg.eventId",
+              "value": "={{ $json.body.messages[0].context.quoted_id }}",
+              "type": "string"
+            },
+            {
+              "id": "47fcf50c-9216-4f7f-b5f4-b6d25b049891",
+              "name": "",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "95001dea-1bf9-41f7-b41f-4a5bd23719cf",
+              "name": "msg.location.latitude",
+              "value": "={{ $json.body.messages[0].location.latitude }}",
+              "type": "number"
+            },
+            {
+              "id": "1a6f4720-d9db-4093-9d7e-2fa585ad07bc",
+              "name": "msg.location.longitude",
+              "value": "={{ $json.body.messages[0].location.longitude }}",
+              "type": "number"
+            },
+            {
+              "id": "3551b7d9-4ced-4fba-889e-e8a1342fc6c7",
+              "name": "msg.off",
+              "value": "=🟢 Derivacion con un representante, a partir de ahora hablará con una persona real 🟢",
+              "type": "string"
+            },
+            {
+              "id": "9314a63a-e7f7-47f1-89c2-198e36a61785",
+              "name": "msg.on",
+              "value": "🟠  Derivación con un Agente IA, a partir de ahora hablará con Martín 🟠",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "876d21a0-9542-43a4-937a-a49db50ece52",
+      "name": "V1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -23900,
+        -8080
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=bot:{{ $json.msg.telefono }}",
+        "value": "off",
+        "expire": true,
+        "ttl": 360
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -23080,
+        -9100
+      ],
+      "id": "e2aa2d95-1d35-4659-ad9b-6c4f149c3b5f",
+      "name": "Redis5",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "estado",
+        "key": "=bot:{{ $json.msg.telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -22920,
+        -8020
+      ],
+      "id": "8e8cf2a7-6b65-4307-80f0-a6a6ba1d969f",
+      "name": "Redis6",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a96a483c-e241-46d6-a5c0-6d5a315c6ca5",
+              "leftValue": "={{ $json.estado }}",
+              "rightValue": "off",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -22520,
+        -8020
+      ],
+      "id": "26361d3c-8bdb-4c55-b644-b401ae2feb00",
+      "name": "If5"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=bot:{{ $json.msg.telefono }}",
+        "value": "on"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -22880,
+        -8880
+      ],
+      "id": "787d6fb2-4e8c-47fc-9e44-910836a406f0",
+      "name": "Redis7",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c39920c3-e5a7-48d6-b1ed-31b94ae55381",
+              "leftValue": "={{ $json.msg.content }}",
+              "rightValue": "On",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -23100,
+        -8720
+      ],
+      "id": "402a6d31-0deb-495b-84e7-b75c83df5849",
+      "name": "If6"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.msg.on }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -22380,
+        -8980
+      ],
+      "id": "171a5461-bb6c-402e-b600-9634d91a7cca",
+      "name": "Texto3"
+    },
+    {
+      "parameters": {
+        "content": "## Intervencion Humana\n",
+        "height": 800,
+        "width": 1520,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -23540,
+        -9280
+      ],
+      "typeVersion": 1,
+      "id": "035401af-4c1f-487f-89ab-ad549c0c6077",
+      "name": "Sticky Note1"
     }
   ],
   "pinData": {
@@ -3715,7 +4113,7 @@
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
-            "content-length": "9895",
+            "content-length": "353",
             "accept": "application/json",
             "content-type": "application/json",
             "x-forwarded-for": "37.27.140.235",
@@ -3731,24 +4129,19 @@
           "body": {
             "messages": [
               {
-                "id": "GCdpr11M_IaOJfE.nLgPiA-gPAE_sPfuT8",
-                "from_me": false,
-                "type": "link_preview",
+                "id": "ppxroJDLJScXA43wv_bxOg-wHwE_sPfuT8",
+                "from_me": true,
+                "type": "text",
                 "chat_id": "5492254423359@s.whatsapp.net",
-                "timestamp": 1749237943,
+                "timestamp": 1750022817,
                 "source": "mobile",
                 "chat_name": "Fer",
-                "link_preview": {
-                  "body": "https://ficha.info/p/796da3d0c4f24a6c9ee546e1b1061ab3",
-                  "url": "https://ficha.info/p/796da3d0c4f24a6c9ee546e1b1061ab3",
-                  "title": "Avenida Alvear al 1500",
-                  "id": "file-182769af5d4cfc868e25f13e9cb80f88-80f004fec3dfb93f",
-                  "sha256": "oUMLlGb+yonMGpphz9Ac70dbAG3+6xLp4nI8PtQTC3Q=",
-                  "description": "Excelente departamento con 2 Terrazas y Espacio Guarda coches. Orientacion Noreste.  3 Habitaciones 2 Baños 1 Toilette Servicio 2 Terrazas a ALVEAR. (Paril",
-                  "preview": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCACMAIwDASIAAhEBAxEB/8QAHAAAAQUBAQEAAAAAAAAAAAAABQIDBAYHAQgA/8QAQRAAAgECBAQDBgMGBAQHAAAAAQIDBBEABRIhBhMxQSJRYRQycYGRoQexwRUjQmLR8DNDUuEkgpKyFlNyc6LC8f/EABoBAAIDAQEAAAAAAAAAAAAAAAECAAMEBQb/xAAiEQACAgMAAgIDAQAAAAAAAAAAAQIRAyExEkEiYQQTUXH/2gAMAwEAAhEDEQA/AF5dUCSNSD1xLvqgTy8P/euKlQVscWcVsFGxNGszcgnqYybr/wDEjFpoyZREoFy0gAHf3xjk41WWK+0b5v4N/QX5Ek2oIhbSLm3lhEOWyzkGJTYnfb3cPAyRyBoGZX7WxKp58zEokKNIo2IIt98eum2uHm40+hXI8oenK3deYRuLW/5SfLH1Zl37PrRLGhSnPvxAXCn0wZyqqVl5M8LQyEXKvt8wcBM1zhhmLRwOJYUbwkjrjHFzlJmpqMYhbkisjiklcBCpCg3F/LA6njky/MdLMFXbr0YYm5FVQtTOtXEVA3DDoB2+GB2apE9QGpJS6uejDcYkE7cWLJqrQUk0y1JBYaRspO+3xw41KgQ7qSMCKYSpYE3+eJ9IslRNykuWIuN8FwoClY4tKSR0AOJPhhjFgCBjqU0puhZQwBsrHr8MdpqGpmdAyAqd9ROwHrhLXtkp+j5JCxGlcEKdDIp1adhtgXKXo6lomBuu/TqMcNc7+GMHfyw3jfBPKuk6R4aQgvpL4fnqIRDDyGRGPvWP3OB6UBrZY1lblm11PW+J9NlZEgjROYQbHEfiusibYuOWEPrkk1udge2CChgP3UEk6HcODYH4Y6MjWVkMkqr/AKkUdPQYLJHDEgQyHbbc4zTyRXDRCEvZ5Jlb2f2KqrYEgJnNLJpQ/vSDaNQ1rKNJBJO/hxa+Gpdc1BMEdC0iSBWXcbg9MDKL2iu4fioK6eRKOdlENNpXQZCNZVjpLDrbr6b9ME6vVTw82EAaXBUNuLbbHHIckpRbOtTaaNDZKOoA51Iuom91Wx+2Hq6iVIefQBUlJAaM9PiB+mIfC2Zw5jlhqIWUOnhdCvuHy+GCiu0ciyMiuHOkENffHZU29pnMca0Qapq0UbxTCFFTo25DA+R6jFcNEWmVIyrsxsCDti3z0cU8ciwOBKLmSJj1v+WK5U0qUlQQokja1wCQbHyuMacEk9Iz5VW2SXhqMpfkyoLMNmXcP88NgIUUgWfucfTVVRVIiO7FV6C+PoaeofxJGzj0F8XJUrZS5b0SoZZSqxIupibAjr8MPUS1JkdYonEg2N1OO5fM9O4JgRm7G1yMT6WqrJZnuTZj1B3F/TFE5NWWQVgxZ6iGcRzITbqrG1hixU600tG1NBU8iZ2Csep2O/64RWU6zQoUiUt/mN/GNxY4iLlMcc0skrqdQJS19z64zSyKfC+MPHo5W5RUQap5qgTqDp1DrbthunRNQCgEjqcSVF6BqfxFm3LE98Ip6CYC5kAjHfoMXRm/H5FE4pv4hGkpjLLr2RRvdjth+oqKiFjHQogUe83dj8cIjp4fZlmDtUE779D6YFzR1c9Uhijp4o4yeXbcE/1+N8Zck/J0jTjh4q2WKJ5Y6QGoKrOfe0bk+WITvVTsX9m5gvYEygYZgjrZqSY1JCTElVMagEDf+uISZDKEAkrJyw/0vYYROMejtSZhmcR19flUUeTU7NUmtjBvsUYEvfb/AJfrg1nlVHVQ61QKs0twi9r3NhiIJnqMoqXp0YVxZJE07HmDl3+yMMMwwP7S7NMZYw5dbra1/wBRe2OZkXkdOOiVldVLlNYJoL8s7SIOjLi/Rxmpo46ujmLwN4lN7FT5EeYxQpTcb4+oszraPmRUlQ0cbeIqACCfPfGz8b8l4dPhlz/jrLtdL6Z5msZfFIBYNax+uGTGJGLOrau+CmWR+0ZfS1AJDSRIzd97C/3xLamsSVU6j18jjrrLHqOW8cuMCQwgP4RfEwRzRjUlwOhwRjpOnht88SkpyyaSVthZZ0SOJgqDmCwBYd8TI45QdaMq37W2+mJ6UkajqCb4lJTorAdrYzzzJl0cTQMdaiWTfckbkC18SaalbmFNVyo3uNsB8/4vyzJM0FBJFLNUaNbLEurQD0uTbfbp64ET/iRGrBaXLnZmB082QLe3XbvbFDzVpFqw30uzcmE2YapLbADv5YF1pzCplV4Y1SM7WIvYfA4zbOPxJzRaeacT0VFTIhlZkiZjoHU38X23wJrc+z/MaaoJzjMtKPZY4TyeYCbbG4uB1ucL+yQ6xI2yOqSLlnMKyOKJdtMjBRiNUcT8N0y3FfA21/3IMl/oDjC6ilQzUssitIAA0jyT6WQnr0HiPzwKfMqWLN51qZcv9iRfArteToDuxYjz2thNvg/il02Q/iZF+05FXLS0CXVJGnAJG9jot8O+ESfiRMXJjowF/wDdP6DGLvnVDLGOXmTwMzF29mIZmv5+FvtgkvFNMFAR53AFtXskm/2w/gAvWW0yUXENdSOoJjqL2A6XP5WYYHZm0VJXVglIVI2Nz6YPZiwXikZhCbLX0kdTo8jo/qi4rPHE8NFxBKrkGKQXN9+5H5Wxgr+G1MYknhkpxNG45Z6E7YkUOXp4ZqmVAzDwpr6D1xX80zCmgy9kj0Imk2UDbGXfiDXJTcSGSnmdYZ6eOYIrmykixFr7dPvh4RcnQJOkem8gziLLzyZpVFNbYXvoPniztm+XILvmFKOh3lW+/wA8eFTXyT5lSOjSMquNQ1G3XyxuVPn9EaXnS0kjRQXVXjUFkUEdvLftjZCUoJRZlyY1L5I2+o4nyamV2kr430e8IlaQja+4UG2wJ+WIWYcdUFKZUo6atq5Vp2nUpHy1NjYC7ldyew3x52zziOhlqV9gzKammLhWZlYqBpKkAKP5sOZVGZ6yF6rNUqqJiyuFDg9LA3NuhK4Pk2KsaXs0Oo4l45q5Xenqkp2VCIlZUCXJ6sBqv9cdp+LOOaanlXMc0y2SYDwCNQpB+GnfqMIZg9IWjzmkUhASRHqPcf6vQ4qMsck9S1RSZjG8unSHcWtta5W5ubAfXCt0MlY9lr8TZontrzUkszSsebKsjvrBK3J2Hn8sO8vM0JgOaUVMwaxjiKA3PUWI6k4h8Of+IhQvDRV9O6CSW4EYuG1t4vgSL28sB6nhyurMynzCKrpTMwYsY9TNupF/CNrXwnvo6f0E6jLqytpJaWpzaZoZbq2in1BhcbXvbriTFkk9W7D2zO59IAKJIEAB6dScLynIKGk4Zlpqp5znKlzHIXkEak9LqRa9sE+AaCvy2szCXN2SWOoUBOQ+lgRfrcDtgt/ZLf8ACvy8PZekj86iqJZEOkmWoUkHyO2KzxusWVS0lNRRLAXj1sosep6E/r0xaOKeHM1lzivly14IqOZ1dObIC5Nhcsbedz132GBvEHDdXxBmInpAJI4IlplcOo1PH4W69rg4Mau7BK2iPwxmqQM1O0q+0A2kLrfse5Owwdp88FVHzBKUFyAJVAJt3HpivN+H+bc5X/eLqUl2DKbE9QN9xfzw0vAmdEWZZ4wNgF5bi3ncsMFxvjIn9HobJ4/2hDwqboDNHLRln/hKNrHzsh+uMh/GTPxlPEiRey080rQROOdrO2nSSLMB1XGlcP1k0HDJlpo+dVZdmMVTDF1L6hpKgfL74qP4yfh/n3GGc0FXluXNDOFcTJI48ALalF9hsD0xkx1ey9mO1HGNbIvhpcuCk+77Mrf918K4k0/s3KMziSETVsTmayADWHNyAOm1sXqi/AbOYpIFzSpijSRtN0fofocXaL8Cqb2KCCtzEvDDq0qQQEvud8WuUFxk2eeVzDRDZyCxGwLEW7bWxcvwwlq6ulqoJJSArqy6kBupB1fG9h9MbpkH4KcMULCV1kqJAdi6bfLUCbfPFtqOAskYcymhFHOAPHFYA7W3XpgPNHiIr9nl/ijh9cvlppvZ4ZKOVw2lFAZACpIPQ774gQyyx0N6dGpXikOtFLddIANiSeq43LjDgusip2aNUmjW9ynkSNrdtsZrlmU12R19S0lMpo+aCGfxAoTYbjvuNjbri2ORSWitrdtFYp88zKJkC1DkOqxkEA2tqAt/1H64U9A0EMD+38uORtYEyMNJJYXNr/6fvi4V2W5ZPE081KsJAjKuBsbg3O3yxWuLpKCkzU0PNdVjkAGhfCi+La219zfr3wzk20qFUV4ttkbhelzGH2lqWOlnQpHq5gRiuqR1GnV0N1P2wVyD9u0eZ6q5qqOmlPKYLK62AG+kg2/TAXh5J5qTM/Z54TC/I5gZgh/xmtYnb798F8rq6/J42CxzFLkRybixA0k3HXpgNvYKs7nWbVdRXMyxSsrz3ViQ5ICW/iub7db4RxnxBHNmsHIeZooGYMzgFgwIJI8I8h9sF+H68ZjJl8FWqOsFE8rOwDMzBRY369z9MVSpqaEGs100TgXIAOgm7FTv8B98FPfCeh2jz6rkzNHDwyGOJ3LzhjpG56Bh2AxHi4hC0RWeKORAxcxRyyLue41Fh3O9u2LJkuQZdnCQVNJTtBFUJIGVjzCQpQEdvP8A2wImy7h186q1lrlp2WXlmOeMqrsoIbdRYD49cHyi9AcWiJFxFRiKQx02ZxOAPdrEY3N+g5Qv088T4c9idLjM85Q9wsaNv8dY/LAteFHrJqxctrKWeAOFXTKG1CwIta5IGq23l6YHZlw5X0lQImRmYKCTa397Yjr0BNo9UfhHPoz2rp9gZYNSX7srA/kTjQ3ZXzGpPRDpYE9jYAr8dgfnjIOCqg0nFmWSg2vLo/6gV/XGl5xmEUFdJGQ5MrHZUJUW2uxHTp3xzL0ba+Q/mklNUUktOHV6hV1quoXBH9/fDGX5r7RSI6IoJG9t7HArJqLL8vQijp4VkACtIiDW3xbrbESnk9izeeBV5aVHjiNr736bflgXfBvEscesuZNZLHoSTt52v0+WHeYgsHJJJ2ue+ItO251uCbbjrb+/LDYpqcVLVCwmWa+zSHVp+vT7YFg8Qnr8NgCFwKzLhfLMyBd1MMx31wjSSeoJ88TFE5cszhU7KBv8T/Y+OOQZlSTVL08NQkkqC5VTf79z9/XEUmBozniLgOSk5zUpIV18UsKeJe1yu4IsbW++Ml454caWeGqpaZKtHmETCLwzOfE2yi/b49Meo5qtbso8WndjcBV+J6D7nAHNeHcuzNY5WgEVReySxJYnt4V77G2ptremL8eeS6Vyxpnj/K6SeWlrUppxFF+7WSObw6jzG07+ht1thymrc0yVxJE0kW5AcMdLdjuNjv62xvud/h37DBVrPRxVcU4RVaJTqh03IGxB3JJNj36dMZ5mvA0mXePhivkPNAR6Wpj3DdwGAIseniA+J6jXHLGRS4NAPgTNpK3ObVwiMUNKyX0Bdtveta/TFsl4YyytygTxrZpKk3aNtyusv3v/AA3xWcroavJ8zzBM5y00EsdMSUKaBKCeoI2I26jbEugzmAwUUfNMLe6xfYE6CuzDp17jDauxd0XLI8uOSVnsMRMqwRark7gOx+vuDGTcRcOZzJVVksdE08RqZHLwkONzfp8CN8ahQ17ipqZZDzGMF9d7g6bkC/8Az4yuiz2qo5pXgnlgbSzWVrAknyPX6YWFptoMqrYEp2enqgZNUZUWBcW+P63GNRytIFpVRpIk0Ki2d7G4jUHv53wH4dzl5KOKiqoaWqib+GWMFgzMST874s1FlxFKjNUtFzC8gUKDszkje/kRhckr0wxVFuiZqaeKdPficOPiDfGn53VUshkkXUdZ5lx3B3H2tjLqmpjjYp7znYKviP0GLflskmZZJDN4lItAVtvdVUD7WxgW0bPYZyyZZEZbDxqbC+22GM+pmNLFVNIbwsJNEY+u+O5bTmknjLvba9hv12w9WSNJSvGx8O6m+3XEXQsfy6siq40kijZF0gWF/p6+XW2CRlRE1KwNuwNvv/TGe5FmU0cktFNULGkJLaXHXsd74stLUFgJtXIi7yTDxEfyqf1+hwXGgJkzM4mqoVjqZpVjc3EcWzH5De3qftjtLDFTA01JAEBH+DEdz6yP2+H54+MhjjZgZIYZOrHeaY+QHX9fhbD9NSaogk6cuC/gpk6t6ue/5eZOAA5AskwGjlMI/wCPTaGL/wBI/iIHf/8AMEoUWBS41kydXP8AiSenoP72wljoKrIoZ/4Y191fU/38MdBZZSqurzkAF2XZB6f0+uFA0SA12Asuse6nZB2JwJzrh7Lc3kMk6FWUHVOh0m/xHlgkBqBigLBFJ5j33Y+Q/r8h6JjX2xgoAFFEe3+YR/8AUW+f5snQrRmuY8L5hl0c9RHDFmVBNHymjnQEtHckXRrjqb7WOM7l/D7LcxkZqSrkygqbpG0LSoTsfFdgRvfcAgDr6+lojHIWmfeFQdFx2/1f32wMzHIsvzGjeSrp1VWu40izIP69/ji6OVxFcUzz/UZVmeQ0VSZ0WWOCEDmU/jVjoA1DvbY9sAeCMoXi5K6mZKMz0tMJFlddJZmHuEj1vjX844QrqSuhqKeIVca3CrMAxsRYjSbgm3mPhhrKWgetaZcqp8urRIq1DQxcrnaTcEr0uNR373+ln7VQvhsyao4UOSV0xc6GiIR4ZN1NrEAEb+Vr4JTpmo5SUFLO1PHEiKVOkbKL/wAJwX/GTLKmk4ikzBWLiojJ8IsVYCxv38j5fHFVy/N6iGnCt1vezH+hxnlll/pXx0atw5wzPX1btmE6UkSXHLp92b01HYfIfPFvgp4cpienoYuXEW1HUSSxI95vp8sc4SVTRs599yWv88T62Elrghb9Sf0GI1RrTAVXPsG1SEdwPp/TCTIojiWzeIGzE2vbph6psrgars+2m3ib4DA2eikkrR7YxEV7iMNufO5/T88GggLNav2TPEqqUI241G11DdxfviyUlW1ROklL/wAVPYapZBaOMHsB5+g38zhPEmVLPlk8MKCPlDmJb8hgZwnmbCkWkbWFDjxAEkJ36f3vhuoTjNBpo0RmkUmWpIs0rjYeg/oPnh1JfG6RkGT+OQj7f7dsMRyNLEkVOrRwEbG2kkeg7Y68RmAjpzy4h4SV2HwB/XFTGJCHm/u6fcA+OQn+7n8sOtExPJguqqbNIOvqAfPzP64Zo9RHIgAjRdmZR0HkPX8sKqJijpRUtg53LD/KW/U+vlgdIdkJnY01KpSGPaVk27e6v64eZ+c3sqjTClg5UW27L/X0+OOsRR06QU4Bc3VF8vNifuf98ILrQ056ux89y7E/mTg6BQqd+bUCn3MaWaQj7L/X0+OFPIJ6qOD3lX9447fyj67/ACwldNNTM8zAtYu7evU7eWI9GXMBllGl5jrK36eQ+Qt88BBJlRLG1XBEN7XkI7bdPuftih5nOKninMFDagLKpt3tY/dcXCiKu1VUbnUdCn0Xb89WM2pXb9s81ma7k3Ha5PX88WIThF/FShNbkEFXHEA0JAch9Tt26dbegxmi5fVoLQezqnXfST+eNazNTKs8TKJIZDZlfe4vgOMhgcs0NSYVYk6PLFbb9DPGpGhcPIYcrV5GWJAoBZtrDr+uHSz1J/4ZXVP/ADpVNyP5VO3zP3x9w/TpU0CVE93db6VPur8B5+uCd/A3TYHFjIivUsKUVTMpLNr6yO12J+J/THcxhvySuy3KrYWPn1+WCJF01Hc74iLKZaCWR1UlCCo7DphUMO00K1NKDbW4Fna22KxDBHk/EGqPezaht1U4ssUjGmt2t22xWuIXZTTTA+Ppf0w8eiy4XkypWSiKE2URiQm9r37fnh1QJSIqbwhffYD3fQev5YrGQBpYll5siPq0XQ22xZoz7OhWPZbXt6+eEkqImdqZxRhIKWPVPJtGl7gfzE+Xnh2GOOggdpmLuTrkcjcn++2B+RuZIWqnAM0jFSx7AGwA9MP1LmWvjjfdAjSW/mFgPzwr1oiJFKjammmGmRx4QTfSvl8fP/bDKSmoqpJANUUZKp6t3Py6fXETNKqWOnmKEA2sDbpvb9cTaJBGiRqLIosB8sStWEYrCKmeKn1eE/vJB30jt8z9gcO1svIppJl94eBAe7HZfucR420vVSgDW0hQm3ZbWH5/XCa1y9RQ6twZC5Ha4XbDVRAhTIIoEij3VFCkYyuV+RXuCf42UffGjzzOrnSbeAnGW1RMsTs53O9/Xzw0PYstBiKdZ79mHUHDUkClibgYB5fPI8ayFrOATcemDanWisbXIvitqhrP/9k="
+                "status": "sent",
+                "text": {
+                  "body": "On"
                 },
-                "from": "5492254423359",
-                "from_name": "Fer { }"
+                "from": "5492254596618",
+                "from_name": "Automátizaciones AI"
               }
             ],
             "event": {
@@ -3779,6 +4172,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-06-15T02:29:17.473Z",
-  "versionId": "893fa9ba-6f3d-4c99-b7c5-9f5079dc1638"
+  "updatedAt": "2025-06-15T22:18:33.787Z",
+  "versionId": "6a7bd2e0-60c6-4bf8-a27a-aefc082bcb33"
 }
