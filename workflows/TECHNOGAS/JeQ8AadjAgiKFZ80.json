@@ -1,0 +1,432 @@
+{
+  "active": false,
+  "connections": {
+    "vars": {
+      "main": [
+        [
+          {
+            "node": "Redis1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Productos": {
+      "main": [
+        [
+          {
+            "node": "Productos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Productos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis1": {
+      "main": [
+        [
+          {
+            "node": "Productos2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Productos2": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Productos1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "datos": {
+      "main": [
+        [
+          {
+            "node": "vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-16T01:08:26.442Z",
+  "id": "JeQ8AadjAgiKFZ80",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE TECHNO GAS - BUSCAR PRODUCTO",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6e46f8fb-879f-4d37-b5f9-cfdf1177e673",
+              "name": "descripcion",
+              "value": "={{ $json.query.Descripcion }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        580,
+        140
+      ],
+      "id": "da74355e-7ff3-418e-8905-7b544f0df6ae",
+      "name": "vars"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "=productos_gas",
+        "messageData": "={{ JSON.stringify($json.productos) }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2180,
+        240
+      ],
+      "id": "eeee5413-6b65-44b2-b9cd-9c579290abf2",
+      "name": "Productos",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "=productos",
+        "include": "specifiedFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        240
+      ],
+      "id": "ba927bde-7bd0-4d3a-85aa-54d28c638d28",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fd06524c-64b9-494c-b07c-866a083aed27",
+              "leftValue": "={{ $json.productos }}",
+              "rightValue": "null",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1240,
+        140
+      ],
+      "id": "7bb93b2d-fb8f-4402-8682-71e7435f284c",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "=productos",
+        "key": "=productos_gas",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        800,
+        140
+      ],
+      "id": "d312ad9d-f8f4-483d-876d-94980293164b",
+      "name": "Redis1",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a36ae4f2-54a0-4d2d-b58e-1a8c013faf22",
+              "name": "productos",
+              "value": "={{ $json.productos[0] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1020,
+        140
+      ],
+      "id": "e45684bf-1a3a-4c18-85d8-b4d907f3f1d1",
+      "name": "Productos2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2780,
+        140
+      ],
+      "id": "4455bb54-9baa-48a9-b5f9-9748eae10c38",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5b1f7094-6f76-4c92-b112-059537c4d552",
+              "name": "productos",
+              "value": "={{ $json.productos }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2440,
+        240
+      ],
+      "id": "765fa1b8-f3b8-4779-afa4-a23a2924a34b",
+      "name": "Productos1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "nombre, id, stock_actual, precio_venta, SKU, descripcion",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1660,
+        240
+      ],
+      "id": "2d71075e-d0cf-460d-93e3-56d8278e5ba6",
+      "name": "Split Out2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "272539cb-ae4d-4110-8940-8d85d6088487",
+              "name": "response",
+              "value": "={{ JSON.stringify($json) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3180,
+        140
+      ],
+      "id": "0908d629-f469-407d-a60d-47ea83f85577",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "productos",
+        "returnAll": true,
+        "matchType": "allFilters"
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        240
+      ],
+      "id": "709810a8-db27-4f9b-9f94-538d14b941a1",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "6XtAHX7iNwsvDQR4",
+          "name": "Inventario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "datos",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        360,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "productos_gas"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        2540,
+        500
+      ],
+      "id": "b229642b-cef4-45f3-99b5-2c387078a19f",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "datos": [
+      {
+        "json": {
+          "query": "{\"producto\": \"termocupla\", \"marca\": \"Acuapiu\", \"medida\": \"70mm\"}"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-06-15T22:16:42.436Z",
+      "updatedAt": "2025-06-15T22:16:42.436Z",
+      "id": "SxJ7ohpTo0WIgInK",
+      "name": "TECHNOGAS"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-16T01:59:14.325Z",
+  "versionId": "6fda9101-71a3-4b9f-ac0f-6c3c3e48639b"
+}
