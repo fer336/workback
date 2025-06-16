@@ -601,6 +601,68 @@
           }
         ]
       ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Redis5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis5": {
+      "main": [
+        [
+          {
+            "node": "Texto4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis7": {
+      "main": [
+        [
+          {
+            "node": "Redis6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "Redis7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis6": {
+      "main": [
+        [
+          {
+            "node": "Texto3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-01-21T21:23:44.880Z",
@@ -1930,8 +1992,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -10940,
-        -720
+        -10800,
+        -1140
       ],
       "id": "703e430e-a638-485b-83ca-fa33c9491a94",
       "name": "If"
@@ -2690,8 +2752,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -10700,
-        -820
+        -10560,
+        -1240
       ],
       "id": "238194f4-04f7-425e-a7a9-da88776e32dc",
       "name": "Redis",
@@ -2766,8 +2828,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -10480,
-        -640
+        -10340,
+        -1060
       ],
       "id": "5ca5d13a-8b3b-4ee8-84f7-eee39342e562",
       "name": "Redis3",
@@ -2786,8 +2848,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -10240,
-        -640
+        -10100,
+        -1060
       ],
       "id": "d2d7e6db-2551-457b-9677-ff168589054d",
       "name": "Redis4",
@@ -2826,8 +2888,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -10700,
-        -480
+        -10560,
+        -900
       ],
       "id": "ed1cef70-3fd5-43b0-a9b4-0a238035a69b",
       "name": "If3"
@@ -2871,12 +2933,244 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -10380,
-        -920
+        -10240,
+        -1340
       ],
       "id": "8a803868-d156-40d9-8747-f6a5c41e490b",
       "name": "Texto2",
       "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7c646201-9638-4381-ba78-8b2ede680b4d",
+              "leftValue": "={{ $('Webhook').item.json.body.messages[0].from }}",
+              "rightValue": "5492254596618",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "60e15f5b-bbc9-47ea-a160-5df35f39a4a9",
+              "leftValue": "={{ $('Webhook').item.json.body.messages[0].text.body.toLowerCase() === 'off' }}",
+              "rightValue": "={{pausar}}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -9480,
+        -1160
+      ],
+      "id": "b95a26fd-7bd3-491c-903a-e2fcedc39403",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=bot:{{ $json.msg.telefono }}",
+        "value": "off",
+        "expire": true,
+        "ttl": 360
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -9220,
+        -1300
+      ],
+      "id": "f16e5a6c-d38e-43a5-a532-6ffef1f75e08",
+      "name": "Redis5",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=bot:{{ $json.msg.telefono }}",
+        "value": "on"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -9020,
+        -1080
+      ],
+      "id": "984dcecf-751c-432f-b167-8093477d6576",
+      "name": "Redis7",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c39920c3-e5a7-48d6-b1ed-31b94ae55381",
+              "leftValue": "={{ $json.msg.content }}",
+              "rightValue": "On",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -9240,
+        -920
+      ],
+      "id": "3448403a-ee04-42e4-af6b-98c8b38a1d5c",
+      "name": "If6"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.msg.on }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -8520,
+        -1180
+      ],
+      "id": "dfd14c94-ea15-4839-9e88-ef2e8a877a1c",
+      "name": "Texto3"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=bot:{{ $json.msg.telefono }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -8780,
+        -1080
+      ],
+      "id": "39227636-e26d-4029-9577-4bb1ce036241",
+      "name": "Redis6",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.msg.off }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -8980,
+        -1420
+      ],
+      "id": "897a728a-ea8a-4a22-b4e4-8c6d0cb30303",
+      "name": "Texto4"
     }
   ],
   "pinData": {
@@ -2950,6 +3244,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-06-14T16:52:34.944Z",
-  "versionId": "f831aabd-a0ec-4a02-985e-f1bd5d11c85c"
+  "updatedAt": "2025-06-15T22:16:12.040Z",
+  "versionId": "500f4f89-e600-429d-9314-5f0aaf4ce177"
 }
