@@ -1,0 +1,695 @@
+{
+  "active": false,
+  "connections": {
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Delete",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "getMsg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "JSON Parse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type1": {
+      "main": [
+        [
+          {
+            "node": "text1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "text1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "text1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribir": {
+      "main": [
+        [
+          {
+            "node": "text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON Parse": {
+      "main": [
+        [
+          {
+            "node": "Message Type1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Pushea msj": {
+      "main": [
+        [
+          {
+            "node": "getMsg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getMsg": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos": {
+      "main": [
+        [
+          {
+            "node": "Pushea msj",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        []
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Transcribir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-15T23:12:15.767Z",
+  "id": "iz7sdaHMKb9tGNw5",
+  "isArchived": false,
+  "meta": null,
+  "name": "SUB TAREA - ENLOCAR MSG TECHNOGAS",
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "37fa4c10-4aa3-4c88-8793-c66f540ea575",
+                    "leftValue": "={{ JSON.parse($json.message.last()).timestamp}}",
+                    "rightValue": "={{ $now.minus(1,'seconds').toLocal().toISO() }}",
+                    "operator": {
+                      "type": "dateTime",
+                      "operation": "before"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "seguir"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "14670af8-79bb-463d-b32c-345a5acc391b",
+                    "leftValue": "={{ JSON.parse($json.message.last()).idmsg }}",
+                    "rightValue": "={{ $('Datos').item.json.msg.idmsg }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        540,
+        20
+      ],
+      "id": "e571b9cb-c480-417b-913e-75abba7f093a",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        180
+      ],
+      "id": "67a73671-17ae-4419-92d1-13ae7c0c9029",
+      "name": "Wait",
+      "webhookId": "597c1475-1d0a-43ef-b828-559e4168b297"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -100
+      ],
+      "id": "0092a96a-7444-4de7-9b3d-75ee5867be3a",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "726ef588-43c5-472e-89e8-a5bfb7656bba",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "texto"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8cb854e2-c9dc-45e9-b6aa-5f6c0266b561",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2f544afa-8d5d-4f9c-b46f-78562d0c4bd8",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "extendedTextMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "extendedTextMessage"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "e1ef584b-913b-4c48-807a-b1548503bc76",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "conversation"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b0146a0c-65b1-4760-a3c3-728fa7a71476",
+      "name": "Message Type1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1420,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7d210f0-6a18-456d-9e89-aa28f548b2a0",
+              "name": "base64",
+              "value": "={{ ($('Datos').item?.json?.msg?.base64 || $json.content).substring(($('Datos').item?.json?.msg?.base64 || $json.content).indexOf(',') + 1) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "1ce2ab8b-e15b-43f6-a411-388eab6ce338",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1600,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {
+          "language": "es"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        2040,
+        100
+      ],
+      "id": "cdd8bf14-060d-4166-87a5-f7d72d4371ad",
+      "name": "Transcribir",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('Edit Fields1').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2200,
+        100
+      ],
+      "id": "faefd839-b8c2-440d-aa36-4f63bd40a663",
+      "name": "text"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $('JSON Parse').item.json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('JSON Parse').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1740,
+        -120
+      ],
+      "id": "e5fc6793-4540-4593-aff8-e26de4359ce1",
+      "name": "text1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1280,
+        -100
+      ],
+      "id": "89ea2571-5e74-4709-b652-c9296bf46275",
+      "name": "JSON Parse"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        2420,
+        -60
+      ],
+      "id": "f5a8e7f5-1324-49de-879e-a7c9a1926b9d",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "=msg:{{ $json?.msg?.telefono || $json.list[0].Telefono }}",
+        "messageData": "={{ JSON.stringify($json.msg) }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        40,
+        20
+      ],
+      "id": "662dca79-6ae1-4b5c-a0b3-df68fe06ef2f",
+      "name": "Pushea msj",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "message",
+        "key": "=msg:{{ $('Datos').item.json.msg.telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        300,
+        20
+      ],
+      "id": "7df8b99f-2bc9-4530-a61b-acac6a589855",
+      "name": "getMsg",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -220,
+        20
+      ],
+      "id": "5641fd9b-4d2d-4661-8f29-c9d2a7a9548e",
+      "name": "Datos"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=msg:{{ JSON.parse($json.message.last()).telefono}}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        800,
+        -100
+      ],
+      "id": "eb20d74c-f161-43f6-a0ad-f4fefce78f5b",
+      "name": "Delete",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2500,
+        300
+      ],
+      "id": "fbdf335d-f4b8-4342-a877-7b354a77e426",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "base64",
+        "options": {
+          "fileName": "=audio.ogg"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1820,
+        120
+      ],
+      "id": "1ddb8389-98d1-49a1-a15f-9a5d4268e79f",
+      "name": "Convert to File"
+    }
+  ],
+  "pinData": {
+    "Datos": [
+      {
+        "json": {
+          "msg": {
+            "telefono": "5492254423359",
+            "nombre": "Fer",
+            "type": "audioMessage",
+            "ListaResponse": "\n",
+            "content": "data:audio/ogg; codecs=opus;base64,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",
+            "idmsg": "74FF5CD30F483C9C5032BF59B7189787",
+            "location": {
+              "latitude": null,
+              "longitude": null
+            },
+            "off": "🟢 Derivacion con un representante, a partir de ahora hablará con una persona real 🟢",
+            "on": "🟠  Derivación con un Agente IA, a partir de ahora hablará con Martín 🟠",
+            "timestamp": "2025-06-10T14:50:07.000-03:00"
+          },
+          "list": [
+            {
+              "Id": 4
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-06-15T22:16:42.436Z",
+      "updatedAt": "2025-06-15T22:16:42.436Z",
+      "id": "SxJ7ohpTo0WIgInK",
+      "name": "TECHNOGAS"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-16T05:34:22.804Z",
+  "versionId": "8886e4d3-1c28-48dd-8d9d-b68e8d1a92d1"
+}
