@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Loop Over Items": {
       "main": [
@@ -75,6 +75,13 @@
           }
         ],
         [],
+        [
+          {
+            "node": "Encolado de msg",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Encolado de msg",
@@ -228,17 +235,6 @@
         ]
       ]
     },
-    "V1": {
-      "main": [
-        [
-          {
-            "node": "From Me2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Redis5": {
       "main": [
         [
@@ -381,6 +377,40 @@
           }
         ]
       ]
+    },
+    "V1w": {
+      "main": [
+        []
+      ]
+    },
+    "V1": {
+      "main": [
+        [
+          {
+            "node": "Detectar Typing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Detectar Typing": {
+      "main": [
+        [
+          {
+            "node": "Guardar Typing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "From Me2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-06-15T22:16:45.430Z",
@@ -482,13 +512,13 @@
           "mappingMode": "defineBelow",
           "value": {
             "nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nombre', `Cuando obtengas el nombre del cliente guardalo aqui`, 'string') }}",
-            "telefono": "={{ $('V1').first().json.msg.telefono }}",
+            "telefono": "={{ $('V1w').first().json.msg.telefono }}",
             "correo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo', `Guarda el email del cliente`, 'string') }}",
-            "server": "={{ $('V1').item.json.datos.server_db }}",
+            "server": "={{ $('V1w').item.json.datos.server_db }}",
             "tipoCliente": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('tipoCliente', `Debes obtener el tipo de cliente si es particular o agente`, 'string') }}",
             "Inmobiliaria": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Inmobiliaria', `capturar el nombre de la inmobiliaria`, 'string') }}",
             "Id": "={{ $('Validar Cliente').first().json.list.last().Id}}",
-            "table": "={{ $('V1').first().json.datos.tabla }}"
+            "table": "={{ $('V1w').first().json.datos.tabla }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -897,6 +927,31 @@
                 ],
                 "combinator": "and"
               }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a44a92a2-9410-430f-82eb-222ed48fbaaf",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "templateButtonReplyMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Button confirm"
             }
           ]
         },
@@ -921,7 +976,7 @@
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        -19660,
+        -19780,
         -8500
       ],
       "id": "9d3a8eab-5437-448b-94d9-afa35c47e90a",
@@ -1098,13 +1153,71 @@
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
-          "value": {},
-          "matchingColumns": [],
-          "schema": [],
+          "value": {
+            "content": "={{ $json?.msg?.content || $('V1w').first().json.msg.button }}",
+            "telefono": "={{ $json.msg.telefono }}",
+            "timestamp": "={{ $('V1').item.json.msg.timestamp }}",
+            "id": "={{ $('V1').item.json.msg.idmsg }}",
+            "type": "={{ $('V1').item.json.msg.type }}"
+          },
+          "matchingColumns": [
+            "content"
+          ],
+          "schema": [
+            {
+              "id": "content",
+              "displayName": "content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "type",
+              "displayName": "type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
           "attemptToConvertTypes": false,
           "convertFieldsToString": true
         },
-        "mode": "each",
         "options": {
           "waitForSubWorkflow": true
         }
@@ -1167,7 +1280,7 @@
             {
               "id": "0fae28c9-d30a-4250-9a50-5b68c61164cf",
               "name": "message",
-              "value": "={{ $json.text.join(\"\\n\") }}",
+              "value": "={{ $json?.text?.join(\"\\n\")  }}",
               "type": "string"
             }
           ]
@@ -1177,7 +1290,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -19780,
+        -19900,
         -8840
       ],
       "id": "4b880b7f-bffc-4013-88be-a29bdb216d9f",
@@ -1301,8 +1414,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -22000,
-        -9580
+        -25480,
+        -9220
       ],
       "notesInFlow": true
     },
@@ -1439,8 +1552,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -23220,
-        -9560
+        -26700,
+        -9200
       ],
       "notesInFlow": true
     },
@@ -1453,8 +1566,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -22120,
-        -9720
+        -25600,
+        -9360
       ],
       "typeVersion": 1,
       "id": "f3a5837f-ce9c-4fab-b995-2f23c1e6d271",
@@ -1469,8 +1582,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -23340,
-        -9740
+        -26820,
+        -9380
       ],
       "typeVersion": 1,
       "id": "d7869a15-0869-4623-b076-323bc1f8ccbc",
@@ -1711,7 +1824,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $('V1').first().json.datos.server_whapi }}/messages/text",
+        "url": "={{ $('V1w').first().json.datos.server_whapi }}/messages/text",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -1721,7 +1834,7 @@
             },
             {
               "name": "authorization",
-              "value": "=Bearer {{ $('V1').first().json.datos.token }}"
+              "value": "=Bearer {{ $('V1w').first().json.datos.token }}"
             }
           ]
         },
@@ -1738,7 +1851,7 @@
             },
             {
               "name": "to",
-              "value": "={{ $('V1').first().json.msg.telefono }}"
+              "value": "={{ $('V1w').first().json.msg.telefono }}"
             }
           ]
         },
@@ -1757,7 +1870,7 @@
       "parameters": {
         "toolDescription": "Obtiene los datos del cliente y enviale un mensaje notificandolo que necesitan hablar con el",
         "method": "POST",
-        "url": "={{ $('V1').first().json.datos.server_whapi }}/messages/text",
+        "url": "={{ $('V1w').first().json.datos.server_whapi }}/messages/text",
         "sendHeaders": true,
         "parametersHeaders": {
           "values": [
@@ -1789,7 +1902,7 @@
             {
               "name": "to",
               "valueProvider": "fieldValue",
-              "value": "={{ $('V1').first().json.msg.telefono }}"
+              "value": "={{ $('V1w').first().json.msg.telefono }}"
             }
           ]
         }
@@ -1816,7 +1929,7 @@
         "workflowInputs": {
           "mappingMode": "defineBelow",
           "value": {
-            "numero": "={{ $('V1').first().json.msg.telefono }}",
+            "numero": "={{ $('V1w').first().json.msg.telefono }}",
             "msg": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('msg', ``, 'string') }}"
           },
           "matchingColumns": [],
@@ -1863,7 +1976,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -19800,
+        -19580,
         -8500
       ],
       "id": "ea1aea38-ef25-4f2a-8389-f840b264a7d6",
@@ -1917,8 +2030,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -22640,
-        -8880
+        -22440,
+        -10120
       ],
       "id": "15f8691e-44d1-441c-a8e7-a7efe3fc1380",
       "name": "Redis4",
@@ -1959,7 +2072,7 @@
             },
             {
               "name": "to",
-              "value": "={{ $('V1').first().json.msg.telefono }}"
+              "value": "={{ $('V1w').first().json.msg.telefono }}"
             }
           ]
         },
@@ -1968,8 +2081,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -22840,
-        -9220
+        -22640,
+        -10460
       ],
       "id": "12ae9978-7f93-4a4e-b561-342c3e971b6f",
       "name": "Texto2"
@@ -2012,113 +2125,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -23340,
-        -8960
+        -23140,
+        -10200
       ],
       "id": "d88fe626-540f-4ca7-9e59-ad897bebf21c",
       "name": "If4"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
-              "name": "msg.telefono",
-              "value": "={{ $json.body.data.key.remoteJid.split('@')[0] }}",
-              "type": "string"
-            },
-            {
-              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
-              "name": "msg.nombre",
-              "value": "={{ $json.body.data.pushName.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]/g, '').trim() }}",
-              "type": "string"
-            },
-            {
-              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
-              "name": "msg.type",
-              "value": "={{ $json.body.data.messageType }}",
-              "type": "string"
-            },
-            {
-              "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
-              "name": "msg.ListaResponse",
-              "value": "={{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.title || \"\" }}\n{{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.description || \"\" }}",
-              "type": "string"
-            },
-            {
-              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
-              "name": "msg.content",
-              "value": "={{ $json?.body?.data?.msgContent?.extendedTextMessage?.text || $json?.body?.data?.msgContent?.conversation || $json.body.data.fileBase64 }}",
-              "type": "string"
-            },
-            {
-              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
-              "name": "msg.idmsg",
-              "value": "={{ $json.body.data.messageId }}",
-              "type": "string"
-            },
-            {
-              "id": "7f846767-8866-43e5-845a-d1feda60451c",
-              "name": "datos.token",
-              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
-              "type": "string"
-            },
-            {
-              "id": "f71f1502-02e3-4de1-a62a-232537d8f402",
-              "name": "datos.server_whapi",
-              "value": "https://gate.whapi.cloud",
-              "type": "string"
-            },
-            {
-              "id": "95001dea-1bf9-41f7-b41f-4a5bd23719cf",
-              "name": "msg.location.latitude",
-              "value": "={{ $json.body.messages[0].location.latitude }}",
-              "type": "number"
-            },
-            {
-              "id": "1a6f4720-d9db-4093-9d7e-2fa585ad07bc",
-              "name": "msg.location.longitude",
-              "value": "={{ $json.body.messages[0].location.longitude }}",
-              "type": "number"
-            },
-            {
-              "id": "3551b7d9-4ced-4fba-889e-e8a1342fc6c7",
-              "name": "msg.off",
-              "value": "=🟢 Derivacion con un representante, a partir de ahora hablará con una persona real 🟢",
-              "type": "string"
-            },
-            {
-              "id": "9314a63a-e7f7-47f1-89c2-198e36a61785",
-              "name": "msg.on",
-              "value": "🟠  Derivación con un Agente IA, a partir de ahora hablará con Martín 🟠",
-              "type": "string"
-            },
-            {
-              "id": "a2476dd3-e43e-4439-8d8b-8dc760e226ff",
-              "name": "msg.timestamp",
-              "value": "={{ $json.body.data.msgContent.messageContextInfo.deviceListMetadata.recipientTimestamp.toDateTime('s').minus(1,'seconds').toLocal().toISO() }}",
-              "type": "string"
-            },
-            {
-              "id": "f8619e59-f0e4-4179-8963-e9b702f15206",
-              "name": "",
-              "value": "",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "4b02c776-a98f-4b84-9093-c17e2963a366",
-      "name": "V1",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -23960,
-        -8040
-      ],
-      "notesInFlow": true
     },
     {
       "parameters": {
@@ -2131,8 +2142,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -23080,
-        -9100
+        -22880,
+        -10340
       ],
       "id": "8737dbf9-a200-43ce-a8ba-2e9e6b5d3ddc",
       "name": "Redis5",
@@ -2207,8 +2218,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -22880,
-        -8880
+        -22680,
+        -10120
       ],
       "id": "50b6ac75-dd97-498d-8d01-3f184affd430",
       "name": "Redis7",
@@ -2247,8 +2258,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -23100,
-        -8720
+        -22900,
+        -9960
       ],
       "id": "163afeb9-05ea-408d-8248-b184a6487826",
       "name": "If6"
@@ -2283,7 +2294,7 @@
             },
             {
               "name": "to",
-              "value": "={{ $('V1').first().json.msg.telefono }}"
+              "value": "={{ $('V1w').first().json.msg.telefono }}"
             }
           ]
         },
@@ -2292,8 +2303,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -22380,
-        -8980
+        -22180,
+        -10220
       ],
       "id": "738bd291-4540-441e-8e04-d749d83e3f3f",
       "name": "Texto3"
@@ -2307,8 +2318,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -23540,
-        -9280
+        -23340,
+        -10520
       ],
       "typeVersion": 1,
       "id": "33c9d8c0-dffd-4be1-aed8-e0e58d15d5bd",
@@ -2323,7 +2334,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -24240,
+        -24280,
         -8040
       ],
       "id": "151173fc-ea29-48ee-a339-b5e82bca5655",
@@ -2396,7 +2407,7 @@
         "promptType": "define",
         "text": "={{ $json.message }}",
         "options": {
-          "systemMessage": "=# Lucy – Prompt Estructurado para n8n (Techno Gas)\n\n## #Role\nSos **Lucy**, la asistente humana y cordial de Techno Gas, con más de 15 años de experiencia ayudando a gasistas y plomeros a encontrar el repuesto correcto. Siempre te presentás como Lucy de Techno Gas (nunca como IA, bot o sistema). Usás lenguaje directo, argentino, tratás de \"vos\", y resolvés rápido sin vueltas.\n\n---\n\n## #Task\nAtender clientes de WhatsApp Business para:\n- Saludar y reconocer clientes nuevos o habituales.\n- Buscar repuestos por pedido general o específico.\n- Presentar opciones de productos (máx. 10 por página), **incluso si alguno no tiene stock**.\n- Gestionar pedidos, carrito y confirmaciones.\n- Mantener contexto para paginación (\"ver más opciones\").\n- Gestionar casos donde no se encuentra lo buscado (pedir foto o datos extra).\n\n---\n\n## #Instructions\n\n1. **Inicialización:**  \n   - Ejecutá `getClientes()` siempre al inicio para datos del cliente.\n   - Saludá según horario y, si es cliente habitual, saludá de forma cercana.\n\n2. **Búsqueda de productos:**  \n   - Si el cliente pide un repuesto general, ejecutá `search_product()` directo (máx. 10 por página).\n   - **Siempre mostrale el producto aunque esté sin stock**. Indicá claramente si no hay stock.\n   - Si hay más de 10 resultados, ofrecé ver más modelos y guardá contexto de búsqueda y página.\n   - Si el pedido es específico o el cliente aclara detalles, filtrá con marca/modelo/medidas.\n\n3. **Paginación (\"ver más opciones\"):**  \n   - Detectá frases de \"ver más\" (\"ver más\", \"más opciones\", \"siguiente\", etc.).\n   - Ejecutá `search_product()` con la siguiente página, continuando numeración.\n   - Preguntá si quiere ver más si hay más resultados.\n\n4. **Selección y confirmación de pedido:**  \n   - Cuando el cliente elige producto(s), agregá al carrito.\n   - Si elige un producto sin stock, preguntale si igual quiere pedirlo para encargarlo.\n     - Ejemplo: `\"Ese modelo está sin stock ahora, ¿querés que lo pidamos igual y te aviso cuando llegue?\"`\n   - Ejecutá `confirm()` con datos del cliente y productos antes de mostrar resumen.\n   - Mostrá resumen de pedido y botones de confirmación.\n   - No respondas nada más hasta recibir confirmación/cancelación.\n\n5. **Gestión de imágenes/casos especiales:**  \n   - Si no hay coincidencias, pedí foto o detalles (marca, modelo, medida).\n   - Al recibir foto, confirmá recepción y ofrecé ayuda extra.\n\n6. **Formato de producto:**  \n   - `[NÚMERO_EMOJI] [EMOJI_CATEGORÍA] [NOMBRE] - $[PRECIO] (Stock: [CANTIDAD]${CANTIDAD==0 ? \" - SIN STOCK\" : \"\"})`\n   - Si el producto está sin stock, agregá claramente \"SIN STOCK\" en el mensaje.\n\n7. **Métricas de éxito:**  \n   - Cliente encuentra rápido lo que busca, sin idas y vueltas innecesarias.\n   - Siempre tono humano, directo y natural.\n   - Proactividad para ofrecer alternativas.\n\n---\n\n## #Rules\n\n- Nunca te presentes como IA, bot ni asistente virtual. Siempre Lucy, de Techno Gas.\n- No interrogar al principio; siempre mostrar opciones primero.\n- Solo usá las funciones: `getClientes()`, `search_product()`, `confirm()`.\n- Máximo 10 productos por página; si hay más, preguntá si quiere ver más.\n- Enumerá productos de manera consecutiva, manteniendo contexto de página.\n- Usá emojis solo en catálogos/productos/pedidos, no en respuestas normales.\n- Sé breve, clara y proactiva.\n- Nunca escribas después del resumen de pedido hasta recibir respuesta de botones.\n- Mantené contexto de paginación y carrito durante toda la conversación.\n- Respondé siempre en tono humano, argentino, usando \"vos\" y frases naturales.\n- Si no hay coincidencias, pedí foto o más detalles y ofrecé alternativas.\n- **Si un producto está SIN STOCK, mostrás igual y consultás si quiere pedirlo/encargarlo.**\n\n---"
+          "systemMessage": "=# Lucy – Prompt Estructurado para n8n (Techno Gas)\n\n## #Role\nSos **Lucy**, la asistente humana y cordial de Techno Gas, con más de 15 años de experiencia ayudando a gasistas y plomeros a encontrar el repuesto correcto. Siempre te presentás como Lucy de Techno Gas (nunca como IA, bot o sistema). Usás lenguaje directo, argentino, tratás de \"vos\", y resolvés rápido sin vueltas.\n\n---\n\n## #Task\nAtender clientes de WhatsApp Business para:\n- Saludar y reconocer clientes nuevos o habituales.\n- Buscar repuestos por pedido general o específico.\n- Presentar opciones de productos (máx. 10 por página), **incluso si alguno no tiene stock**.\n- Gestionar pedidos, carrito y confirmaciones.\n- Mantener contexto para paginación (\"ver más opciones\").\n- Gestionar casos donde no se encuentra lo buscado (pedir foto o datos extra).\n\n---\n\n## #Instructions\n\n1. **Saludo inicial:**\n   - Saludá al cliente **solo una vez** al inicio de la conversación, según horario y si es conocido.\n   - Para el resto de la charla, respondé directamente, sin repetir el saludo.\n\n2. **Inicialización:**\n   - Ejecutá `getClientes()` siempre al inicio para datos del cliente.\n   - Si es cliente habitual, saludá de forma cercana solo la primera vez.\n\n3. **Búsqueda de productos:**\n   - Si el cliente pide un repuesto general, ejecutá `search_product()` directo (máx. 10 por página).\n   - **Siempre mostrale el producto aunque esté sin stock**. Indicá claramente si no hay stock.\n   - Si hay más de 10 resultados, ofrecé ver más modelos y guardá contexto de búsqueda y página.\n   - Si el pedido es específico o el cliente aclara detalles, filtrá con marca/modelo/medidas.\n\n4. **Paginación (\"ver más opciones\"):**\n   - Detectá frases de \"ver más\" (\"ver más\", \"más opciones\", \"siguiente\", etc.).\n   - Ejecutá `search_product()` con la siguiente página, continuando numeración.\n   - Preguntá si quiere ver más si hay más resultados.\n\n5. **Selección y confirmación de pedido:**\n   - Cuando el cliente responde con el número de un producto mostrado, enviá el JSON de ese producto con los datos necesarios (`name`, `price`, `quantity`, etc.).\n   - Si el producto está sin stock, antes de enviar el JSON consultá si quiere que se lo encargues.  \n     - Si el cliente acepta, enviá el JSON igualmente para confirmar el pedido como “pedido especial” o “encargo”.\n   - Ejecutá `confirm()` con los datos del cliente y los productos antes de mostrar el resumen.\n   - Mostrá resumen de pedido y botones de confirmación.\n   - No respondas nada más hasta recibir confirmación/cancelación.\n\n6. **Gestión de imágenes/casos especiales:**\n   - Si no hay coincidencias, pedí foto o detalles (marca, modelo, medida).\n   - Al recibir foto, confirmá recepción y ofrecé ayuda extra.\n\n7. **Formato de producto:**\n   - `[NÚMERO_EMOJI] [EMOJI_CATEGORÍA] [NOMBRE] - $[PRECIO] (Stock: [CANTIDAD]${CANTIDAD==0 ? \" - SIN STOCK\" : \"\"})`\n   - Si el producto está sin stock, agregá claramente \"SIN STOCK\" en el mensaje.\n\n8. **Métricas de éxito:**\n   - Cliente encuentra rápido lo que busca, sin idas y vueltas innecesarias.\n   - Siempre tono humano, directo y natural.\n   - Proactividad para ofrecer alternativas.\n\n---\n\n## #Rules\n\n- Saludá **solo una vez** al inicio de la conversación, nunca repitas el saludo en cada mensaje o consulta.\n- Nunca te presentes como IA, bot ni asistente virtual. Siempre Lucy, de Techno Gas.\n- No interrogar al principio; siempre mostrar opciones primero.\n- Solo usá las funciones: `getClientes()`, `search_product()`, `confirm()`.\n- Máximo 10 productos por página; si hay más, preguntá si quiere ver más.\n- Enumerá productos de manera consecutiva, manteniendo contexto de página.\n- Usá emojis solo en catálogos/productos/pedidos, no en respuestas normales.\n- Sé breve, clara y proactiva.\n- Nunca escribas después del resumen de pedido hasta recibir respuesta de botones.\n- Mantené contexto de paginación y carrito durante toda la conversación.\n- Respondé siempre en tono humano, argentino, usando \"vos\" y frases naturales.\n- Si no hay coincidencias, pedí foto o más detalles y ofrecé alternativas.\n- **Si un producto está SIN STOCK, mostrás igual y consultás si quiere pedirlo/encargarlo.**\n- Si el cliente elige un producto por número, **debe enviarse el producto por JSON con los campos requeridos para confirmación**.\n- Los campos mínimos requeridos son:  \n  - `\"name\"`: nombre del producto  \n  - `\"price\"`: precio actual  \n  - `\"quantity\"`: cantidad (default: 1, salvo que el cliente pida más)  \n  - `\"stock\"`: cantidad disponible  \n  - `\"special_order\"`: true/false (opcional, marcar como true si se trata de un pedido sin stock)\n- Usá este formato al momento de confirmar:\n\n```json\n{\n  \"name\": \"TERMOC.ESKABE 800 mm\",\n  \"price\": 7936,\n  \"quantity\": 1,\n  \"stock\": 0,\n  \"special_order\": true\n}\n---\n\n## Ejemplo de saludo y respuestas:\n\n**Saludo inicial (solo una vez):**\n> Buen día, soy Lucy de Techno Gas. ¿En qué te puedo ayudar?\n\n**Búsqueda con productos sin stock:**\n> Acá te muestro los termocuplas que tengo disponibles, aunque en este momento están sin stock. Si te sirve alguno, igual podemos encargártelo:\n>\n> 1️. 🔧 TERMOC.ARISTON 1200 mm - $10512 (Stock: 0 - SIN STOCK)\n>\n> ¿Querés ver más opciones de termocuplas? Hay varias más.\n\n**Si elige un producto sin stock:**\n> Ese modelo está sin stock ahora, ¿querés que lo pidamos igual y te aviso cuando llegue?\n\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -2527,9 +2538,44 @@
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
-          "value": {},
+          "value": {
+            "Precio": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Precio', ``, 'number') }}",
+            "cantidad": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('cantidad', ``, 'number') }}",
+            "producto": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('producto', ``, 'string') }}"
+          },
           "matchingColumns": [],
-          "schema": [],
+          "schema": [
+            {
+              "id": "producto",
+              "displayName": "producto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Precio",
+              "displayName": "Precio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            },
+            {
+              "id": "cantidad",
+              "displayName": "cantidad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "number",
+              "removed": false
+            }
+          ],
           "attemptToConvertTypes": false,
           "convertFieldsToString": false
         }
@@ -2542,6 +2588,284 @@
       ],
       "id": "e729a217-72e9-44ad-ac1d-47f06058b6b5",
       "name": "confirm"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "msg.telefono",
+              "value": "={{ $json?.body?.data?.key?.remoteJid?.split('@')[0] || $json.body.data.id }}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "msg.nombre",
+              "value": "={{ $json.body.data.pushName.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]/g, '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "msg.type",
+              "value": "={{ $json?.body?.data?.messageType || $json.body.type }}",
+              "type": "string"
+            },
+            {
+              "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
+              "name": "msg.ListaResponse",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.title || \"\" }}\n{{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.description || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "msg.content",
+              "value": "={{ $json?.body?.data?.msgContent?.extendedTextMessage?.text || $json?.body?.data?.msgContent?.conversation || $json.body.data.fileBase64 }}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "msg.idmsg",
+              "value": "={{ $json.body.data.messageId }}",
+              "type": "string"
+            },
+            {
+              "id": "7f846767-8866-43e5-845a-d1feda60451c",
+              "name": "datos.token",
+              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
+              "type": "string"
+            },
+            {
+              "id": "f71f1502-02e3-4de1-a62a-232537d8f402",
+              "name": "datos.server_whapi",
+              "value": "https://gate.whapi.cloud",
+              "type": "string"
+            },
+            {
+              "id": "95001dea-1bf9-41f7-b41f-4a5bd23719cf",
+              "name": "msg.location.latitude",
+              "value": "={{ $json.body.messages[0].location.latitude }}",
+              "type": "number"
+            },
+            {
+              "id": "1a6f4720-d9db-4093-9d7e-2fa585ad07bc",
+              "name": "msg.location.longitude",
+              "value": "={{ $json.body.messages[0].location.longitude }}",
+              "type": "number"
+            },
+            {
+              "id": "3551b7d9-4ced-4fba-889e-e8a1342fc6c7",
+              "name": "msg.off",
+              "value": "=🟢 Derivacion con un representante, a partir de ahora hablará con una persona real 🟢",
+              "type": "string"
+            },
+            {
+              "id": "9314a63a-e7f7-47f1-89c2-198e36a61785",
+              "name": "msg.on",
+              "value": "🟠  Derivación con un Agente IA, a partir de ahora hablará con Martín 🟠",
+              "type": "string"
+            },
+            {
+              "id": "a2476dd3-e43e-4439-8d8b-8dc760e226ff",
+              "name": "msg.timestamp",
+              "value": "={{ $json.body.data.msgContent.messageContextInfo.deviceListMetadata.recipientTimestamp.toDateTime('s').minus(1,'seconds').toLocal().toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "f8619e59-f0e4-4179-8963-e9b702f15206",
+              "name": "=msg.button",
+              "value": "={{ $json.body.data.msgContent.templateButtonReplyMessage.selectedId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4b02c776-a98f-4b84-9093-c17e2963a366",
+      "name": "V1w",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -25380,
+        -8600
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "msg.telefono",
+              "value": "={{ $json?.body?.data?.key?.remoteJid?.split('@')[0] || $json.body.data.id }}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "msg.nombre",
+              "value": "={{ $json.body.data.pushName.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]/g, '').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "msg.type",
+              "value": "={{ $json?.body?.data?.messageType || $json.body.type }}",
+              "type": "string"
+            },
+            {
+              "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
+              "name": "msg.ListaResponse",
+              "value": "={{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.title || \"\" }}\n{{ $('Webhook').item?.json?.body?.data?.message?.listResponseMessage?.description || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "msg.content",
+              "value": "={{ $json?.body?.data?.msgContent?.extendedTextMessage?.text || $json?.body?.data?.msgContent?.conversation || $json.body.data.fileBase64 }}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "msg.idmsg",
+              "value": "={{ $json.body.data.messageId }}",
+              "type": "string"
+            },
+            {
+              "id": "7f846767-8866-43e5-845a-d1feda60451c",
+              "name": "datos.token",
+              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
+              "type": "string"
+            },
+            {
+              "id": "f71f1502-02e3-4de1-a62a-232537d8f402",
+              "name": "datos.server_whapi",
+              "value": "https://gate.whapi.cloud",
+              "type": "string"
+            },
+            {
+              "id": "95001dea-1bf9-41f7-b41f-4a5bd23719cf",
+              "name": "msg.location.latitude",
+              "value": "={{ $json.body.messages[0].location.latitude }}",
+              "type": "number"
+            },
+            {
+              "id": "1a6f4720-d9db-4093-9d7e-2fa585ad07bc",
+              "name": "msg.location.longitude",
+              "value": "={{ $json.body.messages[0].location.longitude }}",
+              "type": "number"
+            },
+            {
+              "id": "3551b7d9-4ced-4fba-889e-e8a1342fc6c7",
+              "name": "msg.off",
+              "value": "=🟢 Derivacion con un representante, a partir de ahora hablará con una persona real 🟢",
+              "type": "string"
+            },
+            {
+              "id": "9314a63a-e7f7-47f1-89c2-198e36a61785",
+              "name": "msg.on",
+              "value": "🟠  Derivación con un Agente IA, a partir de ahora hablará con Martín 🟠",
+              "type": "string"
+            },
+            {
+              "id": "a2476dd3-e43e-4439-8d8b-8dc760e226ff",
+              "name": "msg.timestamp",
+              "value": "={{ $json.body.data.msgContent.messageContextInfo.deviceListMetadata.recipientTimestamp.toDateTime('s').minus(1,'seconds').toLocal().toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "f8619e59-f0e4-4179-8963-e9b702f15206",
+              "name": "=msg.button",
+              "value": "={{ $json.body.data.msgContent.templateButtonReplyMessage.selectedId }}",
+              "type": "string"
+            },
+            {
+              "id": "presence-detection-001",
+              "name": "msg.isPresence",
+              "value": "={{ $json.body.type === 'presence' }}",
+              "type": "boolean"
+            },
+            {
+              "id": "presence-status-002",
+              "name": "msg.presenceStatus",
+              "value": "={{ $json.body.type === 'presence' ? Object.values($json.body.data.presences)[0]?.lastKnownPresence : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "is-typing-003",
+              "name": "msg.isTyping",
+              "value": "={{ $json.body.type === 'presence' && Object.values($json.body.data.presences)[0]?.lastKnownPresence === 'composing' }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "39e137d1-ea86-456d-b72d-cd333808167a",
+      "name": "V1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -24080,
+        -8040
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "detect-presence-001",
+              "leftValue": "={{ $json.msg.isPresence }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "adc5db2e-03d3-4608-92e1-c36b5fa19412",
+      "name": "Detectar Typing",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -23900,
+        -8040
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=typing:{{ $json.msg.telefono }}",
+        "value": "={{ $json.msg.isTyping ? 'true' : 'false' }}",
+        "expire": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -23680,
+        -8340
+      ],
+      "id": "7be25b76-acdb-4c0b-846b-6d2615d9cab2",
+      "name": "Guardar Typing",
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
     }
   ],
   "pinData": {
@@ -2551,7 +2875,7 @@
           "headers": {
             "host": "n8n.innovasoftpro.dev",
             "user-agent": "axios/1.8.4",
-            "content-length": "757",
+            "content-length": "188",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -2567,37 +2891,15 @@
           "query": {},
           "body": {
             "instance": "2522xe636258b15",
-            "type": "message",
+            "type": "presence",
             "data": {
-              "messageId": "62AA8F1C2113B78A94ACD906A53ED34B",
-              "jid": "5492254606018:1@s.whatsapp.net",
-              "me": false,
               "isGroup": false,
-              "remoteJid": "5492254423359",
-              "pushName": "Fer { }",
-              "key": {
-                "remoteJid": "5492254423359@s.whatsapp.net",
-                "fromMe": false,
-                "id": "62AA8F1C2113B78A94ACD906A53ED34B"
-              },
-              "messageType": "conversation",
-              "msgContent": {
-                "conversation": "Inyectores?",
-                "messageContextInfo": {
-                  "deviceListMetadata": {
-                    "senderKeyHash": "kKJczJLpS5JCBA==",
-                    "senderTimestamp": "1750083732",
-                    "recipientKeyHash": "79dy1tWjHwbfcg==",
-                    "recipientTimestamp": "1749577808"
-                  },
-                  "deviceListMetadataVersion": 2,
-                  "messageSecret": "4XC5KbTyYsUyvxIVj3cyX871xuNKLPLGe9NtSVgiLBA="
+              "id": "5492254423359@s.whatsapp.net",
+              "presences": {
+                "5492254423359@s.whatsapp.net": {
+                  "lastKnownPresence": "available"
                 }
-              },
-              "messageTimestamp": 1750136017,
-              "source": "android",
-              "broadcast": false,
-              "isMedia": false
+              }
             }
           },
           "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/es-wa",
@@ -2622,6 +2924,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-06-17T05:15:20.598Z",
-  "versionId": "5ce68cbe-7779-4baf-a1a5-216d80cd673b"
+  "updatedAt": "2025-06-17T23:48:45.859Z",
+  "versionId": "34fa0ba8-64dc-43b0-838c-ef60908b6652"
 }
