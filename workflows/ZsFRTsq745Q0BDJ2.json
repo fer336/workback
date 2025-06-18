@@ -14,12 +14,24 @@
     },
     "Edit Fields": {
       "main": [
-        []
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Code": {
       "main": [
-        []
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -31,20 +43,21 @@
   "nodes": [
     {
       "parameters": {
-        "jsCode": "// OBTENER DATOS DEL INPUT\nconst inputData = $input.all();\nconst cliente = inputData[0]?.json?.cliente || {};\nconst producto = inputData[0]?.json?.producto || {};\nconst pedido = inputData[0]?.json?.pedido || {};\n\n// PREPARAR DATOS PARA EL MENSAJE\nconst phoneNumber = cliente.telefono || \"5492254423359\";\nconst productName = producto.nombre || \"Producto\";\nconst price = producto.precio || 0;\nconst stock = producto.stock || \"disponible\";\nconst cantidad = producto.cantidad || 1;\nconst subtotal = producto.subtotal || price;\n\n// CONFIGURAR EL MENSAJE SEGÚN EL TIPO DE PEDIDO\nlet headerTitle = \"\";\nlet messageText = \"\";\nlet footerText = \"\";\nlet buttons = [];\n\nif (pedido.tipo === \"compra\") {\n  // PRODUCTO DISPONIBLE PARA COMPRA\n  headerTitle = \"🔧 Techno Gas - Producto Disponible\";\n  \n  messageText = `🎯 **${productName}**\n\n💰 Precio: ${price.toLocaleString()}\n🔢 Cantidad: ${cantidad}\n💵 Subtotal: ${subtotal.toLocaleString()}\n📦 Stock: ✅ Disponible\n\n🚚 Envíos a Villa Gesell, Madariaga y Costa Esmeralda`;\n\n  footerText = \"¿Qué querés hacer?\";\n  \n  buttons = [\n    {\n      \"type\": \"quick_reply\",\n      \"id\": \"buy_now\",\n      \"text\": \"🛒 Comprar\"\n    },\n    {\n      \"type\": \"quick_reply\", \n      \"id\": \"more_info\",\n      \"text\": \"ℹ️ Más info\"\n    },\n    {\n      \"type\": \"quick_reply\",\n      \"id\": \"other_product\", \n      \"text\": \"🔍 Buscar otro\"\n    }\n  ];\n\n} else if (pedido.tipo === \"encargo\") {\n  // PRODUCTO PARA ENCARGAR\n  headerTitle = \"📋 Techno Gas - Encargo Disponible\";\n  \n  messageText = `🎯 **${productName}**\n\n💰 Precio total: ${price.toLocaleString()}\n💸 Seña (30%): \n📅 Demora estimada: 7-10 días\n📦 Estado: A encargar\n\n🚚 Envíos a Villa Gesell, Madariaga y Costa Esmeralda`;\n\n  footerText = \"¿Querés encargarlo?\";\n  \n  buttons = [\n    {\n      \"type\": \"quick_reply\",\n      \"id\": \"order_now\",\n      \"text\": \"✅ Encargar\"\n    },\n    {\n      \"type\": \"quick_reply\",\n      \"id\": \"ask_more\",\n      \"text\": \"❓ Consultar\"\n    },\n    {\n      \"type\": \"quick_reply\",\n      \"id\": \"other_option\",\n      \"text\": \"🔍 Ver otros\"\n    }\n  ];\n\n} else {\n  // CONFIRMACIÓN GENERAL DE PEDIDO\n  headerTitle = \"🎉 Techno Gas - Confirmación\";\n  \n  messageText = `✅ **Pedido confirmado**\n\n👤 Cliente: ${cliente.nombre}\n📦 Producto: ${productName}\n💰 Total: ${pedido.total.toLocaleString()}\n\n🏦 Alias: techno.gas.arg\n📱 Te contactamos para coordinar entrega`;\n\n  footerText = \"Próximos pasos:\";\n  \n  buttons = [\n    {\n      \"type\": \"quick_reply\",\n      \"id\": \"payment_done\",\n      \"text\": \"💳 Ya transferí\"\n    },\n    {\n      \"type\": \"quick_reply\",\n      \"id\": \"payment_later\",\n      \"text\": \"⏰ Pago después\"\n    },\n    {\n      \"type\": \"quick_reply\",\n      \"id\": \"need_help\",\n      \"text\": \"❓ Ayuda\"\n    }\n  ];\n}\n\n// CONSTRUIR EL PAYLOAD COMPLETO PARA WHATSAPP\nconst whatsappPayload = {\n  \"to\": phoneNumber,\n  \"header\": {\n    \"title\": headerTitle,\n    \"hasMediaAttachment\": false\n  },\n  \"text\": messageText,\n  \"footer\": footerText,\n  \"buttons\": buttons\n};\n\n// RETORNAR EL PAYLOAD EN FORMATO N8N\nreturn [{\n  json: whatsappPayload\n}];"
+        "jsCode": "// OBTENER DATOS DEL INPUT\nconst editFields = $('Edit Fields').item.json;\n\n// EXTRAER LOS 3 DATOS PRINCIPALES\nconst producto = editFields.producto || \"Producto\";\nconst precio = parseFloat(editFields.Precio || editFields.precio || 0);\nconst cantidad = parseInt(editFields.cantidad || 1);\nconst subtotal = precio * cantidad;\n\n// FUNCIÓN PARA FORMATEAR MONEDA\nfunction formatMoney(value) {\n  return '$' + parseFloat(value).toLocaleString('es-AR');\n}\n\n// CONFIGURACIÓN DEL MENSAJE\nconst phoneNumber = \"5492254423359\";\nconst tipoAccion = \"compra\"; // Puede ser: compra, encargo, confirmacion, sin_stock\n\n// CONFIGURAR MENSAJE SEGÚN TIPO\nlet msgConfig = {};\n\nif (tipoAccion === \"compra\") {\n  msgConfig = {\n    title: \"🔧 Techno Gas - Producto Disponible\",\n    text: \"🎯 *\" + producto + \"*\\n💰 Precio: \" + formatMoney(precio) + \"\\n🔢 Cantidad: \" + cantidad + \"\\n💵 Subtotal: \" + formatMoney(subtotal) + \"\\n📦 Stock: ✅ disponible\\n🚚 Envíos a Villa Gesell, Madariaga y Costa Esmeralda\",\n    footer: \"¿Qué querés hacer?\",\n    btns: [\n      { type: \"quick_reply\", id: \"🛒 Comprar\", text: \"🛒 Comprar\" },\n      { type: \"quick_reply\", id: \"other_product\", text: \" 📸 Ver imagen\" }\n    ]\n  };\n} else if (tipoAccion === \"encargo\") {\n  const sena = Math.round(precio * 0.3);\n  msgConfig = {\n    title: \"📋 Techno Gas - Encargo Disponible\",\n    text: \"🎯 *\" + producto + \"*\\n💰 Precio total: \" + formatMoney(precio) + \"\\n🔢 Cantidad: \" + cantidad + \"\\n💸 Seña (30%): \" + formatMoney(sena) + \"\\n📅 Demora estimada: 7-10 días\\n📦 Estado: A encargar\\n🚚 Envíos a Villa Gesell, Madariaga y Costa Esmeralda\",\n    footer: \"¿Querés encargarlo?\",\n    btns: [\n      { type: \"quick_reply\", id: \"order_now\", text: \"✅ Encargar\" },\n      { type: \"quick_reply\", id: \"ask_more\", text: \"❓ Consultar\" },\n      { type: \"quick_reply\", id: \"other_option\", text: \"🔍 Ver otros\" }\n    ]\n  };\n} else if (tipoAccion === \"confirmacion\") {\n  msgConfig = {\n    title: \"🎉 Techno Gas - Confirmación\",\n    text: \"✅ *Pedido confirmado*\\n👤 Cliente: Cliente\\n📦 Producto: \" + producto + \"\\n🔢 Cantidad: \" + cantidad + \"\\n💰 Total: \" + formatMoney(subtotal) + \"\\n🏦 Alias: techno.gas.arg\\n📱 Te contactamos para coordinar entrega\",\n    footer: \"Próximos pasos:\",\n    btns: [\n      { type: \"quick_reply\", id: \"payment_done\", text: \"💳 Ya transferí\" },\n      { type: \"quick_reply\", id: \"payment_later\", text: \"⏰ Pago después\" },\n      { type: \"quick_reply\", id: \"need_help\", text: \"❓ Ayuda\" }\n    ]\n  };\n} else if (tipoAccion === \"sin_stock\") {\n  msgConfig = {\n    title: \"❌ Techno Gas - Sin Stock\",\n    text: \"🎯 *\" + producto + \"*\\n💰 Precio: \" + formatMoney(precio) + \"\\n🔢 Cantidad solicitada: \" + cantidad + \"\\n📦 Stock: ❌ Sin stock\\n📅 Reposición: Consultando con proveedor\\n🔔 Te avisamos cuando llegue\",\n    footer: \"¿Qué querés hacer?\",\n    btns: [\n      { type: \"quick_reply\", id: \"notify_arrival\", text: \"🔔 Avisarme\" },\n      { type: \"quick_reply\", id: \"similar_product\", text: \"🔄 Ver similar\" },\n      { type: \"quick_reply\", id: \"other_search\", text: \"🔍 Buscar otro\" }\n    ]\n  };\n} else {\n  msgConfig = {\n    title: \"🔧 Techno Gas - Consulta\",\n    text: \"Hola! Soy Lucy de Techno Gas.\\n¿En qué puedo ayudarte hoy?\\n\\n🔧 Repuestos para gas\\n🚚 Envíos a Villa Gesell, Madariaga y Costa Esmeralda\\n📱 Atención personalizada\",\n    footer: \"Elegí una opción:\",\n    btns: [\n      { type: \"quick_reply\", id: \"search_product\", text: \"🔍 Buscar repuesto\" },\n      { type: \"quick_reply\", id: \"view_catalog\", text: \"📋 Ver catálogo\" },\n      { type: \"quick_reply\", id: \"contact_support\", text: \"💬 Hablar con Lucy\" }\n    ]\n  };\n}\n\n// CONSTRUIR PAYLOAD FINAL\nconst result = {\n  to: phoneNumber,\n  header: {\n    title: msgConfig.title,\n    hasMediaAttachment: false\n  },\n  text: msgConfig.text,\n  footer: msgConfig.footer,\n  buttons: msgConfig.btns\n};\n\n// RETORNAR RESULTADO\nreturn [{ json: result }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        640,
-        40
+        620,
+        300
       ],
       "id": "e9cea8f7-f994-4157-846f-88c9697ef72d",
       "name": "Code"
     },
     {
       "parameters": {
-        "inputSource": "passthrough"
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"producto\": \"cabezal pilot orbis\",\n  \"Precio\": 3400,\n  \"cantidad\": 1\n  \n}"
       },
       "id": "c055762a-8fe7-4141-a639-df2372f30060",
       "typeVersion": 1.1,
@@ -57,8 +70,28 @@
     },
     {
       "parameters": {
-        "mode": "raw",
-        "jsonOutput": "={{ $json.query }}",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8fd5e7a2-2acb-41ea-b8e5-4089765dfea7",
+              "name": "producto",
+              "value": "={{ $json.producto }}",
+              "type": "string"
+            },
+            {
+              "id": "58165a5d-416b-49d2-b9eb-2d15f7a660c2",
+              "name": "Precio",
+              "value": "={{ $json.Precio }}",
+              "type": "number"
+            },
+            {
+              "id": "d77f58ff-fc3b-4646-82aa-19b37f7a6632",
+              "name": "cantidad",
+              "value": "={{ $json.cantidad }}",
+              "type": "number"
+            }
+          ]
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -96,7 +129,7 @@
             },
             {
               "name": "text",
-              "value": "={{ $json.text }}"
+              "value": "={{ $json.text.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
             },
             {
               "name": "footer",
@@ -113,7 +146,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1000,
+        900,
         300
       ],
       "id": "a1c4bb62-416c-4bf4-b168-5ad19c3061c1",
@@ -124,7 +157,9 @@
     "datos": [
       {
         "json": {
-          "query": "\n{\n  \"header\": {\n    \"type\": \"text\",\n    \"title\": \"Confirmación de Pedido\"\n  },\n  \"text\": \"Cliente: 5492254423359\\n\\n🧾 Pedido:\\n- CABEZAL PILOTO ESKABE 2000/3000 KCAL. → $17684,27\\n\\nTotal: $17684,27\\n¿Confirmás este pedido?\",\n  \"footer\": \"Techno Gas\",\n  \"buttons\": [\n    {\n      \"type\": \"reply\",\n      \"reply\": {\n        \"id\": \"confirmar_pedido\",\n        \"title\": \"✅ Confirmar\"\n      }\n    },\n    {\n      \"type\": \"reply\",\n      \"reply\": {\n        \"id\": \"cancelar_pedido\",\n        \"title\": \"❌ Cancelar\"\n      }\n    }\n  ]\n}\n"
+          "producto": "TERMOC.ARISTON 1200 mm",
+          "Precio": 10512,
+          "cantidad": 1
         }
       }
     ]
@@ -135,6 +170,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-06-16T21:42:55.362Z",
-  "versionId": "39591c0d-3c87-42a9-9329-4c2b78d2008d"
+  "updatedAt": "2025-06-17T21:19:47.343Z",
+  "versionId": "7110d6c9-c51e-43e4-a5e0-442a008c7a8a"
 }
