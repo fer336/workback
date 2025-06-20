@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Switch1": {
       "main": [
@@ -96,17 +96,6 @@
         [
           {
             "node": "Transcribir",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Webhook": {
-      "main": [
-        [
-          {
-            "node": "Obtiene el estado",
             "type": "main",
             "index": 0
           }
@@ -211,17 +200,6 @@
         ]
       ]
     },
-    "Escribiendo...5": {
-      "main": [
-        [
-          {
-            "node": "Agendamos?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Lista1": {
       "main": [
         [
@@ -253,11 +231,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Agendamos?": {
-      "main": [
-        []
       ]
     },
     "MESSAGE4": {
@@ -722,12 +695,6 @@
         ]
       ]
     },
-    "If4": {
-      "main": [
-        [],
-        []
-      ]
-    },
     "If8": {
       "main": [
         [],
@@ -883,6 +850,63 @@
         [
           {
             "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "V1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Texto1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "From Me2": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "V1": {
+      "main": [
+        [
+          {
+            "node": "From Me2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Code2",
             "type": "main",
             "index": 0
           }
@@ -1226,22 +1250,6 @@
         -820,
         2685
       ]
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "qeva",
-        "options": {}
-      },
-      "id": "1b983077-f5df-44d4-988c-09e6b085219e",
-      "name": "Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -3900,
-        3210
-      ],
-      "webhookId": "3cdd40ed-a48c-411c-96d6-3679c5894079"
     },
     {
       "parameters": {
@@ -1600,33 +1608,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "={{ $node['Webhook'].json.body.server_url }}/chat/sendPresence/{{ $node['Webhook'].json.body.instance }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $node['Webhook'].json.body.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n    \"number\": \"{{ $node['Webhook'].json.body.data.key.remoteJid }}\",\n    \"delay\": 3000,\n    \"presence\": \"composing\"\n}",
-        "options": {}
-      },
-      "id": "dc32ad5a-5e81-437c-b20f-80acb6295a0e",
-      "name": "Escribiendo...5",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -3900,
-        2165
-      ]
-    },
-    {
-      "parameters": {
         "jsCode": "function generarListaAgentes(remoteJid) {\n  const sections = [\n    {\n      title: \"🚨 Urgencias\",\n      rows: [\n        {\n          title: \"⚠️ Problemas técnicos\",\n          description: \"Comunícate con un agente técnico por problemas con tu software\",\n          rowId: \"urgencia-tecnica\"\n        },\n        {\n          title: \"💵 Informar pagos\",\n          description: \"Notificar pagos realizados o consultas urgentes de facturación\",\n          rowId: \"urgencia-pagos\"\n        }\n      ]\n    },    \n    {\n      title: \"👩‍💻 Soporte Técnico\",\n      rows: [\n         {\n          title: \"🔌 Integraciones\",\n          description: \"Ayuda con reconexion de Whatsapp \",\n          rowId: \"agente-integraciones\"\n        }\n      ]\n    },\n{\n  \"title\": \"📅 Agendar una cita\",\n  \"rows\": [\n    {\n      \"title\": \"🗓️ Solicitar una reunión\",\n      \"description\": \"Coordiná una cita con nuestro equipo\",\n      \"rowId\": \"cita-solicitar\"\n    },\n    \n  ]\n},\n    {\n      title: \"Nuestros agentes, ¡solicitá tu demo! 🚀\",\n      rows: [\n        {\n          title: \"🏡 Bot Inmobiliario\",\n          description: \"Gestioná alquileres, ventas y consultas\",\n          rowId: \"bot_inmobiliario\"\n        },\n        {\n          title: \"🛒 Bot para Despensas\",\n          description: \"Automatizá pedidos y atención de tu tienda\",\n          rowId: \"bot_despensa\"\n        },\n        {\n          title: \"🛵 Bot de Delivery\",\n          description: \"Tomá pedidos y gestioná envíos en WhatsApp\",\n          rowId: \"bot_delivery\"\n        },\n        {\n          title: \"📅 Agendador de Citas\",\n          description: \"Organizá turnos con recordatorios automáticos\",\n          rowId: \"bot_agendador\"\n        }\n      ]\n    }\n  ];\n\n  const requestBody = {\n    number: remoteJid,\n    title: \"🔹 AUTOMATIZACIONES 🔹\",\n    description: \"Seleccione un área para atención inmediata:\",\n    buttonText: \"Ver áreas 📋\",\n    footerText: \"💼 Expertos en automatización WhatsApp\",\n    sections\n  };\n\n  return [{ \n    json: requestBody \n  }];\n}\n\n// Código principal\nconst remoteJid = $input.first().json.remoteJid;\n// Generar lista de agentes\nconst menuResponse = generarListaAgentes(remoteJid);\n// Devolver el resultado como un array\nreturn menuResponse;\n"
       },
       "type": "n8n-nodes-base.code",
@@ -1720,59 +1701,6 @@
         2480,
         2985
       ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('vars').item.json.server_url }}/message/sendText/{{ $('vars').item.json.instance }}",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpBasicAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "apikey",
-              "value": "={{ $('vars').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number",
-              "value": "={{ $('vars').first().json.remoteJid }}"
-            },
-            {
-              "name": "text",
-              "value": "=📅 ```Agendamos una reunión?```\n\n_Te ayudamos con una asesoría personalizada para tu comercio._\n"
-            },
-            {
-              "name": "delay",
-              "value": "={{1200}}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "name": "Agendamos?",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 3,
-      "position": [
-        -3680,
-        2165
-      ],
-      "id": "3ab05b7f-1602-4ca0-a1d0-471609497030",
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "OpgdvMlLy6Zxc6ii",
-          "name": "NOCODB"
-        }
-      }
     },
     {
       "parameters": {
@@ -3199,40 +3127,6 @@
           },
           "conditions": [
             {
-              "id": "eb8838ec-b7a3-4e56-87c4-3cebab2cc77b",
-              "leftValue": "={{ $json.shouldReply }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -3900,
-        2425
-      ],
-      "id": "6291bb87-8305-4d6a-87ad-1a081b6672f4",
-      "name": "If4"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
               "id": "bfd8e386-bd62-4c4d-8cb4-9211f7091965",
               "leftValue": "={{ $('Webhook').item.json.body.data.key.fromMe }}",
               "rightValue": "",
@@ -3715,6 +3609,244 @@
       ],
       "id": "323f1da1-3706-4889-ac57-012be3bdc687",
       "name": "If11"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "solutions",
+        "options": {}
+      },
+      "id": "6915459d-53ae-439f-a8eb-225450ff15c4",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -5200,
+        3580
+      ],
+      "webhookId": "3ba6ce2e-1b02-4b06-8edd-9c60afb2db89"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Información de pago de la empresa\nconst infoPago = {\n  pesos: {\n    alias: \"fer.cassera.33\",\n    cbu: \"0070368830004030816102\",\n    titular: \"FERNANDO ARIEL CASSERA\"\n  },\n  dolares: {\n    alias: \"fer.cassera.usd\",\n    cbu: \"0070368831004001918601\",\n    titular: \"FERNANDO ARIEL CASSERA\"\n  }\n};\n\n// Obtener información del cliente del evento anterior\nconst evento = $input.first().json || {};\nconst montoDolares = evento.monto_pendiente || \"200\";\nconst telefono = evento.Clientes?.Telefono || \"5492254423359\";\n\n// Cotización del dólar (puedes actualizarla según necesites)\nconst cotizacionDolar = 1200; // Ejemplo: dólar a $1050\nconst montoPesos = parseFloat(montoDolares) * cotizacionDolar;\n\n// Crear mensaje con información de pago\nconst mensajeDatosPago = {\n  \"to\": telefono,\n  \"type\": \"text\",\n  \"text\": `💰 *INFORMACIÓN PARA REALIZAR EL PAGO*\\n\\n` +\n          `📌 *Deuda pendiente:* USD ${montoDolares}\\n` +\n          `💱 *Equivalente en pesos:* $${montoPesos.toLocaleString('es-AR')}\\n` +\n          `_(Cotización: $${cotizacionDolar} por USD)_\\n\\n` +\n          `━━━━━━━━━━━━━━━━━\\n\\n` +\n          `💵 *OPCIÓN 1: PAGO EN DÓLARES*\\n` +\n          `📱 *ALIAS:* ${infoPago.dolares.alias}\\n` +\n          `🏦 *CBU:* ${infoPago.dolares.cbu}\\n` +\n          `👤 *Titular:* ${infoPago.dolares.titular}\\n` +\n          `💰 *MONTO:* USD ${montoDolares}\\n\\n` +\n          `━━━━━━━━━━━━━━━━━\\n\\n` +\n          `💱 *OPCIÓN 2: PAGO EN PESOS*\\n` +\n          `📱 *ALIAS:* ${infoPago.pesos.alias}\\n` +\n          `🏦 *CBU:* ${infoPago.pesos.cbu}\\n` +\n          `👤 *Titular:* ${infoPago.pesos.titular}\\n` +\n          `💰 *MONTO:* $${montoPesos.toLocaleString('es-AR')}\\n\\n` +\n          `━━━━━━━━━━━━━━━━━\\n\\n` +\n          `📸 *IMPORTANTE:* Una vez realizado el pago, envíe el comprobante respondiendo a este mensaje.\\n\\n` +\n          `✅ Su pago será acreditado en un máximo de 24hs hábiles.\\n\\n` +\n          `¡Gracias por su pago! 🙏`\n};\n\n// Devolver el objeto\nreturn {\n  json: mensajeDatosPago\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3740,
+        3580
+      ],
+      "id": "a5841f04-9f65-479b-b60a-e120e8240f8e",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "=Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "typing_time",
+              "value": "={{3}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -3420,
+        3680
+      ],
+      "id": "844fba43-3b48-448c-83a6-6550835f7575",
+      "name": "Texto1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "94746291-c0f3-44f3-b635-1fe696d7d74e",
+              "leftValue": "={{ $('Webhook').item.json.body.messages[0].from_me }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5c1db24b-c102-4d46-83fe-80c14e164bc2",
+      "name": "From Me2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -4480,
+        3440
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "msg.telefono",
+              "value": "={{ $json.body.messages[0].chat_id.replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "msg.nombre",
+              "value": "={{ $json.body.messages[0].chat_name }}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "msg.type",
+              "value": "={{ $json.body.messages[0].type }}",
+              "type": "string"
+            },
+            {
+              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
+              "name": "msg.timestamp",
+              "value": "={{ $json.body.messages[0].timestamp.toDateTime('s').toLocal().toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "msg.idmsg",
+              "value": "={{ $json.body.messages[0].id }}",
+              "type": "string"
+            },
+            {
+              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
+              "name": "datos.server_db",
+              "value": "https://db.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "be83160a-e151-4f62-bfde-590af142ae74",
+              "name": "db.table_clientes",
+              "value": "mwk4ui7lirmxc8h",
+              "type": "string"
+            },
+            {
+              "id": "c85ab512-ca17-401b-b025-4b6fc11ac818",
+              "name": "db.token_db",
+              "value": "BAWLISa1QL05FMwlWzJCpo9ONDaZ8_dXO0OULjhB",
+              "type": "string"
+            },
+            {
+              "id": "74ee121e-f109-4425-9b1e-ff7b6c49ae45",
+              "name": "datos.tabla",
+              "value": "mwk4ui7lirmxc8h",
+              "type": "string"
+            },
+            {
+              "id": "6fedaf9c-efe8-46e5-bb61-b42525ddafa1",
+              "name": "grupo",
+              "value": "={{ $json.body.messages[0].chat_id.endsWith('@g.us') }}",
+              "type": "boolean"
+            },
+            {
+              "id": "7f846767-8866-43e5-845a-d1feda60451c",
+              "name": "datos.token",
+              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
+              "type": "string"
+            },
+            {
+              "id": "865ae94f-3e98-4b1b-943c-fafa6c059e45",
+              "name": "msg.titulo_categoria",
+              "value": "={{ $json?.body?.messages[0]?.context?.quoted_content?.header || \"\"}}",
+              "type": "string"
+            },
+            {
+              "id": "f71f1502-02e3-4de1-a62a-232537d8f402",
+              "name": "datos.server_whapi",
+              "value": "https://gate.whapi.cloud",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9df23a97-19a7-40d8-b1d3-8f76dc9cbb01",
+      "name": "V1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -4800,
+        3440
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "77e614c1-c266-45bc-8138-e178213d9c1b",
+              "leftValue": "={{ $json.grupo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -4120,
+        3560
+      ],
+      "id": "c00f22c2-2ecf-4817-a94d-6e2d394cc144",
+      "name": "If4"
     }
   ],
   "pinData": {
@@ -3731,212 +3863,44 @@
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
-            "user-agent": "axios/1.7.9",
-            "content-length": "4196",
-            "accept-encoding": "gzip, compress, deflate, br",
+            "content-length": "1164",
+            "accept": "application/json",
             "content-type": "application/json",
-            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-for": "37.27.140.235",
             "x-forwarded-host": "n8n.innovasoftpro.dev",
             "x-forwarded-port": "443",
             "x-forwarded-proto": "https",
             "x-forwarded-server": "575dad520f0e",
-            "x-real-ip": "172.18.0.1"
+            "x-real-ip": "37.27.140.235",
+            "accept-encoding": "gzip"
           },
           "params": {},
           "query": {},
           "body": {
-            "event": "messages.upsert",
-            "instance": "qeva",
-            "data": {
-              "key": {
-                "remoteJid": "5492254423359@s.whatsapp.net",
-                "fromMe": false,
-                "id": "916CD22BD0491C014C7044449F250B10"
-              },
-              "pushName": "Fer { }",
-              "status": "DELIVERY_ACK",
-              "message": {
-                "messageContextInfo": {
-                  "deviceListMetadata": {
-                    "senderKeyHash": "a0ebFmt5jO2yzg==",
-                    "senderTimestamp": "1746748763",
-                    "recipientKeyHash": "jfpbSca0rEEO1A==",
-                    "recipientTimestamp": "1747789270"
-                  },
-                  "deviceListMetadataVersion": 2,
-                  "messageSecret": "X3XZN+LMiupojUossUab8Tetsz3o9sPUyVzNZSNtWv0="
+            "messages": [
+              {
+                "id": "PspHAHG8RY8Qenk-wJsE_sPfuT8",
+                "from_me": true,
+                "type": "text",
+                "chat_id": "5492254423359@s.whatsapp.net",
+                "timestamp": 1750382754,
+                "source": "api",
+                "device_id": 35,
+                "chat_name": "Fer",
+                "status": "pending",
+                "text": {
+                  "body": "💰 *INFORMACIÓN PARA REALIZAR EL PAGO*\n\n📌 *Deuda pendiente:* USD 200\n💱 *Equivalente en pesos:* $240.000\n_(Cotización: $1200 por USD)_\n\n━━━━━━━━━━━━━━━━━\n\n💵 *OPCIÓN 1: PAGO EN DÓLARES*\n📱 *ALIAS:* fer.cassera.usd\n🏦 *CBU:* 0070368831004001918601\n👤 *Titular:* FERNANDO ARIEL CASSERA\n💰 *MONTO:* USD 200\n\n━━━━━━━━━━━━━━━━━\n\n💱 *OPCIÓN 2: PAGO EN PESOS*\n📱 *ALIAS:* fer.cassera.33\n🏦 *CBU:* 0070368830004030816102\n👤 *Titular:* FERNANDO ARIEL CASSERA\n💰 *MONTO:* $240.000\n\n━━━━━━━━━━━━━━━━━\n\n📸 *IMPORTANTE:* Una vez realizado el pago, envíe el comprobante respondiendo a este mensaje.\n\n✅ Su pago será acreditado en un máximo de 24hs hábiles.\n\n¡Gracias por su pago! 🙏"
                 },
-                "listResponseMessage": {
-                  "title": "🛒 Bot para Despensas",
-                  "listType": "SINGLE_SELECT",
-                  "singleSelectReply": {
-                    "selectedRowId": "bot_despensa"
-                  },
-                  "contextInfo": {
-                    "stanzaId": "3EB0C25219FE1DA70FDEFF55A89F9AA0C26F4B5C",
-                    "participant": "5492254596618@s.whatsapp.net",
-                    "quotedMessage": {
-                      "listMessage": {
-                        "title": "🔹 AUTOMATIZACIONES 🔹",
-                        "description": "Seleccione un área para atención inmediata:",
-                        "buttonText": "Ver áreas 📋",
-                        "listType": "SINGLE_SELECT",
-                        "sections": [
-                          {
-                            "title": "🚨 Urgencias",
-                            "rows": [
-                              {
-                                "title": "⚠️ Problemas técnicos",
-                                "description": "Comunícate con un agente técnico por problemas con tu software",
-                                "rowId": "urgencia-tecnica"
-                              },
-                              {
-                                "title": "💵 Informar pagos",
-                                "description": "Notificar pagos realizados o consultas urgentes de facturación",
-                                "rowId": "urgencia-pagos"
-                              }
-                            ]
-                          },
-                          {
-                            "title": "👩‍💻 Soporte Técnico",
-                            "rows": [
-                              {
-                                "title": "🔌 Integraciones",
-                                "description": "Ayuda con reconexion de Whatsapp ",
-                                "rowId": "agente-integraciones"
-                              }
-                            ]
-                          },
-                          {
-                            "title": "📅 Agendar una cita",
-                            "rows": [
-                              {
-                                "title": "🗓️ Solicitar una reunión",
-                                "description": "Coordiná una cita con nuestro equipo",
-                                "rowId": "cita-solicitar"
-                              }
-                            ]
-                          },
-                          {
-                            "title": "Nuestros agentes, ¡solicitá tu demo! 🚀",
-                            "rows": [
-                              {
-                                "title": "🏡 Bot Inmobiliario",
-                                "description": "Gestioná alquileres, ventas y consultas",
-                                "rowId": "bot_inmobiliario"
-                              },
-                              {
-                                "title": "🛒 Bot para Despensas",
-                                "description": "Automatizá pedidos y atención de tu tienda",
-                                "rowId": "bot_despensa"
-                              },
-                              {
-                                "title": "🛵 Bot de Delivery",
-                                "description": "Tomá pedidos y gestioná envíos en WhatsApp",
-                                "rowId": "bot_delivery"
-                              },
-                              {
-                                "title": "📅 Agendador de Citas",
-                                "description": "Organizá turnos con recordatorios automáticos",
-                                "rowId": "bot_agendador"
-                              }
-                            ]
-                          }
-                        ],
-                        "footerText": "💼 Expertos en automatización WhatsApp"
-                      }
-                    }
-                  },
-                  "description": "Automatizá pedidos y atención de tu tienda"
-                }
-              },
-              "contextInfo": {
-                "stanzaId": "3EB0C25219FE1DA70FDEFF55A89F9AA0C26F4B5C",
-                "participant": "5492254596618@s.whatsapp.net",
-                "quotedMessage": {
-                  "listMessage": {
-                    "title": "🔹 AUTOMATIZACIONES 🔹",
-                    "description": "Seleccione un área para atención inmediata:",
-                    "buttonText": "Ver áreas 📋",
-                    "listType": "SINGLE_SELECT",
-                    "sections": [
-                      {
-                        "title": "🚨 Urgencias",
-                        "rows": [
-                          {
-                            "title": "⚠️ Problemas técnicos",
-                            "description": "Comunícate con un agente técnico por problemas con tu software",
-                            "rowId": "urgencia-tecnica"
-                          },
-                          {
-                            "title": "💵 Informar pagos",
-                            "description": "Notificar pagos realizados o consultas urgentes de facturación",
-                            "rowId": "urgencia-pagos"
-                          }
-                        ]
-                      },
-                      {
-                        "title": "👩‍💻 Soporte Técnico",
-                        "rows": [
-                          {
-                            "title": "🔌 Integraciones",
-                            "description": "Ayuda con reconexion de Whatsapp ",
-                            "rowId": "agente-integraciones"
-                          }
-                        ]
-                      },
-                      {
-                        "title": "📅 Agendar una cita",
-                        "rows": [
-                          {
-                            "title": "🗓️ Solicitar una reunión",
-                            "description": "Coordiná una cita con nuestro equipo",
-                            "rowId": "cita-solicitar"
-                          }
-                        ]
-                      },
-                      {
-                        "title": "Nuestros agentes, ¡solicitá tu demo! 🚀",
-                        "rows": [
-                          {
-                            "title": "🏡 Bot Inmobiliario",
-                            "description": "Gestioná alquileres, ventas y consultas",
-                            "rowId": "bot_inmobiliario"
-                          },
-                          {
-                            "title": "🛒 Bot para Despensas",
-                            "description": "Automatizá pedidos y atención de tu tienda",
-                            "rowId": "bot_despensa"
-                          },
-                          {
-                            "title": "🛵 Bot de Delivery",
-                            "description": "Tomá pedidos y gestioná envíos en WhatsApp",
-                            "rowId": "bot_delivery"
-                          },
-                          {
-                            "title": "📅 Agendador de Citas",
-                            "description": "Organizá turnos con recordatorios automáticos",
-                            "rowId": "bot_agendador"
-                          }
-                        ]
-                      }
-                    ],
-                    "footerText": "💼 Expertos en automatización WhatsApp"
-                  }
-                }
-              },
-              "messageType": "listResponseMessage",
-              "messageTimestamp": 1747789831,
-              "instanceId": "588f50d5-9323-4ec2-a701-6019611508c0",
-              "source": "android"
+                "from": "5492254596618"
+              }
+            ],
+            "event": {
+              "type": "messages",
+              "event": "post"
             },
-            "destination": "https://n8n.innovasoftpro.dev/webhook/qeva",
-            "date_time": "2025-05-20T22:10:31.851Z",
-            "sender": "5492254596618@s.whatsapp.net",
-            "server_url": "https://evo.innovasoftpro.dev",
-            "apikey": "3463F236FF41-417E-8F0A-7F1D0F575FF9"
+            "channel_id": "DRSTRG-R2GAJ"
           },
-          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/qeva",
+          "webhookUrl": "https://n8n.innovasoftpro.dev/webhook/solutions",
           "executionMode": "production"
         }
       }
@@ -3951,6 +3915,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-05-22T20:52:51.824Z",
-  "versionId": "66e96bfc-706c-4a0d-b27b-cf83fe155be1"
+  "updatedAt": "2025-06-20T02:20:02.482Z",
+  "versionId": "7351d90d-86f6-459a-9e21-386e19c2dc4e"
 }
