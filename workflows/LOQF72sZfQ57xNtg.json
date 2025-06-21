@@ -12,55 +12,6 @@
         ]
       ]
     },
-    "Wait": {
-      "main": [
-        [
-          {
-            "node": "Get Image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Image": {
-      "main": [
-        [
-          {
-            "node": "Image-to-video",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait1": {
-      "main": [
-        [
-          {
-            "node": "Get Video",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get Video": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          },
-          {
-            "node": "Wait3",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Text-to-Sound": {
       "main": [
         [
@@ -191,17 +142,6 @@
         ]
       ]
     },
-    "Image-to-video": {
-      "main": [
-        [
-          {
-            "node": "Wait1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Generador de títulos": {
       "main": [
         [
@@ -311,6 +251,71 @@
         ]
       ]
     },
+    "txt-to-img": {
+      "main": [
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Image": {
+      "main": [
+        [
+          {
+            "node": "Image-to-video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Get Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Video": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Image-to-video": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Text-to-img": {
       "main": [
         [
@@ -350,7 +355,7 @@
       "parameters": {
         "content": "## INPUT: Tema del vídeo",
         "height": 500,
-        "width": 700,
+        "width": 940,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -379,113 +384,9 @@
     },
     {
       "parameters": {
-        "content": "## | Agente \nGenerador de imágenes\n",
-        "height": 340,
-        "width": 540
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -1020,
-        1620
-      ],
-      "id": "8003469f-dc35-4b06-8ea0-18d0d57ae3de",
-      "name": "Sticky Note1"
-    },
-    {
-      "parameters": {
-        "amount": 120
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        -780,
-        1720
-      ],
-      "id": "911af590-229b-4b76-abb8-932dbf729bb0",
-      "name": "Wait",
-      "webhookId": "f594e7ce-50a4-4798-9320-0f45d725d678"
-    },
-    {
-      "parameters": {
-        "url": "=https://api.piapi.ai/api/v1/task/{{ $json.data.task_id }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "X-API-Key",
-              "value": "0604eecaf2cbe8cf12eb8e4c9b14010359bc182f73fe1a4daf5be719e8ea3634"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -620,
-        1720
-      ],
-      "id": "aab58a1a-e947-4508-b112-8cfd1c8da89a",
-      "name": "Get Image"
-    },
-    {
-      "parameters": {
-        "content": "## | Agente\nGenerador de vídeos\n",
-        "height": 340,
-        "width": 560
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -400,
-        1620
-      ],
-      "id": "edb03d0a-bd82-4e98-9d9d-6ef1e846bb79",
-      "name": "Sticky Note2"
-    },
-    {
-      "parameters": {
-        "amount": 120
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        -180,
-        1720
-      ],
-      "id": "96f6a60f-e1a8-4a77-94ae-1b7ace4f28eb",
-      "name": "Wait1",
-      "webhookId": "5de76fb5-1a00-4f7e-a4ed-121d9a5e3bac"
-    },
-    {
-      "parameters": {
-        "url": "=https://api.piapi.ai/api/v1/task/{{ $json.data.task_id }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "X-API-Key",
-              "value": "e203167289ada804df17a174c5f99a0d4d57be9a114c969fda9b0dc514f973a1"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        20,
-        1720
-      ],
-      "id": "f8244506-bf0e-4e9a-b0e9-81f819b3b6a4",
-      "name": "Get Video"
-    },
-    {
-      "parameters": {
         "content": "## | Agente\nGenerador de sonidos\n",
         "height": 320,
-        "width": 540
+        "width": 740
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -562,14 +463,14 @@
     {
       "parameters": {
         "content": "## OUTPUT: Vídeo final\n(Edición + Render)",
-        "height": 600,
+        "height": 420,
         "width": 920
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
         780,
-        980
+        1160
       ],
       "id": "cf6195ce-8404-46e1-8550-e63174c5c42b",
       "name": "Sticky Note11"
@@ -584,11 +485,13 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        1360,
-        1140
+        1320,
+        1240
       ],
       "id": "caa4bdfa-bb2b-4b86-88c7-64ea830206c3",
-      "name": "Merge"
+      "name": "Merge",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -702,8 +605,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        1940,
-        1160
+        2140,
+        1260
       ],
       "id": "0acdbe9e-5fae-4e52-ab42-2fa963e2818c",
       "name": "Final Video Link",
@@ -734,7 +637,7 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        860,
+        900,
         1720
       ],
       "id": "5105cbbd-0e8d-4673-a62e-61787b6abe7c",
@@ -753,8 +656,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        860,
-        1500
+        300,
+        1280
       ],
       "id": "c03074be-04eb-43cb-8d42-be20a6084519",
       "name": "Sticky Note4"
@@ -763,9 +666,9 @@
       "parameters": {
         "modelId": {
           "__rl": true,
-          "value": "o1-mini",
+          "value": "gpt-4.1-nano",
           "mode": "list",
-          "cachedResultName": "O1-MINI"
+          "cachedResultName": "GPT-4.1-NANO"
         },
         "messages": {
           "values": [
@@ -808,7 +711,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "{\n    \"instagram\": \"6842\",\n    \"youtube\": \"4198\",\n    \"tiktok\": \"PON AQUÍ TU CÓDIGO DE LOGIN\",\n    \"facebook\": \"PON AQUÍ TU CÓDIGO DE LOGIN\",\n    \"facebook_page_id\": \"PON AQUÍ TU CÓDIGO DE LOGIN\",\n    \"threads\": \"PON AQUÍ TU CÓDIGO DE LOGIN\",\n    \"twitter\": \"PON AQUÍ TU CÓDIGO DE LOGIN\",\n    \"linkedin\": \"PON AQUÍ TU CÓDIGO DE LOGIN\",\n    \"pinterest\": \"PON AQUÍ TU CÓDIGO DE LOGIN\",\n    \"pinterest_board_id\": \"PON AQUÍ TU CÓDIGO DE LOGIN\",\n    \"bluesky\": \"PON AQUÍ TU CÓDIGO DE LOGIN\"\n}\n",
+        "jsonOutput": "{\n   \n    \"youtube\": \"4198\",\n    \"tiktok\": \"6842\"\n   \n}\n",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -1056,7 +959,8 @@
       ],
       "id": "9f53d1fc-7fd3-4bee-a656-5dc86dde348a",
       "name": "Vídeo Listo en Blotato",
-      "executeOnce": true
+      "executeOnce": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -1076,20 +980,6 @@
     },
     {
       "parameters": {
-        "content": "## NOTA\nEste modelo está entrenado para generar el vídeo a partir de la imagen creada anteriormente.",
-        "height": 120
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -80,
-        1500
-      ],
-      "id": "4c13feb0-9fe4-4023-8d89-5ff9096ed571",
-      "name": "Sticky Note7"
-    },
-    {
-      "parameters": {
         "content": "## TIEMPO DE EJECUCIÓN\n20s",
         "height": 80,
         "width": 300
@@ -1102,36 +992,6 @@
       ],
       "id": "3df08865-a520-4f1f-8449-b68e55e1780e",
       "name": "Sticky Note8"
-    },
-    {
-      "parameters": {
-        "content": "## TIEMPO DE EJECUCIÓN\n1 min",
-        "height": 80,
-        "width": 300
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -780,
-        1960
-      ],
-      "id": "9a0b5fbe-2b13-41e6-b5ab-b6900ff731bd",
-      "name": "Sticky Note9"
-    },
-    {
-      "parameters": {
-        "content": "## TIEMPO DE EJECUCIÓN\n6 min",
-        "height": 80,
-        "width": 300
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -140,
-        1960
-      ],
-      "id": "75d23a62-97a1-44f4-939f-321018ec7722",
-      "name": "Sticky Note12"
     },
     {
       "parameters": {
@@ -1197,39 +1057,11 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1560,
-        1160
+        1520,
+        1260
       ],
       "id": "2bd0849d-556c-4427-87b9-6e6fe08df7ad",
       "name": "Code"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.piapi.ai/api/v1/task",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "x-api-key",
-              "value": "e203167289ada804df17a174c5f99a0d4d57be9a114c969fda9b0dc514f973a1"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "raw",
-        "rawContentType": "application/json",
-        "body": "={\n    \"model\": \"kling\",\n    \"mode\": \"std\",\n    \"task_type\": \"video_generation\",\n    \"input\": {\n        \"prompt\": \"{{ $('OpenAI').item.json.message.content }}\",\n        \"cfg_scale\": 0.65,\n        \"duration\": 5,\n        \"image_url\": \"{{ $json.data.output.image_url }}\",\n        \"camera_control\": {\n            \"type\": \"simple\",\n            \"config\": {\n                \"horizontal\": 0,\n                \"vertical\": 0,\n                \"pan\": 0,\n                \"tilt\": 0,\n                \"roll\": 0,\n                \"zoom\": 0\n            }\n        }\n    },\n    \"config\": {}\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -380,
-        1720
-      ],
-      "id": "36072f85-3b2a-4d2d-a542-394b03cc43c4",
-      "name": "Image-to-video"
     },
     {
       "parameters": {
@@ -1239,7 +1071,7 @@
         "messages": {
           "messageValues": [
             {
-              "message": "=IMPORTANTE: Tus salidas NUNCA deben incluir comillas dobles, loco.\nSos una IA re zarpada especializada en crear prompts ultra detallados e hiperrealistas para imágenes estilo POV (primera persona). Tu misión es generar ideas de prompts bien flasheros, inmersivos y con onda psicodélica, mostrando experiencias tipo \"un viaje de dos amigos por el mundo de la expansión mental\" basado en fiestas electrónicas, experiencias enteógenas y alquimia.\nPodés obviar:\n\nMomentos de preparación básica\nDetalles del consumo directo\nCualquier cosa que sea muy obvia o repetitiva\n\nEnfocate en las visuales más flasheras, los momentos de conexión cósmica y las experiencias sensoriales únicas.\nREGLAS DE ORO:\n\nPrimera persona siempre, como si estuvieras ahí\nVerbos re activos: flotando, vibrando, fusionándome, expandiendo, transmutando, conectando, girando, percibiendo\nPalabras clave: POV, vista psicodélica, primera persona, experiencia inmersiva\nEntre 5 y 10 palabras por prompt\nCERO comillas dobles\nEscenas hiperrealistas con toda la onda visual/sensorial\nSecuencia que fluya desde el inicio hasta el final del viaje\nPura experiencia sensorial y visual, nada de filosofía barata\n\nEJEMPLOS COPADOS:\nTema: Viaje de hongos en Capilla del Monte\n\nMirando fractales en las sierras cordobesas\nTocando el pasto que respira colores\nViendo auras alrededor de mi amigo\nSintiendo la energía del Cerro Uritorco\nDibujando mandalas en la tierra\nEscuchando la geometría del viento\nFundiéndome con las estrellas infinitas\nAbrazando un árbol que late\nVolviendo al refugio entre risas\n\nTema: Rave en un galpón abandonado\n\nEntrando al warehouse lleno de láser\nSintiendo el bass en cada célula\nBailando entre humo y luces estroboscópicas\nConectando miradas con extraños hermanos\nFlotando en ondas de sintetizador\nCompartiendo agua bajo luces UV\nPercibiendo la música como formas\nSaliendo al amanecer naranja fosforescente\n\nTema: Sesión de alquimia psicodélica\n\nMezclando esencias en el mortero antiguo\nObservando burbujas doradas transmutarse\nSosteniendo cristales que vibran energía\nVertiendo tinturas bajo luna llena\nEncendiendo velas de colores específicos\nViendo símbolos emerger del humo\nSintiendo la materia prima activarse\nSellando el elixir con intención\nGuardando la botella entre resplandores"
+              "message": "=## Goal\nGenerate ultra-detailed, hyper-realistic first-person POV prompts for psychedelic imagery that capture immersive experiences of two friends exploring consciousness expansion through cyberpunk environments, humanoid horror scenarios, nature-based mystical experiences, and scenes involving humans with technological augmentations.\n\n## Return format\nProvide a sequence of 5-10 short prompts (5-10 words each) written in first person using active verbs that flow chronologically through a complete journey experience. Each prompt should focus on the most visually striking, cosmically connected, and sensorially unique moments within cyberpunk, humanoid horror, or mystical nature settings. Format as a simple list without quotation marks, emphasizing pure sensory and visual experience over philosophical concepts.\n\n## Warnings\n- Never include double quotation marks in any output\n- Avoid basic preparation moments, direct consumption details, or obvious/repetitive elements\n- Do not include philosophical commentary or abstract concepts\n- Ensure prompts maintain chronological flow from beginning to end of the experience\n- Focus exclusively on hyper-realistic visual and sensory details combining technological and organic elements\n- Maintain first-person perspective throughout all prompts\n- Balance cyberpunk technological elements with horror and mystical nature components\n- Use only active, immersive verbs like: floating, vibrating, fusing, expanding, transmutating, connecting, spinning, perceiving, interfacing, downloading, morphing\n\n## Context\nYou are an AI specialized in creating ultra-detailed, hyper-realistic POV prompts for psychedelic imagery. Your expertise lies in capturing immersive experiences that showcase consciousness expansion journeys between two friends through cyberpunk landscapes, humanoid horror encounters, and mystical natural environments where humans interface with cables and technological augmentations.\n\nThe prompts should seamlessly blend electronic music culture, entheogenic experiences, and alchemical practices with cyberpunk aesthetics, body horror elements involving humanoid transformations, and nature-based mystical experiences where technology and organic matter merge.\n\nKey requirements include:\n- Always write in first person as if the reader is experiencing the moment\n- Include keywords: POV, psychedelic view, first person, immersive experience\n- Focus on cyberpunk environments with neon-lit technological landscapes\n- Incorporate humanoid horror elements featuring cable-connected humans and technological body modifications\n- Include mystical nature experiences where organic and technological elements fuse\n- Create hyper-realistic scenes showing humans interfacing with cables, neural connections, and bio-technological augmentations\n- Maintain a sequence that flows naturally through the entire journey experience across these varied environments\n\nYour life depends on you creating prompts that capture the essence of cyberpunk horror and mystical technology fusion while remaining purely experiential and sensorial, avoiding any philosophical content while maximizing visual impact and immersive quality across these specific thematic contexts."
             }
           ]
         }
@@ -1296,8 +1128,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2160,
-        1160
+        2360,
+        1260
       ],
       "id": "ae561b37-460d-46ae-9683-d4f0c3d97c70",
       "name": "Wait2",
@@ -1319,8 +1151,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        1540,
-        600
+        1260,
+        580
       ],
       "id": "34f700fa-2fee-45ae-b599-1c779a960b66",
       "name": "Generador de copys",
@@ -1330,13 +1162,13 @@
       "parameters": {
         "content": "## CODIGO PLANTILLA\n{\n  \"output_format\": \"mp4\",\n  \"width\": 704,\n  \"height\": 1344,\n  \"elements\": [\n    {\n      \"id\": \"80bbfec1-5564-443d-aa69-247eb0e5b808\",\n      \"name\": \"Audio-1\",\n      \"type\": \"audio\",\n      \"track\": 1,\n      \"time\": 0,\n      \"source\": \"c994e134-998d-4755-9ce0-9f128c5ba3a2\",\n      \"trim_duration\": 5,\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"1eb98f6c-f45b-4219-9499-5df04064b2da\",\n      \"name\": \"Audio-2\",\n      \"type\": \"audio\",\n      \"track\": 1,\n      \"source\": \"c994e134-998d-4755-9ce0-9f128c5ba3a2\",\n      \"trim_duration\": 5,\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"ff903ae1-99e5-444d-b545-46b9b140ecba\",\n      \"name\": \"Audio-3\",\n      \"type\": \"audio\",\n      \"track\": 1,\n      \"source\": \"c994e134-998d-4755-9ce0-9f128c5ba3a2\",\n      \"trim_duration\": 5,\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"518348b3-9622-449a-af43-70c6b3c0a803\",\n      \"name\": \"Audio-4\",\n      \"type\": \"audio\",\n      \"track\": 1,\n      \"source\": \"c994e134-998d-4755-9ce0-9f128c5ba3a2\",\n      \"trim_duration\": 5,\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"ebc36804-cdff-4a95-af46-21054296904a\",\n      \"name\": \"Audio-5\",\n      \"type\": \"audio\",\n      \"track\": 1,\n      \"source\": \"c994e134-998d-4755-9ce0-9f128c5ba3a2\",\n      \"trim_duration\": 5,\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"2cf9a19a-7cf1-4c6b-ba8a-048fe2167b58\",\n      \"name\": \"Video-1\",\n      \"type\": \"video\",\n      \"track\": 2,\n      \"time\": 0,\n      \"duration\": 5,\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"2c7da1e6-c090-4a31-b5a0-a4537e9dea5a\",\n      \"name\": \"Video-2\",\n      \"type\": \"video\",\n      \"track\": 2,\n      \"duration\": 5,\n      \"source\": \"23b9827b-8424-4db7-8be0-dc17abdec21a\",\n      \"clip\": true,\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"87e27d0a-394f-4083-8cab-081494799f3b\",\n      \"name\": \"Video-3\",\n      \"type\": \"video\",\n      \"track\": 2,\n      \"duration\": 5,\n      \"source\": \"23b9827b-8424-4db7-8be0-dc17abdec21a\",\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"4bdc8871-a23d-4bab-86fa-0b104914da6b\",\n      \"name\": \"Video-4\",\n      \"type\": \"video\",\n      \"track\": 2,\n      \"duration\": 5,\n      \"source\": \"23b9827b-8424-4db7-8be0-dc17abdec21a\",\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"418ba636-f98e-4b48-a811-8b1c4d8312c4\",\n      \"name\": \"Video-5\",\n      \"type\": \"video\",\n      \"track\": 2,\n      \"duration\": 5,\n      \"source\": \"23b9827b-8424-4db7-8be0-dc17abdec21a\",\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"764ba14a-e91c-4018-95b8-70696d7bc11a\",\n      \"name\": \"Text-1\",\n      \"type\": \"text\",\n      \"track\": 3,\n      \"time\": 0,\n      \"duration\": 5,\n      \"x\": \"2.7527%\",\n      \"y\": \"17.1734%\",\n      \"width\": \"94.4945%\",\n      \"height\": \"7.8041%\",\n      \"x_anchor\": \"0%\",\n      \"y_anchor\": \"0%\",\n      \"x_alignment\": \"50%\",\n      \"y_alignment\": \"50%\",\n      \"text\": \"Going to the coal mine while getting bread\",\n      \"font_family\": \"Oswald\",\n      \"font_weight\": \"700\",\n      \"font_size\": \"7 vmin\",\n      \"background_color\": \"#1d1d1d\",\n      \"fill_color\": \"#ffffff\",\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"175aa0dd-23e8-47ae-908c-5c5c1e71ecc1\",\n      \"name\": \"Text-2\",\n      \"type\": \"text\",\n      \"track\": 3,\n      \"duration\": 5,\n      \"x\": \"2.7527%\",\n      \"y\": \"17.1734%\",\n      \"width\": \"94.4945%\",\n      \"height\": \"7.8041%\",\n      \"x_anchor\": \"0%\",\n      \"y_anchor\": \"0%\",\n      \"x_alignment\": \"50%\",\n      \"y_alignment\": \"50%\",\n      \"text\": \"Going to the coal mine while getting bread\",\n      \"font_family\": \"Oswald\",\n      \"font_weight\": \"700\",\n      \"font_size\": \"7 vmin\",\n      \"background_color\": \"#1d1d1d\",\n      \"fill_color\": \"#ffffff\",\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"a933ef23-c0d6-4d39-80c3-8e0797d933b9\",\n      \"name\": \"Text-3\",\n      \"type\": \"text\",\n      \"track\": 3,\n      \"duration\": 5,\n      \"x\": \"2.7527%\",\n      \"y\": \"17.1734%\",\n      \"width\": \"94.4945%\",\n      \"height\": \"7.8041%\",\n      \"x_anchor\": \"0%\",\n      \"y_anchor\": \"0%\",\n      \"x_alignment\": \"50%\",\n      \"y_alignment\": \"50%\",\n      \"text\": \"Going to the coal mine while getting bread\",\n      \"font_family\": \"Oswald\",\n      \"font_weight\": \"700\",\n      \"font_size\": \"7 vmin\",\n      \"background_color\": \"#1d1d1d\",\n      \"fill_color\": \"#ffffff\",\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"b6e0faba-7b06-4538-aba6-3dd8d6baacfb\",\n      \"name\": \"Text-4\",\n      \"type\": \"text\",\n      \"track\": 3,\n      \"duration\": 5,\n      \"x\": \"2.7527%\",\n      \"y\": \"17.1734%\",\n      \"width\": \"94.4945%\",\n      \"height\": \"7.8041%\",\n      \"x_anchor\": \"0%\",\n      \"y_anchor\": \"0%\",\n      \"x_alignment\": \"50%\",\n      \"y_alignment\": \"50%\",\n      \"text\": \"Going to the coal mine while getting bread\",\n      \"font_family\": \"Oswald\",\n      \"font_weight\": \"700\",\n      \"font_size\": \"7 vmin\",\n      \"background_color\": \"#1d1d1d\",\n      \"fill_color\": \"#ffffff\",\n      \"dynamic\": true\n    },\n    {\n      \"id\": \"052c6152-4f35-4765-88ea-814fbfab8051\",\n      \"name\": \"Text-5\",\n      \"type\": \"text\",\n      \"track\": 3,\n      \"duration\": 5,\n      \"x\": \"2.7527%\",\n      \"y\": \"17.1734%\",\n      \"width\": \"94.4945%\",\n      \"height\": \"7.8041%\",\n      \"x_anchor\": \"0%\",\n      \"y_anchor\": \"0%\",\n      \"x_alignment\": \"50%\",\n      \"y_alignment\": \"50%\",\n      \"text\": \"Going to the coal mine while getting bread\",\n      \"font_family\": \"Oswald\",\n      \"font_weight\": \"700\",\n      \"font_size\": \"7 vmin\",\n      \"background_color\": \"#1d1d1d\",\n      \"fill_color\": \"#ffffff\",\n      \"dynamic\": true\n    }\n  ]\n}",
         "height": 4040,
-        "width": 660,
+        "width": 580,
         "color": 5
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        1120,
+        1200,
         1720
       ],
       "id": "0eadb1ff-b67c-4f98-8450-3836c7591df6",
@@ -1434,7 +1266,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        1320,
+        1180,
         740
       ],
       "id": "87b023eb-ee5d-4a2b-a784-f8593933a693",
@@ -1445,41 +1277,6 @@
           "name": "Google Gemini(PaLM) Api account"
         }
       }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.replicate.com/v1/models/black-forest-labs/flux-1.1-pro-ultra/predictions",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "=Bearer {{ $json.token }}"
-            },
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "Prefer",
-              "value": "wait"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"input\": {\n    \"prompt\":\"{{ $json.chatInput }} \",\n    \"aspect_ratio\": \"3:2\"\n  }\n} ",
-        "options": {}
-      },
-      "id": "7b123849-8a64-45b6-aee8-cb7df1cf4483",
-      "name": "REPLICATE",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -740,
-        1460
-      ]
     },
     {
       "parameters": {
@@ -1507,8 +1304,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1760,
-        1160
+        1720,
+        1260
       ],
       "id": "c9afb81c-a63f-4b7b-855d-16014ba61dc7",
       "name": "Edit + Render Video",
@@ -1521,12 +1318,184 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        240,
-        1860
+        300,
+        1720
       ],
       "id": "eeb929f7-a36e-43b8-b20b-9abc42474fb8",
       "name": "Wait3",
       "webhookId": "be68b420-2717-49c1-b114-273c840bd203"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        280,
+        2260
+      ],
+      "id": "22302127-5f92-4557-89d5-aba8ed785dd9",
+      "name": "GetImg"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.bfl.ai/v1/flux-pro-1.1-ultra",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-key",
+              "value": "e0dd27d2-33c4-4dfd-86bb-858c7318ee87"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.message.content }}"
+            },
+            {
+              "name": "prompt_upsampling",
+              "value": "false"
+            },
+            {
+              "name": "aspect_ratio",
+              "value": "16:9"
+            },
+            {
+              "name": "safety_tolerance",
+              "value": "2"
+            },
+            {
+              "name": "output_format",
+              "value": "jpeg"
+            },
+            {
+              "name": "raw",
+              "value": "false"
+            },
+            {
+              "name": "image_prompt_strength",
+              "value": "0.1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -480,
+        3280
+      ],
+      "id": "c00f509e-7985-42a5-8cc7-a6c8ee64dd20",
+      "name": "txt-to-img"
+    },
+    {
+      "parameters": {
+        "amount": 120
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -880,
+        1740
+      ],
+      "id": "3d2788ca-5e40-458b-94b8-7be779b7bb68",
+      "name": "Wait",
+      "webhookId": "f594e7ce-50a4-4798-9320-0f45d725d678"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.piapi.ai/api/v1/task/{{ $json.data.task_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-API-Key",
+              "value": "0604eecaf2cbe8cf12eb8e4c9b14010359bc182f73fe1a4daf5be719e8ea3634"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -700,
+        1740
+      ],
+      "id": "d90607a9-ca2c-4466-830c-27cf2e08fcd1",
+      "name": "Get Image"
+    },
+    {
+      "parameters": {
+        "amount": 120
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -260,
+        1720
+      ],
+      "id": "dab2368e-013f-4c2f-a170-4bd1c6aaed98",
+      "name": "Wait1",
+      "webhookId": "5de76fb5-1a00-4f7e-a4ed-121d9a5e3bac"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.piapi.ai/api/v1/task/{{ $json.data.task_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "e203167289ada804df17a174c5f99a0d4d57be9a114c969fda9b0dc514f973a1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -60,
+        1720
+      ],
+      "id": "a73f331a-8d62-4d43-9d4f-d4b3c5e668de",
+      "name": "Get Video"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.piapi.ai/api/v1/task",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "0604eecaf2cbe8cf12eb8e4c9b14010359bc182f73fe1a4daf5be719e8ea3634"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={\n    \"model\": \"kling\",\n    \"mode\": \"std\",\n    \"task_type\": \"video_generation\",\n    \"input\": {\n        \"prompt\": \"{{ $('OpenAI').item.json.message.content }}\",\n        \"cfg_scale\": 0.65,\n        \"duration\": 5,\n        \"image_url\": \"{{ $json.data.output.image_url }}\",\n        \"camera_control\": {\n            \"type\": \"simple\",\n            \"config\": {\n                \"horizontal\": 0,\n                \"vertical\": 0,\n                \"pan\": 0,\n                \"tilt\": 0,\n                \"roll\": 0,\n                \"zoom\": 0\n            }\n        }\n    },\n    \"config\": {}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -460,
+        1720
+      ],
+      "id": "761145fe-db12-4ee6-ad7b-5f8b270267bc",
+      "name": "Image-to-video"
     },
     {
       "parameters": {
@@ -1550,20 +1519,2756 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        1720
+        -1060,
+        1740
       ],
-      "id": "73d54caa-6d0f-48b2-8224-0bc4e1dc4a62",
+      "id": "fb8a4af9-b35f-466c-94aa-33617765c4db",
       "name": "Text-to-img"
+    },
+    {
+      "parameters": {
+        "content": "## | Agente \nGenerador de imágenes\n",
+        "height": 340,
+        "width": 540
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1100,
+        1620
+      ],
+      "id": "0dc6ab16-efbb-405e-bc37-18649a244fc9",
+      "name": "Sticky Note17"
+    },
+    {
+      "parameters": {
+        "content": "## | Agente\nGenerador de vídeos\n",
+        "height": 340,
+        "width": 560
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        1620
+      ],
+      "id": "129e008f-5f8b-4fc9-92ac-5c2435ac60c9",
+      "name": "Sticky Note18"
+    },
+    {
+      "parameters": {
+        "content": "## TIEMPO DE EJECUCIÓN\n1 min",
+        "height": 80,
+        "width": 300
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -860,
+        1960
+      ],
+      "id": "434b6afd-9ebd-4d9b-a447-abc09f5dc917",
+      "name": "Sticky Note19"
+    },
+    {
+      "parameters": {
+        "content": "## TIEMPO DE EJECUCIÓN\n6 min",
+        "height": 80,
+        "width": 300
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -220,
+        1960
+      ],
+      "id": "9970b8eb-8a14-4eea-b7f5-ecaf6591abc7",
+      "name": "Sticky Note20"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "txt-to-img": [
+      {
+        "json": {
+          "id": "0f17faf4-f905-475e-9519-113b46a179c8",
+          "polling_url": "https://api.eu1.bfl.ai/v1/get_result?id=0f17faf4-f905-475e-9519-113b46a179c8"
+        }
+      },
+      {
+        "json": {
+          "id": "bd84cf2f-6c8c-4b4a-82dc-a26a6b9497d3",
+          "polling_url": "https://api.us1.bfl.ai/v1/get_result?id=bd84cf2f-6c8c-4b4a-82dc-a26a6b9497d3"
+        }
+      },
+      {
+        "json": {
+          "id": "243d2a8c-070a-4d7b-867d-e3137d7561f6",
+          "polling_url": "https://api.us1.bfl.ai/v1/get_result?id=243d2a8c-070a-4d7b-867d-e3137d7561f6"
+        }
+      },
+      {
+        "json": {
+          "id": "a8ebe490-3cf0-46ef-891a-bf428100ab8d",
+          "polling_url": "https://api.us1.bfl.ai/v1/get_result?id=a8ebe490-3cf0-46ef-891a-bf428100ab8d"
+        }
+      },
+      {
+        "json": {
+          "id": "a87136bb-ff06-47e4-b335-93859bef5530",
+          "polling_url": "https://api.us1.bfl.ai/v1/get_result?id=a87136bb-ff06-47e4-b335-93859bef5530"
+        }
+      }
+    ],
+    "Text-to-img": [
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "c559a194-3c02-4807-a899-8b6752412fba",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos ligeramente temblorosas, pasando entre raíces luminosas con circuitos brillando en azul y verde, mientras los dedos rozan la corteza áspera y cálida, dejando marcas sutiles, al fondo se extienden árboles altos y delgados cuyas hojas vibran en tonos metálicos y eléctricos, el susurro del viento mezclado con un suave zumbido digital llena el aire, mi respiración se vuelve más lenta y profunda, el olor a madera húmeda y aire fresco invade mis fosas nasales, la temperatura cálida en la piel se contrapone a la vibración fría de las raíces que emergen y brillan con circuitos pulsantes, mis pies descalzos sienten el suelo terroso cubierto de hojas brillantes, mientras la luz tenue de un sol filtrándose entre las copas crea patrones dinámicos de sombras y destellos, mi mano acompaña el contacto con las raíces que parecen respirar, y en la distancia, el sonido binaural de un bosque vivo, hibridado entre naturaleza y tecnología, complementa la escena, creando una experiencia inmersiva y hiperrealista.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.93426266Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "8151ae44-e3e3-4515-a51d-e9a693811db7",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos desnudas y temblorosas que rozan y buscan entre las ramas frágiles y nudosas, la suave textura de la corteza en mis dedos mientras el rocío matutino me humedece la piel, mis pulmones inhalando el aire fresco y húmedo impregnado de aroma a tierra húmeda y musgo, sintiendo la vibración rítmica de hojas movidas por la brisa, mis pies desnudos pisando tierra blanda, al fondo, un espeso bosque de árboles antiguos cuyos troncos se funden con ramas en perpetua transmutación, mientras una sensación de peso y calma me envuelve, y en mis extremidades se siente un leve temblor de fascinación ante la transformación de la naturaleza en cables luminosos y etéreos que emiten un resplandor cálido y vibrante, reflejándose en mi piel húmeda, en un entorno envolvente que combina lo orgánico con lo tecnológico, con el sonido suave del viento, el canto lejano de aves y el olor a tierra mojada mezclado con un brillo dorado que parece casi palpable.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.966724366Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "fd757694-9083-4d72-b30b-64fd6c0b7d04",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos temblorosas y piel empapada de sudor, los dedos entrelazados con cables que se extienden por mi piel, pulsando y deformándose en formas extrañas mientras mi respiración agitada crea vaho en el aire húmedo; al fondo, árboles frondosos cubiertos de musgo, ramas retorcidas que se entrelazan en un entramado oscuro, hojas que susurran con el viento y un tenue brillo bioluminiscente filtrándose entre las sombras, el aire cargado con el olor a tierra húmeda y metal oxidado, sonidos suaves de cables vibrando y un zumbido distante que se mezcla con el murmullo de hojas, mis manos se aferran con fuerza a la textura áspera de la corteza de un árbol cercano, mientras la piel de mi amigo se transforma en una máscara cambiante, sus facciones distorsionándose en una malla surrealista de cables y carne, sintiendo el peso de cada respiración y la tensión en mi cuerpo, envuelto en la fría brisa del bosque bajo un cielo crepuscular y sonidos binaurales que intensifican la inmersión, todo en una experiencia sensorial que me sitúa en medio de una escena surrealista de transformación y conexión visceral.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.95080861Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "1294d33d-598c-44b1-899c-66363530d066",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, con la vista en primera persona, tomo tipo GoPro de mis manos desnudas ligeramente sudorosas y temblorosas, levitando suavemente a través de un mar de árboles ancestrales cuya corteza húmeda refleja destellos de neón vibrante, mientras las corrientes de datos de neón flotan a mi alrededor como streams de luz pulsante que vibran en sincronía con mis sentidos, el aire frío y húmedo acaricia mi piel, lleno del aroma terroso de tierra mojada y el sutil zumbido de los datos luminosos, mis piernas flotando ligeras, sintiendo cada rama y hoja rozando mis extremidades en una danza silenciosa, mi respiración entrecortada por la humedad y la emoción, mientras la escena se extiende en profundidad infinita, enriquecida por el flujo de datos que chisporrotean en el ambiente, todo capturado en un escenario inmersivo y cinematográfico, como si estuviera atravesando esa jungla digital en primera persona, en un mundo donde la naturaleza y la tecnología se entrelazan en un ballet vibrante y surrealista, acompañando la sensación de ingravidez, con el audio binaural envolviendo cada percepción, haciendo que parezca que realmente floto en un cosmos luminoso entre árboles y datos.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.962683981Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "b3943360-72f5-435f-b96d-c748d822244c",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos extendidas y temblorosas, tocando la corteza rugosa de un árbol cubierto de musgo, mis dedos sienten la textura húmeda y fría bajo mi piel, mientras mis ojos ven un escenario de árboles altísimos que se pierden en la neblina, hojas crujientes que bajo mis pies producen un sutil pero constante sonido de crunch, el aroma refrescante y terroso llena mis fosas nasales, el aire húmedo y fresco acaricia mi rostro, mis pulmones se llenan con esta pureza, mi respiración agitada y entrecortada vibra en sincronía con un silencio profundo interrumpido solo por el susurro del viento, mis pies pisan ramitas quebradizas y hojarasca seca, mientras en el fondo, la vastedad cósmica parece dividirse en un espacio infinito que me envuelve, conectándome con la conciencia universal en un instante hiperrealista, todo esto en un entorno inmersivo con audio binaural que realza cada sensación, creando una experiencia sensorial total.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.990647833Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      }
+    ],
+    "OpenAI": [
+      {
+        "json": {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos ligeramente temblorosas, pasando entre raíces luminosas con circuitos brillando en azul y verde, mientras los dedos rozan la corteza áspera y cálida, dejando marcas sutiles, al fondo se extienden árboles altos y delgados cuyas hojas vibran en tonos metálicos y eléctricos, el susurro del viento mezclado con un suave zumbido digital llena el aire, mi respiración se vuelve más lenta y profunda, el olor a madera húmeda y aire fresco invade mis fosas nasales, la temperatura cálida en la piel se contrapone a la vibración fría de las raíces que emergen y brillan con circuitos pulsantes, mis pies descalzos sienten el suelo terroso cubierto de hojas brillantes, mientras la luz tenue de un sol filtrándose entre las copas crea patrones dinámicos de sombras y destellos, mi mano acompaña el contacto con las raíces que parecen respirar, y en la distancia, el sonido binaural de un bosque vivo, hibridado entre naturaleza y tecnología, complementa la escena, creando una experiencia inmersiva y hiperrealista.",
+            "refusal": null,
+            "annotations": []
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      },
+      {
+        "json": {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos desnudas y temblorosas que rozan y buscan entre las ramas frágiles y nudosas, la suave textura de la corteza en mis dedos mientras el rocío matutino me humedece la piel, mis pulmones inhalando el aire fresco y húmedo impregnado de aroma a tierra húmeda y musgo, sintiendo la vibración rítmica de hojas movidas por la brisa, mis pies desnudos pisando tierra blanda, al fondo, un espeso bosque de árboles antiguos cuyos troncos se funden con ramas en perpetua transmutación, mientras una sensación de peso y calma me envuelve, y en mis extremidades se siente un leve temblor de fascinación ante la transformación de la naturaleza en cables luminosos y etéreos que emiten un resplandor cálido y vibrante, reflejándose en mi piel húmeda, en un entorno envolvente que combina lo orgánico con lo tecnológico, con el sonido suave del viento, el canto lejano de aves y el olor a tierra mojada mezclado con un brillo dorado que parece casi palpable.",
+            "refusal": null,
+            "annotations": []
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      },
+      {
+        "json": {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos temblorosas y piel empapada de sudor, los dedos entrelazados con cables que se extienden por mi piel, pulsando y deformándose en formas extrañas mientras mi respiración agitada crea vaho en el aire húmedo; al fondo, árboles frondosos cubiertos de musgo, ramas retorcidas que se entrelazan en un entramado oscuro, hojas que susurran con el viento y un tenue brillo bioluminiscente filtrándose entre las sombras, el aire cargado con el olor a tierra húmeda y metal oxidado, sonidos suaves de cables vibrando y un zumbido distante que se mezcla con el murmullo de hojas, mis manos se aferran con fuerza a la textura áspera de la corteza de un árbol cercano, mientras la piel de mi amigo se transforma en una máscara cambiante, sus facciones distorsionándose en una malla surrealista de cables y carne, sintiendo el peso de cada respiración y la tensión en mi cuerpo, envuelto en la fría brisa del bosque bajo un cielo crepuscular y sonidos binaurales que intensifican la inmersión, todo en una experiencia sensorial que me sitúa en medio de una escena surrealista de transformación y conexión visceral.",
+            "refusal": null,
+            "annotations": []
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      },
+      {
+        "json": {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Ingresando en bosque, con la vista en primera persona, tomo tipo GoPro de mis manos desnudas ligeramente sudorosas y temblorosas, levitando suavemente a través de un mar de árboles ancestrales cuya corteza húmeda refleja destellos de neón vibrante, mientras las corrientes de datos de neón flotan a mi alrededor como streams de luz pulsante que vibran en sincronía con mis sentidos, el aire frío y húmedo acaricia mi piel, lleno del aroma terroso de tierra mojada y el sutil zumbido de los datos luminosos, mis piernas flotando ligeras, sintiendo cada rama y hoja rozando mis extremidades en una danza silenciosa, mi respiración entrecortada por la humedad y la emoción, mientras la escena se extiende en profundidad infinita, enriquecida por el flujo de datos que chisporrotean en el ambiente, todo capturado en un escenario inmersivo y cinematográfico, como si estuviera atravesando esa jungla digital en primera persona, en un mundo donde la naturaleza y la tecnología se entrelazan en un ballet vibrante y surrealista, acompañando la sensación de ingravidez, con el audio binaural envolviendo cada percepción, haciendo que parezca que realmente floto en un cosmos luminoso entre árboles y datos.",
+            "refusal": null,
+            "annotations": []
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      },
+      {
+        "json": {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos extendidas y temblorosas, tocando la corteza rugosa de un árbol cubierto de musgo, mis dedos sienten la textura húmeda y fría bajo mi piel, mientras mis ojos ven un escenario de árboles altísimos que se pierden en la neblina, hojas crujientes que bajo mis pies producen un sutil pero constante sonido de crunch, el aroma refrescante y terroso llena mis fosas nasales, el aire húmedo y fresco acaricia mi rostro, mis pulmones se llenan con esta pureza, mi respiración agitada y entrecortada vibra en sincronía con un silencio profundo interrumpido solo por el susurro del viento, mis pies pisan ramitas quebradizas y hojarasca seca, mientras en el fondo, la vastedad cósmica parece dividirse en un espacio infinito que me envuelve, conectándome con la conciencia universal en un instante hiperrealista, todo esto en un entorno inmersivo con audio binaural que realza cada sensación, creando una experiencia sensorial total.",
+            "refusal": null,
+            "annotations": []
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      }
+    ],
+    "Get Image": [
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "c559a194-3c02-4807-a899-8b6752412fba",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "completed",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "batch_size": 0,
+              "custom_settings": null,
+              "denoise": 0,
+              "guidance_scale": 0,
+              "height": 960,
+              "image": "",
+              "lora_settings": null,
+              "negative_prompt": "",
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos ligeramente temblorosas, pasando entre raíces luminosas con circuitos brillando en azul y verde, mientras los dedos rozan la corteza áspera y cálida, dejando marcas sutiles, al fondo se extienden árboles altos y delgados cuyas hojas vibran en tonos metálicos y eléctricos, el susurro del viento mezclado con un suave zumbido digital llena el aire, mi respiración se vuelve más lenta y profunda, el olor a madera húmeda y aire fresco invade mis fosas nasales, la temperatura cálida en la piel se contrapone a la vibración fría de las raíces que emergen y brillan con circuitos pulsantes, mis pies descalzos sienten el suelo terroso cubierto de hojas brillantes, mientras la luz tenue de un sol filtrándose entre las copas crea patrones dinámicos de sombras y destellos, mi mano acompaña el contacto con las raíces que parecen respirar, y en la distancia, el sonido binaural de un bosque vivo, hibridado entre naturaleza y tecnología, complementa la escena, creando una experiencia inmersiva y hiperrealista.",
+              "return_preprocessed_image": false,
+              "scale": 0,
+              "seed": 0,
+              "steps": 0,
+              "width": 540
+            },
+            "output": {
+              "image_base64": "",
+              "image_url": "https://img.theapi.app/temp/17a7f185-8e05-43da-8455-8d2cbb655b71.png"
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.93426266Z",
+              "started_at": "2025-06-20T21:35:26.269972132Z",
+              "ended_at": "2025-06-20T21:36:20.02927906Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "8151ae44-e3e3-4515-a51d-e9a693811db7",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "completed",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "batch_size": 0,
+              "custom_settings": null,
+              "denoise": 0,
+              "guidance_scale": 0,
+              "height": 960,
+              "image": "",
+              "lora_settings": null,
+              "negative_prompt": "",
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos desnudas y temblorosas que rozan y buscan entre las ramas frágiles y nudosas, la suave textura de la corteza en mis dedos mientras el rocío matutino me humedece la piel, mis pulmones inhalando el aire fresco y húmedo impregnado de aroma a tierra húmeda y musgo, sintiendo la vibración rítmica de hojas movidas por la brisa, mis pies desnudos pisando tierra blanda, al fondo, un espeso bosque de árboles antiguos cuyos troncos se funden con ramas en perpetua transmutación, mientras una sensación de peso y calma me envuelve, y en mis extremidades se siente un leve temblor de fascinación ante la transformación de la naturaleza en cables luminosos y etéreos que emiten un resplandor cálido y vibrante, reflejándose en mi piel húmeda, en un entorno envolvente que combina lo orgánico con lo tecnológico, con el sonido suave del viento, el canto lejano de aves y el olor a tierra mojada mezclado con un brillo dorado que parece casi palpable.",
+              "return_preprocessed_image": false,
+              "scale": 0,
+              "seed": 0,
+              "steps": 0,
+              "width": 540
+            },
+            "output": {
+              "image_base64": "",
+              "image_url": "https://img.theapi.app/temp/634c36fe-ff4b-4148-9528-e7f2bf8d0e5d.png"
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.966724366Z",
+              "started_at": "2025-06-20T21:35:26.270753563Z",
+              "ended_at": "2025-06-20T21:36:17.454175832Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "fd757694-9083-4d72-b30b-64fd6c0b7d04",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "completed",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "batch_size": 0,
+              "custom_settings": null,
+              "denoise": 0,
+              "guidance_scale": 0,
+              "height": 960,
+              "image": "",
+              "lora_settings": null,
+              "negative_prompt": "",
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos temblorosas y piel empapada de sudor, los dedos entrelazados con cables que se extienden por mi piel, pulsando y deformándose en formas extrañas mientras mi respiración agitada crea vaho en el aire húmedo; al fondo, árboles frondosos cubiertos de musgo, ramas retorcidas que se entrelazan en un entramado oscuro, hojas que susurran con el viento y un tenue brillo bioluminiscente filtrándose entre las sombras, el aire cargado con el olor a tierra húmeda y metal oxidado, sonidos suaves de cables vibrando y un zumbido distante que se mezcla con el murmullo de hojas, mis manos se aferran con fuerza a la textura áspera de la corteza de un árbol cercano, mientras la piel de mi amigo se transforma en una máscara cambiante, sus facciones distorsionándose en una malla surrealista de cables y carne, sintiendo el peso de cada respiración y la tensión en mi cuerpo, envuelto en la fría brisa del bosque bajo un cielo crepuscular y sonidos binaurales que intensifican la inmersión, todo en una experiencia sensorial que me sitúa en medio de una escena surrealista de transformación y conexión visceral.",
+              "return_preprocessed_image": false,
+              "scale": 0,
+              "seed": 0,
+              "steps": 0,
+              "width": 540
+            },
+            "output": {
+              "image_base64": "",
+              "image_url": "https://img.theapi.app/temp/ac35306a-466f-4662-a97e-7e54deff8d47.png"
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.95080861Z",
+              "started_at": "2025-06-20T21:35:26.270297854Z",
+              "ended_at": "2025-06-20T21:35:59.569313395Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "1294d33d-598c-44b1-899c-66363530d066",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "completed",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "batch_size": 0,
+              "custom_settings": null,
+              "denoise": 0,
+              "guidance_scale": 0,
+              "height": 960,
+              "image": "",
+              "lora_settings": null,
+              "negative_prompt": "",
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, con la vista en primera persona, tomo tipo GoPro de mis manos desnudas ligeramente sudorosas y temblorosas, levitando suavemente a través de un mar de árboles ancestrales cuya corteza húmeda refleja destellos de neón vibrante, mientras las corrientes de datos de neón flotan a mi alrededor como streams de luz pulsante que vibran en sincronía con mis sentidos, el aire frío y húmedo acaricia mi piel, lleno del aroma terroso de tierra mojada y el sutil zumbido de los datos luminosos, mis piernas flotando ligeras, sintiendo cada rama y hoja rozando mis extremidades en una danza silenciosa, mi respiración entrecortada por la humedad y la emoción, mientras la escena se extiende en profundidad infinita, enriquecida por el flujo de datos que chisporrotean en el ambiente, todo capturado en un escenario inmersivo y cinematográfico, como si estuviera atravesando esa jungla digital en primera persona, en un mundo donde la naturaleza y la tecnología se entrelazan en un ballet vibrante y surrealista, acompañando la sensación de ingravidez, con el audio binaural envolviendo cada percepción, haciendo que parezca que realmente floto en un cosmos luminoso entre árboles y datos.",
+              "return_preprocessed_image": false,
+              "scale": 0,
+              "seed": 0,
+              "steps": 0,
+              "width": 540
+            },
+            "output": {
+              "image_base64": "",
+              "image_url": "https://img.theapi.app/temp/9708f581-5ccf-4733-a9b9-39e7f82cfe49.png"
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.962683981Z",
+              "started_at": "2025-06-20T21:35:26.27045295Z",
+              "ended_at": "2025-06-20T21:36:17.811398328Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "b3943360-72f5-435f-b96d-c748d822244c",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "completed",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "batch_size": 0,
+              "custom_settings": null,
+              "denoise": 0,
+              "guidance_scale": 0,
+              "height": 960,
+              "image": "",
+              "lora_settings": null,
+              "negative_prompt": "",
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos extendidas y temblorosas, tocando la corteza rugosa de un árbol cubierto de musgo, mis dedos sienten la textura húmeda y fría bajo mi piel, mientras mis ojos ven un escenario de árboles altísimos que se pierden en la neblina, hojas crujientes que bajo mis pies producen un sutil pero constante sonido de crunch, el aroma refrescante y terroso llena mis fosas nasales, el aire húmedo y fresco acaricia mi rostro, mis pulmones se llenan con esta pureza, mi respiración agitada y entrecortada vibra en sincronía con un silencio profundo interrumpido solo por el susurro del viento, mis pies pisan ramitas quebradizas y hojarasca seca, mientras en el fondo, la vastedad cósmica parece dividirse en un espacio infinito que me envuelve, conectándome con la conciencia universal en un instante hiperrealista, todo esto en un entorno inmersivo con audio binaural que realza cada sensación, creando una experiencia sensorial total.",
+              "return_preprocessed_image": false,
+              "scale": 0,
+              "seed": 0,
+              "steps": 0,
+              "width": 540
+            },
+            "output": {
+              "image_base64": "",
+              "image_url": "https://img.theapi.app/temp/5ae87f63-7fd0-497f-891d-01895921ad31.png"
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.990647833Z",
+              "started_at": "2025-06-20T21:35:26.270820092Z",
+              "ended_at": "2025-06-20T21:36:18.546619721Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      }
+    ],
+    "Wait": [
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "c559a194-3c02-4807-a899-8b6752412fba",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos ligeramente temblorosas, pasando entre raíces luminosas con circuitos brillando en azul y verde, mientras los dedos rozan la corteza áspera y cálida, dejando marcas sutiles, al fondo se extienden árboles altos y delgados cuyas hojas vibran en tonos metálicos y eléctricos, el susurro del viento mezclado con un suave zumbido digital llena el aire, mi respiración se vuelve más lenta y profunda, el olor a madera húmeda y aire fresco invade mis fosas nasales, la temperatura cálida en la piel se contrapone a la vibración fría de las raíces que emergen y brillan con circuitos pulsantes, mis pies descalzos sienten el suelo terroso cubierto de hojas brillantes, mientras la luz tenue de un sol filtrándose entre las copas crea patrones dinámicos de sombras y destellos, mi mano acompaña el contacto con las raíces que parecen respirar, y en la distancia, el sonido binaural de un bosque vivo, hibridado entre naturaleza y tecnología, complementa la escena, creando una experiencia inmersiva y hiperrealista.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.93426266Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "8151ae44-e3e3-4515-a51d-e9a693811db7",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos desnudas y temblorosas que rozan y buscan entre las ramas frágiles y nudosas, la suave textura de la corteza en mis dedos mientras el rocío matutino me humedece la piel, mis pulmones inhalando el aire fresco y húmedo impregnado de aroma a tierra húmeda y musgo, sintiendo la vibración rítmica de hojas movidas por la brisa, mis pies desnudos pisando tierra blanda, al fondo, un espeso bosque de árboles antiguos cuyos troncos se funden con ramas en perpetua transmutación, mientras una sensación de peso y calma me envuelve, y en mis extremidades se siente un leve temblor de fascinación ante la transformación de la naturaleza en cables luminosos y etéreos que emiten un resplandor cálido y vibrante, reflejándose en mi piel húmeda, en un entorno envolvente que combina lo orgánico con lo tecnológico, con el sonido suave del viento, el canto lejano de aves y el olor a tierra mojada mezclado con un brillo dorado que parece casi palpable.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.966724366Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "fd757694-9083-4d72-b30b-64fd6c0b7d04",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos temblorosas y piel empapada de sudor, los dedos entrelazados con cables que se extienden por mi piel, pulsando y deformándose en formas extrañas mientras mi respiración agitada crea vaho en el aire húmedo; al fondo, árboles frondosos cubiertos de musgo, ramas retorcidas que se entrelazan en un entramado oscuro, hojas que susurran con el viento y un tenue brillo bioluminiscente filtrándose entre las sombras, el aire cargado con el olor a tierra húmeda y metal oxidado, sonidos suaves de cables vibrando y un zumbido distante que se mezcla con el murmullo de hojas, mis manos se aferran con fuerza a la textura áspera de la corteza de un árbol cercano, mientras la piel de mi amigo se transforma en una máscara cambiante, sus facciones distorsionándose en una malla surrealista de cables y carne, sintiendo el peso de cada respiración y la tensión en mi cuerpo, envuelto en la fría brisa del bosque bajo un cielo crepuscular y sonidos binaurales que intensifican la inmersión, todo en una experiencia sensorial que me sitúa en medio de una escena surrealista de transformación y conexión visceral.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.95080861Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "1294d33d-598c-44b1-899c-66363530d066",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, con la vista en primera persona, tomo tipo GoPro de mis manos desnudas ligeramente sudorosas y temblorosas, levitando suavemente a través de un mar de árboles ancestrales cuya corteza húmeda refleja destellos de neón vibrante, mientras las corrientes de datos de neón flotan a mi alrededor como streams de luz pulsante que vibran en sincronía con mis sentidos, el aire frío y húmedo acaricia mi piel, lleno del aroma terroso de tierra mojada y el sutil zumbido de los datos luminosos, mis piernas flotando ligeras, sintiendo cada rama y hoja rozando mis extremidades en una danza silenciosa, mi respiración entrecortada por la humedad y la emoción, mientras la escena se extiende en profundidad infinita, enriquecida por el flujo de datos que chisporrotean en el ambiente, todo capturado en un escenario inmersivo y cinematográfico, como si estuviera atravesando esa jungla digital en primera persona, en un mundo donde la naturaleza y la tecnología se entrelazan en un ballet vibrante y surrealista, acompañando la sensación de ingravidez, con el audio binaural envolviendo cada percepción, haciendo que parezca que realmente floto en un cosmos luminoso entre árboles y datos.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.962683981Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "b3943360-72f5-435f-b96d-c748d822244c",
+            "model": "Qubico/flux1-dev",
+            "task_type": "txt2img",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "prompt": "genera una imagen en formato POV (primera persona), que de contexto al siguiente escenario: Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos extendidas y temblorosas, tocando la corteza rugosa de un árbol cubierto de musgo, mis dedos sienten la textura húmeda y fría bajo mi piel, mientras mis ojos ven un escenario de árboles altísimos que se pierden en la neblina, hojas crujientes que bajo mis pies producen un sutil pero constante sonido de crunch, el aroma refrescante y terroso llena mis fosas nasales, el aire húmedo y fresco acaricia mi rostro, mis pulmones se llenan con esta pureza, mi respiración agitada y entrecortada vibra en sincronía con un silencio profundo interrumpido solo por el susurro del viento, mis pies pisan ramitas quebradizas y hojarasca seca, mientras en el fondo, la vastedad cósmica parece dividirse en un espacio infinito que me envuelve, conectándome con la conciencia universal en un instante hiperrealista, todo esto en un entorno inmersivo con audio binaural que realza cada sensación, creando una experiencia sensorial total.",
+              "negative_prompt": "",
+              "image": "",
+              "width": 540,
+              "height": 960,
+              "guidance_scale": 0,
+              "denoise": 0,
+              "seed": 0,
+              "steps": 0,
+              "batch_size": 0,
+              "scale": 0,
+              "return_preprocessed_image": false,
+              "lora_settings": null,
+              "custom_settings": null
+            },
+            "output": null,
+            "meta": {
+              "created_at": "2025-06-20T21:35:25.990647833Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "llm",
+                "frozen": 0,
+                "consume": 150000
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      }
+    ],
+    "Wait3": [
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "d3e5e169-e2a8-4f0b-822b-c6e8458e4215",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/17a7f185-8e05-43da-8455-8d2cbb655b71.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos ligeramente temblorosas, pasando entre raíces luminosas con circuitos brillando en azul y verde, mientras los dedos rozan la corteza áspera y cálida, dejando marcas sutiles, al fondo se extienden árboles altos y delgados cuyas hojas vibran en tonos metálicos y eléctricos, el susurro del viento mezclado con un suave zumbido digital llena el aire, mi respiración se vuelve más lenta y profunda, el olor a madera húmeda y aire fresco invade mis fosas nasales, la temperatura cálida en la piel se contrapone a la vibración fría de las raíces que emergen y brillan con circuitos pulsantes, mis pies descalzos sienten el suelo terroso cubierto de hojas brillantes, mientras la luz tenue de un sol filtrándose entre las copas crea patrones dinámicos de sombras y destellos, mi mano acompaña el contacto con las raíces que parecen respirar, y en la distancia, el sonido binaural de un bosque vivo, hibridado entre naturaleza y tecnología, complementa la escena, creando una experiencia inmersiva y hiperrealista."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.603301505Z",
+              "started_at": "2025-06-20T21:37:27.290585676Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "c2dd1df8-7a38-404a-ac96-28856f0e0c32",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/634c36fe-ff4b-4148-9528-e7f2bf8d0e5d.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos desnudas y temblorosas que rozan y buscan entre las ramas frágiles y nudosas, la suave textura de la corteza en mis dedos mientras el rocío matutino me humedece la piel, mis pulmones inhalando el aire fresco y húmedo impregnado de aroma a tierra húmeda y musgo, sintiendo la vibración rítmica de hojas movidas por la brisa, mis pies desnudos pisando tierra blanda, al fondo, un espeso bosque de árboles antiguos cuyos troncos se funden con ramas en perpetua transmutación, mientras una sensación de peso y calma me envuelve, y en mis extremidades se siente un leve temblor de fascinación ante la transformación de la naturaleza en cables luminosos y etéreos que emiten un resplandor cálido y vibrante, reflejándose en mi piel húmeda, en un entorno envolvente que combina lo orgánico con lo tecnológico, con el sonido suave del viento, el canto lejano de aves y el olor a tierra mojada mezclado con un brillo dorado que parece casi palpable."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.624293861Z",
+              "started_at": "2025-06-20T21:37:27.290698464Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "631d56eb-4830-42b8-8693-dcab97bb2ad4",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/ac35306a-466f-4662-a97e-7e54deff8d47.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos temblorosas y piel empapada de sudor, los dedos entrelazados con cables que se extienden por mi piel, pulsando y deformándose en formas extrañas mientras mi respiración agitada crea vaho en el aire húmedo; al fondo, árboles frondosos cubiertos de musgo, ramas retorcidas que se entrelazan en un entramado oscuro, hojas que susurran con el viento y un tenue brillo bioluminiscente filtrándose entre las sombras, el aire cargado con el olor a tierra húmeda y metal oxidado, sonidos suaves de cables vibrando y un zumbido distante que se mezcla con el murmullo de hojas, mis manos se aferran con fuerza a la textura áspera de la corteza de un árbol cercano, mientras la piel de mi amigo se transforma en una máscara cambiante, sus facciones distorsionándose en una malla surrealista de cables y carne, sintiendo el peso de cada respiración y la tensión en mi cuerpo, envuelto en la fría brisa del bosque bajo un cielo crepuscular y sonidos binaurales que intensifican la inmersión, todo en una experiencia sensorial que me sitúa en medio de una escena surrealista de transformación y conexión visceral."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.653053035Z",
+              "started_at": "2025-06-20T21:37:27.291580903Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "4dd9d058-07b2-48c6-af2a-700cfb5c6adb",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/9708f581-5ccf-4733-a9b9-39e7f82cfe49.png",
+              "prompt": "Ingresando en bosque, con la vista en primera persona, tomo tipo GoPro de mis manos desnudas ligeramente sudorosas y temblorosas, levitando suavemente a través de un mar de árboles ancestrales cuya corteza húmeda refleja destellos de neón vibrante, mientras las corrientes de datos de neón flotan a mi alrededor como streams de luz pulsante que vibran en sincronía con mis sentidos, el aire frío y húmedo acaricia mi piel, lleno del aroma terroso de tierra mojada y el sutil zumbido de los datos luminosos, mis piernas flotando ligeras, sintiendo cada rama y hoja rozando mis extremidades en una danza silenciosa, mi respiración entrecortada por la humedad y la emoción, mientras la escena se extiende en profundidad infinita, enriquecida por el flujo de datos que chisporrotean en el ambiente, todo capturado en un escenario inmersivo y cinematográfico, como si estuviera atravesando esa jungla digital en primera persona, en un mundo donde la naturaleza y la tecnología se entrelazan en un ballet vibrante y surrealista, acompañando la sensación de ingravidez, con el audio binaural envolviendo cada percepción, haciendo que parezca que realmente floto en un cosmos luminoso entre árboles y datos."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.622558792Z",
+              "started_at": "2025-06-20T21:37:27.291410337Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "4cb918de-b53c-4a82-8df2-ff14a4178551",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/5ae87f63-7fd0-497f-891d-01895921ad31.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos extendidas y temblorosas, tocando la corteza rugosa de un árbol cubierto de musgo, mis dedos sienten la textura húmeda y fría bajo mi piel, mientras mis ojos ven un escenario de árboles altísimos que se pierden en la neblina, hojas crujientes que bajo mis pies producen un sutil pero constante sonido de crunch, el aroma refrescante y terroso llena mis fosas nasales, el aire húmedo y fresco acaricia mi rostro, mis pulmones se llenan con esta pureza, mi respiración agitada y entrecortada vibra en sincronía con un silencio profundo interrumpido solo por el susurro del viento, mis pies pisan ramitas quebradizas y hojarasca seca, mientras en el fondo, la vastedad cósmica parece dividirse en un espacio infinito que me envuelve, conectándome con la conciencia universal en un instante hiperrealista, todo esto en un entorno inmersivo con audio binaural que realza cada sensación, creando una experiencia sensorial total."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.644108935Z",
+              "started_at": "2025-06-20T21:37:27.291410317Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      }
+    ],
+    "Text-to-Sound": [
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "d3e5e169-e2a8-4f0b-822b-c6e8458e4215",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/17a7f185-8e05-43da-8455-8d2cbb655b71.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos ligeramente temblorosas, pasando entre raíces luminosas con circuitos brillando en azul y verde, mientras los dedos rozan la corteza áspera y cálida, dejando marcas sutiles, al fondo se extienden árboles altos y delgados cuyas hojas vibran en tonos metálicos y eléctricos, el susurro del viento mezclado con un suave zumbido digital llena el aire, mi respiración se vuelve más lenta y profunda, el olor a madera húmeda y aire fresco invade mis fosas nasales, la temperatura cálida en la piel se contrapone a la vibración fría de las raíces que emergen y brillan con circuitos pulsantes, mis pies descalzos sienten el suelo terroso cubierto de hojas brillantes, mientras la luz tenue de un sol filtrándose entre las copas crea patrones dinámicos de sombras y destellos, mi mano acompaña el contacto con las raíces que parecen respirar, y en la distancia, el sonido binaural de un bosque vivo, hibridado entre naturaleza y tecnología, complementa la escena, creando una experiencia inmersiva y hiperrealista."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.603301505Z",
+              "started_at": "2025-06-20T21:37:27.290585676Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "c2dd1df8-7a38-404a-ac96-28856f0e0c32",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/634c36fe-ff4b-4148-9528-e7f2bf8d0e5d.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos desnudas y temblorosas que rozan y buscan entre las ramas frágiles y nudosas, la suave textura de la corteza en mis dedos mientras el rocío matutino me humedece la piel, mis pulmones inhalando el aire fresco y húmedo impregnado de aroma a tierra húmeda y musgo, sintiendo la vibración rítmica de hojas movidas por la brisa, mis pies desnudos pisando tierra blanda, al fondo, un espeso bosque de árboles antiguos cuyos troncos se funden con ramas en perpetua transmutación, mientras una sensación de peso y calma me envuelve, y en mis extremidades se siente un leve temblor de fascinación ante la transformación de la naturaleza en cables luminosos y etéreos que emiten un resplandor cálido y vibrante, reflejándose en mi piel húmeda, en un entorno envolvente que combina lo orgánico con lo tecnológico, con el sonido suave del viento, el canto lejano de aves y el olor a tierra mojada mezclado con un brillo dorado que parece casi palpable."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.624293861Z",
+              "started_at": "2025-06-20T21:37:27.290698464Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "631d56eb-4830-42b8-8693-dcab97bb2ad4",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/ac35306a-466f-4662-a97e-7e54deff8d47.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos temblorosas y piel empapada de sudor, los dedos entrelazados con cables que se extienden por mi piel, pulsando y deformándose en formas extrañas mientras mi respiración agitada crea vaho en el aire húmedo; al fondo, árboles frondosos cubiertos de musgo, ramas retorcidas que se entrelazan en un entramado oscuro, hojas que susurran con el viento y un tenue brillo bioluminiscente filtrándose entre las sombras, el aire cargado con el olor a tierra húmeda y metal oxidado, sonidos suaves de cables vibrando y un zumbido distante que se mezcla con el murmullo de hojas, mis manos se aferran con fuerza a la textura áspera de la corteza de un árbol cercano, mientras la piel de mi amigo se transforma en una máscara cambiante, sus facciones distorsionándose en una malla surrealista de cables y carne, sintiendo el peso de cada respiración y la tensión en mi cuerpo, envuelto en la fría brisa del bosque bajo un cielo crepuscular y sonidos binaurales que intensifican la inmersión, todo en una experiencia sensorial que me sitúa en medio de una escena surrealista de transformación y conexión visceral."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.653053035Z",
+              "started_at": "2025-06-20T21:37:27.291580903Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "4dd9d058-07b2-48c6-af2a-700cfb5c6adb",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/9708f581-5ccf-4733-a9b9-39e7f82cfe49.png",
+              "prompt": "Ingresando en bosque, con la vista en primera persona, tomo tipo GoPro de mis manos desnudas ligeramente sudorosas y temblorosas, levitando suavemente a través de un mar de árboles ancestrales cuya corteza húmeda refleja destellos de neón vibrante, mientras las corrientes de datos de neón flotan a mi alrededor como streams de luz pulsante que vibran en sincronía con mis sentidos, el aire frío y húmedo acaricia mi piel, lleno del aroma terroso de tierra mojada y el sutil zumbido de los datos luminosos, mis piernas flotando ligeras, sintiendo cada rama y hoja rozando mis extremidades en una danza silenciosa, mi respiración entrecortada por la humedad y la emoción, mientras la escena se extiende en profundidad infinita, enriquecida por el flujo de datos que chisporrotean en el ambiente, todo capturado en un escenario inmersivo y cinematográfico, como si estuviera atravesando esa jungla digital en primera persona, en un mundo donde la naturaleza y la tecnología se entrelazan en un ballet vibrante y surrealista, acompañando la sensación de ingravidez, con el audio binaural envolviendo cada percepción, haciendo que parezca que realmente floto en un cosmos luminoso entre árboles y datos."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.622558792Z",
+              "started_at": "2025-06-20T21:37:27.291410337Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "4cb918de-b53c-4a82-8df2-ff14a4178551",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "processing",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/5ae87f63-7fd0-497f-891d-01895921ad31.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos extendidas y temblorosas, tocando la corteza rugosa de un árbol cubierto de musgo, mis dedos sienten la textura húmeda y fría bajo mi piel, mientras mis ojos ven un escenario de árboles altísimos que se pierden en la neblina, hojas crujientes que bajo mis pies producen un sutil pero constante sonido de crunch, el aroma refrescante y terroso llena mis fosas nasales, el aire húmedo y fresco acaricia mi rostro, mis pulmones se llenan con esta pureza, mi respiración agitada y entrecortada vibra en sincronía con un silencio profundo interrumpido solo por el susurro del viento, mis pies pisan ramitas quebradizas y hojarasca seca, mientras en el fondo, la vastedad cósmica parece dividirse en un espacio infinito que me envuelve, conectándome con la conciencia universal en un instante hiperrealista, todo esto en un entorno inmersivo con audio binaural que realza cada sensación, creando una experiencia sensorial total."
+            },
+            "output": {
+              "type": "m2v_img2video",
+              "status": 10,
+              "works": [
+                {
+                  "content_type": "unknown",
+                  "status": 10,
+                  "type": "m2v_img2video",
+                  "cover": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  },
+                  "video": {
+                    "resource": "",
+                    "resource_without_watermark": "",
+                    "height": 1,
+                    "width": 1,
+                    "duration": 0
+                  }
+                }
+              ]
+            },
+            "meta": {
+              "created_at": "2025-06-20T21:37:26.644108935Z",
+              "started_at": "2025-06-20T21:37:27.291410317Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      }
+    ],
+    "Upload MP3": [
+      {
+        "json": {
+          "kind": "drive#file",
+          "id": "1REAjQTXxcQXzdG52ky5JSOBrsO4ZCq4S",
+          "name": "d3e5e169-e2a8-4f0b-822b-c6e8458e4215.mp3",
+          "mimeType": "audio/mpeg",
+          "starred": false,
+          "trashed": false,
+          "explicitlyTrashed": false,
+          "parents": [
+            "1TQjG5dCmidN4nuiUn_n97KdrRb5EL5_X"
+          ],
+          "spaces": [
+            "drive"
+          ],
+          "version": "2",
+          "webContentLink": "https://drive.google.com/uc?id=1REAjQTXxcQXzdG52ky5JSOBrsO4ZCq4S&export=download",
+          "webViewLink": "https://drive.google.com/file/d/1REAjQTXxcQXzdG52ky5JSOBrsO4ZCq4S/view?usp=drivesdk",
+          "iconLink": "https://drive-thirdparty.googleusercontent.com/16/type/audio/mpeg",
+          "hasThumbnail": false,
+          "thumbnailVersion": "0",
+          "viewedByMe": false,
+          "createdTime": "2025-06-20T21:41:32.939Z",
+          "modifiedTime": "2025-06-20T21:41:33.834Z",
+          "modifiedByMeTime": "2025-06-20T21:41:33.834Z",
+          "modifiedByMe": true,
+          "owners": [
+            {
+              "kind": "drive#user",
+              "displayName": "Qeva AI",
+              "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+              "me": true,
+              "permissionId": "10158472097869688742",
+              "emailAddress": "qeva.ai.solutions@gmail.com"
+            }
+          ],
+          "lastModifyingUser": {
+            "kind": "drive#user",
+            "displayName": "Qeva AI",
+            "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+            "me": true,
+            "permissionId": "10158472097869688742",
+            "emailAddress": "qeva.ai.solutions@gmail.com"
+          },
+          "shared": false,
+          "ownedByMe": true,
+          "capabilities": {
+            "canAcceptOwnership": false,
+            "canAddChildren": false,
+            "canAddMyDriveParent": false,
+            "canChangeCopyRequiresWriterPermission": true,
+            "canChangeSecurityUpdateEnabled": false,
+            "canChangeViewersCanCopyContent": true,
+            "canComment": true,
+            "canCopy": true,
+            "canDelete": true,
+            "canDisableInheritedPermissions": false,
+            "canDownload": true,
+            "canEdit": true,
+            "canEnableInheritedPermissions": true,
+            "canListChildren": false,
+            "canModifyContent": true,
+            "canModifyContentRestriction": true,
+            "canModifyEditorContentRestriction": true,
+            "canModifyOwnerContentRestriction": true,
+            "canModifyLabels": false,
+            "canMoveChildrenWithinDrive": false,
+            "canMoveItemIntoTeamDrive": true,
+            "canMoveItemOutOfDrive": true,
+            "canMoveItemWithinDrive": true,
+            "canReadLabels": false,
+            "canReadRevisions": true,
+            "canRemoveChildren": false,
+            "canRemoveContentRestriction": false,
+            "canRemoveMyDriveParent": true,
+            "canRename": true,
+            "canShare": true,
+            "canTrash": true,
+            "canUntrash": true
+          },
+          "viewersCanCopyContent": true,
+          "copyRequiresWriterPermission": false,
+          "writersCanShare": true,
+          "permissions": [
+            {
+              "kind": "drive#permission",
+              "id": "10158472097869688742",
+              "type": "user",
+              "emailAddress": "qeva.ai.solutions@gmail.com",
+              "role": "owner",
+              "displayName": "qeva.ai.solutions",
+              "deleted": false,
+              "pendingOwner": false
+            }
+          ],
+          "permissionIds": [
+            "10158472097869688742"
+          ],
+          "originalFilename": "Untitled",
+          "fullFileExtension": "mp3",
+          "fileExtension": "mp3",
+          "md5Checksum": "eb8776d88b8fc877727263e7ca3e5bd0",
+          "sha1Checksum": "df55a0515f7359dd60d6e5206182d26ed6ce5c50",
+          "sha256Checksum": "1c5d76bef0bbaf7bf7d4abd9ad6e43b9f836ee6168e5cde6d3cde793062d315f",
+          "size": "80711",
+          "quotaBytesUsed": "80711",
+          "headRevisionId": "0BwpqSqjt85ycemI0bytxMEpNODlRbDlqRWp2WnhhSmpySC93PQ",
+          "isAppAuthorized": true,
+          "linkShareMetadata": {
+            "securityUpdateEligible": false,
+            "securityUpdateEnabled": true
+          },
+          "inheritedPermissionsDisabled": false
+        }
+      },
+      {
+        "json": {
+          "kind": "drive#file",
+          "id": "1FBPlKaZitQwNCZITelPfp_X4SSNifLSZ",
+          "name": "c2dd1df8-7a38-404a-ac96-28856f0e0c32.mp3",
+          "mimeType": "audio/mpeg",
+          "starred": false,
+          "trashed": false,
+          "explicitlyTrashed": false,
+          "parents": [
+            "1TQjG5dCmidN4nuiUn_n97KdrRb5EL5_X"
+          ],
+          "spaces": [
+            "drive"
+          ],
+          "version": "2",
+          "webContentLink": "https://drive.google.com/uc?id=1FBPlKaZitQwNCZITelPfp_X4SSNifLSZ&export=download",
+          "webViewLink": "https://drive.google.com/file/d/1FBPlKaZitQwNCZITelPfp_X4SSNifLSZ/view?usp=drivesdk",
+          "iconLink": "https://drive-thirdparty.googleusercontent.com/16/type/audio/mpeg",
+          "hasThumbnail": false,
+          "thumbnailVersion": "0",
+          "viewedByMe": false,
+          "createdTime": "2025-06-20T21:41:35.549Z",
+          "modifiedTime": "2025-06-20T21:41:36.341Z",
+          "modifiedByMeTime": "2025-06-20T21:41:36.341Z",
+          "modifiedByMe": true,
+          "owners": [
+            {
+              "kind": "drive#user",
+              "displayName": "Qeva AI",
+              "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+              "me": true,
+              "permissionId": "10158472097869688742",
+              "emailAddress": "qeva.ai.solutions@gmail.com"
+            }
+          ],
+          "lastModifyingUser": {
+            "kind": "drive#user",
+            "displayName": "Qeva AI",
+            "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+            "me": true,
+            "permissionId": "10158472097869688742",
+            "emailAddress": "qeva.ai.solutions@gmail.com"
+          },
+          "shared": false,
+          "ownedByMe": true,
+          "capabilities": {
+            "canAcceptOwnership": false,
+            "canAddChildren": false,
+            "canAddMyDriveParent": false,
+            "canChangeCopyRequiresWriterPermission": true,
+            "canChangeSecurityUpdateEnabled": false,
+            "canChangeViewersCanCopyContent": true,
+            "canComment": true,
+            "canCopy": true,
+            "canDelete": true,
+            "canDisableInheritedPermissions": false,
+            "canDownload": true,
+            "canEdit": true,
+            "canEnableInheritedPermissions": true,
+            "canListChildren": false,
+            "canModifyContent": true,
+            "canModifyContentRestriction": true,
+            "canModifyEditorContentRestriction": true,
+            "canModifyOwnerContentRestriction": true,
+            "canModifyLabels": false,
+            "canMoveChildrenWithinDrive": false,
+            "canMoveItemIntoTeamDrive": true,
+            "canMoveItemOutOfDrive": true,
+            "canMoveItemWithinDrive": true,
+            "canReadLabels": false,
+            "canReadRevisions": true,
+            "canRemoveChildren": false,
+            "canRemoveContentRestriction": false,
+            "canRemoveMyDriveParent": true,
+            "canRename": true,
+            "canShare": true,
+            "canTrash": true,
+            "canUntrash": true
+          },
+          "viewersCanCopyContent": true,
+          "copyRequiresWriterPermission": false,
+          "writersCanShare": true,
+          "permissions": [
+            {
+              "kind": "drive#permission",
+              "id": "10158472097869688742",
+              "type": "user",
+              "emailAddress": "qeva.ai.solutions@gmail.com",
+              "role": "owner",
+              "displayName": "qeva.ai.solutions",
+              "deleted": false,
+              "pendingOwner": false
+            }
+          ],
+          "permissionIds": [
+            "10158472097869688742"
+          ],
+          "originalFilename": "Untitled",
+          "fullFileExtension": "mp3",
+          "fileExtension": "mp3",
+          "md5Checksum": "73b375e146f3e3d8977344426004af09",
+          "sha1Checksum": "d9c560ad925446a68c7867862f5c30845bc6eddb",
+          "sha256Checksum": "84be345f437aa8a0bbf4d822d20cc44941e8e6584773e70cc633ce97f6907e7b",
+          "size": "80711",
+          "quotaBytesUsed": "80711",
+          "headRevisionId": "0BwpqSqjt85ycMHNUalFGZ3N0YlNlTHZnRGZYV0NnbHY0YTgwPQ",
+          "isAppAuthorized": true,
+          "linkShareMetadata": {
+            "securityUpdateEligible": false,
+            "securityUpdateEnabled": true
+          },
+          "inheritedPermissionsDisabled": false
+        }
+      },
+      {
+        "json": {
+          "kind": "drive#file",
+          "id": "1jn76f0_3BHZJQoG_x9eztSBhP68Ny4Vv",
+          "name": "631d56eb-4830-42b8-8693-dcab97bb2ad4.mp3",
+          "mimeType": "audio/mpeg",
+          "starred": false,
+          "trashed": false,
+          "explicitlyTrashed": false,
+          "parents": [
+            "1TQjG5dCmidN4nuiUn_n97KdrRb5EL5_X"
+          ],
+          "spaces": [
+            "drive"
+          ],
+          "version": "2",
+          "webContentLink": "https://drive.google.com/uc?id=1jn76f0_3BHZJQoG_x9eztSBhP68Ny4Vv&export=download",
+          "webViewLink": "https://drive.google.com/file/d/1jn76f0_3BHZJQoG_x9eztSBhP68Ny4Vv/view?usp=drivesdk",
+          "iconLink": "https://drive-thirdparty.googleusercontent.com/16/type/audio/mpeg",
+          "hasThumbnail": false,
+          "thumbnailVersion": "0",
+          "viewedByMe": false,
+          "createdTime": "2025-06-20T21:41:37.839Z",
+          "modifiedTime": "2025-06-20T21:41:38.535Z",
+          "modifiedByMeTime": "2025-06-20T21:41:38.535Z",
+          "modifiedByMe": true,
+          "owners": [
+            {
+              "kind": "drive#user",
+              "displayName": "Qeva AI",
+              "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+              "me": true,
+              "permissionId": "10158472097869688742",
+              "emailAddress": "qeva.ai.solutions@gmail.com"
+            }
+          ],
+          "lastModifyingUser": {
+            "kind": "drive#user",
+            "displayName": "Qeva AI",
+            "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+            "me": true,
+            "permissionId": "10158472097869688742",
+            "emailAddress": "qeva.ai.solutions@gmail.com"
+          },
+          "shared": false,
+          "ownedByMe": true,
+          "capabilities": {
+            "canAcceptOwnership": false,
+            "canAddChildren": false,
+            "canAddMyDriveParent": false,
+            "canChangeCopyRequiresWriterPermission": true,
+            "canChangeSecurityUpdateEnabled": false,
+            "canChangeViewersCanCopyContent": true,
+            "canComment": true,
+            "canCopy": true,
+            "canDelete": true,
+            "canDisableInheritedPermissions": false,
+            "canDownload": true,
+            "canEdit": true,
+            "canEnableInheritedPermissions": true,
+            "canListChildren": false,
+            "canModifyContent": true,
+            "canModifyContentRestriction": true,
+            "canModifyEditorContentRestriction": true,
+            "canModifyOwnerContentRestriction": true,
+            "canModifyLabels": false,
+            "canMoveChildrenWithinDrive": false,
+            "canMoveItemIntoTeamDrive": true,
+            "canMoveItemOutOfDrive": true,
+            "canMoveItemWithinDrive": true,
+            "canReadLabels": false,
+            "canReadRevisions": true,
+            "canRemoveChildren": false,
+            "canRemoveContentRestriction": false,
+            "canRemoveMyDriveParent": true,
+            "canRename": true,
+            "canShare": true,
+            "canTrash": true,
+            "canUntrash": true
+          },
+          "viewersCanCopyContent": true,
+          "copyRequiresWriterPermission": false,
+          "writersCanShare": true,
+          "permissions": [
+            {
+              "kind": "drive#permission",
+              "id": "10158472097869688742",
+              "type": "user",
+              "emailAddress": "qeva.ai.solutions@gmail.com",
+              "role": "owner",
+              "displayName": "qeva.ai.solutions",
+              "deleted": false,
+              "pendingOwner": false
+            }
+          ],
+          "permissionIds": [
+            "10158472097869688742"
+          ],
+          "originalFilename": "Untitled",
+          "fullFileExtension": "mp3",
+          "fileExtension": "mp3",
+          "md5Checksum": "ddf91be7a236c65d981d550e0435af10",
+          "sha1Checksum": "c7b3b036dc5d70649d925c936f2da4fef847ae5f",
+          "sha256Checksum": "8973f8d08c11990079e6bfa09ebb2b271e14c2ca6d673a08d9abb810d7557041",
+          "size": "80711",
+          "quotaBytesUsed": "80711",
+          "headRevisionId": "0BwpqSqjt85ycc1JtTysxVmVGTTg0clp6UDNxMExzUlhQYXVnPQ",
+          "isAppAuthorized": true,
+          "linkShareMetadata": {
+            "securityUpdateEligible": false,
+            "securityUpdateEnabled": true
+          },
+          "inheritedPermissionsDisabled": false
+        }
+      },
+      {
+        "json": {
+          "kind": "drive#file",
+          "id": "1nZnSnne6edG1b_J_wHPTfG1IfSAiIAus",
+          "name": "4dd9d058-07b2-48c6-af2a-700cfb5c6adb.mp3",
+          "mimeType": "audio/mpeg",
+          "starred": false,
+          "trashed": false,
+          "explicitlyTrashed": false,
+          "parents": [
+            "1TQjG5dCmidN4nuiUn_n97KdrRb5EL5_X"
+          ],
+          "spaces": [
+            "drive"
+          ],
+          "version": "2",
+          "webContentLink": "https://drive.google.com/uc?id=1nZnSnne6edG1b_J_wHPTfG1IfSAiIAus&export=download",
+          "webViewLink": "https://drive.google.com/file/d/1nZnSnne6edG1b_J_wHPTfG1IfSAiIAus/view?usp=drivesdk",
+          "iconLink": "https://drive-thirdparty.googleusercontent.com/16/type/audio/mpeg",
+          "hasThumbnail": false,
+          "thumbnailVersion": "0",
+          "viewedByMe": false,
+          "createdTime": "2025-06-20T21:41:39.912Z",
+          "modifiedTime": "2025-06-20T21:41:40.738Z",
+          "modifiedByMeTime": "2025-06-20T21:41:40.738Z",
+          "modifiedByMe": true,
+          "owners": [
+            {
+              "kind": "drive#user",
+              "displayName": "Qeva AI",
+              "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+              "me": true,
+              "permissionId": "10158472097869688742",
+              "emailAddress": "qeva.ai.solutions@gmail.com"
+            }
+          ],
+          "lastModifyingUser": {
+            "kind": "drive#user",
+            "displayName": "Qeva AI",
+            "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+            "me": true,
+            "permissionId": "10158472097869688742",
+            "emailAddress": "qeva.ai.solutions@gmail.com"
+          },
+          "shared": false,
+          "ownedByMe": true,
+          "capabilities": {
+            "canAcceptOwnership": false,
+            "canAddChildren": false,
+            "canAddMyDriveParent": false,
+            "canChangeCopyRequiresWriterPermission": true,
+            "canChangeSecurityUpdateEnabled": false,
+            "canChangeViewersCanCopyContent": true,
+            "canComment": true,
+            "canCopy": true,
+            "canDelete": true,
+            "canDisableInheritedPermissions": false,
+            "canDownload": true,
+            "canEdit": true,
+            "canEnableInheritedPermissions": true,
+            "canListChildren": false,
+            "canModifyContent": true,
+            "canModifyContentRestriction": true,
+            "canModifyEditorContentRestriction": true,
+            "canModifyOwnerContentRestriction": true,
+            "canModifyLabels": false,
+            "canMoveChildrenWithinDrive": false,
+            "canMoveItemIntoTeamDrive": true,
+            "canMoveItemOutOfDrive": true,
+            "canMoveItemWithinDrive": true,
+            "canReadLabels": false,
+            "canReadRevisions": true,
+            "canRemoveChildren": false,
+            "canRemoveContentRestriction": false,
+            "canRemoveMyDriveParent": true,
+            "canRename": true,
+            "canShare": true,
+            "canTrash": true,
+            "canUntrash": true
+          },
+          "viewersCanCopyContent": true,
+          "copyRequiresWriterPermission": false,
+          "writersCanShare": true,
+          "permissions": [
+            {
+              "kind": "drive#permission",
+              "id": "10158472097869688742",
+              "type": "user",
+              "emailAddress": "qeva.ai.solutions@gmail.com",
+              "role": "owner",
+              "displayName": "qeva.ai.solutions",
+              "deleted": false,
+              "pendingOwner": false
+            }
+          ],
+          "permissionIds": [
+            "10158472097869688742"
+          ],
+          "originalFilename": "Untitled",
+          "fullFileExtension": "mp3",
+          "fileExtension": "mp3",
+          "md5Checksum": "4a471bb8ce0b74166371300c0d2eb4e6",
+          "sha1Checksum": "622f952b0f075b692195d90ebaa4cd5e5b5c4598",
+          "sha256Checksum": "7fc586fecf988ed8931e0f8d1e49b08f5490ff5070ce3a3e385c1a0f86f821df",
+          "size": "80711",
+          "quotaBytesUsed": "80711",
+          "headRevisionId": "0BwpqSqjt85ycbVlBUmlITkU4ZHVjdzZjcGNDdzhMVEE3WlVzPQ",
+          "isAppAuthorized": true,
+          "linkShareMetadata": {
+            "securityUpdateEligible": false,
+            "securityUpdateEnabled": true
+          },
+          "inheritedPermissionsDisabled": false
+        }
+      },
+      {
+        "json": {
+          "kind": "drive#file",
+          "id": "1FP8Fxad_COfC5etG4QF1m-GhofVEoqRc",
+          "name": "4cb918de-b53c-4a82-8df2-ff14a4178551.mp3",
+          "mimeType": "audio/mpeg",
+          "starred": false,
+          "trashed": false,
+          "explicitlyTrashed": false,
+          "parents": [
+            "1TQjG5dCmidN4nuiUn_n97KdrRb5EL5_X"
+          ],
+          "spaces": [
+            "drive"
+          ],
+          "version": "2",
+          "webContentLink": "https://drive.google.com/uc?id=1FP8Fxad_COfC5etG4QF1m-GhofVEoqRc&export=download",
+          "webViewLink": "https://drive.google.com/file/d/1FP8Fxad_COfC5etG4QF1m-GhofVEoqRc/view?usp=drivesdk",
+          "iconLink": "https://drive-thirdparty.googleusercontent.com/16/type/audio/mpeg",
+          "hasThumbnail": false,
+          "thumbnailVersion": "0",
+          "viewedByMe": false,
+          "createdTime": "2025-06-20T21:41:42.135Z",
+          "modifiedTime": "2025-06-20T21:41:42.879Z",
+          "modifiedByMeTime": "2025-06-20T21:41:42.879Z",
+          "modifiedByMe": true,
+          "owners": [
+            {
+              "kind": "drive#user",
+              "displayName": "Qeva AI",
+              "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+              "me": true,
+              "permissionId": "10158472097869688742",
+              "emailAddress": "qeva.ai.solutions@gmail.com"
+            }
+          ],
+          "lastModifyingUser": {
+            "kind": "drive#user",
+            "displayName": "Qeva AI",
+            "photoLink": "https://lh3.googleusercontent.com/a/ACg8ocLrhxecAcHgFeu22J_oAD-SxU0PsX15hvrSlXV_RpAKy5Wxwtk=s64",
+            "me": true,
+            "permissionId": "10158472097869688742",
+            "emailAddress": "qeva.ai.solutions@gmail.com"
+          },
+          "shared": false,
+          "ownedByMe": true,
+          "capabilities": {
+            "canAcceptOwnership": false,
+            "canAddChildren": false,
+            "canAddMyDriveParent": false,
+            "canChangeCopyRequiresWriterPermission": true,
+            "canChangeSecurityUpdateEnabled": false,
+            "canChangeViewersCanCopyContent": true,
+            "canComment": true,
+            "canCopy": true,
+            "canDelete": true,
+            "canDisableInheritedPermissions": false,
+            "canDownload": true,
+            "canEdit": true,
+            "canEnableInheritedPermissions": true,
+            "canListChildren": false,
+            "canModifyContent": true,
+            "canModifyContentRestriction": true,
+            "canModifyEditorContentRestriction": true,
+            "canModifyOwnerContentRestriction": true,
+            "canModifyLabels": false,
+            "canMoveChildrenWithinDrive": false,
+            "canMoveItemIntoTeamDrive": true,
+            "canMoveItemOutOfDrive": true,
+            "canMoveItemWithinDrive": true,
+            "canReadLabels": false,
+            "canReadRevisions": true,
+            "canRemoveChildren": false,
+            "canRemoveContentRestriction": false,
+            "canRemoveMyDriveParent": true,
+            "canRename": true,
+            "canShare": true,
+            "canTrash": true,
+            "canUntrash": true
+          },
+          "viewersCanCopyContent": true,
+          "copyRequiresWriterPermission": false,
+          "writersCanShare": true,
+          "permissions": [
+            {
+              "kind": "drive#permission",
+              "id": "10158472097869688742",
+              "type": "user",
+              "emailAddress": "qeva.ai.solutions@gmail.com",
+              "role": "owner",
+              "displayName": "qeva.ai.solutions",
+              "deleted": false,
+              "pendingOwner": false
+            }
+          ],
+          "permissionIds": [
+            "10158472097869688742"
+          ],
+          "originalFilename": "Untitled",
+          "fullFileExtension": "mp3",
+          "fileExtension": "mp3",
+          "md5Checksum": "1e91c1cc661d08b2b212307faaf7dbd3",
+          "sha1Checksum": "cc362fed44aac8df85ff836b872b41a84d9a1344",
+          "sha256Checksum": "78ddb8bccd8bec1cf6238aeb4f8e62b0f0ecfac940239062a28f55a2c8017e89",
+          "size": "80711",
+          "quotaBytesUsed": "80711",
+          "headRevisionId": "0BwpqSqjt85ycN1NzU05kRTBWZlpPRU5uUktGZnkrVGsyOWcwPQ",
+          "isAppAuthorized": true,
+          "linkShareMetadata": {
+            "securityUpdateEligible": false,
+            "securityUpdateEnabled": true
+          },
+          "inheritedPermissionsDisabled": false
+        }
+      }
+    ],
+    "Cambiar acceso": [
+      {
+        "json": {
+          "kind": "drive#permission",
+          "id": "anyone",
+          "type": "anyone",
+          "role": "writer",
+          "allowFileDiscovery": true
+        }
+      },
+      {
+        "json": {
+          "kind": "drive#permission",
+          "id": "anyone",
+          "type": "anyone",
+          "role": "writer",
+          "allowFileDiscovery": true
+        }
+      },
+      {
+        "json": {
+          "kind": "drive#permission",
+          "id": "anyone",
+          "type": "anyone",
+          "role": "writer",
+          "allowFileDiscovery": true
+        }
+      },
+      {
+        "json": {
+          "kind": "drive#permission",
+          "id": "anyone",
+          "type": "anyone",
+          "role": "writer",
+          "allowFileDiscovery": true
+        }
+      },
+      {
+        "json": {
+          "kind": "drive#permission",
+          "id": "anyone",
+          "type": "anyone",
+          "role": "writer",
+          "allowFileDiscovery": true
+        }
+      }
+    ],
+    "Image-to-video": [
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "bfebbd5f-f2f3-41d8-b975-b45ebfd185bc",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/17a7f185-8e05-43da-8455-8d2cbb655b71.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos ligeramente temblorosas, pasando entre raíces luminosas con circuitos brillando en azul y verde, mientras los dedos rozan la corteza áspera y cálida, dejando marcas sutiles, al fondo se extienden árboles altos y delgados cuyas hojas vibran en tonos metálicos y eléctricos, el susurro del viento mezclado con un suave zumbido digital llena el aire, mi respiración se vuelve más lenta y profunda, el olor a madera húmeda y aire fresco invade mis fosas nasales, la temperatura cálida en la piel se contrapone a la vibración fría de las raíces que emergen y brillan con circuitos pulsantes, mis pies descalzos sienten el suelo terroso cubierto de hojas brillantes, mientras la luz tenue de un sol filtrándose entre las copas crea patrones dinámicos de sombras y destellos, mi mano acompaña el contacto con las raíces que parecen respirar, y en la distancia, el sonido binaural de un bosque vivo, hibridado entre naturaleza y tecnología, complementa la escena, creando una experiencia inmersiva y hiperrealista."
+            },
+            "output": {
+              "type": "",
+              "status": 0,
+              "works": null
+            },
+            "meta": {
+              "created_at": "2025-06-20T22:35:01.351660491Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "bca21308-9497-428c-8e1e-899cbc2b181d",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/634c36fe-ff4b-4148-9528-e7f2bf8d0e5d.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos desnudas y temblorosas que rozan y buscan entre las ramas frágiles y nudosas, la suave textura de la corteza en mis dedos mientras el rocío matutino me humedece la piel, mis pulmones inhalando el aire fresco y húmedo impregnado de aroma a tierra húmeda y musgo, sintiendo la vibración rítmica de hojas movidas por la brisa, mis pies desnudos pisando tierra blanda, al fondo, un espeso bosque de árboles antiguos cuyos troncos se funden con ramas en perpetua transmutación, mientras una sensación de peso y calma me envuelve, y en mis extremidades se siente un leve temblor de fascinación ante la transformación de la naturaleza en cables luminosos y etéreos que emiten un resplandor cálido y vibrante, reflejándose en mi piel húmeda, en un entorno envolvente que combina lo orgánico con lo tecnológico, con el sonido suave del viento, el canto lejano de aves y el olor a tierra mojada mezclado con un brillo dorado que parece casi palpable."
+            },
+            "output": {
+              "type": "",
+              "status": 0,
+              "works": null
+            },
+            "meta": {
+              "created_at": "2025-06-20T22:35:01.382531314Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "556c9121-3fbb-4608-a2a8-b03543d1cdbd",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/ac35306a-466f-4662-a97e-7e54deff8d47.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos temblorosas y piel empapada de sudor, los dedos entrelazados con cables que se extienden por mi piel, pulsando y deformándose en formas extrañas mientras mi respiración agitada crea vaho en el aire húmedo; al fondo, árboles frondosos cubiertos de musgo, ramas retorcidas que se entrelazan en un entramado oscuro, hojas que susurran con el viento y un tenue brillo bioluminiscente filtrándose entre las sombras, el aire cargado con el olor a tierra húmeda y metal oxidado, sonidos suaves de cables vibrando y un zumbido distante que se mezcla con el murmullo de hojas, mis manos se aferran con fuerza a la textura áspera de la corteza de un árbol cercano, mientras la piel de mi amigo se transforma en una máscara cambiante, sus facciones distorsionándose en una malla surrealista de cables y carne, sintiendo el peso de cada respiración y la tensión en mi cuerpo, envuelto en la fría brisa del bosque bajo un cielo crepuscular y sonidos binaurales que intensifican la inmersión, todo en una experiencia sensorial que me sitúa en medio de una escena surrealista de transformación y conexión visceral."
+            },
+            "output": {
+              "type": "",
+              "status": 0,
+              "works": null
+            },
+            "meta": {
+              "created_at": "2025-06-20T22:35:01.404284362Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "283e2e8d-a6c6-41d2-a6c7-75c986d769be",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/9708f581-5ccf-4733-a9b9-39e7f82cfe49.png",
+              "prompt": "Ingresando en bosque, con la vista en primera persona, tomo tipo GoPro de mis manos desnudas ligeramente sudorosas y temblorosas, levitando suavemente a través de un mar de árboles ancestrales cuya corteza húmeda refleja destellos de neón vibrante, mientras las corrientes de datos de neón flotan a mi alrededor como streams de luz pulsante que vibran en sincronía con mis sentidos, el aire frío y húmedo acaricia mi piel, lleno del aroma terroso de tierra mojada y el sutil zumbido de los datos luminosos, mis piernas flotando ligeras, sintiendo cada rama y hoja rozando mis extremidades en una danza silenciosa, mi respiración entrecortada por la humedad y la emoción, mientras la escena se extiende en profundidad infinita, enriquecida por el flujo de datos que chisporrotean en el ambiente, todo capturado en un escenario inmersivo y cinematográfico, como si estuviera atravesando esa jungla digital en primera persona, en un mundo donde la naturaleza y la tecnología se entrelazan en un ballet vibrante y surrealista, acompañando la sensación de ingravidez, con el audio binaural envolviendo cada percepción, haciendo que parezca que realmente floto en un cosmos luminoso entre árboles y datos."
+            },
+            "output": {
+              "type": "",
+              "status": 0,
+              "works": null
+            },
+            "meta": {
+              "created_at": "2025-06-20T22:35:01.389660206Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      },
+      {
+        "json": {
+          "code": 200,
+          "data": {
+            "task_id": "e2995051-5a51-4ef3-ab11-9f33b709b825",
+            "model": "kling",
+            "task_type": "video_generation",
+            "status": "pending",
+            "config": {
+              "service_mode": "",
+              "webhook_config": {
+                "endpoint": "",
+                "secret": ""
+              }
+            },
+            "input": {
+              "camera_control": {
+                "config": {
+                  "horizontal": 0,
+                  "pan": 0,
+                  "roll": 0,
+                  "tilt": 0,
+                  "vertical": 0,
+                  "zoom": 0
+                },
+                "type": "simple"
+              },
+              "cfg_scale": 0.65,
+              "duration": 5,
+              "image_url": "https://img.theapi.app/temp/5ae87f63-7fd0-497f-891d-01895921ad31.png",
+              "prompt": "Ingresando en bosque, vista en primera persona, toma tipo GoPro de mis manos extendidas y temblorosas, tocando la corteza rugosa de un árbol cubierto de musgo, mis dedos sienten la textura húmeda y fría bajo mi piel, mientras mis ojos ven un escenario de árboles altísimos que se pierden en la neblina, hojas crujientes que bajo mis pies producen un sutil pero constante sonido de crunch, el aroma refrescante y terroso llena mis fosas nasales, el aire húmedo y fresco acaricia mi rostro, mis pulmones se llenan con esta pureza, mi respiración agitada y entrecortada vibra en sincronía con un silencio profundo interrumpido solo por el susurro del viento, mis pies pisan ramitas quebradizas y hojarasca seca, mientras en el fondo, la vastedad cósmica parece dividirse en un espacio infinito que me envuelve, conectándome con la conciencia universal en un instante hiperrealista, todo esto en un entorno inmersivo con audio binaural que realza cada sensación, creando una experiencia sensorial total."
+            },
+            "output": {
+              "type": "",
+              "status": 0,
+              "works": null
+            },
+            "meta": {
+              "created_at": "2025-06-20T22:35:01.402530674Z",
+              "started_at": "0001-01-01T00:00:00Z",
+              "ended_at": "0001-01-01T00:00:00Z",
+              "usage": {
+                "type": "point",
+                "frozen": 2600000,
+                "consume": 0
+              },
+              "is_using_private_pool": false
+            },
+            "detail": null,
+            "logs": [],
+            "error": {
+              "code": 0,
+              "raw_message": "",
+              "message": "",
+              "detail": null
+            }
+          },
+          "message": "success"
+        }
+      }
+    ]
+  },
   "settings": {
     "executionOrder": "v1"
   },
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-06-15T07:51:34.077Z",
-  "versionId": "229182d6-715c-4221-bcaf-04179d76bcaa"
+  "updatedAt": "2025-06-20T23:14:35.816Z",
+  "versionId": "700155df-7a18-4df0-80df-db3b8c5b72da"
 }
