@@ -906,6 +906,17 @@
         [],
         [
           {
+            "node": "If12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If12": {
+      "main": [
+        [
+          {
             "node": "Code2",
             "type": "main",
             "index": 0
@@ -3633,8 +3644,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -3740,
-        3580
+        -3440,
+        3680
       ],
       "id": "a5841f04-9f65-479b-b60a-e120e8240f8e",
       "name": "Code2"
@@ -3661,7 +3672,7 @@
           "parameters": [
             {
               "name": "to",
-              "value": "={{ $json.to }}"
+              "value": "={{ $('V1').first().json.msg.telefono }}"
             },
             {
               "name": "body",
@@ -3678,8 +3689,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -3420,
-        3680
+        -3120,
+        3780
       ],
       "id": "844fba43-3b48-448c-83a6-6550835f7575",
       "name": "Texto1"
@@ -3714,8 +3725,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -4480,
-        3440
+        -4460,
+        3840
       ]
     },
     {
@@ -3833,6 +3844,16 @@
                 "operation": "true",
                 "singleValue": true
               }
+            },
+            {
+              "id": "f3b5915a-edde-4db0-964a-202d5cfb7712",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
           ],
           "combinator": "and"
@@ -3843,10 +3864,44 @@
       "typeVersion": 2.2,
       "position": [
         -4120,
-        3560
+        3640
       ],
       "id": "c00f22c2-2ecf-4817-a94d-6e2d394cc144",
       "name": "If4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "05bcbacf-139c-43cc-b97e-e45851b8ed68",
+              "leftValue": "={{ $json.msg.titulo_categoria }}",
+              "rightValue": "💳 AVISO DE PAGO PENDIENTE",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3820,
+        3840
+      ],
+      "id": "934b2de5-c68e-4575-ab6c-4d488649b3d7",
+      "name": "If12"
     }
   ],
   "pinData": {
@@ -3863,7 +3918,7 @@
         "json": {
           "headers": {
             "host": "n8n.innovasoftpro.dev",
-            "content-length": "1164",
+            "content-length": "990",
             "accept": "application/json",
             "content-type": "application/json",
             "x-forwarded-for": "37.27.140.235",
@@ -3879,19 +3934,39 @@
           "body": {
             "messages": [
               {
-                "id": "PspHAHG8RY8Qenk-wJsE_sPfuT8",
-                "from_me": true,
-                "type": "text",
+                "id": "Qa3G7BTrGktfF8k3XrtdrA-gIYE_sPfuT8",
+                "from_me": false,
+                "type": "reply",
                 "chat_id": "5492254423359@s.whatsapp.net",
-                "timestamp": 1750382754,
-                "source": "api",
-                "device_id": 35,
+                "timestamp": 1750447709,
+                "source": "mobile",
                 "chat_name": "Fer",
-                "status": "pending",
-                "text": {
-                  "body": "💰 *INFORMACIÓN PARA REALIZAR EL PAGO*\n\n📌 *Deuda pendiente:* USD 200\n💱 *Equivalente en pesos:* $240.000\n_(Cotización: $1200 por USD)_\n\n━━━━━━━━━━━━━━━━━\n\n💵 *OPCIÓN 1: PAGO EN DÓLARES*\n📱 *ALIAS:* fer.cassera.usd\n🏦 *CBU:* 0070368831004001918601\n👤 *Titular:* FERNANDO ARIEL CASSERA\n💰 *MONTO:* USD 200\n\n━━━━━━━━━━━━━━━━━\n\n💱 *OPCIÓN 2: PAGO EN PESOS*\n📱 *ALIAS:* fer.cassera.33\n🏦 *CBU:* 0070368830004030816102\n👤 *Titular:* FERNANDO ARIEL CASSERA\n💰 *MONTO:* $240.000\n\n━━━━━━━━━━━━━━━━━\n\n📸 *IMPORTANTE:* Una vez realizado el pago, envíe el comprobante respondiendo a este mensaje.\n\n✅ Su pago será acreditado en un máximo de 24hs hábiles.\n\n¡Gracias por su pago! 🙏"
+                "reply": {
+                  "type": "buttons_reply",
+                  "buttons_reply": {
+                    "id": "ButtonsV3:pagar_servicio",
+                    "title": "💳 Pagar ahora"
+                  }
                 },
-                "from": "5492254596618"
+                "context": {
+                  "quoted_id": "PsqPHV5IQmhkjO4-wLUE_sPfuT8",
+                  "quoted_author": "5492254596618",
+                  "quoted_content": {
+                    "header": "💳 AVISO DE PAGO PENDIENTE",
+                    "body": "Estimado cliente,\n\n📅 *Fecha de vencimiento:* 19/06/2025\n💰 *Monto pendiente:* $200 usd USD\n✅ *Último pago:* 20/05/2025\n\n⚠️ Por favor, regularice su situación para continuar disfrutando del servicio.\n\n*Pocho Bot* - Sistema de cobranzas",
+                    "footer": "💡 Toque el botón para abonar",
+                    "buttons": [
+                      {
+                        "type": "quick_reply",
+                        "text": "💳 Pagar ahora",
+                        "id": "ButtonsV3:pagar_servicio"
+                      }
+                    ]
+                  },
+                  "quoted_type": "interactive"
+                },
+                "from": "5492254423359",
+                "from_name": "Fer { }"
               }
             ],
             "event": {
@@ -3915,6 +3990,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-06-20T02:20:02.482Z",
-  "versionId": "7351d90d-86f6-459a-9e21-386e19c2dc4e"
+  "updatedAt": "2025-06-20T19:40:36.443Z",
+  "versionId": "b1385d7f-8783-4217-a862-8dec109fe159"
 }
