@@ -1,0 +1,391 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VEO3": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-22T00:58:02.310Z",
+  "id": "lQFPjoPVdBXYj34g",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "SUBIR CONTENIDO VEO3",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -200,
+        -40
+      ],
+      "id": "f04b3f12-a781-4e42-be5a-46c295eb49cf",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Give me an idea about [Sex / Apparent age: Male, roughly 30–35 years old.\n\nEthnicity: First-century Galilean Jew; Levantine Semitic features.\n\nHeight: About 1.70 m / 5’7”.\n\nBuild: Lean, sinewy; calloused artisan’s hands.\n\nSkin: Medium olive, sun-darkened.\n\nHair: Dark brown–black, wavy, shoulder–length, center part; thick, matte texture.\n\nBeard: Full, trimmed to ~3 cm, matching hair color; integrated mustache.\n\nEyes: Deep hazel–brown, calm yet intense gaze.\n\nEyebrows: Thick, straight, well defined.\n\nNose / Lips: Straight nose with pronounced bridge; medium lips, composed expression.\n\nClothing\n\nInner linen tunic (undyed, off-white), three-quarter sleeves, falling to mid-shin.\n\nOuter wool mantle (himation) in terracotta or muted blue–grey, draped over left shoulder and belted with a simple rope girdle.\n\nEdges of the mantle show light wear and discreet mending.\n\nFootwear\n\nUntanned leather sandals, thong straps tied at the ankle.\n\nAccessories\n\nNone visible; occasionally carries a plain cloth satchel at his side.\n\nPosture & Gesture\n\nUpright stance, shoulders relaxed; gentle, open-handed gestures while speaking.\n\nTypical Lighting\n\nWarm natural light (dawn or dusk), accentuating the volume of hair and beard.\n\nUse these traits exactly to ensure a consistent and respectful depiction in every scene.\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are an AI that generates ONE immersive, realistic short-form video idea at a time.  \nThe idea MUST star **Salvador “Chispa” Jiménez**—a 52-year-old, weather-beaten homeless man (see physical description below) who dishes out surprising millionaire-level advice from the streets.\n\nOUTPUT must be a SINGLE-LINE JSON array and obey every rule that follows.\n\nPHYSICAL REFERENCE (always keep consistent):  \nHispanic male (57, wiry build, sun-creased olive skin, salt-and-pepper stubble, shoulder-length gray hair under a faded navy Mets cap, layered in a black ’90s concert tee, sleeveless olive military jacket, threadbare light-brown trench coat, gray scarf, black work boots, slight limp, carries a broken copper pocket watch.\n\n----- RULES -----\n\n1. **Only return ONE idea per response.**\n\n2. The USER will supply a <key topic> (e.g. “urban farming”, “crypto”, “street food in Vietnam”).  \n   Salvador’s millionaire advice must tie cleverly to the topic.\n\n3. **\"Idea\"** (max 13 words)  \n   - Describe a striking or viral-worthy action or moment involving Salvador and the topic.  \n   - Can be surreal or fictional.  \n   - MUST involve Salvador giving or demonstrating millionaire advice.\n\n4. **\"Título / Caption\":**  \n   - Short, punchy, viral-friendly.  \n   - Include ONE relevant emoji.  \n   - End with EXACTLY 12 hashtags in this order on the same line:  \n     1. 4 topic-relevant hashtags  \n     2. 4 all-time most-popular hashtags  \n     3. 4 currently trending hashtags (invent if live data unavailable)  \n     - All hashtags lowercase.\n\n5. **Entorno / Environment** (max 20 words)  \n   - Precisely matches the action in **Idea**.  \n   - Must specify:  \n     - where (street corner, subway platform, rooftop, etc.)  \n     - key visuals/background (graffiti wall, neon sign, pigeons, traffic noise…)  \n     - participants (always Salvador; may include passers-by, street vendor, etc.)  \n     - style (cinematic realism, handheld docu-style, etc.)  \n     - Fictional settings are allowed.\n\n6. **Estado** — always set to “for production”.\n\n----- OUTPUT FORMAT (single-line JSON array) -----\n\n```json\n[{\n  \"Título\": \"Short viral title with emoji #4_topic_hashtags #4_all_time_popular_hashtags #4_trending_hashtags\",\n  \"Idea\": \"Short idea under 13 words\",\n  \"Entorno\": \"Brief vivid setting under 20 words matching the action\",\n  \"Estado\": \"para producción\"\n}]"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        20,
+        -40
+      ],
+      "id": "e5349334-4ce2-4895-82df-ae021ae03a6b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-05-20",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        200
+      ],
+      "id": "3a28e8c0-d3a6-4fae-90c9-4c3a88477926",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9O8uUWkp7h4KwsVD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "[\n  {\n    \"Título\": \"Diver Removes Nets Off Whale 🐋 #whalesrescue #marinelife #oceanrescue #sealhelpers #love #nature #instagood #explore #viral #savenature #oceanguardians #cleanoceans\",\n    \"Idea\": \"Diver carefully cuts tangled net from distressed whale\",\n    \"Entorno\": \"Open ocean, sunlight beams through water, diver and whale, cinematic realism\",\n    \"Estado\": \"para producción\"\n  }\n]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        220
+      ],
+      "id": "2632c6bb-5d0a-4190-8bb9-8d3e9bb0758b",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -240
+      ],
+      "id": "4495b313-25ac-48c2-bd35-717142f2c47a",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1mdJ3TCAXCv_ZPDIG6L0LKQBP4PclqPL2g7elCxnQBKk",
+          "mode": "list",
+          "cachedResultName": "VEO3 Contenido",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mdJ3TCAXCv_ZPDIG6L0LKQBP4PclqPL2g7elCxnQBKk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mdJ3TCAXCv_ZPDIG6L0LKQBP4PclqPL2g7elCxnQBKk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "idea": "={{ $json.output[0].Idea }}",
+            "Título": "={{ $json.output[0]['Título'] }}",
+            "Estado": "={{ $json.output[0].Estado }}",
+            "Entorno": "={{ $json.output[0].Entorno }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Título",
+              "displayName": "Título",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Entorno",
+              "displayName": "Entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Salida Final",
+              "displayName": "Salida Final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        480,
+        -40
+      ],
+      "id": "4f025e92-8047-4e06-bde6-7f16f233f3f7",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lRj57XPEqOXW9kOd",
+          "name": "Qeva Solutions Sheet"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Give me a Veo3 prompt based on this idea:\n{{ $json.idea }}\n\nThis is the environment:\n{{ $json.Entorno }}",
+        "options": {
+          "systemMessage": ""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        700,
+        -40
+      ],
+      "id": "deaec6d1-7fab-4428-8096-db1e1c15b4be",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "url": "https://queue.fal.run/fal-ai/veo3",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "prompt"
+            },
+            {
+              "name": "aspect_radio",
+              "value": "9:16"
+            },
+            {
+              "name": "duration",
+              "value": "8s"
+            },
+            {
+              "name": "enhance_prompt",
+              "value": "true"
+            },
+            {
+              "name": "generate_audio",
+              "value": "true"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1060,
+        -40
+      ],
+      "id": "f322c45e-6041-4b9c-9b29-db8a0d3cc292",
+      "name": "VEO3",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "YQE5PBrFHpm6bhoV",
+          "name": "Whapi Automatizaciones"
+        },
+        "httpHeaderAuth": {
+          "id": "Xin6p7ZHTX1PWjhS",
+          "name": "Fal AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://queue.fal.run/fal-ai/veo3",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        -40
+      ],
+      "id": "63be2aee-3e93-42b2-948b-4fa14ed8bc60",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Xin6p7ZHTX1PWjhS",
+          "name": "Fal AI"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-22T04:57:44.632Z",
+  "versionId": "3d64a28a-9885-40c3-9db2-d653e4817d07"
+}
