@@ -289,7 +289,7 @@
     {
       "parameters": {
         "chatId": "164729397",
-        "text": "=🚨 **ALERTA DE SISTEMA** 🚨\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n❌ **Error en Flujo de Trabajo**\n\n📋 **DETALLES DEL ERROR:**\n┌─────────────────────────────────────────\n│ 🆔 **ID de Ejecución:** {{$json.execution.id}}\n│ 📂 **Nombre del Flujo:** {{$json.workflow.name}}\n│ 🔗 **ID del Flujo:** {{$json.workflow.id}}\n│ ⚡ **Modo de Ejecución:** {{$json.execution.mode}}\n└─────────────────────────────────────────\n\n🔴 **DESCRIPCIÓN DEL ERROR:**\n```\n{{ $json.execution.error.message }}\n```\n\n📍 **Nodo Afectado:** `{{ $json.execution.lastNodeExecuted }}`\n\n🌐 **URL de Ejecución:**\n{{ $json.execution.url }}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n⏰ Error reportado el: {{$now}}\n🔧 Revisar inmediatamente para resolución",
+        "text": "=🟥 **ALERTA CRÍTICA**\n\n📂 `{{$json.workflow.name}}`  \n💢 Nodo: `{{$json.execution.lastNodeExecuted}}`  \n🆔 ID: {{$json.execution.id}}  \n🕒 {{$now.format(\"dd-MM-yyyy HH:mm\")}}\n\n💬 `{{ $json.execution.error.message }}`\n\n🔗 {{ $json.execution.url }}",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -380,6 +380,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-05-30T20:06:03.477Z",
-  "versionId": "3aa53276-5f71-4753-a571-48580b4f2213"
+  "updatedAt": "2025-06-23T08:28:41.892Z",
+  "versionId": "d9eaa804-e267-415a-be34-6a60f89871e8"
 }
