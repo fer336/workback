@@ -1,0 +1,334 @@
+{
+  "active": false,
+  "connections": {
+    "Calendario": {
+      "main": [
+        [
+          {
+            "node": "var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "var": {
+      "main": [
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "NocoDB5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB5": {
+      "main": [
+        [
+          {
+            "node": "response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-24T04:35:37.431Z",
+  "id": "aM8qCCXauWN3SZzC",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE CITAS - Agendar_Cita",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "numero_cliente",
+              "type": "any"
+            },
+            {
+              "name": "Fecha_cita",
+              "type": "any"
+            },
+            {
+              "name": "Nombre"
+            },
+            {
+              "name": "Evento"
+            },
+            {
+              "name": "correo_electronico",
+              "type": "any"
+            },
+            {
+              "name": "idMensaje"
+            },
+            {
+              "name": "Id_cliente_db"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2460,
+        -660
+      ],
+      "id": "ebb46147-7096-4986-a605-de1ad4a38f07",
+      "name": "Calendario"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "89a458a6-5a13-4b00-bebe-64e9e92af978",
+              "name": "numero_cliente",
+              "value": "={{ $json.numero_cliente }}",
+              "type": "string"
+            },
+            {
+              "id": "91ef0247-b649-479e-b5bb-db4597b57293",
+              "name": "Fecha_cita",
+              "value": "={{ $json.Fecha_cita.split(':').slice(0, 2).join(':') }}",
+              "type": "string"
+            },
+            {
+              "id": "58f1dc63-fc70-463a-a65a-0379a5797376",
+              "name": "Nombre",
+              "value": "={{ $json.Nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "18b0ef23-5a96-4b8d-ae1f-ee41d69531e7",
+              "name": "correo_electronico",
+              "value": "={{ $json.correo_electronico }}",
+              "type": "string"
+            },
+            {
+              "id": "a4651ccd-26ba-48b6-94a9-0307f38c392b",
+              "name": "Id_cliente_db",
+              "value": "={{ $json.Id_cliente_db }}",
+              "type": "string"
+            },
+            {
+              "id": "a14a8039-ca7e-4bae-9f0c-1a22234f326f",
+              "name": "db.tabla_cita",
+              "value": "m0fz2s4w73upduq",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2240,
+        -660
+      ],
+      "id": "d5dd5c4f-524c-4a57-b719-6c6262635a3a",
+      "name": "var"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "psny40od5pkas30",
+        "table": "m0fz2s4w73upduq",
+        "returnAll": true,
+        "options": {
+          "where": "=(fecha_cita,eq,{{ $json.Fecha_cita }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -2000,
+        -660
+      ],
+      "id": "c2a265f0-4382-4a54-ac3a-ebc837b4900b",
+      "name": "NocoDB",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ef2c0071-8873-4516-b24f-3ccbc19c0288",
+              "leftValue": "={{ $json.Id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "17ca3cca-7570-4d8b-beaa-512ce80c2bc2",
+              "leftValue": "={{ $json.telefono }}",
+              "rightValue": "={{ $('Calendario').item.json.numero_cliente }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1760,
+        -740
+      ],
+      "id": "8b87fcb2-3429-421c-9595-a32ee3092f56",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "psny40od5pkas30",
+        "table": "m0fz2s4w73upduq",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "nombre",
+              "fieldValue": "={{ $('var').item.json.Nombre }}"
+            },
+            {
+              "fieldName": "fecha_cita",
+              "fieldValue": "={{ $('var').item.json.Fecha_cita }}"
+            },
+            {
+              "fieldName": "correo",
+              "fieldValue": "={{ $('var').item.json.correo_electronico }}"
+            },
+            {
+              "fieldName": "recordatorio",
+              "fieldValue": "={{ $('var').item.json.Fecha_cita.substring(0, 11) + String(Number($('var').item.json.Fecha_cita.substring(11, 13)) - 2).padStart(2, '0') + ':00' }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -1520,
+        -660
+      ],
+      "id": "ed2a9c97-ccc5-42d2-8a43-518d8197c208",
+      "name": "NocoDB5",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d9d74e6-76fc-40d6-9732-89f8f665036b",
+              "name": "response",
+              "value": "={{ $json.fecha_cita }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1300,
+        -660
+      ],
+      "id": "0f8c566e-9a0b-4087-829e-4aa2b74a334b",
+      "name": "response"
+    }
+  ],
+  "pinData": {
+    "Calendario": [
+      {
+        "json": {
+          "numero_cliente": "5492254423359",
+          "Fecha_cita": "2025-06-24T10:00:00-03:00",
+          "Nombre": "Fernando",
+          "Evento": "agendar",
+          "correo_electronico": "casserafernando@gmail.com",
+          "nombre_inmobiliaria": "",
+          "idMensaje": "K.BNYrEJ7_DgYeKh77K7mw-gCwE_sPfuT8",
+          "Id_cliente_db": "56"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-23T17:49:20.946Z",
+      "updatedAt": "2025-03-23T17:49:20.946Z",
+      "id": "UdWAGpsQzroykED6",
+      "name": "AGENTES INMO"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-24T07:09:28.365Z",
+  "versionId": "8b6544f3-dcf7-456f-99a7-030d0cd4578f"
+}
