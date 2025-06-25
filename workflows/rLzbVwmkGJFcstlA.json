@@ -1,0 +1,256 @@
+{
+  "active": false,
+  "connections": {
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "datos": {
+      "main": [
+        [
+          {
+            "node": "var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "var": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-24T07:57:22.906Z",
+  "id": "rLzbVwmkGJFcstlA",
+  "isArchived": false,
+  "meta": null,
+  "name": "AGENTE CITAS - Button confirm",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// OBTENER DATOS DEL INPUT\nconst editFields = $('var').item.json;\n\n// EXTRAER DATOS DEL TURNO\nconst paciente = editFields.nombre || \"Paciente\";\nconst email = editFields.correo || \"email@ejemplo.com\";\nconst fecha = editFields.fecha || \"Fecha a confirmar\";\nconst hora = editFields.hora || \"Hora a confirmar\";\nconst motivo = editFields.motivo || \"Consulta\";\nconst telefono = editFields.telefono || \"5492254423359\";\n\n// CONFIGURACIÓN DEL MENSAJE\nconst phoneNumber = telefono;\nconst tipoAccion = \"confirmar\"; // Puede ser: confirmar, recordatorio, cancelado, reprogramar, nuevo\n\n// CONFIGURAR MENSAJE SEGÚN TIPO\nlet msgConfig = {};\n\nif (tipoAccion === \"confirmar\") {\n  msgConfig = {\n    header: \"📅 RESUMEN DE TU TURNO 📅\",\n    body: \"👤 Paciente: \" + paciente + \"\\n📧 Email: \" + email + \"\\n📆 Fecha: \" + fecha + \"\\n🕐 Hora: \" + hora + \"\\n🏥 Motivo: \" + motivo ,\n    footer: \"¿Confirmás tu turno?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"✅ Confirmar\", id: \"confirmar_turno\" }\n    ]\n  };\n} else if (tipoAccion === \"recordatorio\") {\n  msgConfig = {\n    header: \"🔔 RECORDATORIO DE TURNO\",\n    body: \"Hola \" + paciente + \"!\\n\\n⏰ Te recordamos que tenés turno:\\n📆 \" + fecha + \"\\n🕐 \" + hora + \"\\n🏥 Motivo: \" + motivo + \"\\n\\n📍 Dirección: [Dirección del consultorio]\\n💡 Recordá traer DNI y estudios previos si los tenés\",\n    footer: \"¿Necesitás algo más?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"✅ Asistiré\", id: \"confirmar_asistencia\" },\n      { type: \"quick_reply\", title: \"❌ No podré ir\", id: \"cancelar_ultimo_momento\" },\n      { type: \"quick_reply\", title: \"📍 Ver ubicación\", id: \"ver_ubicacion\" }\n    ]\n  };\n} else if (tipoAccion === \"cancelado\") {\n  msgConfig = {\n    header: \"❌ TURNO CANCELADO\",\n    body: \"Hola \" + paciente + \",\\n\\nTu turno del \" + fecha + \" a las \" + hora + \" ha sido cancelado.\\n\\n📞 Si querés reprogramar, podés:\\n• Responder este mensaje\\n• Llamarnos al [teléfono]\\n• Agendar online en [web]\",\n    footer: \"¿Querés agendar un nuevo turno?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"📅 Nuevo turno\", id: \"agendar_nuevo\" },\n      { type: \"quick_reply\", title: \"📞 Llamar\", id: \"llamar_consultorio\" },\n      { type: \"quick_reply\", title: \"💬 Consultar\", id: \"hacer_consulta\" }\n    ]\n  };\n} else if (tipoAccion === \"reprogramar\") {\n  msgConfig = {\n    header: \"🔄 REPROGRAMACIÓN DE TURNO\",\n    body: \"Hola \" + paciente + \"!\\n\\nTu turno original:\\n📆 \" + fecha + \" - \" + hora + \"\\n\\nHa sido reprogramado para:\\n📆 [Nueva fecha] - [Nueva hora]\\n🏥 Motivo: \" + motivo,\n    footer: \"¿Te viene bien el nuevo horario?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"✅ Perfecto\", id: \"confirmar_reprogramacion\" },\n      { type: \"quick_reply\", title: \"❌ No puedo\", id: \"rechazar_reprogramacion\" },\n      { type: \"quick_reply\", title: \"📅 Ver otros\", id: \"ver_otros_horarios\" }\n    ]\n  };\n} else if (tipoAccion === \"nuevo\") {\n  msgConfig = {\n    header: \"✅ TURNO AGENDADO\",\n    body: \"¡Hola \" + paciente + \"!\\n\\n✅ Tu turno fue agendado exitosamente:\\n\\n📆 Fecha: \" + fecha + \"\\n🕐 Hora: \" + hora + \"\\n🏥 Motivo: \" + motivo + \"\\n📧 Confirmación enviada a: \" + email + \"\\n\\n⏰ Te enviaremos un recordatorio 24hs antes\",\n    footer: \"¿Necesitás algo más?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"📋 Ver detalles\", id: \"ver_detalles\" },\n      { type: \"quick_reply\", title: \"📅 Agendar otro\", id: \"agendar_otro\" },\n      { type: \"quick_reply\", title: \"✅ Listo\", id: \"finalizar\" }\n    ]\n  };\n} else {\n  // Mensaje genérico de bienvenida\n  msgConfig = {\n    header: \"👋 BIENVENIDO/A\",\n    body: \"Hola! Soy el asistente virtual del consultorio.\\n\\n¿En qué puedo ayudarte hoy?\",\n    footer: \"Seleccioná una opción:\",\n    buttons: [\n      { type: \"quick_reply\", title: \"📅 Agendar turno\", id: \"agendar_turno\" },\n      { type: \"quick_reply\", title: \"🔍 Consultar turno\", id: \"consultar_turno\" },\n      { type: \"quick_reply\", title: \"💬 Hacer consulta\", id: \"hacer_consulta\" }\n    ]\n  };\n}\n\n// CONSTRUIR PAYLOAD EN FORMATO WHAPI\nconst whapiPayload = {\n  to: phoneNumber,\n  type: \"button\",\n  header: {\n    text: msgConfig.header\n  },\n  body: {\n    text: msgConfig.body\n  },\n  footer: {\n    text: msgConfig.footer\n  },\n  action: {\n    buttons: msgConfig.buttons\n  }\n};\n\n// CONFIGURACIÓN DE LA PETICIÓN HTTP\nconst httpRequest = {\n  method: 'POST',\n  url: 'https://gate.whapi.cloud/messages/interactive',\n  headers: {\n    'accept': 'application/json',\n    'authorization': 'Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410',\n    'content-type': 'application/json'\n  },\n  body: JSON.stringify(whapiPayload)\n};\n\n// RETORNAR PARA N8N\nreturn [{\n  json: {\n    payload: whapiPayload,\n    httpRequest: httpRequest\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        -40
+      ],
+      "id": "7670f97c-d482-4c84-8457-18a138089bca",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "nombre"
+            },
+            {
+              "name": "correo"
+            },
+            {
+              "name": "fecha"
+            },
+            {
+              "name": "hora"
+            },
+            {
+              "name": "motivo"
+            }
+          ]
+        }
+      },
+      "id": "dc9f40ba-2f3a-4b19-903c-f57d3548e0cc",
+      "typeVersion": 1.1,
+      "name": "datos",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        0,
+        -40
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/interactive",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "header",
+              "value": "={{ $json.payload.header }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.payload.body }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.payload.footer }}"
+            },
+            {
+              "name": "action",
+              "value": "={{ $json.payload.action }}"
+            },
+            {
+              "name": "type",
+              "value": "={{ $json.payload.type }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $json.payload.to }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        -40
+      ],
+      "id": "4bea10f7-541e-4ccb-9bd9-a91b4dbe627a",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "zXpkHYTzxNAmbiNX",
+          "name": "Whapi - Solutions"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8fd5e7a2-2acb-41ea-b8e5-4089765dfea7",
+              "name": "nombre",
+              "value": "={{ $json.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "58165a5d-416b-49d2-b9eb-2d15f7a660c2",
+              "name": "correo",
+              "value": "={{ $json.correo }}",
+              "type": "string"
+            },
+            {
+              "id": "d77f58ff-fc3b-4646-82aa-19b37f7a6632",
+              "name": "fecha",
+              "value": "={{ $json.fecha }}",
+              "type": "string"
+            },
+            {
+              "id": "7fb26fb1-e320-4a5c-bd4c-5c462ed12b24",
+              "name": "hora",
+              "value": "={{ $json.hora }}",
+              "type": "string"
+            },
+            {
+              "id": "13ed22d1-01fd-4d41-bba4-9af5f34cddbc",
+              "name": "motivo",
+              "value": "={{ $json.motivo }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        -40
+      ],
+      "id": "59a66595-192d-4f24-9c0e-6994f4cb63ed",
+      "name": "var"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "046a9531-d8f0-430f-addc-ffb6a6e82c0b",
+              "name": "response",
+              "value": "BUTTON_ENVIADO",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        960,
+        -40
+      ],
+      "id": "d54faa56-5d11-4667-a708-1e7cdc74fd08",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {
+    "datos": [
+      {
+        "json": {
+          "nombre": "Fernando Cassera",
+          "correo": "casserafernando@gmail.com",
+          "fecha": "25 de junio de 2025",
+          "hora": "10:00",
+          "motivo": "Molestia en una muela"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-24T09:19:04.034Z",
+  "versionId": "c4a8ddce-71eb-4bc5-826b-03dafafbd65c"
+}
