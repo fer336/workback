@@ -36,7 +36,13 @@
     },
     "If1": {
       "main": [
-        [],
+        [
+          {
+            "node": "NocoDB6",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "NocoDB5",
@@ -82,17 +88,11 @@
               "name": "Nombre"
             },
             {
-              "name": "Evento"
-            },
-            {
               "name": "correo_electronico",
               "type": "any"
             },
             {
-              "name": "idMensaje"
-            },
-            {
-              "name": "Id_cliente_db"
+              "name": "Id"
             }
           ]
         }
@@ -167,7 +167,7 @@
         "table": "m0fz2s4w73upduq",
         "returnAll": true,
         "options": {
-          "where": "=(fecha_cita,eq,{{ $json.Fecha_cita }})"
+          "where": "=(Telefono,eq,{{ $json.numero_cliente }})"
         }
       },
       "type": "n8n-nodes-base.nocoDb",
@@ -208,13 +208,13 @@
               }
             },
             {
-              "id": "17ca3cca-7570-4d8b-beaa-512ce80c2bc2",
-              "leftValue": "={{ $json.telefono }}",
-              "rightValue": "={{ $('Calendario').item.json.numero_cliente }}",
+              "id": "b5ac992d-62ac-4922-adee-ecc202df37b5",
+              "leftValue": "={{ $('var').item.json.numero_cliente }}",
+              "rightValue": "",
               "operator": {
                 "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "operation": "exists",
+                "singleValue": true
               }
             }
           ],
@@ -295,6 +295,52 @@
       ],
       "id": "0f8c566e-9a0b-4087-829e-4aa2b74a334b",
       "name": "response"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "psny40od5pkas30",
+        "table": "m0fz2s4w73upduq",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "nombre",
+              "fieldValue": "={{ $('var').item.json.Nombre }}"
+            },
+            {
+              "fieldName": "fecha_cita",
+              "fieldValue": "={{ $('var').item.json.Fecha_cita }}"
+            },
+            {
+              "fieldName": "correo",
+              "fieldValue": "={{ $('var').item.json.correo_electronico }}"
+            },
+            {
+              "fieldName": "recordatorio",
+              "fieldValue": "={{ $('var').item.json.Fecha_cita.substring(0, 11) + String(Number($('var').item.json.Fecha_cita.substring(11, 13)) - 2).padStart(2, '0') + ':00' }}"
+            },
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.Id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -1540,
+        -840
+      ],
+      "id": "c4d9cb1f-00fc-4ce8-9ab7-efb63d407cc5",
+      "name": "NocoDB6",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "CawnXo6TfhLoivTw",
+          "name": "NocoDB Token account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -302,13 +348,10 @@
       {
         "json": {
           "numero_cliente": "5492254423359",
-          "Fecha_cita": "2025-06-24T10:00:00-03:00",
-          "Nombre": "Fernando",
-          "Evento": "agendar",
-          "correo_electronico": "casserafernando@gmail.com",
-          "nombre_inmobiliaria": "",
-          "idMensaje": "K.BNYrEJ7_DgYeKh77K7mw-gCwE_sPfuT8",
-          "Id_cliente_db": "56"
+          "Fecha_cita": "2025-06-25T10:00:00",
+          "Nombre": "Paciente de Prueba",
+          "correo_electronico": "paciente@prueba.com",
+          "Id": null
         }
       }
     ]
@@ -329,6 +372,6 @@
     }
   ],
   "triggerCount": 0,
-  "updatedAt": "2025-06-24T07:09:28.365Z",
-  "versionId": "8b6544f3-dcf7-456f-99a7-030d0cd4578f"
+  "updatedAt": "2025-06-24T19:06:10.009Z",
+  "versionId": "50dc442e-dd9e-486f-82f9-dac7165bf03b"
 }
