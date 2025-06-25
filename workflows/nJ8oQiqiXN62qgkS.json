@@ -64,6 +64,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "text1",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -354,7 +361,33 @@
                 ],
                 "combinator": "and"
               },
-              "renameOutput": true
+              "renameOutput": true,
+              "outputKey": "extendedTextMessage"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "79edb828-39df-4ebc-a555-36e2e44a2aaa",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "reply",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Button"
             }
           ]
         },
@@ -450,7 +483,7 @@
             {
               "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
               "name": "text",
-              "value": "={{ $('JSON Parse').item.json.content }}",
+              "value": "={{ $('JSON Parse').item?.json?.content ||$json.button  }}",
               "type": "string"
             },
             {
@@ -466,8 +499,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1720,
-        -80
+        1860,
+        -300
       ],
       "id": "14916505-d6c4-4f43-b0d7-e2c4f22b61fc",
       "name": "text1"
@@ -594,7 +627,26 @@
     "Datos": [
       {
         "json": {
-          "estado": null
+          "msg": {
+            "telefono": "5492254423359",
+            "nombre": "Fer",
+            "type": "reply",
+            "ListaResponse": "\n",
+            "content": null,
+            "timestamp": "2025-06-24T05:19:09.000-04:00",
+            "idmsg": "RUBR_HzsXxmM4N6pjKvbWA-gHME_sPfuT8",
+            "row_id_fecha": null,
+            "titulo_categoria": "📅 RESUMEN DE TU TURNO 📅",
+            "eventId": "Pspzi7uz.P2mMEg-wD0E_sPfuT8",
+            "location": {
+              "latitude": null,
+              "longitude": null
+            },
+            "off": "🟢 Derivacion con un representante, a partir de ahora hablará con una persona real 🟢",
+            "on": "🟠  Derivación con un Agente IA, a partir de ahora hablará con Martín 🟠",
+            "button": "ButtonsV3:confirmar_turno"
+          },
+          "id_cliente": 12
         }
       }
     ]
@@ -607,6 +659,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-06-14T16:52:07.357Z",
-  "versionId": "e09f5990-0ffc-4259-8feb-2e8c5d835605"
+  "updatedAt": "2025-06-24T09:24:29.293Z",
+  "versionId": "aaa68318-02cc-4dc2-b9da-e6c03d41bedf"
 }
