@@ -1,0 +1,1175 @@
+{
+  "active": false,
+  "connections": {
+    "Calendario": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "URL_PUBLICACION",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener eventos": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Obtener eventos",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Response null Codigo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getForCode": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Datos de la propiedad",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Success1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcula fecha": {
+      "main": [
+        [
+          {
+            "node": "Propietario azul",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Agente inmobiliario rojo",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Cliente violeta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "getForCode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "verificador": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limpia fecha": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "verificador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Update a row",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos de la propiedad": {
+      "main": [
+        [
+          {
+            "node": "Calcula fecha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cliente violeta": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Propietario azul": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Agente inmobiliario rojo": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Limpia fecha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcular Recordatorios": {
+      "main": [
+        [
+          {
+            "node": "getCitas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Calcular Recordatorios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a row": {
+      "main": [
+        [
+          {
+            "node": "Insert event id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a row": {
+      "main": [
+        [
+          {
+            "node": "Get many rows1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows1": {
+      "main": [
+        [
+          {
+            "node": "actualizar evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getCitas": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "URL_PUBLICACION": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T04:23:42.786Z",
+  "id": "QNseORjK6k8Pt17A",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE INMO - Agendar_cita",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "numero_cliente",
+              "type": "any"
+            },
+            {
+              "name": "Fecha_cita",
+              "type": "any"
+            },
+            {
+              "name": "Nombre"
+            },
+            {
+              "name": "Evento"
+            },
+            {
+              "name": "correo_electronico",
+              "type": "any"
+            },
+            {
+              "name": "nombre_inmobiliaria"
+            },
+            {
+              "name": "idMensaje"
+            },
+            {
+              "name": "Id_cliente_db"
+            },
+            {
+              "name": "url_propiedad"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -3024,
+        288
+      ],
+      "id": "58bee7de-35da-458a-835e-58f2c5a82957",
+      "name": "Calendario"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Codigo_propiedad",
+        "key": "=propiedades_historial_analisis:{{ $json.numero_cliente }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -2816,
+        288
+      ],
+      "id": "402604c7-72d0-4dfe-8fe2-200697a19bc6",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "returnAll": true,
+        "timeMax": "={{ $now.plus({ week: 2 }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -1936,
+        192
+      ],
+      "id": "9e149582-ec6c-4be8-9fcb-e6a793a658b6",
+      "name": "Obtener eventos",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "b9dhe93V3wFhoVsL",
+          "name": "Calendario Qeva Francisco"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c358838a-4034-4100-a5cd-e89f533161b0",
+              "leftValue": "={{ $json.ultimoCodigo }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2160,
+        288
+      ],
+      "id": "cc16daa5-5632-4073-9f16-b5f457cbca44",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ef619c87-8996-4278-805f-187d5e1e672a",
+              "name": "response",
+              "value": "Codigo propiedad vacio",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1936,
+        448
+      ],
+      "id": "365d7245-5dd3-4a06-9cbc-3d76130799d1",
+      "name": "Response null Codigo"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener el código de propiedad que queremos buscar\nconst codigoPropiedad = $('Code').first().json.ultimoCodigo;\n\n// Procesar todos los eventos de entrada\nconst events = $input.all();\n\n// Para debugging\nconsole.log(\"Número total de eventos a procesar:\", events.length);\nconsole.log(\"Código de propiedad a buscar:\", codigoPropiedad);\n\n// Arrays para almacenar los eventos filtrados\nconst eventosVerdes = [];\nconst eventosRojos = [];\n\n// Mapa para almacenar las relaciones entre ubicaciones y códigos\n// Esto nos ayudará a relacionar eventos rojos con códigos de propiedad\nconst relacionUbicacionCodigo = new Map();\n\n// PASO 1: Escanear eventos verdes para recopilar relaciones ubicación->código\nconsole.log(\"\\n=== FASE 1: ESCANEO DE UBICACIONES Y CÓDIGOS ===\");\nevents.forEach(item => {\n  const event = item.json;\n  \n  // Ignorar objetos que son solo timezone\n  if (event.start === \"America/Argentina/Buenos_Aires\" && \n      event.end === \"America/Argentina/Buenos_Aires\") {\n    return;\n  }\n  \n  // Detectar eventos verdes con \"Codigo:XXX\"\n  if ((event.colorId === \"10\" || event.colorId === 10) && \n      event.summary && \n      event.summary.includes(\"Codigo:\") && \n      event.location) {\n    \n    // Extraer el código de la propiedad\n    const codigoMatch = event.summary.match(/Codigo:([A-Za-z0-9-_]+)/i);\n    if (codigoMatch) {\n      const codigo = codigoMatch[1];\n      // Guardar la relación ubicación -> código\n      relacionUbicacionCodigo.set(event.location, codigo);\n      console.log(`Ubicación ${event.location} asociada con código ${codigo}`);\n    }\n  }\n});\n\n// PASO 2: Procesar todos los eventos\nconsole.log(\"\\n=== FASE 2: PROCESAMIENTO DE EVENTOS ===\");\nevents.forEach(item => {\n  const event = item.json;\n  \n  // Ignorar objetos que son solo timezone\n  if (event.start === \"America/Argentina/Buenos_Aires\" && \n      event.end === \"America/Argentina/Buenos_Aires\") {\n    return;\n  }\n  \n  // CASO 1: Eventos verdes (colorId=2)\n  if (event.colorId === \"10\" || event.colorId === 10) {\n    // Extraer código directamente del summary\n    let codigoEvento = null;\n    const codigoMatch = event.summary && event.summary.match(/Codigo:([A-Za-z0-9-_]+)/i);\n    \n    if (codigoMatch) {\n      codigoEvento = codigoMatch[1];\n    }\n    \n    // Verificar si el código coincide con el buscado\n    if (codigoEvento === codigoPropiedad) {\n      console.log(`Evento VERDE con código coincidente: ${event.summary}`);\n      eventosVerdes.push({\n        ...event,\n        tipo: \"verde\"\n      });\n    }\n  }\n  // CASO 2: Eventos rojos (colorId=11)\n  else if (event.colorId === \"11\" || event.colorId === 11) {\n    // Para eventos rojos, verificar:\n    // 1. Si tiene un formato \"Direccion: XXX\" y la ubicación coincide con un código conocido\n    // 2. O si contiene directamente el código de propiedad\n    \n    let coincideRojo = false;\n    \n    // Verificar si su ubicación está asociada con el código buscado\n    if (event.location && relacionUbicacionCodigo.has(event.location)) {\n      const codigoAsociado = relacionUbicacionCodigo.get(event.location);\n      if (codigoAsociado === codigoPropiedad) {\n        coincideRojo = true;\n        console.log(`Evento ROJO coincide por ubicación ${event.location}`);\n      }\n    }\n    \n    // También verificar si el summary contiene el código directamente\n    if (event.summary && event.summary.includes(codigoPropiedad)) {\n      coincideRojo = true;\n      console.log(`Evento ROJO coincide por mención directa del código`);\n    }\n    \n    if (coincideRojo) {\n      eventosRojos.push({\n        ...event,\n        tipo: \"rojo\"\n      });\n    }\n  }\n});\n\n// Si no encontramos eventos, hacer una segunda pasada más flexible\nif (eventosVerdes.length === 0 && eventosRojos.length === 0) {\n  console.log(\"\\n=== NO SE ENCONTRARON EVENTOS EXACTOS, BUSCANDO POR UBICACIÓN ===\");\n  \n  // Si hay eventos rojos pero no se relacionaron correctamente,\n  // intentar buscar por coincidencia exacta de ubicación\n  const eventosVerdesBuscados = events.filter(item => {\n    const event = item.json;\n    return (event.colorId === \"10\" || event.colorId === 10) && \n           event.summary && \n           event.summary.includes(`Codigo:${codigoPropiedad}`);\n  }).map(item => item.json);\n  \n  // Si encontramos eventos verdes con el código buscado...\n  if (eventosVerdesBuscados.length > 0) {\n    console.log(`Encontrados ${eventosVerdesBuscados.length} eventos verdes con el código buscado`);\n    \n    // Extraer las ubicaciones de estos eventos verdes\n    const ubicacionesBuscadas = eventosVerdesBuscados\n      .filter(event => event.location)\n      .map(event => event.location);\n    \n    console.log(\"Ubicaciones asociadas al código:\", ubicacionesBuscadas);\n    \n    // Buscar eventos rojos con estas ubicaciones\n    events.forEach(item => {\n      const event = item.json;\n      \n      // Verificar si es un evento rojo con ubicación coincidente\n      if ((event.colorId === \"11\" || event.colorId === 11) && \n          event.location && \n          ubicacionesBuscadas.includes(event.location)) {\n        \n        console.log(`Evento ROJO coincide por ubicación (segunda pasada): ${event.summary}`);\n        eventosRojos.push({\n          ...event,\n          tipo: \"rojo\"\n        });\n      }\n    });\n    \n    // Añadir los eventos verdes encontrados\n    eventosVerdesBuscados.forEach(event => {\n      eventosVerdes.push({\n        ...event,\n        tipo: \"verde\"\n      });\n    });\n  }\n}\n\n// Si todavía no encontramos eventos, mostrar todos los eventos coloreados\nif (eventosVerdes.length === 0 && eventosRojos.length === 0) {\n  console.log(\"\\n=== ÚLTIMO RECURSO: DEVOLVIENDO TODOS LOS EVENTOS COLOREADOS ===\");\n  \n  // Capturar todos los eventos verdes (colorId=10)\n  events.forEach(item => {\n    const event = item.json;\n    \n    // Ignorar objetos timezone\n    if (event.start === \"America/Argentina/Buenos_Aires\" && \n        event.end === \"America/Argentina/Buenos_Aires\") {\n      return;\n    }\n    \n    if (event.colorId === \"10\" || event.colorId === 10) {\n      eventosVerdes.push({\n        ...event,\n        tipo: \"verde\"\n      });\n    }\n    else if (event.colorId === \"11\" || event.colorId === 11) {\n      eventosRojos.push({\n        ...event,\n        tipo: \"rojo\"\n      });\n    }\n  });\n}\n\n// Registrar el resultado final\nconsole.log(`\\nResultado final: ${eventosVerdes.length} eventos verdes y ${eventosRojos.length} eventos rojos para el código ${codigoPropiedad}`);\n\n// Devolver eventos encontrados\nreturn [{\n  json: {\n    codigo: codigoPropiedad,\n    eventosVerdes: eventosVerdes,\n    eventosRojos: eventosRojos,\n    totalEventos: eventosVerdes.length + eventosRojos.length\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1504,
+        192
+      ],
+      "id": "e437a362-1a5f-4b59-925e-844ad66d1f25",
+      "name": "getForCode"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Código para obtener el último código de propiedad y la última publicación\n// Primero vamos a inspeccionar la estructura de datos\nconst redisData = $('Redis').first().json;\nconst inputData = $input.first().json;\n\nconsole.log(\"=== DEPURACIÓN ===\");\nconsole.log(\"Redis data completo:\", JSON.stringify(redisData, null, 2));\nconsole.log(\"Input data completo:\", JSON.stringify(inputData, null, 2));\n\n// Intentamos obtener los datos de diferentes formas\nlet codigosPropiedad;\nlet urlsPublicacion;\n\n// Para códigos de propiedad\nif (redisData.Codigo_propiedad && Array.isArray(redisData.Codigo_propiedad[0])) {\n  codigosPropiedad = redisData.Codigo_propiedad[0];\n} else if (Array.isArray(redisData.Codigo_propiedad)) {\n  codigosPropiedad = redisData.Codigo_propiedad;\n} else {\n  console.log(\"Error: No se pudo encontrar el array de códigos\");\n  return $input.all();\n}\n\n// Para URLs de publicación - verificar si está en input o en otro lugar\nif (inputData.url_publicacion && Array.isArray(inputData.url_publicacion)) {\n  urlsPublicacion = inputData.url_publicacion;\n} else if (inputData.URL_PUBLICACION) {\n  // Podría ser un string simple, no un array\n  urlsPublicacion = [inputData.URL_PUBLICACION];\n} else if (inputData.url_publicacion) {\n  // Si es string, convertir a array\n  urlsPublicacion = [inputData.url_publicacion];\n} else {\n  console.log(\"Error: No se pudo encontrar las URLs de publicación\");\n  console.log(\"Claves disponibles en input:\", Object.keys(inputData));\n}\n\nconsole.log(\"Códigos encontrados:\", codigosPropiedad);\nconsole.log(\"URLs encontradas:\", urlsPublicacion);\n\n// Si tenemos los arrays, obtenemos los últimos elementos\nlet ultimoCodigo, ultimaPublicacion;\n\nif (Array.isArray(codigosPropiedad) && codigosPropiedad.length > 0) {\n  ultimoCodigo = codigosPropiedad[codigosPropiedad.length - 1];\n}\n\nif (Array.isArray(urlsPublicacion) && urlsPublicacion.length > 0) {\n  ultimaPublicacion = urlsPublicacion[urlsPublicacion.length - 1];\n}\n\nconsole.log(\"Último código de propiedad:\", ultimoCodigo);\nconsole.log(\"Última URL de publicación:\", ultimaPublicacion);\n\n// Añadimos los últimos valores a todos los ítems de entrada\nconst items = $input.all();\nfor (const item of items) {\n  item.json.ultimoCodigo = ultimoCodigo || \"No encontrado\";\n  item.json.ultimaPublicacion = ultimaPublicacion || inputData.url_publicacion || \"No encontrada\";\n}\n\n// Devolvemos los ítems con los nuevos campos\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2384,
+        288
+      ],
+      "id": "bc4fc3f1-89e1-4ed9-ad9a-bf1640993cb3",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b6f87eba-894b-45bd-a4a1-9e1c8e34aba6",
+              "leftValue": "={{ $json.disponible }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -848,
+        192
+      ],
+      "id": "055b1018-bcd1-4705-af94-28b79b31a607",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtener los datos\nconst datosCalendario = $('Calendario').first().json;\n\n// Obtener datos de la propiedad (Google Sheets)\nconst datosPropiedad = $('Datos de la propiedad').first().json;\n\n// Verificar que existen los datos necesarios en getForCode\nlet eventosVerdes = null;\ntry {\n  // Intentar obtener el primer evento verde\n  const getForCodeResult = $('getForCode').first().json;\n  if (getForCodeResult && getForCodeResult.eventosVerdes && getForCodeResult.eventosVerdes.length > 0) {\n    eventosVerdes = getForCodeResult.eventosVerdes[0];\n  } else {\n    console.log(\"No se encontraron eventos verdes\");\n  }\n} catch (error) {\n  console.log(\"Error al obtener eventos verdes:\", error);\n}\n\n// 2. Extraer variables con valores predeterminados para evitar errores\nconst nombreCliente = datosCalendario?.Nombre || \"\";\nconst telefono = datosCalendario?.numero_cliente || \"\";\nconst nombreInmobiliaria = datosCalendario?.nombre_inmobiliaria || \"\";\nconst tipoPropiedad = datosCalendario?.Tipo || \"\";\n\n// Usar valores predeterminados si eventosVerdes es null o sus propiedades no existen\nlet ubicacion = '';\nconst splitOutItems = $('Split Out').all();\n\nfor (const item of splitOutItems) {\n  if (item.json.eventosVerdes?.location) {\n    ubicacion = item.json.eventosVerdes.location;\n    break; // salta cuando encuentra el primero válido\n  }\n}\nconst idInput = eventosVerdes?.id || \"\";\nconst idEvento = eventosVerdes?.id || \"\";\nconst summary = eventosVerdes?.summary || \"\";\n\n// 3. Obtener tiempo dinámico desde Google Sheets\n// Convertir el valor de tiempo a minutos\nlet tiempoVisitaMinutos = 30; // Valor por defecto\n\nif (datosPropiedad?.Tiempo) {\n  const tiempoTexto = datosPropiedad.Tiempo.toString().toLowerCase();\n  \n  // Extraer número del texto (ej: \"1hs\" -> 1, \"30mins\" -> 30)\n  const numeroMatch = tiempoTexto.match(/\\d+/);\n  \n  if (numeroMatch) {\n    const numero = parseInt(numeroMatch[0]);\n    \n    // Determinar si son horas o minutos\n    if (tiempoTexto.includes('h') || tiempoTexto.includes('hora')) {\n      tiempoVisitaMinutos = numero * 60; // Convertir horas a minutos\n    } else if (tiempoTexto.includes('min')) {\n      tiempoVisitaMinutos = numero;\n    } else {\n      // Si no especifica unidad, asumir que son minutos\n      tiempoVisitaMinutos = numero;\n    }\n  }\n}\n\nconsole.log(`Tiempo de visita configurado: ${tiempoVisitaMinutos} minutos`);\n\n// 4. CORRECCIÓN: Verificar ambas versiones de la fecha\n// Buscar fecha_cita o Fecha_cita (con mayúscula)\nconst fechaCitaOriginal = datosCalendario?.fecha_cita || datosCalendario?.Fecha_cita;\n\nif (!fechaCitaOriginal) {\n  console.log(\"Datos disponibles en calendario:\", Object.keys(datosCalendario || {}));\n  return [{\n    json: {\n      error: \"No se proporcionó una fecha de cita válida\",\n      datosDisponibles: Object.keys(datosCalendario || {}),\n      fechaEncontrada: fechaCitaOriginal\n    }\n  }];\n}\n\nconsole.log(\"Fecha original recibida:\", fechaCitaOriginal);\n\n// 5. MEJORA: Manejo más robusto del parseo de fecha\nlet fechaInicio;\n\ntry {\n  // Si viene en formato ISO completo\n  if (fechaCitaOriginal.includes('T') && fechaCitaOriginal.includes('-')) {\n    // Parseo mejorado para manejar diferentes formatos\n    const [fechaParte, horaParteCompleta] = fechaCitaOriginal.split('T');\n    \n    // Obtener solo la parte de hora sin zona horaria\n    let horaParte;\n    if (horaParteCompleta.includes('-')) {\n      horaParte = horaParteCompleta.split('-')[0];\n    } else if (horaParteCompleta.includes('+')) {\n      horaParte = horaParteCompleta.split('+')[0];\n    } else {\n      horaParte = horaParteCompleta;\n    }\n    \n    // Crear la fecha base\n    const [anio, mes, dia] = fechaParte.split('-').map(Number);\n    const [hora, minutos, segundos = 0] = horaParte.split(':').map(Number);\n    \n    fechaInicio = new Date(anio, mes - 1, dia, hora, minutos, segundos || 0);\n  } \n  // Si viene en otro formato, intentar parseo directo\n  else {\n    fechaInicio = new Date(fechaCitaOriginal);\n  }\n  \n  // Verificar que la fecha es válida\n  if (isNaN(fechaInicio.getTime())) {\n    throw new Error(\"Fecha inválida después del parseo\");\n  }\n  \n} catch (error) {\n  console.log(\"Error al parsear fecha:\", error);\n  return [{\n    json: {\n      error: \"Error al procesar la fecha proporcionada\",\n      fechaOriginal: fechaCitaOriginal,\n      errorDetalle: error.message\n    }\n  }];\n}\n\nconsole.log(\"Fecha de inicio parseada:\", fechaInicio);\n\n// 6. Sumar el tiempo dinámico de la visita\nconst fechaFin = new Date(fechaInicio.getTime() + tiempoVisitaMinutos * 60000);\n\nconsole.log(\"Fecha de fin calculada:\", fechaFin);\n\n// 7. Formatear fecha mejorado\nconst formatDate = (date) => {\n  const year = date.getFullYear();\n  const month = String(date.getMonth() + 1).padStart(2, '0');\n  const day = String(date.getDate()).padStart(2, '0');\n  const hour = String(date.getHours()).padStart(2, '0');\n  const minute = String(date.getMinutes()).padStart(2, '0');\n  const second = String(date.getSeconds()).padStart(2, '0');\n  \n  return `${year}-${month}-${day}T${hour}:${minute}:${second}.000-03:00`;\n};\n\nconst fechaInicioFormateada = formatDate(fechaInicio);\nconst fechaFinFormateada = formatDate(fechaFin);\n\nconsole.log(\"Fecha inicio formateada:\", fechaInicioFormateada);\nconsole.log(\"Fecha fin formateada:\", fechaFinFormateada);\n\n// 8. Crear el objeto de salida\nreturn [{\n  json: {\n    idInput,\n    idEvento,\n    colorId: \"10\",\n    summary: `Dirección: ${ubicacion} - Interesado: ${nombreCliente}${nombreInmobiliaria ? ' - ' + nombreInmobiliaria : ''}`,\n    description: ubicacion,\n    tipoPropiedad,\n    nombreCliente,\n    telefono,\n    nombreInmobiliaria,\n    fechaInicio: fechaInicioFormateada,\n    fechaFin: fechaFinFormateada,\n    tiempoVisita: `${tiempoVisitaMinutos} minutos`,\n    // Debug info\n    fechaOriginalRecibida: fechaCitaOriginal,\n    fechaInicioCalculada: fechaInicio.toString(),\n    fechaFinCalculada: fechaFin.toString()\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        80
+      ],
+      "id": "60e3d0df-603f-4088-a883-45677b27e2c0",
+      "name": "Calcula fecha"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "summary, start, end, location, colorId, id, description",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1728,
+        192
+      ],
+      "id": "90b6e407-1402-4737-b48c-629e900c9caf",
+      "name": "Split Out2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "39c2f302-03be-4464-a17a-d7cc481d6d44",
+              "name": "=response",
+              "value": "=ya existe una fecha",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a0254171-67ef-4f8f-bb46-629a8d8ff008",
+      "name": "Success1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -624,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener TODOS los eventos rojos y la fecha que está intentando reservar\nlet eventosRojosData = $input.first().json.eventosRojos;\nconst fechaCitaUsuario = $('Calendario').first().json.Fecha_cita\n\nconsole.log(\"=== VERIFICADOR DE DISPONIBILIDAD ===\");\nconsole.log(\"Fecha solicitada por el usuario:\", fechaCitaUsuario);\nconsole.log(\"Eventos rojos recibidos:\", JSON.stringify(eventosRojosData, null, 2));\n\n// Validar que tenemos datos\nif (!eventosRojosData) {\n    console.log(\"❌ No hay eventos rojos para verificar\");\n    return [{\n        json: {\n            disponible: true,\n            mensaje: \"✅ Horario disponible (no hay eventos para verificar).\",\n            debug: { razon: \"eventosRojosData está vacío o undefined\" }\n        }\n    }];\n}\n\nif (!fechaCitaUsuario) {\n    console.log(\"❌ No se proporcionó fecha de cita\");\n    return [{\n        json: {\n            disponible: false,\n            mensaje: \"🚫 Error: No se proporcionó fecha de cita.\",\n            debug: { razon: \"fechaCitaUsuario está vacío o undefined\" }\n        }\n    }];\n}\n\n// Parsear la fecha de la cita del usuario (formato: 2025-05-30T12:00:00-03:00)\nconst fechaCitaDate = new Date(fechaCitaUsuario);\nif (isNaN(fechaCitaDate.getTime())) {\n    console.log(\"❌ Fecha de cita inválida:\", fechaCitaUsuario);\n    return [{\n        json: {\n            disponible: false,\n            mensaje: \"🚫 Error: Fecha de cita inválida.\",\n            debug: { razon: \"No se pudo parsear fechaCitaUsuario\", fechaOriginal: fechaCitaUsuario }\n        }\n    }];\n}\n\nconsole.log(\"Fecha de cita original:\", fechaCitaUsuario);\nconsole.log(\"Fecha de cita parseada a UTC:\", fechaCitaDate.toISOString());\nconsole.log(\"Fecha de cita en timestamp:\", fechaCitaDate.getTime());\n\n// Normalizar los eventos a un array\nlet todosLosEventos = [];\nif (Array.isArray(eventosRojosData)) {\n    todosLosEventos = eventosRojosData;\n} else if (eventosRojosData && typeof eventosRojosData === 'object') {\n    todosLosEventos = [eventosRojosData];\n}\n\nconsole.log(`\\nTotal de eventos a analizar: ${todosLosEventos.length}`);\n\n// Variables para el análisis\nlet conflictoEncontrado = false;\nlet eventosAnalizados = 0;\nlet eventosRojosEncontrados = 0;\nlet eventosConConflicto = [];\nlet todosLosDetalles = [];\n\n// Analizar CADA evento\ntodosLosEventos.forEach((evento, index) => {\n    eventosAnalizados++;\n    \n    console.log(`\\n--- EVENTO ${index + 1} ---`);\n    \n    // Guardar detalles del evento para debug\n    const detalleEvento = {\n        index: index + 1,\n        colorId: evento.colorId,\n        tipo: evento.tipo,\n        summary: evento.summary || \"Sin título\",\n        start: evento.start,\n        end: evento.end,\n        esEventoRojo: false,\n        tieneConflictoTiempo: false,\n        razonDescarte: null\n    };\n    \n    // Verificar si es un evento rojo (sin filtrar por color aún)\n    const tipo = evento.tipo;\n    const esRojo = tipo === \"rojo\" || tipo === \"Rojo\" || String(tipo).toLowerCase() === \"rojo\";\n    \n    console.log(`Tipo del evento: \"${tipo}\" -> ¿Es rojo? ${esRojo}`);\n    \n    if (!esRojo) {\n        detalleEvento.razonDescarte = `Tipo \"${tipo}\" no es \"rojo\"`;\n        console.log(`❌ Descartado: ${detalleEvento.razonDescarte}`);\n        todosLosDetalles.push(detalleEvento);\n        return; // Siguiente evento\n    }\n    \n    // Es un evento rojo\n    eventosRojosEncontrados++;\n    detalleEvento.esEventoRojo = true;\n    \n    console.log(\"✅ Es un evento ROJO, verificando horarios...\");\n    console.log(\"Detalles del evento:\", JSON.stringify(evento, null, 2));\n    \n    // Obtener fechas del evento\n    let fechaEventoInicio, fechaEventoFin;\n    \n    // Intentar múltiples formatos de fecha\n    if (evento.start && evento.start.dateTime) {\n        fechaEventoInicio = new Date(evento.start.dateTime);\n        console.log(\"Fecha inicio desde start.dateTime:\", evento.start.dateTime);\n    } else if (evento.start && typeof evento.start === 'string') {\n        fechaEventoInicio = new Date(evento.start);\n        console.log(\"Fecha inicio desde start (string):\", evento.start);\n    } else if (evento.start && evento.start.date) {\n        fechaEventoInicio = new Date(evento.start.date);\n        console.log(\"Fecha inicio desde start.date:\", evento.start.date);\n    }\n    \n    if (evento.end && evento.end.dateTime) {\n        fechaEventoFin = new Date(evento.end.dateTime);\n        console.log(\"Fecha fin desde end.dateTime:\", evento.end.dateTime);\n    } else if (evento.end && typeof evento.end === 'string') {\n        fechaEventoFin = new Date(evento.end);\n        console.log(\"Fecha fin desde end (string):\", evento.end);\n    } else if (evento.end && evento.end.date) {\n        fechaEventoFin = new Date(evento.end.date);\n        console.log(\"Fecha fin desde end.date:\", evento.end.date);\n    }\n    \n    // Validar que se pudieron obtener las fechas\n    if (!fechaEventoInicio || isNaN(fechaEventoInicio.getTime())) {\n        detalleEvento.razonDescarte = \"No se pudo parsear fecha de inicio\";\n        console.log(`❌ ${detalleEvento.razonDescarte}`);\n        todosLosDetalles.push(detalleEvento);\n        return;\n    }\n    \n    if (!fechaEventoFin || isNaN(fechaEventoFin.getTime())) {\n        detalleEvento.razonDescarte = \"No se pudo parsear fecha de fin\";\n        console.log(`❌ ${detalleEvento.razonDescarte}`);\n        todosLosDetalles.push(detalleEvento);\n        return;\n    }\n    \n    // Guardar fechas parseadas en el detalle\n    detalleEvento.fechaInicioParsed = fechaEventoInicio.toISOString();\n    detalleEvento.fechaFinParsed = fechaEventoFin.toISOString();\n    \n    console.log(`Evento inicia: ${fechaEventoInicio.toISOString()} (timestamp: ${fechaEventoInicio.getTime()})`);\n    console.log(`Evento termina: ${fechaEventoFin.toISOString()} (timestamp: ${fechaEventoFin.getTime()})`);\n    console.log(`Cita solicitada: ${fechaCitaDate.toISOString()} (timestamp: ${fechaCitaDate.getTime()})`);\n    \n    // Verificar superposición de tiempo con comparación de timestamps para mayor precisión\n    // La cita conflicta si:\n    // 1. La cita está dentro del rango del evento existente\n    // 2. La cita empieza exactamente cuando empieza el evento\n    \n    const timestampCita = fechaCitaDate.getTime();\n    const timestampEventoInicio = fechaEventoInicio.getTime();\n    const timestampEventoFin = fechaEventoFin.getTime();\n    \n    const citaDentroDelEvento = timestampCita >= timestampEventoInicio && timestampCita < timestampEventoFin;\n    const citaEsMismaHoraInicio = timestampCita === timestampEventoInicio;\n    \n    console.log(`¿Cita dentro del evento? ${citaDentroDelEvento} (${timestampCita} >= ${timestampEventoInicio} && ${timestampCita} < ${timestampEventoFin})`);\n    console.log(`¿Cita es misma hora de inicio? ${citaEsMismaHoraInicio} (${timestampCita} === ${timestampEventoInicio})`);\n    \n    const hayConflicto = citaDentroDelEvento || citaEsMismaHoraInicio;\n    detalleEvento.tieneConflictoTiempo = hayConflicto;\n    \n    if (hayConflicto) {\n        console.log(\"🚨 ¡CONFLICTO DETECTADO!\");\n        conflictoEncontrado = true;\n        eventosConConflicto.push({\n            evento: index + 1,\n            summary: evento.summary || \"Sin título\",\n            tipo: evento.tipo,\n            colorId: evento.colorId,\n            inicioEvento: fechaEventoInicio.toISOString(),\n            finEvento: fechaEventoFin.toISOString(),\n            citaSolicitada: fechaCitaDate.toISOString()\n        });\n    } else {\n        console.log(\"✅ No hay conflicto de tiempo\");\n    }\n    \n    todosLosDetalles.push(detalleEvento);\n});\n\n// Resultado final\nconst disponible = !conflictoEncontrado;\n\nconsole.log(\"\\n=== RESUMEN FINAL ===\");\nconsole.log(`Eventos analizados: ${eventosAnalizados}`);\nconsole.log(`Eventos rojos encontrados: ${eventosRojosEncontrados}`);\nconsole.log(`Conflictos detectados: ${eventosConConflicto.length}`);\nconsole.log(`Resultado: ${disponible ? \"DISPONIBLE\" : \"NO DISPONIBLE\"}`);\n\nif (eventosConConflicto.length > 0) {\n    console.log(\"Detalles de conflictos:\");\n    eventosConConflicto.forEach(conflicto => {\n        console.log(`- Evento \"${conflicto.summary}\" del ${conflicto.inicioEvento} al ${conflicto.finEvento}`);\n    });\n}\n\nreturn [{\n    json: {\n        disponible: disponible,\n        mensaje: disponible \n            ? \"✅ Horario disponible, se puede agendar.\"\n            : `🚫 El horario ya está ocupado por ${eventosConConflicto.length} evento(s). Elegí otra fecha.`,\n        debug: {\n            fechaCitaSolicitada: fechaCitaDate.toISOString(),\n            totalEventosAnalizados: eventosAnalizados,\n            eventosRojosEncontrados: eventosRojosEncontrados,\n            conflictosDetectados: eventosConConflicto.length,\n            detallesConflictos: eventosConConflicto,\n            todosLosEventosAnalizados: todosLosDetalles\n        }\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1056,
+        192
+      ],
+      "id": "666c8d1b-9321-44bf-9ed1-2f4f7f25e11c",
+      "name": "verificador"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verificar qué datos están disponibles\nconsole.log(\"Input completo:\", JSON.stringify($input.first().json, null, 2));\n\n// Obtener datos del Calendario (que sí están disponibles)\nconst fechaCalendario = $('Calendario').first()?.json?.Fecha_cita;\nconst nombreCalendario = $('Calendario').first()?.json?.Nombre;\nconst numeroCliente = $('Calendario').first()?.json?.numero_cliente;\n\n// Obtener location del input\nconst location = $input.first()?.json?.location;\n\nconsole.log(\"Fecha calendario original:\", fechaCalendario);\nconsole.log(\"Location:\", location);\n\n// Verificar si existe row_id_fecha en alguna parte\nlet fechaOriginalInput = null;\n\n// Intentar diferentes rutas donde podría estar row_id_fecha\ntry {\n  // Opción 1: Directamente en el input\n  fechaOriginalInput = $input.first()?.json?.row_id_fecha;\n  \n  // Opción 2: En msg\n  if (!fechaOriginalInput) {\n    fechaOriginalInput = $input.first()?.json?.msg?.row_id_fecha;\n  }\n  \n  // Opción 3: Buscar en otros nodos conectados\n  if (!fechaOriginalInput && $('If1').first()) {\n    fechaOriginalInput = $('If1').first()?.json?.row_id_fecha;\n  }\n  \n  // Opción 4: Buscar en verificador\n  if (!fechaOriginalInput && $('verificador').first()) {\n    fechaOriginalInput = $('verificador').first()?.json?.row_id_fecha;\n  }\n  \n} catch (error) {\n  console.log(\"Error buscando row_id_fecha:\", error);\n}\n\n// FUNCIÓN CORREGIDA: Limpiar fecha manteniendo zona horaria local\nfunction limpiarFechaInput(fechaString) {\n  if (!fechaString || typeof fechaString !== 'string') {\n    return null;\n  }\n  \n  console.log(\"Procesando fecha string:\", fechaString);\n  \n  // Buscar el patrón de fecha ISO en el string (YYYY-MM-DDTHH:MM)\n  const match = fechaString.match(/(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2})/);\n  \n  if (match) {\n    const fechaISO = match[1];\n    console.log(\"Fecha ISO extraída:\", fechaISO);\n    \n    // CORRECCIÓN: Tratar la fecha como hora local (sin conversión UTC)\n    // Agregar los segundos para completar el formato\n    const fechaCompleta = fechaISO + \":00\";\n    \n    // Crear fecha interpretándola como hora local de Argentina\n    // NO usar new Date() directamente porque convierte a UTC\n    const [fechaParte, horaParte] = fechaISO.split('T');\n    const [año, mes, dia] = fechaParte.split('-').map(Number);\n    const [hora, minutos] = horaParte.split(':').map(Number);\n    \n    // Crear fecha en hora local (Argentina)\n    const fechaLocal = new Date(año, mes - 1, dia, hora, minutos, 0);\n    \n    // Formatear de vuelta a ISO pero manteniendo la hora local\n    const fechaCorregida = fechaLocal.getFullYear() + '-' + \n      String(fechaLocal.getMonth() + 1).padStart(2, '0') + '-' + \n      String(fechaLocal.getDate()).padStart(2, '0') + 'T' + \n      String(fechaLocal.getHours()).padStart(2, '0') + ':' + \n      String(fechaLocal.getMinutes()).padStart(2, '0');\n    \n    console.log(\"Fecha corregida (hora local):\", fechaCorregida);\n    \n    return fechaCorregida;\n  }\n  \n  return null;\n}\n\n// FUNCIÓN ADICIONAL: Procesar fecha del calendario también\nfunction procesarFechaCalendario(fechaCalendario) {\n  if (!fechaCalendario) return null;\n  \n  console.log(\"Procesando fecha calendario:\", fechaCalendario);\n  \n  // Si ya viene en formato correcto, verificar que no tenga offset\n  if (typeof fechaCalendario === 'string' && fechaCalendario.includes('T')) {\n    // Remover cualquier información de zona horaria (Z, +XX:XX, -XX:XX)\n    const fechaSinZona = fechaCalendario.replace(/[Z]|[+-]\\d{2}:\\d{2}$/g, '');\n    console.log(\"Fecha calendario sin zona:\", fechaSinZona);\n    \n    // Extraer solo YYYY-MM-DDTHH:MM\n    const match = fechaSinZona.match(/(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2})/);\n    return match ? match[1] : null;\n  }\n  \n  return fechaCalendario;\n}\n\n// NUEVAS FUNCIONES: Formatear fecha y hora según lo solicitado\nfunction formatearFechaDDMMYYYY(fechaISO) {\n  if (!fechaISO) return null;\n  \n  // Extraer los componentes de la fecha\n  const [fechaParte] = fechaISO.split('T');\n  const [año, mes, dia] = fechaParte.split('-').map(Number);\n  \n  // Formatear como DD-MM-YYYY (sin ceros a la izquierda)\n  return `${dia}-${mes}-${año}`;\n}\n\nfunction formatearHoraAMPM(fechaISO) {\n  if (!fechaISO) return null;\n  \n  // Extraer los componentes de la hora\n  const [, horaParte] = fechaISO.split('T');\n  const [hora, minutos] = horaParte.split(':').map(Number);\n  \n  // Determinar AM/PM\n  const periodo = hora >= 12 ? 'pm' : 'am';\n  const hora12 = hora % 12 || 12; // Convertir a formato 12 horas\n  \n  // Formatear como HH:MMam/pm\n  return `${hora12}:${minutos.toString().padStart(2, '0')}${periodo}`;\n}\n\n// Limpiar las fechas\nconst fechaLimpiaInput = limpiarFechaInput(fechaOriginalInput);\nconst fechaLimpiaCalendario = procesarFechaCalendario(fechaCalendario);\nconst eventoInput = \"cancelar\";\n\n// Determinar la fecha final a usar\nconst fechaFinal = fechaLimpiaInput || fechaLimpiaCalendario;\n\n// Formatear fecha y hora según lo solicitado\nconst fechaFormateada = formatearFechaDDMMYYYY(fechaFinal);\nconst horaFormateada = formatearHoraAMPM(fechaFinal);\n\n// Log de verificación\nconsole.log(\"=== RESUMEN DE FECHAS ===\");\nconsole.log(\"Fecha original calendario:\", fechaCalendario);\nconsole.log(\"Fecha limpia calendario:\", fechaLimpiaCalendario);\nconsole.log(\"Fecha original input:\", fechaOriginalInput);\nconsole.log(\"Fecha limpia input:\", fechaLimpiaInput);\nconsole.log(\"Fecha formateada (DD-MM-YYYY):\", fechaFormateada);\nconsole.log(\"Hora formateada (HH:MMam/pm):\", horaFormateada);\nconsole.log(\"Location:\", location);\n\n// Retornar resultado\nreturn [{\n  json: {\n    // Datos del calendario (CORREGIDOS)\n    fecha_calendario: fechaLimpiaCalendario, // Usar la fecha corregida\n    nombre_calendario: nombreCalendario,\n    numero_cliente: numeroCliente,\n    \n    // Datos del input (si existen)\n    fecha_original_input: fechaOriginalInput,\n    fecha_limpia_input: fechaLimpiaInput,\n    evento_input: eventoInput,\n    \n    // Location agregada\n    location: location,\n    \n    // Status y debug\n    row_id_fecha_encontrado: !!fechaOriginalInput,\n    \n    // Para debug - mantener originales\n    fecha_calendario_original: fechaCalendario,\n    \n    // Usar la mejor fecha disponible\n    fecha_final: fechaFinal,\n    \n    // NUEVOS PARÁMETROS: Fecha y hora formateadas\n    fecha_formateada: fechaFormateada,  // Ejemplo: \"24-5-2025\"\n    hora_formateada: horaFormateada     // Ejemplo: \"10:00am\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        272,
+        192
+      ],
+      "id": "d604f934-0163-41a2-9892-4d1d73c7c826",
+      "name": "Limpia fecha"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "eventosVerdes, eventosRojos",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1280,
+        192
+      ],
+      "id": "1b47fd8f-476d-4e12-b568-191a4bb99b7e",
+      "name": "Split Out",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "04ba47e5-a15b-4db9-a9f7-fdad3dc6013d",
+              "leftValue": "={{ $json?.id_eventos  }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1152,
+        192
+      ],
+      "id": "71f290d9-a0b9-4dcc-b54b-950b2ef49640",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4",
+          "mode": "list",
+          "cachedResultName": "Cliente:00_urls_francisco",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "CRM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1vxULMw6IdEF03hfs2a-svqJUTEuSWbW5wVUQkk88eU4/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "CODIGO",
+              "lookupValue": "={{ $('Code').first().json.ultimoCodigo }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -624,
+        80
+      ],
+      "id": "740ccf70-86be-445d-b446-b20f7fed7740",
+      "name": "Datos de la propiedad",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uyuvATuLJQlzto7q",
+          "name": "google sheet"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "start": "={{ $json.fechaInicio }}",
+        "end": "={{ $json.fechaFin }}",
+        "useDefaultReminders": false,
+        "additionalFields": {
+          "attendees": [
+            "={{ $('Calendario').first().json.correo_electronico }}"
+          ],
+          "color": "3",
+          "description": "=Telefono: https://wa.me/{{ $json.telefono }}\nCodigo propiedad: {{ $('getForCode').first().json.codigo }}",
+          "location": "={{ $json.description }}",
+          "showMeAs": "opaque",
+          "summary": "=Direccion: {{ $json.description }} - Interesado: {{ $json.nombreCliente }} - {{ $json.nombreInmobiliaria }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -176,
+        288
+      ],
+      "id": "0ce71935-f59c-4ed7-b9e9-f70f5d1bfccc",
+      "name": "Cliente violeta",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "b9dhe93V3wFhoVsL",
+          "name": "Calendario Qeva Francisco"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "start": "={{ $json.fechaInicio }}",
+        "end": "={{ $json.fechaFin }}",
+        "useDefaultReminders": false,
+        "additionalFields": {
+          "attendees": [
+            "={{ $('Datos de la propiedad').item.json.MailPropietario }}"
+          ],
+          "color": "=7",
+          "description": "=",
+          "location": "={{ $json.description }}",
+          "showMeAs": "opaque",
+          "summary": "=Agente inmobiliario: {{ $('Datos de la propiedad').item.json[\"Agente inmobiliario\"] }}\nInmobiliaria: {{ $('Datos de la propiedad').item.json[\"Nombre inmobiliaria\"] }}\n"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -176,
+        80
+      ],
+      "id": "6741fabc-2217-4499-9566-d5e5c5ad03de",
+      "name": "Propietario azul",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "b9dhe93V3wFhoVsL",
+          "name": "Calendario Qeva Francisco"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "start": "={{ $json.fechaInicio }}",
+        "end": "={{ $json.fechaFin }}",
+        "useDefaultReminders": false,
+        "additionalFields": {
+          "attendees": [
+            "={{ $('Datos de la propiedad').item.json.MailAgente }}"
+          ],
+          "color": "=11",
+          "description": "=",
+          "location": "={{ $json.description }}",
+          "showMeAs": "opaque",
+          "summary": "=Interesado:{{ $json.nombreCliente }}\nTeléfono:{{ $('Calendario').first().json.numero_cliente }}\nCódigo:{{ $('getForCode').first().json.codigo }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -176,
+        -128
+      ],
+      "id": "13215ce8-9be5-4f11-8416-ef627b5d8a3c",
+      "name": "Agente inmobiliario rojo",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "b9dhe93V3wFhoVsL",
+          "name": "Calendario Qeva Francisco"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        48,
+        80
+      ],
+      "id": "bad3c922-218c-4a92-bc72-39e25f3efbc9",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Este código toma una fecha de cita y calcula cuándo deben enviarse los recordatorios\n// Obtener la fecha de cita del input\nconst fechaCita = $('Limpia fecha').first().json.fecha_calendario;\nconst eventId = $('Merge1').first().json.id; // Viene del merge\n\nconsole.log(`Fecha original obtenida: ${fechaCita}`);\n\n// Función para parsear fecha manteniendo la hora original\nfunction parsearFechaOriginal(fechaISO) {\n  if (!fechaISO) return null;\n  \n  // Si la fecha ya tiene formato ISO, la parseamos directamente\n  // pero ajustamos para zona horaria de Argentina\n  const match = fechaISO.match(/(\\d{4}-\\d{2}-\\d{2})T(\\d{2}):(\\d{2})/);\n  if (match) {\n    const anio = match[1];\n    const hora = match[2];\n    const minutos = match[3];\n    \n    // Crear fecha interpretándola como hora de Argentina\n    // Para esto, necesitamos ajustar por la diferencia horaria\n    const fechaBase = new Date(fechaISO);\n    \n    // Obtener offset de Argentina (-3 UTC)\n    const offsetArgentina = -3; // Argentina es UTC-3\n    const offsetLocal = fechaBase.getTimezoneOffset() / 60; // Offset local en horas\n    \n    // Calcular diferencia y ajustar\n    const diferencia = offsetArgentina - (-offsetLocal);\n    \n    const fechaAjustada = new Date(fechaBase);\n    fechaAjustada.setHours(fechaAjustada.getHours() + diferencia);\n    \n    return fechaAjustada;\n  }\n  \n  return new Date(fechaISO);\n}\n\n// ALTERNATIVA MÁS SIMPLE: Usar la fecha tal como viene y solo ajustar cálculos\nfunction crearFechaDirecta(fechaISO) {\n  // Parsear directamente la fecha ISO\n  return new Date(fechaISO);\n}\n\n// Crear objetos Date para poder manipular las fechas\nconst citaDate = crearFechaDirecta(fechaCita);\n\n// Calcular momento para recordatorio de 24 horas (1 día antes, misma hora)\nconst recordatorio24hDate = new Date(citaDate);\nrecordatorio24hDate.setDate(recordatorio24hDate.getDate() - 1);\n\n// Calcular momento para recordatorio de 1 hora (misma fecha, 1 hora antes)\nconst recordatorio1hDate = new Date(citaDate);\nrecordatorio1hDate.setHours(recordatorio1hDate.getHours() - 1);\n\n// Función para formatear fechas en formato YYYY-MM-DDTHH:MM\nfunction formatearFechaSimplificada(fecha) {\n  // Obtener componentes de la fecha\n  const year = fecha.getFullYear();\n  const month = String(fecha.getMonth() + 1).padStart(2, '0');\n  const day = String(fecha.getDate()).padStart(2, '0');\n  const hours = String(fecha.getHours()).padStart(2, '0');\n  const minutes = String(fecha.getMinutes()).padStart(2, '0');\n  \n  // Construir el string con formato YYYY-MM-DDTHH:MM\n  return `${year}-${month}-${day}T${hours}:${minutes}`;\n}\n\n// Formatear las fechas al formato simplificado\nconst fechaCitaFormateada = formatearFechaSimplificada(citaDate);\nconst recordatorio24h = formatearFechaSimplificada(recordatorio24hDate);\nconst recordatorio1h = formatearFechaSimplificada(recordatorio1hDate);\n\n// Log para verificar los cálculos\nconsole.log(`Fecha de cita original: ${fechaCita}`);\nconsole.log(`Fecha de cita como Date: ${citaDate}`);\nconsole.log(`Fecha de cita formateada: ${fechaCitaFormateada}`);\nconsole.log(`Momento para recordatorio 24h: ${recordatorio24h}`);\nconsole.log(`Momento para recordatorio 1h: ${recordatorio1h}`);\n\n// Verificar si las horas son correctas\nconst horaOriginal = citaDate.getHours();\nconst hora24h = recordatorio24hDate.getHours();\nconst hora1h = recordatorio1hDate.getHours();\n\nconsole.log(`Hora original: ${horaOriginal}, Hora 24h: ${hora24h}, Hora 1h: ${hora1h}`);\n\n// Retornar los resultados\nreturn {\n  json: {\n    event_id: eventId,\n    fecha_cita: fechaCitaFormateada,\n    recordatorio_24h: recordatorio24h,\n    recordatorio_1h: recordatorio1h,\n    // Debug info\n    fecha_original_input: fechaCita,\n    hora_original: horaOriginal,\n    hora_24h_recordatorio: hora24h,\n    hora_1h_recordatorio: hora1h\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        192
+      ],
+      "id": "fdeca4c4-65d8-427c-893d-236bfa3cfcca",
+      "name": "Calcular Recordatorios"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "pavs050wnuapn49",
+        "table": "m4l8s36a4w5b9y8",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "eventid_cliente",
+              "fieldValue": "={{ $('Cliente violeta').first().json.id }}"
+            },
+            {
+              "fieldName": "eventid_propietario",
+              "fieldValue": "={{ $('Propietario azul').first().json.id }}"
+            },
+            {
+              "fieldName": "eventid_agente",
+              "fieldValue": "={{ $('Agente inmobiliario rojo').first().json.id }}"
+            },
+            {
+              "fieldName": "Citas_id",
+              "fieldValue": "={{ $json.Id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1600,
+        320
+      ],
+      "id": "a370046e-022f-440f-b8cd-6e2911ff5e68",
+      "name": "Insert event id",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pavs050wnuapn49",
+        "table": "m4l8s36a4w5b9y8",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "eventid_cliente",
+              "fieldValue": "={{ $('Cliente violeta').first().json.id }}"
+            },
+            {
+              "fieldName": "eventid_propietario",
+              "fieldValue": "={{ $('Propietario azul').first().json.id }}"
+            },
+            {
+              "fieldName": "eventid_agente",
+              "fieldValue": "={{ $('Agente inmobiliario rojo').first().json.id }}"
+            },
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.Id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1808,
+        80
+      ],
+      "id": "02b72458-4d4a-46d0-b9b7-ae3bec4ceba8",
+      "name": "actualizar evento",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Calendario').first().json.correo_electronico }}",
+        "subject": "=Visita a la propiedad: {{ $('Merge1').first().json.location }}",
+        "message": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n  <title>Confirmación de Visita a Propiedad</title>\n  <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap\" rel=\"stylesheet\">\n  <style>\n    body {\n      margin: 0;\n      padding: 0;\n      font-family: 'Inter', sans-serif;\n      background-color: #f0fdf4;\n      color: #333;\n      line-height: 1.6;\n    }\n\n    .email-container {\n      max-width: 600px;\n      margin: 0 auto;\n      background: #fff;\n      border-radius: 16px;\n      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);\n      overflow: hidden;\n    }\n\n    .header {\n      background-color: #10b981;\n      color: white;\n      padding: 30px;\n      text-align: center;\n    }\n\n    .header h1 {\n      margin: 0;\n      font-size: 28px;\n      font-weight: 700;\n    }\n\n    .header p {\n      margin-top: 10px;\n      font-size: 16px;\n      opacity: 0.95;\n    }\n\n    .content-section {\n      padding: 30px;\n      border-bottom: 1px solid #e5e7eb;\n    }\n\n    .section-title {\n      display: flex;\n      align-items: center;\n      font-size: 20px;\n      font-weight: 600;\n      color: #059669;\n      margin-bottom: 20px;\n    }\n\n    .section-title svg {\n      margin-right: 12px;\n    }\n\n    .detail-row {\n      display: flex;\n      align-items: center;\n      margin-bottom: 16px;\n    }\n\n    .detail-icon {\n      font-size: 20px;\n      margin-right: 12px;\n      line-height: 1;\n    }\n\n    .detail-text {\n      font-size: 16px;\n      color: #444;\n    }\n\n    .detail-text strong {\n      font-weight: 600;\n      color: #222;\n    }\n\n    .detail-text a {\n      color: #059669;\n      text-decoration: none;\n    }\n\n    .detail-text a:hover {\n      text-decoration: underline;\n    }\n\n    .agent-info p {\n      margin-bottom: 18px;\n      font-size: 16px;\n      color: #555;\n    }\n\n    .agent-info a {\n      color: #059669;\n      text-decoration: none;\n    }\n\n    .agent-info a:hover {\n      text-decoration: underline;\n    }\n\n    .cta-button-wrapper {\n      text-align: center;\n      padding: 35px 30px;\n      background-color: #f9fafb;\n    }\n\n    .cta-button {\n      background-color: #10b981;\n      color: white;\n      padding: 16px 30px;\n      text-decoration: none;\n      border-radius: 8px;\n      font-weight: 700;\n      font-size: 16px;\n      display: inline-block;\n      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);\n      transition: all 0.3s ease;\n    }\n\n    .cta-button:hover {\n      background-color: #059669;\n      transform: translateY(-2px);\n    }\n\n    @media screen and (max-width: 480px) {\n      .content-section, .cta-button-wrapper {\n        padding: 20px;\n      }\n\n      .header h1 {\n        font-size: 24px;\n      }\n\n      .detail-text {\n        font-size: 15px;\n      }\n\n      .cta-button {\n        padding: 14px 24px;\n        font-size: 15px;\n      }\n    }\n  </style>\n</head>\n<body>\n  <div class=\"email-container\">\n    <div class=\"header\">\n      <h1>¡Tu Visita a la Propiedad ha sido Confirmada!</h1>\n      <p>Gracias por agendar una visita. Aquí están todos los detalles importantes.</p>\n    </div>\n\n    <div class=\"content-section\">\n      <div class=\"section-title\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#059669\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/></svg>\n        Detalles de tu Visita\n      </div>\n\n      <div class=\"detail-row\">\n        <div class=\"detail-icon\">📅</div>\n        <div class=\"detail-text\"><strong>Fecha:</strong> {{ $json.fecha_formateada }}</div>\n      </div>\n      <div class=\"detail-row\">\n        <div class=\"detail-icon\">🕒</div>\n        <div class=\"detail-text\"><strong>Hora:</strong> {{ $json.hora_formateada }}</div>\n      </div>\n      <div class=\"detail-row\">\n        <div class=\"detail-icon\">📍</div>\n        <div class=\"detail-text\">\n          <strong>Ubicación:</strong> \n          <a href=\"https://www.google.com/maps/search/?api=1&query={{ encodeURIComponent($json.location) }}\" \n             target=\"_blank\">\n            {{ $json.location }}\n          </a>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"content-section agent-info\">\n      <div class=\"section-title\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"#059669\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2\"/><circle cx=\"12\" cy=\"7\" r=\"4\"/></svg>\n        Tu Agente Asignado: Francisco\n      </div>\n      <p>Francisco estará encantado de ayudarte durante la visita.</p>\n      <div class=\"detail-row\">\n        <div class=\"detail-icon\">📞</div>\n        <div class=\"detail-text\">\n          <strong>Teléfono:</strong>\n          <a href=\"https://wa.me/{{ $('Datos de la propiedad').item.json['Telefono agente'] }}\">{{ $('Datos de la propiedad').item.json['Telefono agente'] }}</a>\n        </div>\n      </div>\n      <div class=\"detail-row\">\n        <div class=\"detail-icon\">✉️</div>\n        <div class=\"detail-text\">\n          <strong>Email:</strong>\n          <a href=\"mailto:{{ $('Datos de la propiedad').item.json.MailAgente }}\">{{ $('Datos de la propiedad').item.json.MailAgente }}</a>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"cta-button-wrapper\">\n      <a href=\"{{ $('Code').first().json.ultimaPublicacion }}\" class=\"cta-button\">\n        Ver Detalles Completos de la Propiedad\n      </a>\n    </div>\n  </div>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Notificación"
+        }
+      },
+      "id": "b3378e81-ea97-40a1-adfa-07390c47a532",
+      "name": "Send a message",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        480,
+        192
+      ],
+      "webhookId": "f8eebafe-721f-448a-8ae9-4c7d9301d1ba",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Qj4T9X7dYGgJ1W8x",
+          "name": "Qeva"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "pavs050wnuapn49",
+        "table": "mzg09c810uiqnhc",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Fecha_cita",
+              "fieldValue": "={{ $('Calcular Recordatorios').first().json.fecha_cita }}"
+            },
+            {
+              "fieldName": "Propiedad",
+              "fieldValue": "={{ $('Limpia fecha').first().json.location }}"
+            },
+            {
+              "fieldName": "recordatorio_24h",
+              "fieldValue": "={{ $('Calcular Recordatorios').first().json.recordatorio_24h }}"
+            },
+            {
+              "fieldName": "recordatorio_24h_enviado",
+              "fieldValue": "no enviado"
+            },
+            {
+              "fieldName": "recordatorio_1h",
+              "fieldValue": "={{ $('Calcular Recordatorios').first().json.recordatorio_1h }}"
+            },
+            {
+              "fieldName": "recordatorio_1h_enviado",
+              "fieldValue": "no enviado"
+            },
+            {
+              "fieldName": "eventid",
+              "fieldValue": "={{ $('Calcular Recordatorios').first().json.event_id }}"
+            },
+            {
+              "fieldName": "Clientes_id",
+              "fieldValue": "={{ $('Calendario').first().json.Id_cliente_db }} "
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1360,
+        320
+      ],
+      "id": "3abd20f5-5767-4c3f-b73d-24b1f1122321",
+      "name": "Create a row",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pavs050wnuapn49",
+        "table": "mzg09c810uiqnhc",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Fecha_cita",
+              "fieldValue": "={{ $('Calcular Recordatorios').item.json.fecha_cita }}"
+            },
+            {
+              "fieldName": "Propiedad",
+              "fieldValue": "={{ $('Limpia fecha').first().json.location }}"
+            },
+            {
+              "fieldName": "recordatorio_24h",
+              "fieldValue": "={{ $('Calcular Recordatorios').first().json.recordatorio_24h }}"
+            },
+            {
+              "fieldName": "recordatorio_24h_enviado",
+              "fieldValue": "no enviado"
+            },
+            {
+              "fieldName": "recordatorio_1h",
+              "fieldValue": "={{ $('Calcular Recordatorios').first().json.recordatorio_1h }}"
+            },
+            {
+              "fieldName": "recordatorio_1h_enviado",
+              "fieldValue": "no enviado"
+            },
+            {
+              "fieldName": "eventid",
+              "fieldValue": "={{ $('Calcular Recordatorios').first().json.event_id }}"
+            },
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $('getCitas').item.json.Id}}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1360,
+        80
+      ],
+      "id": "3ef2ae40-ef38-4870-a075-c3a5865bdea0",
+      "name": "Update a row",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pavs050wnuapn49",
+        "table": "m4l8s36a4w5b9y8",
+        "returnAll": true,
+        "options": {
+          "where": "=(Citas,eq,{{ $json.Fecha_cita }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1584,
+        80
+      ],
+      "id": "2e823da9-0120-415f-a395-6078d7fc59e2",
+      "name": "Get many rows1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pavs050wnuapn49",
+        "table": "mzg09c810uiqnhc",
+        "options": {
+          "where": "=(Clientes_id,eq,{{ $('Calendario').first().json.Id_cliente_db }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        928,
+        192
+      ],
+      "id": "13f59cc5-efcf-4ef9-9db0-13f3fc521454",
+      "name": "getCitas",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "url_publicacion",
+        "key": "=urls:{{ $('Calendario').item.json.numero_cliente }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -2608,
+        288
+      ],
+      "id": "c8713545-55ca-4909-b68a-6958d6e3aca8",
+      "name": "URL_PUBLICACION",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Calendario": [
+      {
+        "json": {
+          "numero_cliente": "5492254423359",
+          "Fecha_cita": "2025-07-30T08:30",
+          "Nombre": "",
+          "Evento": "agendar",
+          "correo_electronico": "",
+          "nombre_inmobiliaria": null,
+          "idMensaje": null,
+          "Id_cliente_db": "63",
+          "url_propiedad": null
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-29T05:46:18.183Z",
+  "versionId": "4e9008eb-bc11-4af4-b7a9-39596e2f6bca"
+}
