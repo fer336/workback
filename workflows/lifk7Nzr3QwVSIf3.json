@@ -1,0 +1,634 @@
+{
+  "active": false,
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancela el evento": {
+      "main": [
+        [
+          {
+            "node": "Cancela el evento1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendario": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "No existe correo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get many rows1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "event": {
+      "main": [
+        [
+          {
+            "node": "Cancela el evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No existe correo1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancela el evento1": {
+      "main": [
+        [
+          {
+            "node": "Cancela el evento2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancela el evento2": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows1": {
+      "main": [
+        [
+          {
+            "node": "Delete a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a row": {
+      "main": [
+        [
+          {
+            "node": "Delete a row1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a row1": {
+      "main": [
+        [
+          {
+            "node": "Existe visita",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:56:02.340Z",
+  "id": "lifk7Nzr3QwVSIf3",
+  "isArchived": false,
+  "meta": null,
+  "name": "AGENTE INMO - Cancelar visitar",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "129b7df3-4cbb-407a-8213-dafd57a4cfa8",
+              "leftValue": "={{ $json.Evento }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -260,
+        -400
+      ],
+      "id": "e63c6574-7c5d-4fd6-a474-c30f794e4fa2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "eventId": "={{ $json.eventid_cliente }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        620,
+        -400
+      ],
+      "id": "e5dea28f-5f24-4586-955c-8421bca1f469",
+      "name": "Cancela el evento",
+      "alwaysOutputData": false,
+      "retryOnFail": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "b9dhe93V3wFhoVsL",
+          "name": "Calendario Qeva Francisco"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Evento"
+            },
+            {
+              "name": "numero_telefono"
+            },
+            {
+              "name": "eventId"
+            },
+            {
+              "name": "fecha_cita"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -480,
+        -400
+      ],
+      "id": "7c258b16-a2b0-47b9-9851-94476738ee54",
+      "name": "Calendario"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0bc66c9b-cab7-405a-a3a9-17c5f649992d",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "Your request is invalid or could not be processed by the service",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1280,
+        -400
+      ],
+      "id": "9a3c4323-51b6-42c8-9a17-8afd8aa01572",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "02411e3d-4543-4e23-859a-1f2685f024ef",
+              "name": "response",
+              "value": "=Por el momento no veo ninguna fecha pendiente de cancelar. Quizás ya se canceló y estás usando una lista de cancelación antigua.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1500,
+        -500
+      ],
+      "id": "f58df391-fe11-41d6-9960-c29b37c14ec1",
+      "name": "No existe correo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "02411e3d-4543-4e23-859a-1f2685f024ef",
+              "name": "response",
+              "value": "=Listo, ya cancelamos la visita",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2260,
+        -300
+      ],
+      "id": "20322c7d-1c96-4487-996e-c974fd1e52e8",
+      "name": "Existe visita"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2cc537c9-067a-4f74-adbe-b2fb7eca4601",
+              "name": "eventid_cliente",
+              "value": "={{ $json.eventid_cliente }}",
+              "type": "string"
+            },
+            {
+              "id": "97adac33-dc6c-4a33-842c-5e139d90e0d0",
+              "name": "eventid_propietario",
+              "value": "={{ $json.eventid_propietario }}",
+              "type": "string"
+            },
+            {
+              "id": "ca224b22-bdb0-4c70-903e-02defe626742",
+              "name": "eventid_agente",
+              "value": "={{ $json.eventid_agente }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        -560
+      ],
+      "id": "9e706721-d5a6-470b-9216-9848b8599cd1",
+      "name": "event"
+    },
+    {
+      "parameters": {
+        "batchSize": 3,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -480,
+        -40
+      ],
+      "id": "b4617f48-e7b0-4d73-81af-9a9232c8ae47",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6b461d4a-6946-4ab0-a8bb-96ef09a48c31",
+              "leftValue": "={{ $json.Id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        -380
+      ],
+      "id": "8b668954-c2eb-4720-b46a-03e9e252d1fe",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "eventId": "={{ $('event').first().json.eventid_propietario }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        840,
+        -400
+      ],
+      "id": "daf94745-272e-4ab5-81ff-230b38fae49a",
+      "name": "Cancela el evento1",
+      "alwaysOutputData": false,
+      "retryOnFail": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "b9dhe93V3wFhoVsL",
+          "name": "Calendario Qeva Francisco"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "004dfd8dfad8cab59884aa5afbe99b4943ba96c971d4eb480405c7595b8160b1@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Francisco"
+        },
+        "eventId": "={{ $('event').first().json.eventid_agente }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1060,
+        -400
+      ],
+      "id": "6f04ed24-f7df-47b0-bfc2-cb6dddf2816e",
+      "name": "Cancela el evento2",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "b9dhe93V3wFhoVsL",
+          "name": "Calendario Qeva Francisco"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "02411e3d-4543-4e23-859a-1f2685f024ef",
+              "name": "response",
+              "value": "=Por el momento no veo ninguna fecha pendiente de cancelar. Quizás ya se canceló y estás usando una lista de cancelación antigua.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        -200
+      ],
+      "id": "b2247c5f-8192-41ee-990e-738a02111ccb",
+      "name": "No existe correo1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pavs050wnuapn49",
+        "table": "m4l8s36a4w5b9y8",
+        "returnAll": true,
+        "options": {
+          "where": "=(Citas,eq,{{ $('Calendario').first().json.fecha_cita }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        0,
+        -500
+      ],
+      "id": "7187aa2e-54ca-4108-9276-8f106e29dbf1",
+      "name": "Get many rows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pavs050wnuapn49",
+        "table": "m4l8s36a4w5b9y8",
+        "returnAll": true,
+        "options": {
+          "where": "=(Citas,eq,{{ $('Calendario').item.json.fecha_cita }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1500,
+        -300
+      ],
+      "id": "b7d80c22-53f2-444d-b7d4-8bc85cc8c850",
+      "name": "Get many rows1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "delete",
+        "projectId": "pavs050wnuapn49",
+        "table": "m4l8s36a4w5b9y8",
+        "id": "={{ $('Get many rows').item.json.Id }}"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1700,
+        -300
+      ],
+      "id": "568c108f-a889-4b80-bf08-6aad2e4b4992",
+      "name": "Delete a row",
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "retryOnFail": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "delete",
+        "projectId": "pavs050wnuapn49",
+        "table": "mzg09c810uiqnhc",
+        "id": "={{ $('Get many rows').item.json.Citas_id }}"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        1900,
+        -300
+      ],
+      "id": "c07a5bd4-cff6-40fc-a966-bf8c9cd88d1c",
+      "name": "Delete a row1",
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "retryOnFail": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {
+    "Calendario": [
+      {
+        "json": {
+          "Evento": "cancelar",
+          "numero_telefono": "5492254423359",
+          "eventId": "PsrV2EbtfOJJZa8-wLoE_sPfuT8",
+          "fecha_cita": "2025-07-07T13:00"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "EBMwLGTBawYqkZM1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-07T00:18:58.648Z",
+  "versionId": "196e7917-d762-47f0-b8c0-aeff8a8626eb"
+}
