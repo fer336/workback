@@ -1,0 +1,287 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "matriculados": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "matriculados1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-27T20:40:40.826Z",
+  "id": "zTro0HmoKp2MbfmJ",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -304,
+        0
+      ],
+      "id": "ce5b3b0d-a503-45f3-82b8-370b747857df",
+      "name": "When chat message received",
+      "webhookId": "9c1b8e14-4c64-4ca6-8725-1729a04bd4a1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data.message.conversation }}",
+        "options": {
+          "systemMessage": "Cuando el usuario te consulte el apellido, nombre, o dni busca en la tool `matriculados`"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        128,
+        0
+      ],
+      "id": "067cc30b-9c84-4e0f-8270-635206b4835b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        272
+      ],
+      "id": "071252f4-fb3a-44cb-ade1-07c44b7f563e",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.data.key.remoteJid }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        64,
+        288
+      ],
+      "id": "0e98ad9c-8061-4094-8571-010c67ca4431",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://evo.qeva.xyz/message/sendText/fer",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('When chat message received').item.json.data.key.remoteJid }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.output.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        704,
+        0
+      ],
+      "id": "cb1c46a1-6e36-472f-9059-c97fb741908b",
+      "name": "text",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "AyfwVfJv24ug21lX",
+          "name": "EVOLUTION API - FER"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "ph05tanknnrkevm",
+        "table": "mevzzrtvbk9zs3o",
+        "returnAll": true,
+        "options": {
+          "where": ""
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        560,
+        272
+      ],
+      "id": "1515215b-0664-4b7e-b662-3a36888f1606",
+      "name": "matriculados",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "description": "llama a esta tool cuando se necesita un dato de un matriculado",
+        "workflowId": {
+          "__rl": true,
+          "value": "cbPbA7hlL7cjmcot",
+          "mode": "list",
+          "cachedResultName": "My Sub-Workflow 2"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        288
+      ],
+      "id": "4d133119-7701-4967-ba59-ba4719dd099b",
+      "name": "matriculados1"
+    }
+  ],
+  "pinData": {
+    "When chat message received": [
+      {
+        "json": {
+          "event": "messages.upsert",
+          "instance": "fer",
+          "data": {
+            "key": {
+              "remoteJid": "5492254423359@s.whatsapp.net",
+              "fromMe": true,
+              "id": "F721D09BA011CF90FABFB17E23AA0874"
+            },
+            "pushName": "Fer { }",
+            "status": "SERVER_ACK",
+            "message": {
+              "conversation": "G"
+            },
+            "contextInfo": {
+              "entryPointConversionSource": "global_search_new_chat",
+              "entryPointConversionApp": "whatsapp",
+              "entryPointConversionDelaySeconds": 239
+            },
+            "messageType": "conversation",
+            "messageTimestamp": 1753652276,
+            "instanceId": "bd90f601-1776-4ff2-bec6-92f96eeb5148",
+            "source": "android"
+          },
+          "destination": "https://n8nw.qeva.xyz/webhook/9c1b8e14-4c64-4ca6-8725-1729a04bd4a1/chat",
+          "date_time": "2025-07-27T18:37:56.205Z",
+          "sender": "5492254423359@s.whatsapp.net",
+          "server_url": "https://evo.qeva.xyz",
+          "apikey": "0B7C4E05F589-499F-A318-DA1AF7EC1E5E"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-27T22:10:37.924Z",
+  "versionId": "4bfef757-57d7-4e02-b1d7-4e390fd87fd3"
+}
