@@ -1,0 +1,460 @@
+{
+  "active": false,
+  "connections": {
+    "Get clientes": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos": {
+      "main": [
+        [
+          {
+            "node": "Get clientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "InsertarCliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "InsertarCliente": {
+      "main": [
+        [
+          {
+            "node": "Get cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "response": {
+      "main": [
+        []
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get cliente": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:56:03.177Z",
+  "id": "2Sx5bbnQ0BLOq2rG",
+  "isArchived": false,
+  "meta": null,
+  "name": "SUB TAREA - OBTENER NOMBRE O INSERTAR citas",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $node[\"Datos\"].json.servidor_db}}/api/v2/tables/{{ $node[\"Datos\"].json.idTabla }}/records",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            },
+            {
+              "name": "shuffle",
+              "value": "0"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            },
+            {
+              "name": "where",
+              "value": "=({{ $json.nombre_columna }},eq,{{ $json.numero.replace(/\\D/g, '') }})"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        0
+      ],
+      "id": "a0aa993d-a081-42d5-98e9-b93983933fc7",
+      "name": "Get clientes",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "fVXhlNNouq57ZxIR",
+          "name": "NocoDB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "servidor_db"
+            },
+            {
+              "name": "idTabla"
+            },
+            {
+              "name": "token"
+            },
+            {
+              "name": "numero"
+            },
+            {
+              "name": "nombre_columna"
+            },
+            {
+              "name": "pushname"
+            },
+            {
+              "name": "servidor_evo"
+            },
+            {
+              "name": "id_mensaje"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -368,
+        0
+      ],
+      "id": "102ebb19-6868-49a6-9bf1-d7546a0c3068",
+      "name": "Datos"
+    },
+    {
+      "parameters": {
+        "action": "generate"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        464,
+        80
+      ],
+      "id": "6e973f50-a96f-483e-9679-50a4a472892d",
+      "name": "Crypto"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e02fa309-efdc-4424-a35e-232970a746cf",
+              "leftValue": "={{ $('Datos').item.json.numero }}",
+              "rightValue": "={{ $json.list[0].Telefono }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        128,
+        0
+      ],
+      "id": "f7c4384d-ecbf-4d5e-ae3d-6874fde4baa8",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $node[\"Datos\"].json.servidor_db}}/api/v2/tables/{{ $node[\"Datos\"].json.idTabla }}/records",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            },
+            {
+              "name": "shuffle",
+              "value": "0"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "key",
+              "value": "={{ $json.data }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "Telefono",
+              "value": "={{ $('Datos').item.json.numero }}"
+            },
+            {
+              "name": "pushname",
+              "value": "={{ $('Datos').item.json.pushname }}"
+            },
+            {
+              "name": "Key",
+              "value": "={{ $json.data }}"
+            },
+            {
+              "name": "bot",
+              "value": "off"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        672,
+        80
+      ],
+      "id": "09c9ee37-f2a6-4862-994c-bf35e1baa4ca",
+      "name": "InsertarCliente",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "fVXhlNNouq57ZxIR",
+          "name": "NocoDB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "707c0860-914c-4a11-a6f5-d20fe6c95aa1",
+              "name": "list[0].Id",
+              "value": "={{ $json?.list[0]?.Id  }}",
+              "type": "number"
+            },
+            {
+              "id": "659ca2a9-315e-4b33-86e7-e0ab8d9add95",
+              "name": "list[0].Telefono",
+              "value": "={{ $json.list[0].Telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "f6276ac3-809e-4a3f-88db-e01182a6abb0",
+              "name": "list[0].pushname",
+              "value": "={{ $json.list[0].pushname }}",
+              "type": "string"
+            },
+            {
+              "id": "9c7d0d78-4fb3-4ef6-96b4-905da06a71e1",
+              "name": "list[0].key",
+              "value": "={{ $json.list[0].Key }}",
+              "type": "string"
+            },
+            {
+              "id": "6d333789-98fc-42ed-869e-fcb15a9e93eb",
+              "name": "list[0].bot_estado",
+              "value": "={{ $json.list[0].bot }}",
+              "type": "string"
+            },
+            {
+              "id": "d4853a0b-de28-4d15-aa7b-0b1f1e452045",
+              "name": "list[0].Correo",
+              "value": "={{ $json.list[0].Correo }}",
+              "type": "string"
+            },
+            {
+              "id": "7b390ece-a2cb-4c66-8297-d5f86a018150",
+              "name": "list[0].Nombre",
+              "value": "={{ $json.list[0].Nombre }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1440,
+        0
+      ],
+      "id": "51c09850-efca-4934-b810-0f70a596dd8b",
+      "name": "response"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        1248,
+        0
+      ],
+      "id": "6a7f36bf-a340-4de2-859b-666ad63a40e5",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "url": "={{ $node[\"Datos\"].json.servidor_db}}/api/v2/tables/{{ $node[\"Datos\"].json.idTabla }}/records",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "25"
+            },
+            {
+              "name": "shuffle",
+              "value": "0"
+            },
+            {
+              "name": "offset",
+              "value": "0"
+            },
+            {
+              "name": "where",
+              "value": "=({{ $('Datos').item.json.nombre_columna }},eq,{{ $('Datos').item.json.numero }})"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        80
+      ],
+      "id": "dc5af331-c6f3-4047-9916-e00a187fb374",
+      "name": "Get cliente",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "fVXhlNNouq57ZxIR",
+          "name": "NocoDB"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Datos": [
+      {
+        "json": {
+          "servidor_db": "https://db.qeva.xyz",
+          "idTabla": "m097w4nkzri1xs1",
+          "token": "H5FXmjHG-r5pWcJ4ufilIni7XQLDeHjmufz51Cwv",
+          "numero": "5492254423359",
+          "nombre_columna": "Telefono",
+          "pushname": "Fer { }",
+          "servidor_evo": null,
+          "id_mensaje": "1QL26k18GD14rBmdSl4TKw-gM0E_sPfuT8"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-16T01:41:30.653Z",
+  "versionId": "82a69bae-1049-4300-a0ba-9a7f01fee8ec"
+}
