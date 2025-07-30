@@ -1,0 +1,329 @@
+{
+  "active": false,
+  "connections": {
+    "REPROGRAMAR": {
+      "main": [
+        [
+          {
+            "node": "vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "vars": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Lista",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Turno creado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-23T21:38:41.781Z",
+  "id": "vVT5lMMXWJxxe0ac",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE CITAS - REAGENDAR",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "numero"
+            }
+          ]
+        }
+      },
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "REPROGRAMAR",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        272,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        352
+      ],
+      "id": "d2edbd2f-d98a-404f-8fa8-c537b336aa17",
+      "name": "vars"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pg80f80zr77phub",
+        "table": "mydefkz038xyn3g",
+        "returnAll": true,
+        "options": {
+          "where": "=(TELEFONO,eq,{{ $json.numero }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        688,
+        352
+      ],
+      "id": "4d7425de-6288-4fd9-a6ca-3de47902f3e5",
+      "name": "Get many rows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const datos = $input.all();\nconst fechaCita = $input.first().json.FECHA; // ✅ Fecha específica del input\nconst horaCita = $input.first().json.HORA;   // ✅ Hora específica del input\nconst dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];\nconst meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];\n\nfunction formatearFechaHora(fechaISO, hora) {\n  // ✅ Validación para evitar errores\n  if (!fechaISO || !hora) {\n    return 'Fecha/Hora no disponible';\n  }\n  \n  // ✅ Limpiar y normalizar la hora\n  let horaLimpia = hora.toString().trim();\n  \n  // Si la hora ya tiene segundos, usarla tal como está\n  // Si no tiene segundos, agregarlos\n  if (!horaLimpia.includes(':')) {\n    horaLimpia = `${horaLimpia}:00:00`;\n  } else if (horaLimpia.split(':').length === 2) {\n    horaLimpia = `${horaLimpia}:00`;\n  }\n  \n  // ✅ Combinar fecha y hora correctamente\n  const fechaCompleta = new Date(`${fechaISO}T${horaLimpia}`);\n  \n  // ✅ Verificar si la fecha es válida\n  if (isNaN(fechaCompleta.getTime())) {\n    // Debug: mostrar los valores que están causando el problema\n    console.log('Fecha ISO:', fechaISO);\n    console.log('Hora original:', hora);\n    console.log('Hora limpia:', horaLimpia);\n    console.log('String completo:', `${fechaISO}T${horaLimpia}`);\n    return 'Fecha inválida';\n  }\n  \n  const diaSemana = dias[fechaCompleta.getDay()];\n  const dia = fechaCompleta.getDate();\n  const mes = meses[fechaCompleta.getMonth()];\n  const anio = fechaCompleta.getFullYear();\n  const horas = fechaCompleta.getHours();\n  const minutos = fechaCompleta.getMinutes().toString().padStart(2, '0');\n  \n  return {\n    fechaCompleta: `${capitalize(diaSemana)} ${dia} de ${mes} ${anio}`,\n    hora: `${horas}:${minutos}`,\n    diaSemana: capitalize(diaSemana),\n    dia: dia,\n    mes: mes\n  };\n}\n\nfunction capitalize(str) {\n  // ✅ Validación para evitar el error\n  if (!str || typeof str !== 'string') {\n    return '';\n  }\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n\nfunction getIconoAccion(index) {\n  const iconos = ['🔄', '♻️', '🔃', '🔁', '↻'];\n  return iconos[index % iconos.length];\n}\n\nconst opciones = datos.map((item, index) => {\n  // ✅ Usar la fecha y hora específicas del primer input\n  const fechaData = formatearFechaHora(fechaCita, horaCita);\n  const iconoRotacion = getIconoAccion(index);\n  \n  return {\n    rowId: item.json.Id?.toString() || 'sin-id',\n    title: `${iconoRotacion} ${fechaData.diaSemana} ${fechaData.dia} • ${fechaData.hora} hs`,\n    description: `🔹 CAMBIAR FECHA/HORA • ${capitalize(fechaData.mes)}`\n  };\n});\n\n// Mensaje dinámico según cantidad\nconst cantidadCitas = opciones.length;\nlet mensajeCitas = cantidadCitas === 1 ? \n  'Tienes 1 cita para modificar' : \n  `Tienes ${cantidadCitas} citas disponibles`;\n\nconst requestBody = {\n  to: $('vars').first().json.numero,\n  buttonText: \"🟢    REAGENDAR CITA\",\n  title: \"🔵 CAMBIO DE HORARIO 🔵\",\n  description: `📌 MODIFICACIÓN DE CITAS\\n\\n${mensajeCitas}\\n\\n🔹 *¿QUÉ PUEDES HACER?*\\n🔵 Cambiar día\\n🔵 Cambiar horario\\n🔵 Mantener tu lugar\\n\\n*Selecciona la cita a REAGENDAR:*`,\n  footer: \"⏰ Modifica hasta 24hs antes\",\n  sections: [\n    {\n      title: \"🔄 CITAS PARA MODIFICAR\",\n      rows: opciones\n    }\n  ]\n};\n\n\n\nreturn [{ json: requestBody }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        352
+      ],
+      "id": "eba61809-6d8d-48f1-b580-af8af0d26027",
+      "name": "Lista"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/list",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "tittle",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1360,
+        352
+      ],
+      "id": "3b3b519a-2a3d-413a-b3f6-e75eabeb8348",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c2ea2ad6-96a5-4106-bb4d-21b844b935b4",
+              "name": "response",
+              "value": "`button_confirm`",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1568,
+        352
+      ],
+      "id": "ca264e34-7489-411b-b0d3-d97dba58800e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b0ac65c3-0360-4cff-956c-25ce12621c62",
+              "leftValue": "={{ $json.FECHA }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        352
+      ],
+      "id": "b54fc2fc-0b75-474c-bf58-7ab689b0611f",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $('REPROGRAMAR').item.json.numero }}"
+            },
+            {
+              "name": "text",
+              "value": "=❌ No veo que tengas turnos para reprogramar ❌\n"
+            },
+            {
+              "name": "status",
+              "value": "recording"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1152,
+        528
+      ],
+      "id": "6e2ea881-64d8-4650-bdbf-990374203d97",
+      "name": "Turno creado"
+    }
+  ],
+  "pinData": {
+    "REPROGRAMAR": [
+      {
+        "json": {
+          "numero": "5492254596618"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-29T15:15:31.255Z",
+  "versionId": "b063f570-185b-41a2-bf78-cb3d89b5a79a"
+}
