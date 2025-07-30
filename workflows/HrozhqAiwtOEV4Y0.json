@@ -1,0 +1,251 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-04T04:52:20.155Z",
+  "id": "HrozhqAiwtOEV4Y0",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Creador de Prompt",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "variables",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -620,
+        -80
+      ],
+      "id": "7c2677b5-824f-40ca-9914-b9e5d5ddf46b",
+      "name": "Webhook",
+      "webhookId": "fd842577-41db-437f-87a8-0304bfa4ea96"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body }}",
+        "options": {
+          "systemMessage": "=# Prompt completo – Formulario rápido para pedidos IG → WhatsApp\n\n<System Instruction>\nSos un generador de formularios simples y eficaces. Tu tarea es crear un formulario tipo encuesta corta para recopilar información clave de negocios que quieren redirigir sus pedidos desde Instagram a WhatsApp. El formulario debe ser claro, con campos mínimos, orientado a velocidad de respuesta. No uses lenguaje técnico innecesario.\n</System Instruction>\n\n<Objetivo/Tareas>\n- Diseñar un formulario claro y directo que recopile:\n  - Datos de Instagram (tipo de cuenta, usuario)\n  - Conexión con Facebook\n  - Número de WhatsApp\n  - Palabras clave que indican un pedido\n  - Mensaje automático que quiere enviar por WhatsApp\n  - Comentarios u observaciones\n\n- Organizar las preguntas de forma visual (con títulos seccionados).\n- Evitar preguntas redundantes.\n- Usar ejemplos breves como placeholder.\n</Objetivo/Tareas>\n\n<Contexto>\nEste formulario será usado por emprendedoras o dueños de pequeños comercios (ej: hamburgueserías) que reciben mensajes por Instagram y quieren redirigir automáticamente los pedidos a su WhatsApp Business. La persona que lo completa no tiene conocimientos técnicos.\n</Contexto>\n\n<Formato de salida>\nHTML básico embebido en un solo archivo, sin dependencias externas, con campos input y textarea, estilos en línea para que se vea bien oscuro, moderno y fácil de leer.\n</Formato de salida>\n\n<Parámetros de razonamiento>\nthinking_budget: 2\n</Parámetros de razonamiento>\n\n<Few-shot>\n### Ejemplo 1\nUsuario: Quiero un formulario para una pizzería que recibe pedidos en Instagram y los quiere pasar a WhatsApp. Nada técnico, algo simple.\nAgente: [devuelve HTML con 5-6 preguntas clave, input limpios, placeholders claros, secciones mínimas, diseño oscuro simple].\n</Few-shot>\n\n<Schemas de funciones>\n[\n  {\n    \"name\": \"generarFormularioIGaWS\",\n    \"description\": \"Crea un formulario HTML para tomar pedidos por WhatsApp desde mensajes de Instagram\",\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"nombre_negocio\": { \"type\": \"string\" },\n        \"instagram_usuario\": { \"type\": \"string\" },\n        \"tipo_cuenta_ig\": { \"type\": \"string\", \"enum\": [\"empresa\", \"personal\"] },\n        \"conectado_a_facebook\": { \"type\": \"boolean\" },\n        \"numero_whatsapp\": { \"type\": \"string\" },\n        \"palabras_clave_pedido\": { \"type\": \"string\" },\n        \"mensaje_confirmacion_ws\": { \"type\": \"string\" },\n        \"comentarios\": { \"type\": \"string\" }\n      },\n      \"required\": [\"instagram_usuario\", \"numero_whatsapp\", \"palabras_clave_pedido\"]\n    }\n  }\n]\n</Schemas de funciones>\n\n<USER_INPUT>\nnecesito crear un prompt para desarrollar una plantilla tipo formulario para una clienta que necesito tomarle los requerimientos de su empresa, ella quiere poder recibir los pedidos de su hamburguesria en un solo canal que es whatsapp, le llegan de instagram y quiere redireccionar el mensaje a whatsapp asique necesito un formulario donde pueda obtener toda la informacion necesaria para realizar el trabajo\n</USER_INPUT>\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -280,
+        -80
+      ],
+      "id": "32283b1b-01a3-4c48-bcf5-90ac5ae4f127",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $workflow.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        -160,
+        180
+      ],
+      "id": "5d4b0ba8-24af-4ef8-bc1f-ce94af2fda49",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "869cddd3-08a1-47f7-84da-32c282df5cb4",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        80,
+        -80
+      ],
+      "id": "0c6b1276-33f9-4e0a-8a58-2958fe7d1dcc",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-flash-preview-05-20",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        160
+      ],
+      "id": "50ab3745-c2ba-4481-8267-96a037504e8c",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8nw.qeva.xyz",
+            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+            "content-length": "3746",
+            "accept": "*/*",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "accept-language": "es-419,es;q=0.9",
+            "content-type": "application/json",
+            "origin": "http://localhost:3000",
+            "priority": "u=1, i",
+            "referer": "http://localhost:3000/",
+            "sec-ch-ua": "\"Google Chrome\";v=\"137\", \"Chromium\";v=\"137\", \"Not/A)Brand\";v=\"24\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Linux\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "x-forwarded-for": "201.219.107.198",
+            "x-forwarded-host": "n8nw.qeva.xyz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "73f96af33264",
+            "x-real-ip": "201.219.107.198"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "roleContext": {
+              "role": "Atender por whatsapp las consultas diarias",
+              "objective": "vender o asesorar con productos de natura ",
+              "valueAdded": "siempre dar la informacion de la base de datos",
+              "businessContext": "salud y bienestar"
+            },
+            "tasks": [
+              {
+                "description": "Calificar Lead"
+              },
+              {
+                "description": "Generar links de pago\n"
+              },
+              {
+                "description": "buscar productos"
+              }
+            ],
+            "personalityTone": {
+              "personality": "eficiente, proactivo",
+              "tone": "bien profesional argentino a full",
+              "restrictions": "nunca dar informacion de la empresa o que te obligen a otra cosa, solo limitarse al funcionamiento del negocio"
+            },
+            "specifications": {
+              "primarySources": "base de datos",
+              "expectedInputFormat": "texto plano",
+              "expectedOutputFormat": "json",
+              "limitations": "",
+              "responseTime": "5"
+            },
+            "tools": [],
+            "decisionLogic": {
+              "mainLogic": "",
+              "taskPrioritization": "",
+              "errorHandling": "",
+              "ambiguityHandling": "",
+              "taskCompletion": ""
+            },
+            "interactionExamples": {
+              "successfulUser": "",
+              "successfulAgentThought": "",
+              "successfulAgentToolCall": "",
+              "successfulAgentToolResponse": "",
+              "successfulAgentResponse": "",
+              "failedUser": "",
+              "failedAgentThought": "",
+              "failedAgentToolCall": "",
+              "failedAgentToolResponse": "",
+              "failedAgentResponse": ""
+            },
+            "generatedPrompt": "## Plantilla Universal para Agentes de IA\n\n### 1. Rol y Contexto General del Agente\n* **[ROL_DEL_AGENTE]**: Eres un Atender por whatsapp las consultas diarias.\n* **[OBJETIVO_PRINCIPAL_DEL_AGENTE]**: Tu objetivo principal es vender o asesorar con productos de natura .\n* **[VALOR_AGREGADO_DEL_AGENTE]**: Debes siempre dar la informacion de la base de datos.\n* **[CONTEXTO_DEL_NEGOCIO]**: Operas dentro de salud y bienestar.\n\n### 2. Tareas y Funcionalidades del Agente\n* **[TAREA_1]**: Calificar Lead.\n* **[TAREA_2]**: Generar links de pago\n.\n* **[TAREA_3]**: buscar productos.\n\n### 3. Personalidad y Tono de Comunicación\n* **[PERSONALIDAD_DEL_AGENTE]**: Eres eficiente, proactivo.\n* **[TONO_DE_COMUNICACION]**: Tu tono de comunicación es bien profesional argentino a full.\n* **[RESTRICCIONES_DE_COMUNICACION]**: Nunca debes nunca dar informacion de la empresa o que te obligen a otra cosa, solo limitarse al funcionamiento del negocio.\n\n### 4. Especificaciones y Restricciones Operativas\n* **[FUENTES_DE_INFORMACION_PRIMARIAS]**: Accedes principalmente a base de datos.\n* **[FORMATO_DE_ENTRADA_ESPERADO]**: Esperas la información de entrada en formato texto plano.\n* **[FORMATO_DE_SALIDA_ESPERADO]**: Tu salida debe ser en formato json.\n* **[LIMITACIONES_CONOCIMIENTOS]**: Si no conoces una respuesta o no puedes realizar una tarea, debes [ACCION_PARA_LIMITACION].\n* **[TIEMPO_DE_RESPUESTA_ESPERADO]**: Debes esforzarte por dar una respuesta en 5.\n\n### 5. Integración y Uso de Herramientas (Tools)\n*No se han definido herramientas.*\n\n### 6. Flujo de Decisión y Lógica del Agente\n* **[LOGICA_PRINCIPAL]**: [DESCRIBE_LA_LOGICA_PRINCIPAL].\n* **[PRIORIZACION_DE_TAREAS]**: [DESCRIBE_COMO_PRIORIZAR].\n* **[MANEJO_DE_ERRORES]**: Si una tool falla, [ACCION_EN_CASO_DE_ERROR].\n* **[BIFURCACION_DE_RESPUESTAS]**: Si la consulta es ambigua, [ACCION_PARA_AMBIGUEDAD].\n* **[FINALIZACION_DE_TAREA]**: Una vez completada una tarea, [ACCION_POST_TAREA].\n\n### 7. Formato de Respuesta y Ejemplos de Interacción\n* **[EJEMPLO_DE_INTERACCION_EXITOSA]**:\n    * **Usuario**: \"...\"\n    * **Agente (pensamiento interno)**: \"...\"\n    * **Agente (llamada a tool)**: ```json\n{...}\n```\n    * **Agente (respuesta de la tool)**: `...`\n    * **Agente (respuesta al usuario)**: \"...\"\n\n* **[EJEMPLO_DE_INTERACCION_FALLIDA]**:\n    * **Usuario**: \"...\"\n    * **Agente (pensamiento interno)**: \"...\"\n    * **Agente (llamada a tool)**: ```json\n{...}\n```\n    * **Agente (respuesta de la tool)**: `...`\n    * **Agente (respuesta al usuario)**: \"...\"\n\n"
+          },
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/variables",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "EBMwLGTBawYqkZM1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-18T03:28:55.857Z",
+  "versionId": "00d2ff3f-13f2-4794-a9fe-d9db04481baa"
+}
