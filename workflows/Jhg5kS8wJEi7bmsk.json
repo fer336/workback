@@ -1,0 +1,687 @@
+{
+  "active": false,
+  "connections": {
+    "Preparar Mensaje": {
+      "main": [
+        []
+      ]
+    },
+    "Code": {
+      "main": [
+        []
+      ]
+    },
+    "FERNANDO": {
+      "main": [
+        []
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "vars2": {
+      "main": [
+        []
+      ]
+    },
+    "vars": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Preparar Mensaje1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Mensaje1": {
+      "main": [
+        [
+          {
+            "node": "Texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Preparar Mensaje2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Mensaje2": {
+      "main": [
+        [
+          {
+            "node": "es-wa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:55:45.572Z",
+  "id": "Jhg5kS8wJEi7bmsk",
+  "isArchived": false,
+  "meta": null,
+  "name": "Mencion fantasma",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// Obtener los datos de participantes y configuración\nconst participantes = $input.item.json.participants || [];\nconst config = $node[\"vars\"].json;\n// Cambia \"Configuración\" por \"vars\"\n\n// Verificar que participantes sea un array\nif (!Array.isArray(participantes)) {\n  throw new Error(\"Los participantes no son un array válido\");\n}\n\n// Crear menciones para todos los participantes\nconst mentions = participantes.map(participante => {\n  return {\n    mentioned: participante.id,\n    name: '\\u200E' // Carácter invisible U+200E (Left-to-Right Mark)\n  };\n});\n\n// Crear el cuerpo de la solicitud\nconst requestData = {\n  number: config.number,\n  options: {\n    delay: config.options.delay,\n    presence: config.options.presence\n  },\n  textMessage: {\n    text: config.text,\n    mentions: mentions\n  }\n};\n\n// Esta línea es crucial - debes devolver un objeto con una propiedad json\nreturn {json: requestData};"
+      },
+      "name": "Preparar Mensaje",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        880
+      ],
+      "id": "6036c74c-8077-421d-a60b-ea2e115ecdc5"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nodo de depuración\nconst inputData = $node[\"Preparar Mensaje\"].json;\nconsole.log(\"Datos originales:\", JSON.stringify(inputData, null, 2));\n\n// Intentar con una serialización/deserialización adicional\nconst serialized = JSON.stringify(inputData);\nconst deserialized = JSON.parse(serialized);\nconsole.log(\"Después de serializar/deserializar:\", JSON.stringify(deserialized, null, 2));\n\nreturn {json: deserialized};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        864,
+        1200
+      ],
+      "id": "bb462e51-8317-466b-80a4-b0b598949ae5",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "content": "## Grupo buitres 5491138677828-1439064022@g.us\n\n## Grupo General IA \"120363409752146229@g.us\"\n\n## Grupo TRAID general \"120363347362371229@g.us\"\n\n## Grupo Inmobiliario \"120363407640794586@g.us\"\n\n## GRUPO RUBEN \"120363150353486693@g.us\"\n\n## GRUPO DEL VILLANO (120363419074159638@g.us)",
+        "height": 660,
+        "width": 580
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -288,
+        272
+      ],
+      "typeVersion": 1,
+      "id": "3a5ac9ca-9811-4765-983c-96f2a4a71a12",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('vars').item.json.url }}/message/sendText/{{ $('vars').item.json.instance }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('vars').item.json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.number }}"
+            },
+            {
+              "name": "options",
+              "value": "={{ $json.options }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.textMessage.text }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.textMessage.mentions }}"
+            },
+            {
+              "name": "mentionsEveryOne",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Mensaje2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        1008,
+        1328
+      ],
+      "id": "26951623-760e-4013-931a-7cb12e2ec413",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('vars').item.json.url }}/message/sendText/{{ $('vars').item.json.instance }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('vars').item.json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.number }}"
+            },
+            {
+              "name": "options",
+              "value": "={{ $json.options }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.textMessage.text }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.textMessage.mentions }}"
+            },
+            {
+              "name": "mentionsEveryOne",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "FER",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        -880,
+        832
+      ],
+      "id": "aac34276-b477-4aff-a29c-c3a00f5d7c47",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "OpgdvMlLy6Zxc6ii",
+          "name": "NOCODB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('vars').item.json.url }}/message/sendText/{{ $('vars').item.json.instance }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('vars').item.json.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.number }}"
+            },
+            {
+              "name": "options",
+              "value": "={{ $json.options }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.textMessage.text }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.textMessage.mentions }}"
+            },
+            {
+              "name": "mentionsEveryOne",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "FERNANDO",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        288,
+        880
+      ],
+      "id": "948a1325-ab71-4e2d-8f04-80084d5e3137",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "OpgdvMlLy6Zxc6ii",
+          "name": "NOCODB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1104,
+        1344
+      ],
+      "id": "528b9244-f3d2-4e20-88fa-5ae8d8bd5f92",
+      "name": "When chat message received",
+      "webhookId": "09c51867-0f21-4154-a0cf-d2bcb70e31bb"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "es-wa",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        800
+      ],
+      "id": "b812773e-1f6e-475a-8360-d9206fe2776e",
+      "name": "Webhook",
+      "webhookId": "9ba09d30-2eb8-4bdf-8785-2bfc45e3f63d"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23189e14-968e-44f2-be6c-32e7889d5294",
+              "name": "number",
+              "value": "=120363347362371229@g.us",
+              "type": "string"
+            },
+            {
+              "id": "c403ade0-2efe-493c-96e6-a45fcb270920",
+              "name": "url",
+              "value": "=https://evo.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "237b606f-962f-485e-8945-2409e46b5ed8",
+              "name": "apikey",
+              "value": "=B8F21C0B3BFC-453F-A467-B69E2BB0D8E3",
+              "type": "string"
+            },
+            {
+              "id": "6b637992-7137-4ec6-adb4-db6fa6706671",
+              "name": "instance",
+              "value": "=fernando",
+              "type": "string"
+            },
+            {
+              "id": "c584414f-8f84-450d-8999-3071701de88c",
+              "name": "options",
+              "value": "={delay: 1200,presence: 'composing'}",
+              "type": "object"
+            },
+            {
+              "id": "d7e9739d-f087-4f35-bd14-b39bb38ab224",
+              "name": "text",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "0def1f68-c153-4d34-8b8a-90014d5be372",
+              "name": "mentions",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        784,
+        992
+      ],
+      "id": "169aea44-6800-41ca-b669-c96d841f5d24",
+      "name": "vars2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23189e14-968e-44f2-be6c-32e7889d5294",
+              "name": "number",
+              "value": "=120363407640794586@g.us",
+              "type": "string"
+            },
+            {
+              "id": "c403ade0-2efe-493c-96e6-a45fcb270920",
+              "name": "url",
+              "value": "=https://evo.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "237b606f-962f-485e-8945-2409e46b5ed8",
+              "name": "apikey",
+              "value": "=B8F21C0B3BFC-453F-A467-B69E2BB0D8E3",
+              "type": "string"
+            },
+            {
+              "id": "6b637992-7137-4ec6-adb4-db6fa6706671",
+              "name": "instance",
+              "value": "=fernando",
+              "type": "string"
+            },
+            {
+              "id": "c584414f-8f84-450d-8999-3071701de88c",
+              "name": "options",
+              "value": "={delay: 1200,presence: 'composing'}",
+              "type": "object"
+            },
+            {
+              "id": "d7e9739d-f087-4f35-bd14-b39bb38ab224",
+              "name": "text",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            },
+            {
+              "id": "0def1f68-c153-4d34-8b8a-90014d5be372",
+              "name": "mentions",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -640,
+        1088
+      ],
+      "id": "4d448bde-b5b2-4007-a7ee-3e52d8ae13e6",
+      "name": "vars"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "=Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.mentions }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        288,
+        1088
+      ],
+      "id": "b653112a-bf0c-4c0c-8430-3bcb8c6b56f6",
+      "name": "Texto"
+    },
+    {
+      "parameters": {
+        "url": "https://gate.whapi.cloud/groups/120363150353486693@g.us",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "count",
+              "value": "200"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -416,
+        1088
+      ],
+      "id": "f2bc2863-9838-43f8-91de-48ab11953d39",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// VERSIÓN SIMPLE Y DIRECTA\nconst group = $input.item.json;\nconst config = $node[\"vars\"].json;\n\n// Extraer números de los participantes\nconst mentions = group.participants\n  .map(p => p.id.replace('@s.whatsapp.net', ''))\n  .filter(num => num && num !== 'status@broadcast');\n\n// Crear mensaje\nconst body = ` ${config.text} `;\n\n// Devolver objeto para WhAPI\nreturn {\n  json: {\n    to: group.id,\n    body: body,\n    mentions: mentions,\n    typing_time: 3\n  }\n};"
+      },
+      "name": "Preparar Mensaje1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        1088
+      ],
+      "id": "defc02ce-d3af-4ac7-a379-9452879d920d"
+    },
+    {
+      "parameters": {
+        "url": "https://us.api-wa.me/2522xaf8359c21b/groups/120363419074159638@g.us",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -720,
+        1344
+      ],
+      "id": "22a8d1bb-ffc3-42cb-accd-94216d6ded01",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// VERSIÓN ADAPTADA - SOLO PARTICIPANTES\nconst response = $input.item.json;\nconst config = $('When chat message received').first().json.chatInput ;\n\n// Acceder a los datos del grupo desde la nueva estructura\nconst groupData = Array.isArray(response) ? response[0].data : response.data;\n\n// OPCIÓN 1: TODOS LOS PARTICIPANTES (sin quitar el @lid)\nconst mentions = groupData.participants.map(p => p.id);\n\n// OPCIÓN 2: TODOS LOS PARTICIPANTES (quitando @lid para obtener solo números)\n// const mentions = groupData.participants.map(p => p.id.replace('@lid', ''));\n\n// OPCIÓN 3: EXCLUIR AL OWNER/ADMIN (si no quieres mencionar al creador del grupo)\n// const mentions = groupData.participants\n//   .filter(p => p.id !== groupData.owner)\n//   .map(p => p.id);\n\n// OPCIÓN 4: SOLO PARTICIPANTES NO-ADMIN\n// const mentions = groupData.participants\n//   .filter(p => !p.admin)\n//   .map(p => p.id);\n\n// Crear mensaje\nconst body = $('When chat message received').first().json.chatInput;\n\n// Devolver objeto para WhAPI\nreturn {\n  json: {\n    to: groupData.id,\n    body: body,\n    mentions: mentions,\n    typing_time: 3\n  }\n};\n\n// ALTERNATIVA: Si necesitas incluir el @lid en las menciones\n// (depende de cómo funcione tu API de WhatsApp)\n/*\nconst mentionsWithLid = groupData.participants\n  .map(p => p.id)\n  .filter(id => id && id !== 'status@broadcast');\n\nreturn {\n  json: {\n    to: groupData.id,\n    body: body,\n    mentions: mentionsWithLid,\n    typing_time: 3\n  }\n};\n*/\n\n// VERSIÓN CON VALIDACIÓN ADICIONAL\n/*\n// Verificar que tenemos datos válidos\nif (!response || (Array.isArray(response) && response.length === 0)) {\n  throw new Error('No se recibieron datos del grupo');\n}\n\nconst groupData = Array.isArray(response) ? response[0].data : response.data;\n\nif (!groupData || !groupData.participants) {\n  throw new Error('Estructura de datos inválida');\n}\n\n// Extraer números con validación\nconst mentions = groupData.participants\n  .filter(p => p && p.id) // Verificar que el participante y su ID existen\n  .map(p => p.id.replace('@lid', ''))\n  .filter(num => num && num !== 'status@broadcast');\n\n// Log para debugging\nconsole.log('Grupo ID:', groupData.id);\nconsole.log('Participantes encontrados:', mentions.length);\nconsole.log('Menciones:', mentions);\n\nconst body = ` ${config.text} `;\n\nreturn {\n  json: {\n    to: groupData.id,\n    body: body,\n    mentions: mentions,\n    typing_time: 3\n  }\n};\n*/"
+      },
+      "name": "Preparar Mensaje2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        1344
+      ],
+      "id": "c0d7ccf7-440e-414c-847b-bc9bdbeb796e"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "mentions",
+              "value": "={{ $json.mentions }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        1344
+      ],
+      "id": "922f52e1-f147-464d-b0fb-831de9ff56d3",
+      "name": "es-wa"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://evo.qeva.xyz/message/sendText/Fernando",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.data.key.remoteJid }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.data.message.conversation.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1168,
+        848
+      ],
+      "id": "bbf41ff7-cf29-427b-8e20-620ce0378bb6",
+      "name": "text",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "92zDbGk4XaIjaMWq",
+          "name": "EVOLUTION API Automatizaciones"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-07-23T03:37:21.247Z",
+  "versionId": "c5a26be0-c02b-4a45-a403-a3ce0644c05d"
+}
