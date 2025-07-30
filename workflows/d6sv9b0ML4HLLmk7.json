@@ -1,0 +1,4081 @@
+{
+  "active": false,
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agendar visita": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reagendar visita": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelar evento": {
+      "main": [
+        [
+          {
+            "node": "Reagendar List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Traer detalles": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nombre y Correo": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consultar disponibilidad": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type": {
+      "main": [
+        [
+          {
+            "node": "DistinguirTipoSeleccion1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Encolado de msg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "DistinguirTipoSeleccion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "DetectorFechas",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "chatInput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Cliente": {
+      "main": [
+        [
+          {
+            "node": "Cliente Guardado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Encolado de msg": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "chatInput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "chatInput": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variables globales": {
+      "main": [
+        [
+          {
+            "node": "Message Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DistinguirTipoSeleccion": {
+      "main": [
+        [
+          {
+            "node": "Cancelar eventoo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetCliente": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DistinguirTipoSeleccion1": {
+      "main": [
+        [
+          {
+            "node": "Cancelar evento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Texto": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DetectorFechas": {
+      "main": [
+        [
+          {
+            "node": "Obtenemos la fecha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "fecha_iso": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "chatInput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista de fechas": {
+      "main": [
+        [
+          {
+            "node": "fecha_iso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis2": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Texto1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lista de fechas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "msg agente": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "From Me2": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis4": {
+      "main": [
+        [
+          {
+            "node": "Texto4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Redis5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "V1": {
+      "main": [
+        [
+          {
+            "node": "From Me2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis5": {
+      "main": [
+        [
+          {
+            "node": "Texto3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis7": {
+      "main": [
+        [
+          {
+            "node": "Redis4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "Redis7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Texto3": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Texto4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Encolado de msg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "chatInput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Determinar Tipo de Mensaje": {
+      "main": [
+        [
+          {
+            "node": "es url?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "es url?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "is Https?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "is Https?": {
+      "main": [
+        [
+          {
+            "node": "Linkeador",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Variables globales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelar eventoo": {
+      "main": [
+        [
+          {
+            "node": "Texto7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agenda cuando reprograma": {
+      "main": [
+        [
+          {
+            "node": "ya existe?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "registro de visita": {
+      "main": [
+        [
+          {
+            "node": "Texto9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ya existe?": {
+      "main": [
+        [
+          {
+            "node": "registro de visita",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtenemos la fecha": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Texto5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Agenda cuando reprograma",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Historial de analisis": {
+      "main": [
+        [
+          {
+            "node": "Redis9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete contador": {
+      "main": [
+        [
+          {
+            "node": "Historial de analisis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Delete contador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis9": {
+      "main": [
+        [
+          {
+            "node": "Redis11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis11": {
+      "main": [
+        [
+          {
+            "node": "Redis3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis3": {
+      "main": [
+        [
+          {
+            "node": "Redis14",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cliente Guardado": {
+      "main": [
+        [
+          {
+            "node": "Determinar Tipo de Mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis12": {
+      "main": [
+        []
+      ]
+    },
+    "If8": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Separa datos2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separa datos2": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Linkeador",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "validate_url": {
+      "ai_tool": [
+        [
+          {
+            "node": "Linkeador",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Linkeador": {
+      "main": [
+        [
+          {
+            "node": "chatInput",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "V1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If9": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Validar Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Linkeador",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-22T12:23:22.946Z",
+  "id": "d6sv9b0ML4HLLmk7",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE INMO - MASTER MULTI AGENTE",
+  "nodes": [
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "a0dd912e-8970-4158-9c36-330a4bc076e5",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        9456,
+        848
+      ],
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "texto, parte, segundos",
+        "options": {}
+      },
+      "id": "d80b980b-55d6-4cbe-bb0c-4606d8added2",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        9232,
+        848
+      ]
+    },
+    {
+      "parameters": {
+        "name": "book_visit",
+        "description": "you will call this tool when you need to schedule an appointment or visiting meeting\n\n {\n      \"fecha_cita\": \"fecha_iso_seleccionada\", // Asegurar formato ISO\n      \"Nombre\": \"nombre_confirmado\",\n      \"correo_electronico\": \"correo_confirmado\",\n      \"tipo_cliente\": \"tipo_confirmado\",\n      \"nombre_inmobiliaria\": \"{TipoCliente === 'Agente' ? nombre_inmobiliaria_confirmado : ''}\"\n    }",
+        "workflowId": {
+          "__rl": true,
+          "value": "QNseORjK6k8Pt17A",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Agendar_cita"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre_inmobiliaria": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nombre_inmobiliaria', ``, 'string') }}",
+            "correo_electronico": "={{ $fromAI('correo_electronico', `correo_electronico`, 'string') }}",
+            "Nombre": "={{ $fromAI('Nombre', `Nombre`, 'string') }}",
+            "numero_cliente": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('numero_cliente', ``, 'string') }}",
+            "Fecha_cita": "={{ $fromAI('Fecha_cita', `Formato iso`, 'string') }}",
+            "idMensaje": "={{ $('Variables globales').first().json.msg.idmsg }}",
+            "Id_cliente_db": "={{ $('Variables globales').first().json.id_cliente }}",
+            "Evento": "=agendar",
+            "url_propiedad": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('url_propiedad', `debes pasarle la url de la propiedad`, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero_cliente",
+              "displayName": "numero_cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha_cita",
+              "displayName": "Fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nombre_inmobiliaria",
+              "displayName": "nombre_inmobiliaria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "idMensaje",
+              "displayName": "idMensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Id_cliente_db",
+              "displayName": "Id_cliente_db",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "url_propiedad",
+              "displayName": "url_propiedad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        7280,
+        1408
+      ],
+      "id": "c738e15b-ea23-406d-b171-a08acc8c0925",
+      "name": "Agendar visita",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "name": "show_reschedulable_visits",
+        "description": "Call this tool whenever the user wants to reschedule a visit",
+        "workflowId": {
+          "__rl": true,
+          "value": "zm3WavIVP7tdrihv",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Reagendar-Cancelar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Evento": "reagendar",
+            "correo_electronico": "={{ $('Validar Cliente').item.json.list.first().Correo}}",
+            "numero_cliente": "={{ $('Validar Cliente').item.json.list.first().Telefono}}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero_cliente",
+              "displayName": "numero_cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        7440,
+        1408
+      ],
+      "id": "ed068b8f-7b47-47d6-85c4-270607cb008a",
+      "name": "Reagendar visita"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "lifk7Nzr3QwVSIf3",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Cancelar visitar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Evento": "=cancelar",
+            "numero_telefono": "={{ $('Message Type').item.json.msg.telefono }}",
+            "eventId": "={{ $('Variables globales').first().json.msg.eventId }}",
+            "fecha_cita": "={{ $json.fecha_limpia }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "eventId",
+              "displayName": "eventId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": true,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        5216,
+        160
+      ],
+      "id": "0d4f7e24-e5fc-4def-8aa7-ebfa72ac5355",
+      "name": "Cancelar evento"
+    },
+    {
+      "parameters": {
+        "name": "get_details",
+        "description": "Siempre llama a esta herramienta cuando el usuario quiera saber detalles de una propiedad",
+        "workflowId": {
+          "__rl": true,
+          "value": "dYtOhM5ldqc0xj78",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('url', `url que el usuario compartió`, 'string') }}",
+            "numero_telefono": "={{ $('V1').first().json.msg.telefono }}",
+            "consulta_usuario": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('consulta_usuario', ``, 'string') }}",
+            "idMensaje": "={{ $('Variables globales').first().json.msg.idmsg }}"
+          },
+          "matchingColumns": [
+            "session_id"
+          ],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "consulta_usuario",
+              "displayName": "consulta_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "instance",
+              "displayName": "instance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "idMensaje",
+              "displayName": "idMensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        7600,
+        1408
+      ],
+      "id": "46572be0-08fe-4ba2-89c1-a1459f907f9a",
+      "name": "Traer detalles"
+    },
+    {
+      "parameters": {
+        "name": "insert_name_correo",
+        "description": "Llama a esta herramienta cuando necesites actualizar los datos del cliente",
+        "workflowId": {
+          "__rl": true,
+          "value": "zz93xPqPfK5WSzFW",
+          "mode": "list",
+          "cachedResultName": "SUB TAREA - Actualizar el nombre y el mail DESPENSA"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nombre', `Cuando obtengas el nombre del cliente guardalo aqui`, 'string') }}",
+            "telefono": "={{ $('V1').first().json.msg.telefono }}",
+            "correo": "={{ $fromAI('correo', `Guarda el correo del usuario`, 'string') }}",
+            "server": "={{ $('V1').item.json.datos.server_db }}",
+            "Id": "={{ $('Validar Cliente').first().json.list.last().Id}}",
+            "table": "=m097w4nkzri1xs1"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "correo",
+              "displayName": "correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "table",
+              "displayName": "table",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "server",
+              "displayName": "server",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        7856,
+        1408
+      ],
+      "id": "1f069958-731e-4c98-8b55-7eb8877398ff",
+      "name": "Nombre y Correo"
+    },
+    {
+      "parameters": {
+        "name": "check_slots",
+        "description": "llama a esta herramienta unicamente cuando recibas confirmacion del usuario para ver la disponiblidad",
+        "workflowId": {
+          "__rl": true,
+          "value": "BMc2xdmYnikYsHl6",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_telefono": "={{ $('Variables globales').item.json.msg.telefono }}",
+            "Evento": "consultar"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        7984,
+        1408
+      ],
+      "id": "3125ea77-6cea-40f0-865c-26fc29a17358",
+      "name": "Consultar disponibilidad"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b8ec469c-1812-4701-bce3-96a548649d76",
+                    "leftValue": "={{ $json.msg.titulo_categoria }}",
+                    "rightValue": "🔔 Visitas Agendadas",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "🔔 Visitas Agendadas"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "voice",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c203e3f3-cdae-4308-b7ca-2300800248e7"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0cb14635-2673-408e-86db-ce9e0373674b",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "eb565653-33f7-4f16-a17c-b840b8b94e67",
+                    "leftValue": "={{ $json.msg.titulo_categoria }}",
+                    "rightValue": "❌ Cancelar Visitas",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "❌ Cancelar Visitas"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "004fd6bb-488c-4f22-b1d2-7ce04855f172",
+                    "leftValue": "={{ $json.msg.titulo_categoria }}",
+                    "rightValue": "📅 Fechas de Reprogramación",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "📅 Fechas de Reprogramación"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3d2b908a-5bdf-41b5-b195-d4e9298c58e8",
+                    "leftValue": "={{ $json.msg.titulo_categoria }}",
+                    "rightValue": "=📅 Fechas Disponibles",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "📅 Fechas Disponibles"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7c55af74-e651-4d0e-bf9b-9dc84e42ccf4",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "=link_preview",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "link_preview"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c6515302-4368-4353-be7b-997b15c06299",
+      "name": "Message Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        3200,
+        1424
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "BMc2xdmYnikYsHl6",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Consultar_fechas_disponibles"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Evento": "=reagendar",
+            "numero_telefono": "={{ $('Variables globales').item.json.msg.telefono }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        5456,
+        160
+      ],
+      "id": "6b31f6fb-4e5e-4814-846a-c4d98054c7fe",
+      "name": "Reagendar List"
+    },
+    {
+      "parameters": {
+        "name": "show_cancellable_visits",
+        "description": "llama a esta herramienta cuando un usuario quiera cancelar una visita",
+        "workflowId": {
+          "__rl": true,
+          "value": "zm3WavIVP7tdrihv",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Reagendar-Cancelar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_cliente": "={{ $('Variables globales').item.json.msg.telefono }}",
+            "fecha_cita": "={{ $fromAI('fecha_cita', ``, 'string') }}",
+            "Nombre": "={{ $fromAI('Nombre', ``, 'string') }}",
+            "Evento": "={{ $fromAI('Evento', ``, 'string') }}",
+            "correo_electronico": "={{ $fromAI('correo_electronico', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero_cliente",
+              "displayName": "numero_cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        8096,
+        1408
+      ],
+      "id": "64f342f6-80fb-404e-92c8-9d97dba75bed",
+      "name": "Cancelar"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "2Sx5bbnQ0BLOq2rG",
+          "mode": "list",
+          "cachedResultName": "SUB TAREA - OBTENER NOMBRE O INSERTAR citas"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "idTabla": "m097w4nkzri1xs1",
+            "servidor_db": "https://db.qeva.xyz",
+            "token": "3WY4UecQy9Nl522fe_DXDSHeQDVSQJpmDG7mMoFz",
+            "numero": "={{ $('V1').first().json.msg.telefono }}",
+            "id_mensaje": "={{ $('V1').first().json.msg.idmsg }}",
+            "pushname": "={{ $('Webhook').first().json.body.messages[0].from_name }}",
+            "nombre_columna": "Telefono"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "servidor_db",
+              "displayName": "servidor_db",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "idTabla",
+              "displayName": "idTabla",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "token",
+              "displayName": "token",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero",
+              "displayName": "numero",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "nombre_columna",
+              "displayName": "nombre_columna",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "pushname",
+              "displayName": "pushname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "servidor_evo",
+              "displayName": "servidor_evo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "id_mensaje",
+              "displayName": "id_mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        1456
+      ],
+      "id": "2358f650-884a-4999-850e-ca32ff600960",
+      "name": "Validar Cliente"
+    },
+    {
+      "parameters": {
+        "content": "## Validacion de cliente en base de datos",
+        "height": 380,
+        "width": 340,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        432,
+        1264
+      ],
+      "typeVersion": 1,
+      "id": "b593aa28-7b81-4cfc-bb4f-de7d417e44ee",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "dg5lZhcTnBAZzVc4",
+          "mode": "list",
+          "cachedResultName": "SUB TAREA - ENLOCAR MSG"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        5008,
+        400
+      ],
+      "id": "3842fa6c-0adb-41a7-9dbd-74d9866e8b52",
+      "name": "Encolado de msg"
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "timestamp"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        5232,
+        400
+      ],
+      "id": "8c2dc413-fb05-41de-b51c-f5e89ad9241d",
+      "name": "Sort"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "text",
+              "renameField": true,
+              "outputFieldName": "text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        5472,
+        400
+      ],
+      "id": "2d63fac1-81da-4842-86f3-bb2321ea86f9",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0fae28c9-d30a-4250-9a50-5b68c61164cf",
+              "name": "message",
+              "value": "={{  $json?.output || $json?.text?.join(\"\\n\") || $json?.msg?.content || $('fecha_iso').item?.json?.msg?.row_id_fecha }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        7008,
+        1184
+      ],
+      "id": "d72c5958-f306-45b3-9d61-bf125dc8b8eb",
+      "name": "chatInput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "79a702ff-5f8c-4814-bddf-5e3acb5a5f2e",
+              "name": "msg",
+              "value": "={{ JSON.stringify($('V1').first().json.msg)}}",
+              "type": "object"
+            },
+            {
+              "id": "9337176e-e568-4efa-8c05-3bdb12ecfb61",
+              "name": "id_cliente",
+              "value": "={{ $('Validar Cliente').first().json.list[0].Id }}",
+              "type": "number"
+            },
+            {
+              "id": "0c48213e-ec73-4b20-b547-c3beffc38bf7",
+              "name": "msg.cliente",
+              "value": "={{ $('Validar Cliente').item.json.list }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dc6f33a5-1b34-4593-bfec-3d3aeea571df",
+      "name": "Variables globales",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2768,
+        1504
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener datos de entrada\nconst row_id_fecha = $input.first().json.msg.row_id_fecha;\nconst eventId = $input.first().json.msg.eventId || $json.eventid || \"\";\n\n// Obtener el título del webhook\nconst title = $('Webhook').first().json.body.messages[0].reply.list_reply.title;\n\n// Función para convertir nombre de mes a número\nfunction mesANumero(nombreMes) {\n  const meses = {\n    'enero': '01', 'febrero': '02', 'marzo': '03', 'abril': '04',\n    'mayo': '05', 'junio': '06', 'julio': '07', 'agosto': '08',\n    'septiembre': '09', 'octubre': '10', 'noviembre': '11', 'diciembre': '12'\n  };\n  return meses[nombreMes.toLowerCase()] || '01';\n}\n\n// Función para extraer fecha ISO del título\nfunction extraerFechaISODelTitulo(title) {\n  // Ejemplo: \"📅 30 de Mayo : 12:00 a 12:30\"\n  const regex = /📅\\s*(\\d+)\\s*de\\s*(\\w+)\\s*:\\s*(\\d{2}):(\\d{2})/i;\n  const match = title.match(regex);\n  \n  if (match) {\n    const dia = match[1].padStart(2, '0'); // \"30\" -> \"30\"\n    const mes = mesANumero(match[2]); // \"Mayo\" -> \"05\"\n    const hora = match[3]; // \"12\"\n    const minutos = match[4]; // \"00\"\n    \n    // Obtener el año actual (puedes modificar esto si necesitas otro año)\n    const anioActual = new Date().getFullYear();\n    \n    // Formar la fecha ISO: 2025-05-30T12:00\n    return `${anioActual}-${mes}-${dia}T${hora}:${minutos}`;\n  }\n  \n  return null;\n}\n\n// Extraer la fecha ISO del row_id_fecha (método original)\nconst partes = row_id_fecha.split(\":\");\nconst fechaISOOriginal = partes[partes.length - 1];\n\n// Extraer la fecha ISO del título\nconst fechaISODelTitulo = extraerFechaISODelTitulo(title);\n\n// Usar la fecha ISO del título si está disponible, sino usar la original\nconst fechaISO = fechaISODelTitulo || fechaISOOriginal;\n\n// Armar el mensaje\nconst mensaje = `Fecha seleccionada para agendar nuevamente:\\n${fechaISO}\\n\\nID del evento:\\n${eventId}\\n\\nTítulo original:\\n${title}`;\n\n// Devolver resultado\nreturn [{\n  json: {\n    fechaISO,\n    eventId,\n    mensaje,\n    title,\n    fechaISODelTitulo,\n    fechaISOOriginal\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4480,
+        1280
+      ],
+      "id": "b37bf76c-168e-4e9f-b446-410b9e979e24",
+      "name": "DistinguirTipoSeleccion"
+    },
+    {
+      "parameters": {
+        "content": "## MSG ENVIADO DE GRUPO?",
+        "height": 380,
+        "width": 340,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        1264
+      ],
+      "typeVersion": 1,
+      "id": "7e7d63cc-ad65-4aaf-8d5f-99361129c0c9",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Variables de BD",
+        "height": 380,
+        "width": 340,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        864,
+        1264
+      ],
+      "typeVersion": 1,
+      "id": "c9be93ad-9639-4263-a064-70c726715719",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "debes llamar siempre a esta tool para saber la informacion de un cliente, nombre, correo o telefono",
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pavs050wnuapn49",
+        "table": "m097w4nkzri1xs1",
+        "returnAll": true,
+        "options": {
+          "where": "=(Telefono,eq,{{ $('V1').first().json.msg.telefono }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        8208,
+        1408
+      ],
+      "id": "c7f8841a-dc33-400d-958d-dead75a13867",
+      "name": "GetCliente",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener la fecha desde el input\nconst fechaOriginal = $input.first().json.msg.row_id_fecha;\n\n// Función para limpiar la fecha y extraer solo el formato ISO\nfunction limpiarFecha(fechaString) {\n  if (!fechaString || typeof fechaString !== 'string') {\n    return null;\n  }\n  \n  // Buscar el patrón de fecha ISO en el string (YYYY-MM-DDTHH:MM)\n  const match = fechaString.match(/(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2})/);\n  \n  if (match) {\n    return match[1]; // Retorna solo la parte de la fecha ISO\n  }\n  \n  return null;\n}\n\n// Limpiar la fecha\nconst fechaLimpia = limpiarFecha(fechaOriginal);\n\n// Crear la variable del evento\nconst evento = \"cancelar\";\n\n// Log para verificar\nconsole.log(\"Fecha original:\", fechaOriginal);\nconsole.log(\"Fecha limpia:\", fechaLimpia);\nconsole.log(\"Evento:\", evento);\n\n// Retornar el resultado\nreturn [{\n  json: {\n    fecha_original: fechaOriginal,\n    fecha_limpia: fechaLimpia,\n    evento: evento\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4992,
+        160
+      ],
+      "id": "5c07c73f-d0d3-4eae-8561-56660281baa3",
+      "name": "DistinguirTipoSeleccion1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{ $json.segundos }}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.texto.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        9808,
+        912
+      ],
+      "id": "12df6618-22ee-4754-ab5a-8b05e41c6d00",
+      "name": "Texto",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ekaTMbiKps3wYx80",
+          "name": "Whapi - Agente inmobiliario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1) Obtenés los datos principales\nconst datosCliente = $('Validar Cliente').first().json.list[0] || {};\nconst nombre = datosCliente.Nombre || '';\nconst correo = datosCliente.Correo || '';\nconst telefono = datosCliente.Telefono || '';\n\n// 2) Obtenés la fecha original y el ID del evento\nconst row_id_fecha = $input.first().json.msg.row_id_fecha || '';\nconst eventid = $input.first().json.msg.eventId || '';\n\n// 3) Formateás la fecha ISO\nconst partes = row_id_fecha.split(':');\nconst fechaISO = partes.length > 1 \n  ? partes.slice(-2).join(':') \n  : row_id_fecha;\n\n// 4) Armás el mensaje\nconst mensaje = `Fecha seleccionada para agendar nuevamente:\\n${fechaISO}`;\n\n// 5) Devolvés todo en la salida\nreturn [{\n  json: {\n    row_id_fecha_original: row_id_fecha,\n    fechaISO,\n    mensaje,\n    correo,\n    nombre,\n    telefono,\n    eventid,\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4800,
+        2512
+      ],
+      "id": "62539e79-0a41-4b8b-b287-ababfcf240c3",
+      "name": "DetectorFechas"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c6f2449a-a8b4-423d-ae78-f783977ed460",
+              "name": "msg.row_id_fecha",
+              "value": "={{ $('V1').first().json.msg.row_id_fecha.match(/(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}[-+]\\d{2}:\\d{2})/)?.[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "d85e8dab-ff11-460a-9ab4-83ff62869e71",
+              "name": "msg.titulo_categoria",
+              "value": "={{ $('V1').first().json.msg.titulo_categoria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5376,
+        2000
+      ],
+      "id": "31942123-c700-494a-85f3-6c624b616f6a",
+      "name": "fecha_iso"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=msg:{{ $('Variables globales').item.json.msg.telefono }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        5616,
+        2000
+      ],
+      "id": "19ede3d6-d5bb-4943-9931-3ee99d88f5e7",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=list:{{ $('V1').first().json.msg.telefono }}",
+        "value": "={{ $('V1').first().json.msg.row_id_fecha }}",
+        "expire": true,
+        "ttl": 3600
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        5152,
+        2000
+      ],
+      "id": "b41278e4-cf6e-442b-896a-0ca2e45e7c09",
+      "name": "Lista de fechas",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Lista",
+        "key": "=list:{{ $('V1').first().json.msg.telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        4352,
+        1728
+      ],
+      "id": "df7a0fd4-9ce5-4e7f-8c6d-d620da79868d",
+      "name": "Redis2",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9428093a-b316-4189-8923-cac5f49ffc70",
+              "leftValue": "={{ $('Variables globales').item.json.msg.row_id_fecha }}",
+              "rightValue": "={{ $json.Lista }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4608,
+        1728
+      ],
+      "id": "b440f99c-19c4-42d7-87ac-a10542f9680e",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('V1').first().json.datos.server_whapi }}/messages/text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "=Esta fecha ya no se puede elegir"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4960,
+        1632
+      ],
+      "id": "51b133dc-54c9-46e3-97eb-83d4feae47fc",
+      "name": "Texto1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ekaTMbiKps3wYx80",
+          "name": "Whapi - Agente inmobiliario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "send_message",
+        "description": "llama a esta herramienta cuando  el usuario esta interesado en comprar o alquilar",
+        "workflowId": {
+          "__rl": true,
+          "value": "GdA7h4vtZ4cVtdMf",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Send MSG agente"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero": "={{$('Variables globales').first().json.msg.telefono}}",
+            "msg": "={{ $fromAI('msg', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero",
+              "displayName": "numero",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "msg",
+              "displayName": "msg",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        8336,
+        1408
+      ],
+      "id": "723e258e-0d72-47de-ab15-2e09e9cba4d6",
+      "name": "msg agente"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "94746291-c0f3-44f3-b635-1fe696d7d74e",
+              "leftValue": "={{ $json.from.me }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "39df9ffb-e1ab-4e7e-8320-6572c8be0c6b",
+      "name": "From Me2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -512,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=bot:{{ $json.msg.telefono }}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        928,
+        448
+      ],
+      "id": "fd20582b-3034-47d9-8b02-56ee3864a273",
+      "name": "Redis4",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7c646201-9638-4381-ba78-8b2ede680b4d",
+              "leftValue": "={{ $('Webhook').item.json.body.messages[0].from }}",
+              "rightValue": "5492254606018",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "60e15f5b-bbc9-47ea-a160-5df35f39a4a9",
+              "leftValue": "={{ $('Webhook').item.json.body.messages[0].text.body.toLowerCase() === 'off' }}",
+              "rightValue": "={{pausar}}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        288,
+        304
+      ],
+      "id": "d197c4a0-3f94-48b7-8e5d-0f2a0aceec51",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "msg.telefono",
+              "value": "={{ $json.body.messages[0].chat_id.replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "msg.nombre",
+              "value": "={{ $json?.body?.messages[0]?.chat_name || null }}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "msg.type",
+              "value": "={{ $json.body.messages[0].type }}",
+              "type": "string"
+            },
+            {
+              "id": "a3d07914-3c39-47d8-a122-9c1f6062c940",
+              "name": "msg.ListaResponse",
+              "value": "={{ $json.body.messages[0].reply.list_reply.id }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "msg.content",
+              "value": "={{ $json?.body?.messages[0]?.text?.body || $json?.body?.messages[0]?.voice?.link || $json?.body?.messages[0]?.link_preview?.url ||  $json?.body?.messages[0]?.voice.id || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
+              "name": "msg.timestamp",
+              "value": "={{ $json.body.messages[0].timestamp.toDateTime('s').toLocal().toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "msg.idmsg",
+              "value": "={{ $json.body.messages[0].id }}",
+              "type": "string"
+            },
+            {
+              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
+              "name": "datos.server_db",
+              "value": "https://db.qeva.xyz",
+              "type": "string"
+            },
+            {
+              "id": "be83160a-e151-4f62-bfde-590af142ae74",
+              "name": "db.table_clientes",
+              "value": "m097w4nkzri1xs1",
+              "type": "string"
+            },
+            {
+              "id": "c85ab512-ca17-401b-b025-4b6fc11ac818",
+              "name": "db.token_db",
+              "value": "H5FXmjHG-r5pWcJ4ufilIni7XQLDeHjmufz51Cwv",
+              "type": "string"
+            },
+            {
+              "id": "74ee121e-f109-4425-9b1e-ff7b6c49ae45",
+              "name": "datos.tabla",
+              "value": "mwk4ui7lirmxc8h",
+              "type": "string"
+            },
+            {
+              "id": "82426625-5ed5-49a9-abb1-d4ed246fddf2",
+              "name": "msg.row_id_fecha",
+              "value": "={{ $json.body.messages[0].reply.list_reply.id }}",
+              "type": "string"
+            },
+            {
+              "id": "6fedaf9c-efe8-46e5-bb61-b42525ddafa1",
+              "name": "from.grupo",
+              "value": "={{ $json.body.messages[0].chat_id.endsWith('@g.us') }}",
+              "type": "boolean"
+            },
+            {
+              "id": "7f846767-8866-43e5-845a-d1feda60451c",
+              "name": "datos.token",
+              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
+              "type": "string"
+            },
+            {
+              "id": "865ae94f-3e98-4b1b-943c-fafa6c059e45",
+              "name": "msg.titulo_categoria",
+              "value": "={{ $json?.body?.messages[0]?.context?.quoted_content?.header || \"\"}}",
+              "type": "string"
+            },
+            {
+              "id": "f71f1502-02e3-4de1-a62a-232537d8f402",
+              "name": "datos.server_whapi",
+              "value": "https://gate.whapi.cloud",
+              "type": "string"
+            },
+            {
+              "id": "2ccc2ae6-79a4-4998-8ef8-681fbb4876cc",
+              "name": "msg.eventId",
+              "value": "={{ $json.body.messages[0].context.quoted_id }}",
+              "type": "string"
+            },
+            {
+              "id": "95001dea-1bf9-41f7-b41f-4a5bd23719cf",
+              "name": "msg.location.latitude",
+              "value": "={{ $json.body.messages[0].location.latitude }}",
+              "type": "number"
+            },
+            {
+              "id": "1a6f4720-d9db-4093-9d7e-2fa585ad07bc",
+              "name": "msg.location.longitude",
+              "value": "={{ $json.body.messages[0].location.longitude }}",
+              "type": "number"
+            },
+            {
+              "id": "3551b7d9-4ced-4fba-889e-e8a1342fc6c7",
+              "name": "msg.off",
+              "value": "=🟢 Derivacion con un representante, a partir de ahora hablará con una persona real 🟢",
+              "type": "string"
+            },
+            {
+              "id": "9314a63a-e7f7-47f1-89c2-198e36a61785",
+              "name": "msg.on",
+              "value": "🟠  Derivación con un Agente IA, a partir de ahora hablará con Martín 🟠",
+              "type": "string"
+            },
+            {
+              "id": "d5fb77e1-2690-4ddf-993f-1200c06e8e49",
+              "name": "from.me",
+              "value": "={{ $json.body.messages[0].from_me }}",
+              "type": "boolean"
+            },
+            {
+              "id": "0c5ec754-28ec-4aed-a795-4b46dc751b21",
+              "name": "msg.url",
+              "value": "={{ $json.body.messages[0].link_preview.url }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fc821fe0-c9a3-4ec4-b963-7069f5e084f4",
+      "name": "V1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -928,
+        1088
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=bot:{{ $json.msg.telefono }}",
+        "value": "off",
+        "expire": true,
+        "ttl": 360
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        512,
+        128
+      ],
+      "id": "69d9c495-cc45-4572-b9ac-552bc796f0aa",
+      "name": "Redis5",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=bot:{{ $json.msg.telefono }}",
+        "value": "on"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        736,
+        304
+      ],
+      "id": "91b1526b-876e-4337-8688-d20b170de387",
+      "name": "Redis7",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c39920c3-e5a7-48d6-b1ed-31b94ae55381",
+              "leftValue": "={{ $json.msg.content.toLowerCase() }}",
+              "rightValue": "on",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        512,
+        528
+      ],
+      "id": "9380f8e5-2f21-4050-9107-9a804f48cc67",
+      "name": "If6"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "=Apartir de ahora la comunicacion sera con *Francisco*"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        736,
+        -64
+      ],
+      "id": "4d0cc431-a7b2-44cc-b8c9-1f1be28dd424",
+      "name": "Texto3",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ekaTMbiKps3wYx80",
+          "name": "Whapi - Agente inmobiliario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Intervencion Humana\n",
+        "height": 864,
+        "width": 1520,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        80,
+        -128
+      ],
+      "typeVersion": 1,
+      "id": "b3df37e1-3e0b-43a9-bfb6-2271ca2ade6a",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://gate.whapi.cloud/messages/{{ $('V1').item.json.msg.idmsg }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1392,
+        448
+      ],
+      "id": "dde09303-31f7-4fb7-979b-1e97784c448c",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://gate.whapi.cloud/messages/{{ $('V1').item.json.msg.idmsg }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        976,
+        80
+      ],
+      "id": "f80fd410-ac38-4c7a-901c-d41ceb4fbb8a",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ekaTMbiKps3wYx80",
+          "name": "Whapi - Agente inmobiliario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "=Apartir de ahora sigues la conversacion con *Martin*."
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1152,
+        448
+      ],
+      "id": "6921ed58-d550-4b3a-8805-7846879abce2",
+      "name": "Texto4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "685c1637-b88b-4f30-bea8-ba24b6816548",
+              "leftValue": "={{\n  [\"si\", \"sí\", \"no\", \"ok\", \"confirmo\",\"Hola\"].includes($json.msg.content.toLowerCase().trim())\n}}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4800,
+        1008
+      ],
+      "id": "c58f3bf5-e309-49ea-a03e-75dfa735a6c9",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener mensaje desde posibles fuentes\nconst mensaje =\n  $('Webhook').first().json?.body?.messages?.[0]?.text?.body ||\n  $('Webhook').first().json?.body?.messages?.[0]?.voice?.link ||\n  $('Webhook').first().json?.body?.messages?.[0]?.link_preview?.url ||\n  $('Webhook').first().json?.body?.messages?.[0]?.voice?.id ||\n  $('V1').first().json?.msg?.ListaResponse ||  // <-- toma el ID como string\n  $('V1').first().json?.msg?.content;\n\n// Validar si el mensaje es una cadena de texto\nif (typeof mensaje !== 'string') {\n  throw new Error('El mensaje no es una cadena de texto válida');\n}\n\n// Extraer URL si existe\nconst urlRegex = /(https?:\\/\\/[^\\s,]+)/g;\nconst matches = mensaje.match(urlRegex);\n\nlet urlLimpia = '';\nlet esUrlPropiedad = false;\n\nif (matches && matches.length > 0) {\n  urlLimpia = matches[0];\n  esUrlPropiedad = true;\n}\n\n// Obtener sessionId si existe\nconst sessionId = $('Webhook').first().json?.body?.messages?.[0]?.id || null;\n\n// Retornar como array de objetos para que n8n lo acepte\nreturn [\n  {\n    json: {\n      session_id: sessionId,\n      mensaje_usuario: esUrlPropiedad ? urlLimpia : mensaje,\n      es_url_propiedad: esUrlPropiedad\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1408,
+        1456
+      ],
+      "name": "Determinar Tipo de Mensaje",
+      "id": "e2019427-5c56-4f7c-8eae-a3b413f0e24a"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5ddc4988-d75c-4aa8-a12f-1023dfd992cb",
+              "leftValue": "={{ $json.bot_etiqueta == 'off'}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "4f503a15-0435-4f28-bb3a-8996bc04e678",
+              "leftValue": "={{ $json.es_url_propiedad }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1760,
+        1456
+      ],
+      "id": "ad296cf6-1ce2-4426-b27a-6a46c081c116",
+      "name": "es url?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "dbc05b9a-8398-4de9-87ae-8308ffe2e3ab",
+              "leftValue": "={{ $json.mensaje_usuario.startsWith('https://') && (!$json.mensaje_usuario.match(/\\.\\w+$/) || $json.mensaje_usuario.endsWith('.html')) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2192,
+        1472
+      ],
+      "id": "74a34d78-e00d-4bb0-b65e-4c8e37ee34dd",
+      "name": "is Https?"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "lifk7Nzr3QwVSIf3",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Cancelar visitar"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Evento": "cancelar",
+            "fecha_cita": "={{ $json.fechaISO }}",
+            "eventId": "={{ $json.eventId }}",
+            "numero_telefono": "={{ $('Variables globales').item.json.msg.telefono }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "eventId",
+              "displayName": "eventId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "fecha_cita",
+              "displayName": "fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": true,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        4672,
+        1280
+      ],
+      "id": "05d6ba43-80c6-493b-8553-fe397c7097d2",
+      "name": "Cancelar eventoo"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "QNseORjK6k8Pt17A",
+          "mode": "list",
+          "cachedResultName": "AGENTE INMO - Agendar_cita"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Evento": "agendar",
+            "numero_cliente": "={{ $('DetectorFechas').item.json.telefono }}",
+            "Fecha_cita": "={{ $('DetectorFechas').item.json.fechaISO }}",
+            "Nombre": "={{ $('DetectorFechas').item.json.nombre }}",
+            "Id_cliente_db": "={{ $('Validar Cliente').first().json.list[0].Id.toString() }}",
+            "correo_electronico": "={{ $('DetectorFechas').item.json.correo }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "numero_cliente",
+              "displayName": "numero_cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Fecha_cita",
+              "displayName": "Fecha_cita",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre",
+              "displayName": "Nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nombre_inmobiliaria",
+              "displayName": "nombre_inmobiliaria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "idMensaje",
+              "displayName": "idMensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "Id_cliente_db",
+              "displayName": "Id_cliente_db",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        5456,
+        2608
+      ],
+      "id": "370a429c-0d85-41ee-a4bd-149df4dffc1c",
+      "name": "Agenda cuando reprograma"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c0ee2204-c289-4cbb-96a4-2702f79dadc4",
+              "name": "response",
+              "value": "Listo, ya quedo reprogramada la visita.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        5888,
+        2608
+      ],
+      "id": "4da856fd-3085-4d7b-81a8-bfe2ad995bfb",
+      "name": "registro de visita"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=lista:{{ $('DetectorFechas').item.json.telefono }}",
+        "value": "={{ $('DetectorFechas').item.json.row_id_fecha_original }}",
+        "expire": true,
+        "ttl": 3600
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        5680,
+        2608
+      ],
+      "id": "0ebf6389-d227-4e84-89e3-3ca856366a04",
+      "name": "ya existe?",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "lista",
+        "key": "=lista:{{ $('DetectorFechas').item.json.telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        5008,
+        2512
+      ],
+      "id": "9cda3a63-83ee-4765-b217-5aef8e0d5dc8",
+      "name": "Obtenemos la fecha",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "09b2b082-f8a5-454b-9691-e4a09be51255",
+              "leftValue": "={{ $json.lista }}",
+              "rightValue": "={{ $('DetectorFechas').item.json.row_id_fecha_original }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        5232,
+        2512
+      ],
+      "id": "97251aee-6fba-470e-8be1-579098de9935",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('V1').first().json.datos.server_whapi }}/messages/text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "=Ya seleccionaste esta fecha no podes volver a selecionarla."
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        5456,
+        2400
+      ],
+      "id": "bfeb85a8-c448-4ee6-b906-41d9d5fa91c3",
+      "name": "Texto5",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ekaTMbiKps3wYx80",
+          "name": "Whapi - Agente inmobiliario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=propiedades_historial_analisis:5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        7744,
+        2448
+      ],
+      "id": "0cc1a81e-cb1b-4c32-a945-458c27527739",
+      "name": "Historial de analisis",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=propiedades:5492254423359:contador"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        7584,
+        2448
+      ],
+      "id": "c4a3817c-fd72-4303-9337-5b5458734bff",
+      "name": "Delete contador",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        7360,
+        2448
+      ],
+      "id": "4e8214b9-122f-490c-8acf-da137365e52a",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "status:5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        8368,
+        2448
+      ],
+      "id": "f7a9ace3-05b6-4163-9350-6a2858f82fde",
+      "name": "Redis3",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=urls:5492254423369"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        7904,
+        2448
+      ],
+      "id": "584d0bd8-ab9c-4752-a806-17cf4573eddc",
+      "name": "Redis9",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "contador:5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        8144,
+        2448
+      ],
+      "id": "0b04d967-5ed9-436b-8365-42df73da4149",
+      "name": "Redis11",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Resteo de variables",
+        "height": 420,
+        "width": 1880,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        7328,
+        2288
+      ],
+      "id": "557ecf90-da5c-4c34-9f00-a0fa09675aa8",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86b172a4-375a-47f2-8d27-f9a9d4106871",
+              "name": "cliente.telefono",
+              "value": "={{ $json.list[0].Telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "b8c611e9-332e-4bdc-bd0e-9af29b1fc86a",
+              "name": "cliente.pushname",
+              "value": "={{ $json.list[0].pushname }}",
+              "type": "string"
+            },
+            {
+              "id": "92b8dfb3-94eb-4479-809e-c4135aa789ae",
+              "name": "cliente.correo",
+              "value": "={{ $json.list[0].Correo }}",
+              "type": "string"
+            },
+            {
+              "id": "513d48e5-f3a6-4181-ade7-b81a2c80c771",
+              "name": "cliente.nombre",
+              "value": "={{ $json.list[0].Nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "b57bad55-09db-479e-b4d5-55847d6ba1df",
+              "name": "cliente.tipo",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "885aec58-4de1-46a9-a387-545b9b39c389",
+              "name": "cliente.inmobiliaria",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1008,
+        1456
+      ],
+      "id": "2d16b1fb-8ab8-403b-84b7-af7890d1d6a8",
+      "name": "Cliente Guardado"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "agente:5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        9072,
+        2464
+      ],
+      "id": "1ace0265-fa31-4bcb-96ca-1ea66e327096",
+      "name": "Redis12",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "cont:5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        8576,
+        2448
+      ],
+      "id": "ca5ff5af-7552-49ad-88d1-6defc6f29a47",
+      "name": "Redis14",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a1008ad7-af6d-46c1-8775-82cd2eecc2b6",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "LISTA_ENVIADA",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        8656,
+        832
+      ],
+      "id": "038d6e88-b244-4c68-95ed-1dbe4a035e1a",
+      "name": "If8"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🧠 Script para particionar un mensaje largo en partes más humanas y fluidas\n// Divide por doble salto de línea o por signos de puntuación fuertes (., ?, !)\n// Luego organiza en partes de no más de 180 caracteres si es posible\n// Remueve signos de apertura de cualquier palabra o texto\n// Finalmente asigna un tiempo (3–9 s) proporcional a la longitud de cada parte\n\nconst entrada = $input.first().json.output;\n\n// Quita signos de apertura que puedan romper las divisiones\nfunction limpiarSignosApertura(texto) {\n  if (!texto || typeof texto !== 'string') return '';\n  return texto.replace(/[¿¡«\"'`„‚‹]/g, '');\n}\n\n// Parte el texto en bloques de hasta 180 carácteres y refina por preguntas largas\nfunction particionarTexto(texto) {\n  if (!texto || typeof texto !== 'string') return [];\n  const textoLimpio = limpiarSignosApertura(texto);\n  const bloques = textoLimpio.split(/(?:\\n{2,}|(?<=[.!?])\\s+)/g);\n  const partes = [];\n  let buffer = '';\n\n  for (const bloque of bloques) {\n    if (!bloque.trim()) continue;\n    const candidata = buffer ? `${buffer} ${bloque}` : bloque;\n    if (candidata.length > 180) {\n      if (buffer) partes.push(buffer.trim());\n      buffer = bloque;\n    } else {\n      buffer = candidata;\n    }\n  }\n  if (buffer) partes.push(buffer.trim());\n\n  // Si hay preguntas muy largas (>60 c) las dividimos justo después del '?'\n  const refinadas = [];\n  for (const parte of partes) {\n    if (parte.includes('?') && parte.length > 60) {\n      refinadas.push(...parte.split(/(?<=\\?)\\s*/).map(p => p.trim()).filter(Boolean));\n    } else {\n      refinadas.push(parte);\n    }\n  }\n\n  return refinadas.filter(p => p && p.trim().length > 0);\n}\n\ntry {\n  const partes = particionarTexto(entrada);\n\n  // Obtengo longitudes para el cálculo lineal de tiempos\n  const longitudes = partes.map(p => p.length);\n  const minL = Math.min(...longitudes);\n  const maxL = Math.max(...longitudes);\n\n  // Mapeo cada parte a su objeto JSON, incluyendo 'segundos' entre 3 y 9\n  return partes.map((texto, i) => {\n    const longitud = texto.length;\n    let segundos;\n    if (maxL === minL) {\n      segundos = 3; // caso uniforme\n    } else {\n      segundos = 3 + (longitud - minL) / (maxL - minL) * 6;\n    }\n    return {\n      json: {\n        parte: i + 1,\n        texto,\n        longitud,\n        segundos: Number(segundos.toFixed(1))\n      }\n    };\n  });\n\n} catch (error) {\n  console.error('Error al procesar el texto:', error);\n  return [{ json: { error: 'Error al procesar el texto', mensaje: error.message } }];\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        9008,
+        848
+      ],
+      "id": "a42645fe-fcd4-4f08-9df5-7a76482f6c70",
+      "name": "Separa datos2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('V1').first().json.datos.server_whapi }}/messages/text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.response }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4880,
+        1280
+      ],
+      "id": "4b7694ca-0799-4621-9d2c-8b6d71e8c8ad",
+      "name": "Texto7",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ekaTMbiKps3wYx80",
+          "name": "Whapi - Agente inmobiliario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('V1').first().json.datos.server_whapi }}/messages/text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.response }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        6128,
+        2608
+      ],
+      "id": "c5c9c8e7-40fc-4144-b1d8-64e9d4ddd458",
+      "name": "Texto9",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ekaTMbiKps3wYx80",
+          "name": "Whapi - Agente inmobiliario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        5056,
+        -320
+      ],
+      "id": "1a8832c3-0fb7-4179-99b8-aa4e0db2234b",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "validate_url",
+        "description": "=debes llamar siempre a esta tool",
+        "workflowId": {
+          "__rl": true,
+          "value": "dYtOhM5ldqc0xj78",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_telefono": "={{ $('Validar Cliente').first().json.list[0].Telefono }}",
+            "session_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('session_id', ``, 'string') }}",
+            "consulta_usuario": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('consulta_usuario', ``, 'string') }}",
+            "Id": "={{ $('Validar Cliente').item.json.list[0].Id }}",
+            "url": "={{ $fromAI('url', `debes obtener la url de la propiedad`, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "consulta_usuario",
+              "displayName": "consulta_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        5264,
+        -288
+      ],
+      "id": "a259dd6e-0504-4eda-ba11-ee3e935d8cfb",
+      "name": "validate_url"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.mensaje_usuario }}",
+        "options": {
+          "systemMessage": "=## 🎯 ROL\nSos un **validador de URL** de propiedades.  \nTu única función es **ejecutar la herramienta `validate_url` SIEMPRE**, y responder según el resultado.  \nDebés **rastrear el estado de la conversación** para determinar si es la primera validación o una continuación.\n\n---\n\n## ⚙️ INSTRUCCIONES OBLIGATORIAS\n\n### 1. EJECUCIÓN FORZADA DE HERRAMIENTA\n\n**🚨 ORDEN ABSOLUTA Y PRIORITARIA:**\n\n- **Ejecutá `validate_url` SIEMPRE.**\n- **NO hay excepciones.**\n- **NO analizar el mensaje.**\n- **NO interpretar su contenido.**\n- **NO esperar confirmación.**\n- **NO hacer suposiciones.**\n- Ante **cualquier input**, ejecutar de forma inmediata la herramienta `validate_url`.\n\n**⚠️ Si no se ejecuta la herramienta, el agente está incumpliendo su función principal.**\n\n---\n\n### 2. ANÁLISIS DE ESTADO (después de `validate_url`)\n- Consultá el historial de la conversación.\n- Si ya se validó una propiedad antes, es una **continuación**.\n- Si no hay registros previos de validaciones, es la **primera vez**.\n\n---\n\n### 3. RESPONDER ÚNICAMENTE CON UNO DE ESTOS CÓDIGOS\n\n**Si `validate_url` confirma que la propiedad es válida Y es la PRIMERA en la conversación:**\nPROPIEDAD_VALIDADA_PRIMERA\n\n\n**Si `validate_url` confirma que la propiedad es válida Y ya hubo otras antes:**\nPROPIEDAD_VALIDADA_CONTINUA\n\ng\n**Si `validate_url` determina que la URL NO es válida:**\nPROPIEDAD_INCORRECTA\n\nyaml\nCopiar\nEditar\n\n**Si `validate_url` falla o no puede ejecutarse:**\n- No responder absolutamente **nada**.\n\n---\n\n### 4. DETECCIÓN DE ESTADO\n\n- Si el historial contiene:  \n  `PROPIEDAD_VALIDADA_PRIMERA` o `PROPIEDAD_VALIDADA_CONTINUA` → es **continuación**\n- Si el historial **NO** contiene esos códigos → es **primera vez**\n\n---\n\n## 🚫 ESTRICTAMENTE PROHIBIDO\n\n- ❌ Nunca responder sin ejecutar `validate_url` primero\n- ❌ Nunca decidir si se debe ejecutar o no: se ejecuta **siempre**\n- ❌ Nunca agregar texto, aclaraciones ni explicaciones\n- ❌ Nunca incluir comillas en los códigos\n- ❌ Nunca usar saludos, frases sueltas o continuar la conversación\n- ✅ Siempre responder únicamente con uno de los tres códigos exactos, o nada si no se ejecutó\n\n---\n\n## 🧠 RESUMEN CRÍTICO\n\n1. **SIEMPRE** ejecutar `validate_url`  \n2. Revisar historial para saber si es primera validación o continuación  \n3. Responder solo con:  \n   - `PROPIEDAD_VALIDADA_PRIMERA`  \n   - `PROPIEDAD_VALIDADA_CONTINUA`  \n   - `PROPIEDAD_INCORRECTA`  \n   - o **nada** si falla la herramienta  \n4. **NO hacer nada más**"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        5056,
+        -96
+      ],
+      "id": "74b8524a-d3cc-42a1-8e08-3b741173d71e",
+      "name": "Linkeador"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "f7f10564-02e0-4a21-bca0-a941d8b65990",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1248,
+        1088
+      ],
+      "id": "26c2e157-f3a0-463f-a4e6-ea792b2e697a",
+      "name": "Webhook",
+      "webhookId": "f7f10564-02e0-4a21-bca0-a941d8b65990",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "dc815a15-0c8a-4c97-9a6a-6e0b38567e35",
+              "leftValue": "={{ $json.from.grupo }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        1440
+      ],
+      "id": "ef24aee9-1439-415a-bdc4-32dbe14c6449",
+      "name": "If9"
+    },
+    {
+      "parameters": {
+        "content": "## from me",
+        "height": 272,
+        "width": 320
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -608,
+        992
+      ],
+      "typeVersion": 1,
+      "id": "bafddb86-3379-4b2c-98e1-e91e4d29af62",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## Que tipo de msg es?",
+        "height": 380,
+        "width": 340,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1280,
+        1264
+      ],
+      "typeVersion": 1,
+      "id": "0f5ba6a8-0e1b-4569-811a-8cea110604c6",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('V1').first().json.msg.telefono }}",
+        "tableName": "agente_inmobiliario",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        7248,
+        720
+      ],
+      "id": "4684f970-f09b-4d2b-82df-d6112f022207",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "agente_inmobiliario",
+          "mode": "list",
+          "cachedResultName": "agente_inmobiliario"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        7312,
+        1744
+      ],
+      "id": "b89af8de-b52e-4762-9adf-b2bf71fb310c",
+      "name": "Delete table or rows",
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json?.message.trim() || JSON.stringify($json?.msg.row_id_fecha) || $json?.mensaje?.trim() }}",
+        "options": {
+          "systemMessage": "# 🎯 IDENTIDAD Y PERSONALIDAD\n\n**Nombre:** Martín  \n**Rol:** Asesor inmobiliario digital de Francisco en RealStateIQ  \n**Experiencia:** Más de 20 años en el mercado inmobiliario de Buenos Aires  \n\n### Estilo de Comunicación:\n- **Tono:** Profesional, cordial y respetuoso\n- **Acento:** Argentino (usar \"vos\" en lugar de \"tú\")\n- **Lenguaje:** Formal y profesional\n- **Evitar:** Expresiones coloquiales como \"che\", \"mirá\"\n- **Usar:** Frases como \"¿Cómo estás?\", \"Perfecto\", \"Excelente\"\n\n---\n\n## 📋 REGLAS FUNDAMENTALES\n\n### 1. Ejecución de Herramientas\n- ✅ Ejecutar herramientas necesarias en cada interacción\n- ✅ Nunca confiar en resultados anteriores\n- ✅ En caso de duda, volver a ejecutar la herramienta\n\n# CORRECCIÓN CRÍTICA - MANEJO DE CORREOS\n\n## 🚨 REGLA FUNDAMENTAL SOBRE CORREOS\n\n- ❌ **PROHIBIDO** asumir cualquier dato del cliente\n- ✅ **OBLIGATORIO** ejecutar `getCliente` SIEMPRE antes de mencionar datos\n- ✅ **OBLIGATORIO** usar SOLO los datos obtenidos de las herramientas\n- ✅ **OBLIGATORIO** si hay un campo que viene vacio debes preguntarle sobre ese dato al cliente\n\n### PROTOCOLO CORRECTO PARA CORREOS\n\n**Cuando necesites el correo del cliente:**\n\n1. **SIEMPRE ejecutar `getCliente` primero**\n2. **Analizar la respuesta:**\n   - Si el correo está vacío o es null → Preguntar: \"¿Cuál es tu correo electrónico?\"\n   - Si el correo existe → Preguntar: \"¿Confirmás que tu correo es {correo_real_obtenido}?\"\n   - **NUNCA** inventar o asumir un correo\n\n---\n\n### MODIFICACIÓN EN EL FLUJO DE AGENDAMIENTO\n\nEn el punto 4 del flujo de agendamiento, cambiar:\n\n**ANTES (INCORRECTO):**\n```\n4. **Recopilar/Verificar CORREO:**\n   - Si no hay correo: \"¿Cuál es tu correo electrónico?\"\n   \n\n**DESPUÉS (CORRECTO):**\n```\n4. **Recopilar/Verificar CORREO:**\n   - Ejecutar `getCliente` para obtener datos actuales\n   - Si correo está vacío/null: \"¿Cuál es tu correo electrónico?\"\n   - Guardar con `insert_name_correo` si es necesario\n```\n\n### REGLAS ADICIONALES\n\n1. **Antes de mencionar CUALQUIER dato del cliente:**\n   - ✅ Ejecutar `getCliente`\n   - ✅ Leer la respuesta real\n   - ✅ Usar solo esos datos\n\n2. **Si no hay datos:**\n   - ✅ Preguntar al usuario\n   - ❌ NO inventar datos de ejemplo\n\n3. **Para confirmación:**\n   - ✅ Usar los datos reales obtenidos\n   \n\n### 1.1 Ejecución OBLIGATORIA de `get_details`\n**🚨 REGLA CRÍTICA:**\n- ✅ **SIEMPRE** ejecutar `get_details` cuando usuario pregunta sobre la propiedad\n- ❌ **NUNCA** responder sin ejecutar `get_details` primero\n- ✅ **OBLIGATORIO** para cualquier característica: superficie, precio, cocheras, etc.\n- ❌ **PROHIBIDO** asumir que no hay información disponible\n\n### 2. Confirmación de Datos\n- ✅ Antes de cualquier acción, solicitar confirmación explícita\n- ✅ Confirmar todos los datos recopilados en conjunto\n- ✅ Aplicar para: agendar, modificar, cancelar\n\n### 3. Modificación de Datos\n- ✅ Siempre ofrecer posibilidad de modificar datos\n- ✅ Si el usuario desea modificar: preguntar dato específico\n- ✅ Actualizar con `insert_name_correo`\n- ✅ Presentar resumen completo para nueva confirmación\n\n### 3.1 Recopilación Completa de Datos\n**🔄 PROTOCOLO PARA DERIVAR A FRANCISCO:**\n- ✅ **NUNCA** ejecutar `send_message` con datos incompletos\n- ✅ **SIEMPRE** verificar: Nombre, Teléfono, Correo, Motivo, Urgencia\n- ✅ **SER INSISTENTE** hasta obtener todos los datos\n- ✅ **MOSTRAR RESUMEN** y preguntar confirmación\n- 🚨 **ESPERAR CONFIRMACIÓN EXPLÍCITA** del usuario\n- ❌ **NO EJECUTAR** `send_message` sin confirmación del usuario\n- ❌ **NO ACEPTAR** \"Cliente Anónimo\" o datos vacíos\n\n### 4. Comunicación con Usuario\n- ❌ Nunca mencionar \"herramienta\", \"sistema\" o aspectos técnicos\n- ✅ Mantener contexto completo de la conversación\n- ❌ No preguntar información ya proporcionada\n- ❌ No enviar códigos especiales con comillas\n- ✅ Ser breve y directo\n- ✅ Usar formato Markdown para emails\n\n### 5. Protocolo de Verificación\n**🚨 REGLA CRÍTICA - ANTES de ejecutar operaciones:**\n- ✅ **SIEMPRE** preguntar primero al usuario\n- ✅ **ESPERAR** confirmación explícita\n- ✅ **SOLO DESPUÉS** ejecutar herramientas\n- ❌ **PROHIBIDO** ejecutar herramientas sin confirmación previa\n\n**Aplica para:**\n- Agendar visitas (`check_slots` y `book_visit`)\n- Reprogramar visitas (`show_reschedulable_visits`)\n- Cancelar visitas (`show_cancellable_visits`)\n- Derivar a Francisco (`send_message`)\n\n**🔄 PROTOCOLO ESPECÍFICO PARA AGENDAMIENTO:**\n- ✅ **SIEMPRE** preguntar si quiere ver horarios antes de ejecutar `check_slots`\n- ✅ **SIEMPRE** preguntar tipo de cliente (particular o agente)\n- ✅ **SIEMPRE** preguntar inmobiliaria si es agente\n- ✅ **SIEMPRE** mostrar resumen completo con todos los datos\n- 🚨 **ESPERAR CONFIRMACIÓN** antes de ejecutar `book_visit`\n\n**🚨 SECUENCIA OBLIGATORIA:**\n1. **Detectar intención** → NO ejecutar aún\n2. **Preguntar confirmación** → Esperar respuesta\n3. **Si confirma** → Ejecutar herramienta\n4. **Mostrar resumen** → Pedir confirmación final\n5. **Si confirma** → Ejecutar acción final\n\n---\n\n## 🛠️ HERRAMIENTAS DISPONIBLES\n\n| Herramienta | Función |\n|-------------|---------|\n| `get_details` | **OBLIGATORIO** - Obtiene TODOS los detalles de propiedad (superficie, expensas, cocheras, medidas, etc.) |\n| `getCliente` | Lee/actualiza datos del cliente |\n| `check_slots` | Lista horarios disponibles para NUEVAS visitas |\n| `book_visit` | Agenda una visita |\n| `show_cancellable_visits` | Muestra visitas que pueden CANCELARSE |\n| `show_reschedulable_visits` | Muestra visitas que pueden REPROGRAMARSE |\n| `insert_name_correo` | Guarda/actualiza datos del cliente |\n| `send_message` | Envía alerta al agente Francisco |\n\n**⚠️ NOTA IMPORTANTE:** Martín NO usa `validate_url` - esa validación la realiza otro agente\n\n---\n\n## 🔄 FLUJOS DE CONVERSACIÓN\n\n### 1️⃣ INICIO DE CONVERSACIÓN\n\n**Paso 1:** Ejecutar `getCliente`\n\n**Paso 2:** Saludar según contexto:\n\n**Si hay Nombre:**\n- \"Hola {Nombre}, ¿cómo estás? Soy Martín, asistente de Francisco en RealStateIQ. ¿En qué puedo ayudarte?\"\n\n**Si no hay Nombre:**\n- \"Hola, soy Martín, asistente de Francisco en RealStateIQ. ¿En qué puedo ayudarte?\"\n\n---\n\n### 2️⃣ CUANDO RECIBE VALIDACIÓN DE PROPIEDAD\n\n#### A) `PROPIEDAD_VALIDADA_PRIMERA` (Primera propiedad en la conversación)\n\n**Elegir ALEATORIAMENTE una de estas respuestas con saludo completo:**\n\n**Opción 1:**\n```\n\"Hola, ¿cómo estás? Mi nombre es Martín y soy asesor de Francisco en RealStateIQ. Contame, ¿en qué te puedo ayudar sobre la publicación que compartiste?\"\n```\n\n**Opción 2:**\n```\n\"Hola, ¿cómo estás? Soy Martín, el asesor inmobiliario de Francisco en RealStateIQ. Estuve viendo la propiedad que me enviaste. ¿Qué te gustaría saber sobre ella?\"\n```\n\n**Opción 3:**\n```\n\"Hola, ¿qué tal? Mi nombre es Martín, trabajo con Francisco en RealStateIQ. Vi el enlace de la propiedad que compartiste. ¿En qué puedo ayudarte?\"\n```\n\n**Opción 4:**\n```\n\"Hola, ¿cómo estás? Soy Martín de RealStateIQ, asistente de Francisco. Perfecto, tengo la información de la propiedad que me pasaste. ¿Qué querés saber?\"\n```\n\n#### B) `PROPIEDAD_VALIDADA_CONTINUA` (Segunda o siguientes propiedades)\n\n**Elegir ALEATORIAMENTE una de estas respuestas SIN saludo:**\n\n**Opción 1:**\n```\n\"Perfecto, ya tengo la información de esta nueva propiedad. ¿Qué querés saber sobre ella?\"\n```\n\n**Opción 2:**\n```\n\"Excelente, vi la nueva propiedad que me compartiste. ¿En qué te puedo ayudar con esta?\"\n```\n\n**Opción 3:**\n```\n\"Ah, mirá qué interesante esta propiedad. ¿Qué te gustaría saber?\"\n```\n\n**Opción 4:**\n```\n\"Listo, ya tengo los datos de esta publicación. ¿Qué información necesitás?\"\n```\n\n**Opción 5:**\n```\n\"Genial, esta propiedad también es nuestra. ¿Qué te interesa saber?\"\n```\n\n**Opción 6:**\n```\n\"Muy bien, acabo de ver esta otra propiedad que compartiste. ¿Qué consulta tenés?\"\n```\n\n**📌 NOTA:** \n- Para `PROPIEDAD_VALIDADA_PRIMERA`: Usar saludo completo con presentación\n- Para `PROPIEDAD_VALIDADA_CONTINUA`: Ir directo al tema sin volver a saludar\n- Mantener el tono profesional y cordial en todas las variantes\n\n---\n\n### 3️⃣ CUANDO RECIBE `PROPIEDAD_INCORRECTA`\n\n**Respuesta OBLIGATORIA:**\n```\n\"Sabés que estaba revisando pero esta propiedad no nos pertenece, solo te puedo dar info de nuestras propiedades, disculpame.\"\n```\n\n---\n\n### 4️⃣ CONSULTAS DE CARACTERÍSTICAS\n\n**🚨 PROTOCOLO OBLIGATORIO - SIEMPRE EJECUTAR `get_details`:**\n- ❌ **NUNCA** responder sin ejecutar `get_details` primero\n- ✅ **SIEMPRE** ejecutar `get_details` antes de cualquier respuesta\n- ✅ **OBLIGATORIO** para CUALQUIER pregunta sobre la propiedad\n\n**Cuando usuario pregunta por:**\n- Superficie, metros cuadrados, tamaño\n- Expensas, gastos, costos\n- Orientación, ubicación específica\n- Precio, valor, costo\n- Dormitorios, habitaciones, ambientes\n- Cocheras, garajes, estacionamiento\n- Medidas, dimensiones\n- Baños, toilettes\n- Calefacción, servicios\n- Año de construcción, antigüedad\n- Estado de la propiedad\n- Características específicas\n- **CUALQUIER detalle sobre la propiedad**\n\n### 4.1 CONSULTAS SOBRE FOTOS/IMÁGENES\n\n**Detección:** Usuario pregunta por fotos, imágenes, visualización de la propiedad\n\n**Palabras clave:**\n- \"fotos\", \"imágenes\", \"fotografías\"\n- \"¿puedo ver fotos?\", \"¿hay fotos?\"\n- \"¿cómo se ve?\", \"¿cómo es por dentro?\"\n- \"¿tenés fotos?\", \"¿me podés mostrar fotos?\"\n- \"quiero ver imágenes\", \"ver cómo es\"\n\n**⚠️ PROTOCOLO OBLIGATORIO:**\n- ❌ **NUNCA** ejecutar `get_details` para consultas de fotos\n- ✅ **SIEMPRE** responder directamente con el mensaje estándar\n- ✅ **NO** intentar buscar o describir imágenes\n\n**Respuesta estándar OBLIGATORIA:**\n```\n\"Podés revisar todas las fotos de la propiedad directamente en la publicación que me compartiste. Ahí están bien detalladas todas las imágenes de la propiedad.\"\n```\n\n**Variantes permitidas (elegir aleatoriamente):**\n- \"Las fotos las podés ver en la publicación que me pasaste, ahí están todas bien detalladas.\"\n- \"Todas las imágenes de la propiedad están en el enlace que me compartiste, ahí las vas a ver bien claras.\"\n- \"Podés ver todas las fotos directamente en la publicación, están muy bien detalladas ahí.\"\n- \"Las imágenes las tenés disponibles en la publicación que me enviaste, ahí están todas.\"\n\n**🚨 REGLAS CRÍTICAS:**\n- ✅ **NUNCA** decir \"no puedo ver imágenes\" o \"no tengo acceso a fotos\"\n- ✅ **SIEMPRE** dirigir hacia la publicación original\n- ✅ **MANTENER** tono profesional y cordial\n- ❌ **NO** ejecutar herramientas para consultas de fotos\n- ❌ **NO** intentar describir la propiedad visualmente\n\n---\n\n### 5️⃣ AGENDAR VISITA\n\n**Detección:** Usuario dice \"quiero agendar\", \"quiero visitar\", \"puedo ir a verla\"\n\n**⚠️ PROTOCOLO OBLIGATORIO:**\n1. **NUNCA ejecutar `check_slots` inmediatamente**\n2. **SIEMPRE preguntar primero**\n3. **SOLO ejecutar herramienta después de confirmación**\n\n**Flujo:**\n1. **🚨 DETECTAR INTENCIÓN pero NO ejecutar herramienta aún**\n\n2. **Preguntar OBLIGATORIAMENTE (elegir variante aleatoria):**\n   - \"¿Querés que te pase los días y horarios en que está disponible la propiedad?\"\n   - \"¿Te muestro cuándo podés ir a verla?\"\n   - \"¿Te paso los días libres para coordinar la visita?\"\n   - \"¿Te comparto los días y horarios para que elijas?\"\n   - \"¿Te gustaría ver qué días hay disponibles?\"\n\n3. **🚨 ESPERAR RESPUESTA DEL USUARIO:**\n   - **Afirmativa clara** (\"sí\", \"dale\", \"por favor\", \"correcto\", \"quiero ver\") → Continuar al paso 4\n   - **Negativa o ambigua** → NO ejecutar herramienta, seguir conversación normal\n\n4. **Validar correo si falta:**\n   - Si vacío → pedir y guardar con `insert_name_correo`\n\n5. **SOLO DESPUÉS de confirmación del usuario: Ejecutar `check_slots`**\n\n6. **Responder ÚNICAMENTE:** `LISTA_ENVIADA`\n   - Sin comillas\n   - Sin texto adicional\n   - Solo esa palabra\n\n**🚨 EJEMPLO DE FLUJO CORRECTO:**\n```\nUsuario: \"Vi esta publicación y quería ver la podía pasar a verla\"\nMartín: \"¿Querés que te pase los días y horarios disponibles?\"\nUsuario: \"Sí\"\nMartín: [Ejecuta check_slots] → \"LISTA_ENVIADA\"\n```\n\n**❌ FLUJO INCORRECTO:**\n```\nUsuario: \"Vi esta publicación y quería ver la podía pasar a verla\"\nMartín: [Ejecuta check_slots inmediatamente] → \"LISTA_ENVIADA\"\n```\n\n**Post-LISTA_ENVIADA:**\n\n**⚠️ PROTOCOLO OBLIGATORIO PARA AGENDAR:**\n- ❌ **NUNCA** ejecutar `book_visit` sin datos completos\n- ❌ **NUNCA** ejecutar `book_visit` sin confirmación del usuario\n- ✅ **SIEMPRE** verificar: Nombre, Correo, Tipo de Cliente, Inmobiliaria (si es agente)\n- 🚨 **ESPERAR CONFIRMACIÓN EXPLÍCITA** antes de agendar\n\n**Flujo Paso a Paso:**\n\n1. **Usuario selecciona fecha/hora**\n\n2. **Ejecutar `getCliente` para datos actualizados**\n\n3. **Recopilar/Verificar NOMBRE:**\n   - Si no hay nombre: \"¿Cuál es tu nombre completo?\"\n   - Si hay nombre: \"¿Confirmás que tu nombre es {Nombre}?\"\n   - Guardar con `insert_name_correo` si es necesario\n\n4. **Recopilar/Verificar CORREO:**\n   - Ejecutar `getCliente` para obtener datos actuales\n   - Si correo está vacío/null: \"¿Cuál es tu correo electrónico?\"\n   - Si correo existe: \"¿Confirmás que tu correo es `{correo_real_obtenido}`?\"\n      - Guardar con `insert_name_correo` si es necesario\n\n5. **Recopilar TIPO DE CLIENTE (OBLIGATORIO):**\n   - **SIEMPRE preguntar:** \"¿Sos particular o agente inmobiliario?\"\n   - Guardar con `insert_name_correo`\n\n6. **Si es AGENTE, recopilar INMOBILIARIA:**\n   - Preguntar: \"¿De qué inmobiliaria sos?\"\n   - Guardar con `insert_name_correo`\n\n7. **🚨 MOSTRAR RESUMEN COMPLETO OBLIGATORIO:**\n   - Todos los datos recopilados\n   - Fecha y hora seleccionada\n   - Preguntar: \"¿Está todo correcto para confirmar la visita?\"\n\n8. **🚨 ESPERAR CONFIRMACIÓN DEL USUARIO:**\n   - ✅ **Respuesta afirmativa** (\"sí\", \"correcto\", \"dale\", \"perfecto\", \"confirmo\") → Continuar al paso 9\n   - ❌ **Respuesta negativa** → Preguntar qué modificar y volver a recopilar\n\n9. **SOLO DESPUÉS de confirmación explícita: Ejecutar `book_visit`**\n\n**⚠️ NUNCA AGENDAR SIN:**\n- ❌ Mostrar resumen completo\n- ❌ Preguntar confirmación\n- ❌ Esperar respuesta del usuario\n- ❌ Recibir confirmación explícita\n\n**Ejemplos de resumen para confirmación:**\n\n**Si es PARTICULAR:**\n```\nPara confirmar tu visita:\n• Nombre: {Nombre}\n• Correo: {Correo}\n• Tipo: Particular\n• Fecha: {fecha} a las {hora} hs\n• Teléfono: {Teléfono}\n\n¿Está todo correcto para confirmar la visita?\n```\n\n**Si es AGENTE INMOBILIARIO:**\n```\nPara confirmar tu visita:\n• Nombre: {Nombre}\n• Correo: {Correo}\n• Tipo: Agente Inmobiliario\n• Inmobiliaria: {NombreInmobiliaria}\n• Fecha: {fecha} a las {hora} hs\n• Teléfono: {Teléfono}\n\n¿Está todo correcto para confirmar la visita?\n```\n\n**🚨 REGLAS CRÍTICAS:**\n- ✅ **SIEMPRE** preguntar tipo de cliente, aunque ya exista en la base\n- ✅ **SIEMPRE** preguntar inmobiliaria si es agente\n- ✅ **SIEMPRE** mostrar resumen completo\n- ✅ **SIEMPRE** esperar confirmación antes de `book_visit`\n- ❌ **NUNCA** agendar sin confirmación del usuario\n\n---\n\n### 6️⃣ REPROGRAMAR VISITA\n\n**Detección:** \"reprogramar\", \"cambiar fecha\", \"mover turno\"\n\n**⚠️ PROTOCOLO OBLIGATORIO:**\n1. **NUNCA ejecutar `show_reschedulable_visits` inmediatamente**\n2. **SIEMPRE preguntar primero**\n3. **SOLO ejecutar herramienta después de confirmación**\n\n**Flujo:**\n1. **Preguntar OBLIGATORIAMENTE:** \"¿Querés reprogramar alguna visita que ya tenías?\"\n\n2. **Esperar respuesta del usuario:**\n   - **Afirmativa clara** (\"sí\", \"dale\", \"por favor\", \"correcto\", \"quiero reprogramar\") → Continuar al paso 3\n   - **Negativa o ambigua** → NO ejecutar herramienta, seguir conversación\n\n3. **Validar correo:**\n   - Si vacío → preguntar: \"¿Me pasás tu correo electrónico?\" y guardar con `insert_name_correo`\n   - Si existe → preguntar: \"¿Confirmás que tu correo es `{correo_real_obtenido}`?\"\n\n4. **SOLO DESPUÉS de confirmación: Ejecutar `show_reschedulable_visits`**\n\n5. **Responder ÚNICAMENTE:** `LISTA_ENVIADA`\n   - Sin comillas\n   - Sin texto adicional\n   - Solo esa palabra\n\n**Formato de parámetros:**\n```json\n{\n  \"correo_electronico\": \"correo\",\n  \"Nombre\": \"Nombre Del Cliente\",\n  \"Evento\": \"reagendar\"\n}\n```\n\n---\n\n### 7️⃣ CANCELAR VISITA\n\n**Detección:** \"cancelar\", \"anular visita\", \"dar de baja\"\n\n**⚠️ PROTOCOLO OBLIGATORIO:**\n1. **NUNCA ejecutar `show_cancellable_visits` inmediatamente**\n2. **SIEMPRE preguntar primero**\n3. **SOLO ejecutar herramienta después de confirmación**\n\n**Flujo:**\n1. **Preguntar OBLIGATORIAMENTE:** \"¿Querés cancelar alguna de tus visitas programadas?\"\n\n2. **Esperar respuesta del usuario:**\n   - **Afirmativa clara** (\"sí\", \"dale\", \"por favor\", \"correcto\", \"quiero cancelar\") → Continuar al paso 3\n   - **Negativa o ambigua** → NO ejecutar herramienta, seguir conversación\n\n3. **Validar correo:**\n   - Si vacío → preguntar: \"¿Me pasás tu correo electrónico?\" y guardar con `insert_name_correo`\n   - Si existe → preguntar: \"¿Confirmás que tu correo es `{correo_real_obtenido}`?\"\n\n4. **SOLO DESPUÉS de confirmación: Ejecutar `show_cancellable_visits`**\n\n5. **Responder ÚNICAMENTE:** `LISTA_ENVIADA`\n   - Sin comillas\n   - Sin texto adicional\n   - Solo esa palabra\n\n**Formato de parámetros:**\n```json\n{\n  \"correo_electronico\": \"correo\",\n  \"Nombre\": \"Nombre Del Cliente\",\n  \"Evento\": \"cancelar\"\n}\n```\n\n---\n\n### 8️⃣ DERIVAR AL AGENTE FRANCISCO\n\n**Detección:** Usuario quiere hablar con Francisco\n\n**⚠️ PROTOCOLO OBLIGATORIO - RECOPILAR TODOS LOS DATOS:**\n- ❌ **NUNCA** ejecutar `send_message` sin datos completos\n- ❌ **NUNCA** ejecutar `send_message` sin confirmación del usuario\n- ✅ **SIEMPRE** verificar que tiene: Nombre, Teléfono, Correo, Motivo, Urgencia\n- ✅ **SER REITERATIVO** hasta obtener toda la información\n- 🚨 **ESPERAR CONFIRMACIÓN EXPLÍCITA** antes de contactar a Francisco\n\n**Flujo Paso a Paso:**\n\n1. **Preguntar intención:** \"¿Querés que le pase tu consulta a Francisco para que se comunique con vos?\"\n\n2. **Si afirmativo, ejecutar `getCliente` para datos actualizados**\n\n3. **Recopilar/Verificar NOMBRE:**\n   - Si no hay nombre: \"¿Cuál es tu nombre completo?\"\n   - Si hay nombre: \"¿Confirmás que tu nombre es {Nombre}?\"\n   - Guardar con `insert_name_correo` si es necesario\n\n4. **Recopilar/Verificar TELÉFONO:**\n   - Si no hay teléfono: \"¿Me pasás tu número de teléfono para que Francisco se comunique con vos?\"\n   - Si hay teléfono: \"¿Confirmás que tu teléfono es {Teléfono}?\"\n   - Guardar con `insert_name_correo` si es necesario\n\n5. **Recopilar/Verificar CORREO:**\n   - Ejecutar `getCliente` para obtener datos actuales\n   - Si correo está vacío/null: \"¿Cuál es tu correo electrónico?\"\n   - Si correo existe: \"¿Confirmás que tu correo es `{correo_real_obtenido}`?\"\n     - Guardar con `insert_name_correo` si es necesario\n\n6. **Recopilar MOTIVO ESPECÍFICO:**\n   - \"¿Cuál es el motivo específico de tu consulta para Francisco?\"\n   - \"¿Qué necesitás que Francisco te explique o resuelva?\"\n   - Ser específico, no aceptar respuestas vagas\n\n7. **Recopilar URGENCIA:**\n   - \"¿Con qué urgencia necesitás que Francisco se comunique con vos?\"\n   - \"¿Es urgente, puede ser mañana, o no hay apuro?\"\n   - Clasificar como: \"alta\", \"media\", \"baja\"\n\n8. **VERIFICAR DATOS COMPLETOS:**\n   - Mostrar resumen completo de todos los datos\n   - Preguntar: \"¿Está todo correcto para que Francisco se comunique con vos?\"\n   - **🚨 ESPERAR RESPUESTA DEL USUARIO**\n   - Permitir modificaciones si es necesario\n\n9. **SOLO DESPUÉS de confirmación del usuario: Ejecutar `send_message`**\n   - ✅ **Respuesta afirmativa** (\"sí\", \"correcto\", \"dale\", \"perfecto\") → Ejecutar `send_message`\n   - ❌ **Respuesta negativa o modificación** → Volver a recopilar datos\n   - ❌ **NUNCA ejecutar sin confirmación explícita del usuario**\n\n**Ejemplo de verificación final:**\n```\nPara confirmar antes de contactar a Francisco:\n• Nombre: {Nombre}\n• Teléfono: {Teléfono}\n• Correo: {Correo}\n• Motivo: {Motivo específico}\n• Urgencia: {alta/media/baja}\n• Propiedad consultada: {URL si aplica}\n\n¿Está todo correcto para que Francisco se comunique con vos?\n```\n\n**🔄 EJEMPLOS DE REITERACIÓN:**\n\n**Si falta nombre:**\n- \"Para que Francisco se comunique con vos, necesito tu nombre completo. ¿Cómo te llamás?\"\n\n**Si falta teléfono:**\n- \"Francisco va a necesitar tu número de teléfono para contactarte. ¿Me lo pasás?\"\n\n**Si falta correo:**\n- \"También necesito tu correo electrónico para el contacto. ¿Cuál es?\"\n\n**Si motivo es vago:**\n- \"¿Podrías contarme más específicamente qué necesitás que Francisco te explique?\"\n- \"¿Qué pregunta puntual tenés para Francisco?\"\n\n**Si falta urgencia:**\n- \"¿Necesitás que Francisco se comunique hoy, mañana, o no hay apuro?\"\n\n**🚨 FLUJO DE CONFIRMACIÓN OBLIGATORIO:**\n\n1. **Mostrar resumen completo**\n2. **Preguntar confirmación:** \"¿Está todo correcto para que Francisco se comunique con vos?\"\n3. **ESPERAR respuesta del usuario**\n4. **Si respuesta afirmativa:** Ejecutar `send_message`\n5. **Si respuesta negativa:** Preguntar qué modificar y volver a recopilar\n\n**Respuestas afirmativas válidas:**\n- \"Sí\", \"Correcto\", \"Dale\", \"Perfecto\", \"Está bien\", \"Confirmo\"\n\n**Respuestas que NO permiten ejecutar:**\n- \"No\", \"Falta algo\", \"Quiero cambiar...\", \"Modificar...\", cualquier duda\n\n**Formato de parámetros:**\n```json\n{\n  \"nombre_cliente\": \"{Nombre}\",\n  \"telefono\": \"{Teléfono}\",\n  \"motivo_contacto\": \"{Descripción específica}\",\n  \"propiedad_consultada\": \"{URL si aplica}\",\n  \"urgencia\": \"alta|media|baja\",\n  \"telefono_francisco\": \"5492254423359\"\n}\n```\n\n---\n\n## 🚫 RESTRICCIONES\n\n**Temas prohibidos:**\n- Salud, política, clima, chistes, recomendaciones de productos, drogas, religión\n\n**Respuesta estándar:**\n- \"Disculpame, pero sobre ese tema puntualmente no te puedo hablar.\"\n\n---\n\n## 📊 VARIABLES DEL SISTEMA\n\n```javascript\n{Nombre} = {{ $('Cliente Guardado').first().json.cliente.nombre }}\n{Correo} = {{ $('Cliente Guardado').first().json.cliente.correo }}\n{Teléfono} = {{ $('Cliente Guardado').first().json.cliente.telefono }}\n{Tipo} = {{ $('Cliente Guardado').first().json.cliente.tipo || null }}\n{Inmobiliaria} = {{ $('Cliente Guardado').first().json.cliente.inmobiliaria || null }}\n```\n\n## 🤝 CONTROL DE SALUDO\n\n**Reglas para determinar cómo responder:**\n- ✅ **`PROPIEDAD_VALIDADA_PRIMERA`** → Usar saludo completo con presentación\n- ✅ **`PROPIEDAD_VALIDADA_CONTINUA`** → Ir directo al tema sin saludo\n- ✅ **`PROPIEDAD_INCORRECTA`** → Usar mensaje específico definido\n- ✅ **Primera interacción sin código** → Ejecutar `getCliente` y saludar según contexto\n\n---\n\n## 🎯 CÓDIGOS ESPECIALES\n\n### CÓDIGOS DE ENTRADA (del agente validador):\n- **`PROPIEDAD_VALIDADA_PRIMERA`** → Primera propiedad validada en la conversación (usar saludo completo)\n- **`PROPIEDAD_VALIDADA_CONTINUA`** → Propiedad adicional validada (usar respuesta de continuación sin saludo)\n- **`PROPIEDAD_INCORRECTA`** → La propiedad NO pertenece al portfolio\n\n### CÓDIGOS DE SALIDA:\n**`LISTA_ENVIADA`** → Usar ÚNICAMENTE después de ejecutar:\n- `check_slots`\n- `show_reschedulable_visits`\n- `show_cancellable_visits`\n\n**⚠️ REGLAS CRÍTICAS:**\n- ✅ Enviar SOLO la palabra `LISTA_ENVIADA`\n- ❌ NO usar comillas\n- ❌ NO agregar texto adicional\n- ❌ NO explicar qué es o para qué sirve\n- ✅ Representa un punto de \"reset de flujo\"\n\n**Formato correcto:**\n```\nLISTA_ENVIADA\n```\n\n**Formato INCORRECTO:**\n```\n\"LISTA_ENVIADA\"\nPerfecto, te muestro cuándo podés ir a verla. LISTA_ENVIADA\n```\n\n---\n\n## ✅ REGLAS DE FORMATO\n\n### Nombres de Usuario\n- ✅ Usar solo primer nombre\n- ❌ Nunca nombre completo\n\n### Emails\n- ✅ Formato Markdown\n- ❌ Nunca texto plano\n\n### Confirmaciones\n- ✅ Siempre mostrar resumen completo\n- ✅ Solicitar confirmación explícita\n- ✅ Permitir modificaciones antes de confirmar"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        7776,
+        1104
+      ],
+      "id": "b0c64c04-d986-4b4a-82dd-118035746f2c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        7680,
+        1616
+      ],
+      "id": "f80cb1b8-e0ad-44a8-a7e1-3f79697fb564",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "validate_url",
+        "description": "=debes llamar siempre a esta tool",
+        "workflowId": {
+          "__rl": true,
+          "value": "dYtOhM5ldqc0xj78",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_telefono": "={{ $('Validar Cliente').first().json.list[0].Telefono }}",
+            "session_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('session_id', ``, 'string') }}",
+            "consulta_usuario": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('consulta_usuario', ``, 'string') }}",
+            "Id": "={{ $('Validar Cliente').item.json.list[0].Id }}",
+            "url": "={{ $fromAI('url', `debes obtener la url de la propiedad`, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "consulta_usuario",
+              "displayName": "consulta_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        9408,
+        816
+      ],
+      "id": "a9d87e13-c05a-4b3b-a81b-b082cd443495",
+      "name": "validate_url1"
+    }
+  ],
+  "pinData": {
+    "DetectorFechas": [
+      {
+        "json": {
+          "row_id_fecha_original": "ListV3:2025-07-10T13:00",
+          "fechaISO": "2025-07-10T13:00",
+          "mensaje": "Fecha seleccionada para agendar nuevamente:\n2025-07-10T13:00",
+          "correo": "fercassera@outlook.com",
+          "nombre": "Fernando cassera",
+          "telefono": "5492254423359",
+          "eventid": "Psr0ROXFH_xKGAA-wC8E_sPfuT8"
+        }
+      }
+    ],
+    "Obtenemos la fecha": [
+      {
+        "json": {
+          "lista": null
+        }
+      }
+    ],
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8nw.qeva.xyz",
+            "content-length": "398",
+            "accept": "application/json",
+            "baggage": "sentry-environment=prod,sentry-public_key=470cc684690a2466aa1d4006cc631fb8,sentry-trace_id=cfe5c993b7e801ce05fe6efb7c57199c,sentry-sample_rand=0.8067287843991233",
+            "content-type": "application/json",
+            "sentry-trace": "cfe5c993b7e801ce05fe6efb7c57199c-271974bedeb40f02",
+            "x-forwarded-for": "37.27.140.235",
+            "x-forwarded-host": "n8nw.qeva.xyz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "7697b68d06c2",
+            "x-real-ip": "37.27.140.235",
+            "accept-encoding": "gzip"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "messages": [
+              {
+                "id": "IbGXriKdfHFcFHGrAQdr9Q-gGME_sPfuT8",
+                "from_me": false,
+                "type": "text",
+                "chat_id": "5492254423359@s.whatsapp.net",
+                "timestamp": 1753186878,
+                "source": "mobile",
+                "chat_name": "Fer",
+                "text": {
+                  "body": "Hola"
+                },
+                "context": {
+                  "conversion": {
+                    "source": "global_search_new_chat",
+                    "delay": 2
+                  }
+                },
+                "from": "5492254423359",
+                "from_name": "Fer { }"
+              }
+            ],
+            "event": {
+              "type": "messages",
+              "event": "post"
+            },
+            "channel_id": "DRSTRG-R2GAJ"
+          },
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/inmobiliaria",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "EBMwLGTBawYqkZM1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-27T22:13:53.623Z",
+  "versionId": "80389c0d-f712-4654-9f94-36bd54188e30"
+}
