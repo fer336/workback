@@ -1,0 +1,901 @@
+{
+  "active": false,
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Groq Transcripcion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Transcripcion": {
+      "main": [
+        [
+          {
+            "node": "Text Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Form Me": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compara Get Memory": {
+      "main": [
+        [
+          {
+            "node": "Compara memorias",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Memory 2": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Memory": {
+      "main": [
+        [
+          {
+            "node": "Get Memory 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Get Memory 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "Compara Get Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Memory 1": {
+      "main": [
+        [
+          {
+            "node": "Escribiendo...",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escribiendo...": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compara memorias": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Precios btw",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MESSAGE": {
+      "main": [
+        [
+          {
+            "node": "Delete Memory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Nada",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Text Memory",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Form Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:56:02.796Z",
+  "id": "8l26z72D8mP5MtWI",
+  "isArchived": true,
+  "meta": null,
+  "name": "Forrajeria",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "a1bac64e-78ce-4745-ad54-e47b54d7d74f",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        320,
+        200
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "b3244e9c-dd31-4918-8421-bd8749eb1acc",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        580,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7d210f0-6a18-456d-9e89-aa28f548b2a0",
+              "name": "body.data.message.base64",
+              "value": "={{ $('Webhook').item.json.body.data.message.base64 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "83aaaf38-21b4-4b9c-82a9-2a53556e2e74",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -800,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "body.data.message.base64",
+        "options": {
+          "mimeType": "audio/mp3"
+        }
+      },
+      "id": "9f9c1381-2486-4732-aded-dbb226589533",
+      "name": "Convert to File",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -640,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/audio/transcriptions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "bearer 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"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "whisper-large-v3"
+            },
+            {
+              "name": "temperature",
+              "value": "0"
+            },
+            {
+              "name": "response_format",
+              "value": "json"
+            },
+            {
+              "name": "language",
+              "value": "es"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1a9fd715-dd68-4692-a66a-e908c3ea957a",
+      "name": "Groq Transcripcion",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -480,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "94746291-c0f3-44f3-b635-1fe696d7d74e",
+              "leftValue": "={{ $json.body.data.key.fromMe }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "888e96f1-2bf4-40b8-867c-2f5ce93f0976",
+      "name": "Form Me",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1320,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d5a342e9-585b-42ea-be44-644adae10199",
+              "leftValue": "={{ $json.Redis1 }}",
+              "rightValue": "={{ $json.Redis2 }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6b8a3903-a90f-409d-903a-87bf69b4569f",
+      "name": "Compara Get Memory",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Redis2",
+        "key": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "options": {}
+      },
+      "id": "c1720efc-12b2-4b35-b33f-325c576bf6f3",
+      "name": "Get Memory 2",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        -60
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageData": "={{ $json.body.data.message.conversation }} || {{ $json.text }}",
+        "tail": true
+      },
+      "id": "febcd690-8c47-49dc-8c6b-cf2c7d3d9d0f",
+      "name": "Text Memory",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -860,
+        -60
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 9
+      },
+      "id": "46a5558d-7df8-4358-9d91-2f481a67cc56",
+      "name": "Wait2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -480,
+        140
+      ],
+      "webhookId": "6f130bc2-7de0-4353-b6d0-653f7c7e6623"
+    },
+    {
+      "parameters": {
+        "content": "## Retardo de mensajes\n",
+        "height": 990.6323228176069,
+        "width": 2008.304087836802,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1700,
+        -280
+      ],
+      "typeVersion": 1,
+      "id": "34360c96-1d22-443b-badc-a8ee094acf23",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Convierte el mensaje de voz a texto",
+        "height": 340.7809833809103,
+        "width": 540
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -860,
+        340
+      ],
+      "typeVersion": 1,
+      "id": "70c2af2b-9d02-4883-be99-90e367300b84",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "Redis1",
+              "value": "={{ $('Get Memory 1').item.json.Redis1 }}",
+              "type": "string"
+            },
+            {
+              "id": "3cd6e8a1-98ef-4abb-9490-fb7946365cfb",
+              "name": "Redis2",
+              "value": "={{ $json.Redis2 }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cb7561ee-5477-4b5b-96d3-8b80d3e77606",
+      "name": "Redis",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -280,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $item(0).$node[\"Compara Get Memory\"].json[\"Redis2\"]; \n\nlet array = Array.isArray(data) ? data : JSON.parse(data);\n\nconst mensage_completo = array.join(\" \");\n\nreturn [{ json: { mensage_completo } }];\n"
+      },
+      "id": "964ffa78-8dd6-40a4-9305-a103c403c23c",
+      "name": "Compara memorias",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        140,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "Redis1",
+        "key": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "options": {
+          "dotNotation": true
+        }
+      },
+      "id": "4287487c-e2b6-4e97-8c2c-3807b8bcfd5c",
+      "name": "Get Memory 1",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -680,
+        -60
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -860,
+        -240
+      ],
+      "id": "b78bc965-dd17-46ad-a366-fc91336fd722",
+      "name": "Nada"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $node['Webhook'].json.body.server_url }}/chat/sendPresence/{{ $node['Webhook'].json.body.instance }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $node['Webhook'].json.body.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"number\": \"{{ $node['Webhook'].json.body.data.key.remoteJid }}\",\n    \"delay\": 3000,\n    \"presence\": \"composing\"\n}",
+        "options": {}
+      },
+      "id": "df94914b-512d-4cbd-a771-3af0046715d4",
+      "name": "Escribiendo...",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -680,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_chat_histories11",
+          "mode": "list",
+          "cachedResultName": "n8n_chat_histories11"
+        },
+        "options": {}
+      },
+      "id": "54d14149-51bc-41aa-bea4-2d6d05961c32",
+      "name": "Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -200,
+        440
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "6IRnqWkQjgBxeGz5",
+          "name": "Postgres"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "id": "8a58fbcc-a43b-47b3-af7d-7affeec89849",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1120,
+        240
+      ],
+      "webhookId": "6f130bc2-7de0-4353-b6d0-653f7c7e6623"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1a20f2e-7344-4d2c-b869-b330c0b8eff2",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9abad0e0-9964-4932-b3d3-69bd1b3d872c",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1120,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtén el contenido dinámico desde el nodo anterior o input dinámico\nlet inputMessage = $input.first().json.output || \"\";\n\n// Verifica si inputMessage es un objeto y conviértelo en una cadena si es necesario\nif (typeof inputMessage !== 'string') {\n  inputMessage = JSON.stringify(inputMessage);\n}\n\n// Escapa todos los saltos de línea dinámicamente y quita el formato de negrita y encabezados\nconst mensajeEscapado = inputMessage\n  .replace(/\\n/g, '\\\\n')\n  .replace(/\\*\\*/g, '')\n  .replace(/###/g, '');\n\n// Devuelve el mensaje formateado para el nodo HTTP Request\nreturn [\n  {\n    json: {\n      message: mensajeEscapado\n    }\n  }\n];\n"
+      },
+      "id": "5e50724b-7041-4e95-8d9d-0c47e2a12130",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $node['Webhook'].json.body.server_url }}/message/sendText/{{ $node['Webhook'].json.body.instance }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $node['Webhook'].json.body.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"delay\": 1500,\n    \"number\": \"{{ $node['Webhook'].json.body.data.key.remoteJid }}\",\n    \"text\": \"{{ $json.message }}\"\n\n}",
+        "options": {}
+      },
+      "id": "661f7a50-f0ab-4c87-9ff6-65eb8853c19d",
+      "name": "MESSAGE",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1020,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "={{ $('Webhook').item.json.body.data.key.remoteJid }}"
+      },
+      "id": "e2fa81d4-de05-4798-81cb-eb54b7bea1d7",
+      "name": "Delete Memory",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        -200
+      ],
+      "credentials": {
+        "redis": {
+          "id": "JMklVOvkU7koL2UG",
+          "name": "Redis"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $node['Webhook'].json.body.server_url }}/message/sendList/{{ $node['Webhook'].json.body.instance }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $node['Webhook'].json.body.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"number\": \"{{ $('Webhook').item.json.body.data.key.remoteJid }}\",\n    \"title\": \"Encuentra el apartamento ideal\",\n    \"description\": \"De acuerdo a tu presupuesto 💰\",\n    \"buttonText\": \"Ver más opciones 👈\",\n    \"footerText\": \"Selecciona el rango de precios que deseas\",\n    \"sections\": [\n        {\n            \"title\": \"Rango de Precios\",\n            \"rows\": [\n                {\n                    \"title\": \"💵 500 a 700\",\n                    \"rowId\": \"range_500_700\"\n                },\n                {\n                    \"title\": \"💵 750 a 1000\",\n                    \"rowId\": \"range_750_1000\"\n                },\n                {\n                    \"title\": \"💵 1050 a 1500\",\n                    \"rowId\": \"range_1050_1500\"\n                },\n                {\n                    \"title\": \"💵 1550 a 2000\",\n                    \"rowId\": \"range_1550_2000\"\n                },\n                {\n                    \"title\": \"💵 2100 a 2500\",\n                    \"rowId\": \"range_2100_2500\"\n                },\n                {\n                    \"title\": \"💵 2550 a 3000\",\n                    \"rowId\": \"range_2550_3000\"\n                },\n                {\n                    \"title\": \"💵 3100 a 3500\",\n                    \"rowId\": \"range_3100_3500\"\n                },\n                {\n                    \"title\": \"💵 3550 a 4000\",\n                    \"rowId\": \"range_3550_4000\"\n                },\n                {\n                    \"title\": \"💵 4100 a 4500\",\n                    \"rowId\": \"range_4100_4500\"\n                },\n                {\n                    \"title\": \"💵 4550 a 5000\",\n                    \"rowId\": \"range_4550_5000\"\n                },\n                {\n                    \"title\": \"💵 5100 a 5500\",\n                    \"rowId\": \"range_5100_5500\"\n                }\n            ]\n        }\n    ]\n}\n",
+        "options": {}
+      },
+      "id": "f1facc97-bfad-4f3a-bb30-b42738c65e90",
+      "name": "Precios btw",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        980,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "60065893-74f7-4b64-bc1a-d891202efa78",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "imageMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Imagem"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0cb14635-2673-408e-86db-ce9e0373674b",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Texto"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Webhook').item.json.body.data.messageType }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Áudio"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c137a4e0-5408-445f-bbac-f2323cb96337",
+      "name": "Switch1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1100,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "forrajeria",
+        "options": {}
+      },
+      "id": "1140be31-fa84-4a7b-89c0-e713dcd95347",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1660,
+        -100
+      ],
+      "webhookId": "8a5a0494-91d7-4333-89cd-099ca7c93de8"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.mensage_completo }}",
+        "options": {
+          "systemMessage": "=\nROL:\nAsistente virtual automatizado especializado en la venta de productos y accesorios para animales, fertilizantes, insecticidas, semillas y herramientas para el cuidado del jardín en Forrajería Ostende.\n\nTAREAS:\nAyudar a los clientes a buscar y comprar productos de la forrajería.\nResponder consultas sobre usos, beneficios y disponibilidad de los productos.\nRecomendar lo que más les convenga según lo que necesiten.\nGestionar pedidos y coordinar entregas en Ostende y zonas cercanas.\nESPECIFICACIONES:\nTono: Bien cercano y confiable, como el trato típico de un comercio de barrio.\nEnfoque: Dar respuestas claras y prácticas sobre productos para animales, jardín y hogar.\nManejo de consultas específicas: Resolver dudas sobre alimentos para mascotas, fertilizantes, insecticidas y herramientas de jardinería, siempre recomendando lo más adecuado.\nLimitaciones: No da asesoramiento técnico avanzado, pero puede derivar a un especialista si hace falta.\nCONTEXTO:\nEl asistente está siempre disponible por WhatsApp, redes sociales y la página web para contestar consultas, gestionar pedidos y coordinar entregas rápido y fácil.\n\nEJEMPLOS:\nCliente: Hola te quedó alimento en bolson\nAsistente: Hola, sí, de 15kg. Es $total.\n\nCliente: Podes traerme y te transfiero\nAsistente: Sí, sí, ahora cuando cierro paso. No querés nada más\n\nCliente: Buen día, no me traes 5 kilos de alimento porfa\nAsistente: Hola, dale, es $total.\n\n¡Hola! Todo bien, gracias. ¿Qué tipo de alimento necesitas? ¿Para mascotas, aves, o algún tipo específico? ¡Cuéntame y te ayudo!\n\nesto deberia ser asi \n\nHola todo bien, gracias. Qué tipo de alimento necesitas? Para perro o gato? \n\n\nNOTAS:\nMantener un tono cálido y relajado, propio de un comercio local.\nResponder rápido y claro, gestionando pedidos y entregas sin complicaciones.\nOfrecer opciones o productos relacionados según la consulta.\nHacer todo lo más simple posible para que las respuestas sean fáciles de entender.\nDisponible todo el tiempo en plataformas digitales para atender sin demoras.\n\n\n\n"
+        }
+      },
+      "id": "b4ddb941-ccde-4b7f-b508-e43d35fa0226",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        400,
+        -80
+      ]
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-28T04:03:57.656Z",
+  "versionId": "c187b9b4-e7f9-4686-94fa-ef472e3b5bb1"
+}
