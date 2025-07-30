@@ -1,0 +1,1112 @@
+{
+  "active": true,
+  "connections": {
+    "Parameters": {
+      "main": [
+        [
+          {
+            "node": "Get all n8n Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Backup to Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get all n8n Workflows": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read File": {
+      "main": [
+        [
+          {
+            "node": "Extract Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Data": {
+      "main": [
+        [
+          {
+            "node": "Hash Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash Maker": {
+      "main": [
+        [
+          {
+            "node": "Read File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Set Workflow Path",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Set Credential Path",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Credential Updated": {
+      "main": [
+        [
+          {
+            "node": "Read Credential Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Credential Data": {
+      "main": [
+        [
+          {
+            "node": "GitHub Credential Backup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Credential Backup": {
+      "main": [
+        [
+          {
+            "node": "Get New Credential Hash",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Credential Path": {
+      "main": [
+        [
+          {
+            "node": "Get Old Credential Hash",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Credential Data": {
+      "main": [
+        [
+          {
+            "node": "Extract Credential Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Old Credential Hash": {
+      "main": [
+        [
+          {
+            "node": "Execute Credential Backup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get New Credential Hash": {
+      "main": [
+        [
+          {
+            "node": "If Credential Updated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Workflow Updated": {
+      "main": [
+        [
+          {
+            "node": "Read Workflow Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Workflow Data": {
+      "main": [
+        [
+          {
+            "node": "GitHub Workflow Backup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Backup": {
+      "main": [
+        [
+          {
+            "node": "Get New Workflow Hash",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Workflow Path": {
+      "main": [
+        [
+          {
+            "node": "Get Old Workflow Hash",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Workflow Data": {
+      "main": [
+        [
+          {
+            "node": "Extract Workflow Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Old Workflow Hash": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow Backup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get New Workflow Hash": {
+      "main": [
+        [
+          {
+            "node": "If Workflow Updated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub Workflow Backup": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub Credential Backup": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Backup to Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:55:35.983Z",
+  "id": "9bzbVDRKtn5rZQjf",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "n8n Backup Changes",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b65def6-4984-497d-a4bc-232af22927ad",
+              "name": "directory",
+              "type": "string",
+              "value": "https://drive.google.com/drive/folders/1IA89QFbtrqIK5s3pKersKZQK08VNoUTt"
+            },
+            {
+              "id": "c8c98f88-9f22-4574-88b8-1db99f6e4ec4",
+              "name": "parentdrive",
+              "type": "string",
+              "value": "https://drive.google.com/drive/my-drive"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e99f73fd-ffad-4664-9ce7-03f2bfd913c4",
+      "name": "Parameters",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        0,
+        -1424
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(item => {\n  const jsonData = JSON.stringify(item.json);\n  const binaryData = Buffer.from(jsonData).toString('base64');\n  item.binary = {\n    data: {\n      data: binaryData,\n      mimeType: 'application/json',\n      fileName: 'data.json'\n    }\n  };\n  return item;\n});"
+      },
+      "id": "a05a79a8-5f13-45ef-a358-0d8879fe49d9",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        448,
+        -1424
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "filters": {},
+        "requestOptions": {}
+      },
+      "id": "f6bf6cba-545d-48dc-ae90-e4fcefd072af",
+      "name": "Get all n8n Workflows",
+      "type": "n8n-nodes-base.n8n",
+      "position": [
+        224,
+        -1424
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "n8nApi": {
+          "id": "IdAUYtzJJPhnkh6p",
+          "name": "n8n qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{  $json.name+ \".json\"}}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive",
+          "cachedResultName": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "={{ $('Parameters').item.json.directory }}"
+        },
+        "options": {}
+      },
+      "id": "8b4f8266-e6b9-497d-80be-7382874ca083",
+      "name": "Backup to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "position": [
+        672,
+        -1424
+      ],
+      "retryOnFail": true,
+      "typeVersion": 3,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "5LeSe0lCvS5NwWar",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6,
+              "triggerAtMinute": 33
+            }
+          ]
+        }
+      },
+      "id": "8cc48db5-8bbf-4909-9480-711099eae714",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        -224,
+        -1424
+      ],
+      "typeVersion": 1.2,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $json.filePath }}",
+        "options": {}
+      },
+      "id": "6b53cad9-3396-4087-a139-31134edb23c7",
+      "name": "Read File",
+      "type": "n8n-nodes-base.readWriteFile",
+      "position": [
+        0,
+        -704
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "id": "784c61a7-266c-4b69-b714-3d5aca1eca73",
+      "name": "Extract Data",
+      "type": "n8n-nodes-base.extractFromFile",
+      "position": [
+        224,
+        -704
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "type": "SHA256",
+        "value": "={{$json.data}}",
+        "dataPropertyName": "hash"
+      },
+      "id": "52036047-723e-4462-80a1-ca2e05f65c0f",
+      "name": "Hash Data",
+      "type": "n8n-nodes-base.crypto",
+      "position": [
+        448,
+        -704
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "filePath"
+            }
+          ]
+        }
+      },
+      "id": "46c4073c-b408-4ae8-95c2-405878598f21",
+      "name": "Hash Maker",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -224,
+        -704
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 3,
+              "triggerAtMinute": 33
+            }
+          ]
+        }
+      },
+      "id": "75e3aafe-1540-4c8c-adb0-5f76d8c19d1b",
+      "name": "Schedule Trigger2",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        -304,
+        -1072
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c028ce1d-3fe9-4dc9-a3e9-296460e12c83",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              },
+              "leftValue": "={{ $('Get New Credential Hash').item.json.hash }}",
+              "rightValue": "={{ $('Get Old Credential Hash').item.json.hash }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7584d29f-2d8a-4684-a937-9a1b10c698fb",
+      "name": "If Credential Updated",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        880,
+        -960
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c028ce1d-3fe9-4dc9-a3e9-296460e12c83",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              },
+              "leftValue": "={{ $('Get New Workflow Hash').item.json.hash }}",
+              "rightValue": "={{ $('Get Old Workflow Hash').item.json.hash }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a85ca6bf-8916-4088-8450-e445f4e08dd0",
+      "name": "If Workflow Updated",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        880,
+        -1168
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "fer336",
+          "mode": "list",
+          "cachedResultName": "fer336",
+          "cachedResultUrl": "https://github.com/fer336"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "=https://github.com/fer336/credential-n8n",
+          "mode": "url"
+        },
+        "filePath": "={{ \"backups/ Credential Backup \" + new Date($now).toISOString().replace('T', ' ').slice(0, 16) + \".json\" }}",
+        "fileContent": "={{ $json.data }}",
+        "commitMessage": "={{ \" Credential Backup \" + new Date($today).toISOString().replace('T', ' ').slice(0, 16) }}"
+      },
+      "id": "25eaaf30-e64f-4e77-a4d5-5e7d3b032f4f",
+      "name": "GitHub Credential Backup",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        1552,
+        -960
+      ],
+      "webhookId": "ccf2ad35-62aa-4e3e-9811-ea6d7fca0aba",
+      "typeVersion": 1.1,
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "7YexHNM8mpNDtnYq",
+          "name": "Qeva Solutions"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "id": "46a3634d-7ef6-40be-a902-fba43dc00ad5",
+      "name": "Extract Credential Data",
+      "type": "n8n-nodes-base.extractFromFile",
+      "position": [
+        1328,
+        -960
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "=n8n export:credentials --all --output={{ $('Set Credential Path').item.json.filePath }}"
+      },
+      "id": "aa671e28-1e71-4d5f-8f45-72b82156a8eb",
+      "name": "Execute Credential Backup",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        448,
+        -960
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c60cce2a-609d-417e-a73c-9719a490cc85",
+              "name": "filePath",
+              "type": "string",
+              "value": "/home/node/.n8n/backup/CredentialBackup.json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8f36cee9-ca5b-471a-87d2-ab35592c7384",
+      "name": "Set Credential Path",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        0,
+        -960
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Set Credential Path').item.json.filePath }}",
+        "options": {}
+      },
+      "id": "57c58a47-4d09-4f0f-82dc-155deaa52cf2",
+      "name": "Read Credential Data",
+      "type": "n8n-nodes-base.readWriteFile",
+      "position": [
+        1104,
+        -960
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "9bzbVDRKtn5rZQjf",
+          "mode": "list",
+          "cachedResultName": "n8n Backup Changes"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "filePath": "={{ $json.filePath }}"
+          },
+          "matchingColumns": [
+            "filePath"
+          ],
+          "schema": [
+            {
+              "id": "filePath",
+              "displayName": "filePath",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "id": "156fef7f-1ebb-4524-bcd2-b748d41d88ff",
+      "name": "Get Old Credential Hash",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        224,
+        -960
+      ],
+      "typeVersion": 1.2,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "9bzbVDRKtn5rZQjf",
+          "mode": "list",
+          "cachedResultName": "n8n Backup Changes"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "filePath": "={{ $('Set Credential Path').item.json.filePath }}"
+          },
+          "matchingColumns": [
+            "filePath"
+          ],
+          "schema": [
+            {
+              "id": "filePath",
+              "displayName": "filePath",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "id": "11885e46-ceb5-46a0-9f99-74eb2b060157",
+      "name": "Get New Credential Hash",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        672,
+        -960
+      ],
+      "typeVersion": 1.2,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "fer336",
+          "mode": "list",
+          "cachedResultName": "fer336",
+          "cachedResultUrl": "https://github.com/fer336"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "=https://github.com/fer336/flujos-n8n",
+          "mode": "url"
+        },
+        "filePath": "={{ \"backups/WorkFlow Backup \" + new Date($now).toISOString().replace('T', ' ').slice(0, 16) + \".json\" }}",
+        "fileContent": "={{ $json.data }}",
+        "commitMessage": "={{ \"WorkFlow Backup \" + new Date($now).toISOString().replace('T', ' ').slice(0, 16) }}"
+      },
+      "id": "6f15f663-fd68-4420-a058-7d08b793bf78",
+      "name": "GitHub Workflow Backup",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        1552,
+        -1168
+      ],
+      "webhookId": "ccf2ad35-62aa-4e3e-9811-ea6d7fca0aba",
+      "typeVersion": 1.1,
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "7YexHNM8mpNDtnYq",
+          "name": "Qeva Solutions"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {}
+      },
+      "id": "1926fd16-d09b-4083-8891-073067fd8bfe",
+      "name": "Extract Workflow Data",
+      "type": "n8n-nodes-base.extractFromFile",
+      "position": [
+        1328,
+        -1168
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "=mkdir -p /home/node/.n8n/backup/ && n8n export:workflow --all --output=/home/node/.n8n/backup/WorkFlowBackup.json && chmod +x /home/node/.n8n/backup/WorkFlowBackup.json"
+      },
+      "id": "93e120d2-9b81-4345-80b2-6c1d2d3534b9",
+      "name": "Execute Workflow Backup",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        448,
+        -1168
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c60cce2a-609d-417e-a73c-9719a490cc85",
+              "name": "filePath",
+              "type": "string",
+              "value": "/home/node/.n8n/backup/WorkFlowBackup.json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d3ac69d0-89d9-42c8-aef4-661f8d89937b",
+      "name": "Set Workflow Path",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        0,
+        -1168
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Set Workflow Path').item.json.filePath }}",
+        "options": {}
+      },
+      "id": "298e9e9d-d6dd-4841-a51d-d18818a046ae",
+      "name": "Read Workflow Data",
+      "type": "n8n-nodes-base.readWriteFile",
+      "position": [
+        1104,
+        -1168
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "9bzbVDRKtn5rZQjf",
+          "mode": "list",
+          "cachedResultName": "n8n Backup Changes"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "filePath": "={{ $json.filePath }}"
+          },
+          "matchingColumns": [
+            "filePath"
+          ],
+          "schema": [
+            {
+              "id": "filePath",
+              "displayName": "filePath",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "id": "ead8c72e-4970-4564-a40b-1b8b54584051",
+      "name": "Get Old Workflow Hash",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        224,
+        -1168
+      ],
+      "typeVersion": 1.2,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "9bzbVDRKtn5rZQjf",
+          "mode": "list",
+          "cachedResultName": "n8n Backup Changes"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "filePath": "={{ $('Set Workflow Path').item.json.filePath }}"
+          },
+          "matchingColumns": [
+            "filePath"
+          ],
+          "schema": [
+            {
+              "id": "filePath",
+              "displayName": "filePath",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "id": "0345fe64-b63a-4580-bf44-dd4b6b493eec",
+      "name": "Get New Workflow Hash",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        672,
+        -1168
+      ],
+      "typeVersion": 1.2,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=🚀 Los flujos de N8N fueron actualizados correctamente en GitHub.\n\n🗂️ Repositorio sincronizado con los últimos cambios.\n🛠️ Listo para producción.\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1760,
+        -1168
+      ],
+      "id": "1b0e7435-a8c7-421f-ae71-2ab787f5f7f3",
+      "name": "Send a text message",
+      "webhookId": "e4b6548e-8950-419c-b3b2-c56e46830553",
+      "credentials": {
+        "telegramApi": {
+          "id": "LpTnRsVaNB0JfyAR",
+          "name": "Debugger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=🔐 Las credenciales de N8N fueron actualizadas y subidas a GitHub correctamente.\n\n📦 Backup de seguridad generado.\n🔄 Cambios listos para restauración o despliegue.\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1760,
+        -960
+      ],
+      "id": "43f5709d-0a65-4cd7-872e-7222909d0908",
+      "name": "Send a text message1",
+      "webhookId": "e4b6548e-8950-419c-b3b2-c56e46830553",
+      "credentials": {
+        "telegramApi": {
+          "id": "LpTnRsVaNB0JfyAR",
+          "name": "Debugger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Update Drive flujos",
+        "height": 320,
+        "width": 1540,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -384,
+        -1536
+      ],
+      "typeVersion": 1,
+      "id": "c2ccd1d8-2ec5-412c-a57c-8a6eaffa4a78",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Workflows + Credentials",
+        "height": 420,
+        "width": 2400,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -384,
+        -1200
+      ],
+      "typeVersion": 1,
+      "id": "caffe000-5924-471f-9d13-b0baeeedf601",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Hashes",
+        "height": 320,
+        "width": 1320,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -384,
+        -768
+      ],
+      "typeVersion": 1,
+      "id": "33424ecc-4a4b-482d-8984-a45e2aad1517",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=🚀 Los flujos de N8N fueron actualizados correctamente en Google Drive.\n\n🗂️ Repositorio sincronizado con los últimos cambios.\n🛠️ Listo para producción.\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        912,
+        -1424
+      ],
+      "id": "b6b3e355-fa81-477a-953a-30bacc1fcc6d",
+      "name": "Send a text message2",
+      "webhookId": "e4b6548e-8950-419c-b3b2-c56e46830553",
+      "credentials": {
+        "telegramApi": {
+          "id": "LpTnRsVaNB0JfyAR",
+          "name": "Debugger"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger1": [
+      {
+        "json": {
+          "timestamp": "2025-07-22T06:33:13.013-03:00",
+          "Readable date": "July 22nd 2025, 6:33:13 am",
+          "Readable time": "6:33:13 am",
+          "Day of week": "Tuesday",
+          "Year": "2025",
+          "Month": "July",
+          "Day of month": "22",
+          "Hour": "06",
+          "Minute": "33",
+          "Second": "13",
+          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
+        }
+      }
+    ],
+    "Schedule Trigger2": [
+      {
+        "json": {
+          "timestamp": "2025-07-27T03:33:00.014-03:00",
+          "Readable date": "July 27th 2025, 3:33:00 am",
+          "Readable time": "3:33:00 am",
+          "Day of week": "Sunday",
+          "Year": "2025",
+          "Month": "July",
+          "Day of month": "27",
+          "Hour": "03",
+          "Minute": "33",
+          "Second": "00",
+          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "errorWorkflow": "EBMwLGTBawYqkZM1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger2": {
+      "recurrenceRules": [
+        0
+      ]
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-27T12:04:14.835Z",
+  "versionId": "97a5afa2-b305-4a93-bf4c-45b5ff1ba214"
+}
