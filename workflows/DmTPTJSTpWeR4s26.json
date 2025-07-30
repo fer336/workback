@@ -1,0 +1,452 @@
+{
+  "active": false,
+  "connections": {
+    "Manual Restore Trigger": {
+      "main": [
+        [
+          {
+            "node": "Should Restore Workflows?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Should Restore Credentials?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Should Restore Workflows?": {
+      "main": [
+        [
+          {
+            "node": "Download Workflow Backup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Should Restore Credentials?": {
+      "main": [
+        [
+          {
+            "node": "Download Credential Backup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Workflow Backup": {
+      "main": [
+        [
+          {
+            "node": "Save Workflow File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Credential Backup": {
+      "main": [
+        [
+          {
+            "node": "Save Credential File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Workflow File": {
+      "main": [
+        [
+          {
+            "node": "Import Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Credential File": {
+      "main": [
+        [
+          {
+            "node": "Import Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Import Workflows": {
+      "main": [
+        [
+          {
+            "node": "Notify Workflow Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Import Credentials": {
+      "main": [
+        [
+          {
+            "node": "Notify Credential Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-17T05:29:29.847Z",
+  "id": "DmTPTJSTpWeR4s26",
+  "isArchived": false,
+  "meta": null,
+  "name": "RESTORE WORKFLOWS GITHUB",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "72d03696-30ea-4354-b3fa-c589fe3f4bb5",
+      "name": "Manual Restore Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -560,
+        -80
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2
+          },
+          "combinator": "or",
+          "conditions": [
+            {
+              "id": "restore-workflows",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.restoreType }}",
+              "rightValue": "workflows"
+            },
+            {
+              "id": "restore-both",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.restoreType }}",
+              "rightValue": "both"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2ca8cdb5-47d4-41ae-8227-e817d50630ba",
+      "name": "Should Restore Workflows?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -352,
+        -80
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2
+          },
+          "combinator": "or",
+          "conditions": [
+            {
+              "id": "restore-credentials",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.restoreType }}",
+              "rightValue": "credentials"
+            },
+            {
+              "id": "restore-both-creds",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.restoreType }}",
+              "rightValue": "both"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cb1fd6dd-e04c-473c-a8f9-d093a209eb52",
+      "name": "Should Restore Credentials?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -352,
+        112
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "fer336",
+          "mode": "list",
+          "cachedResultName": "fer336"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "https://github.com/fer336/flujos-n8n",
+          "mode": "url"
+        },
+        "filePath": "={{ $json.backupDate ? 'backups/WorkFlow Backup ' + $json.backupDate + '.json' : 'backups/WorkFlowBackup.json' }}",
+        "additionalParameters": {}
+      },
+      "id": "dee0c6ce-55e7-4ed0-b32c-8657c7009a04",
+      "name": "Download Workflow Backup",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        -144,
+        -80
+      ],
+      "typeVersion": 1.1,
+      "webhookId": "3fe16b87-e722-4e60-84f9-e217a8826b8d",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "7YexHNM8mpNDtnYq",
+          "name": "Qeva Solutions"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "fer336",
+          "mode": "list",
+          "cachedResultName": "fer336"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "https://github.com/fer336/credential-n8n",
+          "mode": "url"
+        },
+        "filePath": "={{ $json.backupDate ? 'backups/ Credential Backup ' + $json.backupDate + '.json' : 'backups/CredentialBackup.json' }}",
+        "additionalParameters": {}
+      },
+      "id": "5bd59131-41d4-4f4f-9fa3-b8c6e5d0013a",
+      "name": "Download Credential Backup",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        -144,
+        112
+      ],
+      "typeVersion": 1.1,
+      "webhookId": "2f6b5e50-a4df-4eda-9d27-348614fa24b4",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "7YexHNM8mpNDtnYq",
+          "name": "Qeva Solutions"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/home/node/.n8n/restore/workflows_restore.json",
+        "options": {}
+      },
+      "id": "ec9f5998-e4b7-4ed1-a02a-e209a54335e0",
+      "name": "Save Workflow File",
+      "type": "n8n-nodes-base.readWriteFile",
+      "position": [
+        48,
+        -80
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/home/node/.n8n/restore/credentials_restore.json",
+        "options": {}
+      },
+      "id": "c712f9b4-12a8-4b7c-9ddd-d9df0a8b3e3f",
+      "name": "Save Credential File",
+      "type": "n8n-nodes-base.readWriteFile",
+      "position": [
+        48,
+        112
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "mkdir -p /home/node/.n8n/restore/ && n8n import:workflow --input=/home/node/.n8n/restore/workflows_restore.json"
+      },
+      "id": "1c6ad197-3a2a-40f6-9901-53912558ec8a",
+      "name": "Import Workflows",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        256,
+        -80
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "mkdir -p /home/node/.n8n/restore/ && n8n import:credentials --input=/home/node/.n8n/restore/credentials_restore.json"
+      },
+      "id": "1eaaa8e1-cf38-4216-b08b-7b786777c7fb",
+      "name": "Import Credentials",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        256,
+        112
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=✅ Workflows restaurados correctamente desde GitHub.\n\n📂 Archivo: {{ $('Download Workflow Backup').item.json.path }}\n🔄 Los flujos han sido importados exitosamente.\n🚀 N8N listo para usar.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        -80
+      ],
+      "id": "f2b3e57a-d554-4b5e-8cef-315bccc8356b",
+      "name": "Notify Workflow Success",
+      "webhookId": "608bd0e7-130b-4898-b0fb-25f340c5da3c",
+      "credentials": {
+        "telegramApi": {
+          "id": "LpTnRsVaNB0JfyAR",
+          "name": "Debugger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=✅ Credenciales restauradas correctamente desde GitHub.\n\n📂 Archivo: {{ $('Download Credential Backup').item.json.path }}\n🔐 Las credenciales han sido importadas exitosamente.\n⚙️ Configuración lista para usar.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        112
+      ],
+      "id": "a72b2c65-cdfc-4472-b341-3ce30d63e4f8",
+      "name": "Notify Credential Success",
+      "webhookId": "35780978-18c6-49a8-81cd-f23f5473bc02",
+      "credentials": {
+        "telegramApi": {
+          "id": "LpTnRsVaNB0JfyAR",
+          "name": "Debugger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=❌ Error al restaurar workflows desde GitHub.\n\n⚠️ Verifica que el archivo exista en el repositorio.\n🔍 Revisa los logs para más detalles.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        -272
+      ],
+      "id": "097e9dcf-9275-4cbb-b1e3-7ae8516b00a8",
+      "name": "Notify Workflow Error",
+      "webhookId": "ad437247-6f27-4784-b3c7-78156ccb632a",
+      "credentials": {
+        "telegramApi": {
+          "id": "LpTnRsVaNB0JfyAR",
+          "name": "Debugger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=❌ Error al restaurar credenciales desde GitHub.\n\n⚠️ Verifica que el archivo exista en el repositorio.\n🔍 Revisa los logs para más detalles.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        976,
+        -160
+      ],
+      "id": "91217700-abee-4293-8ed9-74b324589270",
+      "name": "Notify Credential Error",
+      "webhookId": "f9a7bc4c-7146-419a-a6c3-5e80bf09ce87",
+      "credentials": {
+        "telegramApi": {
+          "id": "LpTnRsVaNB0JfyAR",
+          "name": "Debugger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## N8N Restore System\n\n### Parámetros:\n- **restoreType**: 'workflows', 'credentials', o 'both'\n- **backupDate**: Fecha específica del backup (opcional)\n\n### Ejemplo de uso:\n- restoreType: \"both\"\n- backupDate: \"2025-07-17 15:30\" (opcional)",
+        "height": 400,
+        "width": 600,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -592,
+        -544
+      ],
+      "typeVersion": 1,
+      "id": "a994dfcd-7bde-4176-8004-67f6f8707f5f",
+      "name": "Info Note"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-17T05:29:39.938Z",
+  "versionId": "b263d56a-75fc-4d3e-8e36-2763007578cb"
+}
