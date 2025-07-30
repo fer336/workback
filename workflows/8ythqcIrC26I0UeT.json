@@ -1,0 +1,514 @@
+{
+  "active": false,
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla usuarios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla usuarios": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla tipos_transaccion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla tipos_transaccion": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla categorias",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla categorias": {
+      "main": [
+        [
+          {
+            "node": "Insertar categorías",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insertar categorías": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla presupuestos_mensuales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla presupuestos_mensuales": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla gastos_fijos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla gastos_fijos": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla gastos_variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla gastos_variables": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla metas_ahorro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla metas_ahorro": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla deudas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla deudas": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla pagos_deudas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla pagos_deudas": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla inversiones_donaciones",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla inversiones_donaciones": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla transacciones_seguimiento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla transacciones_seguimiento": {
+      "main": [
+        [
+          {
+            "node": "Crear tabla presupuesto_categorias",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear tabla presupuesto_categorias": {
+      "main": [
+        [
+          {
+            "node": "Crear triggers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear triggers": {
+      "main": [
+        [
+          {
+            "node": "Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-15T01:42:11.194Z",
+  "id": "8ythqcIrC26I0UeT",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 16",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "1098d405-b8c9-4b8b-a778-e8c6f1040fe9",
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        -360,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS usuarios (\n    id SERIAL PRIMARY KEY,\n    email VARCHAR(255) UNIQUE NOT NULL,\n    nombre VARCHAR(100) NOT NULL,\n    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    activo BOOLEAN DEFAULT TRUE\n);",
+        "additionalFields": {}
+      },
+      "id": "6c2f8646-b289-484e-8379-c0236d35e081",
+      "name": "Crear tabla usuarios",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS tipos_transaccion (\n    id SERIAL PRIMARY KEY,\n    nombre VARCHAR(50) NOT NULL UNIQUE,\n    descripcion TEXT\n);\n\nINSERT INTO tipos_transaccion (nombre, descripcion) VALUES \n('Necesidades', 'Gastos esenciales - 50% del presupuesto'),\n('Deseos', 'Gastos no esenciales - 30% del presupuesto'),\n('Ahorros', 'Ahorro e inversión - 20% del presupuesto')\nON CONFLICT (nombre) DO NOTHING;",
+        "additionalFields": {}
+      },
+      "id": "23af89fc-53b0-4ba3-b28f-6d55fb694321",
+      "name": "Crear tabla tipos_transaccion",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        40,
+        -200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS categorias (\n    id SERIAL PRIMARY KEY,\n    nombre VARCHAR(100) NOT NULL,\n    tipo VARCHAR(20) NOT NULL CHECK (tipo IN ('gasto_fijo', 'gasto_variable', 'ahorro', 'deuda', 'inversion')),\n    icono VARCHAR(10),\n    color VARCHAR(7),\n    orden INTEGER DEFAULT 0,\n    activo BOOLEAN DEFAULT TRUE\n);",
+        "additionalFields": {}
+      },
+      "id": "49507557-4cdd-40d4-8a6b-c52a0e94ce1d",
+      "name": "Crear tabla categorias",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        240,
+        -200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO categorias (nombre, tipo, orden) VALUES \n-- Gastos Fijos\n('Renta', 'gasto_fijo', 1),\n('Agua', 'gasto_fijo', 2),\n('Internet', 'gasto_fijo', 3),\n('Netflix', 'gasto_fijo', 4),\n('Luz', 'gasto_fijo', 5),\n-- Gastos Variables\n('Mercado', 'gasto_variable', 1),\n('Transporte', 'gasto_variable', 2),\n('Restaurante', 'gasto_variable', 3),\n('Entretenimiento', 'gasto_variable', 4),\n('Salud', 'gasto_variable', 5),\n('Educación', 'gasto_variable', 6),\n('Ropa', 'gasto_variable', 7),\n('Hogar', 'gasto_variable', 8),\n('Cuidado personal', 'gasto_variable', 9),\n('Mascotas', 'gasto_variable', 10),\n('Gasolina', 'gasto_variable', 11),\n('Otros', 'gasto_variable', 12),\n-- Ahorros\n('Fondo de emergencia', 'ahorro', 1),\n('Vacaciones', 'ahorro', 2),\n('Meta personal', 'ahorro', 3)\nON CONFLICT DO NOTHING;",
+        "additionalFields": {}
+      },
+      "id": "647b9af6-ae45-449c-8b55-35420efdbca4",
+      "name": "Insertar categorías",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS presupuestos_mensuales (\n    id SERIAL PRIMARY KEY,\n    usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,\n    anio INTEGER NOT NULL,\n    mes INTEGER NOT NULL CHECK (mes >= 1 AND mes <= 12),\n    presupuesto_total DECIMAL(12,2) DEFAULT 0,\n    ingresos_total DECIMAL(12,2) DEFAULT 0,\n    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    UNIQUE(usuario_id, anio, mes)\n);",
+        "additionalFields": {}
+      },
+      "id": "505fc580-d08f-4609-8237-8ffb9ea2073d",
+      "name": "Crear tabla presupuestos_mensuales",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        0
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS gastos_fijos (\n    id SERIAL PRIMARY KEY,\n    presupuesto_mensual_id INTEGER NOT NULL REFERENCES presupuestos_mensuales(id) ON DELETE CASCADE,\n    categoria_id INTEGER NOT NULL REFERENCES categorias(id),\n    tipo_transaccion_id INTEGER NOT NULL REFERENCES tipos_transaccion(id),\n    monto_presupuestado DECIMAL(10,2) DEFAULT 0,\n    monto_actual DECIMAL(10,2) DEFAULT 0,\n    fecha_pago DATE,\n    pagado BOOLEAN DEFAULT FALSE,\n    notas TEXT,\n    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+        "additionalFields": {}
+      },
+      "id": "6c5d227d-f69f-49c6-8383-d4a232a4eb90",
+      "name": "Crear tabla gastos_fijos",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        40,
+        0
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS gastos_variables (\n    id SERIAL PRIMARY KEY,\n    presupuesto_mensual_id INTEGER NOT NULL REFERENCES presupuestos_mensuales(id) ON DELETE CASCADE,\n    categoria_id INTEGER NOT NULL REFERENCES categorias(id),\n    tipo_transaccion_id INTEGER NOT NULL REFERENCES tipos_transaccion(id),\n    monto_presupuestado DECIMAL(10,2) DEFAULT 0,\n    monto_actual DECIMAL(10,2) DEFAULT 0,\n    fecha_gasto DATE,\n    pagado BOOLEAN DEFAULT FALSE,\n    notas TEXT,\n    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+        "additionalFields": {}
+      },
+      "id": "1e34318e-d81f-445f-a419-989856533aad",
+      "name": "Crear tabla gastos_variables",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        240,
+        0
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS metas_ahorro (\n    id SERIAL PRIMARY KEY,\n    usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,\n    nombre VARCHAR(200) NOT NULL,\n    monto_objetivo DECIMAL(12,2) NOT NULL,\n    monto_actual DECIMAL(12,2) DEFAULT 0,\n    fecha_inicio DATE DEFAULT CURRENT_DATE,\n    fecha_objetivo DATE,\n    categoria_id INTEGER REFERENCES categorias(id),\n    descripcion TEXT,\n    completado BOOLEAN DEFAULT FALSE,\n    activo BOOLEAN DEFAULT TRUE,\n    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+        "additionalFields": {}
+      },
+      "id": "ae14b295-63c0-4011-b315-be1a8954e4a1",
+      "name": "Crear tabla metas_ahorro",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS deudas (\n    id SERIAL PRIMARY KEY,\n    usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,\n    nombre VARCHAR(200) NOT NULL,\n    monto_total DECIMAL(12,2) NOT NULL,\n    monto_pendiente DECIMAL(12,2) NOT NULL,\n    tasa_interes DECIMAL(5,2),\n    fecha_inicio DATE,\n    fecha_vencimiento DATE,\n    acreedor VARCHAR(200),\n    descripcion TEXT,\n    activo BOOLEAN DEFAULT TRUE,\n    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+        "additionalFields": {}
+      },
+      "id": "1a76b5d7-e56d-4a8c-afe0-473cd9a9525e",
+      "name": "Crear tabla deudas",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS pagos_deudas (\n    id SERIAL PRIMARY KEY,\n    deuda_id INTEGER NOT NULL REFERENCES deudas(id) ON DELETE CASCADE,\n    presupuesto_mensual_id INTEGER NOT NULL REFERENCES presupuestos_mensuales(id) ON DELETE CASCADE,\n    tipo_transaccion_id INTEGER NOT NULL REFERENCES tipos_transaccion(id),\n    monto_presupuestado DECIMAL(10,2) DEFAULT 0,\n    monto_pagado DECIMAL(10,2) DEFAULT 0,\n    fecha_pago DATE,\n    pagado BOOLEAN DEFAULT FALSE,\n    notas TEXT,\n    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+        "additionalFields": {}
+      },
+      "id": "89994295-14cb-46d2-9ed4-87545db688d4",
+      "name": "Crear tabla pagos_deudas",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        40,
+        200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS inversiones_donaciones (\n    id SERIAL PRIMARY KEY,\n    presupuesto_mensual_id INTEGER NOT NULL REFERENCES presupuestos_mensuales(id) ON DELETE CASCADE,\n    tipo VARCHAR(20) NOT NULL CHECK (tipo IN ('inversion', 'donacion')),\n    concepto VARCHAR(200) NOT NULL,\n    monto_presupuestado DECIMAL(10,2) DEFAULT 0,\n    monto_actual DECIMAL(10,2) DEFAULT 0,\n    fecha DATE,\n    realizado BOOLEAN DEFAULT FALSE,\n    beneficiario VARCHAR(200),\n    notas TEXT,\n    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+        "additionalFields": {}
+      },
+      "id": "ca5d554b-8e62-414d-93fe-4bf8884d5853",
+      "name": "Crear tabla inversiones_donaciones",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        240,
+        200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS transacciones_seguimiento (\n    id SERIAL PRIMARY KEY,\n    presupuesto_mensual_id INTEGER NOT NULL REFERENCES presupuestos_mensuales(id) ON DELETE CASCADE,\n    categoria_id INTEGER NOT NULL REFERENCES categorias(id),\n    monto DECIMAL(10,2) NOT NULL,\n    fecha DATE NOT NULL,\n    descripcion TEXT,\n    notas TEXT,\n    completado BOOLEAN DEFAULT FALSE,\n    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+        "additionalFields": {}
+      },
+      "id": "2a4bdea5-2dba-4802-be23-73699d6fd155",
+      "name": "Crear tabla transacciones_seguimiento",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        440,
+        200
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CREATE TABLE IF NOT EXISTS presupuesto_categorias (\n    id SERIAL PRIMARY KEY,\n    presupuesto_mensual_id INTEGER NOT NULL REFERENCES presupuestos_mensuales(id) ON DELETE CASCADE,\n    categoria_id INTEGER NOT NULL REFERENCES categorias(id),\n    monto_presupuestado DECIMAL(10,2) NOT NULL DEFAULT 0,\n    monto_gastado DECIMAL(10,2) NOT NULL DEFAULT 0,\n    UNIQUE(presupuesto_mensual_id, categoria_id)\n);",
+        "additionalFields": {}
+      },
+      "id": "d5ec4ac1-73df-4369-b5d1-53c9f3bd2fb8",
+      "name": "Crear tabla presupuesto_categorias",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        400
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "-- Crear función para actualizar timestamps\nCREATE OR REPLACE FUNCTION update_timestamp()\nRETURNS TRIGGER AS $$\nBEGIN\n    NEW.fecha_actualizacion = CURRENT_TIMESTAMP;\n    RETURN NEW;\nEND;\n$$ LANGUAGE plpgsql;\n\n-- Crear triggers\nCREATE TRIGGER update_presupuestos_timestamp BEFORE UPDATE ON presupuestos_mensuales\nFOR EACH ROW EXECUTE FUNCTION update_timestamp();\n\nCREATE TRIGGER update_gastos_fijos_timestamp BEFORE UPDATE ON gastos_fijos\nFOR EACH ROW EXECUTE FUNCTION update_timestamp();\n\nCREATE TRIGGER update_gastos_variables_timestamp BEFORE UPDATE ON gastos_variables\nFOR EACH ROW EXECUTE FUNCTION update_timestamp();\n\nCREATE TRIGGER update_metas_ahorro_timestamp BEFORE UPDATE ON metas_ahorro\nFOR EACH ROW EXECUTE FUNCTION update_timestamp();\n\nCREATE TRIGGER update_deudas_timestamp BEFORE UPDATE ON deudas\nFOR EACH ROW EXECUTE FUNCTION update_timestamp();\n\nCREATE TRIGGER update_inversiones_timestamp BEFORE UPDATE ON inversiones_donaciones\nFOR EACH ROW EXECUTE FUNCTION update_timestamp();",
+        "additionalFields": {}
+      },
+      "id": "cfd77f27-7cb2-4057-88b0-3649e8c49067",
+      "name": "Crear triggers",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        40,
+        400
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "status",
+              "value": "Tablas creadas exitosamente!"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4067bdd9-da51-4fdf-9767-5019a1779c11",
+      "name": "Success",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        240,
+        400
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-23T20:13:25.249Z",
+  "versionId": "9446a0b3-ffe2-4ea3-98ca-0c0f46cafc4b"
+}
