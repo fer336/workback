@@ -1,0 +1,225 @@
+{
+  "active": false,
+  "connections": {
+    "getGastos": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getIngresos": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updateGasto": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updateIngresos": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "InsertGasto": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-10T00:31:40.650Z",
+  "id": "KjO3ZmfqQKHXl1Wd",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "MCP Server",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "MCP"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        -780,
+        -80
+      ],
+      "id": "e68d08a0-6e6e-42ac-bd4d-1595ddf3bbb0",
+      "name": "MCP Server Trigger",
+      "webhookId": "e94b6f3e-96d0-41ea-a4f4-0c76c61a0918"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pnd7ab69sg255vo",
+        "table": "mln6q5znoho6ds8",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        -1040,
+        80
+      ],
+      "id": "be1046cd-5559-4456-8da8-975557c6d144",
+      "name": "getGastos",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pnd7ab69sg255vo",
+        "table": "man7zies48vi5bw",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        -880,
+        80
+      ],
+      "id": "46ea981f-c4b9-46d4-a250-710651cfbd82",
+      "name": "getIngresos",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pnd7ab69sg255vo",
+        "table": "mln6q5znoho6ds8",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Value', ``, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        -720,
+        140
+      ],
+      "id": "061e8977-9114-4dc7-be44-07199ff4372c",
+      "name": "updateGasto",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pnd7ab69sg255vo",
+        "table": "mln6q5znoho6ds8",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues0_Field_Value', ``, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        -480,
+        160
+      ],
+      "id": "fa8e24b6-8876-4ee1-a241-0300dfe3de3f",
+      "name": "updateIngresos",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "pnd7ab69sg255vo",
+        "table": "mln6q5znoho6ds8",
+        "dataToSend": "autoMapInputData",
+        "inputsToIgnore": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Inputs_to_Ignore', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        -320,
+        80
+      ],
+      "id": "f85ad1cd-68dc-4c27-acaa-cbdb11833c79",
+      "name": "InsertGasto",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "EBMwLGTBawYqkZM1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-30T18:40:13.556Z",
+  "versionId": "bc6427ed-e629-427e-8c6d-7fe15efff481"
+}
