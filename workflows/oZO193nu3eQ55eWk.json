@@ -1,0 +1,435 @@
+{
+  "active": false,
+  "connections": {
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getCitas": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createCita": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updateCita": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "deleteCita": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "datos": {
+      "main": [
+        [
+          {
+            "node": "Citas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Citas": {
+      "main": [
+        [
+          {
+            "node": "var",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "var": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-19T09:40:11.187Z",
+  "id": "oZO193nu3eQ55eWk",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE CITAS - AGENDAR-REPROGRAMAR-CANCELAR",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ JSON.stringify($json, null, 2) }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "# Agente de Gestión de Citas — Formato Corto\n\n## OBJETIVO\n\nGestionar citas médicas (crear, modificar, cancelar y consultar) devolviendo **únicamente JSON** válido.\n\n---\n\n## INSTRUCCIONES\n\n* **Identificación de intención** (palabras clave → herramienta):\n\n  * **Agendar**: `agendar`, `turno`, `reservar`, `nuevo`, `cita nueva` → `createCita`\n  * **Modificar**: `modificar`, `cambiar`, `reprogramar`, `mover` → `updateCita`\n  * **Cancelar**: `cancelar`, `anular`, `borrar`, `eliminar` → `deleteCita`\n  * **Consultar**: `ver`, `listar`, `mostrar`, `detalle` → `getCitas` / `getCita`\n\n* **Flujo para crear cita**:\n\n  1. Ejecuta `getPaciente` con el `id`.\n  2. Si faltan `email` o `telefono`, complétalos con `updatePaciente`.\n  3. Llama a `createCita` con `fecha` (`YYYY-MM-DDTHH:mm:ss`, UTC-3) y el objeto `paciente`.\n\n* **Formatos de respuesta**:\n\n  * Creación: `{\"id\": <nuevo_id>}`\n  * Modificación: JSON con campos actualizados\n  * Cancelación: `{\"deleted\": \"ok\"}`\n  * Consulta: JSON tal como lo entrega la base\n  * Datos faltantes:\n\n    * Uno → `{\"falta\": \"<param>\"}`\n    * Varios → `{\"faltan\": [\"param1\", \"param2\"]}`\n\n* **Reglas estrictas**:\n\n  * No hagas preguntas ni confirmes acciones.\n  * No incluyas texto fuera del JSON.\n  * Usa siempre fechas ISO UTC-3.\n  * Mantén un tono natural internamente, pero muestra **solo JSON** al usuario.\n\n---\n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        592,
+        -16
+      ],
+      "id": "0fac1392-cdeb-4f3e-a6b0-ce642107d593",
+      "name": "AI Agent",
+      "executeOnce": false,
+      "alwaysOutputData": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        368,
+        352
+      ],
+      "id": "393bf5bc-3a5a-46db-ba8c-b879e9e2fa5a",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Llama a esta tool cuando haya que obtener una cita",
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "mv25ssjt8aflxrb",
+        "returnAll": true,
+        "options": {
+          "where": "=(Pacientes_id,eq,{{ $('datos').item.json.Pacientes_id }}) "
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        624,
+        352
+      ],
+      "id": "733c2cae-7224-4d2f-a9a8-420f1829f88e",
+      "name": "getCitas",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "mv25ssjt8aflxrb",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "fecha",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fecha', `Fecha de la cita en formato ISO`, 'string') }}"
+            },
+            {
+              "fieldName": "Usuarios_id",
+              "fieldValue": "=1"
+            },
+            {
+              "fieldName": "Pacientes_id",
+              "fieldValue": "={{ $('datos').item.json.Pacientes_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        752,
+        352
+      ],
+      "id": "c823af6d-a967-42df-810a-8cbaabeb9994",
+      "name": "createCita",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "mv25ssjt8aflxrb",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "fecha",
+              "fieldValue": "={{ $fromAI('Fecha', `fecha ISO para actualizar`, 'string') }}"
+            },
+            {
+              "fieldName": "Pacientes_id",
+              "fieldValue": "={{ $json.paciente.id }}"
+            },
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.paciente.id }}"
+            },
+            {
+              "fieldName": "tipo_consulta",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues5_Field_Value', ``, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        896,
+        352
+      ],
+      "id": "20f57d5c-40f8-4dd6-b8b3-6334a58d74d5",
+      "name": "updateCita",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "delete",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "mv25ssjt8aflxrb",
+        "primaryKey": "custom",
+        "customPrimaryKey": "Id",
+        "id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Row_ID_Value', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        1040,
+        352
+      ],
+      "id": "2ff57a97-4dbb-4970-b1ab-0a0ebfa34bc9",
+      "name": "deleteCita",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "fecha"
+            },
+            {
+              "name": "Usuarios_id"
+            },
+            {
+              "name": "Pacientes_id"
+            },
+            {
+              "name": "telefono"
+            },
+            {
+              "name": "consulta"
+            }
+          ]
+        }
+      },
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "datos",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -304,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "mv25ssjt8aflxrb",
+        "returnAll": true,
+        "options": {
+          "where": "=(Pacientes_id,eq,{{ $json.Pacientes_id }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -80,
+        128
+      ],
+      "id": "2e709aaf-399e-437b-a8ed-f56233fbde46",
+      "name": "Citas",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "88b15325-3be1-4dc6-b14b-915db1496af2",
+              "name": "paciente.fecha",
+              "value": "={{ $('datos').item.json.fecha }}",
+              "type": "string"
+            },
+            {
+              "id": "e12133c5-c32b-47a1-b9e4-0b1016f86fc4",
+              "name": "paciente.id",
+              "value": "={{ $('datos').item.json.Pacientes_id }}",
+              "type": "string"
+            },
+            {
+              "id": "97597adc-27d2-48dc-87e6-710475015fab",
+              "name": "paciente.telefono",
+              "value": "={{ $('datos').item.json.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "8a3ce449-d3e1-42b5-bcdc-1c20dafd035f",
+              "name": "paciente.consulta",
+              "value": "={{ $('datos').item.json.consulta }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        144,
+        128
+      ],
+      "id": "ac6110d7-7921-4fd3-b265-3127f9d27787",
+      "name": "var"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.paciente.telefono }}",
+        "sessionTTL": 60
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        496,
+        352
+      ],
+      "id": "c5fb379f-1d11-4093-8102-496a0809e913",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "datos": [
+      {
+        "json": {
+          "fecha": "2025-07-29T15:00",
+          "Usuarios_id": "1",
+          "Pacientes_id": "1215",
+          "telefono": "5492254596618",
+          "consulta": "agendar"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-25T02:33:50.793Z",
+  "versionId": "2f34cbe5-ac47-47d3-8052-3d77529a97d1"
+}
