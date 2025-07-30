@@ -1,0 +1,487 @@
+{
+  "active": true,
+  "connections": {
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Configuración3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Antes Envío": {
+      "main": [
+        [
+          {
+            "node": "Texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Después Envío": {
+      "main": [
+        [
+          {
+            "node": "Actualizar Estado1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuración3": {
+      "main": [
+        [
+          {
+            "node": "Preparar Consultas1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Consultas1": {
+      "main": [
+        [
+          {
+            "node": "Obtener Citas1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Citas1": {
+      "main": [
+        [
+          {
+            "node": "getCliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay citas?1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Procesar Citas1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Procesar Citas1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Generar Mensaje1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar Mensaje1": {
+      "main": [
+        [
+          {
+            "node": "Wait Antes Envío",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Actualizar Estado1": {
+      "main": [
+        [
+          {
+            "node": "Procesar Citas1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Texto": {
+      "main": [
+        [
+          {
+            "node": "Wait Después Envío",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getCliente": {
+      "main": [
+        [
+          {
+            "node": "¿Hay citas?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:55:36.736Z",
+  "id": "gBf0RrnCtKpl9sao",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE INMO - CRON",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": "1"
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger2",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2624,
+        -1104
+      ],
+      "id": "fed4689b-abc3-44da-9f9c-45bc84ce159e"
+    },
+    {
+      "parameters": {
+        "respondWith": "redirect",
+        "redirectURL": "https://n8n.innovasoftpro.dev/webhook/tester-nuevo",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1520,
+        -80
+      ],
+      "id": "b5349e2f-7c09-441c-824a-7b21fdee097b",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -800,
+        -1168
+      ],
+      "id": "581bee58-e64e-407c-845f-089314a25728",
+      "name": "Wait Antes Envío",
+      "webhookId": "wait-antes-envio-webhook"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -400,
+        -1168
+      ],
+      "id": "9086d3f5-d361-4ddc-8dd4-c72289d2ff5e",
+      "name": "Wait Después Envío",
+      "webhookId": "wait-despues-envio-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "server_evolution",
+              "name": "server",
+              "value": "https://db.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "table",
+              "name": "table",
+              "value": "mqjswve4r6jiqxv",
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ DateTime.fromISO($json.timestamp).toFormat(\"yyyy-MM-dd'T'HH:mm\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2416,
+        -1104
+      ],
+      "id": "1fe280a9-1fb7-4cc7-b9c2-2712cbc8ca5f",
+      "name": "Configuración3"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener timestamp actual\nconst timestamp = $input.first().json.timestamp;\n\n// Crear consultas para ambos tipos de recordatorio\nconst queries = [\n  {\n    tipo: '24h',\n    campoFuente: 'recordatorio_24h',\n    campoDestino: 'recordatorio_24h_enviado',\n    where: `(recordatorio_24h,eq,${timestamp})`,\n    updateField: 'recordatorio_24h_enviado'\n  },\n  {\n    tipo: '1h', \n    campoFuente: 'recordatorio_1h',\n    campoDestino: 'recordatorio_1h_enviado',\n    where: `(recordatorio_1h,eq,${timestamp})`,\n    updateField: 'recordatorio_1h_enviado'\n  }\n];\n\nreturn queries.map(query => ({\n  json: {\n    ...($input.first().json),\n    tipoRecordatorio: query.tipo,\n    campoFuente: query.campoFuente,\n    campoDestino: query.campoDestino,\n    whereCondition: query.where,\n    updateField: query.updateField\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2224,
+        -1104
+      ],
+      "id": "ab27553f-5602-44d1-962d-46a74d9fd15a",
+      "name": "Preparar Consultas1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pavs050wnuapn49",
+        "table": "=mzg09c810uiqnhc",
+        "returnAll": true,
+        "options": {
+          "where": "={{ $json.whereCondition }}"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -2016,
+        -1104
+      ],
+      "id": "d91c4c67-9484-41a7-a6cc-8486dbdae7b3",
+      "name": "Obtener Citas1",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              },
+              "id": "hay-registros"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1520,
+        -1104
+      ],
+      "id": "bec10956-7fc7-419d-84e5-80f7eecd7c53",
+      "name": "¿Hay citas?1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1280,
+        -1040
+      ],
+      "id": "447f4c25-447c-4e41-aa97-f906e7c9a103",
+      "name": "Procesar Citas1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener datos de la cita\nconst item = $input.first().json;\nconsole.log(\"Datos recibidos:\", JSON.stringify(item, null, 2));\n\n// DETECCIÓN AVANZADA: Basada en proximidad temporal\nlet tipoRecordatorio = \"\";\nif (item.tipoRecordatorio) {\n  tipoRecordatorio = item.tipoRecordatorio;\n} else {\n  // Calcular tiempo hasta la cita\n  const ahora = new Date();\n  const fechaCita = new Date(item.Fecha_cita);\n  \n  // Logs de debug para diagnóstico\n  console.log(\"Fecha cita raw:\", item.Fecha_cita);\n  console.log(\"Fecha cita parseada:\", fechaCita);\n  console.log(\"Fecha actual:\", ahora);\n  \n  const tiempoHastaCita = fechaCita.getTime() - ahora.getTime();\n  const horasHastaCita = tiempoHastaCita / (1000 * 60 * 60);\n  \n  console.log(\"Tiempo hasta cita (ms):\", tiempoHastaCita);\n  console.log(\"Horas hasta cita:\", horasHastaCita);\n  \n  // Determinar tipo basado en tiempo restante\n  if (horasHastaCita <= 1.5) {\n    tipoRecordatorio = \"1h\";\n  } else if (horasHastaCita <= 25) {\n    tipoRecordatorio = \"24h\";\n  } else {\n    tipoRecordatorio = \"unknown\";\n  }\n}\nconsole.log(\"Tipo detectado:\", tipoRecordatorio);\n\n// Extraer información de otros nodos\nlet nombre = \"Cliente\";\nlet propiedad = \"la propiedad\";\n\ntry {\n  // Obtener nombre del cliente desde el nodo getCliente\n  const clienteData = $('getCliente').first();\n  if (clienteData && clienteData.json && clienteData.json.Nombre) {\n    const nombreCompleto = clienteData.json.Nombre;\n    // Extraer solo el primer nombre\n    nombre = nombreCompleto.split(' ')[0];\n    console.log(\"Nombre completo:\", nombreCompleto);\n    console.log(\"Primer nombre extraído:\", nombre);\n  }\n} catch (error) {\n  console.log(\"Error obteniendo nombre:\", error);\n}\n\ntry {\n  // Obtener dirección de la propiedad desde el nodo Obtener Citas1\n  const citasData = $('Obtener Citas1').first();\n  if (citasData && citasData.json && citasData.json.Propiedad) {\n    propiedad = citasData.json.Propiedad;\n  }\n  console.log(\"Propiedad obtenida:\", propiedad);\n} catch (error) {\n  console.log(\"Error obteniendo propiedad:\", error);\n}\n\n// Extraer información de la cita\nconst fechaCita = item.Fecha_cita || \"\";\nconst telefono = item.Telefono || \"\";\n\n// Formatear fecha\nfunction formatearFecha(fechaStr) {\n  try {\n    if (!fechaStr) return \"sin hora\";\n    \n    if (fechaStr.includes('T')) {\n      const [fecha, tiempo] = fechaStr.split('T');\n      const [hora, minutos] = tiempo.split(':');\n      return `${hora}:${minutos}`;\n    }\n    \n    return fechaStr;\n  } catch (e) {\n    return \"sin hora\";\n  }\n}\nconst horaFormateada = formatearFecha(fechaCita);\n\n// Generar mensaje según tipo de recordatorio\nlet mensaje = \"\";\nif (tipoRecordatorio === \"24h\") {\n  mensaje = `Hola ${nombre}, como estas? te envio este recordatorio para decirte que mañana a las ${horaFormateada} hs tenes una visita a la propiedad ${propiedad}, te esperamos`;\n} else if (tipoRecordatorio === \"1h\") {\n  mensaje = `Hola ${nombre}, como estas? te envio este recordatorio para decirte que en una hora nos vemos en la propiedad acordada, te esperamos`;\n} else {\n  mensaje = `Hola ${nombre}, como estas? te envio este recordatorio para decirte que tenes una visita a la propiedad ${propiedad}, te esperamos`;\n}\n\nconsole.log(\"Mensaje generado:\", mensaje);\n\nreturn {\n  json: {\n    ...item,\n    mensaje: mensaje,\n    telefono_limpio: telefono.replace(/\\D/g, ''),\n    horaFormateada: horaFormateada,\n    tipoRecordatorio: tipoRecordatorio,\n    debug_nombre: nombre,\n    debug_propiedad: propiedad,\n    debug_tipo: tipoRecordatorio\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1056,
+        -1168
+      ],
+      "id": "5d15ca65-789f-489b-a332-15c7bfc90323",
+      "name": "Generar Mensaje1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "pavs050wnuapn49",
+        "table": "=mzg09c810uiqnhc",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $('Obtener Citas1').item.json.Id }}"
+            },
+            {
+              "fieldName": "={{ $('Preparar Consultas1').item.json.campoDestino }}",
+              "fieldValue": "enviado"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -160,
+        -976
+      ],
+      "id": "50f832d0-62fd-4501-bce8-38f1f40df884",
+      "name": "Actualizar Estado1",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.mensaje }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Generar Mensaje1').first().json.Telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -624,
+        -1168
+      ],
+      "id": "0e632ed2-7a27-4641-8f1c-8685841259ec",
+      "name": "Texto",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ekaTMbiKps3wYx80",
+          "name": "Whapi - Agente inmobiliario"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pavs050wnuapn49",
+        "table": "m097w4nkzri1xs1",
+        "returnAll": true,
+        "options": {
+          "where": "=(Id,eq,{{ $json.Clientes.Id }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -1760,
+        -1104
+      ],
+      "id": "7774659a-7894-4c00-abe6-e5f3afbfe145",
+      "name": "getCliente",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger2": [
+      {
+        "json": {
+          "timestamp": "2025-07-17T12:16:45.005-03:00",
+          "Readable date": "July 17th 2025, 12:16:45 pm",
+          "Readable time": "12:16:45 pm",
+          "Day of week": "Thursday",
+          "Year": "2025",
+          "Month": "July",
+          "Day of month": "17",
+          "Hour": "12",
+          "Minute": "16",
+          "Second": "45",
+          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "errorWorkflow": "EBMwLGTBawYqkZM1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": {
+    "node:Schedule Trigger2": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-18T02:09:42.184Z",
+  "versionId": "6e00017c-be5c-4cfb-9a15-05b48c16ff6f"
+}
