@@ -1,0 +1,137 @@
+{
+  "active": false,
+  "connections": {
+    "Ubicacion": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:55:51.591Z",
+  "id": "iBLIEW5KsmTTLQJ9",
+  "isArchived": false,
+  "meta": null,
+  "name": "DESPENSA - Ubicacion",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"Telefono\": \"\"\n}"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -100,
+        -40
+      ],
+      "id": "e77480aa-a575-41e7-a126-8667948f2071",
+      "name": "Ubicacion"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/location",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.Telefono }}"
+            },
+            {
+              "name": "latitude",
+              "value": -37.991875
+            },
+            {
+              "name": "longitude",
+              "value": -57.5705472
+            },
+            {
+              "name": "address",
+              "value": "Neuquén 2098"
+            },
+            {
+              "name": "name",
+              "value": "Lo de pocho"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        180,
+        -40
+      ],
+      "id": "f0b1ce1e-b219-4c80-8822-0b3b84d80e8f",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4bc00997-507f-48a3-9bca-34c17c7b1a4c",
+              "name": "response",
+              "value": "true",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        400,
+        -40
+      ],
+      "id": "a63c74ff-1aba-42bf-9c38-cd1479a5fb20",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-28T03:59:13.657Z",
+  "versionId": "6483772f-3f5c-429e-941f-021d610d117b"
+}
