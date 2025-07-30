@@ -1,0 +1,240 @@
+{
+  "active": false,
+  "connections": {
+    "REPROGRAMAR": {
+      "main": [
+        [
+          {
+            "node": "vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "vars": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Lista",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-24T03:00:45.139Z",
+  "id": "FIIYDH2UfSIcKxG2",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE CITAS - DISPONIBLIDAD",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Id"
+            },
+            {
+              "name": "numero"
+            }
+          ]
+        }
+      },
+      "id": "cdb1635d-3fbd-414c-8166-59243e16c8dd",
+      "typeVersion": 1.1,
+      "name": "REPROGRAMAR",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        272,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        352
+      ],
+      "id": "48b5479e-caee-46ea-93d1-1b6c4f2a4aa5",
+      "name": "vars"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "mv25ssjt8aflxrb",
+        "returnAll": true,
+        "options": {
+          "where": "=(Pacientes_id,eq,{{ $json.Id }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        688,
+        352
+      ],
+      "id": "3c04b2bf-b804-4e66-877d-42d8b2d8662a",
+      "name": "Get many rows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const datos = $input.all();\nconst paciente = datos[0].json.Pacientes.paciente;\n\nconst dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];\nconst meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];\n\nfunction formatearFecha(fechaISO) {\n  const fecha = new Date(fechaISO);\n  const diaSemana = dias[fecha.getDay()];\n  const dia = fecha.getDate();\n  const mes = meses[fecha.getMonth()];\n  const anio = fecha.getFullYear();\n  const horas = fecha.getHours();\n  const minutos = fecha.getMinutes().toString().padStart(2, '0');\n  return `${capitalize(diaSemana)} ${dia} de ${mes} ${anio} a las ${horas}:${minutos}`;\n}\n\nfunction capitalize(str) {\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n\nconst opciones = datos.map(item => {\n  const fechaFormateada = formatearFecha(item.json.fecha);\n  return {\n    rowId: item.json.Id.toString(), // Usamos el ID real de la cita\n    title: `📅 ${fechaFormateada}`,\n    description: `👤 ${item.json.Pacientes.paciente} | 🔄 Reprogramar turno`\n  };\n});\n\nconst requestBody = {\n  to: $('vars').first().json.numero,\n  buttonText: \"📆 Elegir cita\",\n  title: \"📋 Tus turnos agendados\",\n  description: `Hola *${paciente}*, seleccioná cuál de estas citas querés reprogramar 🔄`,\n  footer: \"🦷 Clínica CleanDent\",\n  sections: [\n    {\n      title: \"🗓️ Citas disponibles para reprogramar\",\n      rows: opciones\n    }\n  ]\n};\n\nreturn [{ json: requestBody }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        944,
+        352
+      ],
+      "id": "798c88ff-f703-4f67-ac0e-37c3439b3748",
+      "name": "Lista"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/list",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "tittle",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1152,
+        352
+      ],
+      "id": "cf8fe8ed-14fc-47db-9874-c868c3093100",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c2ea2ad6-96a5-4106-bb4d-21b844b935b4",
+              "name": "response",
+              "value": "LISTA_ENVIADA",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1360,
+        352
+      ],
+      "id": "6620a7cc-18bb-4344-ab91-3f849fe8f29d",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {
+    "REPROGRAMAR": [
+      {
+        "json": {
+          "Id": "1210",
+          "numero": 5492254596618
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-24T03:00:45.139Z",
+  "versionId": "17a06f65-410c-4908-a9f2-fd611922ad61"
+}
