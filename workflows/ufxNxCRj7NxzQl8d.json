@@ -1,0 +1,134 @@
+{
+  "active": false,
+  "connections": {
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Subir a catalogo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:55:58.688Z",
+  "id": "ufxNxCRj7NxzQl8d",
+  "isArchived": false,
+  "meta": null,
+  "name": "AGENTE QEVA - SUBE CATALOGO",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      product_retailer_id: $input.first().json.body.data.previous_rows[0].product_retailer_id,\n      name: $input.first().json.body.data.previous_rows[0].name,\n      description: $input.first().json.body.data.previous_rows[0].description,\n      price: Number($input.first().json.body.data.previous_rows[0].price),\n      currency: $input.first().json.body.data.previous_rows[0].currency || \"ARS\",\n      availability: $input.first().json.body.data.previous_rows[0].availability || \"in stock\",\n      images: [\n        `https://db.innovasoftpro.dev/${$input.first().json.body.data.rows[0].images[0].path}`\n      ]\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -120,
+        -40
+      ],
+      "id": "03348c9f-160a-4a67-b10b-c1159b864f41",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/business/products",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "currency",
+              "value": "={{ $json.currency }}"
+            },
+            {
+              "name": "images",
+              "value": "={{ $json.images }}"
+            },
+            {
+              "name": "product_retailer_id",
+              "value": "={{ $json.product_retailer_id }}"
+            },
+            {
+              "name": "availability",
+              "value": "={{ $json.availability }}"
+            },
+            {
+              "name": "name",
+              "value": "={{ $json.name }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "price",
+              "value": "={{ $json.price }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        140,
+        -40
+      ],
+      "id": "8f34480f-bfaf-4f2e-bb03-784e3e2f9d80",
+      "name": "Subir a catalogo"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nocodb",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -40
+      ],
+      "id": "4f45fb59-9b53-4045-8894-eef79c865d55",
+      "name": "Webhook",
+      "webhookId": "cc9d841f-451c-4bb3-8baf-1305935e11b0"
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-28T04:03:46.808Z",
+  "versionId": "34e3d646-05a8-4074-9702-c7a2001de2fe"
+}
