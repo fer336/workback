@@ -1,0 +1,872 @@
+{
+  "active": true,
+  "connections": {
+    "Producto": {
+      "main": [
+        [
+          {
+            "node": "set1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Categorias": {
+      "main": [
+        [
+          {
+            "node": "set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "UPDATE",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "INSERT",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "DELETE",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get many rows1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UPDATE": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSERT": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DELETE": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "UPDATE PRODUCTO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "INSERT PRODUCTO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "DELETE PRODUCTO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "set1": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "UPDATE PRODUCTO": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "INSERT PRODUCTO": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DELETE PRODUCTO": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-09T01:34:53.910Z",
+  "id": "8b5WpwYNMnclB7Hw",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "SISTEMA - INVENTARIO",
+  "nodes": [
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        352,
+        -48
+      ],
+      "id": "576e873d-52f0-4b1d-8f20-29e139d853c8",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Productos",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1216,
+        864
+      ],
+      "id": "cee4ec41-2c49-42de-abc4-7ed2f73d4ec2",
+      "name": "Producto",
+      "webhookId": "fd0ed470-c34c-46e2-968f-02d872103711"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Categorias",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        -48
+      ],
+      "id": "9f2e984f-5bd7-43a0-b224-b205b757acfc",
+      "name": "Categorias",
+      "webhookId": "fd0ed470-c34c-46e2-968f-02d872103711"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "UPD",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6e034d0a-edd5-485d-9449-70347b83e0e3"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "UPDATE"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "44ee70cb-e6af-45a6-ac33-8684b336ceb2",
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "INS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "INSERT"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1efa16c1-ad91-457d-b08c-fb96e9958ccb",
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "DEL",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "DELETE"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "fabdbe36-2dc9-4696-8bbd-d7f25756d7a6",
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "GET",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "GET-ALL"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -96,
+        -64
+      ],
+      "id": "9dec3e26-e0c2-4d55-aea8-ba1b4a59db91",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "p7vpfrshmv7wgwu",
+        "table": "mxr1ienbs5idx10",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Descripcion",
+              "fieldValue": "={{ $('set').first().json.body.categoria.nombre }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        128,
+        -144
+      ],
+      "id": "53c5d04e-9a6a-419c-bae2-5700d39ef42a",
+      "name": "INSERT",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "p7vpfrshmv7wgwu",
+        "table": "mxr1ienbs5idx10",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Descripcion",
+              "fieldValue": "={{ $('set').item.json.body.categoria.nombre }}"
+            },
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $('set').item.json.body.categoria.id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        128,
+        -336
+      ],
+      "id": "eda5393e-1ae0-4135-87d3-2ab90b9b4aa3",
+      "name": "UPDATE",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "delete",
+        "projectId": "p7vpfrshmv7wgwu",
+        "table": "mxr1ienbs5idx10",
+        "id": "={{ $json.body.categoria.id }}"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        128,
+        64
+      ],
+      "id": "7304779f-73ea-4b37-afd6-6d8e1882cd52",
+      "name": "DELETE",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -320,
+        -48
+      ],
+      "id": "5a8497ea-0a15-4bc0-a45b-355c54da6011",
+      "name": "set"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        560,
+        832
+      ],
+      "id": "48477d1b-22b9-412a-8228-6e607965dd27",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "UPD",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6e034d0a-edd5-485d-9449-70347b83e0e3"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "UPDATE"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "44ee70cb-e6af-45a6-ac33-8684b336ceb2",
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "INS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "INSERT"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1efa16c1-ad91-457d-b08c-fb96e9958ccb",
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "DEL",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "DELETE"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "698b38fc-96b4-434d-bbea-6b6ed48cbcb9",
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "GET",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "GET-ALL"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -768,
+        832
+      ],
+      "id": "3cfb9880-f9e9-45f8-85fc-0a4d000d0bd8",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -992,
+        864
+      ],
+      "id": "a3428013-8655-4085-a89f-fc1399314656",
+      "name": "set1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "p7vpfrshmv7wgwu",
+        "table": "myvcgiihz6z3d44",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "producto",
+              "fieldValue": "={{ $('set1').item.json.body.producto.nombre }}"
+            },
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $('set1').item.json.body.producto.id }}"
+            },
+            {
+              "fieldName": "descripcion",
+              "fieldValue": "={{ $('set1').item.json.body.producto.descripcion }}"
+            },
+            {
+              "fieldName": "=precio_venta",
+              "fieldValue": "={{ $('set1').item.json.body.producto.precio }}"
+            },
+            {
+              "fieldName": "Categoria",
+              "fieldValue": "={{ $('set1').item.json.body.producto.categoria }}"
+            },
+            {
+              "fieldName": "imagen",
+              "fieldValue": "=https//db.qeva.xyz/{{ $('set1').item.json.body.producto.imagenes[0] }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        336,
+        528
+      ],
+      "id": "fd9eabeb-be17-443b-a124-eb9e52844f24",
+      "name": "UPDATE PRODUCTO",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "projectId": "p7vpfrshmv7wgwu",
+        "table": "myvcgiihz6z3d44",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "producto",
+              "fieldValue": "={{ $json.body.producto.nombre }}"
+            },
+            {
+              "fieldName": "descripcion",
+              "fieldValue": "={{ $json.body.producto.descripcion }}"
+            },
+            {
+              "fieldName": "=precio_venta",
+              "fieldValue": "={{ $json.body.producto.precio }}"
+            },
+            {
+              "fieldName": "Categorias",
+              "fieldValue": "={{ $json.body.producto.categoria }}"
+            },
+            {
+              "fieldName": "Imagen",
+              "binaryData": true,
+              "binaryProperty": "={{ $json.body.producto.imagenesBase64[0].base64 }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        336,
+        720
+      ],
+      "id": "598b62cd-6e92-49e8-841b-1b4f24b328b6",
+      "name": "INSERT PRODUCTO",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "delete",
+        "projectId": "p7vpfrshmv7wgwu",
+        "table": "myvcgiihz6z3d44",
+        "id": "={{ $json.body.categoria.id }}"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        336,
+        928
+      ],
+      "id": "2a25c426-71b1-45d8-aa25-95a96c204323",
+      "name": "DELETE PRODUCTO",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p7vpfrshmv7wgwu",
+        "table": "mxr1ienbs5idx10",
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        128,
+        272
+      ],
+      "id": "ffe10bbf-1372-4365-80d5-f22e3e87ed6b",
+      "name": "Get many rows1",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p7vpfrshmv7wgwu",
+        "table": "myvcgiihz6z3d44",
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        320,
+        1152
+      ],
+      "id": "620883c7-1f63-44b3-b6e8-f779747f867e",
+      "name": "Get many rows",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Categorias": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8nw.qeva.xyz",
+            "user-agent": "node",
+            "content-length": "158",
+            "accept": "*/*",
+            "accept-encoding": "br, gzip, deflate",
+            "accept-language": "*",
+            "content-type": "application/json",
+            "sec-fetch-mode": "cors",
+            "x-forwarded-for": "201.219.107.198",
+            "x-forwarded-host": "n8nw.qeva.xyz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "73f96af33264",
+            "x-real-ip": "201.219.107.198"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "action": "INS",
+            "categoria": {
+              "nombre": "Jabones",
+              "fecha_creacion": "2025-07-09T07:46:37.995Z"
+            },
+            "timestamp": "2025-07-09T07:46:37.995Z",
+            "origin": "inventario_app"
+          },
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/editCategoria",
+          "executionMode": "production"
+        }
+      }
+    ],
+    "Producto": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8nw.qeva.xyz",
+            "user-agent": "node",
+            "content-length": "196",
+            "accept": "*/*",
+            "accept-encoding": "br, gzip, deflate",
+            "accept-language": "*",
+            "content-type": "application/json",
+            "sec-fetch-mode": "cors",
+            "x-forwarded-for": "201.219.107.198",
+            "x-forwarded-host": "n8nw.qeva.xyz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "7697b68d06c2",
+            "x-real-ip": "201.219.107.198"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "action": "GET",
+            "producto": {
+              "descripcion": "",
+              "codigo": "",
+              "categoria": "",
+              "imagenes": [],
+              "imagenesBase64": [],
+              "imagen_principal": null
+            },
+            "timestamp": "2025-07-19T00:13:30.173Z",
+            "origin": "inventario_app"
+          },
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/Productos",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "EBMwLGTBawYqkZM1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-07-19T00:15:55.758Z",
+  "versionId": "749dbdd5-f686-4840-87a4-eb8710650c3a"
+}
