@@ -1,0 +1,658 @@
+{
+  "active": false,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        []
+      ]
+    },
+    "VEO3": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Set Blotato IDs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Blotato IDs": {
+      "main": [
+        [
+          {
+            "node": "Vídeo Listo en Blotato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vídeo Listo en Blotato": {
+      "main": [
+        []
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:56:00.916Z",
+  "id": "Fy1ZPo0J3a41XA9x",
+  "isArchived": false,
+  "meta": null,
+  "name": "SUBIR CONTENIDO VEO3",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1140,
+        -220
+      ],
+      "id": "f04b3f12-a781-4e42-be5a-46c295eb49cf",
+      "name": "Schedule Trigger",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Sex / Apparent Age: Male, timeless sage appearance of about 50–60 years old\nEthnicity: Hellenistic Egyptian–Greek, olive to light-brown skin with subtle Mediterranean features\nHeight: Approximately 1.80 m / 5′11″\nBuild: Lean yet sturdy; hands displaying both scholarly finesse and long ritual practice\nSkin: Warm tan, lightly weathered with fine lines of wisdom\nHair: Salt-and-pepper, shoulder-length, loosely wavy with a center part; thick, matte texture\nBeard: Full and well-groomed (~4 cm), streaked with silver; integrated mustache\nEyes: Pale green with gold flecks; calm yet piercing gaze\nEyebrows: Arched, medium thickness, highly expressive\nNose / Lips: Prominent straight nose; full lips set in a thoughtful half-smile\n\nClothing & Accessories:\n\nInner tunic of fine, undyed linen with long sleeves pushed up to the forearms\n\nOuter robe of deep indigo wool, hem embroidered with alchemical sigils, draped over the left shoulder and cinched by a slender leather belt\n\nSoft leather sandals with braided straps\n\nOrnate bronze ring (triangle-circle symbol) on the ring finger\n\nCarried wooden staff topped with a weathered scarab\n\nPosture & Gesture:\n\nUpright yet relaxed stance\n\nOpen-palm teaching gestures\n\nSlight forward lean when listening\n\nLighting & Atmosphere:\n\nTwilight hour beside a bonfire of bioluminescent logs\n\nMix of warm firelight and cool neon backlight to accentuate robes and facial lines\n\n\n\n\n\n\n\n\n\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are an AI that generates ONE immersive, realistic short-form video idea at a time.  \nThe idea MUST star **Hermes Trismegistus**—a timeless sage (see physical reference below) imparting ancient wisdom to futuristic listeners.\n\nOUTPUT must be a SINGLE-LINE JSON array and obey every rule that follows.\n\nPHYSICAL REFERENCE (always keep consistent):  \nHermes Trismegistus—ageless male appearing 50–60 years old; Hellenistic Egyptian–Greek, olive to light-brown skin; lean yet sturdy build, ~1.80 m tall; shoulder-length salt-and-pepper hair, matte texture; full 4 cm silver-streaked beard; pale green eyes with gold flecks and arched brows; prominent straight nose, thoughtful half-smile; wears an undyed fine linen tunic (sleeves rolled to forearms) under a deep indigo wool robe embroidered with alchemical sigils, draped over left shoulder and cinched by a slender leather belt carrying scroll pouches and crystal vials; soft braided leather sandals; ornate bronze ring (triangle-circle symbol) on ring finger; carries a wooden staff topped with a weathered scarab; stands upright yet relaxed, uses open-palm teaching gestures and slight forward lean when listening; always shown at twilight by a bonfire of bioluminescent logs with warm firelight and cool neon backlight.\n\nRULES:  \n1. **Only return ONE idea per response.**  \n2. The USER will supply a `<key topic>` (e.g. “quantum computing”, “urban gardening”). Hermes’s teaching must tie cleverly to that topic.  \n3. **<idea>** (max 13 words): Describe a striking or viral-worthy action or moment with Hermes and the topic; must involve him teaching or demonstrating hermetic wisdom.  \n4. **<title>** (max 10 words) + **<caption>**: Short, punchy, social-friendly. Include ONE relevant emoji. End with EXACTLY 12 hashtags on one line:  \n   - 4 topic-relevant hashtags  \n   - 4 all-time popular hashtags  \n   - 4 currently trending hashtags  \n   All lowercase, no spaces.  \n5. **<environment>** (max 20 words): Precisely matches the action in `<idea>`; specify location (ancient ruins, neon lab), key visuals (fog, holograms), participants (Hermes; may include robots or seekers), and style (cinematic realism, handheld docu-style).  \n6. **<status>**: always `\"for production\"`.  \n\nOUTPUT FORMAT (single-line JSON array):  \n[  \n  {  \n    \"idea\":\"<idea>\",  \n    \"title\":\"<title>\",  \n    \"caption\":\"<caption>\",  \n    \"environment\":\"<environment>\",  \n    \"status\":\"para production\"  \n  }  \n]  \n\nreturn only the json array, no extra text\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -920,
+        -220
+      ],
+      "id": "e5349334-4ce2-4895-82df-ae021ae03a6b",
+      "name": "AI Agent",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "[\n{\n    \"Título\": \"Diver Removes Nets Off Whale 🐋 #whalesrescue #marinelife #oceanrescue #sealhelpers #love #nature #instagood #explore #viral #savenature #oceanguardians #cleanoceans\",\n    \"Idea\": \"Diver carefully cuts tangled net from distressed whale\",\n    \"Entorno\": \"Open ocean, sunlight beams through water, diver and whale, cinematic realism\",\n    \"Estado\": \"para producción\"\n  }\n]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        -780,
+        100
+      ],
+      "id": "2632c6bb-5d0a-4190-8bb9-8d3e9bb0758b",
+      "name": "Structured Output Parser",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        -780,
+        -480
+      ],
+      "id": "4495b313-25ac-48c2-bd35-717142f2c47a",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1mdJ3TCAXCv_ZPDIG6L0LKQBP4PclqPL2g7elCxnQBKk",
+          "mode": "list",
+          "cachedResultName": "VEO3 Contenido",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mdJ3TCAXCv_ZPDIG6L0LKQBP4PclqPL2g7elCxnQBKk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mdJ3TCAXCv_ZPDIG6L0LKQBP4PclqPL2g7elCxnQBKk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "idea": "={{ $json.output[0].idea }}",
+            "Título": "={{ $json.output[0].title }}",
+            "Estado": "={{ $json.output[0].status }}",
+            "Entorno": "={{ $json.output[0].environment }}",
+            "id": "=1"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "idea",
+              "displayName": "idea",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Título",
+              "displayName": "Título",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Entorno",
+              "displayName": "Entorno",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Salida Final",
+              "displayName": "Salida Final",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -500,
+        -220
+      ],
+      "id": "4f025e92-8047-4e06-bde6-7f16f233f3f7",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lRj57XPEqOXW9kOd",
+          "name": "Qeva Solutions Sheet"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Give me a Veo3 prompt based on this idea:\n{{ $json.idea }}\n\nThis is the environment:\n{{ $json.Entorno }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "RULES FOR PROMPT GENERATION\n\nSingle paragraph of 750–1500 characters. No line breaks or headings.\n\nOnly one human character. Never give them a name.\n\nInclude exactly one spoken line of dialogue and describe how it’s delivered.\n\nThe character must perform a physical action, however subtle (e.g., side-glance, smile, camera shift).\n\nUse selfie-style framing. Always describe lens, film stock, and camera behavior.\n\nThe scene must feel real and cinematic—like a short clip someone might shoot on their phone.\n\nAlways include the five key technical elements: Time of Day, Lens, Film Stock, Audio.\n\nConsistent Voice Profile (Spanish Argentinian, buenos aires):\n\nRegister & Timbre: mid-baritone, gravelly and dusty; slight wheeze on exhale.\n\nAccent: light Andalusian inflection layered over neutral urban English; pronounced rolled “r.”\n\nPacing: measured pauses between phrases, as if savoring each word.\n\nTone Shifts: warm and conspiratorial when giving advice; brief raspy chuckle at punchlines.\n\nAmbient Detail: occasional street noise bleeding into mic; voice remains upfront.\n\nDO NOT:\n\nName the character.\n\nInclude more than one character.\n\nDescribe subtitles or on-screen text.\n\nBreak the paragraph or use any formatting.\n\nWrite vague or abstract scenes; always ground the prompt in physical detail and a specific environment."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -300,
+        -220
+      ],
+      "id": "deaec6d1-7fab-4428-8096-db1e1c15b4be",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://queue.fal.run/fal-ai/veo3",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.chatInput }}"
+            },
+            {
+              "name": "aspect_ratio",
+              "value": "9:16"
+            },
+            {
+              "name": "duration",
+              "value": "8s"
+            },
+            {
+              "name": "enhance_prompt",
+              "value": "true"
+            },
+            {
+              "name": "generate_audio",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        -40
+      ],
+      "id": "f322c45e-6041-4b9c-9b29-db8a0d3cc292",
+      "name": "VEO3",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "YQE5PBrFHpm6bhoV",
+          "name": "Whapi Automatizaciones"
+        },
+        "httpHeaderAuth": {
+          "id": "Xin6p7ZHTX1PWjhS",
+          "name": "Header Auth - Fal AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://queue.fal.run/fal-ai/veo3/requests/{{ $('VEO3').first().json.request_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1560,
+        -180
+      ],
+      "id": "63be2aee-3e93-42b2-948b-4fa14ed8bc60",
+      "name": "HTTP Request",
+      "alwaysOutputData": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Xin6p7ZHTX1PWjhS",
+          "name": "Header Auth - Fal AI"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1280,
+        -40
+      ],
+      "id": "ec10b8a8-0316-494d-8c63-a8c4716eed50",
+      "name": "Wait",
+      "webhookId": "d135fb50-f43c-4449-b6e7-4bf053f47de4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "705e8fb6-b16b-480a-a4e9-4ebf689c604e",
+              "leftValue": "={{ $json.video.url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1820,
+        -40
+      ],
+      "id": "ed9515dd-f4b5-4ef9-b049-a7ff8c0f325b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{   \n    \"youtube\": \"4699\",\n    \"tiktok\": \"6842\"   \n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2080,
+        -60
+      ],
+      "id": "d6746742-d664-42f6-a82e-101e11798d10",
+      "name": "Set Blotato IDs"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://backend.blotato.com/v2/posts",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "blotato-api-key",
+              "value": "=blt_Eb+9+8hjY6q8RStAypxV7D5W60qNKHHEEcjtrFVugoI="
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"youtube\",\n      \"title\": \"{{ $('Google Sheets').first().json.idea }}\",\n      \"privacyStatus\": \"public\",\n      \"shouldNotifySubscribers\":false\n    },\n    \"content\": {\n      \"text\": \"{{ $('AI Agent').item.json.output[0].idea }}\",\n      \"platform\": \"youtube\",\n      \"mediaUrls\": [\"{{ $('If').first().json.video.url }}\"]\n    },\n    \"accountId\": \"{{ $('Set Blotato IDs').first().json.youtube }}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2680,
+        -520
+      ],
+      "id": "d08c3bab-05fa-45f4-95d8-634466b565a6",
+      "name": "🔺YOUTUBE",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://backend.blotato.com/v2/posts",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "blotato-api-key",
+              "value": "PEGA AQUÍ TU API KEY DE BLOTATO"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"post\": {\n    \"target\": {\n      \"targetType\": \"instagram\"\n    },\n    \"content\": {\n      \"text\": \"{{ $('Generador de copys').item.json.text }}\",\n      \"platform\": \"instagram\",\n      \"mediaUrls\": [\"{{ $json.url }}\"]\n    },\n    \"accountId\": \"{{ $('Set Blotato IDs').first().json.instagram }}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2600,
+        120
+      ],
+      "id": "039451da-e298-41e0-935a-bcebc53aaa28",
+      "name": "📷 INSTAGRAM",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://backend.blotato.com/v2/media",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "blotato-api-key",
+              "value": "blt_Eb+9+8hjY6q8RStAypxV7D5W60qNKHHEEcjtrFVugoI="
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "={{ $('HTTP Request').first().json.video.url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2360,
+        -60
+      ],
+      "id": "d2b360a0-75c2-4756-bfe6-63b6a5eafbc0",
+      "name": "Vídeo Listo en Blotato",
+      "executeOnce": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        -480
+      ],
+      "id": "7b93bded-fdc8-4bfc-b691-9b4872da4d22",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        740,
+        -40
+      ],
+      "id": "e87c03af-8334-489f-8f11-1a1be6749d82",
+      "name": "When chat message received",
+      "webhookId": "dd27db12-43f0-4af4-9c89-19db26912aa8"
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-28T04:13:09.967Z",
+  "versionId": "91ff9bc7-5927-4a90-a66d-19086a96aa62"
+}
