@@ -1,0 +1,1296 @@
+{
+  "active": false,
+  "connections": {
+    "From Me2": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Redis2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "V",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "calcular_total": {
+      "ai_tool": [
+        [
+          {
+            "node": "Pocho",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pocho": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [],
+        [],
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "msg": {
+      "main": [
+        []
+      ]
+    },
+    "Validar Cliente": {
+      "main": [
+        [
+          {
+            "node": "Variables globales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Variables globales": {
+      "main": [
+        []
+      ]
+    },
+    "V": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis2": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Validar Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "1,2s",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Pocho",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "vars": {
+      "main": [
+        []
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Encolado de msg1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Encolado de msg1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Pocho",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Pocho",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Encolado de msg1": {
+      "main": [
+        [
+          {
+            "node": "vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-10T14:39:57.117Z",
+  "id": "G2yy37freObclXty",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 14",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "94746291-c0f3-44f3-b635-1fe696d7d74e",
+              "leftValue": "={{ $('Webhook').item.json.body.messages[0].from_me }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b6767b5d-fef8-4327-aef5-7c4e6a4dd675",
+      "name": "From Me2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        200,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "es-wa-fer",
+        "options": {}
+      },
+      "id": "90a562c7-d664-4844-80fd-c833c6b72a01",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        800,
+        1560
+      ],
+      "webhookId": "3ba6ce2e-1b02-4b06-8edd-9c60afb2db89"
+    },
+    {
+      "parameters": {},
+      "id": "e1ce9a43-a610-42b7-81cd-b42338daafc9",
+      "name": "calcular_total",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        2460,
+        1180
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "={\n  \"name\": \"Natalia\",\n  \"context\": {\n    \"identity\": \"Vendedora de productos Natura por WhatsApp\",\n    \"business\": \"Emprendimiento personal - Venta de Natura\",\n    \"Language\": \"español argentino\",\n    \"data_atual\": \"hoy es: {{ $now.weekdayLong }}, {{ $now.format('dd/MM/yyyy') }}, hora: {{ $now.hour.toString().padStart(2, '0') }}:{{ $now.minute.toString().padStart(2, '0') }}\"\n  },\n  \"Informação actualizada para usar en respuesta\": \"{{ $json.output }}\",\n  \"personality\": [\n    \"Habla con un tono profesional pero relajado y natural\",\n    \"No usa emojis\",\n    \"Usa expresiones argentinas de forma natural\",\n    \"No habla como robot\",\n    \"Estilo conversacional y directo, pero no invasivo\"\n  },\n  \"objectives\": [\n    \"Vender productos Natura sin atosigar al cliente\"\n  ],\n  \"general_rules\": [\n    \"Puede hablar de precios y promociones sin problemas\",\n    \"Debe usar lenguaje natural y local (argentino)\",\n    \"No presionar para la venta, pero sí ofrecer ayuda útil\",\n    \"Nunca responder de forma automática o robótica\"\n  ],\n  \"flow_de_atendimento_padrão\": {\n    \"steps\": [\n      {\n        \"1\": \"Mensaje de bienvenida: '¡Hola! Bienvenido a Natura Service, el lugar donde vas a encontrar todas las promos y productos de Natura. ¿En qué te puedo ayudar hoy?'\"\n      },\n      {\n        \"2\": \"Responder a la consulta de producto: Si el cliente menciona un producto, usar la tool 'buscar_producto' y responder con nombre, precio y confirmar si es lo que busca\"\n      },\n      {\n        \"3\": \"Ofrecer métodos de pago: 'Aceptamos transferencia y MercadoPago, lo que te quede más cómodo'\"\n      },\n      {\n        \"4\": \"Responder sobre envío: 'Sí, hacemos envíos a domicilio por $5000, o podés retirar gratis por el local'\"\n      }\n    ]\n  },\n  \"tools\": [\n    {\n      \"name\": \"buscar_producto\",\n      \"usage\": \"Busca un producto específico en la base de datos de Natura (nombre, precio, disponibilidad)\",\n      \"rules\": \"Usar cuando el cliente menciona un producto específico. Responder con el precio y confirmar si es el producto correcto. No inventar productos ni precios si no están en la base.\"\n    }\n  ]\n}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        2700,
+        880
+      ],
+      "id": "eb7e39ba-cee5-472c-b7a7-6586edfb88c7",
+      "name": "Pocho"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.text.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Variables globales').first().json.msg.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4160,
+        1060
+      ],
+      "id": "552e323d-dd71-492c-a500-953aca056625",
+      "name": "Texto"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.output.trim().includes(\"QR_ENVIADO\") }}",
+                    "rightValue": "qr_enviado",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "159113e0-5106-46b9-a8b6-470e8b1b6c01"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Qr enviado"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "21f1d592-4504-443b-b25d-661708cd86bc",
+                    "leftValue": "={{ $json.output.trim().includes(\"LISTA_ENVIADA\") }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Lista enviada"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        3360,
+        740
+      ],
+      "id": "8f8c6ddf-33b1-40f8-bb57-a80b2c3b11cb",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=natura:{{ $('Variables globales').first().json.msg.telefono }}",
+        "sessionTTL": 3600,
+        "contextWindowLength": 9
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        3060,
+        1160
+      ],
+      "id": "6f6d3e56-eb50-4562-adce-d841ac272dfa",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "52cc775a-1114-46b3-9b00-bc2a6900638e",
+              "name": "message_completo",
+              "value": "={{ $json?.message_completo || $json?.message_completo || $json?.text?.join(\"\\n\") || $json?.response || $json.response }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2160,
+        180
+      ],
+      "id": "cb6f9f05-a231-4665-8017-b024cf992d6f",
+      "name": "msg"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "o8xV7KjMjwGmMY54",
+          "mode": "list",
+          "cachedResultName": "SUB TAREA - OBTENER NOMBRE O INSERTAR"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero": "={{ $('V').first().json.msg.telefono }}",
+            "idTabla": "mtxmanzpy3a6oz8",
+            "token": "8swibk167yA8yLIM6pwCwuTBsnup15m4dFJjMDag",
+            "nombre_columna": "Telefono",
+            "pushname": "={{ $('V').first().json.msg.nombre }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "servidor_db",
+              "displayName": "servidor_db",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "idTabla",
+              "displayName": "idTabla",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "token",
+              "displayName": "token",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero",
+              "displayName": "numero",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "nombre_columna",
+              "displayName": "nombre_columna",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "pushname",
+              "displayName": "pushname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "servidor_evo",
+              "displayName": "servidor_evo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "id_mensaje",
+              "displayName": "id_mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1160,
+        920
+      ],
+      "id": "d14ea99d-9d60-425c-9b54-f0a5d60ba8a6",
+      "name": "Validar Cliente"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "79a702ff-5f8c-4814-bddf-5e3acb5a5f2e",
+              "name": "msg",
+              "value": "={{ JSON.stringify($('V').first().json.msg)}}",
+              "type": "object"
+            },
+            {
+              "id": "9337176e-e568-4efa-8c05-3bdb12ecfb61",
+              "name": "list[0].Id",
+              "value": "={{ JSON.stringify($json.list[0].Id) }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d34e7775-1606-4f92-a863-91e81f225965",
+      "name": "Variables globales",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1600,
+        840
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "msg.chat_id",
+              "value": "={{ $json.body.data.key.remoteJid.replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "msg.nombre",
+              "value": "={{ $json.body.data.pushName }}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "msg.type",
+              "value": "={{ $json.body.data.messageType }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "msg.content",
+              "value": "={{ $json.body.data.fileBase64 }}",
+              "type": "string"
+            },
+            {
+              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
+              "name": "msg.timestamp",
+              "value": "={{ $json.body.messages[0].timestamp.toDateTime('s').toLocal().toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
+              "name": "msg.idmsg",
+              "value": "={{ $json.body.messages[0].id }}",
+              "type": "string"
+            },
+            {
+              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
+              "name": "datos.server_db",
+              "value": "https://db.innovasoftpro.dev",
+              "type": "string"
+            },
+            {
+              "id": "be83160a-e151-4f62-bfde-590af142ae74",
+              "name": "db.table_clientes",
+              "value": "mwk4ui7lirmxc8h",
+              "type": "string"
+            },
+            {
+              "id": "c85ab512-ca17-401b-b025-4b6fc11ac818",
+              "name": "db.token_db",
+              "value": "BAWLISa1QL05FMwlWzJCpo9ONDaZ8_dXO0OULjhB",
+              "type": "string"
+            },
+            {
+              "id": "74ee121e-f109-4425-9b1e-ff7b6c49ae45",
+              "name": "datos.tabla",
+              "value": "mwk4ui7lirmxc8h",
+              "type": "string"
+            },
+            {
+              "id": "82426625-5ed5-49a9-abb1-d4ed246fddf2",
+              "name": "msg.row_id_fecha",
+              "value": "={{ $json.body.messages[0].reply.list_reply.id }}",
+              "type": "string"
+            },
+            {
+              "id": "6fedaf9c-efe8-46e5-bb61-b42525ddafa1",
+              "name": "grupo",
+              "value": "={{ $json.body.messages[0].chat_id.endsWith('@g.us') }}",
+              "type": "boolean"
+            },
+            {
+              "id": "7f846767-8866-43e5-845a-d1feda60451c",
+              "name": "datos.token",
+              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
+              "type": "string"
+            },
+            {
+              "id": "865ae94f-3e98-4b1b-943c-fafa6c059e45",
+              "name": "msg.titulo_categoria",
+              "value": "={{ $json?.body?.messages[0]?.context?.quoted_content?.header || \"\"}}",
+              "type": "string"
+            },
+            {
+              "id": "f71f1502-02e3-4de1-a62a-232537d8f402",
+              "name": "datos.server_whapi",
+              "value": "https://gate.whapi.cloud",
+              "type": "string"
+            },
+            {
+              "id": "2ccc2ae6-79a4-4998-8ef8-681fbb4876cc",
+              "name": "msg.eventId",
+              "value": "={{ $json.body.messages[0].context.quoted_id }}",
+              "type": "string"
+            },
+            {
+              "id": "47fcf50c-9216-4f7f-b5f4-b6d25b049891",
+              "name": "msg.me",
+              "value": "={{ $json.body.data.me }}",
+              "type": "string"
+            },
+            {
+              "id": "95001dea-1bf9-41f7-b41f-4a5bd23719cf",
+              "name": "msg.location.latitude",
+              "value": "={{ $json.body.messages[0].location.latitude }}",
+              "type": "number"
+            },
+            {
+              "id": "1a6f4720-d9db-4093-9d7e-2fa585ad07bc",
+              "name": "msg.location.longitude",
+              "value": "={{ $json.body.messages[0].location.longitude }}",
+              "type": "number"
+            },
+            {
+              "id": "ddac7b4a-952b-48fc-89ce-db0b261060cd",
+              "name": "msg.grupo",
+              "value": "={{ $json.body.data.isGroup }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a982ade9-84cd-4687-8022-df8bb1f95b98",
+      "name": "V",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1120,
+        1560
+      ],
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "estado",
+        "key": "=bot:{{ $json.msg.telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        480,
+        1020
+      ],
+      "id": "5ea3ef3c-8a42-47ed-9ba2-272962186537",
+      "name": "Redis2",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a96a483c-e241-46d6-a5c0-6d5a315c6ca5",
+              "leftValue": "={{ $json.estado }}",
+              "rightValue": "off",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        800,
+        1020
+      ],
+      "id": "3bb69c7f-c16e-41e9-b79a-134e2dd6d111",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para procesar el texto sin dividirlo\nfunction processText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un string vacío\n    if (text === null || text === undefined) {\n      return '';\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) { // Intentamos extraer de un campo 'output'\n          // Si output es un string, lo usamos\n          if (typeof text.output === 'string') {\n              text = text.output;\n          } else { // Si output es un objeto o array, intentamos extraer de ahí\n              const extracted = extractTextContent(text.output); // Usamos la función de extracción\n              if (extracted) {\n                  text = extracted;\n              } else {\n                   // Si no pudimos extraer, intentamos convertir todo el objeto a string\n                   try {\n                       text = JSON.stringify(text);\n                   } catch (e) {\n                       console.error(\"No se pudo serializar el objeto a string:\", e);\n                       return ''; // Si falla la serialización, devolvemos vacío\n                   }\n              }\n          }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n           console.error(\"No se pudo serializar el objeto a string:\", e);\n           return ''; // Si falla la serialización, devolvemos vacío\n        }\n      }\n    } else { // Si no es string, objeto, null o undefined, devolvemos vacío\n       console.warn(\"Entrada a processText no es string, objeto, null o undefined:\", typeof text);\n       return '';\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n      return '';\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '')         // Elimina signos de exclamación e interrogación iniciales y finales\n    .replace(/\\n{3,}/g, '\\n\\n')    // Elimina líneas vacías múltiples\n    .trim();                        // Elimina espacios al inicio y final\n\n  return processedText;\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n       const extracted = extractTextContent(item); // Llamada recursiva para elementos del array\n       if (extracted) {\n           return extracted; // Devolvemos el primer texto que encontramos\n       }\n    }\n    return null; // Si no encontramos texto en ningún elemento del array\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él (puede ser string, array u objeto)\n    if (data.output !== undefined && data.output !== null) {\n         const extracted = extractTextContent(data.output); // Llamada recursiva para el campo output\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'response', intentamos extraer texto de él\n     if (data.response !== undefined && data.response !== null) {\n         const extracted = extractTextContent(data.response); // Llamada recursiva para el campo response\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'json', intentamos extraer texto de él\n     if (data.json !== undefined && data.json !== null) {\n         const extracted = extractTextContent(data.json); // Llamada recursiva para el campo json\n         if (extracted) {\n             return extracted;\n         }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n     try {\n         return JSON.stringify(data);\n     } catch (e) {\n         console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n         return null; // Si falla la serialización\n     }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const processedText = processText(textToProcess);\n    // Devolvemos el texto procesado como un solo mensaje\n    return [{json: {text: processedText}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un string vacío\n    return [{json: {text: ''}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {text: '', error: error.message}}];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3720,
+        960
+      ],
+      "id": "9c0fa73f-03ed-4181-982d-27cb277cc0ac",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para procesar el texto y dividirlo inteligentemente\nfunction processAndSplitText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un array vacío\n    if (text === null || text === undefined) {\n      return [];\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) { // Intentamos extraer de un campo 'output'\n          // Si output es un string, lo usamos\n          if (typeof text.output === 'string') {\n              text = text.output;\n          } else { // Si output es un objeto o array, intentamos extraer de ahí\n              const extracted = extractTextContent(text.output); // Usamos la función de extracción\n              if (extracted) {\n                  text = extracted;\n              } else {\n                   // Si no pudimos extraer, intentamos convertir todo el objeto a string\n                   try {\n                       text = JSON.stringify(text);\n                   } catch (e) {\n                       console.error(\"No se pudo serializar el objeto a string:\", e);\n                       return []; // Si falla la serialización, devolvemos vacío\n                   }\n              }\n          }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n           console.error(\"No se pudo serializar el objeto a string:\", e);\n           return []; // Si falla la serialización, devolvemos vacío\n        }\n      }\n    } else { // Si no es string, objeto, null o undefined, devolvemos vacío\n       console.warn(\"Entrada a processAndSplitText no es string, objeto, null o undefined:\", typeof text);\n       return [];\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n      return [];\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '');         // Elimina signos de exclamación e interrogación iniciales y finales\n\n  // Divide en líneas para análisis\n  const lines = processedText.split('\\n');\n\n  // Grupos para almacenar los mensajes\n  const messages = [];\n  let currentMessage = [];\n  let inNumberedSection = false;\n  let currentSectionNumber = null;\n\n  // Detectar secciones numeradas y agrupables\n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i];\n    // Detecta si la línea es un encabezado numerado (ej: \"1. Tipo de propiedad:\")\n    const numberedHeaderMatch = line.match(/^\\s*(\\d+)\\.\\s+([^:]+):/);\n\n    if (numberedHeaderMatch) {\n      const sectionNumber = parseInt(numberedHeaderMatch[1]);\n\n      // Si estamos empezando una nueva sección numerada O si el número no es el siguiente esperado\n      if (!inNumberedSection || (inNumberedSection && sectionNumber !== currentSectionNumber + 1)) {\n         // Si tenemos contenido previo, guardamos como mensaje separado\n         if (currentMessage.length > 0) {\n             messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n             currentMessage = [];\n         }\n         inNumberedSection = true;\n      }\n      currentSectionNumber = sectionNumber; // Actualizamos el número de sección actual\n       currentMessage.push(line); // Agregamos la línea al mensaje actual\n\n    } else if (line.trim() === '') { // Línea vacía\n        // Una línea vacía puede terminar una sección si hay contenido previo\n        if (currentMessage.length > 0) {\n             // Si no estamos en una sección numerada, una línea vacía termina el mensaje actual\n             if (!inNumberedSection) {\n                 messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n                 currentMessage = [];\n             } else {\n                 // Si estamos en una sección numerada, una línea vacía se agrega al mensaje actual,\n                 // podría terminar la sección si hay otra línea vacía o fin de texto después.\n                 currentMessage.push(line);\n             }\n        }\n         // Si currentMessage está vacío, una línea vacía consecutiva no hace nada\n\n    } else { // Línea con contenido que no es un encabezado numerado\n        currentMessage.push(line);\n        inNumberedSection = false; // Salimos de la sección numerada si el contenido no sigue el patrón\n    }\n  }\n\n  // Agregar el último mensaje si queda algo\n  if (currentMessage.length > 0) {\n    messages.push(currentMessage.join('\\n').trim()); // Trim antes de guardar\n  }\n\n  // Filtrar mensajes vacíos y limpiar líneas vacías extra\n  return messages\n    .filter(msg => msg.length > 0) // Filtrar cadenas vacías después del trim\n    .map(msg => {\n      // Eliminar líneas vacías múltiples dentro del mensaje\n      return msg.replace(/\\n{2,}/g, '\\n\\n');\n    });\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n       const extracted = extractTextContent(item); // Llamada recursiva para elementos del array\n       if (extracted) {\n           return extracted; // Devolvemos el primer texto que encontramos\n       }\n    }\n    return null; // Si no encontramos texto en ningún elemento del array\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él (puede ser string, array u objeto)\n    if (data.output !== undefined && data.output !== null) {\n         const extracted = extractTextContent(data.output); // Llamada recursiva para el campo output\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'response', intentamos extraer texto de él\n     if (data.response !== undefined && data.response !== null) {\n         const extracted = extractTextContent(data.response); // Llamada recursiva para el campo response\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'json', intentamos extraer texto de él\n     if (data.json !== undefined && data.json !== null) {\n         const extracted = extractTextContent(data.json); // Llamada recursiva para el campo json\n         if (extracted) {\n             return extracted;\n         }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n     try {\n         return JSON.stringify(data);\n     } catch (e) {\n         console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n         return null; // Si falla la serialización\n     }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const textArray = processAndSplitText(textToProcess);\n    // Devolvemos un array con un objeto que contiene el array de texto\n    return [{json: {text: textArray}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un array vacío\n    return [{json: {text: []}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {text: [], error: error.message}}];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3180,
+        1580
+      ],
+      "id": "2928aa09-1cbd-4807-a6a6-5932fa6a319f",
+      "name": "Separa datos",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "Tenes que elegir unicamente de cada menu que te comparto, no puepasar asi el medido."
+            },
+            {
+              "name": "to",
+              "value": "={{ $('camposiniciales').first().json.telefonoCliente }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        4060,
+        1560
+      ],
+      "id": "9799198c-e50c-44e8-9729-96806046ce9b",
+      "name": "Texto1"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "agente_pocho:5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        4320,
+        1460
+      ],
+      "id": "c45c1563-95ec-45b6-8d02-e3b881a24be2",
+      "name": "Redis1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://chat.rshtech.com.py/api/v1/accounts/3/conversations/{{ $('camposiniciales').first().json.conversation_id }}/messages",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "content",
+              "value": "={{ $('Loop Over Items1').item.json.msg }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Api-Access-Token",
+              "value": "PWT8Rjk9ZGEqVzGoWYmaofFj"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "043a4a71-58f5-4630-8153-7196c2b0a38b",
+      "name": "Respuesta a ChatWoot2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3180,
+        1800
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d04d69d-cb9c-41be-a44a-95fac3c059f3",
+              "name": "text",
+              "value": "={{ ($json.output[0]?.text || $json.output?.text || '').replace(/\\*\\*(.*?)\\*\\*/g, '*$1*').replace(/###\\s+/g, '').replace(/:/g, '') }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "33922b5f-a009-4154-b7cf-bcb0296193c0",
+      "name": "replace",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3800,
+        1580
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8e3c4cd4-a26d-4abb-9393-1ecb5abad63e",
+      "name": "Loop Over Items1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        3440,
+        1820
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "amount": "=1"
+      },
+      "id": "51a1fa70-7a12-4c3c-badb-491486717b4b",
+      "name": "1,2s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3720,
+        1820
+      ],
+      "webhookId": "8a810ad6-4ecf-4781-aed8-7f2b295770dc",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "options": {
+          "destinationFieldName": "msg"
+        }
+      },
+      "id": "fa98c760-86c0-472c-a453-e3225a746145",
+      "name": "Segmentos",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        3420,
+        1580
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-flash-preview-05-20",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2320,
+        1180
+      ],
+      "id": "5df97aa3-2548-4567-99a7-0fa3d3b9f132",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "56ef887f-a0eb-415a-b841-44fd8b61b1a8",
+              "name": "msg.id",
+              "value": "={{ $('Datos').item?.json?.body?.data?.messageId || $json.body.data['0'].id}}",
+              "type": "string"
+            },
+            {
+              "id": "740549d1-2ed9-49fd-9969-f3f69c5a8df2",
+              "name": "msg.telefono",
+              "value": "={{ $('Datos').item?.json?.body?.data?.key?.remoteJid || $json.body.data['0'].chatId}}",
+              "type": "string"
+            },
+            {
+              "id": "74a49e3c-159b-47a2-ae8b-54924cef3965",
+              "name": "msg.type",
+              "value": "={{ $('Datos').item?.json?.body?.data?.messageType || $json.body.type }}",
+              "type": "string"
+            },
+            {
+              "id": "1c6e95f3-9a56-4d4c-8db0-ffd1a56664f2",
+              "name": "msg.audio",
+              "value": "={{ ($json.body.data.fileBase64 || '').substring(($json.body.data.fileBase64 || '').indexOf(',') + 1) }}",
+              "type": "string"
+            },
+            {
+              "id": "6900b05f-3f95-479a-a763-2fbb75de7603",
+              "name": "msg.status",
+              "value": "={{ $json.body.data['0'].status }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2060,
+        1560
+      ],
+      "id": "6ef07a3b-da5a-4e7a-8c22-a0ed67a2a419",
+      "name": "vars"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "60065893-74f7-4b64-bc1a-d891202efa78",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "imageMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Imagem"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0cb14635-2673-408e-86db-ce9e0373674b",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Texto"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "900368e1-63d9-419c-9dd3-20cd105a527d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Áudio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "eafea61d-45c4-4eb7-b7e5-ee91c4a6bfb9",
+                    "leftValue": "={{ $json.msg.type }}",
+                    "rightValue": "call",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "call"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "068ec6ac-a529-4c53-b874-696cbeb807e4",
+      "name": "Switch1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1420,
+        1540
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "dg5lZhcTnBAZzVc4",
+          "mode": "list",
+          "cachedResultName": "SUB TAREA - ENLOCAR MSG"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "mode": "each",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1760,
+        1560
+      ],
+      "id": "a11e82c7-d955-48ec-9795-8ca49bf9937b",
+      "name": "Encolado de msg1"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        2220,
+        860
+      ],
+      "id": "5a734e0a-01d5-4fd5-b518-5d7a3ca24321",
+      "name": "When chat message received",
+      "webhookId": "37c60441-b8cb-42b1-9e55-3377e448e83b"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        2620,
+        1180
+      ],
+      "id": "4ed25ecc-a53b-4f0d-bff7-cc391bd7b7fe",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {
+    "From Me2": [],
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8nw.qeva.xyz",
+            "user-agent": "axios/1.8.4",
+            "content-length": "13474",
+            "accept": "application/json, text/plain, */*",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "instance-key": "2522xaf8359c21b",
+            "x-forwarded-for": "144.126.133.227",
+            "x-forwarded-host": "n8nw.qeva.xyz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "73f96af33264",
+            "x-real-ip": "144.126.133.227"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "instance": "2522xaf8359c21b",
+            "type": "message",
+            "data": {
+              "messageId": "ADF5708855EB38BE26F09641F95CF0C7",
+              "jid": "5492254423359:89@s.whatsapp.net",
+              "me": false,
+              "isGroup": false,
+              "remoteJid": "5492254531588",
+              "pushName": "patricia barbosa",
+              "key": {
+                "remoteJid": "5492254531588@s.whatsapp.net",
+                "fromMe": false,
+                "id": "ADF5708855EB38BE26F09641F95CF0C7"
+              },
+              "messageType": "audioMessage",
+              "msgContent": {
+                "audioMessage": {
+                  "url": "https://mmg.whatsapp.net/v/t62.7117-24/19158885_739361538484341_4835411764961572771_n.enc?ccb=11-4&oh=01_Q5Aa2AHEJxMxU8STkOWg3Ub_jev8hDrPbRKr_rIeb2k1clOv1w&oe=68972A57&_nc_sid=5e03e0&mms3=true",
+                  "mimetype": "audio/ogg; codecs=opus",
+                  "fileSha256": "SkhEd3yn0E7KipsP1lFZPfkBAayPRqqDY1mZs7IxSY8=",
+                  "fileLength": "8857",
+                  "seconds": 4,
+                  "ptt": true,
+                  "mediaKey": "80Jn33YcIfNkk2gdTRph+2kxgG/iX2Vayz8QzOlRGKA=",
+                  "fileEncSha256": "FRkHAYFnNG+C38GclTlndO995oCdZPT5jnrWgxQfpf8=",
+                  "directPath": "/v/t62.7117-24/19158885_739361538484341_4835411764961572771_n.enc?ccb=11-4&oh=01_Q5Aa2AHEJxMxU8STkOWg3Ub_jev8hDrPbRKr_rIeb2k1clOv1w&oe=68972A57&_nc_sid=5e03e0",
+                  "mediaKeyTimestamp": "1752157730",
+                  "waveform": "AAAAAAAAAAAOPlpUQjciGFZXVD4OTlE9UFdPQVBLTUJKTE5XQj9YTiQ6VlRUTVddRVFUIiAiVV5ZOwsAAAAAAA=="
+                },
+                "messageContextInfo": {
+                  "deviceListMetadata": {
+                    "recipientKeyHash": "jOll9rbz5wLttQ==",
+                    "recipientTimestamp": "1752110573"
+                  },
+                  "deviceListMetadataVersion": 2,
+                  "messageSecret": "ti+0SPNw0KBxCCLYOC24lBi1tWBlsFXHcySqifEjUPA="
+                }
+              },
+              "messageTimestamp": 1752157733,
+              "source": "android",
+              "broadcast": false,
+              "isMedia": true,
+              "urlMedia": "https://usc1.contabostorage.com/7a37d2f461814e758eedb3979de65af7:api-wa.me/2522xaf8359c21b/audio/ogg; codecs=opus/0304c37bd279bdd891ce.opus",
+              "fileBase64": "data:audio/ogg; codecs=opus;base64,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"
+            }
+          },
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/es-wa-fer",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-23T20:13:52.472Z",
+  "versionId": "f1e11359-c915-47e1-b5fd-62231c2c6292"
+}
