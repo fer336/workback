@@ -1,0 +1,106 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-23T20:27:08.586Z",
+  "id": "BjvHe8f8WBEoEmzh",
+  "isArchived": false,
+  "meta": null,
+  "name": "INSTANCIA EVOLUTION API - FER",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -304,
+        -48
+      ],
+      "id": "2f443575-7c12-4ac1-8bae-3e3a919f1fe5",
+      "name": "When chat message received",
+      "webhookId": "e0a94920-9964-422d-b179-5ffd01dae5b0"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://evo.qeva.xyz/message/sendText/fer-33",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "=5492215935391"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.chatInput.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        -16
+      ],
+      "id": "d2f9703c-956e-49e1-8e9f-26fcfbf4c5ff",
+      "name": "text",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "AyfwVfJv24ug21lX",
+          "name": "EVOLUTION API - FER"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "fer",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        -16
+      ],
+      "id": "d4106483-5894-42cf-8305-bb295bac6290",
+      "name": "Webhook",
+      "webhookId": "b70c9710-9455-448e-acc3-968c3a3c3f00"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-07-30T18:39:56.111Z",
+  "versionId": "6089b2ea-b839-4471-9f4a-143e0f7f999c"
+}
