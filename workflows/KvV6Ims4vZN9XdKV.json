@@ -1,0 +1,278 @@
+{
+  "active": false,
+  "connections": {
+    "Buscar Contacto": {
+      "main": [
+        [
+          {
+            "node": "¿Existe Contacto?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Existe Contacto?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Preparar Datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Procesar Mensaje": {
+      "main": [
+        [
+          {
+            "node": "Buscar Contacto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Datos": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        []
+      ]
+    },
+    "chatwoot": {
+      "main": [
+        [
+          {
+            "node": "Procesar Mensaje",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:56:04.263Z",
+  "id": "KvV6Ims4vZN9XdKV",
+  "isArchived": false,
+  "meta": null,
+  "name": "DESPENSA - Chatwoot",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "headerAuth",
+        "url": "=https://chat.rshtech.com.py/api/v1/accounts/3/contacts/search",
+        "options": {},
+        "queryParametersUi": {
+          "parameter": [
+            {
+              "name": "q",
+              "value": "={{ $json.phoneNumber }}"
+            }
+          ]
+        }
+      },
+      "name": "Buscar Contacto",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        -680,
+        -660
+      ],
+      "id": "d4c464ed-76d7-4f4a-aa39-d19a1826bdd1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "2qjNu8fefSMxrrRe",
+          "name": "token chatwoot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.payload ? $json.payload.length : 0 }}",
+              "value2": "0"
+            }
+          ]
+        }
+      },
+      "name": "¿Existe Contacto?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -440,
+        -660
+      ],
+      "id": "e76cab22-a9e8-4ef4-997c-7279a6e627d5"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener datos de la respuesta de creación de conversación\nconst conversationData = $input.item.json;\nconsole.log(\"Datos de conversación recibidos:\", JSON.stringify(conversationData, null, 2));\n\n// Intentar obtener el ID de la conversación de diferentes fuentes\nlet conversationId;\n\n// Primero intentar obtenerlo del objeto actual\nif (conversationData && conversationData.id) {\n  conversationId = conversationData.id;\n  console.log(\"ID de conversación encontrado en datos actuales:\", conversationId);\n} \n// Si no está disponible, intentar obtenerlo de la ruta específica en Procesar Mensaje\nelse {\n  try {\n    conversationId = $('Procesar Mensaje').first().json.originalData.conversation.messages[0].conversation_id;\n    console.log(\"ID de conversación encontrado en Procesar Mensaje:\", conversationId);\n  } catch (error) {\n    console.log(\"Error al buscar conversation_id en Procesar Mensaje:\", error.message);\n  }\n}\n\n// Asegurarnos de tener el número de teléfono\nconst phoneNumber = conversationData.phoneNumber || \"\";\n\n// Si tenemos un ID de conversación, continuar\nif (conversationId) {\n  const message = conversationData.message || \"Mensaje de prueba\";\n  \n  console.log(\"Datos para enviar mensaje:\", {\n    conversationId,\n    phoneNumber,\n    message\n  });\n  \n  // Devolver los datos necesarios para enviar el mensaje\n  return {\n    json: {\n      conversationId,\n      phoneNumber,\n      message,\n      url: `https://chat.rshtech.com.py/api/v1/accounts/3/conversations/${conversationId}/messages`,\n      body: {\n        content: message,\n        message_type: \"incoming\",\n        private: false\n      }\n    }\n  };\n} else {\n  // No se encontró ID de conversación\n  console.log(\"No se encontró ID de conversación en ninguna fuente\");\n  return {\n    json: {\n      error: \"No se pudo obtener el ID de conversación\",\n      phoneNumber: phoneNumber,\n      originalData: conversationData\n    }\n  };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        -640
+      ],
+      "id": "f73964aa-dbe3-4c68-8195-7f3fc53a860a",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extraer los datos entrantes\nconst data = $input.item.json;\nconsole.log('Datos recibidos:', JSON.stringify(data, null, 2));\n\n// Verificar si es un mensaje de Whapi (desde WhatsApp a Chatwoot)\nif (data.body && data.body.messages && data.body.messages[0] && data.body.messages[0].text) {\n  try {\n    const message = data.body.messages[0];\n    const phoneNumber = message.chat_id.split('@')[0];\n    const senderName = message.from_name || phoneNumber;\n    const messageContent = message.text.body || '';\n    \n    // Verificar si es un mensaje enviado por nosotros\n    if (message.from_me === true) {\n      console.log('Es un mensaje enviado por nosotros, no se procesa');\n      return {\n        json: {\n          success: false,\n          message: \"Es un mensaje enviado por nosotros\"\n        }\n      };\n    }\n    \n    return {\n      json: {\n        success: true,\n        type: 'whatsapp_to_chatwoot',\n        phoneNumber,\n        senderName,\n        message: messageContent,\n        originalData: message\n      }\n    };\n  } catch (error) {\n    console.error('Error procesando mensaje de Whapi:', error);\n    return {\n      json: {\n        success: false,\n        message: \"Error procesando mensaje de Whapi\"\n      }\n    };\n  }\n}\n// Verificar si es un mensaje de Chatwoot (desde Chatwoot a WhatsApp)\nelse if (data.body && data.body.content && data.body.conversation) {\n  try {\n    // Extraer información del mensaje de Chatwoot\n    const content = data.body.content;\n    let phoneNumber = '';\n    \n    // Intentar obtener el número de teléfono del contacto\n    if (data.body.conversation && data.body.conversation.contact_inbox && \n        data.body.conversation.contact_inbox.contact) {\n      phoneNumber = data.body.conversation.contact_inbox.contact.phone_number;\n    }\n    // Si no está ahí, intentar obtenerlo de una segunda ubicación\n    else if (data.body.conversation && data.body.conversation.meta && \n             data.body.conversation.meta.sender && \n             data.body.conversation.meta.sender.phone_number) {\n      phoneNumber = data.body.conversation.meta.sender.phone_number;\n    }\n    // O intentar obtenerlo del source_id\n    else if (data.body.conversation && data.body.conversation.source_id) {\n      phoneNumber = data.body.conversation.source_id;\n    }\n    \n    // Limpiar el número de teléfono (quitar +)\n    if (phoneNumber.startsWith('+')) {\n      phoneNumber = phoneNumber.substring(1);\n    }\n    \n    // Verificar si tenemos un número de teléfono\n    if (!phoneNumber) {\n      console.error('No se pudo obtener el número de teléfono del mensaje de Chatwoot');\n      return {\n        json: {\n          success: false,\n          message: \"No se pudo obtener el número de teléfono\"\n        }\n      };\n    }\n    \n    return {\n      json: {\n        success: true,\n        type: 'chatwoot_to_whatsapp',\n        phoneNumber,\n        message: content,\n        chatId: `${phoneNumber}@c.us`,\n        originalData: data.body\n      }\n    };\n  } catch (error) {\n    console.error('Error procesando mensaje de Chatwoot:', error);\n    return {\n      json: {\n        success: false,\n        message: \"Error procesando mensaje de Chatwoot\"\n      }\n    };\n  }\n}\n// Si no es un formato reconocido\nelse {\n  console.log('Formato de mensaje no reconocido:', data);\n  return {\n    json: {\n      success: false,\n      message: \"No es un mensaje entrante válido\"\n    }\n  };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1000,
+        -660
+      ],
+      "id": "b6223756-7896-4bf1-ae07-68fdab7af1d4",
+      "name": "Procesar Mensaje"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extraer la información del contacto del JSON recibido\nfunction prepararDatosConversacion() {\n  // Verificar la estructura de datos\n  console.log(\"Datos recibidos:\", JSON.stringify($input.item.json, null, 2));\n  \n  let contactId, phoneNumber, sourceId, inboxId, conversationId;\n  \n  // Intentar obtener el conversation_id desde el nodo \"Procesar Mensaje\"\n  try {\n    const procesarMensajeData = $node[\"Procesar Mensaje\"].first().json;\n    console.log(\"Datos de Procesar Mensaje:\", JSON.stringify(procesarMensajeData, null, 2));\n    \n    if (procesarMensajeData?.originalData?.conversation?.messages?.[0]?.conversation_id) {\n      conversationId = procesarMensajeData.originalData.conversation.messages[0].conversation_id;\n      console.log(\"Conversation ID encontrado:\", conversationId);\n    }\n  } catch (error) {\n    console.log(\"Error al buscar conversation_id:\", error.message);\n  }\n  \n  // Intentar extraer datos de la estructura con meta.payload\n  if ($input.item.json?.meta && $input.item.json?.payload && Array.isArray($input.item.json.payload)) {\n    // Estructura con payload\n    const contact = $input.item.json.payload[0];\n    contactId = contact?.id;\n    \n    // Procesar el número de teléfono - eliminar el signo +\n    if (contact?.phone_number) {\n      phoneNumber = contact.phone_number.replace(/^\\+/, ''); // Elimina solo el + inicial si existe\n    }\n    \n    console.log(\"Contacto encontrado:\", contact);\n    \n    // Si el contactId existe, tenemos un contacto válido\n    if (contactId) {\n      // Usar el número de teléfono como sourceId, ya limpio del signo +\n      sourceId = phoneNumber;\n      \n      // Intentar obtener el inbox_id de las contact_inboxes\n      try {\n        if (contact.contact_inboxes && Array.isArray(contact.contact_inboxes) && contact.contact_inboxes.length > 0) {\n          // Buscar específicamente el inbox con id 10 si existe\n          const whapiInbox = contact.contact_inboxes.find(inbox => inbox.inbox && inbox.inbox.id === 10);\n          \n          if (whapiInbox) {\n            inboxId = whapiInbox.inbox.id;\n          } else {\n            // Si no hay inbox específico con id 10, usar el primero\n            inboxId = contact.contact_inboxes[0].inbox.id;\n          }\n        } else {\n          // Si no hay contact_inboxes, usar valor por defecto\n          inboxId = 10;\n        }\n      } catch (error) {\n        console.log(\"Error al obtener inbox_id:\", error.message);\n        inboxId = 10; // Valor por defecto\n      }\n      \n      console.log(\"Datos extraídos:\", {contactId, phoneNumber, sourceId, inboxId, conversationId});\n      \n      return {\n        json: {\n          success: true,\n          contactId,\n          phoneNumber, // Ya está sin el signo +\n          sourceId, // Ya está sin el signo +\n          inboxId,\n          conversationId,\n          message: $node[\"Procesar Mensaje\"]?.json?.message || \"Mensaje de prueba\"\n        }\n      };\n    }\n  }\n  \n  // Si llegamos aquí, no se encontró el contacto\n  console.error(\"No se pudo encontrar el ID del contacto\", $input.item.json);\n  return {\n    json: {\n      success: false,\n      message: 'No se pudo obtener el ID del contacto'\n    }\n  };\n}\n// Ejecutar la función\nreturn prepararDatosConversacion();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        -640
+      ],
+      "id": "2c3604fa-7b42-4336-a9a9-631486c3d95d",
+      "name": "Preparar Datos"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": 0
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.message }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $json.phoneNumber }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        580,
+        -380
+      ],
+      "id": "0b9ff497-7275-40f4-97b3-726d0c0d447e",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "content": "# CUANDO ENVIAS UN MENSAJE DE CHATWOOT SALE POR WHAPI",
+        "height": 100,
+        "width": 1180,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -140
+      ],
+      "id": "21e734b9-f31f-4e29-a641-29c28800d834",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chatwoot-outgoing",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "chatwoot",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -1400,
+        -400
+      ],
+      "id": "de07f703-5b24-46ff-91ec-5b597dee2aa8",
+      "webhookId": "5730a12a-88a6-4a2a-9583-2a074e1f16a5"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extraer los datos entrantes\nconst data =$input.first().json.body ;\nconsole.log('Datos recibidos:', JSON.stringify(data, null, 2));\n\n// Verificar si es un mensaje de Chatwoot (desde Chatwoot a WhatsApp)\nif (data.body && data.body.content && data.body.conversation) {\n  try {\n    // Extraer información del mensaje de Chatwoot\n    const content = data.body.content;\n    let phoneNumber = '';\n    \n    // Intentar obtener el número de teléfono del contacto\n    if (data.body.contact_inbox && data.body.contact_inbox.contact) {\n      phoneNumber = data.body.contact_inbox.contact.phone_number;\n      console.log(\"Teléfono encontrado en contact_inbox.contact:\", phoneNumber);\n    }\n    // Si no está ahí, intentar obtenerlo de meta.sender\n    else if (data.body.meta && data.body.meta.sender && data.body.meta.sender.phone_number) {\n      phoneNumber = data.body.meta.sender.phone_number;\n      console.log(\"Teléfono encontrado en meta.sender:\", phoneNumber);\n    }\n    // O intentar obtenerlo del source_id\n    else if (data.body.conversation && data.body.conversation.source_id) {\n      phoneNumber = data.body.conversation.source_id;\n      console.log(\"Teléfono encontrado en conversation.source_id:\", phoneNumber);\n    }\n    // O intentar obtenerlo de messages[0].conversation.contact_inbox.source_id\n    else if (data.body.messages && data.body.messages[0] && \n            data.body.messages[0].conversation && \n            data.body.messages[0].conversation.contact_inbox && \n            data.body.messages[0].conversation.contact_inbox.source_id) {\n      phoneNumber = data.body.messages[0].conversation.contact_inbox.source_id;\n      console.log(\"Teléfono encontrado en messages[0].conversation.contact_inbox.source_id:\", phoneNumber);\n    }\n    // O intentar obtenerlo del meta.sender.identifier\n    else if (data.body.meta && data.body.meta.sender && data.body.meta.sender.identifier) {\n      const identifier = data.body.meta.sender.identifier;\n      // Si el identificador está en formato \"número@s.whatsapp.net\"\n      const match = identifier.match(/^(\\d+)@/);\n      if (match) {\n        phoneNumber = match[1];\n        console.log(\"Teléfono encontrado en identifier:\", phoneNumber);\n      } else {\n        phoneNumber = identifier;\n      }\n    }\n    \n    // Limpiar el número de teléfono (quitar + si existe)\n    if (phoneNumber && phoneNumber.startsWith('+')) {\n      phoneNumber = phoneNumber.substring(1);\n    }\n    \n    // Verificar si tenemos un número de teléfono\n    if (!phoneNumber) {\n      console.error('No se pudo obtener el número de teléfono del mensaje de Chatwoot');\n      return {\n        json: {\n          success: false,\n          message: \"No se pudo obtener el número de teléfono\"\n        }\n      };\n    }\n    \n    // Solo procesar mensajes salientes (del agente)\n    let messageType = 0;\n    if (data.body.messages && data.body.messages[0] && data.body.messages[0].message_type) {\n      messageType = data.body.messages[0].message_type;\n    }\n    \n    // Si es un mensaje saliente (del agente)\n    if (messageType === 1) {\n      return {\n        json: {\n          success: true,\n          type: 'chatwoot_to_whatsapp',\n          phoneNumber: phoneNumber,\n          message: content,\n          chatId: `${phoneNumber}@c.us`,\n          // Para el envío a Whapi\n          to: phoneNumber,\n          body: content,\n          originalData: data.body\n        }\n      };\n    } else {\n      console.log(\"No es un mensaje saliente del agente, no se enviará a Whapi\");\n      return {\n        json: {\n          success: false,\n          message: \"No es un mensaje saliente del agente\"\n        }\n      };\n    }\n  } catch (error) {\n    console.error('Error procesando mensaje de Chatwoot:', error);\n    return {\n      json: {\n        success: false,\n        message: `Error procesando mensaje de Chatwoot: ${error.message}`\n      }\n    };\n  }\n}\n// Verificar si es un mensaje de Whapi (desde WhatsApp a Chatwoot)\nelse if (data.body && data.body.messages && data.body.messages[0] && data.body.messages[0].text) {\n  try {\n    const message = data.body.messages[0];\n    const phoneNumber = message.chat_id.split('@')[0];\n    const senderName = message.from_name || phoneNumber;\n    const messageContent = message.text.body || '';\n    \n    // Verificar si es un mensaje enviado por nosotros\n    if (message.from_me === true) {\n      console.log('Es un mensaje enviado por nosotros, no se procesa');\n      return {\n        json: {\n          success: false,\n          message: \"Es un mensaje enviado por nosotros\"\n        }\n      };\n    }\n    \n    return {\n      json: {\n        success: true,\n        type: 'whatsapp_to_chatwoot',\n        phoneNumber,\n        senderName,\n        message: messageContent,\n        originalData: message\n      }\n    };\n  } catch (error) {\n    console.error('Error procesando mensaje de Whapi:', error);\n    return {\n      json: {\n        success: false,\n        message: `Error procesando mensaje de Whapi: ${error.message}`\n      }\n    };\n  }\n}\n// Si no es un formato reconocido\nelse {\n  console.log('Formato de mensaje no reconocido:', data);\n  return {\n    json: {\n      success: false,\n      message: \"No es un mensaje entrante válido\"\n    }\n  };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1440,
+        -780
+      ],
+      "id": "6aa0baec-185a-4c88-80e9-9b3256175364",
+      "name": "Code1"
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "2kOn0Oz7c2uvczPK"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-28T03:57:48.779Z",
+  "versionId": "98517d16-5733-465c-97b4-b33ff0a0f5c6"
+}
