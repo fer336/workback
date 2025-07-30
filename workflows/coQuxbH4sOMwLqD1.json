@@ -1,0 +1,1362 @@
+{
+  "active": false,
+  "connections": {
+    "Conversation Exists": {
+      "main": [
+        [
+          {
+            "node": "Conversation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CreateConversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Exists": {
+      "main": [
+        [
+          {
+            "node": "Contact",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CreaClienteCW",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Source Id": {
+      "main": [
+        [
+          {
+            "node": "Contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Contact": {
+      "main": [
+        [
+          {
+            "node": "If Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contact": {
+      "main": [
+        [
+          {
+            "node": "GetConversacion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversation": {
+      "main": [
+        [
+          {
+            "node": "Message Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreaClienteCW": {
+      "main": [
+        [
+          {
+            "node": "Save Source Id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type": {
+      "main": [
+        [
+          {
+            "node": "SendText",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SendText",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Send Media To ChatWoot2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetConversacion": {
+      "main": [
+        [
+          {
+            "node": "Conversation Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CreateConversation": {
+      "main": [
+        [
+          {
+            "node": "Conversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChatwootToWhapi": {
+      "main": [
+        [
+          {
+            "node": "variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "variables": {
+      "main": [
+        [
+          {
+            "node": "Message Type1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type1": {
+      "main": [
+        [
+          {
+            "node": "Grabando Audio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Escribiendo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Escribiendo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Escribiendo": {
+      "main": [
+        [
+          {
+            "node": "Texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grabando Audio": {
+      "main": [
+        [
+          {
+            "node": "Enviar Audio1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:55:43.632Z",
+  "id": "coQuxbH4sOMwLqD1",
+  "isArchived": false,
+  "meta": null,
+  "name": "DESPENSA - CRM CHATWOOT",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "06fcdd61-8f93-4f9a-8429-9a97791316b2",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "478ac379-3eeb-46f0-86d0-3ba6de636454",
+      "name": "Conversation Exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "ad8a19f1-1e31-40bf-b865-5d3a09a98cbd",
+              "leftValue": "={{ $json }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1cc2204-1208-43f4-b846-f76117d8fcdc",
+      "name": "If Exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.1,
+      "position": [
+        -940,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "chatwoot_contacts",
+          "mode": "list",
+          "cachedResultName": "chatwoot_contacts"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "session": "=chatwoot",
+            "chatid": "={{ $('Workflow Input Trigger').item.json.telefonoCliente }}",
+            "chatwootinboxidentifier": "={{ $('Workflow Input Trigger').item.json.inboxIdentifier }}",
+            "chatwootsourceid": "={{ $json.source_id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "session",
+              "displayName": "session",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chatid",
+              "displayName": "chatid",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chatwootinboxidentifier",
+              "displayName": "chatwootinboxidentifier",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "chatwootsourceid",
+              "displayName": "chatwootsourceid",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "72f5dd29-a8f8-48e0-9f0b-487cff23a4ef",
+      "name": "Save Source Id",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -500,
+        120
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "chatwoot_contacts",
+          "mode": "list",
+          "cachedResultName": "chatwoot_contacts"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "session",
+              "value": "=chatwoot"
+            },
+            {
+              "column": "chatid",
+              "value": "={{ $json.telefonoCliente }}"
+            },
+            {
+              "column": "chatwootinboxidentifier",
+              "value": "={{ $json.inboxIdentifier }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0e2265ee-bc1b-4e11-98f8-5cf48dda312c",
+      "name": "Get Contact",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -1160,
+        40
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6c30097b-1b86-4503-acb8-62d51b5d469c",
+              "name": "sourceId",
+              "value": "={{ $json.chatwootsourceid }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "82c420c2-707f-445d-ac6a-8471358f287c",
+      "name": "Contact",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -280,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6c30097b-1b86-4503-acb8-62d51b5d469c",
+              "name": "conversationId",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "9cec244c-5689-471b-85a9-efc6afcb6766",
+              "name": "content",
+              "value": "={{ $('Workflow Input Trigger').item.json.content }}",
+              "type": "string"
+            },
+            {
+              "id": "0ab107e0-874b-4847-9539-a0862df5b65a",
+              "name": "nombreCliente",
+              "value": "={{ $('Workflow Input Trigger').item.json.nombreCliente }}",
+              "type": "string"
+            },
+            {
+              "id": "fa5014c9-1cd7-4eec-9e33-c1d1fca34860",
+              "name": "inboxIdentifier",
+              "value": "={{ $('Workflow Input Trigger').item.json.inboxIdentifier }}",
+              "type": "string"
+            },
+            {
+              "id": "53d66e64-69fc-43e4-a29e-c9263c5161eb",
+              "name": "chatwootUrl",
+              "value": "={{ $('Workflow Input Trigger').item.json.chatwootUrl }}",
+              "type": "string"
+            },
+            {
+              "id": "7106b1d3-8a54-4c59-9a26-f0fc2a30f129",
+              "name": "chatwootToken",
+              "value": "={{ $('Workflow Input Trigger').item.json.chatwootToken }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4db48ca0-85b2-4773-a203-c3864326d06c",
+      "name": "Conversation",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        600,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "chatwoot_contacts",
+          "mode": "list",
+          "cachedResultName": "chatwoot_contacts"
+        },
+        "options": {}
+      },
+      "id": "cb74cfd1-59c7-4800-855c-b91301f3cfe8",
+      "name": "Get Contact1",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -1380,
+        -320
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "content",
+              "type": "any"
+            },
+            {
+              "name": "nombreCliente",
+              "type": "any"
+            },
+            {
+              "name": "telefonoCliente"
+            },
+            {
+              "name": "inboxIdentifier"
+            },
+            {
+              "name": "chatwootUrl"
+            },
+            {
+              "name": "chatwootToken"
+            },
+            {
+              "name": "typeFile",
+              "type": "any"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1380,
+        40
+      ],
+      "id": "9809ed66-77ea-4283-b998-681f2309d719",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://chat.rshtech.com.py/public/api/v1/inboxes/SUqwz3QWbq6UgbEF7zhifEv5/contacts",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Workflow Input Trigger').item.json.chatwootToken }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $('Workflow Input Trigger').item.json.nombreCliente }}"
+            },
+            {
+              "name": "Identifier",
+              "value": "={{ $('Workflow Input Trigger').item.json.telefonoCliente }}"
+            },
+            {
+              "name": "phone_number",
+              "value": "=+{{ $('Workflow Input Trigger').item.json.telefonoCliente }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -720,
+        120
+      ],
+      "id": "9a88c9a7-6641-4843-ab8b-31843e75ad1c",
+      "name": "CreaClienteCW"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "select * from chatwoot_contacts",
+        "options": {}
+      },
+      "id": "49c8442d-2288-46bb-9036-501ff49170e1",
+      "name": "Get Contact2",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -1380,
+        -480
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Envio de msg a Chatwoot \n",
+        "height": 520,
+        "width": 600,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        780,
+        -160
+      ],
+      "id": "3f8741b5-7eb1-4be7-b34c-280d172827d1",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Contactos",
+        "height": 440,
+        "width": 440,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1560,
+        -560
+      ],
+      "typeVersion": 1,
+      "id": "79bae9b2-7cfc-49ee-ba7f-16189f67c05e",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0cb14635-2673-408e-86db-ce9e0373674b",
+                    "leftValue": "={{ $('Workflow Input Trigger').item.json.typeFile }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Text"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Workflow Input Trigger').item.json.typeFile }}",
+                    "rightValue": "voice",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "9d6039bf-d7d0-489c-8f18-691901f06a47"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f0d1f958-f19d-43a3-b740-29e7f3e4c872",
+                    "leftValue": "={{ $('Workflow Input Trigger').item.json.typeFile }}",
+                    "rightValue": "location",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "location"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "45d0d877-d843-4113-ac4d-73f00ab3e573",
+      "name": "Message Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        820,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        140
+      ],
+      "id": "e9dc0a0f-0e26-4c41-8345-207a05fa63a6",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.chatwootUrl }}/public/api/v1/inboxes/{{ $json.inboxIdentifier }}/contacts/{{ $('Contact').item.json.sourceId }}/conversations/{{ $('Conversation').item.json.conversationId }}/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "chatwootApi",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "attachments[]",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "e3363cbd-c1eb-459a-9002-12ae0d00a341",
+      "name": "Send Media To ChatWoot2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1260,
+        140
+      ],
+      "credentials": {
+        "chatwootApi": {
+          "id": "MIwHAhPe5OlnBvxL",
+          "name": "ChatWoot account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "=https://chat.rshtech.com.py/public/api/v1/inboxes/{{ $('Get Contact').item.json.chatwootinboxidentifier }}/contacts/{{ $json.sourceId }}/conversations\n\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "PWT8Rjk9ZGEqVzGoWYmaofFj"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -60,
+        40
+      ],
+      "id": "c69191d8-c252-49a1-8345-1b47fa8da85e",
+      "name": "GetConversacion"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://chat.rshtech.com.py/public/api/v1/inboxes/SUqwz3QWbq6UgbEF7zhifEv5/contacts/f79c4147-e085-4dec-b4bb-0495f9624877/conversations/203/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer PWT8Rjk9ZGEqVzGoWYmaofFj"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "content",
+              "value": "={{ $json.content }}"
+            },
+            {
+              "name": "message_type",
+              "value": "outgoing"
+            },
+            {
+              "name": "private",
+              "value": "false"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        -60
+      ],
+      "id": "b2c2890a-3ffc-48f5-ba5a-d83395d51f66",
+      "name": "SendText"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://chat.rshtech.com.py/public/api/v1/inboxes/SUqwz3QWbq6UgbEF7zhifEv5/contacts/f79c4147-e085-4dec-b4bb-0495f9624877/conversations",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer PWT8Rjk9ZGEqVzGoWYmaofFj"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"custom_attributes\": {},\n  \"status\": \"open\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        380,
+        120
+      ],
+      "id": "64fd64fb-81f4-4c6d-b616-faeedc587d4c",
+      "name": "CreateConversation"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wepi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        1140,
+        -400
+      ],
+      "id": "615f5a50-3fb1-46a3-9d0e-3f48e64851d7",
+      "name": "CanalApiWepiWhapi",
+      "webhookId": "0147a521-fe16-40b3-befd-a57d401b219c"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chatwoot-webhook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -440,
+        -320
+      ],
+      "id": "d960d29b-799e-4df8-b0c9-0c6fa22701d8",
+      "name": "ChatwootToWhapi",
+      "webhookId": "37ccf5cc-5131-4df2-9609-cee3d81fa9ae"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "deb13bac-3ca3-4b5f-a567-8ad552fe780a",
+              "name": "mensaje",
+              "value": "={{ $json?.body?.messages[0]?.content || $json.body.messages[0].attachments[0].data_url }}",
+              "type": "string"
+            },
+            {
+              "id": "1ed82420-a056-46c1-afdc-f9769dc4b626",
+              "name": "numero",
+              "value": "={{ $json.body.meta.sender.phone_number.split('+')[1] }}",
+              "type": "string"
+            },
+            {
+              "id": "5b46b841-1e28-47d7-afe2-615961220268",
+              "name": "type",
+              "value": "={{ $json?.body?.messages[0]?.content_type || $json.body.messages[0].content_type }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -100,
+        -320
+      ],
+      "id": "4285fe11-4a9f-49d7-9fef-9563bce8a795",
+      "name": "variables"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('ChatwootToWhapi').item.json.body.messages[0].attachments[0].file_type }}",
+                    "rightValue": "audio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "9d6039bf-d7d0-489c-8f18-691901f06a47"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4972bf24-fce2-42ca-ac41-2fc2c0b4665c",
+                    "leftValue": "={{ $('ChatwootToWhapi').item.json.body.messages[0].attachments[0].file_type }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3f06e900-4dee-43af-9264-4221e9c03692",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "text",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e5d1c8a7-078b-4bb6-8192-c87c4053d413",
+      "name": "Message Type1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        160,
+        -320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $('variables').first().json.mensaje.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'') }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('variables').first().json.numero }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        600,
+        -520
+      ],
+      "id": "5734488f-2d7e-40b9-8dd6-7b577136a84a",
+      "name": "Texto"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://gate.whapi.cloud/presences/{{ $json.numero }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "presence",
+              "value": "typing"
+            },
+            {
+              "name": "delay",
+              "value": "={{1}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        -520
+      ],
+      "id": "e8380890-7d47-4303-85b7-bedaf3e5792e",
+      "name": "Escribiendo"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://gate.whapi.cloud/presences/{{ $json.numero }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "presence",
+              "value": "recording"
+            },
+            {
+              "name": "delay",
+              "value": "={{3}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        -340
+      ],
+      "id": "bc15d6fe-b2e1-4c5e-b953-d9847092bd6a",
+      "name": "Grabando Audio"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gate.whapi.cloud/messages/audio",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer Qo7qoYEVIKvRppohj25MEaHl1dPwskEv"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $('Message Type1').item.json.numero }}"
+            },
+            {
+              "name": "media",
+              "value": "={{ $('Message Type1').item.json.mensaje }}"
+            },
+            {
+              "name": "recording_time",
+              "value": "0"
+            },
+            {
+              "name": "mime_type",
+              "value": "audio/mp3"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        620,
+        -340
+      ],
+      "id": "87b46732-3de6-4839-8ebf-f0986de3b26a",
+      "name": "Enviar Audio1"
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "chatwoot_contacts",
+          "mode": "list",
+          "cachedResultName": "chatwoot_contacts"
+        },
+        "options": {}
+      },
+      "id": "15be443d-e102-4f2c-a115-a0082b6ed6ad",
+      "name": "Get Contact3",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -720,
+        -320
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "select * from chatwoot_contacts",
+        "options": {}
+      },
+      "id": "ae733b78-7b19-4484-b424-db6ec12a3201",
+      "name": "Get Contact4",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -960,
+        -320
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "E1mi81N6Tmr5cHS5",
+          "name": "GENERICO"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Contactos",
+        "height": 400,
+        "width": 440,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -980,
+        -560
+      ],
+      "typeVersion": 1,
+      "id": "1b74211c-d505-4a3f-a278-d00aec56994e",
+      "name": "Sticky Note7"
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-28T04:00:26.216Z",
+  "versionId": "9a050826-3dfc-470a-a3d3-47851b73d87b"
+}
