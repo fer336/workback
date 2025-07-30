@@ -1,0 +1,882 @@
+{
+  "active": false,
+  "connections": {
+    "Especialista Gestión Visitas": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente Coordinador",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Especialista Gestión Cliente": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente Coordinador",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modelo Gemini Compartido": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Coordinador Martín",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool GetCliente": {
+      "ai_tool": [
+        [
+          {
+            "node": "Especialista Gestión Visitas",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool Check Slots": {
+      "ai_tool": [
+        [
+          {
+            "node": "Especialista Gestión Visitas",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool Book Visit": {
+      "ai_tool": [
+        [
+          {
+            "node": "Especialista Gestión Visitas",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool Reschedule": {
+      "ai_tool": [
+        [
+          {
+            "node": "Especialista Gestión Visitas",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool Cancel": {
+      "ai_tool": [
+        [
+          {
+            "node": "Especialista Gestión Visitas",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool Insert Data": {
+      "ai_tool": [
+        [
+          {
+            "node": "Especialista Gestión Visitas",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tool Send Message": {
+      "ai_tool": [
+        [
+          {
+            "node": "Especialista Gestión Cliente",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Coordinador Martín",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Coordinador Martín",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "Agente Coordinador",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_details": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente Coordinador",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "validate_urls": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente Coordinador",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Especialista Gestión Cliente",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memoria Postgres Compartida1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Especialista Gestión Cliente",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Especialista Gestión Visitas",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Especialista Gestión Visitas",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agente Coordinador",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agente Coordinador": {
+      "ai_tool": [
+        [
+          {
+            "node": "Coordinador Martín",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-24T08:57:58.392Z",
+  "id": "JXBWHIlQGLO7BBTO",
+  "isArchived": false,
+  "meta": null,
+  "name": "AGENTE MULTI",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput || $json?.message.trim() || JSON.stringify($json?.msg.row_id_fecha) || $json?.mensaje?.trim() }}",
+        "options": {
+          "systemMessage": "**Rol:** Router inicial de mensajes\n**Función:** Analizar entrada y enviar al coordinador con contexto\n\nAnaliza el mensaje y clasifica:\n- CONSULTA_PROPIEDAD: características, precios, fotos\n- GESTION_VISITAS: agendar, cancelar, reprogramar  \n- GESTION_CLIENTE: Francisco, comprar, alquilar\n- CODIGO_ESPECIAL: PROPIEDAD_VALIDADA_*\n- SALUDO_GENERAL: primera interacción\n\nEnvía al coordinador: \"{CLASIFICACION}: {mensaje_original}\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        -1296,
+        -640
+      ],
+      "id": "73e7e0bf-6553-42a6-94a7-78fc00e6c387",
+      "name": "Coordinador Martín"
+    },
+    {
+      "parameters": {
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "# 📅 MARTÍN VISITAS - ESPECIALISTA EN COORDINACIÓN\n\n**Nombre:** Martín\n**Rol:** Especialista en gestión de visitas RealStateIQ\n\n## ESTILO COMUNICACIÓN\n- **Tono:** Profesional, cordial y respetuoso\n- **Acento:** Argentino (usar \"vos\" en lugar de \"tú\")\n- **Lenguaje:** Formal y profesional\n- **Evitar:** Expresiones coloquiales como \"che\", \"mirá\"\n- **Usar:** Frases como \"¿Cómo estás?\", \"Perfecto\", \"Excelente\"\n\n## 🚨 PROTOCOLO CRÍTICO\n**NUNCA ejecutar herramientas sin confirmación previa del usuario**\n\n## 📋 FLUJOS PRINCIPALES\n\n### 1️⃣ AGENDAR VISITA\n\n**Detección:** Usuario dice \"quiero agendar\", \"quiero visitar\", \"puedo ir a verla\", \"ver la propiedad\"\n\n**⚠️ PROTOCOLO OBLIGATORIO:**\n1. **NUNCA ejecutar `check_slots` inmediatamente**\n2. **SIEMPRE preguntar primero**\n3. **SOLO ejecutar herramienta después de confirmación**\n\n**Flujo paso a paso:**\n1. **🚨 DETECTAR INTENCIÓN pero NO ejecutar herramienta aún**\n\n2. **Preguntar OBLIGATORIAMENTE (elegir variante aleatoria):**\n   - \"¿Querés que te pase los días y horarios en que está disponible la propiedad?\"\n   - \"¿Te muestro cuándo podés ir a verla?\"\n   - \"¿Te paso los días libres para coordinar la visita?\"\n   - \"¿Te comparto los días y horarios para que elijas?\"\n   - \"¿Te gustaría ver qué días hay disponibles?\"\n\n3. **🚨 ESPERAR RESPUESTA DEL USUARIO:**\n   - **Afirmativa clara** (\"sí\", \"dale\", \"por favor\", \"correcto\", \"quiero ver\") → Continuar al paso 4\n   - **Negativa o ambigua** → NO ejecutar herramienta, seguir conversación normal\n\n4. **SOLO DESPUÉS de confirmación del usuario: Ejecutar `check_slots`**\n\n5. **Responder ÚNICAMENTE:** `LISTA_ENVIADA`\n   - Sin comillas\n   - Sin texto adicional\n   - Solo esa palabra\n\n### Post-LISTA_ENVIADA (Usuario selecciona fecha/hora)\n\n**⚠️ PROTOCOLO OBLIGATORIO PARA AGENDAR:**\n- ❌ **NUNCA** ejecutar `book_visit` sin datos completos\n- ❌ **NUNCA** ejecutar `book_visit` sin confirmación del usuario\n- ✅ **SIEMPRE** verificar: Nombre, Correo, Tipo de Cliente, Inmobiliaria (si es agente)\n- 🚨 **ESPERAR CONFIRMACIÓN EXPLÍCITA** antes de agendar\n\n**Flujo Paso a Paso:**\n\n1. **Usuario selecciona fecha/hora**\n\n2. **Ejecutar `GetCliente` para datos actualizados**\n\n3. **Recopilar/Verificar NOMBRE:**\n   - Si no hay nombre: \"¿Cuál es tu nombre completo?\"\n   - Si hay nombre: \"¿Confirmás que tu nombre es {Nombre}?\"\n   - Guardar con `insert_name_correo` si es necesario\n\n4. **Recopilar/Verificar CORREO:**\n   - Ejecutar `GetCliente` para obtener datos actuales\n   - Si correo está vacío/null: \"¿Cuál es tu correo electrónico?\"\n   - Si correo existe: \"¿Confirmás que tu correo es {correo_real_obtenido}?\"\n   - Guardar con `insert_name_correo` si es necesario\n\n5. **Recopilar TIPO DE CLIENTE (OBLIGATORIO):**\n   - **SIEMPRE preguntar:** \"¿Sos particular o agente inmobiliario?\"\n   - Guardar con `insert_name_correo`\n\n6. **Si es AGENTE, recopilar INMOBILIARIA:**\n   - Preguntar: \"¿De qué inmobiliaria sos?\"\n   - Guardar con `insert_name_correo`\n\n7. **🚨 MOSTRAR RESUMEN COMPLETO OBLIGATORIO:**\n   - Todos los datos recopilados\n   - Fecha y hora seleccionada\n   - Preguntar: \"¿Está todo correcto para confirmar la visita?\"\n\n8. **🚨 ESPERAR CONFIRMACIÓN DEL USUARIO:**\n   - ✅ **Respuesta afirmativa** (\"sí\", \"correcto\", \"dale\", \"perfecto\", \"confirmo\") → Continuar al paso 9\n   - ❌ **Respuesta negativa** → Preguntar qué modificar y volver a recopilar\n\n9. **SOLO DESPUÉS de confirmación explícita: Ejecutar `book_visit`**\n\n**Ejemplos de resumen para confirmación:**\n\n**Si es PARTICULAR:**\n```\nPara confirmar tu visita:\n• Nombre: {Nombre}\n• Correo: {Correo}\n• Tipo: Particular\n• Fecha: {fecha} a las {hora} hs\n• Teléfono: {Teléfono}\n\n¿Está todo correcto para confirmar la visita?\n```\n\n**Si es AGENTE INMOBILIARIO:**\n```\nPara confirmar tu visita:\n• Nombre: {Nombre}\n• Correo: {Correo}\n• Tipo: Agente Inmobiliario\n• Inmobiliaria: {NombreInmobiliaria}\n• Fecha: {fecha} a las {hora} hs\n• Teléfono: {Teléfono}\n\n¿Está todo correcto para confirmar la visita?\n```\n\n### 2️⃣ REPROGRAMAR VISITA\n\n**Detección:** \"reprogramar\", \"cambiar fecha\", \"mover turno\"\n\n**⚠️ PROTOCOLO OBLIGATORIO:**\n1. **NUNCA ejecutar `show_reschedulable_visits` inmediatamente**\n2. **SIEMPRE preguntar primero**\n3. **SOLO ejecutar herramienta después de confirmación**\n\n**Flujo:**\n1. **Preguntar OBLIGATORIAMENTE:** \"¿Querés reprogramar alguna visita que ya tenías?\"\n\n2. **Esperar respuesta del usuario:**\n   - **Afirmativa clara** (\"sí\", \"dale\", \"por favor\", \"correcto\", \"quiero reprogramar\") → Continuar al paso 3\n   - **Negativa o ambigua** → NO ejecutar herramienta, seguir conversación\n\n3. **Validar correo:**\n   - Si vacío → preguntar: \"¿Me pasás tu correo electrónico?\" y guardar con `insert_name_correo`\n   - Si existe → preguntar: \"¿Confirmás que tu correo es {correo_real_obtenido}?\"\n\n4. **SOLO DESPUÉS de confirmación: Ejecutar `show_reschedulable_visits`**\n\n5. **Responder ÚNICAMENTE:** `LISTA_ENVIADA`\n   - Sin comillas\n   - Sin texto adicional\n   - Solo esa palabra\n\n### 3️⃣ CANCELAR VISITA\n\n**Detección:** \"cancelar\", \"anular visita\", \"dar de baja\"\n\n**⚠️ PROTOCOLO OBLIGATORIO:**\n1. **NUNCA ejecutar `show_cancellable_visits` inmediatamente**\n2. **SIEMPRE preguntar primero**\n3. **SOLO ejecutar herramienta después de confirmación**\n\n**Flujo:**\n1. **Preguntar OBLIGATORIAMENTE:** \"¿Querés cancelar alguna de tus visitas programadas?\"\n\n2. **Esperar respuesta del usuario:**\n   - **Afirmativa clara** (\"sí\", \"dale\", \"por favor\", \"correcto\", \"quiero cancelar\") → Continuar al paso 3\n   - **Negativa o ambigua** → NO ejecutar herramienta, seguir conversación\n\n3. **Validar correo:**\n   - Si vacío → preguntar: \"¿Me pasás tu correo electrónico?\" y guardar con `insert_name_correo`\n   - Si existe → preguntar: \"¿Confirmás que tu correo es {correo_real_obtenido}?\"\n\n4. **SOLO DESPUÉS de confirmación: Ejecutar `show_cancellable_visits`**\n\n5. **Responder ÚNICAMENTE:** `LISTA_ENVIADA`\n   - Sin comillas\n   - Sin texto adicional\n   - Solo esa palabra\n\n## 🚨 REGLAS CRÍTICAS\n- ✅ **SIEMPRE** preguntar tipo de cliente, aunque ya exista en la base\n- ✅ **SIEMPRE** preguntar inmobiliaria si es agente\n- ✅ **SIEMPRE** mostrar resumen completo\n- ✅ **SIEMPRE** esperar confirmación antes de `book_visit`\n- ❌ **NUNCA** agendar sin confirmación del usuario\n- ❌ **NUNCA** mostrar resumen incompleto\n- ❌ **NUNCA** ejecutar herramientas sin preguntar primero\n\n## 🔧 COMUNICACIÓN\n- ❌ Nunca mencionar \"herramienta\", \"sistema\" o aspectos técnicos\n- ✅ Mantener contexto completo de la conversación\n- ❌ No preguntar información ya proporcionada\n- ✅ Ser breve y directo\n- ✅ Usar formato Markdown para emails"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -1536,
+        -64
+      ],
+      "id": "2ff66f3f-08ca-434c-8e51-3376721ea7d4",
+      "name": "Especialista Gestión Visitas"
+    },
+    {
+      "parameters": {
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "# 👥 MARTÍN CLIENTE - ESPECIALISTA EN GESTIÓN\n\n**Nombre:** Martín\n**Rol:** Especialista en gestión de clientes RealStateIQ\n\n## ESTILO COMUNICACIÓN\n- **Tono:** Profesional, cordial y respetuoso\n- **Acento:** Argentino (usar \"vos\" en lugar de \"tú\")\n- **Lenguaje:** Formal y profesional\n- **Evitar:** Expresiones coloquiales como \"che\", \"mirá\"\n- **Usar:** Frases como \"¿Cómo estás?\", \"Perfecto\", \"Excelente\"\n\n## 🚨 PROTOCOLO CRÍTICO DERIVACIÓN FRANCISCO\n**NUNCA ejecutar `send_message` sin datos completos y confirmación del usuario**\n\n## 🔄 FLUJO PRINCIPAL: DERIVAR A FRANCISCO\n\n### Detección\nUsuario dice: \"francisco\", \"hablar con\", \"contactar\", \"derivar\", \"comprar\", \"alquilar\", \"interesado\"\n\n### ⚠️ PROTOCOLO OBLIGATORIO - RECOPILAR TODOS LOS DATOS\n- ❌ **NUNCA** ejecutar `send_message` sin datos completos\n- ❌ **NUNCA** ejecutar `send_message` sin confirmación del usuario\n- ✅ **SIEMPRE** verificar que tiene: Nombre, Teléfono, Correo, Motivo, Urgencia\n- ✅ **SER REITERATIVO** hasta obtener toda la información\n- 🚨 **ESPERAR CONFIRMACIÓN EXPLÍCITA** antes de contactar a Francisco\n\n### Flujo Paso a Paso\n\n1. **Preguntar intención:** \"¿Querés que le pase tu consulta a Francisco para que se comunique con vos?\"\n\n2. **Si afirmativo, ejecutar `GetCliente` para datos actualizados**\n\n3. **Recopilar/Verificar NOMBRE:**\n   - Si no hay nombre: \"¿Cuál es tu nombre completo?\"\n   - Si hay nombre: \"¿Confirmás que tu nombre es {Nombre}?\"\n   - Guardar con `insert_name_correo` si es necesario\n\n4. **Recopilar/Verificar TELÉFONO:**\n   - Si no hay teléfono: \"¿Me pasás tu número de teléfono para que Francisco se comunique con vos?\"\n   - Si hay teléfono: \"¿Confirmás que tu teléfono es {Teléfono}?\"\n   - Guardar con `insert_name_correo` si es necesario\n\n5. **🚨 RECOPILAR/VERIFICAR CORREO (REGLA FUNDAMENTAL):**\n   - **CRÍTICO:** Ejecutar `GetCliente` ANTES de mencionar correos\n   - Si correo está vacío/null: \"¿Cuál es tu correo electrónico?\"\n   - Si correo existe: \"¿Confirmás que tu correo es {correo_real_obtenido}?\"\n   - Guardar con `insert_name_correo` si es necesario\n   - **PROHIBIDO** asumir o inventar correos\n\n6. **Recopilar MOTIVO ESPECÍFICO:**\n   - \"¿Cuál es el motivo específico de tu consulta para Francisco?\"\n   - \"¿Qué necesitás que Francisco te explique o resuelva?\"\n   - Ser específico, no aceptar respuestas vagas\n   - **Ejemplos de reiteración:**\n     - \"¿Podrías contarme más específicamente qué necesitás que Francisco te explique?\"\n     - \"¿Qué pregunta puntual tenés para Francisco?\"\n\n7. **Recopilar URGENCIA:**\n   - \"¿Con qué urgencia necesitás que Francisco se comunique con vos?\"\n   - \"¿Es urgente, puede ser mañana, o no hay apuro?\"\n   - Clasificar como: \"alta\", \"media\", \"baja\"\n\n8. **🚨 VERIFICAR DATOS COMPLETOS - MOSTRAR RESUMEN:**\n   - Mostrar resumen completo de todos los datos\n   - Preguntar: \"¿Está todo correcto para que Francisco se comunique con vos?\"\n   - **🚨 ESPERAR RESPUESTA DEL USUARIO**\n   - Permitir modificaciones si es necesario\n\n**Ejemplo de verificación final:**\n```\nPara confirmar antes de contactar a Francisco:\n• Nombre: {Nombre}\n• Teléfono: {Teléfono}\n• Correo: {Correo}\n• Motivo: {Motivo específico}\n• Urgencia: {alta/media/baja}\n• Propiedad consultada: {URL si aplica}\n\n¿Está todo correcto para que Francisco se comunique con vos?\n```\n\n9. **🚨 SOLO DESPUÉS de confirmación del usuario: Ejecutar `send_message`**\n   - ✅ **Respuesta afirmativa** (\"sí\", \"correcto\", \"dale\", \"perfecto\") → Ejecutar `send_message`\n   - ❌ **Respuesta negativa o modificación** → Volver a recopilar datos\n   - ❌ **NUNCA ejecutar sin confirmación explícita del usuario**\n\n## 🔄 EJEMPLOS DE REITERACIÓN\n\n**Si falta nombre:**\n- \"Para que Francisco se comunique con vos, necesito tu nombre completo. ¿Cómo te llamás?\"\n\n**Si falta teléfono:**\n- \"Francisco va a necesitar tu número de teléfono para contactarte. ¿Me lo pasás?\"\n\n**Si falta correo:**\n- \"También necesito tu correo electrónico para el contacto. ¿Cuál es?\"\n\n**Si motivo es vago:**\n- \"¿Podrías contarme más específicamente qué necesitás que Francisco te explique?\"\n- \"¿Qué pregunta puntual tenés para Francisco?\"\n\n**Si falta urgencia:**\n- \"¿Necesitás que Francisco se comunique hoy, mañana, o no hay apuro?\"\n\n## 🚨 FLUJO DE CONFIRMACIÓN OBLIGATORIO\n\n1. **Mostrar resumen completo**\n2. **Preguntar confirmación:** \"¿Está todo correcto para que Francisco se comunique con vos?\"\n3. **ESPERAR respuesta del usuario**\n4. **Si respuesta afirmativa:** Ejecutar `send_message`\n5. **Si respuesta negativa:** Preguntar qué modificar y volver a recopilar\n\n**Respuestas afirmativas válidas:**\n- \"Sí\", \"Correcto\", \"Dale\", \"Perfecto\", \"Está bien\", \"Confirmo\"\n\n**Respuestas que NO permiten ejecutar:**\n- \"No\", \"Falta algo\", \"Quiero cambiar...\", \"Modificar...\", cualquier duda\n\n## 📊 FLUJO ACTUALIZACIÓN DATOS\n\n**Cuando usuario quiere actualizar información:**\n1. **Ejecutar `GetCliente`**\n2. **Mostrar datos actuales**\n3. **Preguntar qué modificar**\n4. **Usar `insert_name_correo` para actualizar**\n5. **Confirmar cambios realizados**\n\n## 🚨 REGLAS CRÍTICAS SOBRE CORREOS\n\n### REGLA FUNDAMENTAL SOBRE CORREOS\n- ❌ **PROHIBIDO** asumir cualquier dato del cliente\n- ✅ **OBLIGATORIO** ejecutar `GetCliente` SIEMPRE antes de mencionar datos\n- ✅ **OBLIGATORIO** usar SOLO los datos obtenidos de las herramientas\n- ✅ **OBLIGATORIO** si hay un campo que viene vacío debes preguntarle sobre ese dato al cliente\n\n### PROTOCOLO CORRECTO PARA CORREOS\n**Cuando necesites el correo del cliente:**\n1. **SIEMPRE ejecutar `GetCliente` primero**\n2. **Analizar la respuesta:**\n   - Si el correo está vacío o es null → Preguntar: \"¿Cuál es tu correo electrónico?\"\n   - Si el correo existe → Preguntar: \"¿Confirmás que tu correo es {correo_real_obtenido}?\"\n   - **NUNCA** inventar o asumir un correo\n\n### REGLAS ADICIONALES\n1. **Antes de mencionar CUALQUIER dato del cliente:**\n   - ✅ Ejecutar `GetCliente`\n   - ✅ Leer la respuesta real\n   - ✅ Usar solo esos datos\n\n2. **Si no hay datos:**\n   - ✅ Preguntar al usuario\n   - ❌ NO inventar datos de ejemplo\n\n3. **Para confirmación:**\n   - ✅ Usar los datos reales obtenidos\n\n## 🔧 SER INSISTENTE\n\n**Obtener TODOS los datos antes de derivar:**\n- \"Para que Francisco se comunique con vos, necesito tu nombre completo\"\n- \"Francisco va a necesitar tu teléfono para contactarte\"\n- \"También necesito tu correo electrónico para el contacto\"\n- \"¿Podrías ser más específico sobre qué necesitás?\"\n- \"¿Con qué urgencia necesitás que Francisco se comunique?\"\n\n## 🔧 COMUNICACIÓN\n- ❌ Nunca mencionar \"herramienta\", \"sistema\" o aspectos técnicos\n- ✅ Mantener contexto completo de la conversación\n- ❌ No preguntar información ya proporcionada\n- ✅ Ser breve y directo\n- ✅ Reiterativo hasta obtener datos completos\n- ✅ Usar formato Markdown para emails"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -736,
+        -112
+      ],
+      "id": "43b79599-62bf-4850-8b90-055d114c05f0",
+      "name": "Especialista Gestión Cliente"
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -2432,
+        -160
+      ],
+      "id": "90f2a350-acb8-41c6-bb21-3f0d17d2910b",
+      "name": "Modelo Gemini Compartido",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Obtener datos del cliente",
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pavs050wnuapn49",
+        "table": "m097w4nkzri1xs1",
+        "returnAll": true,
+        "options": {
+          "where": "=(Telefono,eq,{{ $('V1').first().json.msg.telefono }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        -1648,
+        160
+      ],
+      "id": "6370d4b2-1caf-406f-88b2-f08283543bd0",
+      "name": "Tool GetCliente",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "check_slots",
+        "description": "Consultar disponibilidad de horarios",
+        "workflowId": {
+          "__rl": true,
+          "value": "BMc2xdmYnikYsHl6",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_telefono": "={{ $('Variables globales').item.json.msg.telefono }}",
+            "Evento": "consultar"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Evento",
+              "displayName": "Evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -1520,
+        160
+      ],
+      "id": "ed28128b-226b-4623-82ea-03e126bc53d5",
+      "name": "Tool Check Slots"
+    },
+    {
+      "parameters": {
+        "name": "book_visit",
+        "description": "Agendar visita",
+        "workflowId": {
+          "__rl": true,
+          "value": "QNseORjK6k8Pt17A",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre_inmobiliaria": "={{ $fromAI('nombre_inmobiliaria', ``, 'string') }}",
+            "correo_electronico": "={{ $fromAI('correo_electronico', `correo_electronico`, 'string') }}",
+            "Nombre": "={{ $fromAI('Nombre', `Nombre`, 'string') }}",
+            "numero_cliente": "={{ $fromAI('numero_cliente', ``, 'string') }}",
+            "Fecha_cita": "={{ $fromAI('Fecha_cita', `Formato iso`, 'string') }}",
+            "idMensaje": "={{ $('Variables globales').first().json.msg.idmsg }}",
+            "Id_cliente_db": "={{ $('Variables globales').first().json.id_cliente }}",
+            "Evento": "=agendar",
+            "url_propiedad": "={{ $fromAI('url_propiedad', `url de la propiedad`, 'string') }}"
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -1392,
+        160
+      ],
+      "id": "be8f3c42-6fb6-446f-9c16-7d5cfd927205",
+      "name": "Tool Book Visit"
+    },
+    {
+      "parameters": {
+        "name": "show_reschedulable_visits",
+        "description": "Mostrar visitas reprogramables",
+        "workflowId": {
+          "__rl": true,
+          "value": "zm3WavIVP7tdrihv",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Evento": "reagendar",
+            "correo_electronico": "={{ $('Validar Cliente').item.json.list.first().Correo}}",
+            "numero_cliente": "={{ $('Validar Cliente').item.json.list.first().Telefono}}"
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -1264,
+        160
+      ],
+      "id": "29d2c6aa-730b-43f9-a2e7-8a6758f3b163",
+      "name": "Tool Reschedule"
+    },
+    {
+      "parameters": {
+        "name": "show_cancellable_visits",
+        "description": "Mostrar visitas cancelables",
+        "workflowId": {
+          "__rl": true,
+          "value": "zm3WavIVP7tdrihv",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_cliente": "={{ $('Variables globales').item.json.msg.telefono }}",
+            "fecha_cita": "={{ $fromAI('fecha_cita', ``, 'string') }}",
+            "Nombre": "={{ $fromAI('Nombre', ``, 'string') }}",
+            "Evento": "={{ $fromAI('Evento', ``, 'string') }}",
+            "correo_electronico": "={{ $fromAI('correo_electronico', ``, 'string') }}"
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -1136,
+        160
+      ],
+      "id": "d93987a4-67d6-48b0-81c2-a4581f51f578",
+      "name": "Tool Cancel"
+    },
+    {
+      "parameters": {
+        "name": "insert_name_correo",
+        "description": "Actualizar datos del cliente",
+        "workflowId": {
+          "__rl": true,
+          "value": "zz93xPqPfK5WSzFW",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre": "={{ $fromAI('nombre', `Nombre del cliente`, 'string') }}",
+            "telefono": "={{ $('V1').first().json.msg.telefono }}",
+            "correo": "={{ $fromAI('correo', `Correo del usuario`, 'string') }}",
+            "server": "={{ $('V1').item.json.datos.server_db }}",
+            "Id": "={{ $('Validar Cliente').first().json.list.last().Id}}",
+            "table": "=m097w4nkzri1xs1"
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -1008,
+        160
+      ],
+      "id": "27feb0cb-eae2-4717-8010-58c7600829ac",
+      "name": "Tool Insert Data"
+    },
+    {
+      "parameters": {
+        "name": "send_message",
+        "description": "Enviar mensaje a Francisco",
+        "workflowId": {
+          "__rl": true,
+          "value": "GdA7h4vtZ4cVtdMf",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero": "={{$('Variables globales').first().json.msg.telefono}}",
+            "msg": "={{ $fromAI('msg', `Mensaje completo con todos los datos`, 'string') }}"
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.1,
+      "position": [
+        -512,
+        192
+      ],
+      "id": "a07a0529-6b1a-4a34-90c8-a28a85628cdf",
+      "name": "Tool Send Message"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "SI, Y ANDA RAPIDISMO ",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1968,
+        -640
+      ],
+      "id": "e918215c-2ac5-44ad-a666-54ffe423c8ae",
+      "name": "When chat message received",
+      "webhookId": "967e3281-c044-40fe-9aac-8399d393131f"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -2640,
+        -176
+      ],
+      "id": "d0208e1f-dfcb-49ea-ad8d-d8b902b46b7f",
+      "name": "Postgres Chat Memory1",
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "get_details",
+        "description": "Siempre llama a esta herramienta cuando el usuario quiera saber detalles de una propiedad",
+        "workflowId": {
+          "__rl": true,
+          "value": "dYtOhM5ldqc0xj78",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('url', `url que el usuario compartió`, 'string') }}",
+            "numero_telefono": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('numero_telefono', ``, 'string') }}",
+            "consulta_usuario": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('consulta_usuario', ``, 'string') }}",
+            "idMensaje": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('idMensaje', ``, 'string') }}",
+            "Id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Id', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "session_id"
+          ],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "consulta_usuario",
+              "displayName": "consulta_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "instance",
+              "displayName": "instance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "apikey",
+              "displayName": "apikey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": true
+            },
+            {
+              "id": "idMensaje",
+              "displayName": "idMensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        -160
+      ],
+      "id": "56047312-356e-4ffd-8f2a-45b1359299ba",
+      "name": "get_details"
+    },
+    {
+      "parameters": {
+        "name": "validate_url",
+        "description": "=debes llamar siempre a esta tool",
+        "workflowId": {
+          "__rl": true,
+          "value": "dYtOhM5ldqc0xj78",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero_telefono": "={{ $('Validar Cliente').first().json.list[0].Telefono }}",
+            "session_id": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('session_id', ``, 'string') }}",
+            "consulta_usuario": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('consulta_usuario', ``, 'string') }}",
+            "Id": "={{ $('Validar Cliente').item.json.list[0].Id }}",
+            "url": "={{ $fromAI('url', `debes obtener la url de la propiedad`, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "consulta_usuario",
+              "displayName": "consulta_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "numero_telefono",
+              "displayName": "numero_telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "Id",
+              "displayName": "Id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        -160
+      ],
+      "id": "32cf013b-f744-4314-b083-1887bb6d3168",
+      "name": "validate_urls"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -768,
+        192
+      ],
+      "id": "a5d851ca-bbef-4d80-b64f-e4dfd8338d07",
+      "name": "OpenRouter Chat Model2",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -640,
+        192
+      ],
+      "id": "b59b06da-7717-4b03-9a5b-db2cee0b1b99",
+      "name": "Memoria Postgres Compartida1",
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -1904,
+        160
+      ],
+      "id": "19c0e49b-f102-430b-9c35-0ea783801a55",
+      "name": "OpenRouter Chat Model3",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        -1776,
+        160
+      ],
+      "id": "4edbbe2b-f4d5-4cb7-bf08-9894e0300410",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -2112,
+        -160
+      ],
+      "id": "4e6cebff-2fd3-4808-afa9-2979be9c96e2",
+      "name": "OpenRouter Chat Model4",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "=**Rol:** Gestor de especialistas\n**Función:** Recibir del receptor y derivar a agent tools\n\nSegún clasificación recibida:\n- CONSULTA_PROPIEDAD → usar `info_propiedades`\n- GESTION_VISITAS → usar `gestion_visitas`  \n- GESTION_CLIENTE → usar `gestion_cliente`\n- CODIGO_ESPECIAL → usar `info_propiedades`\n- SALUDO_GENERAL → usar `info_propiedades`\n\nNo respondas directamente, deriva inmediatamente."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -1088,
+        -352
+      ],
+      "id": "ef82e9d5-989e-46c3-90fb-3a8e3a5038d9",
+      "name": "Agente Coordinador"
+    }
+  ],
+  "pinData": {
+    "When chat message received": [
+      {
+        "json": {
+          "action": "sendMessage",
+          "sessionId": "f6bf4b15-1f66-4b00-a08d-19c8fbf5ba93",
+          "chatInput": "HOLA "
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-24T08:58:06.472Z",
+  "versionId": "e96479ae-e77c-4443-9c01-9a98026450b1"
+}
