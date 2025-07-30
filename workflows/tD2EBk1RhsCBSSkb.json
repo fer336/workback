@@ -1,0 +1,698 @@
+{
+  "active": false,
+  "connections": {
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Delete",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "getMsg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "JSON Parse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message Type1": {
+      "main": [
+        [
+          {
+            "node": "text1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "text1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "text1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcribir": {
+      "main": [
+        [
+          {
+            "node": "text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JSON Parse": {
+      "main": [
+        [
+          {
+            "node": "Message Type1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Pushea msj": {
+      "main": [
+        [
+          {
+            "node": "getMsg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getMsg": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Datos": {
+      "main": [
+        [
+          {
+            "node": "Pushea msj",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        []
+      ]
+    },
+    "Convert to File1": {
+      "main": [
+        [
+          {
+            "node": "Transcribir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-10T15:06:05.923Z",
+  "id": "tD2EBk1RhsCBSSkb",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "SUB TAREA - ENLOCAR MSG Citas",
+  "nodes": [
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "37fa4c10-4aa3-4c88-8793-c66f540ea575",
+                    "leftValue": "={{ JSON.parse($json.message.last()).timestamp}}",
+                    "rightValue": "={{ $now.minus(9,'seconds').toLocal().toISO() }}",
+                    "operator": {
+                      "type": "dateTime",
+                      "operation": "before"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "seguir"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "14670af8-79bb-463d-b32c-345a5acc391b",
+                    "leftValue": "={{ JSON.parse($json.message.last()).idmsg }}",
+                    "rightValue": "={{ $('Datos').item.json.msg.idmsg }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        544,
+        32
+      ],
+      "id": "68ee227d-4b4e-4504-9fe1-f59cf2bacc01",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "amount": 9
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        800,
+        192
+      ],
+      "id": "95c98a21-592c-4a31-909b-e144b22afaf6",
+      "name": "Wait",
+      "webhookId": "ee77e58b-d479-446c-9e74-d4df7d321ee5"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "message",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        -96
+      ],
+      "id": "55ff735e-04e3-4a43-b4b8-4eebb8970486",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "726ef588-43c5-472e-89e8-a5bfb7656bba",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "conversation",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "texto"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8cb854e2-c9dc-45e9-b6aa-5f6c0266b561",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "audioMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "audio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2f544afa-8d5d-4f9c-b46f-78562d0c4bd8",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "extendedTextMessage",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "extendedTextMessage"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "79edb828-39df-4ebc-a555-36e2e44a2aaa",
+                    "leftValue": "={{ $json.type }}",
+                    "rightValue": "reply",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Button"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5c9ddc0c-134c-46f8-865c-29efae64f322",
+      "name": "Message Type1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1552,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7d210f0-6a18-456d-9e89-aa28f548b2a0",
+              "name": "content",
+              "value": "={{ ($json.content || '').substring(($json.content || '').indexOf(',') + 1) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "db9a2a0d-569e-47d6-9044-bdb96ceca3a8",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1728,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {
+          "language": "es"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        2048,
+        112
+      ],
+      "id": "42e2d808-8317-4525-ad62-aa8de290a6c3",
+      "name": "Transcribir",
+      "credentials": {
+        "openAiApi": {
+          "id": "tpho37KNAAX388pI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('Edit Fields1').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2208,
+        112
+      ],
+      "id": "32564b0a-8c7e-4657-88e5-8cc8fb057a82",
+      "name": "text"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "592a9044-042e-4906-a512-1dca3c55cd6a",
+              "name": "text",
+              "value": "={{ $('JSON Parse').item?.json?.content ||$json.button  }}",
+              "type": "string"
+            },
+            {
+              "id": "1b82679b-242a-47f8-a614-662442de52ac",
+              "name": "timestamp",
+              "value": "={{ $('JSON Parse').item.json.timestamp }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2000,
+        -80
+      ],
+      "id": "843abf8f-d2e5-4a2d-b7b8-f64015d63bb9",
+      "name": "text1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1280,
+        -96
+      ],
+      "id": "93d4a8b9-b8fc-4b92-9f52-95fcdd7d81eb",
+      "name": "JSON Parse"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        2432,
+        -64
+      ],
+      "id": "950fa2e5-efc1-4139-a08a-1ba54b4dde85",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "list": "=msg:{{ $json?.msg?.telefono || $json.list[0].Telefono }}",
+        "messageData": "={{ JSON.stringify($json.msg) }}",
+        "tail": true
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        48,
+        32
+      ],
+      "id": "9946f106-fc46-432a-99e6-74dba30ca7ba",
+      "name": "Pushea msj",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "message",
+        "key": "=msg:{{ $('Datos').item.json.msg.telefono }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        304,
+        32
+      ],
+      "id": "694411fc-6f42-4e60-9630-455c75d39b8f",
+      "name": "getMsg",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -288,
+        32
+      ],
+      "id": "86486447-79f6-4b6b-b643-55088e45aa7d",
+      "name": "Datos"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=msg:{{ JSON.parse($json.message.last()).telefono}}"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        800,
+        -96
+      ],
+      "id": "edf1e4f3-b4b6-46ba-97b0-c19d3008b8a2",
+      "name": "Delete",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2208,
+        -400
+      ],
+      "id": "172e12a8-6cc5-4ee7-92c3-d68ca1e721d8",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "content",
+        "options": {
+          "fileName": "=audio.ogg"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1888,
+        112
+      ],
+      "id": "952cd573-8828-4db2-afbf-d5f77dbe2108",
+      "name": "Convert to File1"
+    },
+    {
+      "parameters": {
+        "content": "# Version\n## es.api-wa\n",
+        "height": 224,
+        "width": 992,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1520,
+        64
+      ],
+      "typeVersion": 1,
+      "id": "0298bdcf-8e5f-4cc2-aeb8-257c49b30c82",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {
+    "Datos": [
+      {
+        "json": {
+          "msg": {
+            "telefono": "5492254423359",
+            "nombre": "Fer { }",
+            "type": "audioMessage",
+            "content": "data:audio/ogg; codecs=opus;base64,T2dnUwACAAAAAAAAAAAAAAAAAAAAACqCBoIBE09wdXNIZWFkAQFoAIA+AAAAAABPZ2dTAAAAAAAAAAAAAAAAAAABAAAAjzLsvAEYT3B1c1RhZ3MIAAAAV2hhdHNBcHAAAAAAT2dnUwAAaGgBAAAAAAAAAAAAAgAAAAgFMDgbMt7q+P8H/yT/Uv8o/yn/Bf8Z/0L/Pv8l/xD6S4YHCAcHBwvkwTbsxYAHyXIn4UTqUAfJecjJV8AHyXnIyVfAB8l5yMlXwAfJecjJV8BLhhMjKyUpgAKBO2U9d2gbk6+UsT5aZjDYgIbMaBRs8LAWh4TJUxtLYLx687MpVPOLy54aC8DVREGJqqOYhor9CXVjzUg9aoHqoz31CDQ0FpGgMRrGkvx4PEOtffXqlouAfEgc8//A+IbRmIZYQkj3I1J0YGtIg7Vd9TURbJVT5Fug0jiKt24sOqiTyIqG0ZnmvmUJVb82TiTQIS/6sQ8UuV08EUoTae1IjudS4rivXw4AxREvIIbf5AaZ1sVKknF3JXBG+jz4Ni75E1RyReY4FEK6N3RNPvWj/rElglhLhiknJCMnhvlhUEHbwxbhwnXwFOVi9QvFtnMB0qgj8uDCSuUZ8mgtfuga2nVhfZCAUj57ocdQXqAVtGAmICxCa9nF9Ef2XcGnfVBVjTdLngpwFbUJ2IAh08RFf2EHJIVzmvA5wTtlcF8zuGRs9hXwMHav9pXsZY78boAhyFgxFZUd3zvLj/LcmUaSsB/hMdsu7PpwGmBNl02CNYQ8xCHIZHvbUhqv58L+BDpRT0imyPHIccfAVX7VSlighsjl9bDZSFuvYYcls6QYUhPy1LfRS5pug64+pvgeLG+VpnlXdPdADMUezrxNR9BLhi4rKCQjgM+uXKTNF4DdiM1KbdDKlC4eASISYj/yhfHfrOhD0fOYsFAlNcn5XwOO74hdwIHSHBem/ZE5Ka1LWmMaU/fMnG2ZBNqcTnYzpUqJT4F9Df7sl88CwRNBnsCCB1B6AX9qyJQBy1f9Fc0cZNYCQreW1u8SJZa0nUYXKLXE0lHmMVigiLKIM7C90KllWBB76rmstVRMsZE9H8GXrP1d8No+0Ja3QUogh+Z/hoz5sHeG21pormLyFhBlRFXJxQQz33RP6BDv18r5BWCAuQxl/ltCjynQaMWJVYR6XE0/6FdgnUTU9Kb4Ig7Iwg9c9Vm6A189IEuGJx8nKTInnnSZCmK1hvVFxgZurNULp4QFrp8keYt/tXJZBcIN8AiT7y77wKAm9Yg+4v4z58awp/r4SzdsrsYkLxkQGacjLP6ZkhmjImptGKrMn6kSdMIyUuYoylb7ZIYSPGj9nQUrOgkykIUTUwqDqvIxh1cklTIYgpcydcMNCDLajQLaRIcndFYbl3AnZwWnAa9nv2pTIhQqKwiA8e9lemI89FHV4BDrs8nItnI7t511/YV8inBOfEJkY3wg3BS29tnpcUnyAGlOvyrlSJymllpRxNEyphncBXqXj5Hadd2dxNwiErDKmSn9sbx0MDJDvIkYW7LgS+lAdZoCIt6CN3vsIOBLhi4vLjQwnUxy9C6uFtE8CS4wzoy9xscqqYLG7swuaz90Uo6EzLUdYwlU3oyUw6ieT+bjUJyXLsa+TNfyZNTQG1HWhRzLfWHiVy8SOhIVe5BisrskAem0v815tBxmb8oR27Q0nJUXCQTgf+TjtLKlxjwmRKJwa3DlVH3lMfSZPJ1GsQJM/j7XwiBXsuYxFoHmtJyWADO7RwQ4vXxS93mEnJi1wX921b9j0KL1ekAEG4uCV0WpXV34RiJbxr+Yp1XVbVCFCoCcpnfDq1sbiEA0eaS5Zsd2143ElhhU/5eCYBt8/S6MvFkRf/GP9XMSx6E0QfbYnXCdAN17FLMRmkQhSP94xYX5UACmBzXNXt/WarrF8AWMdKYEQBl8jxyZ/69f0hBLhjk3OTo4nc3kk/uNMn+iaYu8RQ9N2Gd3ANjjYhriBVAT5C/DhEmXtUZkD4ttOEnKGmrl3JhWOEy/fQYfXXwwnnSDMEPWxHhs5z8JCOUgJI3htgT5fCa/fO7mD2N+H8Brk94e8F/NDPJCxp2jDmJErzJn1azFIJyrm9nwLn3Q3ERBNKVAM+98ivl/LVWfRE32aHNL6pRJTZinfSLg+b+wTla7EwRLvMBt+nlMNYgNsJ+IAYsnJpT39KfG4el+W69nZuBNze0kAEEUMUyFnMdGUOhV1n5vBq5QnG7EpP9SA34yHbsBJrk1yHKgKNx/WkVls2BBks3fHOmja3YmuP68s1rNq60ZezNNJLVBiz6Hkilc8j3HHN8E+Mzdxkrvqzww0J6dHBG41Um85iQsXWNN+m4K3Pn+CFWmRS5ZLf0RIwD46XmvUyKoZ3yTBO+7IaCkS4YzKSo4MJ4+0FW9qbQwmGUfyFq2e4RbVOeMbF7F4eMQG27liwPHf7TM/oGdq/Jb9aL93ijj7X3pgIEchpwjrx6n2vs84Xff3hl82AsB6wkbqiDFIg7cQ1Os3+aHGzSS9VkggG1vZbSldXsC7cyVmll5JdlQEurfX8LVgmU4KIhs5ALzEyd0SiUTDViAmmMqUbuqxQYniZeIiT8Bc7D+Srvu6H3xWIl9QoDF0jXu4aAqc9UDTytwNKl601co6x0RFBtxk4CcPcD/ajHsFYBQS+OLLiYBp9KG4TyOnJ6iUN4D6IAujWZ4co2m12Zy18YPRa2VOYCcHLDWTujMzb6/YN8vagVKAcJkAmSWEn4oorU+HPalWEG82RRu9RPOR7ROtct3AUe6zkuGKCw6OzGcGMvm1fPh/LUe4OKe/myOAX3ikxZLWhPhSChXxEuv7ZqOZQm2rILcnByw1kzlV+8XHvYE0rbKOI9wiI3p6NWTYtbEYuwEFIYuK5ziSHSzbjCJdCSd67lKTJYRNsJiRaZhTQFESvu85gLU4m3cUv0HYB3une/SMsVrIaL+FElLD6XOsCT99l65QIW4adnIppB+aTk84gnq2jtxCH47LUF886eYetkcuJy+IYcx+7X6UTm1Zkeejj4D62pQrGzB/kpdExDEYlbpt4C+UlJHqpjiNzkTQNmAbaoBN6tGCDxJhLQAX95ZStxg7YjAwAxzJrQDVsKzG16XSouAgguiyiVFsmLSit52iJSxK/6uH4thRX0Yrc0orZ+n+DNSZOR39k1gS4YiJSwqNTBkFyOFIe518jNnjgq1GBf6g5oN2fU1AN355rQkm4g71+ADJ05bKQ9Ru+O7P2G9cLlxWMvVlmHeeQz04Yj3gsjaxPXzAsJYgNOIb5whw5X3xP0AwKGENgR94gDA4dNCncmwtn7l5jqwqja9iD8hylcDiiiBaITpO8NqvuuuEb0JQjHjNnfQQKydFXWwsZ2DBX4VARcHi4iGZGviYdaChmAX0mR21jQ8iSM62S4bS8NfVoUPHrydClr8ygW1b0E572M4QjY1CM8faUSlLGNnyg6ggKj+f1EHv4SDMrex/GV1t/NGsrWf2JIkR8jpcdabjciSJZ+Cly4oqDe6l2NLhjQlIzAsvmjbnSY7i1KupcrB+EU76lCMbCYFRZ6mHsNfyaBmUG7tsTJBP9s5z92+Ejm5wvbCZRKywII17xQwXfZOBtde9J8Vi+0hltNQ6HJHjB/brkIVXslXfnFUwuIkI2QGUJ9FNcrxQCGx0F4H0rFs0V4fwWpBJCtE5lSknYCcQJjzwWrBvQmFEmgVIMHALPEsm3EGuxqltKroa1SToc4/8C6hP6+WlsVRDSIacGoKoIMWgqigivzsRMTs7tTVjaJPkb7wY430KZ4izuu1Zwhl8Twg+0PY7bJ1Pv6IpFYuGEUcRMT59/801OIAARJzakR6j0V7fKEQj9dcGmwrcf85OEIaOrQRCbeSKm8LIj92QtN+FQeAS4Y6MjcwMK4iYXvdvQ2ZzRicDG1F3kJEgbXsBQWJl0s9hVbLNChELwbU/T0PD8xaHr9Fk62WTn4zfpF126da7Iiq378i1onmnDZTkIc8iqDyZr8pNGrpi50okm0Rm98NGSKEWmlIaJsEPkDPZ6CumNrYrKStnsgxZNluwkqKu72s7B4/c2D892/hP2KO6ZlKlml4Dwh0SNhlMHmyRKBl/qCqkwbCc0Xe9+mhQ2WUIV1AZv6kdrPXKMNrvsRth0q9C2K7/YXl4xToX7BkiV5CfK1vozDIk2OZxzmhPfXsMeJN3UGYtAhppTZAbWilrm+dYf/fV2xi79jn8kcQCM5y7d6PWwM2MLH8vCqiun8wvr9xyXvupRH/8f2CkuiFJWGEzcMBERxeO+fe9BtNnZcfHxnn4+cbo2f22ZfGpbKR3TviS4YzNTYwNKTcCqrH9YvVsxjEKYjfkLLsklo9rrl2sxrbr0iVX1d21ZwlErvqzBYeMymSWz3QFmIhG6FdgguJa+XpNJclGiL02di9D6/9SatIeFrKF7rjmv3X3eV8I9HC30OPsG+SugN+fjq9tmz+ps3GO3Wp9OQ1kR9uPXzqnkcxLFAgLVnTO0BbNwIHDESzec0WspQcq5w/MEiogrKLiPwA2g+YqhWlAzxr7qzl4Qfui1IJVE5Mf48xZriH0Mqi0pdc4ZzhcBLYVi4TLcnpPuLvZS1gquVg6OyMqTq+OY+20gvBwRwJ+1oRPFOUaZsfQmnmUNjmHKwRP9GpCVMehkXEsnt/H8jIzKYY4Mi8r2Q09k7R0zNz8alDrmB9RrHPYmgkNx1PvUhY8UafjtnimqiEyHdL2W7poGfaHkBLhi85MSgsn3lpqJAR6UkP3j0Zu0t4sdVZu2KzwEV0hbsolIJcekvqfhet8e3NqeKAiR5dtaydn5E4BcmVp1T/r7F9u1qcosXuMWpatELDs8wiQz8ZH8vOlWsED0xYyJYfaTxi4EqD7xEjvsaNr8iiwLwT+roJ2DpG4bNp3Ij5eEp53i705UWl/SKo0VPXROBl+4IPBe5bBwPhLY99kZAupfx6AZqRFujO6mF3QjxOegnwT3qnXPQMKV7a2DOimi0WAoM17REJRqUvyJKaXan+PEtstzb28keoeYJc/mgJyAyBEVvuhH2FPVWYY3+rgOIZdf7qpdrE+DW/ck89GmB/gpZ2uRe4ZkLd3R69Da48eL+aDzrky21KkMq+aAXENxUCZZiAS4Y1KycpLaILnqpnaCKOZnf3O8C/X/BjmQvcbOafdkISEXxGWXmKMPIaJ82QKZKgKx6INUmwxhM4BhuAn9xaia3STGRnhSQcunhjEctx2rQ4V7BXSU4/c/4E7W8L/FXcCy/OGpbXIJ50Th3x+LBJQ7TnlxF1ASnq+g8emdYfnXTz0Afy/PgfGROT+T+qqIGbjnOy/62saL+CEoM9hYgJdiXWBW3dNtV4WNjoTZ/goWOFXkw3/xxAginGw2Y83v/EooQxaCDT9cQcdXkfY3OlASTFsl+zo/ranvXvMuaHBhzKJB4mjk2MWkzhygNQ7W9gmlcP4ZiRQpNMQ2w0UjVqufV+Q/DmruGjYSOjjOzaoEuGJCYfJTODIrK/zXoYTyyHFC6noPgeztcHNrKB+BU9Gyz8jgd/cXtaPICNXD5XWAd09H2zxJk0gsG5x5O44FxmA75VFVD5fqmdVzY/8e90cC6SEa/ARpV0m0Yu5tjbGC3su2Pq3HP2yZhtw5r/a8GAh3Sq6i66SquUSCPMvFC35ldSLhkPjj8dHR+dCZkLxL2t68SAnKavjR7XvXOyZ6NrKt1VRdZf3AFVoOIM1WH195Dpe+sKC2VJz+Ts165f9+zjn7oqGcCQnUj+8RmW1H7ho57UkwY1fNoPPO+hvrFU2PUk1enenHsny8skGUcX5Xmclgo+jsaEWjdPZ2dTAABo0AIAAAAAAAAAAAADAAAAyvV3XBv/L/8E+bvHu1P/VP9L/yb/IP8R/xn/Hf8X/xBLhjU1MjErnExpcDmLPRtm4saZlFZ1JmL/58zGUwjqt29ZLhW3go58xJi2rZm1ocxJ5gJbuIT0qH6Jjfyf/bWHrGeEeDbi0S7mXH1o0I6nAegqluHrDRyIrBSF5K8FYY/Y/m5TEjlvq+2VRGb59kj1gJ61V40cs6uYX92vRfit2Q5skUwj5m6XIICSsEVA6b6lJ7gi+nXQHQ/l4Aqlc2KfYg5Anpakt2lXv55gAPd7zLeA9ObDCa018lbWgRC2m7V0MtD5KQYShBAoSwi/e7bhH074WJ1XYzEbLGevxEcZ+N7bEwNdZT2YJsFUSvgMNWUou0CT5V6+ITsONjWwhNicZEZrDiQw7yiqnoumgL/hF8O7KD6jtrlY4huVFJqWQvmikl5fkMhYLxObrzEw8EuGJSsoMC6A2Bt8DMvM/vE3lkz4kckBByLxE6DuF8awzBZa6xMP0T0gUUnomQGaUS0nYhEfw8wFKonIbk/QvQYKEqummMQ1dixDcm6NH+2CIo291E1o4IMXlyjd7lHNgBGWc+VQBYchFQwZ6IDpjCnBNTwaJdDrf6FUmDn4TmaBelNd9/6sUjIjz2y+NEiOJ9lzmQMtP9KacIolUbtYoGL4XWse0wK+Vf4KWAvL6+CpeEajmgx506n9cOKsDj6jIDcqZQtPB1Xiq7hG/UcWEr+Hv1PM8xWdT2JEXrBwp8S4/G4umxwCcVwShT6qadkaC0LsidA4cniNS02X1kCHG6c1pwhLhiYoKi4qp1LyUEWehdCbFv8np0gT2cYpjkfoVBalJDKp4PREFslupdZMZVqk4/qJv4hrnSQQNy0Mug/3mPjB4Y5ioJyYz9K0hDvAfh7ALymeo7rwoh3N84wkl2whAbPv9Hcrklc/kgBcODmFsGZimVUDgeWU9jiDlREScVWAn4cSt1SAMu2veS8vrg4sMWDDM+wpvALqaop9oh/bK+JC5XE7Zld/4OxgWcxLyoFf4zRkeFV5Iwb9gcjPH+Rr8vrz3n1/NtH0mbTtHGXroR+yAMXY53ZGgC6soo64+s+C9fU5Zdb1VaC6dv6zY4cNhDb+Hqfxdt5t+7ZLhh8hGx4eKuQpDpIgfNjpM5l2EGSWhIaN0OYZqZoe/eksD6mlUicKaAt77edJ0szIi0CSh9Cz1vGGdoAeZwO2M2zAC6LigB6Ey3k9/+GPbEFtsxyHrtdR4uK3IYcaEcdnghsUG4jrNnrus5t3FLoTQRykxyBmV37wj6d9w5I/wBU7kCmvFx0GcVV+JS2sUVIEhUxt0GmC1v+/5iUfgBUOx1muglrqHJ/VZHrKjOUbe2+qLzhnq2pUktDfS4YgICEgHRIWkbiL0xU35mmsY3k0t/g54su3n0iluv7/ibtmqz/IEUYXkd6LsQ6LRZRcImtVntUdXpo/YR9c8VJloTdQHeAO6HafGCxcRIegAU9jUFO4BWI2xWQo7WIIZ9ifwsyMmOISF+tDvNO3UyvT5qKw3dnGM4wuRofKrR/posMz6PdnyAFOVc+8dSqzAekNyd/SwIXqB3Q7M7CbGpFf6jyAEnEBUcG9+6IM3beJn3OS7rcT++nO1sFUE8/l5y0V9rzTgEuGIB4dHiIVEj2g/9RF7US09fgIlOHRytEarW9ut2/pL5kx1QsiWBIjphGmAT9lfX7JoS8mquVC7jucxdhj0onqmgwC4BIbYR7YMuXX7vo3qYksaO1Rf8hQ43/eBgC3A3jgEm0VSmogbzkIrDUtUjHzIU+GN4vlDB+ofhEXkfpgGEzt91U5XW/PExlO89fSph3dIKDkz0n0Mh7hg8YT9XnInhIY6ZZHhQLcBY+QFHowYnjd+k2RP7JDdGhLhgAAAAAjgC2c9KZbOAx4TK0ng1cD2dhMJXfXEhzg8RlE2JvsLiUkIxCBGs/u2XSmiDk2Iy6cGJ//mKSDc1SI4wIMMMEtzXxVLhpCHoUcbcY9+EuGLzw5PDmB0mZrJE3JrbrjqhfUM2pcKqh1ya/3ydxAB426JSQZYtpywmWdk3ReKpmv5yX8wKdpzyS4tUsCwcwgGzU8Amxl6eNYCXriinOOhLQDWNCuCoEJQPSEBmrOfmCsOua9hHe/RxqmphvLPFLcwKnSmqjZWQHqYNX7aFnX102xsclbKKZBLYC48ThN5R28WT2DWRTqIC+Y9pqrKKO1Mgglb09K++NfmKuJHP/pyD91Ec7No2Yx0plKpvsKBryMBraJnUHjt/TMLfCIOlmJ43pcO2lWdwGKiUobpj/yp852fP/WMKy/541eDlpDN/OYYEcsFUKdTYYk46ynMXJcsWir/zWdJ6kbinXTHf8uU2IzG8/l1d2v03IjyvlvWKYGSqCTpq+usqOmEPsTYGdTDxM1I5XG3ilHNz+MptAn/pmzptFup4ZdiK71iQVtEKFCgEuGOTgwOzSu/GjuvHHf2e5QoxnMFvWt1EDGlLyQpcWSxo99eo9OjRzfK+7dV084SxqRQpkEypemYGfS4avkjGi4e/ppIhu/aFPPH9CKUEvFLJVhXaP0b4Wuheabc4hZALM31/hZ6saRxQHhbghdmj6YFnMRdH/LTKymw5saKAiNR0TG2CrGO5EnDxqb4d3yw+Y17y7pbIin6DjNNwH4zyqd2kurlAF9La85NlP56yTxmCeofpdXrToQyPISx5X9Z0ho1lTsvPp6Os4CxIKQJjYkQO2ymawRYCydt4Lk3f1d1RfwrDHJHk5GwdbOuIhrdOrl0oObzmOKKNKQQ1EsycPL6UOOBRd4qv1xjAzxpgBkgMtFfyIYgKJQLpJ5QaLJMEl/74V/1rrJiNvGWkJnBUeEnSo0Hu96ybZyj9ozkaBiDrS8yOWOhjwqLkuGMCo1MzG+EzXZq6lmMBulSTkNP4NkKzTCCkpWXtJe66M4N6E4Ne6LDBFZRFRkDWjsP8GQEjmCANvDdnBoVeQvcx0aNLL0OpqloZCz1zINOHZuRmE5gyG/Y90E09rE2oCC4SvRdGWv5gdy9yBO3nPb1/204NEU6fcymKHWrSGQsNkQQ+aSXdbEj9YS/ndO7sYsy210YK34S7hM/kOUzNxbAUgd2dUb6/Ms9tuMMlbjIK9JNRcA/lpsYCDBA83GfTWp6ZOhfrnK56OapK8cparAKfDtDMTiFUYkZNtEJwl3N/u4cmAddxBn163AD27qOnN5dGv+h3Qe1MCg3sb4pV4v/vUovLUT1rFFzGwEBHAhcvqkEZNm0fsfSGQgAPpe09GTRmlQS4YsOjIpI598QvMClzGIz11IPnG1R6r+u4IOM5msQuj0zkkXPNZSbtWh5ZPFPTUp7SpAoIGyUPH/51ODfCJwUrdMsfqAZIcUpsbtOCFi0N85mg6hVlPXCn4Vw+riF9WKaNg2b1bWG+je/S9b9LJLOa9hpAUp7Bc3r3gTvMIAUuoudV+whJUXUIc3LLfc4GsFdzc3C+G/8z05aJV0RyKos2CdXChwdOB5eZDJhyfUIiBYIk0YeBwhB8YhmvR+5KORYiq9XxXIm6i1Vh3HboeFVFQcK/9JVsvs7pfwNz8FwqplwzhXEz0A92gg0qQVvAzHl5PkKhlMWqOVNhv+a6b7tWEkcuY1fdbpHIlI0dNhBAJey0bgVElBEVtWWQtEu6BLhiklLi01sNlmrmzQploI7I63mnCsmW2IBmoAkcY52EL7cYJMHHYLuEGDkpkO2vCrOCF26N01AoW3Pv8Y3kYNOGDOeYZCC62EPJLyzHpaqmVXIEZuqQU2ROjN1tyj34BB3Ouru0dvQiA7NQFPuSMD7mfh5ny2HocsLAHmTKpfHkc2kKeOgALlyBSvHytiYXoyquN8/zo/2JCYRdoPHfAI2nsrMzxaIoVp7LQXoE2JfqiBG/15jruAqloinidZZH25a5CIZeIxI3t3ZtLWRVum8rQ3ml4NRaQnlfZMwZuvXJ/fvmRArMYmHWuMyw3lY+/aovPNwVbxUa1dnjn70IOdp/njN/ISO5TJQn3QHP01hEuGLi0yKjCq7uEbZA0Z1kWz5Xt7rd3ujZQmrqRL/oLBIPFKDpb9WWgUJO1asjh9iNCI5NoMgpYuAp5Oc+Yuc1jZfHR2dANOShMmf6QULrl1UnaRT2RluTX3AfFoFsUlbYqAkYnjTQs3PzWqyZVvdZVD1QJQzBP63try4cl2sb0zBwGP9Jxnd0M90y6te0HMHeDwiAeSBHv/Dd+nQx2Cw15AxY7KJp2WEaGG1nWxr2CQAY+H6py9CcBnUQgJ7oSRdOKQ5+uq2JAJagtosZkcfZMhKbUnCqVSTmKJ7qIvRn2MHUPr28tgDJgUDG4g4FCSe5RYjm77mo8qJkKM7YzcM6nEKNYXYjy08v2/FmbHqcmA9b01ZovJeIBLhiouNCs2kLDdtg2lbLT4z7lZPpQbCbwlldaovhFOwg6wpCwfQCvSxQkqSkia57bQi0GtWxbxBtdmU3ji3jQKXc+emGnn18eAqbqqRXQ6r6awVs7t+WNpdHHJ42plqKeB7I8X9aTPMJ7vhC/xOQU7qe+Kr5mUVS1XkDVrxqSB7jKP+Qy6bOKplQekI4S8UKID+8CiIlY2YGVZw5qQu1fMZ4JI/nXrWkpGMy6qSZ9HfC7BDQjo7ODhbts8OLBgoL3ZvmDq469SfHuEO0TzGPAvZND9auNVr4CcxzbpS1/5oGWMDDs4LVlr04RwnDlYe3vFWIpwiFSZ09QK4nQU0Olg1dh7BYTFZLQiur47x/clum0pH0qkSqCzcn8ZkEuGJiIuMzOAow+IdNxKVJPWtlo1asObShaaZZvn9hIv7e0qm/ojr0Bf5n5zO4fWyc/oZdW338yixvfcB2IfKBYQ58Tx9ldajKBJoAvdGqCZglJPdtXF+CVkSm136AJ8nFA89szQkHi6IbxiBsweFbcitslyQmGYfx/3ftaoojNCqUBbTeo5A26kskYgqwMyqUBa+1sRNBZW7d7g4YOrkiYSIueKkhIs8Ft91w9rsx04srwr6orILF9NTNfxl3tiYe4aWb9m9bd30GdhMmdPlcqCt9jO/WMWaRmcEKdoY+1Mb9fAsXy4gJICRK0ysli2c+r5uCUA7mvEu1uQJkmWnQtJvwqTsEUHX0WPz9f45++iaRHg5gAQS4Y4NjAqIK5xShELJQo8XDib+wRkT0olyrCzEVDTGHgcrT/Bn+nXwmFmndWj6SQMkVSe7Gz1EK9mLsLzrX+AqUFZyamoMhNwrb8OQ5dDcjsR0dSCeURzQ6JXp4uC4T9XErx8c4OoYfa8sLXgebY7EIS4yRzUvmdO9HfS5lnhrylM2R10KTywMThraFcMj5BLASka0CJ2CavlrVU24tC8Rn9ZNPGAgWFY5KgJt2D5pn0slMOE0HSs8qpyyTtUFB9EqzWIdxXdWlT5XA/DrwrgiKULUzvKfsgQbJPpxJJk9lF7IzKpMEBQxQ+/Jwm3sNQEKfUJU+zeUUQ/gtG365gippDfOXig766mXiduu+wD9k9nZ1MAAOjXAgAAAAAAAAAAAAQAAAD+Zz+2AT5KHyPXjdRBUv0P/IHNxCR02HL5mtbEtwox55iQYIzsytYCKKfq4HAniuF2sBJCyJAcHFMvrqwRE0d6Ct1Bcg==",
+            "timestamp": "2025-07-19T05:33:08.000-03:00",
+            "idmsg": "B695F0687AA91C387034E13B259C466C",
+            "grupo": false,
+            "from_me": "true"
+          },
+          "id_cliente": 1185
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "EBMwLGTBawYqkZM1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-19T08:53:03.264Z",
+  "versionId": "5016e97f-048d-40ed-bf62-540172318f07"
+}
