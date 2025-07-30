@@ -1,0 +1,294 @@
+{
+  "active": false,
+  "connections": {
+    "sendMsg": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separa datos": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Texto": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Separa datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:55:35.633Z",
+  "id": "GdA7h4vtZ4cVtdMf",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE INMO - Send MSG agente",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "numero"
+            },
+            {
+              "name": "msg"
+            }
+          ]
+        }
+      },
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "sendMsg",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        528,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "=Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "typing_time",
+              "value": "={{1}}"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.text.replace(/\\n/g,'\\n').replace(/\\\"/g,'\\'')  }}"
+            },
+            {
+              "name": "to",
+              "value": "=5492254423359"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1888,
+        320
+      ],
+      "id": "b0f61c80-0a99-4368-b1ce-5809496c60fc",
+      "name": "Texto"
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "11463279-b12c-4d2f-a54f-8cb94dfec259",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1600,
+        224
+      ],
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "options": {}
+      },
+      "id": "0a6a19f7-b6a6-459c-a09a-a57c6e996408",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para procesar el texto SIN dividirlo (devuelve un solo mensaje)\nfunction processTextAsOne(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos string vacío\n    if (text === null || text === undefined) {\n      return '';\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) { // Intentamos extraer de un campo 'output'\n          // Si output es un string, lo usamos\n          if (typeof text.output === 'string') {\n              text = text.output;\n          } else { // Si output es un objeto o array, intentamos extraer de ahí\n              const extracted = extractTextContent(text.output); // Usamos la función de extracción\n              if (extracted) {\n                  text = extracted;\n              } else {\n                   // Si no pudimos extraer, intentamos convertir todo el objeto a string\n                   try {\n                       text = JSON.stringify(text);\n                   } catch (e) {\n                       console.error(\"No se pudo serializar el objeto a string:\", e);\n                       return ''; // Si falla la serialización, devolvemos vacío\n                   }\n              }\n          }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n           console.error(\"No se pudo serializar el objeto a string:\", e);\n           return ''; // Si falla la serialización, devolvemos vacío\n        }\n      }\n    } else { // Si no es string, objeto, null o undefined, devolvemos vacío\n       console.warn(\"Entrada a processTextAsOne no es string, objeto, null o undefined:\", typeof text);\n       return '';\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n      return '';\n  }\n\n  // Ahora que tenemos un string, lo procesamos SIN dividir\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '')         // Elimina signos de exclamación e interrogación iniciales y finales\n    .replace(/\\n{3,}/g, '\\n\\n')    // Reduce múltiples saltos de línea a máximo 2\n    .trim();                       // Elimina espacios al inicio y final\n\n  return processedText;\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n       const extracted = extractTextContent(item); // Llamada recursiva para elementos del array\n       if (extracted) {\n           return extracted; // Devolvemos el primer texto que encontramos\n       }\n    }\n    return null; // Si no encontramos texto en ningún elemento del array\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él (puede ser string, array u objeto)\n    if (data.output !== undefined && data.output !== null) {\n         const extracted = extractTextContent(data.output); // Llamada recursiva para el campo output\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'response', intentamos extraer texto de él\n     if (data.response !== undefined && data.response !== null) {\n         const extracted = extractTextContent(data.response); // Llamada recursiva para el campo response\n         if (extracted) {\n             return extracted;\n         }\n    }\n     // Si tiene un campo 'json', intentamos extraer texto de él\n     if (data.json !== undefined && data.json !== null) {\n         const extracted = extractTextContent(data.json); // Llamada recursiva para el campo json\n         if (extracted) {\n             return extracted;\n         }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n     try {\n         return JSON.stringify(data);\n     } catch (e) {\n         console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n         return null; // Si falla la serialización\n     }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado COMO UN SOLO MENSAJE\n  if (textToProcess) {\n    const singleMessage = processTextAsOne(textToProcess);\n    // Devolvemos un objeto con el mensaje único como string\n    return [{json: {text: singleMessage}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un string vacío\n    return [{json: {text: ''}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {text: '', error: error.message}}];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        224
+      ],
+      "id": "34e7ffdc-0953-4fbd-a46b-cdb3a18e4c13",
+      "name": "Separa datos"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=agente:{{ $('sendMsg').item.json.numero }}",
+        "sessionTTL": 3600
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        912,
+        448
+      ],
+      "id": "adf35d4d-01b4-4d00-800b-5139f8f1c5f2",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-flash",
+        "options": {
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        784,
+        448
+      ],
+      "id": "a2893470-f599-4979-aec3-215fafaea288",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "{{ $json.msg }}",
+        "options": {
+          "systemMessage": "Eres el Procesador Automático de Escalaciones de RealStateIQ.\n\nAnaliza el input del cliente y genera ÚNICAMENTE el mensaje para Francisco.\n\nREGLAS ESTRICTAS:\n- NO escribas \"Aquí tienes\", \"Aquí está\", \"Para Francisco\" o similares\n- NO agregues introducciones ni explicaciones\n- SOLO devuelve el mensaje directo que Francisco debe recibir\n- Comienza directamente con el saludo a Francisco\n\n\n```\n🔔 NUEVO CLIENTE PARA CONTACTAR\n\n👤 **Cliente:** {nombre_cliente}\n📞 **Teléfono:** https://wa.me/{telefono}\n📧 **Correo:** {correo_electronico}\n🏢 **Tipo:** {tipo_cliente}\n\n📋 **MOTIVO DE CONSULTA:**\n{motivo_contacto}\n\n🏠 **PROPIEDAD RELACIONADA:**\n{propiedad_consultada || \"Consulta general\"}\n\nℹ️ **CONTEXTO ADICIONAL:**\n{contexto_adicional}\n\n⏰ **URGENCIA:** {urgencia}\n🕐 **MEJOR HORARIO:** {horario_preferido}\n\n---\nGenerado por Martín -{{ $now.setLocale('es').toFormat('EEEE d \\'de\\' MMMM yyyy') }}\n```\n\nIMPORTANTE: \n- Extraer el \"motivo\" del JSON entrante \n- Incluirlo textualmente en la sección \"Motivo de la consulta\"\n- Usar las palabras clave del motivo para determinar urgencia y sugerencias\n\nResponde SOLO con el mensaje formateado, sin preámbulos."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        752,
+        224
+      ],
+      "id": "bf9c1874-ed04-4877-82f7-f545b856b23b",
+      "name": "AI Agent1"
+    }
+  ],
+  "pinData": {
+    "sendMsg": [
+      {
+        "json": {
+          "numero": "5492254423359",
+          "msg": "Nombre: Fernando Alonso\nTeléfono: 5492254423359\nCorreo: feralonso@gmail.com\nMotivo: Sobre dónde puede pagar con crédito o efectivo\nUrgencia: media\nPropiedad consultada: (no se indicó)\n\nFrancisco, por favor comunicate con este cliente a la brevedad."
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-22T16:34:46.451Z",
+  "versionId": "23bc4f1d-1716-4fe7-964f-e65fcdb6012d"
+}
