@@ -1,0 +1,240 @@
+{
+  "active": false,
+  "connections": {
+    "REPROGRAMAR": {
+      "main": [
+        [
+          {
+            "node": "vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "vars": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Lista",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-23T21:59:51.449Z",
+  "id": "F8BixpnK4yj8uEMz",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE CITAS - CANCELAR",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Id"
+            },
+            {
+              "name": "numero"
+            }
+          ]
+        }
+      },
+      "id": "4a51b641-53f8-45b0-a3a7-9042d7f13a17",
+      "typeVersion": 1.1,
+      "name": "REPROGRAMAR",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        272,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        352
+      ],
+      "id": "a56532a5-75fe-47a1-a80b-ac6a225104af",
+      "name": "vars"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "mv25ssjt8aflxrb",
+        "returnAll": true,
+        "options": {
+          "where": "=(Pacientes_id,eq,{{ $json.Id }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        688,
+        352
+      ],
+      "id": "0cf096d5-b9bf-49e1-9118-f944048290fb",
+      "name": "Get many rows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const datos = $input.all();\nconst paciente = datos[0].json.Pacientes.paciente;\n\nconst dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];\nconst meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];\n\nfunction formatearFecha(fechaISO) {\n  const fecha = new Date(fechaISO);\n  const diaSemana = dias[fecha.getDay()];\n  const dia = fecha.getDate();\n  const mes = meses[fecha.getMonth()];\n  const anio = fecha.getFullYear();\n  const horas = fecha.getHours();\n  const minutos = fecha.getMinutes().toString().padStart(2, '0');\n  return `${capitalize(diaSemana)} ${dia} de ${mes} ${anio} a las ${horas}:${minutos}`;\n}\n\nfunction capitalize(str) {\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n\nconst opciones = datos.map(item => {\n  const fechaFormateada = formatearFecha(item.json.fecha);\n  return {\n    rowId: item.json.fecha,\n    title: `📅 ${fechaFormateada}`,\n    description: `👤 ${item.json.Pacientes.paciente} | ❌ Cancelar turno`\n  };\n});\n\nconst requestBody = {\n  to: $('vars').first().json.numero,\n  buttonText: \"🗑️ Cancelar cita\",\n  title: \"❌ Cancelación de turnos\",\n  description: `Hola *${paciente}*, seleccioná la cita que querés cancelar.`,\n  footer: \"🦷 Clínica CleanDent\",\n  sections: [\n    {\n      title: \"📆 Turnos agendados\",\n      rows: opciones\n    }\n  ]\n};\n\nreturn [{ json: requestBody }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        944,
+        352
+      ],
+      "id": "1aa3c13f-9c42-4015-979b-4893d519c78e",
+      "name": "Lista"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/list",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "tittle",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1152,
+        352
+      ],
+      "id": "40b7caea-7dc2-4241-a180-5d255bcdd39a",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c2ea2ad6-96a5-4106-bb4d-21b844b935b4",
+              "name": "response",
+              "value": "LISTA_ENVIADA",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1360,
+        352
+      ],
+      "id": "a2f319e5-5f5f-4c52-9bb3-b2640d693e70",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {
+    "REPROGRAMAR": [
+      {
+        "json": {
+          "Id": "1210",
+          "numero": 5492254596618
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-25T04:43:10.987Z",
+  "versionId": "cb4ee717-88b9-41e8-9e69-71c29d0b1a39"
+}
