@@ -1,0 +1,121 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-29T01:08:56.130Z",
+  "id": "uGbW38dk3xtfxiag",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE CHAT - MATRIX",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "qeva",
+        "responseMode": "lastNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        224,
+        -224
+      ],
+      "id": "e96cb565-4199-41c7-960d-f790e63d5ae4",
+      "name": "Webhook",
+      "webhookId": "7e55dab4-c4b8-4f0c-a96d-968118e1a1ae"
+    },
+    {
+      "parameters": {
+        "chatId": "164729397",
+        "text": "=📩 ¡Nuevo cliente registrado!\n\n🧑‍💼 *Nombre:* {{ $json.body.name }}\n📧 *Correo:* {{ $json.body.email }}\n📞 *Teléfono:* {{ $json.body.phone }}\n🏢 *Compañía:* {{ $json.body.company }}\n💼 *Tipo de negocio:* {{ $json.body.businessType }}\n🎯 *Interés en:* {{ $json.body.interest }}\n📝 *Mensaje:* {{ $json.body.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        -224
+      ],
+      "id": "6ba81ecf-24fc-44ea-a5cb-d6e8e4ecc038",
+      "name": "Send a text message",
+      "webhookId": "1a4a64bc-b742-47ca-b056-5ad413085d83",
+      "credentials": {
+        "telegramApi": {
+          "id": "9g3zPwxX46iLtGJa",
+          "name": "Qeva AI"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8nw.qeva.xyz",
+            "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36 OPR/90.0.0.0",
+            "content-length": "390",
+            "accept": "*/*",
+            "accept-encoding": "gzip, deflate, br",
+            "accept-language": "es-US,es;q=0.9,en-us;q=0.8,en;q=0.7",
+            "content-type": "application/json",
+            "origin": "https://web.qeva.xyz",
+            "priority": "u=1, i",
+            "referer": "https://web.qeva.xyz/",
+            "sec-ch-ua": "\"Chromium\";v=\"137\", \"OperaMobile\";v=\"90\", \";Not A Brand\";v=\"99\", \"Opera\";v=\"121\"",
+            "sec-ch-ua-mobile": "?1",
+            "sec-ch-ua-platform": "\"Android\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-site",
+            "x-forwarded-for": "77.111.246.44",
+            "x-forwarded-host": "n8nw.qeva.xyz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "73f96af33264",
+            "x-real-ip": "77.111.246.44"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "message": "Hola, me gustaría recibir más información sobre cómo automatizar mi negocio con Qeva AI.",
+            "sessionId": "session_1752618477107_az3v6hac2",
+            "timestamp": "2025-07-15T22:27:57.518Z",
+            "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36 OPR/90.0.0.0",
+            "url": "https://web.qeva.xyz/",
+            "referrer": "https://l.wl.co/"
+          },
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/qeva",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "errorWorkflow": "EBMwLGTBawYqkZM1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-30T18:40:06.906Z",
+  "versionId": "ab58db0b-e93b-4d60-a4ea-055732a95f97"
+}
