@@ -1,0 +1,164 @@
+{
+  "active": false,
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "NocoDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fechas disponibles": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NocoDB": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Fechas disponibles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:55:57.420Z",
+  "id": "cq2KTCp0CM6YFLlN",
+  "isArchived": true,
+  "meta": null,
+  "name": "Fechas disponibles",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "528b2ff5-ed82-4ec0-976d-f0654ebbd4db",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -520,
+        220
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Execute Workflow Trigger').item.json.server }}/message/sendList/{{ $('Execute Workflow Trigger').item.json.instancia }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Execute Workflow Trigger').item.json.apiKey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"number\": \"{{ $('Execute Workflow Trigger').item.json.cel }}\",\n    \"title\": \"Fechas disponibles\",\n    \"description\": \"Selecciona el período que deseas 📆\",\n    \"buttonText\": \"Click Here\",\n    \"footerText\": \"\",\n    \"sections\": [\n        {\n            \"title\": \"{{ $json.Disponibilidad }}\",\n            \"rows\": [\n                {\n                    \"title\": \"Disponibilidad\",\n                    \"description\": \"{{ $json.periodo }}\",\n                    \"rowId\": \"{{ $json.Id }}\"\n                }                \n            ]\n        }                       \n            ]\n}\n\n ",
+        "options": {}
+      },
+      "id": "c08cf293-0f13-4976-8d79-236e71dfc2c3",
+      "name": "Fechas disponibles",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        300,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "db1a18ef-02a5-4adc-9756-46b2abe913a0",
+              "name": "response",
+              "value": "Estas son las fechas",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b4aadb45-d7a8-4f62-871c-faf3061574c2",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        580,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pr9sg65kufmbn26",
+        "table": "mun7yquu6k02j6o",
+        "options": {}
+      },
+      "id": "23dd5597-1743-40cf-b0df-72587f237426",
+      "name": "NocoDB",
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -240,
+        220
+      ],
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "uiVAxQcDCuq8IFxo",
+          "name": "NocoDB Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "Id, periodo, precio, Disponibilidad, inicio, fin, id_propiedades",
+        "options": {}
+      },
+      "id": "137d37b4-d170-46bf-b5f0-8bec3a6bcc5e",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        220
+      ]
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-28T04:18:29.050Z",
+  "versionId": "796823f6-4a8b-450d-998a-f99aa1b838d9"
+}
