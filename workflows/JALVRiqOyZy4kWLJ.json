@@ -1,0 +1,128 @@
+{
+  "active": false,
+  "connections": {
+    "Calendario": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Texto1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-29T20:53:06.303Z",
+  "id": "JALVRiqOyZy4kWLJ",
+  "isArchived": false,
+  "meta": null,
+  "name": "AGENTE CHAT - send msg",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"nombre_completo\": \"Nombre del cliente\",\n  \"telefono\": \"+54xxxxxxxxx\",\n  \"email\": \"cliente@empresa.com\",\n  \"sector\": \"Industria/rubro\",\n  \"contacto_preferido\": \"whatsapp|email\",\n  \"problematica\": \"Descripción breve del problema principal\"\n}"
+      },
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "typeVersion": 1.1,
+      "name": "Calendario",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        280,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://gate.whapi.cloud/messages/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "authorization",
+              "value": "=Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "=5492254596618"
+            },
+            {
+              "name": "body",
+              "value": "={{ $json.body }}"
+            },
+            {
+              "name": "typing_time",
+              "value": "={{3}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        840,
+        260
+      ],
+      "id": "3ad121ea-32d6-4ef6-b2d1-4c2063ea1a51",
+      "name": "Texto1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function Node (n8n) – Mode: Run Once for All Items\n\nconst data = items[0].json;\n\nconst message = `📋 *Hola Fernando!*\n\n📞 *Teléfono:* ${data.telefono}\n\n📝 *Nombre completo:* ${data.nombre_completo}  \n✉️ *Email:* ${data.email}  \n🏭 *Sector:* ${data.sector}  \n📲 *Medio de contacto preferido:* ${data.contacto_preferido}\n\n❗️ *Problemática principal:*  \n${data.problematica}\n\nQuedo a disposición para coordinar los próximos pasos.  \n👍 ¡Saludos!`;\n\nreturn [\n  {\n    json: {\n      body: message,\n      typing_time: 3\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        260
+      ],
+      "id": "e979eb66-b212-4346-9ddb-59712a74e423",
+      "name": "Code"
+    }
+  ],
+  "pinData": {
+    "Calendario": [
+      {
+        "json": {
+          "nombre_completo": "Sofia Torres",
+          "telefono": "2254423359",
+          "email": "sofiatorres@gmail.com",
+          "sector": "Venta de Miel",
+          "contacto_preferido": "WhatsApp",
+          "problematica": "Falta de tiempo debido al éxito de las ventas de miel, que le impide pasar tiempo con su familia."
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-29T22:43:27.304Z",
+  "versionId": "340adf87-a6fc-4c7b-bcad-497123b2bdce"
+}
