@@ -1,0 +1,532 @@
+{
+  "active": false,
+  "connections": {
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Globals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Globals": {
+      "main": [
+        [
+          {
+            "node": "GitHub - get all files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub - get all files": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "GitHub - get each file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub - get each file1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Get many workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n import": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "n8n import",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many workflows": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a workflow": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many workflows1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Delete a workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T02:46:19.893Z",
+  "id": "3mHXoNY2YDTDVuWs",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "RESTORE",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "c24d3041-1d4d-4959-9491-25da3937514a",
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -740,
+        -340
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "repo.owner",
+              "value": "fer336"
+            },
+            {
+              "name": "repo.name",
+              "value": "workback"
+            },
+            {
+              "name": "repo.path",
+              "value": "/workflows"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "83157ff9-3cf3-40ba-9817-02ea72c63df1",
+      "name": "Globals",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -480,
+        -340
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "operation": "list",
+        "owner": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{$node[\"Globals\"].json[\"repo\"][\"owner\"]}}"
+        },
+        "repository": {
+          "__rl": true,
+          "mode": "name",
+          "value": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}"
+        },
+        "filePath": "={{ $json.repo.path }}"
+      },
+      "id": "72a07d39-9786-4dd2-baf9-79f70fee9deb",
+      "name": "GitHub - get all files",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        -260,
+        -340
+      ],
+      "typeVersion": 1,
+      "webhookId": "e92d0956-d712-4449-8814-985941a3e2a5",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "7YexHNM8mpNDtnYq",
+          "name": "Qeva Solutions"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Import All Workflows To N8n",
+        "height": 591,
+        "width": 2327,
+        "color": 2
+      },
+      "id": "030c6fa4-f655-4f7d-9cb5-5e1a3a76c82c",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -900,
+        -420
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "53fcba1a-d349-4a64-9b6e-fcd6da678a1e",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        0,
+        -380
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "={{ $('Globals').item.json.repo.owner }}",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "={{ $('Globals').item.json.repo.name }}",
+          "mode": "name"
+        },
+        "filePath": "={{ $json.path }}",
+        "asBinaryProperty": false,
+        "additionalParameters": {}
+      },
+      "id": "c1480ce3-7891-47cd-8116-133a7e408954",
+      "name": "GitHub - get each file1",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        240,
+        -320
+      ],
+      "typeVersion": 1,
+      "webhookId": "541c519c-c2b6-4a36-ad93-c8e51ade5307",
+      "credentials": {
+        "githubOAuth2Api": {
+          "id": "7YexHNM8mpNDtnYq",
+          "name": "Qeva Solutions"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Paso 1: Tomar el base64\nconst base64Content = $input.first().json.content;\n\n// Paso 2: Decodificarlo\nconst decoded = Buffer.from(base64Content, 'base64').toString('utf-8');\n\n// Paso 3: Parsear el JSON\nconst fullJson = JSON.parse(decoded);\n\n// Paso 4: Limpiar settings (eliminar propiedades no válidas)\nconst cleanedSettings = { ...fullJson.settings };\ndelete cleanedSettings.callerPolicy;\n\n// Paso 5: Construir el workflow con propiedades válidas\nconst workflow = {\n  id: fullJson.id || null,            // ✅ ID incluido\n  name: fullJson.name,\n  nodes: fullJson.nodes,\n  connections: fullJson.connections,\n  settings: cleanedSettings,\n  staticData: fullJson.staticData,\n};\n\n// Paso 6: Devolver como un solo objeto\nreturn [{ json: workflow }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        -220
+      ],
+      "id": "e4342b41-1889-42a4-816f-e3faf7eefe31",
+      "name": "Code",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.qeva.xyz/api/v1/workflows",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwOGY3YWZiMy1jOWE3LTQ0NTAtYjRkNC01MmE1NDQ0MWE4ZmUiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzUxMDY0NTU2fQ.9Okmht3e7o_K6NoPx5f5BgPIX9a4vDlZ_aHyFKrfMjQ"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $('Code').item.json.name }}"
+            },
+            {
+              "name": "nodes",
+              "value": "={{ $('Code').item.json.nodes }}"
+            },
+            {
+              "name": "connections",
+              "value": "={{ $('Code').item.json.connections }}"
+            },
+            {
+              "name": "settings",
+              "value": "={{ $('Code').item.json.settings }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1300,
+        -180
+      ],
+      "id": "63b97a19-bae4-4fcc-8e98-d52142134369",
+      "name": "n8n import"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fe0e5c6c-c9e5-4e94-ac6e-1eb10c0d227e",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        940,
+        -240
+      ],
+      "id": "1235d84f-c9d2-4a99-b9cb-e597294d367b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "filters": {
+          "name": "={{ $json.name }}"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        680,
+        -220
+      ],
+      "id": "c79323ea-1a9c-4459-9f30-9de4c6a7d1a9",
+      "name": "Get many workflows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "n8nApi": {
+          "id": "IdAUYtzJJPhnkh6p",
+          "name": "n8n qeva"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        720,
+        380
+      ],
+      "id": "ec22e517-026d-434b-92b0-60cc87afa0cf",
+      "name": "Delete a workflow",
+      "credentials": {
+        "n8nApi": {
+          "id": "IdAUYtzJJPhnkh6p",
+          "name": "n8n qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "filters": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        240
+      ],
+      "id": "d8c9bbc5-da7d-4cfd-aca5-3b48095f9430",
+      "name": "Get many workflows1",
+      "credentials": {
+        "n8nApi": {
+          "id": "IdAUYtzJJPhnkh6p",
+          "name": "n8n qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        60,
+        240
+      ],
+      "id": "398dce83-4725-496e-916b-ceee4f632873",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2129bcf7-7b5e-4846-8e84-184b8372fae3",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "3mHXoNY2YDTDVuWs",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        300
+      ],
+      "id": "abc7000a-896d-4e00-91a0-8e5935e48644",
+      "name": "If1"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-28T04:19:21.160Z",
+  "versionId": "968e225f-12b9-4324-ab48-723c6933f1ef"
+}
