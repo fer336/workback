@@ -1,0 +1,1448 @@
+{
+  "active": false,
+  "connections": {
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Marca",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Response4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Response3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Disponibilidades",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Marca": {
+      "main": [
+        [
+          {
+            "node": "Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "Verifica evento1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Response2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Disponibilidades": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Disponibilidades1": {
+      "main": [
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear turno": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        []
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verifica evento1": {
+      "main": [
+        [
+          {
+            "node": "Delete1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verifica evento": {
+      "main": [
+        [
+          {
+            "node": "Delete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Verifica evento2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Verifica evento",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Disponibilidades1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail1": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain1": {
+      "main": [
+        [
+          {
+            "node": "Gmail1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain2": {
+      "main": [
+        [
+          {
+            "node": "Gmail2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail2": {
+      "main": [
+        [
+          {
+            "node": "Response5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete1": {
+      "main": [
+        [
+          {
+            "node": "Crear turno1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear turno1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verifica evento2": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Disponibilidades2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Crear turno",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Disponibilidades2": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Response7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Response6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-28T03:55:36.374Z",
+  "id": "1lHeMSDOfSE5YXDG",
+  "isArchived": true,
+  "meta": null,
+  "name": "AGENDAR CITA - Agendar",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "be5649a9-7624-4621-bd2d-84c25577c0ce",
+              "leftValue": "={{ $json.available }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c9b99495-961b-4567-8150-166ce49c2455",
+      "name": "If1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8d192ed0-aebd-404e-8339-daab0d29651f",
+              "leftValue": "={{ $json.created }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a820a748-7691-4b08-9cca-1156d35c40e5",
+      "name": "If3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -380,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "start": "={{ $('Switch').item.json.query.inicio }}",
+        "end": "={{ $('Switch').item.json.query.fin }}",
+        "additionalFields": {
+          "attendees": [
+            "={{ $('Switch').item.json.query.correo }}"
+          ],
+          "description": "={{ $('Switch').item.json.query.descripcion }}",
+          "summary": "={{ $('Switch').item.json.query.nombre }}"
+        }
+      },
+      "id": "a200ee6a-6667-44fa-afbd-39cbd1ff04b7",
+      "name": "Marca",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        300,
+        -100
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "be5649a9-7624-4621-bd2d-84c25577c0ce",
+              "leftValue": "={{ $json.available }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "bfdf15f6-f4fd-4e61-91e3-a5b2a71279d4",
+      "name": "If6",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -640,
+        1180
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Actualizar",
+        "height": 648,
+        "width": 2258,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1120,
+        880
+      ],
+      "typeVersion": 1,
+      "id": "2b288140-389a-4f5c-b2cd-6f2d7a41591c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "timeMin": "={{ $('Switch').item.json.query.inicio }}",
+        "timeMax": "={{ $('Switch').item.json.query.fin }}",
+        "options": {}
+      },
+      "id": "8563e4bb-e629-4979-bc21-78fb7cefe7ce",
+      "name": "Disponibilidades",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        -180,
+        60
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "fercassera@gmail.com",
+          "mode": "list",
+          "cachedResultName": "Calendario Inmobiliaria"
+        },
+        "timeMin": "={{ $json.query.inicio }}",
+        "timeMax": "={{ $json.query.fin }}",
+        "options": {}
+      },
+      "id": "fa7ca085-32a9-42ff-a4b3-2a65097348dd",
+      "name": "Disponibilidades1",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        -840,
+        1180
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "response",
+              "value": "Success",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f01ae66f-ca07-499c-ad06-0f8af51fc9af",
+      "name": "Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        920,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "start": "={{ $('Execute Workflow Trigger').item.json.query.inicio }}",
+        "end": "={{ $('Execute Workflow Trigger').item.json.query.fin }}",
+        "additionalFields": {
+          "allday": "no",
+          "attendees": [],
+          "color": "2",
+          "description": "={{ $('Execute Workflow Trigger').item.json.query.nombre }}",
+          "showMeAs": "opaque",
+          "summary": "={{ $('Execute Workflow Trigger').item.json.query.descripcion }}"
+        }
+      },
+      "id": "7754f692-95ba-40a7-a8f1-3f3da71812b0",
+      "name": "Crear turno",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        -540,
+        20
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Switch').item.json.query.correo }}",
+        "subject": "=Reunion con  {{ $('Switch').item.json.query.nombre }}",
+        "message": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Confirmación de Visita Inmobiliaria</title>\n</head>\n<body style=\"margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; background-color: #f4f7fa;\">\n    <div style=\"max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08);\">\n        <!-- Header Banner -->\n        <div style=\"background: linear-gradient(120deg, #1a365d 0%, #2d5a9e 100%); padding: 45px 30px; text-align: center; position: relative;\">\n            <div style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width=\\\"100\\\" height=\\\"100\\\" viewBox=\\\"0 0 100 100\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"%3E%3Cpath d=\\\"M50 25L75 50L50 75L25 50z\\\" fill=\\\"rgba(255,255,255,0.05)\\\"%3E%3C/path%3E%3C/svg%3E'); background-size: 40px 40px;\"></div>\n            <div style=\"position: relative;\">\n                <div style=\"font-size: 48px; margin-bottom: 15px;\">🏡</div>\n                <h1 style=\"color: #ffffff; margin: 0; font-size: 28px; font-weight: 600; letter-spacing: 0.5px;\">Confirmación de Visita</h1>\n                <p style=\"color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;\">Tu visita ha sido programada con éxito</p>\n            </div>\n        </div>\n\n        <!-- Main Content -->\n        <div style=\"padding: 40px 30px;\">\n            <!-- Welcome Message -->\n            <div style=\"margin-bottom: 35px;\">\n                <h2 style=\"color: #1a365d; font-size: 20px; margin: 0 0 10px 0;\">Hola {{ $('Switch').item.json.query.nombre }} 👋</h2>\n                <p style=\"color: #64748b; margin: 0; font-size: 16px;\">Aquí están los detalles de tu próxima visita:</p>\n            </div>\n\n            <!-- Details Cards -->\n            <div style=\"display: block; margin-bottom: 35px;\">\n                <!-- Email Card -->\n                <div style=\"background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 4px solid #3b82f6;\">\n                    <div style=\"color: #64748b; font-size: 14px; margin-bottom: 5px;\">Correo de contacto</div>\n                    <div style=\"color: #1e293b; font-size: 16px; font-weight: 500;\">{{ $('Switch').item.json.query.correo }}</div>\n                </div>\n\n                <!-- Time Card -->\n                <div style=\"background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 4px solid #10b981;\">\n                    <div style=\"color: #64748b; font-size: 14px; margin-bottom: 8px;\">Horario programado</div>\n                    <div style=\"display: flex; justify-content: space-between;\">\n                        <div>\n                            <div style=\"color: #64748b; font-size: 13px;\">Inicio</div>\n                            <div style=\"color: #1e293b; font-size: 16px; font-weight: 500;\">{{ $json.text }}</div>\n                        </div>\n                \n                        <div>\n                          \n                        </div>\n                    </div>\n                </div>\n\n                <!-- Property Card -->\n                <div style=\"background: #f8fafc; border-radius: 12px; padding: 20px; border-left: 4px solid #f59e0b;\">\n                    <div style=\"color: #64748b; font-size: 14px; margin-bottom: 5px;\">Propiedad a visitar</div>\n                    <div style=\"color: #1e293b; font-size: 16px; font-weight: 500;\">{{ $('Switch').item.json.query.descripcion }}</div>\n                </div>\n            </div>\n\n            <!-- Additional Info -->\n            <div style=\"background-color: #eff6ff; border-radius: 12px; padding: 20px; margin-bottom: 30px;\">\n                <div style=\"display: flex; align-items: start;\">\n                    <div style=\"font-size: 24px; margin-right: 15px;\">💡</div>\n                    <div>\n                        <div style=\"color: #1e40af; font-weight: 600; margin-bottom: 5px;\">Información importante</div>\n                        <div style=\"color: #1e3a8a; font-size: 14px;\">Por favor, llega 5 minutos antes de la hora programada. Si necesitas reagendar, contáctanos con 24 horas de anticipación.</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n      <table width=\"100%\" cellpadding=\"20\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f9f9f9;\">\n       <tr>\n    <td style=\"font-family: 'Arial', sans-serif; font-size: 14px; color: #777777; text-align: center;\">\n        <a href=\"https://wa.me/5492254596618\" target=\"_blank\" style=\"text-decoration: none; color: #25D366; font-weight: bold;\">\n            <img src=\"https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png\" alt=\"WhatsApp\" width=\"20\" style=\"vertical-align: middle; margin-right: 5px;\">\n            Contáctanos por WhatsApp\n        </a>\n        <br>\n        &copy; 2025 Qeva Solutions. Todos los derechos reservados.\n    </td>\n</tr>\n\n\n                </tr>\n            </table>\n    </div>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "d3aa9420-aeb7-4d19-ba0f-40f809876653",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        260,
+        -640
+      ],
+      "webhookId": "f8eebafe-721f-448a-8ae9-4c7d9301d1ba",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6zOcYXVP3tGHKFoB",
+          "name": "Gmail account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "response",
+              "value": "Success",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dbb16562-c13b-4322-bfc4-bbfb8f435165",
+      "name": "Response1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "response",
+              "value": "Success",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "53486b6d-e246-49ca-8f95-4a16dccf36f9",
+      "name": "Response2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -400,
+        1260
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "response",
+              "value": "Success",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b3223663-70af-4192-a6d9-488069225f4b",
+      "name": "Response3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -180,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "response",
+              "value": "Success",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e8d8b67f-0b37-4b65-abe2-7cb06d053615",
+      "name": "Response4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        300,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "response",
+              "value": "Success",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "13c7f2a7-9f81-4953-af41-3162fe8a1d6c",
+      "name": "Response5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        580,
+        480
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "592ee43a-4153-4a7e-b008-25dfe6eaa43f",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1040,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "4911e344-2a50-4736-a952-5d1723ff1087",
+      "name": "Verifica evento1",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        -400,
+        1040
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "id": "862b942d-1c52-4a9e-a735-381bb674cf35",
+      "name": "Verifica evento",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        -280,
+        480
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "eventId": "={{ $json.id }}",
+        "options": {}
+      },
+      "id": "9cbddbbe-b4ff-4bb1-82bd-cc2bbffe2201",
+      "name": "Delete",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        -120,
+        480
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "eventId": "={{ $item(\"0\").$node[\"Verifica evento1\"].json[\"id\"] }}",
+        "updateFields": {
+          "end": "={{ $('Switch').item.json.query.fin }}",
+          "start": "={{ $('Switch').item.json.query.inicio }}"
+        }
+      },
+      "id": "45154667-029d-4974-90b2-b45b4e16cc42",
+      "name": "Actualizar evento",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        300,
+        880
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  // Obtener la hora actual\n  const now = new Date();\n  const currentTime = now.toTimeString().split(' ')[0] + '-03:00';\n  \n  // Inicializar las propiedades dateTime si no existen\n  if (!item.json.start.dateTime) {\n    item.json.start.dateTime = item.json.start.date + 'T' + currentTime;\n  }\n  \n  // Crear objeto Date para el end y sumar 1 hora\n  const endDate = new Date(item.json.start.dateTime);\n  endDate.setHours(endDate.getHours() + 1);\n  \n  // Establecer el dateTime de fin\n  if (!item.json.end.dateTime) {\n    item.json.end.dateTime = item.json.end.date + 'T' + \n      endDate.toTimeString().split(' ')[0] + '-03:00';\n  }\n}\n\nreturn $input.all();"
+      },
+      "id": "2fc9147f-801b-43ec-ab03-6e24d9e9f3a5",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        380,
+        1300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $item(\"0\").$node[\"Execute Workflow Trigger\"].json[\"Evento\"] }}",
+                    "rightValue": "agendar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "agendar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7a57e8e8-5227-4cde-8d58-7b447cd55a17",
+                    "leftValue": "={{ $item(\"0\").$node[\"Execute Workflow Trigger\"].json[\"Evento\"] }}",
+                    "rightValue": "cancelar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "cancelar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d788021f-29ab-41f2-b355-2b18963d30f2",
+                    "leftValue": "={{ $item(\"0\").$node[\"Execute Workflow Trigger\"].json[\"Evento\"] }}",
+                    "rightValue": "reprogramar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "reprogramar"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7869b829-1bd6-4ccd-85a8-94d9905c6258",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -760,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=\n{{ $('Switch').item.json.query.inicio }}\n\n",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Ahora debes formatear el contenido de la fecha teniendo de referencia el dia de hoy {{ $now }}\n\n\nDia de mes del año a las horas"
+            }
+          ]
+        }
+      },
+      "id": "64a024b3-6544-4a3f-8f94-2d9e9ca27712",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -120,
+        -680
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Switch').item.json.query.correo }}",
+        "subject": "=Reunion con  {{ $('Switch').item.json.query.nombre }}",
+        "message": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Modificación de Visita Inmobiliaria</title>\n</head>\n<body style=\"margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; background-color: #f4f7fa;\">\n    <div style=\"max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08);\">\n        <!-- Header Banner -->\n        <div style=\"background: linear-gradient(120deg, #17a2b8 0%, #138496 100%); padding: 45px 30px; text-align: center; position: relative;\">\n            <div style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width=\\\"100\\\" height=\\\"100\\\" viewBox=\\\"0 0 100 100\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"%3E%3Cpath d=\\\"M50 25L75 50L50 75L25 50z\\\" fill=\\\"rgba(255,255,255,0.05)\\\"%3E%3C/path%3E%3C/svg%3E'); background-size: 40px 40px;\"></div>\n            <div style=\"position: relative;\">\n                <div style=\"font-size: 48px; margin-bottom: 15px;\">🔄</div>\n                <h1 style=\"color: #ffffff; margin: 0; font-size: 28px; font-weight: 600; letter-spacing: 0.5px;\">Modificación de Visita</h1>\n                <p style=\"color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;\">Su visita ha sido actualizada</p>\n            </div>\n        </div>\n\n        <!-- Main Content -->\n        <div style=\"padding: 40px 30px;\">\n            <!-- Welcome Message -->\n            <div style=\"margin-bottom: 35px;\">\n                <h2 style=\"color: #17a2b8; font-size: 20px; margin: 0 0 10px 0;\">Hola {{ $('Switch').item.json.query.nombre }} 👋</h2>\n                <p style=\"color: #64748b; margin: 0; font-size: 16px;\">Queremos confirmar los cambios en su próxima visita:</p>\n            </div>\n\n            <!-- Details Cards -->\n            <div style=\"display: block; margin-bottom: 35px;\">\n                <!-- Contact Email Card -->\n                <div style=\"background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 4px solid #17a2b8;\">\n                    <div style=\"color: #64748b; font-size: 14px; margin-bottom: 5px;\">Correo de contacto</div>\n                    <div style=\"color: #1e293b; font-size: 16px; font-weight: 500;\">{{ $('Switch').item.json.query.correo }}</div>\n                </div>\n\n<!-- Time Card -->\n                <div style=\"background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 4px solid #10b981;\">\n                    <div style=\"color: #64748b; font-size: 14px; margin-bottom: 8px;\">Horario Reprogramado</div>\n                    <div style=\"display: flex; justify-content: space-between;\">\n                        <div>\n                            <div style=\"color: #64748b; font-size: 13px;\">Inicio</div>\n                            <div style=\"color: #1e293b; font-size: 16px; font-weight: 500;\">{{ $json.text }}</div>\n                        </div>\n                \n                        <div>\n                          \n                        </div>\n                    </div>\n                </div>\n\n                <!-- Updated Details Card -->\n                <div style=\"background: #f8fafc; border-radius: 12px; padding: 20px; border-left: 4px solid #28a745;\">\n                    <div style=\"color: #64748b; font-size: 14px; margin-bottom: 5px;\">Nuevos Detalles</div>\n                    <div style=\"display: flex; justify-content: space-between;\">\n                        <div>\n                            <div style=\"color: #64748b; font-size: 13px;\">Propiedad</div>\n                            <div style=\"color: #1e293b; font-size: 16px; font-weight: 500;\">{{ $('Execute Workflow Trigger').item.json.query.descripcion }}</div>\n                                        </div>\n               </div>\n\n             </div>\n        </div>\n            <!-- Additional Info -->\n            <div style=\"background-color: #e9ecef; border-radius: 12px; padding: 20px; margin-bottom: 30px;\">\n                <div style=\"display: flex; align-items: start;\">\n                    <div style=\"font-size: 24px; margin-right: 15px;\">💡</div>\n                    <div>\n                        <div style=\"color: #495057; font-weight: 600; margin-bottom: 5px;\">Información Importante</div>\n                        <div style=\"color: #495057; font-size: 14px;\">Por favor, confirme que los nuevos detalles son correctos. Si necesita hacer más cambios, contáctenos.</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <!-- Footer -->\n        <table width=\"100%\" cellpadding=\"20\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f9f9f9;\">\n       <tr>\n    <td style=\"font-family: 'Arial', sans-serif; font-size: 14px; color: #777777; text-align: center;\">\n        <a href=\"https://wa.me/5492254596618\" target=\"_blank\" style=\"text-decoration: none; color: #25D366; font-weight: bold;\">\n            <img src=\"https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png\" alt=\"WhatsApp\" width=\"20\" style=\"vertical-align: middle; margin-right: 5px;\">\n            Contáctanos por WhatsApp\n        </a>\n        <br>\n        &copy; 2025 Qeva Solutions. Todos los derechos reservados.\n    </td>\n</tr>\n\n\n                </tr>\n            </table>\n    </div>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "6c91359a-d474-4f66-833d-fe75a50d44e1",
+      "name": "Gmail1",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        700,
+        1040
+      ],
+      "webhookId": "f8eebafe-721f-448a-8ae9-4c7d9301d1ba",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6zOcYXVP3tGHKFoB",
+          "name": "Gmail account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=\n{{ $('Switch').item.json.query.inicio }}\n",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Ahora debes formatear el contenido de la fecha teniendo de referencia el dia de hoy {{ $now }}\n\n\nDia de mes del año a las horas"
+            }
+          ]
+        }
+      },
+      "id": "3fd61f28-5f9d-4883-a1d3-c11b7b7a87ba",
+      "name": "Basic LLM Chain1",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        260,
+        1040
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=\n{{ $('Switch').item.json.query.inicio }}\n\n",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Ahora debes formatear el contenido de la fecha teniendo de referencia el dia de hoy {{ $now }}\n\n\nDia de mes del año a las horas"
+            }
+          ]
+        }
+      },
+      "id": "b32ef039-a38c-4d0f-af73-01b655cf7ea4",
+      "name": "Basic LLM Chain2",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        40,
+        480
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Switch').item.json.query.email }}",
+        "subject": "=Reunion con  {{ $('Switch').item.json.query.nombre }}",
+        "message": "=<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Cancelación de Visita Inmobiliaria</title>\n</head>\n<body style=\"margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; background-color: #f4f7fa;\">\n    <div style=\"max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08);\">\n        <!-- Header Banner -->\n        <div style=\"background: linear-gradient(120deg, #d9534f 0%, #c9302c 100%); padding: 45px 30px; text-align: center; position: relative;\">\n            <div style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width=\\\"100\\\" height=\\\"100\\\" viewBox=\\\"0 0 100 100\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"%3E%3Cpath d=\\\"M50 25L75 50L50 75L25 50z\\\" fill=\\\"rgba(255,255,255,0.05)\\\"%3E%3C/path%3E%3C/svg%3E'); background-size: 40px 40px;\"></div>\n            <div style=\"position: relative;\">\n                <div style=\"font-size: 48px; margin-bottom: 15px;\">🚫</div>\n                <h1 style=\"color: #ffffff; margin: 0; font-size: 28px; font-weight: 600; letter-spacing: 0.5px;\">Cancelación de Visita</h1>\n                <p style=\"color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;\">Su visita ha sido cancelada</p>\n            </div>\n        </div>\n\n        <!-- Main Content -->\n        <div style=\"padding: 40px 30px;\">\n            <!-- Welcome Message -->\n            <div style=\"margin-bottom: 35px;\">\n                <h2 style=\"color: #d9534f; font-size: 20px; margin: 0 0 10px 0;\">Hola {{ $('Switch').item.json.query.nombre }} 👋</h2>\n                <p style=\"color: #64748b; margin: 0; font-size: 16px;\">Lamentamos informarle que su visita ha sido cancelada:</p>\n            </div>\n\n            <!-- Details Cards -->\n            <div style=\"display: block; margin-bottom: 35px;\">\n                <!-- Contact Email Card -->\n                <div style=\"background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 4px solid #d9534f;\">\n                    <div style=\"color: #64748b; font-size: 14px; margin-bottom: 5px;\">Correo de contacto</div>\n                    <div style=\"color: #1e293b; font-size: 16px; font-weight: 500;\">{{ $('Switch').item.json.query.email }}</div>\n                </div>\n\n                <!-- Cancellation Details Card -->\n                <div style=\"background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 15px; border-left: 4px solid #f0ad4e;\">\n                    <div style=\"color: #64748b; font-size: 14px; margin-bottom: 8px;\">Detalles de la Cancelación</div>\n                    <div style=\"display: flex; justify-content: space-between;\">\n                        <div>\n                            <div style=\"color: #64748b; font-size: 13px;\">Fecha de Cancelación</div>\n                            <div style=\"color: #1e293b; font-size: 16px; font-weight: 500;\">{{ $now.format('dd-MM-yyyy') }}</div>\n                        </div>\n                    </div>\n                </div>               \n                    <div style=\"color: #1e293b; font-size: 16px; font-weight: 500;\"></div>\n                </div>\n            </div>\n\n            <!-- Additional Info -->\n            <div style=\"background-color: #fff3cd; border-radius: 12px; padding: 20px; margin-bottom: 30px;\">\n                <div style=\"display: flex; align-items: start;\">\n                    <div style=\"font-size: 24px; margin-right: 15px;\">⚠️</div>\n                    <div>\n                        <div style=\"color: #856404; font-weight: 600; margin-bottom: 5px;\">Información Importante</div>\n                        <div style=\"color: #856404; font-size: 14px;\">Si desea reprogramar su visita, por favor contáctenos. Disculpe las molestias causadas.</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <!-- Footer -->\n        <table width=\"100%\" cellpadding=\"20\" cellspacing=\"0\" border=\"0\" style=\"background-color: #f9f9f9;\">\n       <tr>\n    <td style=\"font-family: 'Arial', sans-serif; font-size: 14px; color: #777777; text-align: center;\">\n        <a href=\"https://wa.me/5492254596618\" target=\"_blank\" style=\"text-decoration: none; color: #25D366; font-weight: bold;\">\n            <img src=\"https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png\" alt=\"WhatsApp\" width=\"20\" style=\"vertical-align: middle; margin-right: 5px;\">\n            Contáctanos por WhatsApp\n        </a>\n        <br>\n        &copy; 2025 Qeva Solutions. Todos los derechos reservados.\n    </td>\n</tr>\n\n\n                </tr>\n            </table>\n    </div>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "983b93bf-9ef7-45b7-a01b-fee77b228558",
+      "name": "Gmail2",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        380,
+        480
+      ],
+      "webhookId": "f8eebafe-721f-448a-8ae9-4c7d9301d1ba",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6zOcYXVP3tGHKFoB",
+          "name": "Gmail account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -20,
+        700
+      ],
+      "id": "d79864a2-3497-40dc-8267-1df4f0879dab",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        40,
+        1280
+      ],
+      "id": "9d71cc64-8a18-4c6d-b5ad-5c101e8ce852",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Eliminar ",
+        "height": 520,
+        "width": 2260
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1120,
+        340
+      ],
+      "typeVersion": 1,
+      "id": "c7d91ee0-8c81-417f-b139-7737eec4d774",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Crear Evento",
+        "height": 720,
+        "width": 2260,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1120,
+        -400
+      ],
+      "typeVersion": 1,
+      "id": "a293b61a-feb8-41e4-9743-1c91d18a4e01",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "eventId": "={{ $json.id }}",
+        "options": {}
+      },
+      "id": "ece913a5-dc33-41de-86c0-13f46c936d00",
+      "name": "Delete1",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        -200,
+        1040
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "start": "={{ $('Execute Workflow Trigger').item.json.query.inicio }}",
+        "end": "={{ $('Execute Workflow Trigger').item.json.query.fin }}",
+        "additionalFields": {
+          "allday": "no",
+          "attendees": [],
+          "color": "2",
+          "description": "={{ $('Execute Workflow Trigger').item.json.query.nombre }}",
+          "showMeAs": "opaque",
+          "summary": "={{ $('Execute Workflow Trigger').item.json.query.descripcion }}"
+        }
+      },
+      "id": "dd75d0d4-3151-4b23-99f6-78714eb29b3e",
+      "name": "Crear turno1",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        40,
+        1040
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "={{ $('Execute Workflow Trigger').item.json.query.inicio }}"
+        }
+      },
+      "id": "db3aec3a-5664-441b-9f12-c62eda85db93",
+      "name": "Verifica evento2",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        -980,
+        -260
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "db84b2df-622f-489c-984a-53d5de76bdfa",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        -540
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "UfA35dBDzEebw8zR",
+          "name": "OpenAi account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a0f6496c-c09e-49fe-a69d-7acd7eff0bbc",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -740,
+        -260
+      ],
+      "id": "dd4be9c0-0b5e-4cc2-91ab-e4e5557d46e7",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "dc78cfa4bde27759eb85c454715678450c786cfa8fb4691990dd97c294db18d5@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Inmobiliaria"
+        },
+        "timeMin": "={{ $('Switch').item.json.query.inicio }}",
+        "timeMax": "={{ $('Switch').item.json.query.fin }}",
+        "options": {}
+      },
+      "id": "b6cba98f-26e3-4ecf-a57c-88ff59c4b7d9",
+      "name": "Disponibilidades2",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        -520,
+        -380
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "h41eusmnyvm7jMeh",
+          "name": "Calendario Fer "
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a9661488-faff-4b5b-afbf-e027fced1895",
+              "leftValue": "={{ $json.available }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        -380
+      ],
+      "id": "4526e507-e7e6-44ae-908d-f6c637e2e0d4",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "response",
+              "value": "fecha no disponible",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a38738ee-f6ab-456a-af60-093cfc7070af",
+      "name": "Response6",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -120,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "86ff282a-3ede-4417-98c1-0d10858bc5dc",
+              "name": "response",
+              "value": "ya existe una fecha no puede agendar",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e7b10f9a-6e27-4dc7-873a-0c9f9a693eba",
+      "name": "Response7",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -100,
+        -440
+      ]
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-28T04:28:30.189Z",
+  "versionId": "86edde03-3a60-40ad-a82b-62c59ced1eba"
+}
