@@ -1,0 +1,344 @@
+{
+  "active": false,
+  "connections": {
+    "updatePaciente": {
+      "ai_tool": [
+        [
+          {
+            "node": "Paciente",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "deletePaciente": {
+      "ai_tool": [
+        [
+          {
+            "node": "Paciente",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Paciente",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "datos": {
+      "main": [
+        [
+          {
+            "node": "paciente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "paciente": {
+      "main": [
+        [
+          {
+            "node": "var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "var": {
+      "main": [
+        [
+          {
+            "node": "Paciente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Paciente": {
+      "main": [
+        [],
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-07-19T09:45:52.842Z",
+  "id": "bbernQWTLd4N3P4C",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE CITAS - PACIENTES",
+  "nodes": [
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Llama siempre a esta herramienta para actualizar el nombre un paciente",
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "my20kxsgv3p5fct",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $('datos').item.json.Id }}"
+            },
+            {
+              "fieldName": "paciente",
+              "fieldValue": "={{ $('datos').item.json.paciente }}"
+            },
+            {
+              "fieldName": "Usuarios_id",
+              "fieldValue": "1"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        -192,
+        16
+      ],
+      "id": "6195c6e6-eb5a-4553-bdac-4ab4fed6654a",
+      "name": "updatePaciente",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Llama siempre a esta tool para eliminar un paciente",
+        "authentication": "nocoDbApiToken",
+        "operation": "delete",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "my20kxsgv3p5fct",
+        "id": "={{ $json.Id }}"
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        80,
+        0
+      ],
+      "id": "5ab9d1f8-68d0-40b5-bee4-7d97fed063d6",
+      "name": "deletePaciente",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        0
+      ],
+      "id": "1b252e95-33be-4e3e-a574-b5cc12c7cf84",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "paciente"
+            },
+            {
+              "name": "telefono"
+            },
+            {
+              "name": "correo"
+            },
+            {
+              "name": "Usuarios_id"
+            },
+            {
+              "name": "Id"
+            },
+            {
+              "name": "tipo_consulta"
+            }
+          ]
+        }
+      },
+      "id": "3ee8b678-5005-4aa9-a8ae-ae76d0e47d46",
+      "typeVersion": 1.1,
+      "name": "datos",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -1072,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json }}",
+        "options": {
+          "systemMessage": "# Agente de Pacientes\n\n## Función\nEjecutás herramientas de gestión de pacientes. Solo devolvés JSON, sin texto adicional.\n\n## Herramientas\n- **updatePaciente** - Actualizar datos (`id`, `paciente`, `correo`, `telefono`)\n- **deletePaciente** - Eliminar paciente (`id`)\n\n## Detección\n- **Actualizar:** \"actualizar\", \"modificar\", \"cambiar\", \"corregir\", \"agregar\"\n- **Eliminar:** \"eliminar\", \"borrar\", \"quitar\"\n\n## Respuestas\n- **Actualización exitosa:** JSON con campos modificados\n- **Eliminación exitosa:** `{\"deleted\": \"ok\"}`\n- **Falta parámetro:** `{\"falta\": \"campo\"}`\n\n## Ejemplos\n```\nUsuario: \"Actualizar email paciente 1206\"\nRespuesta: {\"id\": 1206, \"correo\": \"nuevo@email.com\"}\n\nUsuario: \"Eliminar paciente 1206\" \nRespuesta: {\"deleted\": \"ok\"}\n```\n\nSolo ejecutás herramientas y devolvés JSON. Sin conversación."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        -176,
+        -240
+      ],
+      "id": "be4bed32-32e4-46cc-b702-bb54f0cc9cfd",
+      "name": "Paciente",
+      "alwaysOutputData": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p54buvqu7ncflc4",
+        "table": "my20kxsgv3p5fct",
+        "returnAll": true,
+        "options": {
+          "where": "=(telefono,eq,{{ $json.telefono }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -800,
+        -240
+      ],
+      "id": "e165af65-e0f0-46b1-8067-0498fd27a55c",
+      "name": "paciente",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6fd879ae-56df-48d9-a9bd-5db93ab40798",
+              "name": "tipo_consulta",
+              "value": "={{ $('datos').item.json.tipo_consulta }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "selected",
+        "includeFields": "Id, paciente, telefono, correo, Usuarios",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -528,
+        -240
+      ],
+      "id": "1d75fba3-ce9c-42eb-9e9a-d32596c4f425",
+      "name": "var"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "342b6ec5-a077-4ae0-abc3-434447b1f2d7",
+              "name": "respose",
+              "value": "=true",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        944,
+        -320
+      ],
+      "id": "bc2da33c-e884-4d9a-8ee3-9e812fdb0d32",
+      "name": "Si"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "342b6ec5-a077-4ae0-abc3-434447b1f2d7",
+              "name": "respose",
+              "value": "=false",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        944,
+        -112
+      ],
+      "id": "db7d4725-1692-43f4-a17a-5a07d0a60bda",
+      "name": "No"
+    }
+  ],
+  "pinData": {
+    "datos": [
+      {
+        "json": {
+          "paciente": "Juan Pelotas",
+          "telefono": "5492254596618",
+          "correo": null,
+          "Usuarios_id": "1",
+          "Id": "1214",
+          "tipo_consulta": "actualizar"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-25T01:59:34.405Z",
+  "versionId": "7d3d0dc3-78d7-4b53-9c32-94869a1c9c63"
+}
