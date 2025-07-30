@@ -1,0 +1,542 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Weaviate Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Weaviate Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Weaviate Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Búsqueda": {
+      "main": [
+        [
+          {
+            "node": "Buscar en Weaviate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar en Weaviate": {
+      "main": [
+        []
+      ]
+    },
+    "Weaviate Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ],
+      "main": [
+        []
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Weaviate Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-18T03:15:35.272Z",
+  "id": "yH7IrF2LzIVp4ZDu",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "weavite",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        752
+      ],
+      "id": "f0ade45f-70fd-4c20-8424-c2acd4d298ca",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "weaviateCollection": {
+          "__rl": true,
+          "value": "=ProductosNuevos",
+          "mode": "id"
+        },
+        "options": {
+          "clearStore": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreWeaviate",
+      "typeVersion": 1.3,
+      "position": [
+        128,
+        736
+      ],
+      "id": "0be13c8a-af1e-4339-b549-42c314778f7f",
+      "name": "Weaviate Vector Store",
+      "credentials": {
+        "weaviateApi": {
+          "id": "qfpfehGgcjNlvoMv",
+          "name": "Weaviate Credentials account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-ada-002",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -48,
+        960
+      ],
+      "id": "d588d898-9daa-46a9-8a31-f859fce5df45",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "tpho37KNAAX388pI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1L_JcEQ9bno1dhNMZmjdgrrHsY71RG5gvmlvZBTSP_mc",
+          "mode": "list",
+          "cachedResultName": "weavite_BBDD",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1L_JcEQ9bno1dhNMZmjdgrrHsY71RG5gvmlvZBTSP_mc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 771354105,
+          "mode": "list",
+          "cachedResultName": "datos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1L_JcEQ9bno1dhNMZmjdgrrHsY71RG5gvmlvZBTSP_mc/edit#gid=771354105"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -96,
+        752
+      ],
+      "id": "33d5dd00-1da3-4879-9051-d56407ead8cf",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uyuvATuLJQlzto7q",
+          "name": "google sheet"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        912,
+        416
+      ],
+      "id": "978d4935-ea72-4b31-9f9d-77a57994d02e",
+      "name": "When chat message received",
+      "webhookId": "6e9dce5e-7bd8-42e9-a272-b49fc2b0de77"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://weavite.qeva.xyz/v1/graphql",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={ \n  Get { \n    ProductosNuevos(nearText: {concepts: [\"{{ $json.busqueda.toLowerCase().trim() }}\"]\n}) \n    { \n      nombre \n      descripcion \n      categoria\n      marca\n    } \n  } \n}\n"
+            }
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        80,
+        -256
+      ],
+      "id": "4f272ca5-a5b5-4b7e-9a18-d2e132e31c8d",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3dd2f672-e4ec-4a16-9b72-f147cd728ee8",
+              "name": "busqueda",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1136,
+        416
+      ],
+      "id": "60f7c614-97f6-4981-8940-413de9da5339",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "https://weavite.qeva.xyz/v1/schema/Products",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        80,
+        -32
+      ],
+      "id": "414d07a3-db3e-46cf-95c8-1cdb8f3a002a",
+      "name": "DELETE BBDD"
+    },
+    {
+      "parameters": {
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "nombre",
+                "value": "={{ $json.nombre }}"
+              },
+              {
+                "name": "descripcion",
+                "value": "={{ $json.descripcion }}"
+              },
+              {
+                "name": "categoria",
+                "value": "={{ $json.categoria }}"
+              },
+              {
+                "name": "marca",
+                "value": "={{ $json.marca }}"
+              },
+              {
+                "name": "precio_final",
+                "value": "={{ $json.precio_final }}"
+              },
+              {
+                "name": "ingredientes_principales",
+                "value": "={{ $json.ingredientes_principales }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        336,
+        976
+      ],
+      "id": "e92e4b7b-8988-4f9f-9ae6-1b3f0514d036",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "content": "## Weavite \n**usar misma api que en portainer para embeddings**",
+        "height": 128,
+        "width": 288,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1360,
+        -352
+      ],
+      "typeVersion": 1,
+      "id": "b1c39ac0-e447-458f-983e-54aa82fc60c8",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        -752,
+        608
+      ],
+      "name": "Preparar Búsqueda",
+      "id": "e9b9a69b-474c-449d-9619-a77847859002"
+    },
+    {
+      "parameters": {
+        "url": "https://weavite.qeva.xyz/v1/graphql",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -528,
+        608
+      ],
+      "name": "Buscar en Weaviate",
+      "id": "1736caa1-09e9-457c-9b8f-220db457824a"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.busqueda }}",
+        "options": {
+          "systemMessage": "=vendes perfume y productos naturales, cremas, ademas debes dar precios de todo lo que te pregunte"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        1488,
+        416
+      ],
+      "id": "d305622b-a713-4170-a8ed-a430a7c12264",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "={{ $json.busqueda }}",
+        "weaviateCollection": {
+          "__rl": true,
+          "value": "ProductosNuevos",
+          "mode": "list",
+          "cachedResultName": "ProductosNuevos"
+        },
+        "topK": 10,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreWeaviate",
+      "typeVersion": 1.3,
+      "position": [
+        1824,
+        640
+      ],
+      "id": "fd7b9a5d-2b69-41a3-bad1-833d6487ee6b",
+      "name": "Weaviate Vector Store1",
+      "credentials": {
+        "weaviateApi": {
+          "id": "qfpfehGgcjNlvoMv",
+          "name": "Weaviate Credentials account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-ada-002",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1792,
+        848
+      ],
+      "id": "fea36bbd-f8c6-4a89-857d-edba6c36b50d",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "tpho37KNAAX388pI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1280,
+        704
+      ],
+      "id": "d7ad82ab-50b7-485e-b290-cab8a53ef5ad",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('When chat message received').item.json.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1600,
+        672
+      ],
+      "id": "dee6c31f-2405-4dcd-91b4-1defc400ac4f",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "EBMwLGTBawYqkZM1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-27T22:13:37.108Z",
+  "versionId": "eb1a1607-e46c-42e5-906d-fc62deb49f2f"
+}
