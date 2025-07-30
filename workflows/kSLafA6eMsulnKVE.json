@@ -1,0 +1,331 @@
+{
+  "active": false,
+  "connections": {
+    "vars": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Lista",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Turno creado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CANCELAR": {
+      "main": [
+        [
+          {
+            "node": "vars",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-07-25T03:36:54.999Z",
+  "id": "kSLafA6eMsulnKVE",
+  "isArchived": false,
+  "meta": null,
+  "name": "AGENTE CITAS - CANCELAR",
+  "nodes": [
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -496,
+        -16
+      ],
+      "id": "48ae50f8-fb8c-4f2e-a2e3-26566231eb53",
+      "name": "vars"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "pg80f80zr77phub",
+        "table": "mydefkz038xyn3g",
+        "returnAll": true,
+        "options": {
+          "where": "=(Id,eq,{{ $json.Id }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -288,
+        -16
+      ],
+      "id": "e0f9eb09-0396-4449-a647-8e0ec8500d0a",
+      "name": "Get many rows",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const datos = $input.all();\nconst dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];\nconst meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];\n\nfunction formatearFecha(fecha, hora) {\n  // Validar que fecha existe\n  if (!fecha) {\n    return 'Fecha no disponible';\n  }\n  \n  // Combinar fecha y hora\n  let fechaCompleta;\n  if (hora) {\n    // Si tenemos hora, combinarla con la fecha\n    fechaCompleta = new Date(`${fecha}T${hora}`);\n  } else {\n    // Si no hay hora, usar solo la fecha\n    fechaCompleta = new Date(fecha + 'T00:00:00');\n  }\n  \n  // Validar que la fecha es válida\n  if (isNaN(fechaCompleta.getTime())) {\n    return 'Fecha inválida';\n  }\n  \n  const diaSemana = dias[fechaCompleta.getDay()];\n  const dia = fechaCompleta.getDate();\n  const mes = meses[fechaCompleta.getMonth()];\n  const anio = fechaCompleta.getFullYear();\n  const horas = fechaCompleta.getHours();\n  const minutos = fechaCompleta.getMinutes().toString().padStart(2, '0');\n  \n  return {\n    fechaCompleta: `${capitalize(diaSemana)} ${dia} de ${mes} ${anio}`,\n    hora: `${horas}:${minutos}`,\n    diaSemana: capitalize(diaSemana),\n    dia: dia,\n    mes: mes\n  };\n}\n\nfunction capitalize(str) {\n  if (!str || typeof str !== 'string') {\n    return '';\n  }\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n\nconst opciones = datos.map((item, index) => {\n  // Pasar tanto la fecha como la hora a la función\n  const fechaData = formatearFecha(item.json.FECHA, item.json.HORA);\n  \n  return {\n    rowId: item.json.Id ? item.json.Id.toString() : '', \n    title: `🚨 ${fechaData.diaSemana} ${fechaData.dia} - ${fechaData.hora} hs`,\n    description: `❌ CANCELAR ESTA CITA • ${capitalize(fechaData.mes)} ${fechaData.dia}`\n  };\n});\n\n// Mensaje personalizado según la cantidad de citas\nconst cantidadCitas = opciones.length;\nlet mensajePersonalizado = '';\n\nif (cantidadCitas === 1) {\n  mensajePersonalizado = 'Tienes 1 cita que puedes cancelar';\n} else {\n  mensajePersonalizado = `Tienes ${cantidadCitas} citas que puedes cancelar`;\n}\n\nconst requestBody = {\n  to: $('vars').first().json.numero,\n  buttonText: \"⛔ CANCELAR CITA\",\n  title: \"🔴 CANCELACIÓN DE CITAS 🔴\",\n  description: `⚠️ ATENCIÓN ⚠️\\n\\n${mensajePersonalizado}\\n\\n🚨 *IMPORTANTE:*\\n❌ La cancelación es PERMANENTE\\n❌ No se puede deshacer\\n❌ Deberás agendar nueva cita\\n\\n*Selecciona la cita a CANCELAR:*`,\n  footer: \"⏰ Cancela con 24hs de anticipación\",\n  sections: [\n    {\n      title: \"🔴 CITAS PARA CANCELAR\",\n      rows: opciones\n    }\n  ]\n};\n\n// Agregar sección de advertencia si hay múltiples citas\nif (cantidadCitas > 1) {\n  requestBody.sections.push({\n    title: \"⚠️ ADVERTENCIA\",\n    rows: [{\n      rowId: \"warning\",\n      title: \"❗ Cuidado al cancelar\",\n      description: \"🔴 Asegúrate de cancelar la cita correcta\"\n    }]\n  });\n}\n\n// Agregar sección de emergencia\nrequestBody.sections.push({\n  title: \"📞 CONTACTO DE EMERGENCIA\",\n  rows: [{\n    rowId: \"emergency\",\n    title: \"🆘 ¿Necesitas ayuda urgente?\",\n    description: \"📱 WhatsApp: +54 11 1234-5678\"\n  }]\n});\n\nreturn [{ json: requestBody }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        -80
+      ],
+      "id": "2f5b7849-eec1-4d4d-b81b-b19b2463e84f",
+      "name": "Lista"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/list",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "tittle",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        384,
+        -16
+      ],
+      "id": "34791ca2-782f-452e-b025-fd8479b192e2",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c2ea2ad6-96a5-4106-bb4d-21b844b935b4",
+              "name": "response",
+              "value": "LISTA_ENVIADA",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        592,
+        -16
+      ],
+      "id": "3d9a579e-4d0c-4511-a820-924c74ab7e24",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b0ac65c3-0360-4cff-956c-25ce12621c62",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        -16
+      ],
+      "id": "ae37ce3e-e1f2-48a7-a2ef-9d0d23988663",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $('CANCELAR').item.json.numero }}"
+            },
+            {
+              "name": "text",
+              "value": "=❌ No veo que tengas turnos para cancelar ❌\n"
+            },
+            {
+              "name": "status",
+              "value": "recording"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        160
+      ],
+      "id": "afdd0db2-7c13-40fe-a53d-69b97befa57a",
+      "name": "Turno creado"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "Id"
+            },
+            {
+              "name": "numero"
+            }
+          ]
+        }
+      },
+      "id": "6b08fe34-078d-4062-96ee-839803593e8e",
+      "typeVersion": 1.1,
+      "name": "CANCELAR",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        -704,
+        -16
+      ]
+    }
+  ],
+  "pinData": {
+    "CANCELAR": [
+      {
+        "json": {
+          "Id": "18",
+          "numero": "5492254596618"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-29T14:25:39.002Z",
+  "versionId": "86f1bb2c-b138-4b4c-99eb-6ca825ee59f2"
+}
