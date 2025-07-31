@@ -1,11 +1,6 @@
 {
   "active": false,
   "connections": {
-    "Code": {
-      "main": [
-        []
-      ]
-    },
     "datos": {
       "main": [
         [
@@ -21,7 +16,7 @@
       "main": [
         [
           {
-            "node": "Buttons ",
+            "node": "Lista",
             "type": "main",
             "index": 0
           }
@@ -35,13 +30,7 @@
     },
     "HTTP Request1": {
       "main": [
-        [
-          {
-            "node": "button",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Buttons ": {
@@ -49,6 +38,28 @@
         [
           {
             "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista": {
+      "main": [
+        [
+          {
+            "node": "Lista2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista2": {
+      "main": [
+        [
+          {
+            "node": "button",
             "type": "main",
             "index": 0
           }
@@ -62,19 +73,6 @@
   "meta": null,
   "name": "AGENTE CITAS - Button confirm",
   "nodes": [
-    {
-      "parameters": {
-        "jsCode": "// OBTENER DATOS DEL INPUT\nconst editFields = $('var').item.json;\n\n// EXTRAER DATOS DEL TURNO\nconst paciente = editFields.nombre || \"Paciente\";\nconst email = editFields.correo || \"email@ejemplo.com\";\nconst fecha = editFields.fecha || \"Fecha a confirmar\";\nconst hora = editFields.hora || \"Hora a confirmar\";\nconst motivo = editFields.motivo || \"Consulta\";\nconst telefono = editFields.telefono || \"5492254423359\";\n\n// CONFIGURACIÓN DEL MENSAJE\nconst phoneNumber = telefono;\nconst tipoAccion = \"confirmar\"; // Puede ser: confirmar, recordatorio, cancelado, reprogramar, nuevo\n\n// CONFIGURAR MENSAJE SEGÚN TIPO\nlet msgConfig = {};\n\nif (tipoAccion === \"confirmar\") {\n  msgConfig = {\n    header: \"📅 RESUMEN DE TU TURNO 📅\",\n    body: \"👤 Paciente: \" + paciente + \"\\n📧 Email: \" + email + \"\\n📆 Fecha: \" + fecha + \"\\n🕐 Hora: \" + hora + \"\\n🏥 Motivo: \" + motivo ,\n    footer: \"¿Confirmás tu turno?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"✅ Confirmar\", id: \"confirmar_turno\" }\n    ]\n  };\n} else if (tipoAccion === \"recordatorio\") {\n  msgConfig = {\n    header: \"🔔 RECORDATORIO DE TURNO\",\n    body: \"Hola \" + paciente + \"!\\n\\n⏰ Te recordamos que tenés turno:\\n📆 \" + fecha + \"\\n🕐 \" + hora + \"\\n🏥 Motivo: \" + motivo + \"\\n\\n📍 Dirección: [Dirección del consultorio]\\n💡 Recordá traer DNI y estudios previos si los tenés\",\n    footer: \"¿Necesitás algo más?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"✅ Asistiré\", id: \"confirmar_asistencia\" },\n      { type: \"quick_reply\", title: \"❌ No podré ir\", id: \"cancelar_ultimo_momento\" },\n      { type: \"quick_reply\", title: \"📍 Ver ubicación\", id: \"ver_ubicacion\" }\n    ]\n  };\n} else if (tipoAccion === \"cancelado\") {\n  msgConfig = {\n    header: \"❌ TURNO CANCELADO\",\n    body: \"Hola \" + paciente + \",\\n\\nTu turno del \" + fecha + \" a las \" + hora + \" ha sido cancelado.\\n\\n📞 Si querés reprogramar, podés:\\n• Responder este mensaje\\n• Llamarnos al [teléfono]\\n• Agendar online en [web]\",\n    footer: \"¿Querés agendar un nuevo turno?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"📅 Nuevo turno\", id: \"agendar_nuevo\" },\n      { type: \"quick_reply\", title: \"📞 Llamar\", id: \"llamar_consultorio\" },\n      { type: \"quick_reply\", title: \"💬 Consultar\", id: \"hacer_consulta\" }\n    ]\n  };\n} else if (tipoAccion === \"reprogramar\") {\n  msgConfig = {\n    header: \"🔄 REPROGRAMACIÓN DE TURNO\",\n    body: \"Hola \" + paciente + \"!\\n\\nTu turno original:\\n📆 \" + fecha + \" - \" + hora + \"\\n\\nHa sido reprogramado para:\\n📆 [Nueva fecha] - [Nueva hora]\\n🏥 Motivo: \" + motivo,\n    footer: \"¿Te viene bien el nuevo horario?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"✅ Perfecto\", id: \"confirmar_reprogramacion\" },\n      { type: \"quick_reply\", title: \"❌ No puedo\", id: \"rechazar_reprogramacion\" },\n      { type: \"quick_reply\", title: \"📅 Ver otros\", id: \"ver_otros_horarios\" }\n    ]\n  };\n} else if (tipoAccion === \"nuevo\") {\n  msgConfig = {\n    header: \"✅ TURNO AGENDADO\",\n    body: \"¡Hola \" + paciente + \"!\\n\\n✅ Tu turno fue agendado exitosamente:\\n\\n📆 Fecha: \" + fecha + \"\\n🕐 Hora: \" + hora + \"\\n🏥 Motivo: \" + motivo + \"\\n📧 Confirmación enviada a: \" + email + \"\\n\\n⏰ Te enviaremos un recordatorio 24hs antes\",\n    footer: \"¿Necesitás algo más?\",\n    buttons: [\n      { type: \"quick_reply\", title: \"📋 Ver detalles\", id: \"ver_detalles\" },\n      { type: \"quick_reply\", title: \"📅 Agendar otro\", id: \"agendar_otro\" },\n      { type: \"quick_reply\", title: \"✅ Listo\", id: \"finalizar\" }\n    ]\n  };\n} else {\n  // Mensaje genérico de bienvenida\n  msgConfig = {\n    header: \"👋 BIENVENIDO/A\",\n    body: \"Hola! Soy el asistente virtual del consultorio.\\n\\n¿En qué puedo ayudarte hoy?\",\n    footer: \"Seleccioná una opción:\",\n    buttons: [\n      { type: \"quick_reply\", title: \"📅 Agendar turno\", id: \"agendar_turno\" },\n      { type: \"quick_reply\", title: \"🔍 Consultar turno\", id: \"consultar_turno\" },\n      { type: \"quick_reply\", title: \"💬 Hacer consulta\", id: \"hacer_consulta\" }\n    ]\n  };\n}\n\n// CONSTRUIR PAYLOAD EN FORMATO WHAPI\nconst whapiPayload = {\n  to: phoneNumber,\n  type: \"button\",\n  header: {\n    text: msgConfig.header\n  },\n  body: {\n    text: msgConfig.body\n  },\n  footer: {\n    text: msgConfig.footer\n  },\n  action: {\n    buttons: msgConfig.buttons\n  }\n};\n\n// CONFIGURACIÓN DE LA PETICIÓN HTTP\nconst httpRequest = {\n  method: 'POST',\n  url: 'https://gate.whapi.cloud/messages/interactive',\n  headers: {\n    'accept': 'application/json',\n    'authorization': 'Bearer B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410',\n    'content-type': 'application/json'\n  },\n  body: JSON.stringify(whapiPayload)\n};\n\n// RETORNAR PARA N8N\nreturn [{\n  json: {\n    payload: whapiPayload,\n    httpRequest: httpRequest\n  }\n}];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        80,
-        192
-      ],
-      "id": "7670f97c-d482-4c84-8457-18a138089bca",
-      "name": "Code"
-    },
     {
       "parameters": {
         "workflowInputs": {
@@ -160,7 +158,7 @@
       "typeVersion": 4.2,
       "position": [
         1024,
-        176
+        224
       ],
       "id": "4bea10f7-541e-4ccb-9bd9-a91b4dbe627a",
       "name": "HTTP Request",
@@ -261,8 +259,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        720,
-        -48
+        736,
+        128
       ],
       "id": "2d62e346-a47b-4d2e-8019-af9b96fc3959",
       "name": "HTTP Request1"
@@ -297,11 +295,85 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        480,
-        -48
+        496,
+        128
       ],
       "id": "b665d3ed-9504-49a6-8e9e-880a5e49762a",
       "name": "Buttons "
+    },
+    {
+      "parameters": {
+        "jsCode": "// OBTENER DATOS DEL INPUT\nconst editFields = $('var').item.json;\n\n// EXTRAER DATOS DEL TURNO\nconst paciente = editFields.nombre;\nconst fecha = editFields.fecha;\nconst hora = editFields.hora;\nconst motivo = editFields.servicio;\nconst telefono = editFields.telefono;\n\n// CONSTRUIR MENSAJE DE LISTA\nconst requestBody = {\n  to: telefono,\n  buttonText: \"Confirmar ✅\",\n  title: \"🦷 Consultorio Médico\",\n  description: `*Resumen de su turno*\n\n👤 *Paciente:* ${paciente}\n📅 *Fecha:* ${fecha}\n🕐 *Hora:* ${hora}\n🏥 *Servicio:* ${motivo}\n\n📍 _Recordatorio: Traer DNI y estudios previos_\n\nSeleccione una opción:`,\n  footer: \"Centro Médico • Confirme su asistencia\",\n  sections: [\n    {\n      title: \"📋 Opciones Disponibles\",\n      rows: [\n        {\n          rowId: `✅ CONFIRMADO - ${paciente} | ${fecha} | ${hora} | ${motivo}`,\n          title: \"✅ Confirmar Turno\",\n          description: \"Confirmo mi asistencia en la fecha y hora indicada\"\n        },\n        {\n          rowId: \"Quiero cambiar mi fecha\",\n          title: \"📝 Modificar Turno\",\n          description: \"Necesito cambiar la fecha u horario de mi consulta\"\n        }\n      ]\n    }\n  ]\n};\n\n// RETORNAR RESULTADO\nreturn [{ json: requestBody }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -48
+      ],
+      "id": "e5c31449-c1b2-4b2a-913e-326ff2745da9",
+      "name": "Lista"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/list",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        736,
+        -48
+      ],
+      "id": "5f4a049d-163c-4ddf-8b31-802c8c36c438",
+      "name": "Lista2"
     }
   ],
   "pinData": {
@@ -323,6 +395,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-07-25T06:49:44.669Z",
-  "versionId": "e68e5cd7-52fb-4554-891e-aa767adecfb1"
+  "updatedAt": "2025-07-30T22:45:00.054Z",
+  "versionId": "d497b050-a80e-41d7-8fae-09c8a3fdcda2"
 }
