@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Loop Over Items": {
       "main": [
@@ -61,6 +61,13 @@
         ],
         [
           {
+            "node": "chatInput",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Code",
             "type": "main",
             "index": 0
@@ -75,7 +82,7 @@
         ],
         [
           {
-            "node": "Elimina la cita",
+            "node": "Elimina la cita - Reagendar",
             "type": "main",
             "index": 0
           }
@@ -352,7 +359,13 @@
     },
     "Turno creado": {
       "main": [
-        []
+        [
+          {
+            "node": "Delete lista",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "escribiendo...": {
@@ -394,17 +407,6 @@
           {
             "node": "agente_vero",
             "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Elimina la cita": {
-      "main": [
-        [
-          {
-            "node": "If2",
-            "type": "main",
             "index": 0
           }
         ]
@@ -519,27 +521,6 @@
         ]
       ]
     },
-    "think": {
-      "ai_tool": [
-        [
-          {
-            "node": "Juli",
-            "type": "ai_tool",
-            "index": 0
-          },
-          {
-            "node": "agente_vero",
-            "type": "ai_tool",
-            "index": 0
-          },
-          {
-            "node": "agente_martina",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "memory1": {
       "ai_memory": [
         [
@@ -557,11 +538,16 @@
             "node": "Juli",
             "type": "ai_memory",
             "index": 0
+          },
+          {
+            "node": "Chat Memory Manager",
+            "type": "ai_memory",
+            "index": 0
           }
         ]
       ]
     },
-    "If2": {
+    "Elimina la cita - Reagendar": {
       "main": [
         [
           {
@@ -569,11 +555,47 @@
             "type": "main",
             "index": 0
           }
-        ],
+        ]
+      ]
+    },
+    "Cancelar turno": {
+      "main": [
         [
           {
-            "node": "Cancelar turno2",
+            "node": "Chat Memory Manager",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cancelar turno1": {
+      "main": [
+        [
+          {
+            "node": "Chat Memory Manager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "tool_think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Juli",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "agente_vero",
+            "type": "ai_tool",
+            "index": 0
+          },
+          {
+            "node": "agente_martina",
+            "type": "ai_tool",
             "index": 0
           }
         ]
@@ -746,20 +768,45 @@
                 },
                 "conditions": [
                   {
-                    "id": "d1365037-6336-4f42-ad67-111b60828b07",
-                    "leftValue": "={{ $json.msg.type }}",
-                    "rightValue": "templateButtonReplyMessage",
+                    "id": "89191595-e9ab-4d53-881b-ed5247811e44",
+                    "leftValue": "={{ $json.msg.content === 'Quiero cambiar mi fecha' }}",
+                    "rightValue": "Quiero cambiar mi fecha",
                     "operator": {
-                      "type": "string",
-                      "operation": "equals",
-                      "name": "filter.operator.equals"
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
                     }
                   }
                 ],
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "Button_confirm"
+              "outputKey": "Modificar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d1365037-6336-4f42-ad67-111b60828b07",
+                    "leftValue": "={{ $('Webhook2').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === 'Confirmar ✅' }}",
+                    "rightValue": "Confirmar ✅",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Confirmar ✅"
             },
             {
               "conditions": {
@@ -797,7 +844,7 @@
                 "conditions": [
                   {
                     "id": "b64bdc33-47da-4c94-988d-1ba19386a5a2",
-                    "leftValue": "={{ $('Webhook2').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === '📆 Elegir cita'}}",
+                    "leftValue": "={{ $('Webhook2').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === '📋 REAGENDAR CONSULTA'}}",
                     "rightValue": "📆 Elegir cita",
                     "operator": {
                       "type": "boolean",
@@ -974,7 +1021,7 @@
       "typeVersion": 1.2,
       "position": [
         2240,
-        1504
+        1360
       ],
       "id": "e1bccc3d-4d41-431c-941b-bf5e307c53c5",
       "name": "Encolado de msg"
@@ -994,7 +1041,7 @@
       "typeVersion": 1,
       "position": [
         2480,
-        1504
+        1360
       ],
       "id": "93136af9-3dd0-4fec-8186-4ff043782c42",
       "name": "Sort"
@@ -1016,7 +1063,7 @@
       "typeVersion": 1,
       "position": [
         2720,
-        1504
+        1360
       ],
       "id": "31bb4de9-fb18-4409-b62e-14361ef29027",
       "name": "Aggregate"
@@ -1028,7 +1075,7 @@
             {
               "id": "0fae28c9-d30a-4250-9a50-5b68c61164cf",
               "name": "message",
-              "value": "={{ $json.text.join(\"\\n\") }}",
+              "value": "={{ $json?.text?.join(\"\\n\") || $json.msg.content }}",
               "type": "string"
             },
             {
@@ -1045,7 +1092,7 @@
       "typeVersion": 3.4,
       "position": [
         2944,
-        1504
+        1360
       ],
       "id": "2f8a9fe2-146d-491b-a23b-3079d05096ad",
       "name": "chatInput"
@@ -1369,7 +1416,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        80,
+        -176,
         1488
       ],
       "notesInFlow": true
@@ -1834,7 +1881,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -32,
+        -288,
         1408
       ],
       "typeVersion": 1,
@@ -1884,7 +1931,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// OBTENER EL TEXTO DEL MENSAJE\nconst messageText = $('Webhook2').first().json.body.data.msgContent.templateButtonReplyMessage.contextInfo.quotedMessage.interactiveMessage.body.text;\n\n// FUNCIÓN PARA LIMPIAR TEXTO\nfunction cleanText(text) {\n  return text.replace(/\\s+/g, ' ').trim();\n}\n\n// FUNCIÓN PARA FORMATEAR FECHA EN FORMATO ISO (YYYY-MM-DD)\nfunction formatFecha(fecha) {\n  try {\n    const fechaLimpia = cleanText(fecha);\n    \n    // Si la fecha está en formato DD/MM/YYYY o DD-MM-YYYY\n    if (fechaLimpia.match(/^\\d{1,2}[\\/\\-]\\d{1,2}[\\/\\-]\\d{4}$/)) {\n      const parts = fechaLimpia.split(/[\\/\\-]/);\n      const day = parts[0].padStart(2, '0');\n      const month = parts[1].padStart(2, '0');\n      const year = parts[2];\n      return `${year}-${month}-${day}`; // Formato ISO para NocoDB\n    }\n    // Si la fecha está en formato YYYY-MM-DD\n    else if (fechaLimpia.match(/^\\d{4}[\\/\\-]\\d{1,2}[\\/\\-]\\d{1,2}$/)) {\n      const parts = fechaLimpia.split(/[\\/\\-]/);\n      const year = parts[0];\n      const month = parts[1].padStart(2, '0');\n      const day = parts[2].padStart(2, '0');\n      return `${year}-${month}-${day}`;\n    }\n    else {\n      // Intentar parsear con Date y convertir a ISO\n      const tempDate = new Date(fechaLimpia);\n      if (!isNaN(tempDate.getTime())) {\n        const year = tempDate.getFullYear();\n        const month = (tempDate.getMonth() + 1).toString().padStart(2, '0');\n        const day = tempDate.getDate().toString().padStart(2, '0');\n        return `${year}-${month}-${day}`;\n      }\n      return fechaLimpia;\n    }\n  } catch (error) {\n    return fecha;\n  }\n}\n\n// FUNCIÓN PARA FORMATEAR HORA\nfunction formatHora(hora) {\n  try {\n    const horaLimpia = cleanText(hora);\n    \n    // Si la hora está en formato HH:MM (24h) o H:MM\n    if (horaLimpia.match(/^\\d{1,2}:\\d{2}$/)) {\n      const timeParts = horaLimpia.split(':');\n      const hours = timeParts[0].padStart(2, '0');\n      const minutes = timeParts[1].padStart(2, '0');\n      return `${hours}:${minutes}`;\n    }\n    // Si la hora incluye AM/PM, mantener el formato\n    else if (horaLimpia.match(/^\\d{1,2}:\\d{2}\\s*(AM|PM)$/i)) {\n      return horaLimpia.toUpperCase();\n    }\n    else {\n      return horaLimpia; // Retornar como está\n    }\n  } catch (error) {\n    return hora; // Retornar original en caso de error\n  }\n}\n\n// OBTENER ID DESDE VARIABLES GLOBALES\nfunction obtenerID() {\n  return $('Variables globales').first().json.id_cliente;\n}\n\n// EXTRAER DATOS ESPECÍFICOS\nfunction parseMessage(text) {\n  let nombre = '';\n  let fecha = '';\n  let hora = '';\n  let servicio = '';\n  \n  // Buscar NOMBRE (puede estar como \"Paciente:\", \"Nombre:\", \"Cliente:\")\n  const nombreMatch = text.match(/(?:Paciente|Nombre|Cliente):\\s*([^📧📅⏰🏥💡\\n]+)/i);\n  if (nombreMatch) nombre = cleanText(nombreMatch[1]);\n  \n  // Buscar FECHA\n  const fechaMatch = text.match(/Fecha:\\s*([^📧📅⏰🏥💡\\n]+)/i);\n  if (fechaMatch) fecha = formatFecha(fechaMatch[1]);\n  \n  // Buscar HORA\n  const horaMatch = text.match(/Hora:\\s*([^📧📅⏰🏥💡\\n]+)/i);\n  if (horaMatch) hora = formatHora(horaMatch[1]);\n  \n  // Buscar SERVICIO (puede estar como \"Motivo:\", \"Servicio:\", \"Consulta:\")\n  const servicioMatch = text.match(/(?:Motivo|Servicio|Consulta|Tipo):\\s*([^📧📅⏰🏥💡\\n]+)/i);\n  if (servicioMatch) servicio = cleanText(servicioMatch[1]);\n  \n  return {\n    NOMBRE: nombre,\n    FECHA: fecha,\n    HORA: hora,\n    SERVICIO: servicio,\n    ID: obtenerID()\n  };\n}\n\n// PROCESAR Y RETORNAR LOS DATOS ESPECÍFICOS\nconst resultado = parseMessage(messageText);\n\n// LOG PARA DEBUGGING (opcional)\nconsole.log('Datos extraídos:', resultado);\n\nreturn [{ json: resultado }];"
+        "jsCode": "// OBTENER EL TEXTO DEL MENSAJE\nconst messageText = $input.first().json.msg.content;\n\n// FUNCIÓN PARA LIMPIAR TEXTO\nfunction cleanText(text) {\n  return text.replace(/\\s+/g, ' ').trim();\n}\n\n// FUNCIÓN PARA FORMATEAR FECHA EN FORMATO ISO (YYYY-MM-DD)\nfunction formatFecha(fecha) {\n  try {\n    const fechaLimpia = cleanText(fecha);\n    \n    // Si la fecha está en formato DD/MM/YYYY o DD-MM-YYYY\n    if (fechaLimpia.match(/^\\d{1,2}[\\/\\-]\\d{1,2}[\\/\\-]\\d{4}$/)) {\n      const parts = fechaLimpia.split(/[\\/\\-]/);\n      const day = parts[0].padStart(2, '0');\n      const month = parts[1].padStart(2, '0');\n      const year = parts[2];\n      return `${year}-${month}-${day}`; // Formato ISO para NocoDB\n    }\n    // Si la fecha está en formato YYYY-MM-DD\n    else if (fechaLimpia.match(/^\\d{4}[\\/\\-]\\d{1,2}[\\/\\-]\\d{1,2}$/)) {\n      const parts = fechaLimpia.split(/[\\/\\-]/);\n      const year = parts[0];\n      const month = parts[1].padStart(2, '0');\n      const day = parts[2].padStart(2, '0');\n      return `${year}-${month}-${day}`;\n    }\n    else {\n      // Intentar parsear con Date y convertir a ISO\n      const tempDate = new Date(fechaLimpia);\n      if (!isNaN(tempDate.getTime())) {\n        const year = tempDate.getFullYear();\n        const month = (tempDate.getMonth() + 1).toString().padStart(2, '0');\n        const day = tempDate.getDate().toString().padStart(2, '0');\n        return `${year}-${month}-${day}`;\n      }\n      return fechaLimpia;\n    }\n  } catch (error) {\n    return fecha;\n  }\n}\n\n// FUNCIÓN PARA FORMATEAR HORA EN FORMATO 24H (HH:MM:SS)\nfunction formatHora(hora) {\n  try {\n    const horaLimpia = cleanText(hora);\n    \n    // Si la hora está en formato HH:MM (24h) o H:MM\n    if (horaLimpia.match(/^\\d{1,2}:\\d{2}$/)) {\n      const timeParts = horaLimpia.split(':');\n      const hours = timeParts[0].padStart(2, '0');\n      const minutes = timeParts[1].padStart(2, '0');\n      return `${hours}:${minutes}:00`; // Agregar segundos para formato completo\n    }\n    // Si la hora incluye segundos HH:MM:SS\n    else if (horaLimpia.match(/^\\d{1,2}:\\d{2}:\\d{2}$/)) {\n      const timeParts = horaLimpia.split(':');\n      const hours = timeParts[0].padStart(2, '0');\n      const minutes = timeParts[1].padStart(2, '0');\n      const seconds = timeParts[2].padStart(2, '0');\n      return `${hours}:${minutes}:${seconds}`;\n    }\n    // Si la hora incluye AM/PM, convertir a 24h\n    else if (horaLimpia.match(/^\\d{1,2}:\\d{2}\\s*(AM|PM)$/i)) {\n      const [time, period] = horaLimpia.split(/\\s+/);\n      const [hours, minutes] = time.split(':');\n      let hour24 = parseInt(hours);\n      \n      if (period.toUpperCase() === 'PM' && hour24 !== 12) {\n        hour24 += 12;\n      } else if (period.toUpperCase() === 'AM' && hour24 === 12) {\n        hour24 = 0;\n      }\n      \n      return `${hour24.toString().padStart(2, '0')}:${minutes}:00`;\n    }\n    else {\n      // Si no coincide con ningún formato, asumir que son solo horas y agregar :00:00\n      if (horaLimpia.match(/^\\d{1,2}$/)) {\n        return `${horaLimpia.padStart(2, '0')}:00:00`;\n      }\n      return horaLimpia; // Retornar como está\n    }\n  } catch (error) {\n    return hora; // Retornar original en caso de error\n  }\n}\n\n// OBTENER ID DESDE VARIABLES GLOBALES\nfunction obtenerID() {\n  return $('Variables globales').first().json.id_cliente;\n}\n\n// EXTRAER DATOS ESPECÍFICOS\nfunction parseMessage(text) {\n  let nombre = '';\n  let fecha = '';\n  let hora = '';\n  let servicio = '';\n  \n  // Verificar si es un mensaje de confirmación\n  if (text.includes('✅ CONFIRMADO')) {\n    // Extraer datos del formato: ✅ CONFIRMADO - Juan Pérez | 30/07/2025 | 15:30 | Consulta General\n    const parts = text.split(' - ')[1].split(' | ');\n    if (parts.length === 4) {\n      nombre = cleanText(parts[0]);\n      fecha = formatFecha(parts[1]);\n      hora = formatHora(parts[2]);\n      servicio = cleanText(parts[3]);\n    }\n  } else {\n    // Buscar NOMBRE (puede estar como \"Paciente:\", \"Nombre:\", \"Cliente:\")\n    const nombreMatch = text.match(/(?:Paciente|Nombre|Cliente):\\s*([^📧📅⏰🏥💡\\n|]+)/i);\n    if (nombreMatch) nombre = cleanText(nombreMatch[1]);\n    \n    // Buscar FECHA\n    const fechaMatch = text.match(/(?:Fecha):\\s*([^📧📅⏰🏥💡\\n|]+)/i);\n    if (fechaMatch) fecha = formatFecha(fechaMatch[1]);\n    \n    // Buscar HORA\n    const horaMatch = text.match(/(?:Hora):\\s*([^📧📅⏰🏥💡\\n|]+)/i);\n    if (horaMatch) hora = formatHora(horaMatch[1]);\n    \n    // Buscar SERVICIO (puede estar como \"Motivo:\", \"Servicio:\", \"Consulta:\")\n    const servicioMatch = text.match(/(?:Motivo|Servicio|Consulta|Tipo):\\s*([^📧📅⏰🏥💡\\n|]+)/i);\n    if (servicioMatch) servicio = cleanText(servicioMatch[1]);\n  }\n  \n  return {\n    NOMBRE: nombre,\n    FECHA: fecha,\n    HORA: hora,\n    SERVICIO: servicio,\n    ID: obtenerID()\n  };\n}\n\n// PROCESAR Y RETORNAR LOS DATOS ESPECÍFICOS\nconst resultado = parseMessage(messageText);\n\n// LOG PARA DEBUGGING (opcional)\nconsole.log('Datos extraídos:', resultado);\n\nreturn [{ json: resultado }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1967,7 +2014,7 @@
             },
             {
               "name": "text",
-              "value": "=✅ Perfecto {{ $json.NOMBRE }} , el turno ya está agendado. Seguramente te enviemos un mensajito para confirmar el turno unas horas antes. Saludos\n"
+              "value": "=✅ Perfecto {{ $json.NOMBRE }} , el turno ya está agendado para {{ $json.FECHA }} en el horarios de las {{ $json.HORA }} . Seguramente te enviemos un mensajito para confirmar el turno unas horas antes. Saludos\n"
             },
             {
               "name": "status",
@@ -2005,14 +2052,14 @@
         "promptType": "define",
         "text": "={{ $json?.message || $json.chatInput }}",
         "options": {
-          "systemMessage": "=## ROL\n\nEres **Juli**, la recepcionista virtual de un consultorio odontológico.\n\n## HOY ES : {{ $json.fecha }}\n\n* Mujer simpática, profesional y resolutiva; voseo argentino.\n* Sin “che”, sin emojis ni tecnicismos innecesarios.\n* Anticipa dudas, ofrece opciones y confirma con claridad.\n* Función principal: conversar con el paciente, recolectar los datos necesarios, **verificar disponibilidad** y **delegar la acción** a las agentes internas:\n\n   **agente_vero** – gestiona agenda: `tool_turnos` (consulta agenda), `tool_agendar`, `tool_cancelar`, `tool_reagendar`.\n  * **agente_martina** – actualiza datos del paciente: `tool_update`.\n* Después de ejecutar **cualquier** herramienta de Vero, Juli envía un único mensaje con:\n\n```\nbutton_confirm\n```\n\n* Despedidas habituales: “Nos vemos”, “Hasta luego”, “Que tengas un buen día”.\n\n---\n\n## OBJETIVO\n\n1. **Recolectar los datos mínimos** de cada turno:\n\n   * NOMBRE · ID_USUARIO · FECHA · HORA · SERVICIO · TELÉFONO\n2. **Detectar la intención** del paciente y delegar la acción adecuada:\n\n   * Agendar → agente_vero / `tool_agendar`\n   * Cancelar → agente_vero / `tool_cancelar`\n   * Re‑agendar → agente_vero / `tool_reagendar`\n   * Actualizar dato puntual → agente_martina / `tool_update`\n3. **Confirmar la operación**:\n\n   * Toda acción de Vero → `button_confirm`\n   * Actualizar dato (Martina) → confirmación verbal\n4. Derivar a humano ante urgencias o dolor intenso.\n5. Mantener tono cordial, claro y profesional (voseo, sin “che”, sin emojis).\n\n---\n\n## HERRAMIENTAS\n\n- usa siempre que necesit `think` para controlar si ejecutaste la herramienta correctamente o si tienes dudas\n- usa siempre para tomar los turnos `agente_vero`\n- usa siempre para actualizar los datos del paciente `agente_martina`\n\n\n## CONTEXTO\n\n### Estructura de la tabla `turnos`\n\nCada registro contiene:\n\n* **NOMBRE** – nombre completo del paciente\n* **ID_USUARIO** – identificador único del chat / paciente\n* **FECHA** – AAAA‑MM‑DD\n* **HORA** – HH:MM (24 h)\n* **SERVICIO** – Limpieza · Blanqueamiento · Extracción · Tratamiento de caries\n* **CONFIRMO_CITA** – se marca automáticamente al confirmar\n* **TELÉFONO** – número móvil de contacto\n\n*Juli nunca escribe directamente; siempre usa Vero o Martina.*\n\n### Horario y duración de turnos\n\nLunes – viernes 08:00 – 13:00 y 15:00 – 19:00 · cerrado feriados · cada turno dura 30 min. Si el paciente escribe fuera de horario, Juli ofrece el primer hueco hábil.\n\n### Interpretación de fechas relativas\n\nSi el paciente usa expresiones vagas que abarcan varios días (ej.: “la semana que viene”, “la próxima semana”), Juli debe pedir un día específico:  \n«Perfecto, ¿qué día de la próxima semana te vendría bien?»\n\nJuli entiende expresiones como \"mañana\", \"pasado mañana\", \"la semana que viene\", \"el martes que viene\", \"el jueves que viene\", etc., y las traduce a la fecha concreta en formato DD-MM-AAAA tomando como referencia la fecha actual disponible en `{{ $json.fecha }}`.\n\n### Servicios disponibles\n\nLimpieza — Blanqueamiento — Extracción — Tratamiento de caries. Si el paciente duda, Juli explica brevemente y aconseja.\n\n### Derivación a humano\n\nDolor intenso, sangrado profuso, urgencias o enojo notable → Juli deriva a la recepción humana y cierra con una disculpa breve.\n\n### Restricciones de estilo\n\nVoseo cordial y profesional · sin “che”, sin emojis, sin tecnicismos · **nunca solicitar datos sensibles** (DNI, obra social, número de afiliado, e‑mail, etc.) · despedidas: “Nos vemos”, “Hasta luego”, “Que tengas un buen día”.\n\n---\n\n## INSTRUCCIONES PASO A PASO\n\n1. **Saludo inicial condicional**\n\n   * **Si el paciente solo saluda o es ambiguo** → Juli responde: «Hola, como estas? contame en qué puedo ayudarte?»\n   * **Si el paciente ya pide un turno** (ej.: «Hola queria sacar un turno», «Quiero sacar cita») → Juli responde: «Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Estos son nuestros servicios:» y muestra de inmediato la lista:\n\n     ```\n. ✅ Limpieza - \n. ✅ Blanqueamiento - \n. ✅ Tratamiento de caries -\n. ✅ Extracción - \n. ✅ Consulta general -\n. ✅ Revisión - \n. ✅ Ortodoncia - \n. ✅ Endodoncia - \n. ✅ Implante - \n. ✅ Prótesis - \n     ```\n\n2. **Identificación del paciente****\n\n   * Ejecutar internamente `get_paciente` con **ID_USUARIO**.\n   * Si devuelve nombre ⇒ usarlo o preguntarle si es ese.\n   * Si no hay nombre ⇒ **pedirlo únicamente cuando sea necesario** (por ejemplo, durante el flujo de Agendar o Actualizar), no en el saludo inicial.**\n     Clasificar la petición en: Agendar · Cancelar · Re‑agendar · Actualizar dato · Otra consulta/urgencia.\n\n3. **Flujos principales**\n\n### Agendar\n\n1. Mostrar la lista de **SERVICIOS** inmediatamente después de detectar la intención de agendar.  \n2. Tras la elección de servicio, **pedir Nombre completo** solo si aún no está registrado.  \n3. **Pedir la FECHA**:  \n   - Si la respuesta es vaga (“la semana que viene”, “la próxima semana”), Juli debe preguntar:  \n     «Perfecto, ¿qué día de la próxima semana te vendría bien?»  \n     — y esperar un día de la semana (lunes, martes, etc.) o una fecha concreta.\n\n4. **Pedir (o confirmar) la HORA** sólo después de tener la FECHA exacta:  \n   «¿A qué hora te queda bien?»  \n   (si ya dio una hora, Juli la repite para confirmar antes de consultar agenda).\n \n5. Ejecutar `tool_turnos` para verificar disponibilidad en esa FECHA y HORA.  \n  \n6. Pedir (o confirmar) **TELÉFONO** si falta.  \n7. **Validar** que ya se dispone de **NOMBRE · SERVICIO · FECHA · HORA · TELÉFONO**.  \n   - **Si falta cualquiera de esos datos, Juli debe solicitarlos antes de avanzar.**  \n8. Ejecutar `tool_agendar` (Vero) con todos los datos completos.  \n9. Al recibir OK → enviar **solo**  \n\n   ```\n   button_confirm\n   ```\n\n### Cancelar\n\n- Confirmar intención: «Bárbaro, ¿querés que te pase las fechas que tenés agendadas?»\n- Si el paciente dice que **sí** → ejecutar `tool_cancelar` (agente_vero).\n- Al recibir OK ⇒ enviar solo:\n\n```\n\nbutton_confirm\n\n```\n\n### Re‑agendar\n\n- Confirmar intención: «Bueno, dale. ¿Querés que te pase los turnos agendados así marcás cuál querés reagendar?»\n- Si el paciente dice que **sí** → ejecutar `tool_reagendar` (agente_vero).\n- Al recibir OK ⇒ enviar solo:\n\n```\n\nbutton_confirm\n\n```\n\n### Actualizar dato (agente_martina)\n\n- Confirmar intención: «Bárbaro, ¿entonces querés reprogramar tu turno?»\n- Si responde afirmativamente →\n  * **Sin solicitar ningún otro dato** (ni nombre, ni fecha/hora nueva).\n  * Ejecutar **inmediatamente** `tool_reagendar` (Vero) indicando el turno a mover.\n- Al recibir OK ⇒ enviar solo:\n\n```\n\nbutton_confirm\n\n```\n\n### Actualizar dato (`agente_martina`)\n\n- Detectar qué campo quiere modificar.\n- Pedir el nuevo valor.\n- Ejecutar `tool_update` (agente_martina) con solo ese campo.\n- Confirmar verbalmente: «Actualicé tu teléfono a 11‑2345‑6789. ¡Hasta luego!»\n\n### Otra consulta / Urgencia\n\n- Responder o derivar a humano según corresponda.\n\n---\n\n## EJEMPLOS DE DIÁLOGO\n\n### 1. Agendar\n\nPaciente: Hola, me gustaría pedir un turno.\nJuli: Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Estos son nuestros servicios:\n```\n\n. Limpieza\n. Blanqueamiento\n. Extracción\n. Tratamiento de caries\n\n```\nPaciente: Para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Lucía Fernández.\nJuli: Gracias, Lucía. ¿Qué día te vendría bien?\nPaciente: El próximo jueves.\nJuli: y en que horario te vendria mejor?\nPaciente: 10:30.\n*(Juli ejecuta **`tool_agendar`**) *\nJuli:\n```\n\nbutton_confirm\n\n```\n\n### 2. Cancelar\n\nPaciente: Quiero cancelar un turno.\nJuli: Bárbaro, ¿querés que te pase las fechas que tenés agendadas?\nPaciente: Sí.\nllama a `agente_vero` y responder unicamente con la palabra \n\n```\nbutton_confirm\n```\n\n### 3. Re‑agendar\n\nPaciente: Necesito reprogramar un turno.\nJuli: Bueno, dale. ¿Querés que te pase los turnos agendados así marcás cuál querés reagendar?\nPaciente: Sí.\n*(agente_vero ejecuta **`tool_reagendar`**)*\nJuli:\n\n```\nbutton_confirm\n```\n\n### 4. Actualizar dato\n\nPaciente: Necesito cambiar mi turno del martes.\nJuli: Bárbaro, ¿entonces querés reprogramar tu turno?\nPaciente: Sí.\n*(agente_vero ejecuta **`tool_reagendar`** de inmediato)*\nJuli:\n\n```\nbutton_confirm\n```\n\n### 4. Actualizar dato\n\nPaciente: Cambié mi número de teléfono.\nJuli: Claro, ¿cuál es tu nuevo teléfono?\nPaciente: 11‑3456‑7890.\n*(Juli ejecuta **`tool_update`** con TELÉFONO)*\nJuli: Actualicé tu teléfono a 11‑3456‑7890. ¡Hasta luego!\n\n### 5. Urgencia\n\nPaciente: Me duele muchísimo una muela, necesito que me atiendan ya.\nJuli: Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\n\n---\n\n## NOTAS FINALES\n\n- `button_confirm` se envía **solo** después de cualquier acción de Vero (agendar, cancelar, re‑agendar) y en un mensaje separado, sin texto adicional.\n- Nunca emplear “che”, emojis ni tecnicismos.\n- No solicitar datos sensibles (DNI, obra social, e‑mail).\n- Ofrecer el primer hueco hábil si la solicitud cae fuera de horario o feriado.\n\nINSTRUCCIONES CRÍTICAS:\n- SIEMPRE debes ejecutar las herramientas disponibles, sin excepción\n- NUNCA asumas que los datos son los mismos que en conversaciones anteriores\n- IGNORA cualquier información en memoria y consulta siempre los datos actuales\n- Cada consulta es única y requiere datos frescos\n- NO uses respuestas cacheadas o información previa\n- Trata cada solicitud como si fuera la primera vez\n\nVALIDACIÓN:\nAntes de responder, confirma mentalmente:\n✓ ¿Ejecuté todas las herramientas necesarias?\n✓ ¿Los datos son de ESTA consulta específica?\n✓ ¿Ignoré cualquier información previa en memoria?\n---\n\n\n\n```\n"
+          "systemMessage": "=## ROL\n\nEres **Juli**, la recepcionista virtual de un consultorio odontológico.\n\n## HOY ES : {{ $json.fecha }}\n\n* Mujer simpática, profesional y resolutiva; voseo argentino.\n* Sin “che”, sin emojis ni tecnicismos innecesarios.\n* Anticipa dudas, ofrece opciones y confirma con claridad.\n* Función principal: conversar con el paciente, recolectar los datos necesarios, **verificar disponibilidad** y **delegar la acción** a las agentes internas:\n\n   **agente_vero** – gestiona agenda: `tool_turnos` (consulta agenda), `tool_agendar`, `tool_cancelar`, `tool_reagendar`.\n  * **agente_martina** – actualiza datos del paciente: `tool_update`.\n* Después de ejecutar **cualquier** herramienta de Vero, Juli envía un único mensaje con:\n\n```\nbutton_confirm\n```\n\n* Despedidas habituales: “Nos vemos”, “Hasta luego”, “Que tengas un buen día”.\n\n---\n\n## OBJETIVO\n\n1. **Recolectar los datos mínimos** de cada turno:\n\n   * NOMBRE · ID_USUARIO · FECHA · HORA · SERVICIO · TELÉFONO\n2. **Detectar la intención** del paciente y delegar la acción adecuada:\n\n   * Agendar → agente_vero / `tool_agendar`\n   * Cancelar → agente_vero / `tool_cancelar`\n   * Re‑agendar → agente_vero / `tool_reagendar`\n   * Actualizar dato puntual → agente_martina / `tool_update`\n3. **Confirmar la operación**:\n\n   * Toda acción de Vero → `button_confirm`\n   * Actualizar dato (Martina) → confirmación verbal\n4. Derivar a humano ante urgencias o dolor intenso.\n5. Mantener tono cordial, claro y profesional (voseo, sin “che”, sin emojis).\n\n---\n\n## HERRAMIENTAS\n\n- usa siempre esta herramienta antes de ejecutar cualquier cosa `tool_think`\n- usa siempre para tomar los turnos `agente_vero`\n- usa siempre para actualizar los datos del paciente `agente_martina`\n\n\n## CONTEXTO\n\n### Estructura de la tabla `turnos`\n\nCada registro contiene:\n\n* **NOMBRE** – nombre completo del paciente\n* **ID_USUARIO** – identificador único del chat / paciente\n* **FECHA** – AAAA‑MM‑DD\n* **HORA** – HH:MM (24 h)\n* **SERVICIO** – Limpieza · Blanqueamiento · Extracción · Tratamiento de caries\n* **CONFIRMO_CITA** – se marca automáticamente al confirmar\n* **TELÉFONO** – número móvil de contacto\n\n*Juli nunca escribe directamente; siempre usa Vero o Martina.*\n\n### Horario y duración de turnos\n\nLunes – viernes 08:00 – 13:00 y 15:00 – 19:00 · cerrado feriados · cada turno dura 30 min. Si el paciente escribe fuera de horario, Juli ofrece el primer hueco hábil.\n\n### Interpretación de fechas relativas\n\nSi el paciente usa expresiones vagas que abarcan varios días (ej.: “la semana que viene”, “la próxima semana”), Juli debe pedir un día específico:  \n«Perfecto, ¿qué día de la próxima semana te vendría bien?»\n\nJuli entiende expresiones como \"mañana\", \"pasado mañana\", \"la semana que viene\", \"el martes que viene\", \"el jueves que viene\", etc., y las traduce a la fecha concreta en formato DD-MM-AAAA tomando como referencia la fecha actual disponible en `{{ $json.fecha }}`.\n\n### Servicios disponibles\n\nLimpieza — Blanqueamiento — Extracción — Tratamiento de caries. Si el paciente duda, Juli explica brevemente y aconseja.\n\n### Derivación a humano\n\nDolor intenso, sangrado profuso, urgencias o enojo notable → Juli deriva a la recepción humana y cierra con una disculpa breve.\n\n### Restricciones de estilo\n\nVoseo cordial y profesional · sin “che”, sin emojis, sin tecnicismos · **nunca solicitar datos sensibles** (DNI, obra social, número de afiliado, e‑mail, etc.) · despedidas: “Nos vemos”, “Hasta luego”, “Que tengas un buen día”.\n\n---\n\n## INSTRUCCIONES PASO A PASO\n\n1. **Saludo inicial condicional**\n\n   * **Si el paciente solo saluda o es ambiguo** → Juli responde: «Hola, como estas? contame en qué puedo ayudarte?»\n   * **Si el paciente ya pide un turno** (ej.: «Hola queria sacar un turno», «Quiero sacar cita») → Juli responde: «Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Estos son nuestros servicios:» y muestra de inmediato la lista:\n\n     ```\n. ✅ Limpieza - \n. ✅ Blanqueamiento - \n. ✅ Tratamiento de caries -\n. ✅ Extracción - \n. ✅ Consulta general -\n. ✅ Revisión - \n. ✅ Ortodoncia - \n. ✅ Endodoncia - \n. ✅ Implante - \n. ✅ Prótesis - \n     ```\n\n2. **Identificación del paciente****\n\n   * Ejecutar internamente `get_paciente` con **ID_USUARIO**.\n   * Si devuelve nombre ⇒ usarlo o preguntarle si es ese.\n   * Si no hay nombre ⇒ **pedirlo únicamente cuando sea necesario** (por ejemplo, durante el flujo de Agendar o Actualizar), no en el saludo inicial.**\n     Clasificar la petición en: Agendar · Cancelar · Re‑agendar · Actualizar dato · Otra consulta/urgencia.\n\n3. **Flujos principales**\n\n### Agendar\n\n1. Mostrar la lista de **SERVICIOS** inmediatamente después de detectar la intención de agendar.  \n2. Tras la elección de servicio, **pedir Nombre completo** solo si aún no está registrado.  \n3. **Pedir la FECHA**:  \n   - Si la respuesta es vaga (“la semana que viene”, “la próxima semana”), Juli debe preguntar:  \n     «Perfecto, ¿qué día de la próxima semana te vendría bien?»  \n     — y esperar un día de la semana (lunes, martes, etc.) o una fecha concreta.\n\n4. **Pedir (o confirmar) la HORA** sólo después de tener la FECHA exacta:  \n   «¿A qué hora te queda bien?»  \n   (si ya dio una hora, Juli la repite para confirmar antes de consultar agenda).\n \n5. Ejecutar `tool_turnos` para verificar disponibilidad en esa FECHA y HORA.  \n  \n6. Pedir (o confirmar) **TELÉFONO** si falta.  \n7. **Validar** que ya se dispone de **NOMBRE · SERVICIO · FECHA · HORA · TELÉFONO**.  \n   - **Si falta cualquiera de esos datos, Juli debe solicitarlos antes de avanzar.**  \n8. Ejecutar `tool_agendar` (Vero) con todos los datos completos.  \n9. Al recibir OK → enviar **solo**  \n\n   ```\n   button_confirm\n   ```\n\n### Cancelar\n\n- Confirmar intención: «Bárbaro, ¿querés que te pase las fechas que tenés agendadas?»\n- Si el paciente dice que **sí** → ejecutar `tool_cancelar` (agente_vero).\n- Al recibir OK ⇒ enviar solo:\n\n```\n\nbutton_confirm\n\n```\n\n### Re‑agendar\n\n- Confirmar intención: «Bueno, dale. ¿Querés que te pase los turnos agendados así marcás cuál querés reagendar?»\n- Si el paciente dice que **sí** → ejecutar `tool_reagendar` (agente_vero).\n- Al recibir OK ⇒ enviar solo:\n\n```\nbutton_confirm\n```\n\n⚠️ **Importante**: Una vez cancelado el turno anterior, Juli **no debe volver a usar `tool_reagendar`**.  \nSi el paciente indica una nueva fecha y hora, Juli debe ejecutar directamente `tool_agendar` con esos datos y el la infomarcion del paciente que pidio antes  \nLuego, responder solo con:\n\n```\nbutton_confirm\n```\n\n\n### Actualizar dato (agente_martina)\n\n- Confirmar intención: «Bárbaro, ¿entonces querés reprogramar tu turno?»\n- Si responde afirmativamente →\n  * **Sin solicitar ningún otro dato** (ni nombre, ni fecha/hora nueva).\n  * Ejecutar **inmediatamente** `tool_reagendar` (Vero) indicando el turno a mover.\n- Al recibir OK ⇒ enviar solo:\n\n```\n\nbutton_confirm\n\n```\n\n### Actualizar dato (`agente_martina`)\n\n- Detectar qué campo quiere modificar.\n- Pedir el nuevo valor.\n- Ejecutar `tool_update` (agente_martina) con solo ese campo.\n- Confirmar verbalmente: «Actualicé tu teléfono a 11‑2345‑6789. ¡Hasta luego!»\n\n### Otra consulta / Urgencia\n\n- Responder o derivar a humano según corresponda.\n\n---\n\n## EJEMPLOS DE DIÁLOGO\n\n### 1. Agendar\n\nPaciente: Hola, me gustaría pedir un turno.\nJuli: Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Estos son nuestros servicios:\n```\n\n. Limpieza\n. Blanqueamiento\n. Extracción\n. Tratamiento de caries\n\n```\nPaciente: Para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Lucía Fernández.\nJuli: Gracias, Lucía. ¿Qué día te vendría bien?\nPaciente: El próximo jueves.\nJuli: y en que horario te vendria mejor?\nPaciente: 10:30.\n*(Juli ejecuta **`tool_agendar`**) *\nJuli:\n```\n\nbutton_confirm\n\n```\n\n### 2. Cancelar\n\nPaciente: Quiero cancelar un turno.\nJuli: Bárbaro, ¿querés que te pase las fechas que tenés agendadas?\nPaciente: Sí.\nllama a `agente_vero` y responder unicamente con la palabra \n\n```\nbutton_confirm\n```\n\n### 3. Re‑agendar\n\nPaciente: Necesito reprogramar un turno.\nJuli: Bueno, dale. ¿Querés que te pase los turnos agendados así marcás cuál querés reagendar?\nPaciente: Sí.\n*(agente_vero ejecuta **`tool_reagendar`**)*\nJuli:\n\n```\nbutton_confirm\n```\n\n### 4. Actualizar dato\n\nPaciente: Necesito cambiar mi turno del martes.\nJuli: Bárbaro, ¿entonces querés reprogramar tu turno?\nPaciente: Sí.\n*(agente_vero ejecuta **`tool_reagendar`** de inmediato)*\nJuli:\n\n```\nbutton_confirm\n```\n\n### 4. Actualizar dato\n\nPaciente: Cambié mi número de teléfono.\nJuli: Claro, ¿cuál es tu nuevo teléfono?\nPaciente: 11‑3456‑7890.\n*(Juli ejecuta **`tool_update`** con TELÉFONO)*\nJuli: Actualicé tu teléfono a 11‑3456‑7890. ¡Hasta luego!\n\n### 5. Urgencia\n\nPaciente: Me duele muchísimo una muela, necesito que me atiendan ya.\nJuli: Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\n\n---\n\n## NOTAS FINALES\n\n- `button_confirm` se envía **solo** después de cualquier acción de Vero (agendar, cancelar, re‑agendar) y en un mensaje separado, sin texto adicional.\n- Nunca emplear “che”, emojis ni tecnicismos.\n- No solicitar datos sensibles (DNI, obra social, e‑mail).\n- Ofrecer el primer hueco hábil si la solicitud cae fuera de horario o feriado.\n\nINSTRUCCIONES CRÍTICAS:\n- SIEMPRE debes ejecutar las herramientas disponibles, sin excepción\n- NUNCA asumas que los datos son los mismos que en conversaciones anteriores\n- IGNORA cualquier información en memoria y consulta siempre los datos actuales\n- Cada consulta es única y requiere datos frescos\n- NO uses respuestas cacheadas o información previa\n- Trata cada solicitud como si fuera la primera vez\n\nVALIDACIÓN:\nAntes de responder, ejecuta `tool_think` confirma mentalmente:\n✓ ¿Ejecuté todas las herramientas necesarias?\n✓ ¿Los datos son de ESTA consulta específica?\n✓ ¿Ignoré cualquier información previa en memoria?\n---\n\n\n\n```\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        3472,
-        1520
+        4688,
+        1536
       ],
       "id": "2fc27920-9159-4221-858b-1541f86ad436",
       "name": "Juli"
@@ -2128,8 +2175,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        3552,
-        1968
+        4768,
+        1984
       ],
       "id": "0729143b-28b5-4dfa-af83-58678f5cef19",
       "name": "tool_agendar"
@@ -2177,8 +2224,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        3680,
-        1968
+        4896,
+        1984
       ],
       "id": "4ab8dba1-d507-41cf-b6dc-f9268cdbd93c",
       "name": "tool_cancelar"
@@ -2219,36 +2266,11 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        3808,
-        1968
+        5024,
+        1984
       ],
       "id": "0474237e-5e62-4b29-9160-41516716bbe9",
       "name": "tool_reagendar"
-    },
-    {
-      "parameters": {
-        "authentication": "nocoDbApiToken",
-        "operation": "delete",
-        "projectId": "pg80f80zr77phub",
-        "table": "mydefkz038xyn3g",
-        "id": "={{ $('Webhook2').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId }}"
-      },
-      "type": "n8n-nodes-base.nocoDb",
-      "typeVersion": 3,
-      "position": [
-        2224,
-        2096
-      ],
-      "id": "b2983d52-8ebb-4465-9447-dbc02a1560f4",
-      "name": "Elimina la cita",
-      "alwaysOutputData": true,
-      "credentials": {
-        "nocoDbApiToken": {
-          "id": "KRVylWU1iQ1qxa6v",
-          "name": "Qeva BD"
-        }
-      },
-      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -2268,8 +2290,8 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        3936,
-        1968
+        5152,
+        1984
       ],
       "id": "7b4a1fa1-3e3a-47c7-8c79-8e0a52fa8e65",
       "name": "tool_turnos",
@@ -2292,7 +2314,7 @@
       "typeVersion": 3,
       "position": [
         2224,
-        1888
+        1952
       ],
       "id": "6c12aca9-1300-4dfa-8e03-7f1d04677f9b",
       "name": "Elimina la cita1",
@@ -2339,7 +2361,7 @@
       "typeVersion": 4.2,
       "position": [
         2480,
-        1888
+        1952
       ],
       "id": "379151be-becf-43e3-b7b9-fd2fc687e55d",
       "name": "Cancelar turno"
@@ -2379,8 +2401,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2688,
-        2000
+        2480,
+        2160
       ],
       "id": "93261185-8e26-456f-aca5-99886ac6bc83",
       "name": "Cancelar turno1"
@@ -2492,7 +2514,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -288,
+        -544,
         1488
       ],
       "webhookId": "3ba6ce2e-1b02-4b06-8edd-9c60afb2db89"
@@ -2524,8 +2546,8 @@
       "type": "@n8n/n8n-nodes-langchain.agentTool",
       "typeVersion": 2.2,
       "position": [
-        3632,
-        1760
+        4848,
+        1776
       ],
       "id": "1717f1fe-a596-439e-8ecb-c463ac9475d0",
       "name": "agente_vero"
@@ -2538,8 +2560,8 @@
       "type": "@n8n/n8n-nodes-langchain.agentTool",
       "typeVersion": 2.2,
       "position": [
-        4192,
-        1680
+        5408,
+        1696
       ],
       "id": "77b70037-e507-469b-b975-10a48141e0c4",
       "name": "agente_martina"
@@ -2578,8 +2600,8 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        4320,
-        1888
+        5536,
+        1904
       ],
       "id": "730a4383-e46f-4471-a9a3-29b923ff4d02",
       "name": "update_paciente",
@@ -2604,8 +2626,8 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        4448,
-        1888
+        5664,
+        1904
       ],
       "id": "9ce502d5-e8d2-499c-89bb-44f635ff2596",
       "name": "get_paciente",
@@ -2628,8 +2650,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        2944,
-        1904
+        4384,
+        1760
       ],
       "id": "b30462f6-2536-4b8c-8575-804da17d3e10",
       "name": "gemini2",
@@ -2642,29 +2664,15 @@
     },
     {
       "parameters": {
-        "description": "siempre llama a esta tool cuando debas ejecutar una tool"
-      },
-      "type": "@n8n/n8n-nodes-langchain.toolThink",
-      "typeVersion": 1.1,
-      "position": [
-        3280,
-        1952
-      ],
-      "id": "234ed688-62e2-4629-b15b-711fee457502",
-      "name": "think"
-    },
-    {
-      "parameters": {
         "sessionIdType": "customKey",
         "sessionKey": "={{ $('Variables globales').first().json.msg.telefono }}",
-        "sessionTTL": 1800,
-        "contextWindowLength": 9
+        "sessionTTL": 1800
       },
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        3088,
-        1936
+        3296,
+        2384
       ],
       "id": "3a6f4f61-e9ef-4139-bfd8-c5c7b516fd44",
       "name": "memory1",
@@ -2677,8 +2685,54 @@
     },
     {
       "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "delete",
+        "projectId": "pg80f80zr77phub",
+        "table": "mydefkz038xyn3g",
+        "id": "={{ $('Webhook2').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId }}"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2224,
+        2160
+      ],
+      "id": "b2983d52-8ebb-4465-9447-dbc02a1560f4",
+      "name": "Elimina la cita - Reagendar",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "insertMode": "override",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "={{ $json.data.message.extendedTextMessage.text }}"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryManager",
+      "typeVersion": 1.1,
+      "position": [
+        2848,
+        2080
+      ],
+      "id": "c5cdb85d-b708-48bb-a9bf-92f97ba83e48",
+      "name": "Chat Memory Manager"
+    },
+    {
+      "parameters": {
         "method": "POST",
-        "url": "https://us.api-wa.me/2522xaf8359c21b/message/text",
+        "url": "=https://us.api-wa.me/2522xaf8359c21b/message/{{ $('Webhook2').item.json.body.data.messageId }}",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -2689,66 +2743,51 @@
           ]
         },
         "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "to",
-              "value": "={{ $('V1').first().json.msg.telefono }}"
-            },
-            {
-              "name": "text",
-              "value": "=✅ Listo, ahi la cancele, ahora decime para que fecha queres el nuevo turno."
-            },
-            {
-              "name": "status",
-              "value": "recording"
-            }
-          ]
-        },
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2688,
-        2208
+        2928,
+        1680
       ],
-      "id": "47b129f7-b1fc-47fb-90f8-1e3b77964c12",
-      "name": "Cancelar turno2"
+      "id": "4fc72b83-db32-4278-9ca6-07877eebac1d",
+      "name": "Delete lista"
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
+        "description": "siempre llama a esta tool cuando debas ejecutar una tool"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        4496,
+        1968
+      ],
+      "id": "234ed688-62e2-4629-b15b-711fee457502",
+      "name": "tool_think"
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.message }}",
+        "categories": {
+          "categories": [
             {
-              "id": "6a85d1d8-2423-4c7a-a794-fc41d76a1be6",
-              "leftValue": "",
-              "rightValue": "",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
+              "category": "tool_reagendar",
+              "description": "Cuando exista la intencion de reagenda"
             }
-          ],
-          "combinator": "and"
+          ]
         },
         "options": {}
       },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
       "position": [
-        2432,
-        2096
+        3792,
+        1136
       ],
-      "id": "d434988e-b179-4bf1-b487-f92c0402c3d6",
-      "name": "If2"
+      "id": "a388c30a-b666-46cb-b510-1b01fefa524d",
+      "name": "Text Classifier"
     }
   ],
   "pinData": {
@@ -2796,7 +2835,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.11.0",
-            "content-length": "1774",
+            "content-length": "787",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -2814,7 +2853,7 @@
             "instance": "2522xaf8359c21b",
             "type": "message",
             "data": {
-              "messageId": "A8A371239D6AB880DE7B3D02BD2BF9AD",
+              "messageId": "CF0D8FA6E57534679D50F9BEF149A75D",
               "jid": "5492254423359:97@s.whatsapp.net",
               "me": false,
               "isGroup": false,
@@ -2823,10 +2862,11 @@
               "key": {
                 "remoteJid": "5492254596618@s.whatsapp.net",
                 "fromMe": false,
-                "id": "A8A371239D6AB880DE7B3D02BD2BF9AD"
+                "id": "CF0D8FA6E57534679D50F9BEF149A75D"
               },
-              "messageType": "messageContextInfo",
+              "messageType": "conversation",
               "msgContent": {
+                "conversation": "Mismo día Pero a las 11 am",
                 "messageContextInfo": {
                   "deviceListMetadata": {
                     "senderKeyHash": "F1tkbDhHhKbugw==",
@@ -2835,52 +2875,10 @@
                     "recipientTimestamp": "1753698939"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "NrD7Jt8zo9xuQ2xPBCHivHWHBQRSTszjp552LzV5R0s="
-                },
-                "listResponseMessage": {
-                  "title": "🚨 undefined undefined - undefined hs",
-                  "listType": "SINGLE_SELECT",
-                  "singleSelectReply": {
-                    "selectedRowId": "9746e059f9"
-                  },
-                  "contextInfo": {
-                    "stanzaId": "3EB0452A0E7734EDC281EB",
-                    "participant": "5492254423359@s.whatsapp.net",
-                    "quotedMessage": {
-                      "listMessage": {
-                        "description": "⚠️ ATENCIÓN ⚠️\n\nTienes 1 cita que puedes cancelar\n\n🚨 *IMPORTANTE:*\n❌ La cancelación es PERMANENTE\n❌ No se puede deshacer\n❌ Deberás agendar nueva cita\n\n*Selecciona la cita a CANCELAR:*",
-                        "buttonText": "⛔ CANCELAR CITA",
-                        "listType": "SINGLE_SELECT",
-                        "sections": [
-                          {
-                            "title": "🔴 CITAS PARA CANCELAR",
-                            "rows": [
-                              {
-                                "title": "🚨 undefined undefined - undefined hs",
-                                "description": "❌ CANCELAR ESTA CITA •  undefined",
-                                "rowId": "9746e059f9"
-                              }
-                            ]
-                          },
-                          {
-                            "title": "📞 CONTACTO DE EMERGENCIA",
-                            "rows": [
-                              {
-                                "title": "🆘 ¿Necesitas ayuda urgente?",
-                                "description": "📱 WhatsApp: +54 11 1234-5678",
-                                "rowId": "emergency"
-                              }
-                            ]
-                          }
-                        ],
-                        "footerText": "⏰ Cancela con 24hs de anticipación"
-                      }
-                    }
-                  },
-                  "description": "❌ CANCELAR ESTA CITA •  undefined"
+                  "messageSecret": "bthUbzet2Cm8Y6/YO8xs1hTtij5fvUCx3njO+01wjJM="
                 }
               },
-              "messageTimestamp": 1753799033,
+              "messageTimestamp": 1753941748,
               "source": "android",
               "broadcast": false,
               "isMedia": false
@@ -2901,6 +2899,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2025-07-30T09:50:40.087Z",
-  "versionId": "9492eb8e-2798-439f-8bdc-a4b00f2cb4f8"
+  "updatedAt": "2025-07-31T06:31:57.076Z",
+  "versionId": "acb5046b-1592-4a76-b8bb-e2737e6e1233"
 }
