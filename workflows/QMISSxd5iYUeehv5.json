@@ -303,7 +303,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// OBTENER DATOS DEL INPUT\nconst editFields = $('var').item.json;\n\n// EXTRAER DATOS DEL TURNO\nconst paciente = editFields.nombre;\nconst fecha = editFields.fecha;\nconst hora = editFields.hora;\nconst motivo = editFields.servicio;\nconst telefono = editFields.telefono;\n\n// CONSTRUIR MENSAJE DE LISTA\nconst requestBody = {\n  to: telefono,\n  buttonText: \"Confirmar ✅\",\n  title: \"🦷 Consultorio Médico\",\n  description: `*Resumen de su turno*\n\n👤 *Paciente:* ${paciente}\n📅 *Fecha:* ${fecha}\n🕐 *Hora:* ${hora}\n🏥 *Servicio:* ${motivo}\n\n📍 _Recordatorio: Traer DNI y estudios previos_\n\nSeleccione una opción:`,\n  footer: \"Centro Médico • Confirme su asistencia\",\n  sections: [\n    {\n      title: \"📋 Opciones Disponibles\",\n      rows: [\n        {\n          rowId: `✅ CONFIRMADO - ${paciente} | ${fecha} | ${hora} | ${motivo}`,\n          title: \"✅ Confirmar Turno\",\n          description: \"Confirmo mi asistencia en la fecha y hora indicada\"\n        },\n        {\n          rowId: \"Quiero cambiar mi fecha\",\n          title: \"📝 Modificar Turno\",\n          description: \"Necesito cambiar la fecha u horario de mi consulta\"\n        }\n      ]\n    }\n  ]\n};\n\n// RETORNAR RESULTADO\nreturn [{ json: requestBody }];"
+        "jsCode": "{\n  // OBTENER DATOS DEL INPUT\n  const editFields = $('var').item.json;\n\n  // EXTRAER DATOS DEL TURNO\n  const paciente = editFields.nombre;\n  const fecha = editFields.fecha; // \"2025-08-01\"\n  const hora = editFields.hora;   // \"10:00\"\n  const motivo = editFields.servicio;\n  const telefono = editFields.telefono;\n\n  // COMBINAR FECHA Y HORA EN FORMATO ISO\n  const fechaHora = `${fecha}T${hora}`; // \"2025-08-01T10:00\"\n\n  // FORMATEAR FECHA PARA MOSTRAR (DD-MM-YYYY)\n  const [año, mes, dia] = fecha.split('-');\n  const fechaFormateada = `${dia}-${mes}-${año}`; // \"01-08-2025\"\n\n  // CONSTRUIR MENSAJE DE LISTA\n  const requestBody = {\n    to: telefono,\n    buttonText: \"Confirmar ✅\",\n    title: \"🦷 Consultorio Médico\",\n    description: `*Resumen de su turno*\n👤 *Paciente:* ${paciente}\n📅 *Fecha:* ${fechaFormateada}\n🕐 *Hora:* ${hora}\n🏥 *Servicio:* ${motivo}\n📍 *Recordatorio: Traer DNI y estudios previos*\nSeleccione una opción:`,\n    footer: \"Centro Médico • Confirme su asistencia\",\n    sections: [\n      {\n        title: \"📋 Opciones Disponibles\",\n        rows: [\n          {\n            rowId: `✅ CONFIRMADO - ${paciente} | ${fechaHora} | ${motivo}`,\n            title: \"✅ Confirmar Turno\",\n            description: \"Confirmo mi asistencia en la fecha y hora indicada\"\n          }\n         \n        ]\n      }\n    ]\n  };\n\n  // RETORNAR RESULTADO\n  return [{ json: requestBody }];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -380,10 +380,10 @@
     "datos": [
       {
         "json": {
-          "nombre": "cliente",
-          "fecha": "2025-07-29",
-          "hora": "09:00",
-          "servicio": "Blanqueamiento",
+          "nombre": "Fernando Castillo",
+          "fecha": "2025-08-01",
+          "hora": "10:00",
+          "servicio": "Limpieza",
           "telefono": "5492254596618"
         }
       }
@@ -395,6 +395,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-07-30T22:45:00.054Z",
-  "versionId": "d497b050-a80e-41d7-8fae-09c8a3fdcda2"
+  "updatedAt": "2025-07-31T09:42:20.626Z",
+  "versionId": "23dfad59-0803-4bb7-9e86-c676e7351c72"
 }
