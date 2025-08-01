@@ -99,11 +99,11 @@
       "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "getAll",
-        "projectId": "pg80f80zr77phub",
-        "table": "mydefkz038xyn3g",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
         "returnAll": true,
         "options": {
-          "where": "=(Id,eq,{{ $json.Id }})"
+          "where": "=(TELEFONO,eq,{{ $json.numero }})"
         }
       },
       "type": "n8n-nodes-base.nocoDb",
@@ -125,7 +125,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const datos = $input.all();\nconst dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];\nconst meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];\n\nfunction formatearFecha(fecha, hora) {\n  // Validar que fecha existe\n  if (!fecha) {\n    return 'Fecha no disponible';\n  }\n  \n  // Combinar fecha y hora\n  let fechaCompleta;\n  if (hora) {\n    // Si tenemos hora, combinarla con la fecha\n    fechaCompleta = new Date(`${fecha}T${hora}`);\n  } else {\n    // Si no hay hora, usar solo la fecha\n    fechaCompleta = new Date(fecha + 'T00:00:00');\n  }\n  \n  // Validar que la fecha es válida\n  if (isNaN(fechaCompleta.getTime())) {\n    return 'Fecha inválida';\n  }\n  \n  const diaSemana = dias[fechaCompleta.getDay()];\n  const dia = fechaCompleta.getDate();\n  const mes = meses[fechaCompleta.getMonth()];\n  const anio = fechaCompleta.getFullYear();\n  const horas = fechaCompleta.getHours();\n  const minutos = fechaCompleta.getMinutes().toString().padStart(2, '0');\n  \n  return {\n    fechaCompleta: `${capitalize(diaSemana)} ${dia} de ${mes} ${anio}`,\n    hora: `${horas}:${minutos}`,\n    diaSemana: capitalize(diaSemana),\n    dia: dia,\n    mes: mes\n  };\n}\n\nfunction capitalize(str) {\n  if (!str || typeof str !== 'string') {\n    return '';\n  }\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n\nconst opciones = datos.map((item, index) => {\n  // Pasar tanto la fecha como la hora a la función\n  const fechaData = formatearFecha(item.json.FECHA, item.json.HORA);\n  \n  return {\n    rowId: item.json.Id ? item.json.Id.toString() : '', \n    title: `🚨 ${fechaData.diaSemana} ${fechaData.dia} - ${fechaData.hora} hs`,\n    description: `❌ CANCELAR ESTA CITA • ${capitalize(fechaData.mes)} ${fechaData.dia}`\n  };\n});\n\n// Mensaje personalizado según la cantidad de citas\nconst cantidadCitas = opciones.length;\nlet mensajePersonalizado = '';\n\nif (cantidadCitas === 1) {\n  mensajePersonalizado = 'Tienes 1 cita que puedes cancelar';\n} else {\n  mensajePersonalizado = `Tienes ${cantidadCitas} citas que puedes cancelar`;\n}\n\nconst requestBody = {\n  to: $('vars').first().json.numero,\n  buttonText: \"⛔ CANCELAR CITA\",\n  title: \"🔴 CANCELACIÓN DE CITAS 🔴\",\n  description: `⚠️ ATENCIÓN ⚠️\\n\\n${mensajePersonalizado}\\n\\n🚨 *IMPORTANTE:*\\n❌ La cancelación es PERMANENTE\\n❌ No se puede deshacer\\n❌ Deberás agendar nueva cita\\n\\n*Selecciona la cita a CANCELAR:*`,\n  footer: \"⏰ Cancela con 24hs de anticipación\",\n  sections: [\n    {\n      title: \"🔴 CITAS PARA CANCELAR\",\n      rows: opciones\n    }\n  ]\n};\n\n// Agregar sección de advertencia si hay múltiples citas\nif (cantidadCitas > 1) {\n  requestBody.sections.push({\n    title: \"⚠️ ADVERTENCIA\",\n    rows: [{\n      rowId: \"warning\",\n      title: \"❗ Cuidado al cancelar\",\n      description: \"🔴 Asegúrate de cancelar la cita correcta\"\n    }]\n  });\n}\n\n// Agregar sección de emergencia\nrequestBody.sections.push({\n  title: \"📞 CONTACTO DE EMERGENCIA\",\n  rows: [{\n    rowId: \"emergency\",\n    title: \"🆘 ¿Necesitas ayuda urgente?\",\n    description: \"📱 WhatsApp: +54 11 1234-5678\"\n  }]\n});\n\nreturn [{ json: requestBody }];"
+        "jsCode": "const datos = $input.all();\nconst dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];\nconst meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];\n\nfunction formatearFecha(fechaISO) {\n  // Validar que fecha existe\n  if (!fechaISO) {\n    return 'Fecha no disponible';\n  }\n  \n  // Crear fecha desde string ISO\n  const fechaCompleta = new Date(fechaISO);\n  \n  // Validar que la fecha es válida\n  if (isNaN(fechaCompleta.getTime())) {\n    return 'Fecha inválida';\n  }\n  \n  const diaSemana = dias[fechaCompleta.getDay()];\n  const dia = fechaCompleta.getDate();\n  const mes = meses[fechaCompleta.getMonth()];\n  const anio = fechaCompleta.getFullYear();\n  const horas = fechaCompleta.getHours();\n  const minutos = fechaCompleta.getMinutes().toString().padStart(2, '0');\n  \n  return {\n    fechaCompleta: `${capitalize(diaSemana)} ${dia} de ${mes} ${anio}`,\n    hora: `${horas}:${minutos}`,\n    diaSemana: capitalize(diaSemana),\n    dia: dia,\n    mes: mes\n  };\n}\n\nfunction capitalize(str) {\n  if (!str || typeof str !== 'string') {\n    return '';\n  }\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n\nconst opciones = datos.map((item, index) => {\n  // Pasar tanto la fecha como la hora a la función\n  const fechaData = formatearFecha(item.json.FECHA, item.json.HORA);\n  \n  return {\n    rowId: item.json.Id ? item.json.Id.toString() : '', \n    title: `🕐 ${fechaData.diaSemana} ${fechaData.dia} de ${fechaData.mes}`,\n    description: `${fechaData.hora} hs`\n  };\n});\n\n// Mensaje personalizado según la cantidad de citas\nconst cantidadCitas = opciones.length;\nlet mensajePersonalizado = '';\nif (cantidadCitas === 1) {\n  mensajePersonalizado = '🦷 Consultorio Odontologico';\n} else {\n  mensajePersonalizado = `🦷 Consultorio Odontologico`;\n}\n\nconst requestBody = {\n  to: $('vars').first().json.numero,\n  buttonText: \"Cancelar turno ❌\",\n  title: \"📅 Turnos Agendados\",\n  description: mensajePersonalizado,\n  footer: \"Cancela con 24 hs de anticipación\",\n  sections: [\n    {\n      title: \"Turnos\",\n      rows: opciones\n    }\n  ]\n};\n\nreturn [{ json: requestBody }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -314,7 +314,7 @@
     "CANCELAR": [
       {
         "json": {
-          "Id": "18",
+          "Id": "5",
           "numero": "5492254596618"
         }
       }
@@ -326,6 +326,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-07-29T14:25:39.002Z",
-  "versionId": "86f1bb2c-b138-4b4c-99eb-6ca825ee59f2"
+  "updatedAt": "2025-07-31T12:29:07.532Z",
+  "versionId": "79f235fd-b09d-402b-a2a7-568454ef136e"
 }
