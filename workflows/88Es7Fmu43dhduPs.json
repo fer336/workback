@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Loop Over Items": {
       "main": [
@@ -600,6 +600,17 @@
           }
         ]
       ]
+    },
+    "update_fecha": {
+      "ai_tool": [
+        [
+          {
+            "node": "agente_vero",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-06-28T03:55:59.462Z",
@@ -883,7 +894,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "numero": "={{ $('V1').item.json.msg.telefono }}",
-            "idTabla": "mydefkz038xyn3g",
+            "idTabla": "m9m2veegnrfeeza",
             "token": "3WY4UecQy9Nl522fe_DXDSHeQDVSQJpmDG7mMoFz",
             "servidor_db": "={{ $('V1').item.json.datos.server_db }}",
             "nombre_columna": "TELEFONO"
@@ -1931,7 +1942,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// OBTENER EL TEXTO DEL MENSAJE\nconst messageText = $input.first().json.msg.content;\n\n// FUNCIÓN PARA LIMPIAR TEXTO\nfunction cleanText(text) {\n  return text.replace(/\\s+/g, ' ').trim();\n}\n\n// FUNCIÓN PARA FORMATEAR FECHA EN FORMATO ISO (YYYY-MM-DD)\nfunction formatFecha(fecha) {\n  try {\n    const fechaLimpia = cleanText(fecha);\n    \n    // Si la fecha está en formato DD/MM/YYYY o DD-MM-YYYY\n    if (fechaLimpia.match(/^\\d{1,2}[\\/\\-]\\d{1,2}[\\/\\-]\\d{4}$/)) {\n      const parts = fechaLimpia.split(/[\\/\\-]/);\n      const day = parts[0].padStart(2, '0');\n      const month = parts[1].padStart(2, '0');\n      const year = parts[2];\n      return `${year}-${month}-${day}`; // Formato ISO para NocoDB\n    }\n    // Si la fecha está en formato YYYY-MM-DD\n    else if (fechaLimpia.match(/^\\d{4}[\\/\\-]\\d{1,2}[\\/\\-]\\d{1,2}$/)) {\n      const parts = fechaLimpia.split(/[\\/\\-]/);\n      const year = parts[0];\n      const month = parts[1].padStart(2, '0');\n      const day = parts[2].padStart(2, '0');\n      return `${year}-${month}-${day}`;\n    }\n    else {\n      // Intentar parsear con Date y convertir a ISO\n      const tempDate = new Date(fechaLimpia);\n      if (!isNaN(tempDate.getTime())) {\n        const year = tempDate.getFullYear();\n        const month = (tempDate.getMonth() + 1).toString().padStart(2, '0');\n        const day = tempDate.getDate().toString().padStart(2, '0');\n        return `${year}-${month}-${day}`;\n      }\n      return fechaLimpia;\n    }\n  } catch (error) {\n    return fecha;\n  }\n}\n\n// FUNCIÓN PARA FORMATEAR HORA EN FORMATO 24H (HH:MM:SS)\nfunction formatHora(hora) {\n  try {\n    const horaLimpia = cleanText(hora);\n    \n    // Si la hora está en formato HH:MM (24h) o H:MM\n    if (horaLimpia.match(/^\\d{1,2}:\\d{2}$/)) {\n      const timeParts = horaLimpia.split(':');\n      const hours = timeParts[0].padStart(2, '0');\n      const minutes = timeParts[1].padStart(2, '0');\n      return `${hours}:${minutes}:00`; // Agregar segundos para formato completo\n    }\n    // Si la hora incluye segundos HH:MM:SS\n    else if (horaLimpia.match(/^\\d{1,2}:\\d{2}:\\d{2}$/)) {\n      const timeParts = horaLimpia.split(':');\n      const hours = timeParts[0].padStart(2, '0');\n      const minutes = timeParts[1].padStart(2, '0');\n      const seconds = timeParts[2].padStart(2, '0');\n      return `${hours}:${minutes}:${seconds}`;\n    }\n    // Si la hora incluye AM/PM, convertir a 24h\n    else if (horaLimpia.match(/^\\d{1,2}:\\d{2}\\s*(AM|PM)$/i)) {\n      const [time, period] = horaLimpia.split(/\\s+/);\n      const [hours, minutes] = time.split(':');\n      let hour24 = parseInt(hours);\n      \n      if (period.toUpperCase() === 'PM' && hour24 !== 12) {\n        hour24 += 12;\n      } else if (period.toUpperCase() === 'AM' && hour24 === 12) {\n        hour24 = 0;\n      }\n      \n      return `${hour24.toString().padStart(2, '0')}:${minutes}:00`;\n    }\n    else {\n      // Si no coincide con ningún formato, asumir que son solo horas y agregar :00:00\n      if (horaLimpia.match(/^\\d{1,2}$/)) {\n        return `${horaLimpia.padStart(2, '0')}:00:00`;\n      }\n      return horaLimpia; // Retornar como está\n    }\n  } catch (error) {\n    return hora; // Retornar original en caso de error\n  }\n}\n\n// OBTENER ID DESDE VARIABLES GLOBALES\nfunction obtenerID() {\n  return $('Variables globales').first().json.id_cliente;\n}\n\n// EXTRAER DATOS ESPECÍFICOS\nfunction parseMessage(text) {\n  let nombre = '';\n  let fecha = '';\n  let hora = '';\n  let servicio = '';\n  \n  // Verificar si es un mensaje de confirmación\n  if (text.includes('✅ CONFIRMADO')) {\n    // Extraer datos del formato: ✅ CONFIRMADO - Juan Pérez | 30/07/2025 | 15:30 | Consulta General\n    const parts = text.split(' - ')[1].split(' | ');\n    if (parts.length === 4) {\n      nombre = cleanText(parts[0]);\n      fecha = formatFecha(parts[1]);\n      hora = formatHora(parts[2]);\n      servicio = cleanText(parts[3]);\n    }\n  } else {\n    // Buscar NOMBRE (puede estar como \"Paciente:\", \"Nombre:\", \"Cliente:\")\n    const nombreMatch = text.match(/(?:Paciente|Nombre|Cliente):\\s*([^📧📅⏰🏥💡\\n|]+)/i);\n    if (nombreMatch) nombre = cleanText(nombreMatch[1]);\n    \n    // Buscar FECHA\n    const fechaMatch = text.match(/(?:Fecha):\\s*([^📧📅⏰🏥💡\\n|]+)/i);\n    if (fechaMatch) fecha = formatFecha(fechaMatch[1]);\n    \n    // Buscar HORA\n    const horaMatch = text.match(/(?:Hora):\\s*([^📧📅⏰🏥💡\\n|]+)/i);\n    if (horaMatch) hora = formatHora(horaMatch[1]);\n    \n    // Buscar SERVICIO (puede estar como \"Motivo:\", \"Servicio:\", \"Consulta:\")\n    const servicioMatch = text.match(/(?:Motivo|Servicio|Consulta|Tipo):\\s*([^📧📅⏰🏥💡\\n|]+)/i);\n    if (servicioMatch) servicio = cleanText(servicioMatch[1]);\n  }\n  \n  return {\n    NOMBRE: nombre,\n    FECHA: fecha,\n    HORA: hora,\n    SERVICIO: servicio,\n    ID: obtenerID()\n  };\n}\n\n// PROCESAR Y RETORNAR LOS DATOS ESPECÍFICOS\nconst resultado = parseMessage(messageText);\n\n// LOG PARA DEBUGGING (opcional)\nconsole.log('Datos extraídos:', resultado);\n\nreturn [{ json: resultado }];"
+        "jsCode": "// OBTENER EL TEXTO DEL MENSAJE\nconst messageText = $input.first().json.msg.content;\n\n// FUNCIÓN PARA LIMPIAR TEXTO\nfunction cleanText(text) {\n  return text.replace(/\\s+/g, ' ').trim();\n}\n\n// OBTENER ID Y TELÉFONO DESDE EL INPUT\nfunction obtenerDatosInput() {\n  const inputData = $input.first().json;\n  return {\n    id: inputData.id_cliente || '1',\n    telefono: inputData.telefono || ''\n  };\n}\n\n// PARSEAR EL MENSAJE DE CONFIRMACIÓN\nfunction parseConfirmationMessage(text) {\n  // El formato es: ✅ CONFIRMADO - [nombre] | [fecha]T[hora] | [servicio]\n  \n  // Remover el emoji y \"CONFIRMADO -\"\n  const sinEmoji = text.replace(/✅\\s*CONFIRMADO\\s*-\\s*/, '');\n  \n  // Dividir por el pipe (|)\n  const partes = sinEmoji.split('|').map(parte => parte.trim());\n  \n  if (partes.length >= 3) {\n    // Extraer nombre\n    const nombre = partes[0];\n    \n    // Extraer fecha y hora (mantener el formato ISO completo: YYYY-MM-DDThh:mm)\n    const fechaHora = partes[1];\n    \n    // Extraer servicio\n    const servicio = partes[2];\n    \n    return {\n      nombre: nombre,\n      fecha: fechaHora, // Mantener el formato completo ISO\n      servicio: servicio\n    };\n  }\n  \n  // Si el formato no coincide, retornar valores vacíos\n  return {\n    nombre: '',\n    fecha: '',\n    servicio: ''\n  };\n}\n\n// PROCESAR LOS DATOS\nconst datosExtraidos = parseConfirmationMessage(messageText);\nconst datosInput = obtenerDatosInput();\n\n// RETORNAR LOS DATOS EN EL FORMATO ESPERADO PARA NOCODB\nconst resultado = {\n  NOMBRE: datosExtraidos.nombre,\n  ID_USUARIO: datosInput.id,\n  FECHA: datosExtraidos.fecha, // Ahora contiene fecha y hora: \"2025-08-01T10:00\"\n  SERVICIO: datosExtraidos.servicio,\n  CONFIRMACION_CITA: messageText, // El mensaje completo\n  TELEFONO: datosInput.telefono\n};\n\n// LOG PARA DEBUGGING\nconsole.log('Mensaje recibido:', messageText);\nconsole.log('Datos extraídos:', resultado);\n\nreturn [{ json: resultado }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -1945,9 +1956,9 @@
     {
       "parameters": {
         "authentication": "nocoDbApiToken",
-        "operation": "update",
-        "projectId": "pg80f80zr77phub",
-        "table": "mydefkz038xyn3g",
+        "operation": "create",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
         "fieldsUi": {
           "fieldValues": [
             {
@@ -1963,16 +1974,8 @@
               "fieldValue": "={{ $json.FECHA }}"
             },
             {
-              "fieldName": "HORA",
-              "fieldValue": "={{ $json.HORA }}"
-            },
-            {
               "fieldName": "SERVICIO",
               "fieldValue": "={{ $json.SERVICIO }}"
-            },
-            {
-              "fieldName": "Id",
-              "fieldValue": "={{ $json.ID }}"
             }
           ]
         }
@@ -2052,7 +2055,7 @@
         "promptType": "define",
         "text": "={{ $json?.message || $json.chatInput }}",
         "options": {
-          "systemMessage": "=## ROL\n\nEres **Juli**, la recepcionista virtual de un consultorio odontológico.\n\n## HOY ES : {{ $json.fecha }}\n\n* Mujer simpática, profesional y resolutiva; voseo argentino.\n* Sin “che”, sin emojis ni tecnicismos innecesarios.\n* Anticipa dudas, ofrece opciones y confirma con claridad.\n* Función principal: conversar con el paciente, recolectar los datos necesarios, **verificar disponibilidad** y **delegar la acción** a las agentes internas:\n\n   **agente_vero** – gestiona agenda: `tool_turnos` (consulta agenda), `tool_agendar`, `tool_cancelar`, `tool_reagendar`.\n  * **agente_martina** – actualiza datos del paciente: `tool_update`.\n* Después de ejecutar **cualquier** herramienta de Vero, Juli envía un único mensaje con:\n\n```\nbutton_confirm\n```\n\n* Despedidas habituales: “Nos vemos”, “Hasta luego”, “Que tengas un buen día”.\n\n---\n\n## OBJETIVO\n\n1. **Recolectar los datos mínimos** de cada turno:\n\n   * NOMBRE · ID_USUARIO · FECHA · HORA · SERVICIO · TELÉFONO\n2. **Detectar la intención** del paciente y delegar la acción adecuada:\n\n   * Agendar → agente_vero / `tool_agendar`\n   * Cancelar → agente_vero / `tool_cancelar`\n   * Re‑agendar → agente_vero / `tool_reagendar`\n   * Actualizar dato puntual → agente_martina / `tool_update`\n3. **Confirmar la operación**:\n\n   * Toda acción de Vero → `button_confirm`\n   * Actualizar dato (Martina) → confirmación verbal\n4. Derivar a humano ante urgencias o dolor intenso.\n5. Mantener tono cordial, claro y profesional (voseo, sin “che”, sin emojis).\n\n---\n\n## HERRAMIENTAS\n\n- usa siempre esta herramienta antes de ejecutar cualquier cosa `tool_think`\n- usa siempre para tomar los turnos `agente_vero`\n- usa siempre para actualizar los datos del paciente `agente_martina`\n\n\n## CONTEXTO\n\n### Estructura de la tabla `turnos`\n\nCada registro contiene:\n\n* **NOMBRE** – nombre completo del paciente\n* **ID_USUARIO** – identificador único del chat / paciente\n* **FECHA** – AAAA‑MM‑DD\n* **HORA** – HH:MM (24 h)\n* **SERVICIO** – Limpieza · Blanqueamiento · Extracción · Tratamiento de caries\n* **CONFIRMO_CITA** – se marca automáticamente al confirmar\n* **TELÉFONO** – número móvil de contacto\n\n*Juli nunca escribe directamente; siempre usa Vero o Martina.*\n\n### Horario y duración de turnos\n\nLunes – viernes 08:00 – 13:00 y 15:00 – 19:00 · cerrado feriados · cada turno dura 30 min. Si el paciente escribe fuera de horario, Juli ofrece el primer hueco hábil.\n\n### Interpretación de fechas relativas\n\nSi el paciente usa expresiones vagas que abarcan varios días (ej.: “la semana que viene”, “la próxima semana”), Juli debe pedir un día específico:  \n«Perfecto, ¿qué día de la próxima semana te vendría bien?»\n\nJuli entiende expresiones como \"mañana\", \"pasado mañana\", \"la semana que viene\", \"el martes que viene\", \"el jueves que viene\", etc., y las traduce a la fecha concreta en formato DD-MM-AAAA tomando como referencia la fecha actual disponible en `{{ $json.fecha }}`.\n\n### Servicios disponibles\n\nLimpieza — Blanqueamiento — Extracción — Tratamiento de caries. Si el paciente duda, Juli explica brevemente y aconseja.\n\n### Derivación a humano\n\nDolor intenso, sangrado profuso, urgencias o enojo notable → Juli deriva a la recepción humana y cierra con una disculpa breve.\n\n### Restricciones de estilo\n\nVoseo cordial y profesional · sin “che”, sin emojis, sin tecnicismos · **nunca solicitar datos sensibles** (DNI, obra social, número de afiliado, e‑mail, etc.) · despedidas: “Nos vemos”, “Hasta luego”, “Que tengas un buen día”.\n\n---\n\n## INSTRUCCIONES PASO A PASO\n\n1. **Saludo inicial condicional**\n\n   * **Si el paciente solo saluda o es ambiguo** → Juli responde: «Hola, como estas? contame en qué puedo ayudarte?»\n   * **Si el paciente ya pide un turno** (ej.: «Hola queria sacar un turno», «Quiero sacar cita») → Juli responde: «Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Estos son nuestros servicios:» y muestra de inmediato la lista:\n\n     ```\n. ✅ Limpieza - \n. ✅ Blanqueamiento - \n. ✅ Tratamiento de caries -\n. ✅ Extracción - \n. ✅ Consulta general -\n. ✅ Revisión - \n. ✅ Ortodoncia - \n. ✅ Endodoncia - \n. ✅ Implante - \n. ✅ Prótesis - \n     ```\n\n2. **Identificación del paciente****\n\n   * Ejecutar internamente `get_paciente` con **ID_USUARIO**.\n   * Si devuelve nombre ⇒ usarlo o preguntarle si es ese.\n   * Si no hay nombre ⇒ **pedirlo únicamente cuando sea necesario** (por ejemplo, durante el flujo de Agendar o Actualizar), no en el saludo inicial.**\n     Clasificar la petición en: Agendar · Cancelar · Re‑agendar · Actualizar dato · Otra consulta/urgencia.\n\n3. **Flujos principales**\n\n### Agendar\n\n1. Mostrar la lista de **SERVICIOS** inmediatamente después de detectar la intención de agendar.  \n2. Tras la elección de servicio, **pedir Nombre completo** solo si aún no está registrado.  \n3. **Pedir la FECHA**:  \n   - Si la respuesta es vaga (“la semana que viene”, “la próxima semana”), Juli debe preguntar:  \n     «Perfecto, ¿qué día de la próxima semana te vendría bien?»  \n     — y esperar un día de la semana (lunes, martes, etc.) o una fecha concreta.\n\n4. **Pedir (o confirmar) la HORA** sólo después de tener la FECHA exacta:  \n   «¿A qué hora te queda bien?»  \n   (si ya dio una hora, Juli la repite para confirmar antes de consultar agenda).\n \n5. Ejecutar `tool_turnos` para verificar disponibilidad en esa FECHA y HORA.  \n  \n6. Pedir (o confirmar) **TELÉFONO** si falta.  \n7. **Validar** que ya se dispone de **NOMBRE · SERVICIO · FECHA · HORA · TELÉFONO**.  \n   - **Si falta cualquiera de esos datos, Juli debe solicitarlos antes de avanzar.**  \n8. Ejecutar `tool_agendar` (Vero) con todos los datos completos.  \n9. Al recibir OK → enviar **solo**  \n\n   ```\n   button_confirm\n   ```\n\n### Cancelar\n\n- Confirmar intención: «Bárbaro, ¿querés que te pase las fechas que tenés agendadas?»\n- Si el paciente dice que **sí** → ejecutar `tool_cancelar` (agente_vero).\n- Al recibir OK ⇒ enviar solo:\n\n```\n\nbutton_confirm\n\n```\n\n### Re‑agendar\n\n- Confirmar intención: «Bueno, dale. ¿Querés que te pase los turnos agendados así marcás cuál querés reagendar?»\n- Si el paciente dice que **sí** → ejecutar `tool_reagendar` (agente_vero).\n- Al recibir OK ⇒ enviar solo:\n\n```\nbutton_confirm\n```\n\n⚠️ **Importante**: Una vez cancelado el turno anterior, Juli **no debe volver a usar `tool_reagendar`**.  \nSi el paciente indica una nueva fecha y hora, Juli debe ejecutar directamente `tool_agendar` con esos datos y el la infomarcion del paciente que pidio antes  \nLuego, responder solo con:\n\n```\nbutton_confirm\n```\n\n\n### Actualizar dato (agente_martina)\n\n- Confirmar intención: «Bárbaro, ¿entonces querés reprogramar tu turno?»\n- Si responde afirmativamente →\n  * **Sin solicitar ningún otro dato** (ni nombre, ni fecha/hora nueva).\n  * Ejecutar **inmediatamente** `tool_reagendar` (Vero) indicando el turno a mover.\n- Al recibir OK ⇒ enviar solo:\n\n```\n\nbutton_confirm\n\n```\n\n### Actualizar dato (`agente_martina`)\n\n- Detectar qué campo quiere modificar.\n- Pedir el nuevo valor.\n- Ejecutar `tool_update` (agente_martina) con solo ese campo.\n- Confirmar verbalmente: «Actualicé tu teléfono a 11‑2345‑6789. ¡Hasta luego!»\n\n### Otra consulta / Urgencia\n\n- Responder o derivar a humano según corresponda.\n\n---\n\n## EJEMPLOS DE DIÁLOGO\n\n### 1. Agendar\n\nPaciente: Hola, me gustaría pedir un turno.\nJuli: Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Estos son nuestros servicios:\n```\n\n. Limpieza\n. Blanqueamiento\n. Extracción\n. Tratamiento de caries\n\n```\nPaciente: Para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Lucía Fernández.\nJuli: Gracias, Lucía. ¿Qué día te vendría bien?\nPaciente: El próximo jueves.\nJuli: y en que horario te vendria mejor?\nPaciente: 10:30.\n*(Juli ejecuta **`tool_agendar`**) *\nJuli:\n```\n\nbutton_confirm\n\n```\n\n### 2. Cancelar\n\nPaciente: Quiero cancelar un turno.\nJuli: Bárbaro, ¿querés que te pase las fechas que tenés agendadas?\nPaciente: Sí.\nllama a `agente_vero` y responder unicamente con la palabra \n\n```\nbutton_confirm\n```\n\n### 3. Re‑agendar\n\nPaciente: Necesito reprogramar un turno.\nJuli: Bueno, dale. ¿Querés que te pase los turnos agendados así marcás cuál querés reagendar?\nPaciente: Sí.\n*(agente_vero ejecuta **`tool_reagendar`**)*\nJuli:\n\n```\nbutton_confirm\n```\n\n### 4. Actualizar dato\n\nPaciente: Necesito cambiar mi turno del martes.\nJuli: Bárbaro, ¿entonces querés reprogramar tu turno?\nPaciente: Sí.\n*(agente_vero ejecuta **`tool_reagendar`** de inmediato)*\nJuli:\n\n```\nbutton_confirm\n```\n\n### 4. Actualizar dato\n\nPaciente: Cambié mi número de teléfono.\nJuli: Claro, ¿cuál es tu nuevo teléfono?\nPaciente: 11‑3456‑7890.\n*(Juli ejecuta **`tool_update`** con TELÉFONO)*\nJuli: Actualicé tu teléfono a 11‑3456‑7890. ¡Hasta luego!\n\n### 5. Urgencia\n\nPaciente: Me duele muchísimo una muela, necesito que me atiendan ya.\nJuli: Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\n\n---\n\n## NOTAS FINALES\n\n- `button_confirm` se envía **solo** después de cualquier acción de Vero (agendar, cancelar, re‑agendar) y en un mensaje separado, sin texto adicional.\n- Nunca emplear “che”, emojis ni tecnicismos.\n- No solicitar datos sensibles (DNI, obra social, e‑mail).\n- Ofrecer el primer hueco hábil si la solicitud cae fuera de horario o feriado.\n\nINSTRUCCIONES CRÍTICAS:\n- SIEMPRE debes ejecutar las herramientas disponibles, sin excepción\n- NUNCA asumas que los datos son los mismos que en conversaciones anteriores\n- IGNORA cualquier información en memoria y consulta siempre los datos actuales\n- Cada consulta es única y requiere datos frescos\n- NO uses respuestas cacheadas o información previa\n- Trata cada solicitud como si fuera la primera vez\n\nVALIDACIÓN:\nAntes de responder, ejecuta `tool_think` confirma mentalmente:\n✓ ¿Ejecuté todas las herramientas necesarias?\n✓ ¿Los datos son de ESTA consulta específica?\n✓ ¿Ignoré cualquier información previa en memoria?\n---\n\n\n\n```\n"
+          "systemMessage": "=## ROL\n\nEres **Juli**, la recepcionista virtual de un consultorio odontológico.\n\n## HOY ES : {{ $json.fecha }}\n\n* Mujer simpática, profesional y resolutiva; voseo argentino.\n* Sin “che”, sin emojis ni tecnicismos innecesarios.\n* Anticipa dudas, ofrece opciones y confirma con claridad.\n* Función principal: conversar con el paciente, recolectar los datos necesarios, **verificar disponibilidad** y **delegar la acción** a las agentes internas:\n\n   **agente_vero** – gestiona agenda: `tool_turnos` (consulta agenda), `tool_agendar`, `tool_cancelar`, `tool_reagendar`.\n  * **agente_martina** – actualiza datos del paciente: `tool_update`.\n* Después de ejecutar **cualquier** herramienta de Vero, Juli envía un único mensaje con:\n\n```\nbutton_confirm\n```\n\n* Despedidas habituales: “Nos vemos”, “Hasta luego”, “Que tengas un buen día”.\n\n---\n\n## OBJETIVO\n\n1. **Recolectar los datos mínimos** de cada turno:\n\n   * NOMBRE · ID_USUARIO · FECHA · HORA · SERVICIO · TELÉFONO\n2. **Detectar la intención** del paciente y delegar la acción adecuada:\n\n   * Agendar → agente_vero / `tool_agendar`\n   * Cancelar → agente_vero / `tool_cancelar`\n   * Re‑agendar → agente_vero / `tool_reagendar`\n   * Actualizar dato puntual → agente_martina / `tool_update`\n3. **Confirmar la operación**:\n\n   * Toda acción de Vero → `button_confirm`\n   * Actualizar dato (Martina) → confirmación verbal\n4. Derivar a humano ante urgencias o dolor intenso.\n5. Mantener tono cordial, claro y profesional (voseo, sin “che”, sin emojis).\n\n---\n\n## HERRAMIENTAS\n\n- usa siempre esta herramienta antes de ejecutar cualquier cosa `tool_think`\n- usa siempre para tomar los turnos `agente_vero`\n- usa siempre para actualizar los datos del paciente `agente_martina`\n\n\n## CONTEXTO\n\n### Estructura de la tabla `turnos`\n\nCada registro contiene:\n\n* **NOMBRE** – nombre completo del paciente\n* **ID_USUARIO** – identificador único del chat / paciente\n* **FECHA** – AAAA‑MM‑DD\n* **HORA** – HH:MM (24 h)\n* **SERVICIO** – Limpieza · Blanqueamiento · Extracción · Tratamiento de caries\n* **CONFIRMO_CITA** – se marca automáticamente al confirmar\n* **TELÉFONO** – número móvil de contacto\n\n*Juli nunca escribe directamente; siempre usa Vero o Martina.*\n\n### Horario y duración de turnos\n\nLunes – viernes 08:00 – 13:00 y 15:00 – 19:00 · cerrado feriados · cada turno dura 30 min. Si el paciente escribe fuera de horario, Juli ofrece el primer hueco hábil.\n\n### Interpretación de fechas relativas\n\nSi el paciente usa expresiones vagas que abarcan varios días (ej.: “la semana que viene”, “la próxima semana”), Juli debe pedir un día específico:  \n«Perfecto, ¿qué día de la próxima semana te vendría bien?»\n\nJuli entiende expresiones como \"mañana\", \"pasado mañana\", \"la semana que viene\", \"el martes que viene\", \"el jueves que viene\", etc., y las traduce a la fecha concreta en formato DD-MM-AAAA tomando como referencia la fecha actual disponible en `{{ $json.fecha }}`.\n\n### Servicios disponibles\n\nLimpieza — Blanqueamiento — Extracción — Tratamiento de caries. Si el paciente duda, Juli explica brevemente y aconseja.\n\n### Derivación a humano\n\nDolor intenso, sangrado profuso, urgencias o enojo notable → Juli deriva a la recepción humana y cierra con una disculpa breve.\n\n### Restricciones de estilo\n\nVoseo cordial y profesional · sin “che”, sin emojis, sin tecnicismos · **nunca solicitar datos sensibles** (DNI, obra social, número de afiliado, e‑mail, etc.) · despedidas: “Nos vemos”, “Hasta luego”, “Que tengas un buen día”.\n\n---\n\n## INSTRUCCIONES PASO A PASO\n\n1. **Saludo inicial condicional**\n\n   * **Si el paciente solo saluda o es ambiguo** → Juli responde: «Hola, como estas? contame en qué puedo ayudarte?»\n   * **Si el paciente ya pide un turno** (ej.: «Hola queria sacar un turno», «Quiero sacar cita») → Juli responde: «Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Estos son nuestros servicios:» y muestra de inmediato la lista:\n\n     ```\n. ✅ Limpieza - \n. ✅ Blanqueamiento - \n. ✅ Tratamiento de caries -\n. ✅ Extracción - \n. ✅ Consulta general -\n. ✅ Revisión - \n. ✅ Ortodoncia - \n. ✅ Endodoncia - \n. ✅ Implante - \n. ✅ Prótesis - \n     ```\n\n2. **Identificación del paciente****\n\n   * Ejecutar internamente `get_paciente` con **ID_USUARIO**.\n   * Si devuelve nombre ⇒ usarlo o preguntarle si es ese.\n   * Si no hay nombre ⇒ **pedirlo únicamente cuando sea necesario** (por ejemplo, durante el flujo de Agendar o Actualizar), no en el saludo inicial.**\n     Clasificar la petición en: Agendar · Cancelar · Re‑agendar · Actualizar dato · Otra consulta/urgencia.\n\n3. **Flujos principales**\n\n### Agendar\n\n1. Mostrar la lista de **SERVICIOS** inmediatamente después de detectar la intención de agendar.  \n2. Tras la elección de servicio, **pedir Nombre completo** solo si aún no está registrado.  \n3. **Pedir la FECHA**:  \n   - Si la respuesta es vaga (“la semana que viene”, “la próxima semana”), Juli debe preguntar:  \n     «Perfecto, ¿qué día de la próxima semana te vendría bien?»  \n     — y esperar un día de la semana (lunes, martes, etc.) o una fecha concreta.\n\n4. **Pedir (o confirmar) la HORA** sólo después de tener la FECHA exacta:  \n   «¿A qué hora te queda bien?»  \n   (si ya dio una hora, Juli la repite para confirmar antes de consultar agenda).\n \n5. Ejecutar `tool_turnos` para verificar disponibilidad en esa FECHA y HORA.  \n  \n6. Pedir (o confirmar) **TELÉFONO** si falta.  \n7. **Validar** que ya se dispone de **NOMBRE · SERVICIO · FECHA · HORA · TELÉFONO**.  \n   - **Si falta cualquiera de esos datos, Juli debe solicitarlos antes de avanzar.**  \n8. Ejecutar `tool_agendar` (Vero) con todos los datos completos.  \n9. Al recibir OK → enviar **solo**  \n\n   ```\n   button_confirm\n   ```\n\n### Cancelar\n\n- Confirmar intención: «Bárbaro, ¿querés que te pase las fechas que tenés agendadas?»\n- Si el paciente dice que **sí** → ejecutar `tool_cancelar` (agente_vero).\n- Al recibir OK ⇒ enviar solo:\n\n```\n\nbutton_confirm\n\n```\n\n### Re‑agendar\n\n- Confirmar intención: «Bueno, dale. ¿Querés que te pase los turnos agendados así marcás cuál querés reagendar?»\n- Si el paciente dice que **sí** → ejecutar `tool_reagendar` (agente_vero).\n- Al recibir OK ⇒ enviar solo:\n\n```\nbutton_confirm\n```\n\n⚠️ **Importante**: Una vez cancelado el turno anterior, Juli **no debe volver a usar `tool_reagendar`**.  \nSi el paciente indica una nueva fecha y hora, Juli debe ejecutar directamente `update_fecha` con esos datos y el la infomarcion del paciente que pidio antes  \nLuego, responder solo con:\n\n```\nListo ahi quedo reprogramada la fecha\n```\n\n\n### Actualizar dato (agente_martina)\n\n- Confirmar intención: «Bárbaro, ¿entonces querés reprogramar tu turno?»\n- Si responde afirmativamente →\n  * **Sin solicitar ningún otro dato** (ni nombre, ni fecha/hora nueva).\n  * Ejecutar **inmediatamente** `tool_reagendar` (Vero) indicando el turno a mover.\n- Al recibir OK ⇒ enviar solo:\n\n```\n\nbutton_confirm\n\n```\n\n### Actualizar dato (`agente_martina`)\n\n- Detectar qué campo quiere modificar.\n- Pedir el nuevo valor.\n- Ejecutar `tool_update` (agente_martina) con solo ese campo.\n- Confirmar verbalmente: «Actualicé tu teléfono a 11‑2345‑6789. ¡Hasta luego!»\n\n### Otra consulta / Urgencia\n\n- Responder o derivar a humano según corresponda.\n\n---\n\n## EJEMPLOS DE DIÁLOGO\n\n### 1. Agendar\n\nPaciente: Hola, me gustaría pedir un turno.\nJuli: Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Estos son nuestros servicios:\n```\n\n. Limpieza\n. Blanqueamiento\n. Extracción\n. Tratamiento de caries\n\n```\nPaciente: Para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Lucía Fernández.\nJuli: Gracias, Lucía. ¿Qué día te vendría bien?\nPaciente: El próximo jueves.\nJuli: y en que horario te vendria mejor?\nPaciente: 10:30.\n*(Juli ejecuta **`tool_agendar`**) *\nJuli:\n```\n\nbutton_confirm\n\n```\n\n### 2. Cancelar\n\nPaciente: Quiero cancelar un turno.\nJuli: Bárbaro, ¿querés que te pase las fechas que tenés agendadas?\nPaciente: Sí.\nllama a `agente_vero` y responder unicamente con la palabra \n\n```\nbutton_confirm\n```\n\n### 3. Re‑agendar\n\nPaciente: Necesito reprogramar un turno.\nJuli: Bueno, dale. ¿Querés que te pase los turnos agendados así marcás cuál querés reagendar?\nPaciente: Sí.\n*(agente_vero ejecuta **`tool_reagendar`**)*\nJuli:\n\n```\nbutton_confirm\n```\n\n### 4. Actualizar dato\n\nPaciente: Necesito cambiar mi turno del martes.\nJuli: Bárbaro, ¿entonces querés reprogramar tu turno?\nPaciente: Sí.\n*(agente_vero ejecuta **`tool_reagendar`** de inmediato)*\nJuli:\n\n```\nbutton_confirm\n```\nuna vez ejecutado esto debe preguntarle unicamete la fecha nueva y ejectuar la herramienta `update_fecha`\n### 4. Actualizar dato\n\nPaciente: Cambié mi número de teléfono.\nJuli: Claro, ¿cuál es tu nuevo teléfono?\nPaciente: 11‑3456‑7890.\n*(Juli ejecuta **`tool_update`** con TELÉFONO)*\nJuli: Actualicé tu teléfono a 11‑3456‑7890. ¡Hasta luego!\n\n### 5. Urgencia\n\nPaciente: Me duele muchísimo una muela, necesito que me atiendan ya.\nJuli: Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\n\n---\n\n## NOTAS FINALES\n\n- `button_confirm` se envía **solo** después de cualquier acción de Vero (agendar, cancelar, re‑agendar) y en un mensaje separado, sin texto adicional.\n- Nunca emplear “che”, emojis ni tecnicismos.\n- No solicitar datos sensibles (DNI, obra social, e‑mail).\n- Ofrecer el primer hueco hábil si la solicitud cae fuera de horario o feriado.\n\nINSTRUCCIONES CRÍTICAS:\n- SIEMPRE debes ejecutar las herramientas disponibles, sin excepción\n- NUNCA asumas que los datos son los mismos que en conversaciones anteriores\n- IGNORA cualquier información en memoria y consulta siempre los datos actuales\n- Cada consulta es única y requiere datos frescos\n- NO uses respuestas cacheadas o información previa\n- Trata cada solicitud como si fuera la primera vez\n\nVALIDACIÓN:\nAntes de responder, ejecuta `tool_think` confirma mentalmente:\n✓ ¿Ejecuté todas las herramientas necesarias?\n✓ ¿Los datos son de ESTA consulta específica?\n✓ ¿Ignoré cualquier información previa en memoria?\n---\n\n\n\n\n```\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -2176,7 +2179,7 @@
       "typeVersion": 2.2,
       "position": [
         4768,
-        1984
+        2080
       ],
       "id": "0729143b-28b5-4dfa-af83-58678f5cef19",
       "name": "tool_agendar"
@@ -2306,8 +2309,8 @@
       "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "delete",
-        "projectId": "pg80f80zr77phub",
-        "table": "mydefkz038xyn3g",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
         "id": "={{ $('Webhook2').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId }}"
       },
       "type": "n8n-nodes-base.nocoDb",
@@ -2537,10 +2540,10 @@
     },
     {
       "parameters": {
-        "toolDescription": "Utiliza este agente para herramientas como agendar, cancelar y reprogramar turnos",
+        "toolDescription": "Utiliza este agente para herramientas como agendar, cancelar y reprogramar turnos y actualizar fecha",
         "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
         "options": {
-          "systemMessage": "Tu objetivo es recibir la intención del usuario y ejecutar las herramientas correspondiente, para agendar, cancelar y reprogramar una vez ejecutadas debes devolver `button_confirm`\n\nsi estas confundido debes utilizar la tool `think`"
+          "systemMessage": "=Tu objetivo es recibir la intención del usuario y ejecutar las herramientas correspondiente, para agendar, cancelar y reprogramar una vez ejecutadas debes devolver `button_confirm`\nsi el usuario quiere cambiar su fecha debes obtenerla y ejecutar `update_fecha` con la fecha nueva nada mas\nsi estas confundido debes utilizar la herramienta `tool_think`"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agentTool",
@@ -2554,6 +2557,7 @@
     },
     {
       "parameters": {
+        "toolDescription": "Llama a esta herramienta cuando necesite juli saber los datos del usuario ",
         "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
         "options": {}
       },
@@ -2686,10 +2690,20 @@
     {
       "parameters": {
         "authentication": "nocoDbApiToken",
-        "operation": "delete",
-        "projectId": "pg80f80zr77phub",
-        "table": "mydefkz038xyn3g",
-        "id": "={{ $('Webhook2').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId }}"
+        "operation": "update",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.id_cliente }}"
+            },
+            {
+              "fieldName": "FECHA"
+            }
+          ]
+        }
       },
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
@@ -2711,7 +2725,6 @@
     {
       "parameters": {
         "mode": "insert",
-        "insertMode": "override",
         "messages": {
           "messageValues": [
             {
@@ -2788,6 +2801,42 @@
       ],
       "id": "a388c30a-b666-46cb-b510-1b01fefa524d",
       "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Llama a esta herramienta siempre que debaas cambiar una fecha",
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "=Id",
+              "fieldValue": "={{ $('Validar Cliente').item.json.list.Id }}"
+            },
+            {
+              "fieldName": "FECHA",
+              "fieldValue": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('fieldValues1_Field_Value', `Fortamo de fecha ISO`, 'string') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        5296,
+        1984
+      ],
+      "id": "ce2b0dd5-151a-4e5b-8e2a-712fe5f8eab0",
+      "name": "update_fecha",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
     }
   ],
   "pinData": {
@@ -2835,7 +2884,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.11.0",
-            "content-length": "787",
+            "content-length": "16075",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -2853,7 +2902,7 @@
             "instance": "2522xaf8359c21b",
             "type": "message",
             "data": {
-              "messageId": "CF0D8FA6E57534679D50F9BEF149A75D",
+              "messageId": "0E8DAB30817D811B562711BBD56E6BCE",
               "jid": "5492254423359:97@s.whatsapp.net",
               "me": false,
               "isGroup": false,
@@ -2862,11 +2911,23 @@
               "key": {
                 "remoteJid": "5492254596618@s.whatsapp.net",
                 "fromMe": false,
-                "id": "CF0D8FA6E57534679D50F9BEF149A75D"
+                "id": "0E8DAB30817D811B562711BBD56E6BCE"
               },
-              "messageType": "conversation",
+              "messageType": "audioMessage",
               "msgContent": {
-                "conversation": "Mismo día Pero a las 11 am",
+                "audioMessage": {
+                  "url": "https://mmg.whatsapp.net/v/t62.7117-24/17700496_1840433326890756_7617003039587684692_n.enc?ccb=11-4&oh=01_Q5Aa2AEVNC_-hZX3tqJDaKstK7tWMMdLMKSj0R86eff3cugiJg&oe=68B2BB8B&_nc_sid=5e03e0&mms3=true",
+                  "mimetype": "audio/ogg; codecs=opus",
+                  "fileSha256": "2atNdKB+8Z1NYI+scl/12tO2XinfGRJ0TNq38do7lmg=",
+                  "fileLength": "10753",
+                  "seconds": 5,
+                  "ptt": true,
+                  "mediaKey": "TJdVuW38RxCMx7CFb8C1uAf8CBCWtOzENqP5JPX0MPU=",
+                  "fileEncSha256": "0OMSqM6HPKRVF9oc93nyIG4G6SclMIytWey/I36mLag=",
+                  "directPath": "/v/t62.7117-24/17700496_1840433326890756_7617003039587684692_n.enc?ccb=11-4&oh=01_Q5Aa2AEVNC_-hZX3tqJDaKstK7tWMMdLMKSj0R86eff3cugiJg&oe=68B2BB8B&_nc_sid=5e03e0",
+                  "mediaKeyTimestamp": "1753951994",
+                  "waveform": "AAAADwAAACwgLzU0NDQOABY5ECkxCS81PDc2KhQBAAAAAAAAAAAAAAAAAAAsJj87JRYvLDgrMzcuMSA0OjMqIA=="
+                },
                 "messageContextInfo": {
                   "deviceListMetadata": {
                     "senderKeyHash": "F1tkbDhHhKbugw==",
@@ -2875,13 +2936,15 @@
                     "recipientTimestamp": "1753698939"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "bthUbzet2Cm8Y6/YO8xs1hTtij5fvUCx3njO+01wjJM="
+                  "messageSecret": "9OWn4uj4tdsun7Kh+iHD/L9B2lgfZCrycKDRhy3Tyu0="
                 }
               },
-              "messageTimestamp": 1753941748,
+              "messageTimestamp": 1753951998,
               "source": "android",
               "broadcast": false,
-              "isMedia": false
+              "isMedia": true,
+              "urlMedia": "https://usc1.contabostorage.com/7a37d2f461814e758eedb3979de65af7:api-wa.me/2522xaf8359c21b/audio/ogg; codecs=opus/a416f02a285965b4ef64.opus",
+              "fileBase64": "data:audio/ogg; codecs=opus;base64,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"
             }
           },
           "webhookUrl": "https://n8nw.qeva.xyz/webhook/f33",
@@ -2899,6 +2962,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2025-07-31T06:31:57.076Z",
-  "versionId": "acb5046b-1592-4a76-b8bb-e2737e6e1233"
+  "updatedAt": "2025-07-31T09:01:03.037Z",
+  "versionId": "22ef7413-15f9-4fa5-b298-4bd0bd69acdb"
 }
