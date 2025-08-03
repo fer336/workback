@@ -75,44 +75,6 @@
         ]
       ]
     },
-    "GET image": {
-      "main": [
-        [
-          {
-            "node": "Convert image",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Convert image": {
-      "main": [
-        [
-          {
-            "node": "Describe imagen",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Describe imagen": {
-      "main": [
-        [
-          {
-            "node": "Image content",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Image content": {
-      "main": [
-        []
-      ]
-    },
     "Audio content": {
       "main": [
         [
@@ -309,11 +271,6 @@
         ]
       ]
     },
-    "Extraer y normalizar mensajes": {
-      "main": [
-        []
-      ]
-    },
     "Filtrar mensajes con URL de imagen": {
       "main": [
         [
@@ -357,17 +314,6 @@
     "Postgres - Get Conversation": {
       "main": [
         []
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "Text Classifier",
-            "type": "main",
-            "index": 0
-          }
-        ]
       ]
     },
     "Text Classifier": {
@@ -444,7 +390,7 @@
       "main": [
         [
           {
-            "node": "Loop Over Items1",
+            "node": "Sub Loop",
             "type": "main",
             "index": 0
           }
@@ -479,7 +425,7 @@
       "main": [
         [
           {
-            "node": "If1",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -501,54 +447,11 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "limpiamos msg",
             "type": "main",
             "index": 0
           }
         ]
-      ]
-    },
-    "Auto-fixing Output Parser": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "Basic LLM Chain",
-            "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Structured Output Parser": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "Auto-fixing Output Parser",
-            "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "OpenAI Chat Model2": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Auto-fixing Output Parser",
-            "type": "ai_languageModel",
-            "index": 0
-          },
-          {
-            "node": "Basic LLM Chain",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Basic LLM Chain": {
-      "main": [
-        []
       ]
     },
     "Separa datos": {
@@ -584,26 +487,9 @@
         ]
       ]
     },
-    "Loop Over Items1": {
-      "main": [
-        [],
-        [
-          {
-            "node": "txt",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "OpenRouter Chat Model": {
       "ai_languageModel": [
         [
-          {
-            "node": "Text Classifier",
-            "type": "ai_languageModel",
-            "index": 0
-          },
           {
             "node": "Basic LLM Chain1",
             "type": "ai_languageModel",
@@ -654,7 +540,7 @@
       "main": [
         [
           {
-            "node": "Loop Over Items",
+            "node": "Sub Loop",
             "type": "main",
             "index": 0
           }
@@ -671,12 +557,76 @@
           }
         ]
       ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "limpiamos msg": {
+      "main": [
+        [
+          {
+            "node": "Quitamos url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Quitamos url": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sub Loop": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "txt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-08-01T10:16:22.807Z",
   "id": "knVefXiPdzZZo7ci",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "AGENTE MUEBLERIA copia",
   "nodes": [
     {
@@ -688,8 +638,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -2336,
-        720
+        -2528,
+        400
       ],
       "id": "d36c6843-cb82-439f-bcbe-2ab001947b0f",
       "name": "Inbound",
@@ -766,8 +716,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2048,
-        720
+        -2304,
+        400
       ],
       "id": "03f0c631-932a-4c8c-801b-555755b1126b",
       "name": "Normalizacion"
@@ -860,8 +810,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        144,
-        592
+        336,
+        240
       ],
       "id": "9eceb8ea-5c65-41a2-8e6a-504052a0eb1e",
       "name": "Switch type"
@@ -897,8 +847,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        368,
-        528
+        560,
+        176
       ],
       "id": "53d9408c-3aff-4362-a637-2e1a08d2cdd3",
       "name": "GET audio"
@@ -914,8 +864,8 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        592,
-        528
+        784,
+        176
       ],
       "id": "f0417198-2bae-4921-9682-e91a80d5d0a9",
       "name": "Convert audio"
@@ -929,8 +879,8 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        816,
-        528
+        1008,
+        176
       ],
       "id": "a2e799c5-7958-4fe7-8c53-0a5c4b768590",
       "name": "OpenAI",
@@ -964,121 +914,11 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1040,
-        528
+        1232,
+        176
       ],
       "id": "eda84a0a-4bd0-493b-8829-e7a31ecfa62b",
       "name": "Audio content"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('Normalizacion').item.json.instance.server_url }}/chat/getBase64FromMediaMessage/{{ $('Normalizacion').item.json.instance.name }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "={{ $('Normalizacion').item.json.instance.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "message.key.id",
-              "value": "={{ $('Normalizacion').item.json.message.message_id }}"
-            },
-            {
-              "name": "convertToMp4",
-              "value": "={{Boolean(false)}}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        48,
-        1200
-      ],
-      "id": "09f8a075-0ab2-44df-9923-83e28f5da4c9",
-      "name": "GET image",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "operation": "toBinary",
-        "sourceProperty": "base64",
-        "options": {
-          "mimeType": "={{ $json.mimetype }}"
-        }
-      },
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        272,
-        1200
-      ],
-      "id": "06f8d770-01a7-4ac0-a22f-f74e084d3ba0",
-      "name": "Convert image",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "resource": "image",
-        "operation": "analyze",
-        "modelId": {
-          "__rl": true,
-          "value": "gpt-4o-mini",
-          "mode": "list",
-          "cachedResultName": "GPT-4O-MINI"
-        },
-        "text": "describe la imagen en espaniol",
-        "inputType": "base64",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.openAi",
-      "typeVersion": 1.8,
-      "position": [
-        496,
-        1200
-      ],
-      "id": "1dec3f35-633c-4f35-bb97-9820efb7027f",
-      "name": "Describe imagen",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "4b82217d-2238-4b2e-9932-f1f308b9c2bc",
-              "name": "content",
-              "value": "=<image>\n{{ $json.content }}\n</image>",
-              "type": "string"
-            },
-            {
-              "id": "5e04001a-76ef-4d5d-829b-05048fda36ac",
-              "name": "timestamp",
-              "value": "={{ $('JSON parse').item.json.timestamp }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        720,
-        1200
-      ],
-      "id": "e3f12a52-113e-477c-b804-f867f1ac4896",
-      "name": "Image content",
-      "disabled": true
     },
     {
       "parameters": {
@@ -1103,8 +943,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1040,
-        720
+        1232,
+        368
       ],
       "id": "66d3c587-7b71-4bc1-93dc-e1c62fa42002",
       "name": "Text content"
@@ -1126,8 +966,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1936,
-        624
+        -2432,
+        -944
       ],
       "id": "c73670e1-8d91-4310-8d17-2bbdb8f14e53",
       "name": "Chat input"
@@ -1142,8 +982,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -976,
-        720
+        -784,
+        400
       ],
       "id": "4e7c1735-8e6a-4138-b95f-e63c613e0e60",
       "name": "Get message bufer",
@@ -1164,8 +1004,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -1200,
-        720
+        -1008,
+        400
       ],
       "id": "54717a13-bcd6-4e82-882d-d9668ad285dc",
       "name": "Push message buffer",
@@ -1238,8 +1078,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        -752,
-        608
+        -560,
+        288
       ],
       "id": "2da36de2-6728-4be0-8a41-80c6575a9e4f",
       "name": "Switch"
@@ -1251,8 +1091,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        -528,
-        816
+        -336,
+        496
       ],
       "id": "ca056389-afd4-4351-b011-c4aeb6fc3468",
       "name": "Wait",
@@ -1263,8 +1103,8 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        -528,
-        432
+        -336,
+        80
       ],
       "id": "e80b0cec-a5a7-45db-b10a-905cf055faf6",
       "name": "No Operation, do nothing"
@@ -1277,8 +1117,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -528,
-        624
+        -336,
+        272
       ],
       "id": "2f082121-adbd-4bf1-abb8-6dcbd6f997fe",
       "name": "Delete message buffer",
@@ -1297,8 +1137,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -304,
-        624
+        -112,
+        272
       ],
       "id": "f234af4c-b7d5-44f5-83a7-7ca3b992c564",
       "name": "Split Out"
@@ -1312,8 +1152,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -80,
-        624
+        112,
+        272
       ],
       "id": "557350a8-f7eb-42ed-add8-6dfa38913b05",
       "name": "JSON parse"
@@ -1325,8 +1165,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        1264,
-        608
+        1456,
+        256
       ],
       "id": "9334c628-8daa-49a5-972d-2ef4d4c82d9d",
       "name": "Merge"
@@ -1345,8 +1185,8 @@
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        1488,
-        624
+        1680,
+        272
       ],
       "id": "839c0f19-dc5d-458c-b4ca-bdc49cfeb032",
       "name": "Sort"
@@ -1367,8 +1207,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        1712,
-        624
+        1904,
+        272
       ],
       "id": "5cc54da2-9605-4d16-bc01-fd80c330a5ce",
       "name": "Aggregate"
@@ -1382,8 +1222,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
       "position": [
-        2992,
-        1280
+        -1632,
+        -32
       ],
       "id": "1e3a594c-c50f-471a-ac01-bf0cca7abb88",
       "name": "Postgres Chat Memory",
@@ -1403,8 +1243,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        5264,
-        848
+        -112,
+        -720
       ],
       "id": "11dd187c-9970-44e5-967e-fd83e04d5c59",
       "name": "Split Out1"
@@ -1416,37 +1256,24 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        5488,
-        640
+        176,
+        -752
       ],
       "id": "95b2d79c-bcad-4277-8c51-fe59eee82e37",
       "name": "Loop Over Items"
     },
     {
       "parameters": {
-        "jsCode": "const inputData = $input.first().json;\n\n// Verificar si existe el campo messages.texto\nif (!inputData.messages || !inputData.messages.texto) {\n  return {\n    ...inputData,\n    url: ''\n  };\n}\n\nconst input = inputData.messages.texto;\n\n// Regex que captura enlaces en formato [texto](url) - sin el !\nconst regex = /\\[([^\\]]*)\\]\\(([^)]+)\\)/;\nconst match = regex.exec(input);\n\nif (!match || !match[2]) {\n  return {\n    ...inputData,\n    url: ''\n  };\n}\n\nconst linkText = match[1] || '';\nconst linkUrl = match[2] || '';\n\n// Reemplazar el markdown del enlace con el texto del enlace\nconst cleanedMessage = input.replace(regex, linkText).trim();\n\n// Crear el objeto de salida\nconst output = {\n  ...inputData,\n  messages: {\n    ...inputData.messages,\n    texto: cleanedMessage\n  },\n  url: linkUrl\n};\n\nreturn output;"
+        "jsCode": "const inputData = $input.first().json;\n\n// Verificar si existe el campo messages.texto\nif (!inputData.messages || !inputData.messages.texto) {\n  return {\n    ...inputData,\n    url: '',\n    urls: [],\n    productoFormateado: null,\n    textoLimpio: '',\n    urlsFormateadas: ''\n  };\n}\n\nconst input = inputData.messages.texto;\n\n// Regex para diferentes tipos de URLs\nconst markdownLinkRegex = /\\[([^\\]]*)\\]\\(([^)]+)\\)/g;\nconst imageRegex = /!\\[([^\\]]*)\\]\\(([^)]+)\\)/g;\nconst directUrlRegex = /(https?:\\/\\/[^\\s<>\"{}|\\\\^\\[\\]`]+)/g;\n\n// Arrays para almacenar URLs y productos\nconst urls = [];\nlet cleanedMessage = input;\n\n// Primero, extraer todas las URLs para evitar duplicados\nconst todasLasUrls = new Set();\n\n// Extraer imágenes markdown\nlet imageMatch;\nwhile ((imageMatch = imageRegex.exec(input)) !== null) {\n  todasLasUrls.add(imageMatch[2]);\n  urls.push({\n    type: 'image',\n    text: imageMatch[1] || 'imagen',\n    url: imageMatch[2],\n    fullMatch: imageMatch[0]\n  });\n}\n\n// Extraer enlaces markdown\nlet linkMatch;\nwhile ((linkMatch = markdownLinkRegex.exec(input)) !== null) {\n  if (!todasLasUrls.has(linkMatch[2])) {\n    todasLasUrls.add(linkMatch[2]);\n    urls.push({\n      type: 'link',\n      text: linkMatch[1] || 'enlace',\n      url: linkMatch[2],\n      fullMatch: linkMatch[0]\n    });\n  }\n}\n\n// Reemplazar todos los markdown links e imágenes\nurls.forEach(urlObj => {\n  if (urlObj.fullMatch) {\n    cleanedMessage = cleanedMessage.replace(urlObj.fullMatch, '');\n  }\n});\n\n// Buscar URLs directas que no hayan sido capturadas antes\nlet directMatch;\nconst tempMessage = cleanedMessage;\nwhile ((directMatch = directUrlRegex.exec(tempMessage)) !== null) {\n  if (!todasLasUrls.has(directMatch[1])) {\n    todasLasUrls.add(directMatch[1]);\n    urls.push({\n      type: 'direct',\n      text: 'enlace',\n      url: directMatch[1]\n    });\n  }\n}\n\n// Eliminar todas las URLs directas del mensaje\nurls.forEach(urlObj => {\n  if (urlObj.type === 'direct') {\n    cleanedMessage = cleanedMessage.replace(urlObj.url, '');\n  }\n});\n\n// Función mejorada para extraer información del producto\nfunction extraerInfoProducto(texto, urls) {\n  const info = {\n    nombre: '',\n    precio: '',\n    medidas: '',\n    foto: ''\n  };\n  \n  // Buscar precio con diferentes formatos\n  const precioMatch = texto.match(/(?:precio|costo|valor|price)[\\s:]*\\$?\\s*([\\d,]+(?:\\.\\d{2})?)/i);\n  if (precioMatch) {\n    info.precio = '$' + precioMatch[1].replace(/[,\\s]/g, '');\n  }\n  \n  // Buscar medidas con diferentes formatos\n  const medidasMatch = texto.match(/(?:medidas?|dimensiones?|tamaño|size)[\\s:]*([\\d.,]+\\s*x\\s*[\\d.,]+(?:\\s*x\\s*[\\d.,]+)?(?:\\s*(?:cm|m|mm|metros?|centímetros?))?)/i);\n  if (medidasMatch) {\n    info.medidas = medidasMatch[1].trim();\n  }\n  \n  // Extraer nombre del producto\n  const lineas = texto.split('\\n').map(l => l.trim()).filter(l => l);\n  for (const linea of lineas) {\n    // Buscar líneas que parezcan ser el nombre del producto\n    if (!linea.match(/precio|medidas|dimensiones|\\$|https?:|costo|valor|size/i) && \n        linea.length > 3 && \n        !linea.match(/^\\d+$/) && // No solo números\n        !linea.match(/^[\\d.,]+\\s*x\\s*[\\d.,]+/)) { // No medidas\n      info.nombre = linea;\n      break;\n    }\n  }\n  \n  // Buscar la primera imagen URL\n  const imagenUrl = urls.find(u => u.type === 'image');\n  if (imagenUrl) {\n    info.foto = imagenUrl.url;\n  }\n  \n  return info;\n}\n\n// Limpiar y formatear el texto para WhatsApp\nfunction formatearParaWhatsApp(texto) {\n  // Eliminar espacios múltiples y líneas vacías excesivas\n  let textoFormateado = texto\n    .split('\\n')\n    .map(linea => linea.trim())\n    .filter(linea => linea.length > 0)\n    .join('\\n');\n  \n  // Eliminar caracteres especiales que puedan causar problemas\n  textoFormateado = textoFormateado\n    .replace(/\\s{2,}/g, ' ') // Múltiples espacios a uno solo\n    .replace(/\\n{3,}/g, '\\n\\n') // Máximo 2 saltos de línea consecutivos\n    .replace(/^\\s+|\\s+$/g, '') // Trim general\n    .replace(/[.,;:!?]+$/g, ''); // Eliminar puntuación final innecesaria\n  \n  // Eliminar puntos finales en cada línea si no son necesarios\n  textoFormateado = textoFormateado\n    .split('\\n')\n    .map(linea => linea.replace(/\\.$/, ''))\n    .join('\\n');\n  \n  return textoFormateado;\n}\n\n// Formatear URLs para WhatsApp\nfunction formatearUrlsParaWhatsApp(urls) {\n  if (urls.length === 0) return '';\n  \n  let urlsFormateadas = '\\n📎 *Enlaces encontrados:*\\n';\n  \n  urls.forEach((urlObj, index) => {\n    if (urlObj.type === 'image') {\n      urlsFormateadas += `\\n🖼️ Imagen ${index + 1}:\\n${urlObj.url}\\n`;\n    } else {\n      urlsFormateadas += `\\n🔗 ${urlObj.text}:\\n${urlObj.url}\\n`;\n    }\n  });\n  \n  return urlsFormateadas;\n}\n\n// Extraer información del producto\nconst productoInfo = extraerInfoProducto(cleanedMessage, urls);\n\n// Formatear texto limpio\nconst textoLimpio = formatearParaWhatsApp(cleanedMessage);\n\n// Formatear URLs\nconst urlsFormateadas = formatearUrlsParaWhatsApp(urls);\n\n// Formatear la salida del producto\nlet productoFormateado = '';\nif (productoInfo.nombre || productoInfo.precio || productoInfo.medidas) {\n  productoFormateado = '📦 *INFORMACIÓN DEL PRODUCTO*\\n\\n';\n  productoFormateado += `*NOMBRE:* ${productoInfo.nombre || 'No especificado'}\\n`;\n  productoFormateado += `*PRECIO:* ${productoInfo.precio || 'No especificado'}\\n`;\n  productoFormateado += `*MEDIDAS:* ${productoInfo.medidas || 'No especificadas'}\\n`;\n  productoFormateado += `*FOTO:* ${productoInfo.foto || 'No disponible'}`;\n}\n\n// Crear mensaje completo para WhatsApp\nconst mensajeWhatsApp = textoLimpio + \n  (productoFormateado ? '\\n\\n' + productoFormateado : '') + \n  (urlsFormateadas ? '\\n' + urlsFormateadas : '');\n\n// Crear el objeto de salida\nconst output = {\n  ...inputData,\n  messages: {\n    ...inputData.messages,\n    texto: cleanedMessage,\n    textoOriginal: inputData.messages.texto,\n    textoLimpio: textoLimpio,\n    mensajeWhatsApp: mensajeWhatsApp\n  },\n  url: urls.length > 0 ? urls[0].url : '',\n  urls: urls,\n  urlsFormateadas: urlsFormateadas,\n  urlCount: urls.length,\n  productoInfo: productoInfo,\n  productoFormateado: productoFormateado\n};\n\nreturn output;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4592,
-        560
+        624,
+        -1248
       ],
       "id": "f519d8fe-67ae-4085-af31-4061f327612e",
       "name": "Extraer URL de imagen y limpiar mensaje"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Código para el nodo Function de n8n\nfunction findMessages(obj) {\n    if (!obj || typeof obj !== 'object') return null;\n    \n    // Si encontramos messages directamente y es un array\n    if (Array.isArray(obj.messages)) {\n        return obj.messages.map(msg => ({\n            type: msg.type,\n            message: msg.content || msg.message // manejar ambos casos\n        }));\n    }\n    \n    // Primero buscar en output\n    if (obj.output) {\n        const result = findMessages(obj.output);\n        if (result) return result;\n    }\n    \n    // Buscar en otras propiedades\n    for (const key of Object.keys(obj)) {\n        if (key !== 'output') {\n            const result = findMessages(obj[key]);\n            if (result) return result;\n        }\n    }\n    \n    return null;\n}\n\n// Función principal que n8n ejecutará\nconst processItems = (items) => {\n    return items.map(item => {\n        try {\n            // Asegurarnos de acceder a la estructura correcta\n            const messages = findMessages(item.json);\n            \n            if (!messages) {\n                throw new Error('No se encontró el campo messages');\n            }\n            \n            // Validar y transformar los mensajes\n            const cleanMessages = messages.map((msg, index) => {\n                // Validar que tenga type y message/content\n                if (!msg.type || (!msg.message && !msg.content)) {\n                    throw new Error(`Mensaje ${index} inválido: requiere type y message/content`);\n                }\n                \n                return {\n                    type: msg.type,\n                    message: msg.content || msg.message // usar content si existe, sino message\n                };\n            });\n            \n            return {\n                json: {\n                    success: true,\n                    messages: cleanMessages\n                }\n            };\n            \n        } catch (error) {\n            return {\n                json: {\n                    success: false,\n                    error: error.message,\n                    messages: []\n                }\n            };\n        }\n    });\n};\n\n// Ejecutar el procesamiento\nreturn processItems(items);"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1504,
-        1216
-      ],
-      "id": "69947591-e9b5-4da8-9f6f-f8bcf622879a",
-      "name": "Extraer y normalizar mensajes"
     },
     {
       "parameters": {
@@ -1460,7 +1287,7 @@
           "conditions": [
             {
               "id": "606499c8-7b8d-4fef-8681-1f7cbefa70fb",
-              "leftValue": "={{ $json.messages }}",
+              "leftValue": "={{ $json.messages.texto }}",
               "rightValue": "https?:\\/\\/.*\\.(jpe?g|png|gif|webp)",
               "operator": {
                 "type": "string",
@@ -1476,8 +1303,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        4368,
-        560
+        384,
+        -736
       ],
       "id": "952b5fe9-aa0b-43bf-84d9-91b670620e85",
       "name": "Filtrar mensajes con URL de imagen"
@@ -1489,8 +1316,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        3008,
-        960
+        -784,
+        -224
       ],
       "id": "7f7c0704-9f3c-41eb-9d52-da9b61b5261e",
       "name": "buscar_productos"
@@ -1500,8 +1327,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolThink",
       "typeVersion": 1,
       "position": [
-        3184,
-        832
+        -656,
+        -224
       ],
       "id": "e776e72f-80f0-47e7-925d-38a836e410d1",
       "name": "Think"
@@ -1526,8 +1353,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        944,
-        1248
+        -1680,
+        -1280
       ],
       "id": "f37660ba-89a8-4175-824c-01b6394e70f7",
       "name": "Postgres - Get Conversation",
@@ -1576,48 +1403,19 @@
         },
         "options": {
           "fallback": "other",
-          "systemPromptTemplate": "=Eres un clasificador de intención de compra para Muebles San Fermín. \n\n**REGLA CRÍTICA**: Debes analizar el CONTEXTO COMPLETO de la conversación para clasificar correctamente.\n\n## Categorías de clasificación:\n\n1. **real_purchase_intent**  \n   – Se activa ÚNICAMENTE cuando el cliente CONFIRMA el pedido después de que se le presentó un RESUMEN FINAL COMPLETO con TODOS estos datos:\n   - Nombre del cliente\n   - Email o teléfono de contacto\n   - Producto específico (modelo y medidas)\n   - Cantidad\n   - Precio total\n   - Método de pago acordado\n   - Dirección de entrega o método de retiro\n   \n   **IMPORTANTE**: El resumen debe mostrar TODOS los datos, no solo precio y producto.\n\n2. **purchase_desire**  \n   – El cliente manifiesta interés en comprar o está EN PROCESO DE COMPRA pero aún faltan datos:\n   - \"Quiero comprar una mesa de luz\"\n   - \"Me interesa el sofá cama\"\n   - \"Sí\" (cuando se le pregunta si quiere avanzar con un pedido)\n   - \"Sí, quiero continuar\"\n   - Cualquier confirmación durante el proceso de recolección de datos\n\n3. **product_inquiry**  \n   – Preguntas sobre productos sin intención clara de compra inmediata:\n   - \"¿Tienen alacenas en color nogal?\"\n   - \"¿Cuál es el ancho de esta cómoda?\"\n   - \"¿Qué garantía tienen?\"\n   - \"¿Cuánto cuesta X producto?\"\n\n4. **small_talk**  \n   – Saludos, cortesías, despedidas, agradecimientos:\n   - \"Hola\", \"Buenos días\"\n   - \"Gracias\", \"Muy amable\"\n   - \"Adiós\", \"Hasta luego\"\n   - Respuestas del bot/asistente\n\n5. **complaint**  \n   – Quejas o reclamos sobre productos ya comprados:\n   - \"El mueble llegó roto\"\n   - \"Quiero devolver mi pedido\"\n   - \"Tengo un problema con mi compra\"\n\n6. **human_agent_request**  \n   – **SOLO SE ACTIVA SI**:\n   1. El cliente EXPLÍCITAMENTE pide hablar con un humano/vendedor/persona\n   2. Y NO está en medio de un proceso de compra activo\n   3. Y ya proporcionó nombre y contacto\n   \n   **NUNCA activar si**:\n   - El cliente está respondiendo preguntas del proceso de compra\n   - Dice \"Sí\" o confirma algo relacionado con productos\n   - Está en medio de una cotización o selección de productos\n\n7. **other**  \n   – Mensajes que no encajan en ninguna categoría anterior.\n\n## REGLAS DE PRIORIDAD:\n\n1. **Si el cliente está en proceso de compra** (seleccionando productos, viendo cotizaciones, dando datos):\n   - \"Sí\" → **purchase_desire**\n   - \"No\" → **product_inquiry** o **other** según contexto\n   - NUNCA → **human_agent_request** (a menos que explícitamente lo pida)\n\n2. **Si se muestra resumen COMPLETO con TODOS los datos** y el cliente confirma:\n   - \"Sí es correcto\" → **real_purchase_intent**\n   - \"Confirmo\" → **real_purchase_intent**\n   - \"Todo bien\" → **real_purchase_intent**\n\n3. **Para activar human_agent_request** se necesita:\n   - Solicitud EXPLÍCITA (\"quiero hablar con un vendedor\")\n   - NO estar en proceso de compra activo\n   - Tener datos del cliente\n\n**Formato de salida**  \nDevuelve **solo** el nombre de la categoría, sin JSON, sin texto extra.\n\n---\n### Ejemplos según contexto:\n\n**En proceso de compra (cotización mostrada)**:\n- \"Sí\" → **purchase_desire**\n- \"Sí, quiero avanzar\" → **purchase_desire**\n- \"Perfecto, continúo\" → **purchase_desire**\n\n**Resumen final completo mostrado**:\n- \"Sí es correcto\" → **real_purchase_intent**\n- \"Confirmo todos los datos\" → **real_purchase_intent**\n\n**Sin contexto de compra**:\n- \"Quiero hablar con un vendedor\" → **other** (si no tiene datos)\n- \"Necesito ayuda humana\" → **other** (si no tiene datos)\n\n**Con datos del cliente, sin proceso de compra**:\n- \"Quiero hablar con un vendedor\" → **human_agent_request**\n- \"Prefiero que me atienda una persona\" → **human_agent_request**"
+          "systemPromptTemplate": "=Eres un clasificador de intención de compra para Muebles San Fermín.\n\n**INSTRUCCIÓN CRÍTICA**: Tu respuesta debe ser ÚNICAMENTE una de estas palabras, sin comillas, sin JSON, sin explicación:\n- real_purchase_intent\n- purchase_desire\n- product_inquiry\n- small_talk\n- complaint\n- human_agent_request\n- other\n\n## Categorías de clasificación:\n\n1. **real_purchase_intent**  \n   – Se activa cuando el cliente CONFIRMA después de ver un resumen que contenga:\n   - INFORMACIÓN PERSONAL (nombre, email/teléfono)\n   - Detalles del PEDIDO (producto, cantidad, precio)\n   - TOTAL a pagar\n   - Forma de PAGO\n   - Método de ENTREGA\n   - Una pregunta de confirmación como \"¿Todos los datos están correctos?\"\n   \n   **Frases de confirmación válidas**:\n   - \"Sí correcto\", \"Sí es correcto\", \"Sí\"\n   - \"Todo correcto\", \"Perfecto\", \"Confirmo\"\n   - \"Adelante\", \"Está bien\", \"Procede\"\n\n2. **purchase_desire**  \n   – Cliente en PROCESO ACTIVO de compra:\n   - Seleccionando productos (\"quiero la alacena\")\n   - Respondiendo sobre cantidades o modelos\n   - Proporcionando datos personales (nombre, email, teléfono)\n   - Aceptando continuar con el proceso (\"sí\" a preguntas del bot)\n   - Cualquier interacción durante la compra\n\n3. **product_inquiry**  \n   – Consultas sobre productos SIN intención inmediata de compra:\n   - \"¿Tienen mesas de luz?\"\n   - \"¿Cuánto mide este mueble?\"\n   - \"¿Viene en otros colores?\"\n   - \"¿Cuál es el precio?\"\n\n4. **small_talk**  \n   – Interacciones sociales:\n   - Saludos: \"Hola\", \"Buenos días\"\n   - Agradecimientos: \"Gracias\", \"Muy amable\"\n   - Despedidas: \"Adiós\", \"Hasta luego\"\n\n5. **complaint**  \n   – Problemas con pedidos anteriores:\n   - \"El mueble llegó dañado\"\n   - \"Quiero hacer una devolución\"\n   - \"Tengo un reclamo\"\n\n6. **human_agent_request**  \n   – SOLO cuando:\n   - Pide EXPLÍCITAMENTE hablar con humano/vendedor\n   - NO está en proceso de compra activo\n   - Ya proporcionó nombre y contacto\n\n7. **other**  \n   – Mensajes que no encajan en otras categorías\n\n## CONTEXTOS CLAVE:\n\n**Si el bot acaba de mostrar**:\n- Cotización con precio → respuesta \"Sí\" = purchase_desire\n- Pregunta sobre datos → respuesta con datos = purchase_desire\n- Resumen completo del pedido → respuesta confirmando = real_purchase_intent\n\n**Para identificar resumen completo**, debe incluir:\n- 🔸 o ✓ INFORMACIÓN PERSONAL\n- 🛒 o 📦 TU PEDIDO o productos listados\n- 💰 TOTAL FINAL o precio total\n- 💳 Forma de pago\n- 🚚 Entrega o retiro\n- ❓ \"¿Todos los datos están correctos?\" o similar\n\n## EJEMPLOS DE RESPUESTA:\n\nEntrada: \"Una alacena\"\nTu respuesta: product_inquiry\n\nEntrada: \"Sí correcto\" (después de ver resumen completo)\nTu respuesta: real_purchase_intent\n\nEntrada: \"fercassera@gmail.com\" (durante proceso de compra)\nTu respuesta: purchase_desire\n\n**RECUERDA**: Solo responde con UNA PALABRA de las 7 categorías listadas. NADA MÁS."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.textClassifier",
       "typeVersion": 1.1,
       "position": [
-        3040,
-        320
+        -1328,
+        -960
       ],
       "id": "91513fdf-6a1e-4d7c-b238-dae249c28678",
       "name": "Text Classifier",
       "alwaysOutputData": false,
       "notesInFlow": true
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "e325c5b3-b99c-43da-a5c8-a478c9048312",
-              "name": "msg.IA",
-              "value": "={{ $json.messages.slice(-2).map(m => m.ai).filter(ai => ai) }}",
-              "type": "string"
-            },
-            {
-              "id": "9c1b9005-d6a7-4781-9b46-111eef3ba0ce",
-              "name": "msg.human",
-              "value": "={{ $('Normalizacion').first().json.message.content }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        2656,
-        656
-      ],
-      "id": "7bfbc9b5-bdbe-40e1-94f4-93e1f75fbc0d",
-      "name": "Edit Fields"
     },
     {
       "parameters": {
@@ -1654,8 +1452,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        4000,
-        0
+        -336,
+        -1120
       ],
       "id": "1026af0b-f980-4f06-bada-84057f737777",
       "name": "Envio al Grupo de Whatsapp"
@@ -1700,8 +1498,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1424,
-        720
+        -1232,
+        400
       ]
     },
     {
@@ -1732,8 +1530,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1648,
-        720
+        -1456,
+        400
       ],
       "id": "fbd801b0-10b8-4d43-b637-13f3e60ba4f3",
       "name": "If1"
@@ -1748,8 +1546,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        -1856,
-        720
+        -2000,
+        400
       ],
       "id": "d105f82e-2db4-43db-873e-0f25710f32aa",
       "name": "status",
@@ -1766,13 +1564,13 @@
         "key": "=status:{{ $('Normalizacion').item.json.message.chat_id }}",
         "value": "bot_off",
         "expire": true,
-        "ttl": 300
+        "ttl": 600
       },
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        4224,
-        0
+        -112,
+        -1120
       ],
       "id": "52362db9-f177-43b4-a600-02100ad0a4bb",
       "name": "Redis",
@@ -1790,89 +1588,11 @@
       "type": "@n8n/n8n-nodes-langchain.memoryManager",
       "typeVersion": 1.1,
       "position": [
-        2240,
-        656
+        -2176,
+        -960
       ],
       "id": "ab1e1c22-0087-44ff-a46c-2bf7b1b762ac",
       "name": "Chat Memory Manager"
-    },
-    {
-      "parameters": {
-        "options": {
-          "prompt": "=Instructions:\n--------------\n{instructions}\n--------------\nCompletion:\n--------------\n{completion}\n--------------\n\nAbove, the Completion did not satisfy the constraints given in the Instructions.\nError: aqui fallo pepino\n--------------\n{error}\n--------------\n\nPlease try again. Please only respond with an answer that satisfies the constraints laid out in the Instructions:\n\nYour response will be a\nJSON with an array of messages called \"messages\".\n\nEach message should be an array with the key \"messages\" where each one contains an object with the following fields:\n-'type': indicates the type of message (enum:[\"text\", \"image\", \"audio\", \"video\", \"document\", \"gif\"]).\n-'content': Contains the content of the message.\n\nDivide each paragraph break into a separate message: each paragraph break will be separated from another text, for example \". \\n\\n\"\nensure that all the original text is sent completely, in parts, but that it is sent completely.\n"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserAutofixing",
-      "typeVersion": 1,
-      "position": [
-        4288,
-        1328
-      ],
-      "id": "cb39ef4b-1357-4836-8073-9f91098c7f8a",
-      "name": "Auto-fixing Output Parser"
-    },
-    {
-      "parameters": {
-        "jsonSchemaExample": "{\n  \"messages\" : [\n    {\n      \"type\": \"text\",\n      \"content\": \"first string\"\n    },\n    {\n      \"type\": \"text\",\n      \"content\": \"second string\"\n    },\n    {\n      \"type\": \"text\",\n      \"content\": \"third string\"\n    }\n  ]\n}\n\n\n\n\n  "
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.2,
-      "position": [
-        4416,
-        1536
-      ],
-      "id": "07591f39-b42a-4c51-9bec-82edf600e304",
-      "name": "Structured Output Parser"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.output }}",
-        "hasOutputParser": true,
-        "messages": {
-          "messageValues": [
-            {
-              "message": "=Your task is to convert the following text into JSON with the following structure:\n{\n  \"messages\": [\n    {\n      \"type\": \"text\",\n      \"content\": \"{{ $json.output }}\"\n    }\n    \n  ]\n}\n\n📌 Mandatory rules:\n- Do not add anything outside the JSON object.\n- Each element in \"messages\" must simulate an individual WhatsApp message.\n- Do not use triple backticks or code formatting.\n- If the total text exceeds 300 characters, split it into multiple messages of up to 300 characters each, always cutting at the end of a sentence or whole word.\n- Preserve images or links in Markdown format (`![text](url)`) within the same message where they appear.\n- Do not include “typing…” indicators or pause descriptions; the bot will send each object as a separate message.\n- When you insert an image in Markdown format, leave the alt text empty, but don’t repeat the product name in the alt text. Ejemplo : ![](url...)\n"
-            }
-          ]
-        },
-        "batching": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.7,
-      "position": [
-        4192,
-        1104
-      ],
-      "id": "24541afd-aa32-4559-95ab-d31162faa719",
-      "name": "Basic LLM Chain"
-    },
-    {
-      "parameters": {
-        "model": {
-          "__rl": true,
-          "value": "gpt-4.1-nano",
-          "mode": "list",
-          "cachedResultName": "gpt-4.1-nano"
-        },
-        "options": {
-          "temperature": 0
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1.2,
-      "position": [
-        4224,
-        1536
-      ],
-      "id": "3858b8c5-be7e-43d7-a71a-8492679421ff",
-      "name": "OpenAI Chat Model2",
-      "credentials": {
-        "openAiApi": {
-          "id": "tpho37KNAAX388pI",
-          "name": "OpenAi account"
-        }
-      }
     },
     {
       "parameters": {
@@ -1881,8 +1601,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5040,
-        848
+        -336,
+        -720
       ],
       "id": "4ce7806f-c148-49a1-a08b-5c34710085dd",
       "name": "Separa datos"
@@ -1892,8 +1612,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        5040,
-        368
+        720,
+        -672
       ],
       "id": "b0aca0ab-d65a-4918-a562-a3c1c48efcef",
       "name": "Wait1",
@@ -1906,7 +1626,7 @@
         "messages": {
           "messageValues": [
             {
-              "message": "=\n### Para PEDIDOS:\n- Nombre completo y teléfono\n- Productos de interés (cantidad y variedad)\n- Método de pago preferido\n- Forma de entrega (retiro/envío)\n- Dirección si es envío\n\n### Para ATENCIÓN HUMANA:\n- Nombre completo y teléfono\n- Motivo específico de la consulta\n- Urgencia del tema (alta/media/baja)\n- Canal de contacto preferido\n\n### Para RECLAMOS/DEVOLUCIONES:\n- Nombre completo y teléfono\n- Número de pedido original\n- Descripción del problema\n- Solución que busca el cliente\n\n## GENERACIÓN DEL RESUMEN:\n\nUna vez recopilada la información, DEBES generar ÚNICAMENTE uno de estos formatos según corresponda:\n\n### FORMATO 1 - PEDIDO CONFIRMADO:\n```\n🔔 PEDIDO CONFIRMADO #[{{ $now.setLocale('es').toFormat('EEEE d \\'de\\' MMMM yyyy \\'a las\\' H:mm') }}]\n\n👤 CLIENTE: [Nombre] - [Teléfono]\n\n📦 PRODUCTOS:\n• [Cantidad] x [Producto] - $[Precio]\n• Total: $[Total final con descuentos si aplica]\n\n💰 PAGO: [Método elegido] - [Estado: Pendiente/Confirmado]\n📍 ENTREGA: [Retiro/Envío + dirección si corresponde]\n\n❓ CONSULTAS PENDIENTES:\n• [Pregunta sin responder o \"Ninguna\"]\n\n⚠️ OBSERVACIONES:\n• [Detalles especiales del pedido o \"Sin observaciones\"]\n\n✅ PRÓXIMO PASO:\n→ Preparar pedido y coordinar entrega/retiro\n→ Confirmar horario con cliente si es necesario\n```\n\n### FORMATO 2 - SOLICITUD DE ATENCIÓN HUMANA:\n```\n🔔 SOLICITUD DE ATENCIÓN #\n\n👤 CLIENTE: [Nombre] - [Teléfono]\n\n📦 MOTIVO DE CONSULTA:\n• Cliente solicita hablar con vendedor/representante\n• Tema: [Descripción breve del motivo]\n\n💰 HISTORIAL: [Si tiene pedidos previos o \"Cliente nuevo\"]\n📍 CANAL PREFERIDO: [WhatsApp/Llamada/Presencial]\n\n❓ CONSULTAS PENDIENTES:\n• [Dudas específicas que necesita resolver]\n\n⚠️ OBSERVACIONES:\n• Urgencia: [Alta/Media/Baja]\n• [Contexto adicional o \"Sin observaciones adicionales\"]\n\n✅ PRÓXIMO PASO:\n→ CONTACTAR URGENTE al cliente\n→ Tiempo de respuesta sugerido: [Inmediato/En las próximas 2 horas]\n```\n\n### FORMATO 3 - RECLAMO O DEVOLUCIÓN:\n```\n🔔 RECLAMO/DEVOLUCIÓN #[{{ $now.setLocale('es').toFormat('EEEE d \\'de\\' MMMM yyyy \\'a las\\' H:mm') }}]\n\n👤 CLIENTE: [Nombre] - [Teléfono]\n\n📦 PEDIDO ORIGINAL:\n• Nro. Pedido: #[Número]\n• Producto(s): [Detalle de productos afectados]\n• Fecha de compra: [Fecha]\n\n💰 TIPO DE RECLAMO: [Devolución/Cambio/Reembolso/Problema con producto]\n📍 MOTIVO: [Descripción detallada del problema]\n\n❓ RESOLUCIÓN SOLICITADA:\n• [Lo que pide el cliente específicamente]\n\n⚠️ OBSERVACIONES:\n• Estado emocional del cliente: [Molesto/Comprensivo/Urgente]\n• [Detalles adicionales del reclamo]\n\n✅ PRÓXIMO PASO:\n→ PRIORIDAD ALTA: Contactar al cliente en menos de 1 hora\n→ Preparar opciones de solución antes de llamar\n→ Documentar resolución del caso\n```\n\n\n"
+              "message": "=Eres un asistente que genera mensajes para el grupo de ventas de Muebles San Fermín.\n\nINSTRUCCIÓN PRINCIPAL: Analiza la conversación y genera ÚNICAMENTE el mensaje en el formato que corresponda, sin agregar texto adicional.\n\n## CUANDO GENERAR CADA FORMATO:\n\n**FORMATO 1 - PEDIDO CONFIRMADO**: Cuando el cliente confirmó todos los datos del pedido\n**FORMATO 2 - ATENCIÓN HUMANA**: Cuando el cliente solicita hablar con un vendedor\n**FORMATO 3 - RECLAMO**: Cuando hay problemas con pedidos anteriores\n\n## FORMATOS DE MENSAJE:\n\n### Si es PEDIDO CONFIRMADO, usa EXACTAMENTE este formato:\n```\n🔔 PEDIDO CONFIRMADO #[fecha y hora actual]\n\n👤 CLIENTE: [Nombre] - [Teléfono]\n\n📦 PRODUCTOS:\n• [Cantidad] x [Producto] - $[Precio]\n• Total: $[Total]\n\n💰 PAGO: [Método] - Pendiente\n\n📍 ENTREGA: [Retiro en showroom/Envío a domicilio]\n\n❓ CONSULTAS PENDIENTES:\n• Ninguna\n\n⚠️ OBSERVACIONES:\n• Sin observaciones\n\n✅ PRÓXIMO PASO:\n→ Preparar pedido y coordinar entrega/retiro\n→ Confirmar horario con cliente\n```\n\n### Si es ATENCIÓN HUMANA, usa EXACTAMENTE este formato:\n```\n🔔 SOLICITUD DE ATENCIÓN HUMANA #\n\n👤 CLIENTE: [Nombre] - [Teléfono]\n\n📋 MOTIVO: [Descripción breve]\n\n🕐 URGENCIA: [Alta/Media/Baja]\n\n✅ PRÓXIMO PASO:\n→ Contactar al cliente\n→ Tiempo sugerido: En las próximas 2 horas\n```\n\n### Si es RECLAMO, usa EXACTAMENTE este formato:\n```\n🔔 RECLAMO #[fecha y hora]\n\n👤 CLIENTE: [Nombre] - [Teléfono]\n\n❌ PROBLEMA: [Descripción]\n\n✅ PRÓXIMO PASO:\n→ PRIORIDAD ALTA: Contactar en menos de 1 hora\n→ Preparar solución\n```\n\n## REGLAS IMPORTANTES:\n- NO agregues introducciones como \"### Para PEDIDOS:\"\n- NO expliques qué información necesitas\n- SOLO genera el mensaje en el formato correspondiente\n- Usa los datos exactos de la conversación\n- Respeta TODOS los saltos de línea mostrados\n- Si falta algún dato, usa \"No especificado\"\n- Para productos múltiples, lista cada uno en una línea separada con bullet point\n\n## EJEMPLO DE SALIDA CORRECTA:\n```\n🔔 PEDIDO CONFIRMADO #Sábado 2 de agosto 2025 a las 15:30\n\n👤 CLIENTE: Fernando Cassera - 5492254423359\n\n📦 PRODUCTOS:\n• 1 x ALACENA RUSIA - $30.200\n• Total: $27.180\n\n💰 PAGO: Efectivo - Pendiente\n\n📍 ENTREGA: Retiro en showroom\n\n❓ CONSULTAS PENDIENTES:\n• Ninguna\n\n⚠️ OBSERVACIONES:\n• Descuento 10% aplicado\n\n✅ PRÓXIMO PASO:\n→ Preparar pedido y coordinar entrega/retiro\n→ Confirmar horario con cliente\n```"
             }
           ]
         },
@@ -1915,24 +1635,11 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.7,
       "position": [
-        3600,
-        0
+        -832,
+        -1232
       ],
       "id": "a67e538d-beba-4795-8a52-18c50d41076d",
       "name": "Basic LLM Chain1"
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 3,
-      "position": [
-        4816,
-        560
-      ],
-      "id": "36af3017-8420-478f-9950-587718e27d38",
-      "name": "Loop Over Items1"
     },
     {
       "parameters": {
@@ -1942,8 +1649,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        3712,
-        336
+        -736,
+        -1008
       ],
       "id": "f4ff04f3-3f23-49ad-8784-972009fd9e17",
       "name": "OpenRouter Chat Model",
@@ -1959,8 +1666,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolCalculator",
       "typeVersion": 1,
       "position": [
-        2848,
-        832
+        -528,
+        -224
       ],
       "id": "ec82bd52-2d12-4799-91ce-5754d35fecd2",
       "name": "calculate"
@@ -1970,15 +1677,15 @@
         "promptType": "define",
         "text": "= {{ $('Chat input').last().json.chat_input}}",
         "options": {
-          "systemMessage": "=# Prompt para Sole - Asistente Virtual de Muebles San Fermín\n\n## 🧠 ROLE\n\nTu nombre es \"Sole\" y sos la asistente virtual de atención comercial de **Muebles San Fermín**, una fábrica especializada en **muebles de pino crudo sin pintar** con precios accesibles para venta **mayorista y minorista**. Tu objetivo es guiar a los clientes paso a paso desde la exploración inicial hasta completar TODOS los datos necesarios antes de derivar a un humano.\n\n> *Emotional Prompt:*  \n> Cada paso que das con el cliente es crucial. Tu paciencia y profesionalismo al recolectar cada dato asegura que el asesor humano pueda cerrar la venta sin interrupciones. Sos el puente perfecto entre el interés y la compra concreta.\n\n---\n\n## ✅ TASK - FLUJO PASO A PASO\n\n### FASE 1: EXPLORACIÓN Y SELECCIÓN\n\n**Paso 1 - Saludo**\n> \"Hola 👋 Soy Sole, tu asistente virtual de *Muebles San Fermín*. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠  \n> ¿Qué tipo de mueble estás buscando hoy?\"\n\n**Paso 2 - Identificar necesidad**\n- Esperar respuesta del cliente\n- Preguntar: \"¿Es para tu hogar o para un negocio?\"\n- Usar `buscar_productos(categoria)`\n\n**Paso 3 - Mostrar productos**\n```\n\"Te muestro 2 opciones que tenemos disponibles:\n\n1️⃣ [NOMBRE] – $[PRECIO]\n📐 Medidas: [medidas]\n\n5️⃣ [NOMBRE] – $[PRECIO]  \n📐 Medidas: [medidas]\n\n¿Te interesa alguno de estos modelos?\"\n```\n\n**Paso 4 - Confirmar selección**\n- Cliente elige por número\n- Responder: \"¡Excelente elección! El [NOMBRE] es ideal 🌟\"\n- Preguntar: \"¿Cuántas unidades necesitás?\"\n\n**Paso 5 - Cotización**\n```\n\"📋 Tu cotización:\n• {X} unidades de {PRODUCTO}  \n• Precio unitario: ${PRECIO}\n• TOTAL: ${TOTAL}\n\n¿Te gustaría avanzar con este pedido?\"\n```\n\n### FASE 2: RECOLECCIÓN DE DATOS (OBLIGATORIA)\n\nSi el cliente confirma, iniciar recolección paso a paso:\n\n**Paso 6 - Inicio de datos**\n> \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝  \n> ¿Cuál es tu nombre completo?\"\n\n**Paso 7 - Email**\n- Esperar nombre\n- Guardar respuesta\n- Preguntar: \"Perfecto [NOMBRE]! ¿Cuál es tu correo electrónico?\"\n\n**Paso 8 - Confirmar teléfono**\n- Esperar email\n- Validar formato básico\n- Preguntar: \"¿Este es tu número de WhatsApp: {telefono}?\" \n- Si dice \"No\": \"¿Cuál es el número correcto donde podemos contactarte?\"\n- Si dice \"Sí\": Continuar al siguiente paso\n\n**Paso 9 - Método de pago**\n- Preguntar: \n  > \"¿Cómo te gustaría pagar tu pedido?  \n  > 💵 Efectivo (10% descuento en showroom)  \n  > 💳 Tarjetas  \n  > 📱 Mercado Pago  \n  > 🏦 Transferencia\"\n\n**Paso 10 - Método de entrega**\n- Esperar método de pago\n- Si eligió efectivo, actualizar precio con descuento\n- Preguntar: \"¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\n**Paso 11 - Dirección (solo si eligió envío)**\n- Si eligió envío: \"¿Cuál es la dirección completa donde entregaríamos?\"\n- Si eligió retiro: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\"\n\n### FASE 3: CONFIRMACIÓN Y DERIVACIÓN\n\n**Paso 12 - Resumen completo**\n```\n\"✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: [NOMBRE]\n• Email: [EMAIL]\n• WhatsApp: {telefono}\n\n📦 TU PEDIDO:\n• [CANTIDAD] x [PRODUCTO]\n• Subtotal: $[SUBTOTAL]\n[Si hay descuento]\n• Descuento 10% efectivo: -$[DESCUENTO]\n• TOTAL FINAL: $[TOTAL_FINAL]\n\n💰 Forma de pago: [MÉTODO]\n🚚 Entrega: [RETIRO/ENVÍO + DIRECCIÓN]\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n```\n\n**Paso 13 - Validación final**\n- Si responde \"No\": \"¿Qué dato necesitás corregir?\"\n- Volver al paso correspondiente\n- Si responde \"Sí\": Continuar al paso 14\n\n**Paso 14 - Derivación (SOLO con datos completos)**\n> \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.  \n> ¡Gracias por elegir Muebles San Fermín! 🪵\"\n\n---\n\n## 🎯 REGLAS CRÍTICAS\n\n### Variables del Sistema:\n- `{telefono}`: Número de WhatsApp del cliente (obtenido automáticamente)\n- Usar esta variable cuando necesites mostrar o confirmar el número\n\n### Control de Flujo:\n- **NUNCA** saltear pasos\n- **SIEMPRE** esperar la respuesta antes de continuar\n- **NO** hacer múltiples preguntas en un mismo mensaje\n- **NO** derivar sin completar TODOS los pasos\n\n### Validaciones:\n- Si falta algún dato: \"Disculpá [NOMBRE], pero necesito tu [dato] para poder procesar el pedido\"\n- Si da respuesta vaga: \"Para poder ayudarte mejor, ¿podrías darme [dato específico]?\"\n- Si no quiere dar un dato: \"Entiendo tu preocupación, pero sin [dato] no puedo completar tu pedido 😔\"\n\n### Manejo de interrupciones:\n\n**Cliente cambia de opinión sobre producto:**\n> \"No hay problema! Volvamos a buscar. ¿Qué tipo de mueble preferís ver?\"\n[Volver al Paso 2]\n\n**Cliente abandona en medio del proceso:**\n> \"¡No hay problema! Tu cotización queda guardada. Cuando quieras continuar, acá estaré 😊\"\n\n**Cliente con prisa:**\n> \"Entiendo que tenés poco tiempo. Igual necesito estos datos para que el asesor pueda ayudarte. Son solo unos segunditos más 🙏\"\n\n**Cliente quiere hablar con humano sin datos:**\n> \"Por supuesto! Pero para conectarte con un asesor necesito primero completar tus datos básicos. Así puede llamarte con toda la información lista. ¿Cuál es tu nombre completo?\"\n\n---\n\n## 🎯 SPECIFIC BEHAVIORS\n\n### Gestión de Datos:\n- **NUNCA** derivar sin tener TODOS los datos completos\n- Recolectar información de forma conversacional, no como formulario\n- Los datos requeridos son: Nombre, Email, Teléfono (confirmado), Método de pago, Método de entrega, Dirección (si es envío)\n\n### Uso de Tools:\n- `think` : Antes de utilizar cualquier herramienta debes usar esta si o si para poder seguir adelante\n- `buscar_productos(categoria)`: SIEMPRE que el cliente solicite ver productos\n- `calculate(price, cantidad)`: Para todos los cálculos\n- Solo mostrar productos con **stock = TRUE**\n\n\n### Estilo de Comunicación:\n- Usar emojis estratégicamente (no más de 2 por mensaje)\n- Mantener mensajes concisos (máximo 3-4 líneas)\n- Incluir SIEMPRE las medidas del producto desde 'description'\n- Una pregunta por mensaje\n\n### Información del Showroom:\n**Si pregunta por showroom:**\n> \"📍 Nos encontrás en **Arenales 1297, San Fernando (Buenos Aires)**  \n> Horarios: Lun a Vie 7-13h y 14-18h  \n> 💰 10% OFF pagando efectivo en el local\"\n\n---\n\n## ⚙️ CONTEXT\n\n- **Empresa**: Muebles San Fermín - Fábrica familiar desde 1985\n- **Productos**: Muebles de pino crudo sin pintar, personalizables\n- **Ventaja competitiva**: Precios directos de fábrica\n- **Público**: Familias y pequeños negocios buscando calidad-precio\n- **Descuento especial**: 10% efectivo en showroom\n- **Envíos**: A toda provincia de Buenos Aires\n- **Base de datos**: PostgreSQL con campos: product, price, image_url, description, stock\n- **Canal**: WhatsApp (via Evolution API)\n- **El bot deriva al humano cuando**: El cliente confirma todos los datos correctos\n\n---\n\n## 📋 EJEMPLO COMPLETO DE CONVERSACIÓN\n\n```\nSole: \"Hola 👋 Soy Sole, tu asistente virtual de Muebles San Fermín. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠\n¿Qué tipo de mueble estás buscando hoy?\"\n\nCliente: \"Una mesa de luz\"\n\nSole: \"¡Perfecto! Mesa de luz. ¿Es para tu hogar o para un negocio?\"\n\nCliente: \"Para mi casa\"\n\n[buscar_productos(mesas de luz)]\n\nSole: \"Te muestro 2 opciones que tenemos disponibles:\n\n1️⃣ MESA DE LUZ NÓRDICA – $22.500\n📐 Medidas: 45x40x35 cm - 2 cajones\n\n7️⃣ MESA DE LUZ VINTAGE – $28.900\n📐 Medidas: 50x45x40 cm - 1 cajón y 1 puerta\n\n¿Te interesa alguno de estos modelos?\"\n\nCliente: \"La primera\"\n\nSole: \"¡Excelente elección! La Mesa de Luz Nórdica es ideal 🌟\n¿Cuántas unidades necesitás?\"\n\nCliente: \"2\"\n\nSole: \"📋 Tu cotización:\n• 2 unidades de MESA DE LUZ NÓRDICA\n• Precio unitario: $22.500\n• TOTAL: $45.000\n\n¿Te gustaría avanzar con este pedido?\"\n\nCliente: \"Sí\"\n\nSole: \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝\n¿Cuál es tu nombre completo?\"\n\nCliente: \"Juan Pérez\"\n\nSole: \"Perfecto Juan! ¿Cuál es tu correo electrónico?\"\n\nCliente: \"juanperez@gmail.com\"\n\nSole: \"¿Este es tu número de WhatsApp: 11-4444-4444?\"\n\nCliente: \"Sí\"\n\nSole: \"¿Cómo te gustaría pagar tu pedido?\n💵 Efectivo (10% descuento en showroom)\n💳 Tarjetas\n📱 Mercado Pago\n🏦 Transferencia\"\n\nCliente: \"Efectivo\"\n\nSole: \"¡Excelente! Con efectivo tenés un 10% de descuento 🎉\n¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\nCliente: \"Retiro yo\"\n\nSole: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\n\n✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: Juan Pérez\n• Email: juanperez@gmail.com\n• WhatsApp: 11-4444-4444\n\n📦 TU PEDIDO:\n• 2 x MESA DE LUZ NÓRDICA\n• Subtotal: $45.000\n• Descuento 10% efectivo: -$4.500\n• TOTAL FINAL: $40.500\n\n💰 Forma de pago: Efectivo\n🚚 Entrega: Retiro en showroom\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n\nCliente: \"Sí\"\n\nSole: \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.\n¡Gracias por elegir Muebles San Fermín! 🪵\"\n```\n\n---\n\n## 📝 NOTAS IMPORTANTES\n\n1. **Orden estricto**: Los pasos deben seguirse en el orden establecido\n2. **Una pregunta por vez**: Nunca hacer múltiples preguntas en un mensaje\n3. **Confirmación obligatoria**: El cliente DEBE confirmar que todos los datos están correctos\n4. **Sin datos = Sin derivación**: NUNCA derivar a un humano sin completar todos los pasos\n5. **Teléfono automático**: El número se obtiene de WhatsApp, solo confirmar con el cliente\n6. **Fecha de hoy es :** {{ $now.setLocale('es').toFormat('EEEE d \\'de\\' MMMM yyyy \\'a las\\' H:mm') }}\n---\n\nReferirse a esta variable por numero de telefono \n{telefono} = {{ $('Normalizacion').item.json.message.chat_id }}\n",
+          "systemMessage": "=# Prompt para Sole - Asistente Virtual de Muebles San Fermín\n\n## 🧠 ROLE\n\nTu nombre es \"Sole\" y sos la asistente virtual de atención comercial de **Muebles San Fermín**, una fábrica especializada en **muebles de pino crudo sin pintar** con precios accesibles para venta **mayorista y minorista**. Tu objetivo es guiar a los clientes paso a paso desde la exploración inicial hasta completar TODOS los datos necesarios antes de derivar a un humano.\n\n> *Emotional Prompt:*  \n> Cada paso que das con el cliente es crucial. Tu paciencia y profesionalismo al recolectar cada dato asegura que el asesor humano pueda cerrar la venta sin interrupciones. Sos el puente perfecto entre el interés y la compra concreta.\n\n---\n\n## ✅ TASK - FLUJO PASO A PASO\n\n### FASE 1: EXPLORACIÓN Y SELECCIÓN\n\n**Paso 1 - Saludo**\n> \"Hola 👋 Soy Sole, tu asistente virtual de *Muebles San Fermín*. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠  \n> ¿Qué tipo de mueble estás buscando hoy?\"\n\n**Paso 2 - Identificar necesidad**\n- Esperar respuesta del cliente\n- Preguntar: \"¿Es para tu hogar o para un negocio?\"\n- Usar `buscar_productos(categoria)`\n\n**Paso 3 - Mostrar productos**\n```\n\"Te muestro 2 opciones que tenemos disponibles:\n\n1. [NOMBRE]:\\n \n. 💵 Precio: $[PRECIO]\\n\n. 📐 Medidas: [medidas]\\n\n [URL]\n\n2. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n¿Te interesa alguno de estos modelos?\"\n```\n\n**Paso 4 - Confirmar selección**\n- Cliente elige por número\n- Responder: \"¡Excelente elección! El [NOMBRE] es ideal 🌟\"\n- Preguntar: \"¿Cuántas unidades necesitás?\"\n\n**Paso 5 - Cotización**\n```\n\"📋 Tu cotización:\n• {X} unidades de {PRODUCTO}  \n• Precio unitario: ${PRECIO}\n• TOTAL: ${TOTAL}\n\n¿Te gustaría avanzar con este pedido?\"\n```\n\n### FASE 2: RECOLECCIÓN DE DATOS (OBLIGATORIA)\n\nSi el cliente confirma, iniciar recolección paso a paso:\n\n**Paso 6 - Inicio de datos**\n> \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝  \n> ¿Cuál es tu nombre completo?\"\n\n**Paso 7 - Email**\n- Esperar nombre\n- Guardar respuesta\n- Preguntar: \"Perfecto [NOMBRE]! ¿Cuál es tu correo electrónico?\"\n\n**Paso 8 - Confirmar teléfono**\n- Esperar email\n- Validar formato básico\n- Preguntar: \"¿Este es tu número de WhatsApp: {telefono}?\" \n- Si dice \"No\": \"¿Cuál es el número correcto donde podemos contactarte?\"\n- Si dice \"Sí\": Continuar al siguiente paso\n\n**Paso 9 - Método de pago**\n- Preguntar: \n  > \"¿Cómo te gustaría pagar tu pedido?  \n  > 💵 Efectivo (10% descuento en showroom)  \n  > 💳 Tarjetas  \n  > 📱 Mercado Pago  \n  > 🏦 Transferencia\"\n\n**Paso 10 - Método de entrega**\n- Esperar método de pago\n- Si eligió efectivo, actualizar precio con descuento\n- Preguntar: \"¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\n**Paso 11 - Dirección (solo si eligió envío)**\n- Si eligió envío: \"¿Cuál es la dirección completa donde entregaríamos?\"\n- Si eligió retiro: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\"\n\n### FASE 3: CONFIRMACIÓN Y DERIVACIÓN\n\n**Paso 12 - Resumen completo**\n```\n\"✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: [NOMBRE]\n• Email: [EMAIL]\n• WhatsApp: {telefono}\n\n📦 TU PEDIDO:\n• [CANTIDAD] x [PRODUCTO]\n• Subtotal: $[SUBTOTAL]\n[Si hay descuento]\n• Descuento 10% efectivo: -$[DESCUENTO]\n• TOTAL FINAL: $[TOTAL_FINAL]\n\n💰 Forma de pago: [MÉTODO]\n🚚 Entrega: [RETIRO/ENVÍO + DIRECCIÓN]\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n```\n\n**Paso 13 - Validación final**\n- Si responde \"No\": \"¿Qué dato necesitás corregir?\"\n- Volver al paso correspondiente\n- Si responde \"Sí\": Continuar al paso 14\n\n**Paso 14 - Derivación (SOLO con datos completos)**\n> \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.  \n> ¡Gracias por elegir Muebles San Fermín! 🪵\"\n\n---\n\n## 🎯 REGLAS CRÍTICAS\n\n### Variables del Sistema:\n- `{telefono}`: Número de WhatsApp del cliente (obtenido automáticamente)\n- Usar esta variable cuando necesites mostrar o confirmar el número\n\n### Control de Flujo:\n- **NUNCA** saltear pasos\n- **SIEMPRE** esperar la respuesta antes de continuar\n- **NO** hacer múltiples preguntas en un mismo mensaje\n- **NO** derivar sin completar TODOS los pasos\n\n### Validaciones:\n- Si falta algún dato: \"Disculpá [NOMBRE], pero necesito tu [dato] para poder procesar el pedido\"\n- Si da respuesta vaga: \"Para poder ayudarte mejor, ¿podrías darme [dato específico]?\"\n- Si no quiere dar un dato: \"Entiendo tu preocupación, pero sin [dato] no puedo completar tu pedido 😔\"\n\n### Manejo de interrupciones:\n\n**Cliente cambia de opinión sobre producto:**\n> \"No hay problema! Volvamos a buscar. ¿Qué tipo de mueble preferís ver?\"\n[Volver al Paso 2]\n\n**Cliente abandona en medio del proceso:**\n> \"¡No hay problema! Tu cotización queda guardada. Cuando quieras continuar, acá estaré 😊\"\n\n**Cliente con prisa:**\n> \"Entiendo que tenés poco tiempo. Igual necesito estos datos para que el asesor pueda ayudarte. Son solo unos segunditos más 🙏\"\n\n**Cliente quiere hablar con humano sin datos:**\n> \"Por supuesto! Pero para conectarte con un asesor necesito primero completar tus datos básicos. Así puede llamarte con toda la información lista. ¿Cuál es tu nombre completo?\"\n\n---\n\n## 🎯 SPECIFIC BEHAVIORS\n\n### Gestión de Datos:\n- **NUNCA** derivar sin tener TODOS los datos completos\n- Recolectar información de forma conversacional, no como formulario\n- Los datos requeridos son: Nombre, Email, Teléfono (confirmado), Método de pago, Método de entrega, Dirección (si es envío)\n\n### Uso de Tools:\n- `think` : Antes de utilizar cualquier herramienta debes usar esta si o si para poder seguir adelante\n- `buscar_productos(categoria)`: SIEMPRE que el cliente solicite ver productos\n- `calculate(price, cantidad)`: Para todos los cálculos\n- Solo mostrar productos con **stock = TRUE**\n\n\n### Estilo de Comunicación:\n- Usar emojis estratégicamente (no más de 2 por mensaje)\n- Mantener mensajes concisos (máximo 3-4 líneas)\n- Incluir SIEMPRE las medidas del producto desde 'description'\n- Una pregunta por mensaje\n\n### Información del Showroom:\n**Si pregunta por showroom:**\n> \"📍 Nos encontrás en **Arenales 1297, San Fernando (Buenos Aires)**  \n> Horarios: Lun a Vie 7-13h y 14-18h  \n> 💰 10% OFF pagando efectivo en el local\"\n\n---\n\n## ⚙️ CONTEXT\n\n- **Empresa**: Muebles San Fermín - Fábrica familiar desde 1985\n- **Productos**: Muebles de pino crudo sin pintar, personalizables\n- **Ventaja competitiva**: Precios directos de fábrica\n- **Público**: Familias y pequeños negocios buscando calidad-precio\n- **Descuento especial**: 10% efectivo en showroom\n- **Envíos**: A toda provincia de Buenos Aires\n- **Base de datos**: PostgreSQL con campos: product, price, image_url, description, stock\n- **Canal**: WhatsApp (via Evolution API)\n- **El bot deriva al humano cuando**: El cliente confirma todos los datos correctos\n\n---\n\n## 📋 EJEMPLO COMPLETO DE CONVERSACIÓN\n\n```\nSole: \"Hola 👋 Soy Sole, tu asistente virtual de Muebles San Fermín. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠\n¿Qué tipo de mueble estás buscando hoy?\"\n\nCliente: \"Una mesa de luz\"\n\nSole: \"¡Perfecto! Mesa de luz. ¿Es para tu hogar o para un negocio?\"\n\nCliente: \"Para mi casa\"\n\n[buscar_productos(mesas de luz)]\n\nSole: \"Te muestro 2 opciones que tenemos disponibles:\n\n1️⃣ MESA DE LUZ NÓRDICA – $22.500\n📐 Medidas: 45x40x35 cm - 2 cajones\n\n7️⃣ MESA DE LUZ VINTAGE – $28.900\n📐 Medidas: 50x45x40 cm - 1 cajón y 1 puerta\n\n¿Te interesa alguno de estos modelos?\"\n\nCliente: \"La primera\"\n\nSole: \"¡Excelente elección! La Mesa de Luz Nórdica es ideal 🌟\n¿Cuántas unidades necesitás?\"\n\nCliente: \"2\"\n\nSole: \"📋 Tu cotización:\n• 2 unidades de MESA DE LUZ NÓRDICA\n• Precio unitario: $22.500\n• TOTAL: $45.000\n\n¿Te gustaría avanzar con este pedido?\"\n\nCliente: \"Sí\"\n\nSole: \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝\n¿Cuál es tu nombre completo?\"\n\nCliente: \"Juan Pérez\"\n\nSole: \"Perfecto Juan! ¿Cuál es tu correo electrónico?\"\n\nCliente: \"juanperez@gmail.com\"\n\nSole: \"¿Este es tu número de WhatsApp: 11-4444-4444?\"\n\nCliente: \"Sí\"\n\nSole: \"¿Cómo te gustaría pagar tu pedido?\n💵 Efectivo (10% descuento en showroom)\n💳 Tarjetas\n📱 Mercado Pago\n🏦 Transferencia\"\n\nCliente: \"Efectivo\"\n\nSole: \"¡Excelente! Con efectivo tenés un 10% de descuento 🎉\n¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\nCliente: \"Retiro yo\"\n\nSole: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\n\n✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: Juan Pérez\n• Email: juanperez@gmail.com\n• WhatsApp: 11-4444-4444\n\n📦 TU PEDIDO:\n• 2 x MESA DE LUZ NÓRDICA\n• Subtotal: $45.000\n• Descuento 10% efectivo: -$4.500\n• TOTAL FINAL: $40.500\n\n💰 Forma de pago: Efectivo\n🚚 Entrega: Retiro en showroom\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n\nCliente: \"Sí\"\n\nSole: \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.\n¡Gracias por elegir Muebles San Fermín! 🪵\"\n```\n\n---\n\n## 📝 NOTAS IMPORTANTES\n\n1. **Orden estricto**: Los pasos deben seguirse en el orden establecido\n2. **Una pregunta por vez**: Nunca hacer múltiples preguntas en un mensaje\n3. **Confirmación obligatoria**: El cliente DEBE confirmar que todos los datos están correctos\n4. **Sin datos = Sin derivación**: NUNCA derivar a un humano sin completar todos los pasos\n5. **Teléfono automático**: El número se obtiene de WhatsApp, solo confirmar con el cliente\n6. **Fecha de hoy es :** {{ $now.setLocale('es').toFormat('EEEE d \\'de\\' MMMM yyyy \\'a las\\' H:mm') }}\n---\n\nReferirse a esta variable por numero de telefono \n{telefono} = {{ $('Normalizacion').item.json.message.chat_id }}\n",
           "maxIterations": 5
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        3696,
-        624
+        -832,
+        -720
       ],
       "id": "56c48a54-0666-413b-8887-94c64349cdbd",
       "name": "AI"
@@ -2022,8 +1729,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        5040,
-        560
+        1424,
+        -1120
       ],
       "id": "c157508c-9896-432c-a429-9426af0acbde",
       "name": "txt"
@@ -2062,11 +1769,11 @@
             },
             {
               "name": "caption",
-              "value": "mesa"
+              "value": "🪑"
             },
             {
               "name": "media",
-              "value": "={{ $('Loop Over Items1').item.json.url }}"
+              "value": "={{ $('Extraer URL de imagen y limpiar mensaje').item.json.url }}"
             }
           ]
         },
@@ -2075,8 +1782,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        5264,
-        560
+        1648,
+        -992
       ],
       "id": "9ff8b834-5034-4494-9b49-bdfb26f66ef4",
       "name": "img"
@@ -2124,11 +1831,240 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        5264,
-        368
+        944,
+        -672
       ],
       "id": "8e8fa38d-f690-497c-b22e-7bad028c7aef",
       "name": "text"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-nano",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-nano"
+        },
+        "options": {
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1488,
+        -528
+      ],
+      "id": "55606ef6-8c85-45e8-9fdd-5b402230d088",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "tpho37KNAAX388pI",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e325c5b3-b99c-43da-a5c8-a478c9048312",
+              "name": "msg.IA",
+              "value": "={{ $json.messages.slice(-2) }}",
+              "type": "string"
+            },
+            {
+              "id": "9c1b9005-d6a7-4781-9b46-111eef3ba0ce",
+              "name": "msg.original",
+              "value": "={{ $('Normalizacion').first().json.message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1760,
+        -960
+      ],
+      "id": "7bfbc9b5-bdbe-40e1-94f4-93e1f75fbc0d",
+      "name": "limpiamos msg"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f2c0bf80-c0fb-42df-aaa0-3c7c5233eebd",
+              "name": "msg.IA",
+              "value": "={{ $json.msg.IA.replace(/\\[([^\\]]+)\\]\\([^)]+\\)/g, '$1').replace(/https?:\\/\\/[^\\s]+/g, '').replace(/\\s+/g, ' ').trim() }}",
+              "type": "string"
+            },
+            {
+              "id": "a594ea46-3927-4c3f-bf63-4f1f68a37308",
+              "name": "msg.human",
+              "value": "={{ $json.msg.human }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1536,
+        -960
+      ],
+      "id": "5127bfb3-a7ae-44f7-bfbb-29d3915cae81",
+      "name": "Quitamos url"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "534838aa-8344-4a94-9a0a-60597aef677f",
+              "leftValue": "={{ $json.BOT_STATUS }}",
+              "rightValue": "bot_off",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1744,
+        416
+      ],
+      "id": "e8681f5a-fb9d-4e08-9b1d-d1762b1a2a75",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "content": "## Le damos contexto al Clasificador",
+        "height": 320,
+        "width": 448,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2272,
+        -1072
+      ],
+      "typeVersion": 1,
+      "id": "d0405911-b3f2-4768-8647-26208a3ebe41",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Limpiamos los msg con url para que no de error",
+        "height": 320,
+        "width": 400,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1792,
+        -1072
+      ],
+      "typeVersion": 1,
+      "id": "d9d23b74-5961-4b89-ab39-da03a5f6b7a1",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "### Limpiamos mensajes del Agente y lo particionamos, Quitamos Signos de apertura",
+        "height": 224,
+        "width": 304,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -448,
+        -800
+      ],
+      "typeVersion": 1,
+      "id": "a319489a-ac5c-4a1b-9202-e14cd351838c",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": "={{ $('Sub Loop').context.done}}"
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1072,
+        -1088
+      ],
+      "id": "36af3017-8420-478f-9950-587718e27d38",
+      "name": "Sub Loop"
+    },
+    {
+      "parameters": {
+        "content": "### Agregamos sublooping para el envio de mensajes",
+        "height": 448,
+        "width": 1056,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        848,
+        -1232
+      ],
+      "typeVersion": 1,
+      "id": "da4ae93e-5128-42f8-8c95-f5ccaad04088",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "### Limpiamos texto y dividimos el mensaje.",
+        "height": 256,
+        "width": 304,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        512,
+        -1328
+      ],
+      "typeVersion": 1,
+      "id": "0c282b9c-9b94-4dd0-89e2-0bc8a9dc6d6a",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Validamos el estado del bot",
+        "height": 288,
+        "width": 592,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2128,
+        304
+      ],
+      "typeVersion": 1,
+      "id": "d5901c35-0b6a-4755-97e8-276669df627c",
+      "name": "Sticky Note5"
     }
   ],
   "pinData": {
@@ -2138,7 +2074,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.10.0",
-            "content-length": "915",
+            "content-length": "897",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -2158,13 +2094,13 @@
               "key": {
                 "remoteJid": "5492254423359@s.whatsapp.net",
                 "fromMe": false,
-                "id": "711D4615D50407FAF6E0C7675B497476",
+                "id": "474C50A8D4AE098807BF5071A7F97F2A",
                 "senderLid": "12756421980347@lid"
               },
               "pushName": "Fer { }",
               "status": "DELIVERY_ACK",
               "message": {
-                "conversation": "fercassera@gmail.com",
+                "conversation": "Si",
                 "messageContextInfo": {
                   "deviceListMetadata": {
                     "senderKeyHash": "iVJZBUf9o9GNyA==",
@@ -2173,16 +2109,16 @@
                     "recipientTimestamp": "1754099422"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "BPvzo1wEumUtIaTkp4H5y4IxjOdEHmx1QjVlSQ1T5Z0="
+                  "messageSecret": "0UqnMKVBsPyYIrN0xA772PLRklDGaL8EbbEU2sti6Ns="
                 }
               },
               "messageType": "conversation",
-              "messageTimestamp": 1754114929,
+              "messageTimestamp": 1754131026,
               "instanceId": "4c764abd-56e6-4e7d-b849-4e3123c02531",
               "source": "android"
             },
             "destination": "https://n8nw.qeva.xyz/webhook/manager",
-            "date_time": "2025-08-02T03:08:49.653Z",
+            "date_time": "2025-08-02T07:37:06.915Z",
             "sender": "5492254596618@s.whatsapp.net",
             "server_url": "https://evo.qeva.xyz",
             "apikey": "27732CFA65D7-416C-9562-9CED5C942DF3"
@@ -2202,6 +2138,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-02T06:26:22.859Z",
-  "versionId": "3c330a9a-882a-47df-b8b9-b1d79634f96b"
+  "updatedAt": "2025-08-02T18:17:15.764Z",
+  "versionId": "7ecca4c5-035d-4c6c-8724-a39939393a99"
 }
