@@ -232,22 +232,6 @@
         ]
       ]
     },
-    "Postgres Chat Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "AI",
-            "type": "ai_memory",
-            "index": 0
-          },
-          {
-            "node": "Chat Memory Manager",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Split Out1": {
       "main": [
         [
@@ -275,7 +259,7 @@
       "main": [
         [
           {
-            "node": "Extraer URL de imagen y limpiar mensaje",
+            "node": "Extraer URL de imagen y limpiar mensaje1",
             "type": "main",
             "index": 0
           }
@@ -309,11 +293,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Postgres - Get Conversation": {
-      "main": [
-        []
       ]
     },
     "Text Classifier": {
@@ -388,13 +367,7 @@
     },
     "Extraer URL de imagen y limpiar mensaje": {
       "main": [
-        [
-          {
-            "node": "Sub Loop",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "If1": {
@@ -448,17 +421,6 @@
         [
           {
             "node": "limpiamos msg",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Separa datos": {
-      "main": [
-        [
-          {
-            "node": "Split Out1",
             "type": "main",
             "index": 0
           }
@@ -614,6 +576,44 @@
         [
           {
             "node": "txt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "Chat Memory Manager",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer URL de imagen y limpiar mensaje1": {
+      "main": [
+        [
+          {
+            "node": "Sub Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separa datos": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
             "type": "main",
             "index": 0
           }
@@ -898,7 +898,7 @@
             {
               "id": "4b82217d-2238-4b2e-9932-f1f308b9c2bc",
               "name": "content",
-              "value": "=<audio>\n{{ $json.text }}\n</audio>",
+              "value": "={{ $json.text }}",
               "type": "string"
             },
             {
@@ -966,8 +966,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2432,
-        -944
+        -2464,
+        -864
       ],
       "id": "c73670e1-8d91-4310-8d17-2bbdb8f14e53",
       "name": "Chat input"
@@ -1215,27 +1215,6 @@
     },
     {
       "parameters": {
-        "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Normalizacion').last().json.message.chat_id }}_buffer1",
-        "contextWindowLength": 6
-      },
-      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
-      "typeVersion": 1.3,
-      "position": [
-        -1632,
-        -32
-      ],
-      "id": "1e3a594c-c50f-471a-ac01-bf0cca7abb88",
-      "name": "Postgres Chat Memory",
-      "credentials": {
-        "postgres": {
-          "id": "miDtSVj7FYia54Ce",
-          "name": "Qeva"
-        }
-      }
-    },
-    {
-      "parameters": {
         "fieldToSplitOut": "messages",
         "include": "allOtherFields",
         "options": {}
@@ -1257,20 +1236,20 @@
       "typeVersion": 3,
       "position": [
         176,
-        -752
+        -800
       ],
       "id": "95b2d79c-bcad-4277-8c51-fe59eee82e37",
       "name": "Loop Over Items"
     },
     {
       "parameters": {
-        "jsCode": "const inputData = $input.first().json;\n\n// Verificar si existe el campo messages.texto\nif (!inputData.messages || !inputData.messages.texto) {\n  return {\n    ...inputData,\n    url: '',\n    urls: [],\n    productoFormateado: null,\n    textoLimpio: '',\n    urlsFormateadas: ''\n  };\n}\n\nconst input = inputData.messages.texto;\n\n// Regex para diferentes tipos de URLs\nconst markdownLinkRegex = /\\[([^\\]]*)\\]\\(([^)]+)\\)/g;\nconst imageRegex = /!\\[([^\\]]*)\\]\\(([^)]+)\\)/g;\nconst directUrlRegex = /(https?:\\/\\/[^\\s<>\"{}|\\\\^\\[\\]`]+)/g;\n\n// Arrays para almacenar URLs y productos\nconst urls = [];\nlet cleanedMessage = input;\n\n// Primero, extraer todas las URLs para evitar duplicados\nconst todasLasUrls = new Set();\n\n// Extraer imágenes markdown\nlet imageMatch;\nwhile ((imageMatch = imageRegex.exec(input)) !== null) {\n  todasLasUrls.add(imageMatch[2]);\n  urls.push({\n    type: 'image',\n    text: imageMatch[1] || 'imagen',\n    url: imageMatch[2],\n    fullMatch: imageMatch[0]\n  });\n}\n\n// Extraer enlaces markdown\nlet linkMatch;\nwhile ((linkMatch = markdownLinkRegex.exec(input)) !== null) {\n  if (!todasLasUrls.has(linkMatch[2])) {\n    todasLasUrls.add(linkMatch[2]);\n    urls.push({\n      type: 'link',\n      text: linkMatch[1] || 'enlace',\n      url: linkMatch[2],\n      fullMatch: linkMatch[0]\n    });\n  }\n}\n\n// Reemplazar todos los markdown links e imágenes\nurls.forEach(urlObj => {\n  if (urlObj.fullMatch) {\n    cleanedMessage = cleanedMessage.replace(urlObj.fullMatch, '');\n  }\n});\n\n// Buscar URLs directas que no hayan sido capturadas antes\nlet directMatch;\nconst tempMessage = cleanedMessage;\nwhile ((directMatch = directUrlRegex.exec(tempMessage)) !== null) {\n  if (!todasLasUrls.has(directMatch[1])) {\n    todasLasUrls.add(directMatch[1]);\n    urls.push({\n      type: 'direct',\n      text: 'enlace',\n      url: directMatch[1]\n    });\n  }\n}\n\n// Eliminar todas las URLs directas del mensaje\nurls.forEach(urlObj => {\n  if (urlObj.type === 'direct') {\n    cleanedMessage = cleanedMessage.replace(urlObj.url, '');\n  }\n});\n\n// Función mejorada para extraer información del producto\nfunction extraerInfoProducto(texto, urls) {\n  const info = {\n    nombre: '',\n    precio: '',\n    medidas: '',\n    foto: ''\n  };\n  \n  // Buscar precio con diferentes formatos\n  const precioMatch = texto.match(/(?:precio|costo|valor|price)[\\s:]*\\$?\\s*([\\d,]+(?:\\.\\d{2})?)/i);\n  if (precioMatch) {\n    info.precio = '$' + precioMatch[1].replace(/[,\\s]/g, '');\n  }\n  \n  // Buscar medidas con diferentes formatos\n  const medidasMatch = texto.match(/(?:medidas?|dimensiones?|tamaño|size)[\\s:]*([\\d.,]+\\s*x\\s*[\\d.,]+(?:\\s*x\\s*[\\d.,]+)?(?:\\s*(?:cm|m|mm|metros?|centímetros?))?)/i);\n  if (medidasMatch) {\n    info.medidas = medidasMatch[1].trim();\n  }\n  \n  // Extraer nombre del producto\n  const lineas = texto.split('\\n').map(l => l.trim()).filter(l => l);\n  for (const linea of lineas) {\n    // Buscar líneas que parezcan ser el nombre del producto\n    if (!linea.match(/precio|medidas|dimensiones|\\$|https?:|costo|valor|size/i) && \n        linea.length > 3 && \n        !linea.match(/^\\d+$/) && // No solo números\n        !linea.match(/^[\\d.,]+\\s*x\\s*[\\d.,]+/)) { // No medidas\n      info.nombre = linea;\n      break;\n    }\n  }\n  \n  // Buscar la primera imagen URL\n  const imagenUrl = urls.find(u => u.type === 'image');\n  if (imagenUrl) {\n    info.foto = imagenUrl.url;\n  }\n  \n  return info;\n}\n\n// Limpiar y formatear el texto para WhatsApp\nfunction formatearParaWhatsApp(texto) {\n  // Eliminar espacios múltiples y líneas vacías excesivas\n  let textoFormateado = texto\n    .split('\\n')\n    .map(linea => linea.trim())\n    .filter(linea => linea.length > 0)\n    .join('\\n');\n  \n  // Eliminar caracteres especiales que puedan causar problemas\n  textoFormateado = textoFormateado\n    .replace(/\\s{2,}/g, ' ') // Múltiples espacios a uno solo\n    .replace(/\\n{3,}/g, '\\n\\n') // Máximo 2 saltos de línea consecutivos\n    .replace(/^\\s+|\\s+$/g, '') // Trim general\n    .replace(/[.,;:!?]+$/g, ''); // Eliminar puntuación final innecesaria\n  \n  // Eliminar puntos finales en cada línea si no son necesarios\n  textoFormateado = textoFormateado\n    .split('\\n')\n    .map(linea => linea.replace(/\\.$/, ''))\n    .join('\\n');\n  \n  return textoFormateado;\n}\n\n// Formatear URLs para WhatsApp\nfunction formatearUrlsParaWhatsApp(urls) {\n  if (urls.length === 0) return '';\n  \n  let urlsFormateadas = '\\n📎 *Enlaces encontrados:*\\n';\n  \n  urls.forEach((urlObj, index) => {\n    if (urlObj.type === 'image') {\n      urlsFormateadas += `\\n🖼️ Imagen ${index + 1}:\\n${urlObj.url}\\n`;\n    } else {\n      urlsFormateadas += `\\n🔗 ${urlObj.text}:\\n${urlObj.url}\\n`;\n    }\n  });\n  \n  return urlsFormateadas;\n}\n\n// Extraer información del producto\nconst productoInfo = extraerInfoProducto(cleanedMessage, urls);\n\n// Formatear texto limpio\nconst textoLimpio = formatearParaWhatsApp(cleanedMessage);\n\n// Formatear URLs\nconst urlsFormateadas = formatearUrlsParaWhatsApp(urls);\n\n// Formatear la salida del producto\nlet productoFormateado = '';\nif (productoInfo.nombre || productoInfo.precio || productoInfo.medidas) {\n  productoFormateado = '📦 *INFORMACIÓN DEL PRODUCTO*\\n\\n';\n  productoFormateado += `*NOMBRE:* ${productoInfo.nombre || 'No especificado'}\\n`;\n  productoFormateado += `*PRECIO:* ${productoInfo.precio || 'No especificado'}\\n`;\n  productoFormateado += `*MEDIDAS:* ${productoInfo.medidas || 'No especificadas'}\\n`;\n  productoFormateado += `*FOTO:* ${productoInfo.foto || 'No disponible'}`;\n}\n\n// Crear mensaje completo para WhatsApp\nconst mensajeWhatsApp = textoLimpio + \n  (productoFormateado ? '\\n\\n' + productoFormateado : '') + \n  (urlsFormateadas ? '\\n' + urlsFormateadas : '');\n\n// Crear el objeto de salida\nconst output = {\n  ...inputData,\n  messages: {\n    ...inputData.messages,\n    texto: cleanedMessage,\n    textoOriginal: inputData.messages.texto,\n    textoLimpio: textoLimpio,\n    mensajeWhatsApp: mensajeWhatsApp\n  },\n  url: urls.length > 0 ? urls[0].url : '',\n  urls: urls,\n  urlsFormateadas: urlsFormateadas,\n  urlCount: urls.length,\n  productoInfo: productoInfo,\n  productoFormateado: productoFormateado\n};\n\nreturn output;"
+        "jsCode": "// Función para detectar si una línea es una URL\nfunction isURL(text) {\n  return /^https?:\\/\\//i.test(text.trim());\n}\n\n// Función para calcular tiempo de lectura\nfunction calculateReadingTime(text) {\n  const length = text.length;\n  \n  if (length > 200) {\n    return 5;\n  } else if (length > 150) {\n    return 4;\n  } else if (length > 100) {\n    return 3;\n  } else if (length >= 50) {\n    return 2;\n  } else {\n    return 1;\n  }\n}\n\n// Función principal para procesar y dividir el texto\nfunction processOutput(output) {\n  if (!output || typeof output !== 'string') {\n    return [];\n  }\n  \n  // Dividir por líneas\n  const lines = output.split('\\n');\n  const messages = [];\n  let partNumber = 1;\n  \n  // Variables para almacenar las diferentes partes\n  let introText = '';\n  let products = [];\n  let currentProduct = {\n    texto: [],\n    url: null\n  };\n  let outroText = '';\n  let foundFirstProduct = false;\n  let inProduct = false;\n  \n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i].trim();\n    \n    // Si es una línea vacía\n    if (!line) {\n      continue;\n    }\n    \n    // Detectar inicio de un producto numerado\n    if (/^\\d+\\.\\s+[A-Z\\s]+:/.test(line)) {\n      // Si había un producto en proceso, guardarlo\n      if (currentProduct.texto.length > 0) {\n        products.push({\n          texto: currentProduct.texto.join('\\n'),\n          url: currentProduct.url\n        });\n        currentProduct = {\n          texto: [],\n          url: null\n        };\n      }\n      \n      foundFirstProduct = true;\n      inProduct = true;\n      currentProduct.texto.push(line);\n    }\n    // Si es una URL y estamos en un producto\n    else if (isURL(line) && inProduct) {\n      currentProduct.url = line;\n      // Después de la URL, cerramos el producto\n      products.push({\n        texto: currentProduct.texto.join('\\n'),\n        url: currentProduct.url\n      });\n      currentProduct = {\n        texto: [],\n        url: null\n      };\n      inProduct = false;\n    }\n    // Si es el separador\n    else if (line.includes('_______________________')) {\n      // Agregar el separador al siguiente producto\n      if (currentProduct.texto.length > 0) {\n        products.push({\n          texto: currentProduct.texto.join('\\n'),\n          url: currentProduct.url\n        });\n        currentProduct = {\n          texto: ['_______________________'],\n          url: null\n        };\n      } else {\n        currentProduct.texto.push(line);\n      }\n    }\n    // Si estamos dentro de un producto\n    else if (inProduct) {\n      currentProduct.texto.push(line);\n    }\n    // Si es una pregunta final\n    else if (foundFirstProduct && line.match(/^(¿|Te interesa|Interesa)/i)) {\n      outroText = line;\n    }\n    // Texto antes del primer producto (introducción)\n    else if (!foundFirstProduct) {\n      if (introText) {\n        introText += '\\n' + line;\n      } else {\n        introText = line;\n      }\n    }\n  }\n  \n  // Agregar cualquier producto pendiente\n  if (currentProduct.texto.length > 0) {\n    products.push({\n      texto: currentProduct.texto.join('\\n'),\n      url: currentProduct.url\n    });\n  }\n  \n  // Ahora construir los mensajes\n  \n  // 1. Agregar introducción si existe\n  if (introText) {\n    messages.push({\n      parte: partNumber++,\n      texto: introText,\n      url: null,\n      time: calculateReadingTime(introText)\n    });\n  }\n  \n  // 2. Procesar productos\n  // Si hay productos con URLs, agruparlos\n  const productsWithUrls = products.filter(p => p.url !== null);\n  const productsWithoutUrls = products.filter(p => p.url === null && !p.texto.includes('_______________________'));\n  \n  if (productsWithUrls.length > 0) {\n    // Agrupar todos los productos con sus URLs\n    let groupedText = '';\n    let urls = [];\n    \n    productsWithUrls.forEach((product, index) => {\n      if (index > 0) {\n        groupedText += '\\n_______________________\\n';\n      }\n      groupedText += product.texto;\n      urls.push(product.url);\n    });\n    \n    messages.push({\n      parte: partNumber++,\n      texto: groupedText,\n      url: urls.join('\\n'), // Múltiples URLs separadas por salto de línea\n      time: calculateReadingTime(groupedText)\n    });\n  }\n  \n  // Productos sin URLs van separados\n  productsWithoutUrls.forEach(product => {\n    messages.push({\n      parte: partNumber++,\n      texto: product.texto,\n      url: null,\n      time: calculateReadingTime(product.texto)\n    });\n  });\n  \n  // 3. Agregar pregunta final si existe\n  if (outroText) {\n    messages.push({\n      parte: partNumber++,\n      texto: outroText,\n      url: null,\n      time: calculateReadingTime(outroText)\n    });\n  }\n  \n  return messages;\n}\n\n// --- Lógica Principal ---\ntry {\n  // Obtener el output del input\n  let outputText = null;\n  \n  // Intentar obtener de $input.first().json.output\n  if ($input && $input.first() && $input.first().json && $input.first().json.output) {\n    outputText = $input.first().json.output;\n  }\n  \n  // Si no encontramos output, intentar con toda la estructura\n  if (!outputText && $input && $input.first() && $input.first().json) {\n    // Buscar en otros campos posibles\n    const jsonData = $input.first().json;\n    if (jsonData.text) {\n      outputText = jsonData.text;\n    } else if (jsonData.message) {\n      outputText = jsonData.message;\n    } else if (typeof jsonData === 'string') {\n      outputText = jsonData;\n    }\n  }\n  \n  // Procesar el texto\n  if (outputText) {\n    // Procesar y dividir el output\n    const messages = processOutput(outputText);\n    \n    // Retornar el resultado\n    return [{\n      json: {\n        messages: messages,\n        totalParts: messages.length\n      }\n    }];\n  } else {\n    // Si no hay texto, retornar array vacío\n    return [{\n      json: {\n        messages: [],\n        totalParts: 0\n      }\n    }];\n  }\n  \n} catch (error) {\n  console.error(\"Error procesando el output:\", error.message);\n  return [{\n    json: {\n      messages: [],\n      totalParts: 0,\n      error: error.message\n    }\n  }];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        624,
-        -1248
+        1536,
+        -416
       ],
       "id": "f519d8fe-67ae-4085-af31-4061f327612e",
       "name": "Extraer URL de imagen y limpiar mensaje"
@@ -1303,8 +1282,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        384,
-        -736
+        416,
+        -848
       ],
       "id": "952b5fe9-aa0b-43bf-84d9-91b670620e85",
       "name": "Filtrar mensajes con URL de imagen"
@@ -1316,8 +1295,8 @@
       "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "typeVersion": 1,
       "position": [
-        -784,
-        -224
+        -880,
+        -304
       ],
       "id": "7f7c0704-9f3c-41eb-9d52-da9b61b5261e",
       "name": "buscar_productos"
@@ -1327,44 +1306,11 @@
       "type": "@n8n/n8n-nodes-langchain.toolThink",
       "typeVersion": 1,
       "position": [
-        -656,
-        -224
+        -704,
+        -304
       ],
       "id": "e776e72f-80f0-47e7-925d-38a836e410d1",
       "name": "Think"
-    },
-    {
-      "parameters": {
-        "operation": "deleteTable",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "n8n_chat_histories",
-          "mode": "list",
-          "cachedResultName": "n8n_chat_histories"
-        },
-        "deleteCommand": "delete",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        -1680,
-        -1280
-      ],
-      "id": "f37660ba-89a8-4175-824c-01b6394e70f7",
-      "name": "Postgres - Get Conversation",
-      "alwaysOutputData": true,
-      "credentials": {
-        "postgres": {
-          "id": "miDtSVj7FYia54Ce",
-          "name": "Qeva"
-        }
-      }
     },
     {
       "parameters": {
@@ -1393,7 +1339,7 @@
             },
             {
               "category": "human_agent_request",
-              "description": "Cliente solicita hablar con humano/vendedor/asesor, rechaza el bot, menciona devoluciones, problemas con pedidos anteriores, situaciones complejas/urgentes, o cualquier caso donde se detecte que necesita atención personalizada"
+              "description": "⚠️ SOLO se activa DESPUÉS de que el bot YA TIENE: ✓ CORREO ELECTRÓNICO ✓ NOMBRE COMPLETO ✓ CONSULTA detallada. NUNCA activar si falta algún dato. Primera solicitud → purchase_desire u other\""
             },
             {
               "category": "other",
@@ -1403,7 +1349,7 @@
         },
         "options": {
           "fallback": "other",
-          "systemPromptTemplate": "=Eres un clasificador de intención de compra para Muebles San Fermín.\n\n**INSTRUCCIÓN CRÍTICA**: Tu respuesta debe ser ÚNICAMENTE una de estas palabras, sin comillas, sin JSON, sin explicación:\n- real_purchase_intent\n- purchase_desire\n- product_inquiry\n- small_talk\n- complaint\n- human_agent_request\n- other\n\n## Categorías de clasificación:\n\n1. **real_purchase_intent**  \n   – Se activa cuando el cliente CONFIRMA después de ver un resumen que contenga:\n   - INFORMACIÓN PERSONAL (nombre, email/teléfono)\n   - Detalles del PEDIDO (producto, cantidad, precio)\n   - TOTAL a pagar\n   - Forma de PAGO\n   - Método de ENTREGA\n   - Una pregunta de confirmación como \"¿Todos los datos están correctos?\"\n   \n   **Frases de confirmación válidas**:\n   - \"Sí correcto\", \"Sí es correcto\", \"Sí\"\n   - \"Todo correcto\", \"Perfecto\", \"Confirmo\"\n   - \"Adelante\", \"Está bien\", \"Procede\"\n\n2. **purchase_desire**  \n   – Cliente en PROCESO ACTIVO de compra:\n   - Seleccionando productos (\"quiero la alacena\")\n   - Respondiendo sobre cantidades o modelos\n   - Proporcionando datos personales (nombre, email, teléfono)\n   - Aceptando continuar con el proceso (\"sí\" a preguntas del bot)\n   - Cualquier interacción durante la compra\n\n3. **product_inquiry**  \n   – Consultas sobre productos SIN intención inmediata de compra:\n   - \"¿Tienen mesas de luz?\"\n   - \"¿Cuánto mide este mueble?\"\n   - \"¿Viene en otros colores?\"\n   - \"¿Cuál es el precio?\"\n\n4. **small_talk**  \n   – Interacciones sociales:\n   - Saludos: \"Hola\", \"Buenos días\"\n   - Agradecimientos: \"Gracias\", \"Muy amable\"\n   - Despedidas: \"Adiós\", \"Hasta luego\"\n\n5. **complaint**  \n   – Problemas con pedidos anteriores:\n   - \"El mueble llegó dañado\"\n   - \"Quiero hacer una devolución\"\n   - \"Tengo un reclamo\"\n\n6. **human_agent_request**  \n   – SOLO cuando:\n   - Pide EXPLÍCITAMENTE hablar con humano/vendedor\n   - NO está en proceso de compra activo\n   - Ya proporcionó nombre y contacto\n\n7. **other**  \n   – Mensajes que no encajan en otras categorías\n\n## CONTEXTOS CLAVE:\n\n**Si el bot acaba de mostrar**:\n- Cotización con precio → respuesta \"Sí\" = purchase_desire\n- Pregunta sobre datos → respuesta con datos = purchase_desire\n- Resumen completo del pedido → respuesta confirmando = real_purchase_intent\n\n**Para identificar resumen completo**, debe incluir:\n- 🔸 o ✓ INFORMACIÓN PERSONAL\n- 🛒 o 📦 TU PEDIDO o productos listados\n- 💰 TOTAL FINAL o precio total\n- 💳 Forma de pago\n- 🚚 Entrega o retiro\n- ❓ \"¿Todos los datos están correctos?\" o similar\n\n## EJEMPLOS DE RESPUESTA:\n\nEntrada: \"Una alacena\"\nTu respuesta: product_inquiry\n\nEntrada: \"Sí correcto\" (después de ver resumen completo)\nTu respuesta: real_purchase_intent\n\nEntrada: \"fercassera@gmail.com\" (durante proceso de compra)\nTu respuesta: purchase_desire\n\n**RECUERDA**: Solo responde con UNA PALABRA de las 7 categorías listadas. NADA MÁS."
+          "systemPromptTemplate": "=Eres un clasificador de intención de compra para Muebles San Fermín.\n\n**INSTRUCCIÓN CRÍTICA**: Tu respuesta debe ser ÚNICAMENTE una de estas palabras, sin comillas, sin JSON, sin explicación:\n- real_purchase_intent\n- purchase_desire\n- product_inquiry\n- small_talk\n- complaint\n- human_agent_request\n- other\n\n## Categorías de clasificación:\n\n1. **real_purchase_intent**  \n   – Se activa cuando el cliente CONFIRMA después de ver un resumen que contenga:\n   - INFORMACIÓN PERSONAL (nombre, email/teléfono)\n   - Detalles del PEDIDO (producto, cantidad, precio)\n   - TOTAL a pagar\n   - Forma de PAGO\n   - Método de ENTREGA\n   - Una pregunta de confirmación como \"¿Todos los datos están correctos?\"\n   \n   **Frases de confirmación válidas**:\n   - \"Sí correcto\", \"Sí es correcto\", \"Sí\"\n   - \"Todo correcto\", \"Perfecto\", \"Confirmo\"\n   - \"Adelante\", \"Está bien\", \"Procede\"\n\n2. **purchase_desire**  \n   – Cliente en PROCESO ACTIVO de compra:\n   - Seleccionando productos (\"quiero la alacena\")\n   - Respondiendo sobre cantidades o modelos\n   - Proporcionando datos personales (nombre, email, teléfono)\n   - Aceptando continuar con el proceso (\"sí\" a preguntas del bot)\n   - Cualquier interacción durante la compra\n\n3. **product_inquiry**  \n   – Consultas sobre productos SIN intención inmediata de compra:\n   - \"¿Tienen mesas de luz?\"\n   - \"¿Cuánto mide este mueble?\"\n   - \"¿Viene en otros colores?\"\n   - \"¿Cuál es el precio?\"\n\n4. **small_talk**  \n   – Interacciones sociales:\n   - Saludos: \"Hola\", \"Buenos días\"\n   - Agradecimientos: \"Gracias\", \"Muy amable\"\n   - Despedidas: \"Adiós\", \"Hasta luego\"\n\n5. **complaint**  \n   – Problemas con pedidos anteriores:\n   - \"El mueble llegó dañado\"\n   - \"Quiero hacer una devolución\"\n   - \"Tengo un reclamo\"\n\n6. **human_agent_request**  \n   – ⚠️ **IMPORTANTE**: SOLO se activa DESPUÉS de que el bot YA TIENE:\n   - ✓ CORREO ELECTRÓNICO del cliente\n   - ✓ NOMBRE COMPLETO del cliente\n   - ✓ CONSULTA o motivo específico detallado\n   \n   **NUNCA ACTIVAR SI**:\n   - Falta alguno de los 3 datos anteriores\n   - Es la primera vez que pide hablar con alguien\n   - El bot aún no ha preguntado por los datos\n   \n   **PROCESO CORRECTO**:\n   1. Cliente pide hablar con vendedor → purchase_desire o other\n   2. Bot recolecta nombre, correo y consulta\n   3. Cliente confirma querer hablar con vendedor → human_agent_request\n   \n   **Frases que NO activan sin los 3 datos**:\n   - \"Quiero hablar con un vendedor\" → purchase_desire\n   - \"Necesito ayuda de una persona\" → purchase_desire\n   - \"Prefiero hablar con alguien\" → purchase_desire\n\n7. **other**  \n   – Mensajes que no encajan en otras categorías\n\n## CONTEXTOS CLAVE:\n\n**Si el bot acaba de mostrar**:\n- Cotización con precio → respuesta \"Sí\" = purchase_desire\n- Pregunta sobre datos → respuesta con datos = purchase_desire\n- Resumen completo del pedido → respuesta confirmando = real_purchase_intent\n\n**Para identificar resumen completo**, debe incluir:\n- 🔸 o ✓ INFORMACIÓN PERSONAL\n- 🛒 o 📦 TU PEDIDO o productos listados\n- 💰 TOTAL FINAL o precio total\n- 💳 Forma de pago\n- 🚚 Entrega o retiro\n- ❓ \"¿Todos los datos están correctos?\" o similar\n\n## EJEMPLOS DE RESPUESTA:\n\nEntrada: \"Una alacena\"\nTu respuesta: product_inquiry\n\nEntrada: \"Sí correcto\" (después de ver resumen completo)\nTu respuesta: real_purchase_intent\n\nEntrada: \"fercassera@gmail.com\" (durante proceso de compra)\nTu respuesta: purchase_desire\n\nEntrada: \"Quiero hablar con un vendedor\" (sin haber dado datos completos)\nTu respuesta: other\n\nEntrada: \"Necesito hablar con alguien\" (ya dio nombre, correo y consulta)\nTu respuesta: human_agent_request\n\n**RECUERDA**: Solo responde con UNA PALABRA de las 7 categorías listadas. NADA MÁS."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.textClassifier",
@@ -1453,7 +1399,7 @@
       "typeVersion": 4.2,
       "position": [
         -336,
-        -1120
+        -1232
       ],
       "id": "1026af0b-f980-4f06-bada-84057f737777",
       "name": "Envio al Grupo de Whatsapp"
@@ -1499,7 +1445,7 @@
       "typeVersion": 2.2,
       "position": [
         -1232,
-        400
+        512
       ]
     },
     {
@@ -1570,7 +1516,7 @@
       "typeVersion": 1,
       "position": [
         -112,
-        -1120
+        -1232
       ],
       "id": "52362db9-f177-43b4-a600-02100ad0a4bb",
       "name": "Redis",
@@ -1588,32 +1534,19 @@
       "type": "@n8n/n8n-nodes-langchain.memoryManager",
       "typeVersion": 1.1,
       "position": [
-        -2176,
-        -960
+        -2208,
+        -864
       ],
       "id": "ab1e1c22-0087-44ff-a46c-2bf7b1b762ac",
       "name": "Chat Memory Manager"
-    },
-    {
-      "parameters": {
-        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para dividir texto en fragmentos con tiempo de lectura\nfunction splitTextIntoChunks(text, maxChars = 200) {\n  // Si el texto es muy corto, devolvemos un solo fragmento\n  if (!text || text.length <= maxChars) {\n    return [{\n      parte: 1,\n      texto: text || '',\n      time: calculateReadingTime(text || '')\n    }];\n  }\n\n  const chunks = [];\n  let currentChunk = '';\n  let partNumber = 1;\n  \n  // Dividimos por palabras para no cortar palabras a la mitad\n  const words = text.split(' ');\n  \n  for (let i = 0; i < words.length; i++) {\n    const word = words[i];\n    const potentialChunk = currentChunk ? currentChunk + ' ' + word : word;\n    \n    // Si agregar la siguiente palabra excede el límite\n    if (potentialChunk.length > maxChars) {\n      // Si la palabra sola es más larga que maxChars, la cortamos\n      if (word.length > maxChars) {\n        // Guardamos el chunk actual si tiene contenido\n        if (currentChunk) {\n          chunks.push({\n            parte: partNumber++,\n            texto: currentChunk.trim(),\n            time: calculateReadingTime(currentChunk.trim())\n          });\n        }\n        \n        // Cortamos la palabra larga en pedazos\n        let remainingWord = word;\n        while (remainingWord.length > maxChars) {\n          chunks.push({\n            parte: partNumber++,\n            texto: remainingWord.substring(0, maxChars),\n            time: calculateReadingTime(remainingWord.substring(0, maxChars))\n          });\n          remainingWord = remainingWord.substring(maxChars);\n        }\n        \n        // El resto de la palabra se convierte en el nuevo currentChunk\n        currentChunk = remainingWord;\n      } else {\n        // Guardamos el chunk actual y empezamos uno nuevo con esta palabra\n        chunks.push({\n          parte: partNumber++,\n          texto: currentChunk.trim(),\n          time: calculateReadingTime(currentChunk.trim())\n        });\n        currentChunk = word;\n      }\n    } else {\n      // Si cabe, agregamos la palabra al chunk actual\n      currentChunk = potentialChunk;\n    }\n  }\n  \n  // Agregar el último chunk si queda algo\n  if (currentChunk.trim()) {\n    chunks.push({\n      parte: partNumber,\n      texto: currentChunk.trim(),\n      time: calculateReadingTime(currentChunk.trim())\n    });\n  }\n  \n  return chunks;\n}\n\n// Función para calcular el tiempo de lectura basado en la longitud del texto\nfunction calculateReadingTime(text) {\n  const length = text.length;\n  \n  if (length > 150) {\n    return 4; // segundos\n  } else if (length >= 50) {\n    return 3; // segundos\n  } else {\n    return 1; // segundo\n  }\n}\n\n// Función para determinar si un texto necesita ser dividido\nfunction needsSplitting(text) {\n  if (!text || typeof text !== 'string') return false;\n  \n  // Criterios: más de 500 caracteres o más de 100 palabras\n  const charCount = text.length;\n  const wordCount = text.split(/\\s+/).filter(word => word.length > 0).length;\n  \n  return charCount > 500 || wordCount > 100;\n}\n\n// Función para procesar el texto y dividirlo inteligentemente (función original mejorada)\nfunction processAndSplitText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un array vacío\n    if (text === null || text === undefined) {\n      return [];\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) {\n        // Si output es un string, lo usamos\n        if (typeof text.output === 'string') {\n          text = text.output;\n        } else {\n          // Si output es un objeto o array, intentamos extraer de ahí\n          const extracted = extractTextContent(text.output);\n          if (extracted) {\n            text = extracted;\n          } else {\n            // Si no pudimos extraer, intentamos convertir todo el objeto a string\n            try {\n              text = JSON.stringify(text);\n            } catch (e) {\n              console.error(\"No se pudo serializar el objeto a string:\", e);\n              return [];\n            }\n          }\n        }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n          console.error(\"No se pudo serializar el objeto a string:\", e);\n          return [];\n        }\n      }\n    } else {\n      // Si no es string, objeto, null o undefined, devolvemos vacío\n      console.warn(\"Entrada a processAndSplitText no es string, objeto, null o undefined:\", typeof text);\n      return [];\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n    return [];\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '');         // Elimina signos de exclamación e interrogación iniciales y finales\n\n  // Divide en líneas para análisis\n  const lines = processedText.split('\\n');\n\n  // Grupos para almacenar los mensajes\n  const messages = [];\n  let currentMessage = [];\n  let inNumberedSection = false;\n  let currentSectionNumber = null;\n\n  // Detectar secciones numeradas y agrupables\n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i];\n    // Detecta si la línea es un encabezado numerado (ej: \"1. Tipo de propiedad:\")\n    const numberedHeaderMatch = line.match(/^\\s*(\\d+)\\.\\s+([^:]+):/);\n\n    if (numberedHeaderMatch) {\n      const sectionNumber = parseInt(numberedHeaderMatch[1]);\n\n      // Si estamos empezando una nueva sección numerada O si el número no es el siguiente esperado\n      if (!inNumberedSection || (inNumberedSection && sectionNumber !== currentSectionNumber + 1)) {\n        // Si tenemos contenido previo, guardamos como mensaje separado\n        if (currentMessage.length > 0) {\n          messages.push(currentMessage.join('\\n').trim());\n          currentMessage = [];\n        }\n        inNumberedSection = true;\n      }\n      currentSectionNumber = sectionNumber;\n      currentMessage.push(line);\n\n    } else if (line.trim() === '') {\n      // Una línea vacía puede terminar una sección si hay contenido previo\n      if (currentMessage.length > 0) {\n        // Si no estamos en una sección numerada, una línea vacía termina el mensaje actual\n        if (!inNumberedSection) {\n          messages.push(currentMessage.join('\\n').trim());\n          currentMessage = [];\n        } else {\n          // Si estamos en una sección numerada, una línea vacía se agrega al mensaje actual\n          currentMessage.push(line);\n        }\n      }\n\n    } else {\n      // Línea con contenido que no es un encabezado numerado\n      currentMessage.push(line);\n      inNumberedSection = false;\n    }\n  }\n\n  // Agregar el último mensaje si queda algo\n  if (currentMessage.length > 0) {\n    messages.push(currentMessage.join('\\n').trim());\n  }\n\n  // Filtrar mensajes vacíos y limpiar líneas vacías extra\n  return messages\n    .filter(msg => msg.length > 0)\n    .map(msg => {\n      // Eliminar líneas vacías múltiples dentro del mensaje\n      return msg.replace(/\\n{2,}/g, '\\n\\n');\n    });\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n      const extracted = extractTextContent(item);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    return null;\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él\n    if (data.output !== undefined && data.output !== null) {\n      const extracted = extractTextContent(data.output);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si tiene un campo 'response', intentamos extraer texto de él\n    if (data.response !== undefined && data.response !== null) {\n      const extracted = extractTextContent(data.response);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si tiene un campo 'json', intentamos extraer texto de él\n    if (data.json !== undefined && data.json !== null) {\n      const extracted = extractTextContent(data.json);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n    try {\n      return JSON.stringify(data);\n    } catch (e) {\n      console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n      return null;\n    }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const textArray = processAndSplitText(textToProcess);\n    \n    // Procesar cada mensaje y dividirlo en chunks si es necesario\n    const processedMessages = [];\n    \n    for (const message of textArray) {\n      if (needsSplitting(message)) {\n        // Si el mensaje es largo, lo dividimos en chunks\n        const chunks = splitTextIntoChunks(message);\n        processedMessages.push(...chunks);\n      } else {\n        // Si el mensaje es corto, lo agregamos tal cual con tiempo de lectura\n        processedMessages.push({\n          parte: processedMessages.length + 1,\n          texto: message,\n          time: calculateReadingTime(message)\n        });\n      }\n    }\n    \n    // Re-numerar las partes para que sean consecutivas\n    processedMessages.forEach((msg, index) => {\n      msg.parte = index + 1;\n    });\n    \n    // Devolvemos la estructura con los mensajes procesados\n    return [{json: {messages: processedMessages, totalParts: processedMessages.length}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un array vacío\n    return [{json: {messages: [], totalParts: 0}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {messages: [], totalParts: 0, error: error.message}}];\n}"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -336,
-        -720
-      ],
-      "id": "4ce7806f-c148-49a1-a08b-5c34710085dd",
-      "name": "Separa datos"
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        720,
-        -672
+        688,
+        -816
       ],
       "id": "b0aca0ab-d65a-4918-a562-a3c1c48efcef",
       "name": "Wait1",
@@ -1649,8 +1582,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        -736,
-        -1008
+        -656,
+        -944
       ],
       "id": "f4ff04f3-3f23-49ad-8784-972009fd9e17",
       "name": "OpenRouter Chat Model",
@@ -1667,7 +1600,7 @@
       "typeVersion": 1,
       "position": [
         -528,
-        -224
+        -304
       ],
       "id": "ec82bd52-2d12-4799-91ce-5754d35fecd2",
       "name": "calculate"
@@ -1677,7 +1610,7 @@
         "promptType": "define",
         "text": "= {{ $('Chat input').last().json.chat_input}}",
         "options": {
-          "systemMessage": "=# Prompt para Sole - Asistente Virtual de Muebles San Fermín\n\n## 🧠 ROLE\n\nTu nombre es \"Sole\" y sos la asistente virtual de atención comercial de **Muebles San Fermín**, una fábrica especializada en **muebles de pino crudo sin pintar** con precios accesibles para venta **mayorista y minorista**. Tu objetivo es guiar a los clientes paso a paso desde la exploración inicial hasta completar TODOS los datos necesarios antes de derivar a un humano.\n\n> *Emotional Prompt:*  \n> Cada paso que das con el cliente es crucial. Tu paciencia y profesionalismo al recolectar cada dato asegura que el asesor humano pueda cerrar la venta sin interrupciones. Sos el puente perfecto entre el interés y la compra concreta.\n\n---\n\n## ✅ TASK - FLUJO PASO A PASO\n\n### FASE 1: EXPLORACIÓN Y SELECCIÓN\n\n**Paso 1 - Saludo**\n> \"Hola 👋 Soy Sole, tu asistente virtual de *Muebles San Fermín*. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠  \n> ¿Qué tipo de mueble estás buscando hoy?\"\n\n**Paso 2 - Identificar necesidad**\n- Esperar respuesta del cliente\n- Preguntar: \"¿Es para tu hogar o para un negocio?\"\n- Usar `buscar_productos(categoria)`\n\n**Paso 3 - Mostrar productos**\n```\n\"Te muestro 2 opciones que tenemos disponibles:\n\n1. [NOMBRE]:\\n \n. 💵 Precio: $[PRECIO]\\n\n. 📐 Medidas: [medidas]\\n\n [URL]\n\n2. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n¿Te interesa alguno de estos modelos?\"\n```\n\n**Paso 4 - Confirmar selección**\n- Cliente elige por número\n- Responder: \"¡Excelente elección! El [NOMBRE] es ideal 🌟\"\n- Preguntar: \"¿Cuántas unidades necesitás?\"\n\n**Paso 5 - Cotización**\n```\n\"📋 Tu cotización:\n• {X} unidades de {PRODUCTO}  \n• Precio unitario: ${PRECIO}\n• TOTAL: ${TOTAL}\n\n¿Te gustaría avanzar con este pedido?\"\n```\n\n### FASE 2: RECOLECCIÓN DE DATOS (OBLIGATORIA)\n\nSi el cliente confirma, iniciar recolección paso a paso:\n\n**Paso 6 - Inicio de datos**\n> \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝  \n> ¿Cuál es tu nombre completo?\"\n\n**Paso 7 - Email**\n- Esperar nombre\n- Guardar respuesta\n- Preguntar: \"Perfecto [NOMBRE]! ¿Cuál es tu correo electrónico?\"\n\n**Paso 8 - Confirmar teléfono**\n- Esperar email\n- Validar formato básico\n- Preguntar: \"¿Este es tu número de WhatsApp: {telefono}?\" \n- Si dice \"No\": \"¿Cuál es el número correcto donde podemos contactarte?\"\n- Si dice \"Sí\": Continuar al siguiente paso\n\n**Paso 9 - Método de pago**\n- Preguntar: \n  > \"¿Cómo te gustaría pagar tu pedido?  \n  > 💵 Efectivo (10% descuento en showroom)  \n  > 💳 Tarjetas  \n  > 📱 Mercado Pago  \n  > 🏦 Transferencia\"\n\n**Paso 10 - Método de entrega**\n- Esperar método de pago\n- Si eligió efectivo, actualizar precio con descuento\n- Preguntar: \"¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\n**Paso 11 - Dirección (solo si eligió envío)**\n- Si eligió envío: \"¿Cuál es la dirección completa donde entregaríamos?\"\n- Si eligió retiro: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\"\n\n### FASE 3: CONFIRMACIÓN Y DERIVACIÓN\n\n**Paso 12 - Resumen completo**\n```\n\"✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: [NOMBRE]\n• Email: [EMAIL]\n• WhatsApp: {telefono}\n\n📦 TU PEDIDO:\n• [CANTIDAD] x [PRODUCTO]\n• Subtotal: $[SUBTOTAL]\n[Si hay descuento]\n• Descuento 10% efectivo: -$[DESCUENTO]\n• TOTAL FINAL: $[TOTAL_FINAL]\n\n💰 Forma de pago: [MÉTODO]\n🚚 Entrega: [RETIRO/ENVÍO + DIRECCIÓN]\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n```\n\n**Paso 13 - Validación final**\n- Si responde \"No\": \"¿Qué dato necesitás corregir?\"\n- Volver al paso correspondiente\n- Si responde \"Sí\": Continuar al paso 14\n\n**Paso 14 - Derivación (SOLO con datos completos)**\n> \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.  \n> ¡Gracias por elegir Muebles San Fermín! 🪵\"\n\n---\n\n## 🎯 REGLAS CRÍTICAS\n\n### Variables del Sistema:\n- `{telefono}`: Número de WhatsApp del cliente (obtenido automáticamente)\n- Usar esta variable cuando necesites mostrar o confirmar el número\n\n### Control de Flujo:\n- **NUNCA** saltear pasos\n- **SIEMPRE** esperar la respuesta antes de continuar\n- **NO** hacer múltiples preguntas en un mismo mensaje\n- **NO** derivar sin completar TODOS los pasos\n\n### Validaciones:\n- Si falta algún dato: \"Disculpá [NOMBRE], pero necesito tu [dato] para poder procesar el pedido\"\n- Si da respuesta vaga: \"Para poder ayudarte mejor, ¿podrías darme [dato específico]?\"\n- Si no quiere dar un dato: \"Entiendo tu preocupación, pero sin [dato] no puedo completar tu pedido 😔\"\n\n### Manejo de interrupciones:\n\n**Cliente cambia de opinión sobre producto:**\n> \"No hay problema! Volvamos a buscar. ¿Qué tipo de mueble preferís ver?\"\n[Volver al Paso 2]\n\n**Cliente abandona en medio del proceso:**\n> \"¡No hay problema! Tu cotización queda guardada. Cuando quieras continuar, acá estaré 😊\"\n\n**Cliente con prisa:**\n> \"Entiendo que tenés poco tiempo. Igual necesito estos datos para que el asesor pueda ayudarte. Son solo unos segunditos más 🙏\"\n\n**Cliente quiere hablar con humano sin datos:**\n> \"Por supuesto! Pero para conectarte con un asesor necesito primero completar tus datos básicos. Así puede llamarte con toda la información lista. ¿Cuál es tu nombre completo?\"\n\n---\n\n## 🎯 SPECIFIC BEHAVIORS\n\n### Gestión de Datos:\n- **NUNCA** derivar sin tener TODOS los datos completos\n- Recolectar información de forma conversacional, no como formulario\n- Los datos requeridos son: Nombre, Email, Teléfono (confirmado), Método de pago, Método de entrega, Dirección (si es envío)\n\n### Uso de Tools:\n- `think` : Antes de utilizar cualquier herramienta debes usar esta si o si para poder seguir adelante\n- `buscar_productos(categoria)`: SIEMPRE que el cliente solicite ver productos\n- `calculate(price, cantidad)`: Para todos los cálculos\n- Solo mostrar productos con **stock = TRUE**\n\n\n### Estilo de Comunicación:\n- Usar emojis estratégicamente (no más de 2 por mensaje)\n- Mantener mensajes concisos (máximo 3-4 líneas)\n- Incluir SIEMPRE las medidas del producto desde 'description'\n- Una pregunta por mensaje\n\n### Información del Showroom:\n**Si pregunta por showroom:**\n> \"📍 Nos encontrás en **Arenales 1297, San Fernando (Buenos Aires)**  \n> Horarios: Lun a Vie 7-13h y 14-18h  \n> 💰 10% OFF pagando efectivo en el local\"\n\n---\n\n## ⚙️ CONTEXT\n\n- **Empresa**: Muebles San Fermín - Fábrica familiar desde 1985\n- **Productos**: Muebles de pino crudo sin pintar, personalizables\n- **Ventaja competitiva**: Precios directos de fábrica\n- **Público**: Familias y pequeños negocios buscando calidad-precio\n- **Descuento especial**: 10% efectivo en showroom\n- **Envíos**: A toda provincia de Buenos Aires\n- **Base de datos**: PostgreSQL con campos: product, price, image_url, description, stock\n- **Canal**: WhatsApp (via Evolution API)\n- **El bot deriva al humano cuando**: El cliente confirma todos los datos correctos\n\n---\n\n## 📋 EJEMPLO COMPLETO DE CONVERSACIÓN\n\n```\nSole: \"Hola 👋 Soy Sole, tu asistente virtual de Muebles San Fermín. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠\n¿Qué tipo de mueble estás buscando hoy?\"\n\nCliente: \"Una mesa de luz\"\n\nSole: \"¡Perfecto! Mesa de luz. ¿Es para tu hogar o para un negocio?\"\n\nCliente: \"Para mi casa\"\n\n[buscar_productos(mesas de luz)]\n\nSole: \"Te muestro 2 opciones que tenemos disponibles:\n\n1️⃣ MESA DE LUZ NÓRDICA – $22.500\n📐 Medidas: 45x40x35 cm - 2 cajones\n\n7️⃣ MESA DE LUZ VINTAGE – $28.900\n📐 Medidas: 50x45x40 cm - 1 cajón y 1 puerta\n\n¿Te interesa alguno de estos modelos?\"\n\nCliente: \"La primera\"\n\nSole: \"¡Excelente elección! La Mesa de Luz Nórdica es ideal 🌟\n¿Cuántas unidades necesitás?\"\n\nCliente: \"2\"\n\nSole: \"📋 Tu cotización:\n• 2 unidades de MESA DE LUZ NÓRDICA\n• Precio unitario: $22.500\n• TOTAL: $45.000\n\n¿Te gustaría avanzar con este pedido?\"\n\nCliente: \"Sí\"\n\nSole: \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝\n¿Cuál es tu nombre completo?\"\n\nCliente: \"Juan Pérez\"\n\nSole: \"Perfecto Juan! ¿Cuál es tu correo electrónico?\"\n\nCliente: \"juanperez@gmail.com\"\n\nSole: \"¿Este es tu número de WhatsApp: 11-4444-4444?\"\n\nCliente: \"Sí\"\n\nSole: \"¿Cómo te gustaría pagar tu pedido?\n💵 Efectivo (10% descuento en showroom)\n💳 Tarjetas\n📱 Mercado Pago\n🏦 Transferencia\"\n\nCliente: \"Efectivo\"\n\nSole: \"¡Excelente! Con efectivo tenés un 10% de descuento 🎉\n¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\nCliente: \"Retiro yo\"\n\nSole: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\n\n✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: Juan Pérez\n• Email: juanperez@gmail.com\n• WhatsApp: 11-4444-4444\n\n📦 TU PEDIDO:\n• 2 x MESA DE LUZ NÓRDICA\n• Subtotal: $45.000\n• Descuento 10% efectivo: -$4.500\n• TOTAL FINAL: $40.500\n\n💰 Forma de pago: Efectivo\n🚚 Entrega: Retiro en showroom\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n\nCliente: \"Sí\"\n\nSole: \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.\n¡Gracias por elegir Muebles San Fermín! 🪵\"\n```\n\n---\n\n## 📝 NOTAS IMPORTANTES\n\n1. **Orden estricto**: Los pasos deben seguirse en el orden establecido\n2. **Una pregunta por vez**: Nunca hacer múltiples preguntas en un mensaje\n3. **Confirmación obligatoria**: El cliente DEBE confirmar que todos los datos están correctos\n4. **Sin datos = Sin derivación**: NUNCA derivar a un humano sin completar todos los pasos\n5. **Teléfono automático**: El número se obtiene de WhatsApp, solo confirmar con el cliente\n6. **Fecha de hoy es :** {{ $now.setLocale('es').toFormat('EEEE d \\'de\\' MMMM yyyy \\'a las\\' H:mm') }}\n---\n\nReferirse a esta variable por numero de telefono \n{telefono} = {{ $('Normalizacion').item.json.message.chat_id }}\n",
+          "systemMessage": "=# Prompt para Sole - Asistente Virtual de Muebles San Fermín\n\n## 🧠 ROLE\n\nTu nombre es \"Sole\" y sos la asistente virtual de atención comercial de **Muebles San Fermín**, una fábrica especializada en **muebles de pino crudo sin pintar** con precios accesibles para venta **mayorista y minorista**. Tu objetivo es guiar a los clientes paso a paso desde la exploración inicial hasta completar TODOS los datos necesarios antes de derivar a un humano.\n\n> *Emotional Prompt:*  \n> Cada paso que das con el cliente es crucial. Tu paciencia y profesionalismo al recolectar cada dato asegura que el asesor humano pueda cerrar la venta sin interrupciones. Sos el puente perfecto entre el interés y la compra concreta.\n\n---\n\n## ✅ TASK - FLUJO PASO A PASO\n\n### FASE 1: EXPLORACIÓN Y SELECCIÓN\n\n**Paso 1 - Saludo**\n> \"Hola 👋 Soy Sole, tu asistente virtual de *Muebles San Fermín*. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠  \n> ¿Qué tipo de mueble estás buscando hoy?\"\n\n**Paso 2 - Identificar necesidad**\n- Esperar respuesta del cliente\n- Preguntar: \"¿Es para tu hogar o para un negocio?\"\n- Usar `buscar_productos(categoria)`\n\n**Paso 3 - Mostrar productos**\n```\n\"Te muestro 2 opciones que tenemos disponibles:\n\n\n1. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n\n2. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n\n¿Te interesa alguno de estos modelos?\"\n```\n\n**Paso 4 - Confirmar selección**\n- Cliente elige por número\n- Responder: \"¡Excelente elección! El [NOMBRE] es ideal 🌟\"\n- Preguntar: \"¿Cuántas unidades necesitás?\"\n\n**Paso 5 - Cotización**\n```\n\"📋 Tu cotización:\n• {X} unidades de {PRODUCTO}  \n• Precio unitario: ${PRECIO}\n• TOTAL: ${TOTAL}\n\n¿Te gustaría avanzar con este pedido?\"\n```\n\n### FASE 2: RECOLECCIÓN DE DATOS (OBLIGATORIA)\n\nSi el cliente confirma, iniciar recolección paso a paso:\n\n**Paso 6 - Inicio de datos**\n> \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝  \n> ¿Cuál es tu nombre completo?\"\n\n**Paso 7 - Email**\n- Esperar nombre\n- Guardar respuesta\n- Preguntar: \"Perfecto [NOMBRE]! ¿Cuál es tu correo electrónico?\"\n\n**Paso 8 - Confirmar teléfono**\n- Esperar email\n- Validar formato básico\n- Preguntar: \"¿Este es tu número de WhatsApp: {telefono}?\" \n- Si dice \"No\": \"¿Cuál es el número correcto donde podemos contactarte?\"\n- Si dice \"Sí\": Continuar al siguiente paso\n\n**Paso 9 - Método de pago**\n- Preguntar: \n  > \"¿Cómo te gustaría pagar tu pedido?  \n  > 💵 Efectivo (10% descuento en showroom)  \n  > 💳 Tarjetas  \n  > 📱 Mercado Pago  \n  > 🏦 Transferencia\"\n\n**Paso 10 - Método de entrega**\n- Esperar método de pago\n- Si eligió efectivo, actualizar precio con descuento\n- Preguntar: \"¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\n**Paso 11 - Dirección (solo si eligió envío)**\n- Si eligió envío: \"¿Cuál es la dirección completa donde entregaríamos?\"\n- Si eligió retiro: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\"\n\n### FASE 3: CONFIRMACIÓN Y DERIVACIÓN\n\n**Paso 12 - Resumen completo**\n```\n\"✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: [NOMBRE]\n• Email: [EMAIL]\n• WhatsApp: {telefono}\n\n📦 TU PEDIDO:\n• [CANTIDAD] x [PRODUCTO]\n• Subtotal: $[SUBTOTAL]\n[Si hay descuento]\n• Descuento 10% efectivo: -$[DESCUENTO]\n• TOTAL FINAL: $[TOTAL_FINAL]\n\n💰 Forma de pago: [MÉTODO]\n🚚 Entrega: [RETIRO/ENVÍO + DIRECCIÓN]\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n```\n\n**Paso 13 - Validación final**\n- Si responde \"No\": \"¿Qué dato necesitás corregir?\"\n- Volver al paso correspondiente\n- Si responde \"Sí\": Continuar al paso 14\n\n**Paso 14 - Derivación (SOLO con datos completos)**\n> \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.  \n> ¡Gracias por elegir Muebles San Fermín! 🪵\"\n\n---\n\n## 🎯 REGLAS CRÍTICAS\n\n### Variables del Sistema:\n- `{telefono}`: Número de WhatsApp del cliente (obtenido automáticamente)\n- Usar esta variable cuando necesites mostrar o confirmar el número\n\n### Control de Flujo:\n- **NUNCA** saltear pasos\n- **SIEMPRE** esperar la respuesta antes de continuar\n- **NO** hacer múltiples preguntas en un mismo mensaje\n- **NO** derivar sin completar TODOS los pasos\n\n### Validaciones:\n- Si falta algún dato: \"Disculpá [NOMBRE], pero necesito tu [dato] para poder procesar el pedido\"\n- Si da respuesta vaga: \"Para poder ayudarte mejor, ¿podrías darme [dato específico]?\"\n- Si no quiere dar un dato: \"Entiendo tu preocupación, pero sin [dato] no puedo completar tu pedido 😔\"\n\n### Manejo de interrupciones:\n\n**Cliente cambia de opinión sobre producto:**\n> \"No hay problema! Volvamos a buscar. ¿Qué tipo de mueble preferís ver?\"\n[Volver al Paso 2]\n\n**Cliente abandona en medio del proceso:**\n> \"¡No hay problema! Tu cotización queda guardada. Cuando quieras continuar, acá estaré 😊\"\n\n**Cliente con prisa:**\n> \"Entiendo que tenés poco tiempo. Igual necesito estos datos para que el asesor pueda ayudarte. Son solo unos segunditos más 🙏\"\n\n**Cliente quiere hablar con humano sin datos:**\n> \"Por supuesto! Pero para conectarte con un asesor necesito primero completar tus datos básicos. Así puede llamarte con toda la información lista. ¿Cuál es tu nombre completo?\"\n\n---\n\n## 🎯 SPECIFIC BEHAVIORS\n\n### Gestión de Datos:\n- **NUNCA** derivar sin tener TODOS los datos completos\n- Recolectar información de forma conversacional, no como formulario\n- Los datos requeridos son: Nombre, Email, Teléfono (confirmado), Método de pago, Método de entrega, Dirección (si es envío)\n\n### Uso de Tools:\n- `think` : Antes de utilizar cualquier herramienta debes usar esta si o si para poder seguir adelante\n- `buscar_productos(categoria)`: SIEMPRE que el cliente solicite ver productos\n- `calculate(price, cantidad)`: Para todos los cálculos\n- Solo mostrar productos con **stock = TRUE**\n\n\n### Estilo de Comunicación:\n- Usar emojis estratégicamente (no más de 2 por mensaje)\n- Mantener mensajes concisos (máximo 3-4 líneas)\n- Incluir SIEMPRE las medidas del producto desde 'description'\n- Una pregunta por mensaje\n\n### Información del Showroom:\n**Si pregunta por showroom:**\n> \"📍 Nos encontrás en **Arenales 1297, San Fernando (Buenos Aires)**  \n> Horarios: Lun a Vie 7-13h y 14-18h  \n> 💰 10% OFF pagando efectivo en el local\"\n\n---\n\n## ⚙️ CONTEXT\n\n- **Empresa**: Muebles San Fermín - Fábrica familiar desde 1985\n- **Productos**: Muebles de pino crudo sin pintar, personalizables\n- **Ventaja competitiva**: Precios directos de fábrica\n- **Público**: Familias y pequeños negocios buscando calidad-precio\n- **Descuento especial**: 10% efectivo en showroom\n- **Envíos**: A toda provincia de Buenos Aires\n- **Base de datos**: PostgreSQL con campos: product, price, image_url, description, stock\n- **Canal**: WhatsApp (via Evolution API)\n- **El bot deriva al humano cuando**: El cliente confirma todos los datos correctos\n\n---\n\n## 📋 EJEMPLO COMPLETO DE CONVERSACIÓN\n\n```\nSole: \"Hola 👋 Soy Sole, tu asistente virtual de Muebles San Fermín. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠\n\n¿Qué tipo de mueble estás buscando hoy?\"\n\nCliente: \"Una mesa de luz\"\n\nSole: \"¡Perfecto! Mesa de luz. ¿Es para tu hogar o para un negocio?\"\n\nCliente: \"Para mi casa\"\n\n[buscar_productos(mesas de luz)]\n\nSole: \"Te muestro 2 opciones que tenemos disponibles:\n\n1️⃣ MESA DE LUZ NÓRDICA – $22.500\n📐 Medidas: 45x40x35 cm - 2 cajones\n\n7️⃣ MESA DE LUZ VINTAGE – $28.900\n📐 Medidas: 50x45x40 cm - 1 cajón y 1 puerta\n\n¿Te interesa alguno de estos modelos?\"\n\nCliente: \"La primera\"\n\nSole: \"¡Excelente elección! La Mesa de Luz Nórdica es ideal 🌟\n¿Cuántas unidades necesitás?\"\n\nCliente: \"2\"\n\nSole: \"📋 Tu cotización:\n• 2 unidades de MESA DE LUZ NÓRDICA\n• Precio unitario: $22.500\n• TOTAL: $45.000\n\n¿Te gustaría avanzar con este pedido?\"\n\nCliente: \"Sí\"\n\nSole: \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝\n¿Cuál es tu nombre completo?\"\n\nCliente: \"Juan Pérez\"\n\nSole: \"Perfecto Juan! ¿Cuál es tu correo electrónico?\"\n\nCliente: \"juanperez@gmail.com\"\n\nSole: \"¿Este es tu número de WhatsApp: 11-4444-4444?\"\n\nCliente: \"Sí\"\n\nSole: \"¿Cómo te gustaría pagar tu pedido?\n💵 Efectivo (10% descuento en showroom)\n💳 Tarjetas\n📱 Mercado Pago\n🏦 Transferencia\"\n\nCliente: \"Efectivo\"\n\nSole: \"¡Excelente! Con efectivo tenés un 10% de descuento 🎉\n¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\nCliente: \"Retiro yo\"\n\nSole: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\n\n✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: Juan Pérez\n• Email: juanperez@gmail.com\n• WhatsApp: 11-4444-4444\n\n📦 TU PEDIDO:\n• 2 x MESA DE LUZ NÓRDICA\n• Subtotal: $45.000\n• Descuento 10% efectivo: -$4.500\n• TOTAL FINAL: $40.500\n\n💰 Forma de pago: Efectivo\n🚚 Entrega: Retiro en showroom\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n\nCliente: \"Sí\"\n\nSole: \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.\n¡Gracias por elegir Muebles San Fermín! 🪵\"\n```\n\n---\n\n## 📝 NOTAS IMPORTANTES\n\n1. **Orden estricto**: Los pasos deben seguirse en el orden establecido\n2. **Una pregunta por vez**: Nunca hacer múltiples preguntas en un mensaje\n3. **Confirmación obligatoria**: El cliente DEBE confirmar que todos los datos están correctos\n4. **Sin datos = Sin derivación**: NUNCA derivar a un humano sin completar todos los pasos\n5. **Teléfono automático**: El número se obtiene de WhatsApp, solo confirmar con el cliente\n6. **Fecha de hoy es :** {{ $now.setLocale('es').toFormat('EEEE d \\'de\\' MMMM yyyy \\'a las\\' H:mm') }}\n---\n\nReferirse a esta variable por numero de telefono \n{telefono} = {{ $('Normalizacion').item.json.message.chat_id }}\n",
           "maxIterations": 5
         }
       },
@@ -1716,11 +1649,7 @@
             },
             {
               "name": "text",
-              "value": "={{ $json.messages.texto.replace(/\\\\n/g, '\\n') }}"
-            },
-            {
-              "name": "delay",
-              "value": "={{ $json.messages.time }}"
+              "value": "={{ $json.messages.texto }}"
             }
           ]
         },
@@ -1730,7 +1659,7 @@
       "typeVersion": 4.2,
       "position": [
         1424,
-        -1120
+        -1184
       ],
       "id": "c157508c-9896-432c-a429-9426af0acbde",
       "name": "txt"
@@ -1773,7 +1702,7 @@
             },
             {
               "name": "media",
-              "value": "={{ $('Extraer URL de imagen y limpiar mensaje').item.json.url }}"
+              "value": "={{ $('Extraer URL de imagen y limpiar mensaje1').first().json.url }}"
             }
           ]
         },
@@ -1782,8 +1711,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1648,
-        -992
+        1712,
+        -1088
       ],
       "id": "9ff8b834-5034-4494-9b49-bdfb26f66ef4",
       "name": "img"
@@ -1815,14 +1744,6 @@
             {
               "name": "text",
               "value": "={{ $json.messages.texto.replace(/\\\\n/g, '\\n') }}"
-            },
-            {
-              "name": "delay",
-              "value": "={{ $json.messages.time }}"
-            },
-            {
-              "name": "presence",
-              "value": "composing"
             }
           ]
         },
@@ -1852,8 +1773,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -1488,
-        -528
+        -1008,
+        -592
       ],
       "id": "55606ef6-8c85-45e8-9fdd-5b402230d088",
       "name": "OpenAI Chat Model",
@@ -1877,7 +1798,7 @@
             {
               "id": "9c1b9005-d6a7-4781-9b46-111eef3ba0ce",
               "name": "msg.original",
-              "value": "={{ $('Normalizacion').first().json.message.content }}",
+              "value": "={{ $('Normalizacion').first()?.json?.message?.content ||$('Merge').item.json.content  }}",
               "type": "string"
             }
           ]
@@ -1887,8 +1808,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1760,
-        -960
+        -1792,
+        -864
       ],
       "id": "7bfbc9b5-bdbe-40e1-94f4-93e1f75fbc0d",
       "name": "limpiamos msg"
@@ -1906,7 +1827,7 @@
             {
               "id": "a594ea46-3927-4c3f-bf63-4f1f68a37308",
               "name": "msg.human",
-              "value": "={{ $json.msg.human }}",
+              "value": "={{ $json.msg.original }}",
               "type": "string"
             }
           ]
@@ -1916,8 +1837,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1536,
-        -960
+        -1568,
+        -864
       ],
       "id": "5127bfb3-a7ae-44f7-bfbb-29d3915cae81",
       "name": "Quitamos url"
@@ -1949,8 +1870,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1744,
-        416
+        -1728,
+        288
       ],
       "id": "e8681f5a-fb9d-4e08-9b1d-d1762b1a2a75",
       "name": "If"
@@ -1964,8 +1885,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -2272,
-        -1072
+        -2304,
+        -976
       ],
       "typeVersion": 1,
       "id": "d0405911-b3f2-4768-8647-26208a3ebe41",
@@ -1980,8 +1901,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1792,
-        -1072
+        -1824,
+        -976
       ],
       "typeVersion": 1,
       "id": "d9d23b74-5961-4b89-ab39-da03a5f6b7a1",
@@ -2012,8 +1933,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1072,
-        -1088
+        1056,
+        -1136
       ],
       "id": "36af3017-8420-478f-9950-587718e27d38",
       "name": "Sub Loop"
@@ -2023,12 +1944,12 @@
         "content": "### Agregamos sublooping para el envio de mensajes",
         "height": 448,
         "width": 1056,
-        "color": 2
+        "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        848,
-        -1232
+        912,
+        -1264
       ],
       "typeVersion": 1,
       "id": "da4ae93e-5128-42f8-8c95-f5ccaad04088",
@@ -2043,8 +1964,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        512,
-        -1328
+        416,
+        -1216
       ],
       "typeVersion": 1,
       "id": "0c282b9c-9b94-4dd0-89e2-0bc8a9dc6d6a",
@@ -2052,19 +1973,153 @@
     },
     {
       "parameters": {
-        "content": "## Validamos el estado del bot",
-        "height": 288,
-        "width": 592,
+        "content": "### Estado Bot",
+        "height": 224,
+        "width": 288,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -2128,
-        304
+        -2096,
+        336
       ],
       "typeVersion": 1,
       "id": "d5901c35-0b6a-4755-97e8-276669df627c",
       "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Normalizacion').item.json.message.chat_id }}",
+        "sessionTTL": 1800,
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        -1472,
+        -224
+      ],
+      "id": "36482de5-cb54-4b6b-b937-1cc0ed896277",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Valida Bot",
+        "height": 176,
+        "width": 192,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1776,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "ab038695-7a3c-4df7-a79a-f89b4600fab3",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "### Delete Memorie",
+        "height": 192,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1904,
+        -1312
+      ],
+      "typeVersion": 1,
+      "id": "d2506b4d-4b24-4d52-93e3-6219d321cccb",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "### Delete Status Bot",
+        "height": 192,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1616,
+        -1312
+      ],
+      "typeVersion": 1,
+      "id": "675649aa-ec51-4781-9f8a-1dcab860ee75",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1856,
+        -1264
+      ],
+      "id": "7adf6f41-f733-4f53-88df-d3d5a4dd1ee1",
+      "name": "memoria",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=status:5492254423359"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        -1552,
+        -1264
+      ],
+      "id": "cf44b8e2-4194-4b47-b1fb-4f40fecd8f7d",
+      "name": "status bot",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $input.first().json;\n\n// Verificar si existe el campo messages.texto\nif (!inputData.messages || !inputData.messages.texto) {\n  return {\n    ...inputData,\n    url: '',\n    urls: [],\n    productoFormateado: null,\n    textoLimpio: '',\n    urlsFormateadas: ''\n  };\n}\n\nconst input = inputData.messages.texto;\n\n// Regex para diferentes tipos de URLs\nconst markdownLinkRegex = /\\[([^\\]]*)\\]\\(([^)]+)\\)/g;\nconst imageRegex = /!\\[([^\\]]*)\\]\\(([^)]+)\\)/g;\nconst directUrlRegex = /(https?:\\/\\/[^\\s<>\"{}|\\\\^\\[\\]`]+)/g;\n\n// Arrays para almacenar URLs y productos\nconst urls = [];\nlet cleanedMessage = input;\n\n// Primero, extraer todas las URLs para evitar duplicados\nconst todasLasUrls = new Set();\n\n// Extraer imágenes markdown\nlet imageMatch;\nwhile ((imageMatch = imageRegex.exec(input)) !== null) {\n  todasLasUrls.add(imageMatch[2]);\n  urls.push({\n    type: 'image',\n    text: imageMatch[1] || 'imagen',\n    url: imageMatch[2],\n    fullMatch: imageMatch[0]\n  });\n}\n\n// Extraer enlaces markdown\nlet linkMatch;\nwhile ((linkMatch = markdownLinkRegex.exec(input)) !== null) {\n  if (!todasLasUrls.has(linkMatch[2])) {\n    todasLasUrls.add(linkMatch[2]);\n    urls.push({\n      type: 'link',\n      text: linkMatch[1] || 'enlace',\n      url: linkMatch[2],\n      fullMatch: linkMatch[0]\n    });\n  }\n}\n\n// Reemplazar todos los markdown links e imágenes\nurls.forEach(urlObj => {\n  if (urlObj.fullMatch) {\n    cleanedMessage = cleanedMessage.replace(urlObj.fullMatch, '');\n  }\n});\n\n// Buscar URLs directas que no hayan sido capturadas antes\nlet directMatch;\nconst tempMessage = cleanedMessage;\nwhile ((directMatch = directUrlRegex.exec(tempMessage)) !== null) {\n  if (!todasLasUrls.has(directMatch[1])) {\n    todasLasUrls.add(directMatch[1]);\n    urls.push({\n      type: 'direct',\n      text: 'enlace',\n      url: directMatch[1]\n    });\n  }\n}\n\n// Eliminar todas las URLs directas del mensaje\nurls.forEach(urlObj => {\n  if (urlObj.type === 'direct') {\n    cleanedMessage = cleanedMessage.replace(urlObj.url, '');\n  }\n});\n\n// Función mejorada para extraer información del producto\nfunction extraerInfoProducto(texto, urls) {\n  const info = {\n    nombre: '',\n    precio: '',\n    medidas: '',\n    foto: ''\n  };\n  \n  // Buscar precio con diferentes formatos\n  const precioMatch = texto.match(/(?:precio|costo|valor|price)[\\s:]*\\$?\\s*([\\d,]+(?:\\.\\d{2})?)/i);\n  if (precioMatch) {\n    info.precio = '$' + precioMatch[1].replace(/[,\\s]/g, '');\n  }\n  \n  // Buscar medidas con diferentes formatos\n  const medidasMatch = texto.match(/(?:medidas?|dimensiones?|tamaño|size)[\\s:]*([\\d.,]+\\s*x\\s*[\\d.,]+(?:\\s*x\\s*[\\d.,]+)?(?:\\s*(?:cm|m|mm|metros?|centímetros?))?)/i);\n  if (medidasMatch) {\n    info.medidas = medidasMatch[1].trim();\n  }\n  \n  // Extraer nombre del producto\n  const lineas = texto.split('\\n').map(l => l.trim()).filter(l => l);\n  for (const linea of lineas) {\n    // Buscar líneas que parezcan ser el nombre del producto\n    if (!linea.match(/precio|medidas|dimensiones|\\$|https?:|costo|valor|size/i) && \n        linea.length > 3 && \n        !linea.match(/^\\d+$/) && // No solo números\n        !linea.match(/^[\\d.,]+\\s*x\\s*[\\d.,]+/)) { // No medidas\n      info.nombre = linea;\n      break;\n    }\n  }\n  \n  // Buscar la primera imagen URL\n  const imagenUrl = urls.find(u => u.type === 'image');\n  if (imagenUrl) {\n    info.foto = imagenUrl.url;\n  }\n  \n  return info;\n}\n\n// Limpiar y formatear el texto para WhatsApp\nfunction formatearParaWhatsApp(texto) {\n  // Eliminar espacios múltiples y líneas vacías excesivas\n  let textoFormateado = texto\n    .split('\\n')\n    .map(linea => linea.trim())\n    .filter(linea => linea.length > 0)\n    .join('\\n');\n  \n  // Eliminar caracteres especiales que puedan causar problemas\n  textoFormateado = textoFormateado\n    .replace(/\\s{2,}/g, ' ') // Múltiples espacios a uno solo\n    .replace(/\\n{3,}/g, '\\n\\n') // Máximo 2 saltos de línea consecutivos\n    .replace(/^\\s+|\\s+$/g, '') // Trim general\n    .replace(/[.,;:!?]+$/g, ''); // Eliminar puntuación final innecesaria\n  \n  // Eliminar puntos finales en cada línea si no son necesarios\n  textoFormateado = textoFormateado\n    .split('\\n')\n    .map(linea => linea.replace(/\\.$/, ''))\n    .join('\\n');\n  \n  return textoFormateado;\n}\n\n// Formatear URLs para WhatsApp\nfunction formatearUrlsParaWhatsApp(urls) {\n  if (urls.length === 0) return '';\n  \n  let urlsFormateadas = '\\n📎 *Enlaces encontrados:*\\n';\n  \n  urls.forEach((urlObj, index) => {\n    if (urlObj.type === 'image') {\n      urlsFormateadas += `\\n🖼️ Imagen ${index + 1}:\\n${urlObj.url}\\n`;\n    } else {\n      urlsFormateadas += `\\n🔗 ${urlObj.text}:\\n${urlObj.url}\\n`;\n    }\n  });\n  \n  return urlsFormateadas;\n}\n\n// Extraer información del producto\nconst productoInfo = extraerInfoProducto(cleanedMessage, urls);\n\n// Formatear texto limpio\nconst textoLimpio = formatearParaWhatsApp(cleanedMessage);\n\n// Formatear URLs\nconst urlsFormateadas = formatearUrlsParaWhatsApp(urls);\n\n// Formatear la salida del producto\nlet productoFormateado = '';\nif (productoInfo.nombre || productoInfo.precio || productoInfo.medidas) {\n  productoFormateado = '📦 *INFORMACIÓN DEL PRODUCTO*\\n\\n';\n  productoFormateado += `*NOMBRE:* ${productoInfo.nombre || 'No especificado'}\\n`;\n  productoFormateado += `*PRECIO:* ${productoInfo.precio || 'No especificado'}\\n`;\n  productoFormateado += `*MEDIDAS:* ${productoInfo.medidas || 'No especificadas'}\\n`;\n  productoFormateado += `*FOTO:* ${productoInfo.foto || 'No disponible'}`;\n}\n\n// Crear mensaje completo para WhatsApp\nconst mensajeWhatsApp = textoLimpio + \n  (productoFormateado ? '\\n\\n' + productoFormateado : '') + \n  (urlsFormateadas ? '\\n' + urlsFormateadas : '');\n\n// Crear el objeto de salida\nconst output = {\n  ...inputData,\n  messages: {\n    ...inputData.messages,\n    texto: cleanedMessage,\n    textoOriginal: inputData.messages.texto,\n    textoLimpio: textoLimpio,\n    mensajeWhatsApp: mensajeWhatsApp\n  },\n  url: urls.length > 0 ? urls[0].url : '',\n  urls: urls,\n  urlsFormateadas: urlsFormateadas,\n  urlCount: urls.length,\n  productoInfo: productoInfo,\n  productoFormateado: productoFormateado\n};\n\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        -1168
+      ],
+      "id": "cb25ed9e-8c65-49dd-9dc3-229ec32306a3",
+      "name": "Extraer URL de imagen y limpiar mensaje1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para dividir texto en fragmentos con tiempo de lectura\nfunction splitTextIntoChunks(text, maxChars = 200) {\n  // Si el texto es muy corto, devolvemos un solo fragmento\n  if (!text || text.length <= maxChars) {\n    return [{\n      parte: 1,\n      texto: text || '',\n      time: calculateReadingTime(text || '')\n    }];\n  }\n\n  const chunks = [];\n  let currentChunk = '';\n  let partNumber = 1;\n  \n  // Dividimos por palabras para no cortar palabras a la mitad\n  const words = text.split(' ');\n  \n  for (let i = 0; i < words.length; i++) {\n    const word = words[i];\n    const potentialChunk = currentChunk ? currentChunk + ' ' + word : word;\n    \n    // Si agregar la siguiente palabra excede el límite\n    if (potentialChunk.length > maxChars) {\n      // Si la palabra sola es más larga que maxChars, la cortamos\n      if (word.length > maxChars) {\n        // Guardamos el chunk actual si tiene contenido\n        if (currentChunk) {\n          chunks.push({\n            parte: partNumber++,\n            texto: currentChunk.trim(),\n            time: calculateReadingTime(currentChunk.trim())\n          });\n        }\n        \n        // Cortamos la palabra larga en pedazos\n        let remainingWord = word;\n        while (remainingWord.length > maxChars) {\n          chunks.push({\n            parte: partNumber++,\n            texto: remainingWord.substring(0, maxChars),\n            time: calculateReadingTime(remainingWord.substring(0, maxChars))\n          });\n          remainingWord = remainingWord.substring(maxChars);\n        }\n        \n        // El resto de la palabra se convierte en el nuevo currentChunk\n        currentChunk = remainingWord;\n      } else {\n        // Guardamos el chunk actual y empezamos uno nuevo con esta palabra\n        chunks.push({\n          parte: partNumber++,\n          texto: currentChunk.trim(),\n          time: calculateReadingTime(currentChunk.trim())\n        });\n        currentChunk = word;\n      }\n    } else {\n      // Si cabe, agregamos la palabra al chunk actual\n      currentChunk = potentialChunk;\n    }\n  }\n  \n  // Agregar el último chunk si queda algo\n  if (currentChunk.trim()) {\n    chunks.push({\n      parte: partNumber,\n      texto: currentChunk.trim(),\n      time: calculateReadingTime(currentChunk.trim())\n    });\n  }\n  \n  return chunks;\n}\n\n// Función para calcular el tiempo de lectura basado en la longitud del texto\nfunction calculateReadingTime(text) {\n  const length = text.length;\n  \n  if (length > 150) {\n    return 4; // segundos\n  } else if (length >= 50) {\n    return 3; // segundos\n  } else {\n    return 1; // segundo\n  }\n}\n\n// Función para determinar si un texto necesita ser dividido\nfunction needsSplitting(text) {\n  if (!text || typeof text !== 'string') return false;\n  \n  // Criterios: más de 500 caracteres o más de 100 palabras\n  const charCount = text.length;\n  const wordCount = text.split(/\\s+/).filter(word => word.length > 0).length;\n  \n  return charCount > 500 || wordCount > 100;\n}\n\n// Función para procesar el texto y dividirlo inteligentemente (función original mejorada)\nfunction processAndSplitText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un array vacío\n    if (text === null || text === undefined) {\n      return [];\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) {\n        // Si output es un string, lo usamos\n        if (typeof text.output === 'string') {\n          text = text.output;\n        } else {\n          // Si output es un objeto o array, intentamos extraer de ahí\n          const extracted = extractTextContent(text.output);\n          if (extracted) {\n            text = extracted;\n          } else {\n            // Si no pudimos extraer, intentamos convertir todo el objeto a string\n            try {\n              text = JSON.stringify(text);\n            } catch (e) {\n              console.error(\"No se pudo serializar el objeto a string:\", e);\n              return [];\n            }\n          }\n        }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n          console.error(\"No se pudo serializar el objeto a string:\", e);\n          return [];\n        }\n      }\n    } else {\n      // Si no es string, objeto, null o undefined, devolvemos vacío\n      console.warn(\"Entrada a processAndSplitText no es string, objeto, null o undefined:\", typeof text);\n      return [];\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n    return [];\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '');         // Elimina signos de exclamación e interrogación iniciales y finales\n\n  // Divide en líneas para análisis\n  const lines = processedText.split('\\n');\n\n  // Grupos para almacenar los mensajes\n  const messages = [];\n  let currentMessage = [];\n  let inNumberedSection = false;\n  let currentSectionNumber = null;\n\n  // Detectar secciones numeradas y agrupables\n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i];\n    // Detecta si la línea es un encabezado numerado (ej: \"1. Tipo de propiedad:\")\n    const numberedHeaderMatch = line.match(/^\\s*(\\d+)\\.\\s+([^:]+):/);\n\n    if (numberedHeaderMatch) {\n      const sectionNumber = parseInt(numberedHeaderMatch[1]);\n\n      // Si estamos empezando una nueva sección numerada O si el número no es el siguiente esperado\n      if (!inNumberedSection || (inNumberedSection && sectionNumber !== currentSectionNumber + 1)) {\n        // Si tenemos contenido previo, guardamos como mensaje separado\n        if (currentMessage.length > 0) {\n          messages.push(currentMessage.join('\\n').trim());\n          currentMessage = [];\n        }\n        inNumberedSection = true;\n      }\n      currentSectionNumber = sectionNumber;\n      currentMessage.push(line);\n\n    } else if (line.trim() === '') {\n      // Una línea vacía puede terminar una sección si hay contenido previo\n      if (currentMessage.length > 0) {\n        // Si no estamos en una sección numerada, una línea vacía termina el mensaje actual\n        if (!inNumberedSection) {\n          messages.push(currentMessage.join('\\n').trim());\n          currentMessage = [];\n        } else {\n          // Si estamos en una sección numerada, una línea vacía se agrega al mensaje actual\n          currentMessage.push(line);\n        }\n      }\n\n    } else {\n      // Línea con contenido que no es un encabezado numerado\n      currentMessage.push(line);\n      inNumberedSection = false;\n    }\n  }\n\n  // Agregar el último mensaje si queda algo\n  if (currentMessage.length > 0) {\n    messages.push(currentMessage.join('\\n').trim());\n  }\n\n  // Filtrar mensajes vacíos y limpiar líneas vacías extra\n  return messages\n    .filter(msg => msg.length > 0)\n    .map(msg => {\n      // Eliminar líneas vacías múltiples dentro del mensaje\n      return msg.replace(/\\n{2,}/g, '\\n\\n');\n    });\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n      const extracted = extractTextContent(item);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    return null;\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él\n    if (data.output !== undefined && data.output !== null) {\n      const extracted = extractTextContent(data.output);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si tiene un campo 'response', intentamos extraer texto de él\n    if (data.response !== undefined && data.response !== null) {\n      const extracted = extractTextContent(data.response);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si tiene un campo 'json', intentamos extraer texto de él\n    if (data.json !== undefined && data.json !== null) {\n      const extracted = extractTextContent(data.json);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n    try {\n      return JSON.stringify(data);\n    } catch (e) {\n      console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n      return null;\n    }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const textArray = processAndSplitText(textToProcess);\n    \n    // Procesar cada mensaje y dividirlo en chunks si es necesario\n    const processedMessages = [];\n    \n    for (const message of textArray) {\n      if (needsSplitting(message)) {\n        // Si el mensaje es largo, lo dividimos en chunks\n        const chunks = splitTextIntoChunks(message);\n        processedMessages.push(...chunks);\n      } else {\n        // Si el mensaje es corto, lo agregamos tal cual con tiempo de lectura\n        processedMessages.push({\n          parte: processedMessages.length + 1,\n          texto: message,\n          time: calculateReadingTime(message)\n        });\n      }\n    }\n    \n    // Re-numerar las partes para que sean consecutivas\n    processedMessages.forEach((msg, index) => {\n      msg.parte = index + 1;\n    });\n    \n    // Devolvemos la estructura con los mensajes procesados\n    return [{json: {messages: processedMessages, totalParts: processedMessages.length}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un array vacío\n    return [{json: {messages: [], totalParts: 0}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {messages: [], totalParts: 0, error: error.message}}];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        -720
+      ],
+      "id": "694657a8-7565-424c-a301-bf2a3a3c35fa",
+      "name": "Separa datos"
     }
   ],
   "pinData": {
@@ -2074,7 +2129,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.10.0",
-            "content-length": "897",
+            "content-length": "928",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -2094,13 +2149,13 @@
               "key": {
                 "remoteJid": "5492254423359@s.whatsapp.net",
                 "fromMe": false,
-                "id": "474C50A8D4AE098807BF5071A7F97F2A",
+                "id": "1750A08479DD77E8137CBD842A76CF3E",
                 "senderLid": "12756421980347@lid"
               },
               "pushName": "Fer { }",
               "status": "DELIVERY_ACK",
               "message": {
-                "conversation": "Si",
+                "conversation": "Puedo hablar con algún vendedor?",
                 "messageContextInfo": {
                   "deviceListMetadata": {
                     "senderKeyHash": "iVJZBUf9o9GNyA==",
@@ -2109,16 +2164,16 @@
                     "recipientTimestamp": "1754099422"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "0UqnMKVBsPyYIrN0xA772PLRklDGaL8EbbEU2sti6Ns="
+                  "messageSecret": "qGdPMvV0qGbscjSDoRSVng9e2stQ59JNcGbhDE1EzG0="
                 }
               },
               "messageType": "conversation",
-              "messageTimestamp": 1754131026,
+              "messageTimestamp": 1754370532,
               "instanceId": "4c764abd-56e6-4e7d-b849-4e3123c02531",
               "source": "android"
             },
             "destination": "https://n8nw.qeva.xyz/webhook/manager",
-            "date_time": "2025-08-02T07:37:06.915Z",
+            "date_time": "2025-08-05T02:08:52.570Z",
             "sender": "5492254596618@s.whatsapp.net",
             "server_url": "https://evo.qeva.xyz",
             "apikey": "27732CFA65D7-416C-9562-9CED5C942DF3"
@@ -2138,6 +2193,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-02T18:17:15.764Z",
-  "versionId": "7ecca4c5-035d-4c6c-8724-a39939393a99"
+  "updatedAt": "2025-08-05T05:20:07.757Z",
+  "versionId": "529e2d02-cddd-4199-b833-647cd0acd3b3"
 }
