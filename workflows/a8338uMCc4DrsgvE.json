@@ -27,7 +27,13 @@
     "Switch": {
       "main": [
         [],
-        [],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "base64",
@@ -63,7 +69,7 @@
       "main": [
         [
           {
-            "node": "msg reply",
+            "node": "Send a text message1",
             "type": "main",
             "index": 0
           }
@@ -116,13 +122,7 @@
     },
     "msg reply": {
       "main": [
-        [
-          {
-            "node": "Wait1",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Wait1": {
@@ -555,8 +555,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1200,
-        352
+        -1216,
+        -80
       ],
       "id": "bf5c95de-ecd8-497c-bf8a-156385366161",
       "name": "msg reply"
@@ -623,7 +623,7 @@
     {
       "parameters": {
         "chatId": "164729397",
-        "text": "={{ $json.text }}",
+        "text": "={{ $('Datos').item.json.body.data.pushName }}: {{ $json.text }}",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -632,15 +632,15 @@
       "typeVersion": 1.2,
       "position": [
         -1168,
-        576
+        352
       ],
       "id": "9d1dff04-359d-44a0-82b5-d4f0895e029e",
       "name": "Send a text message1",
       "webhookId": "86f792a6-5bf4-47da-b6ec-43e30195274e",
       "credentials": {
         "telegramApi": {
-          "id": "VI6ccesjlTwys1zE",
-          "name": "Telegram account"
+          "id": "9g3zPwxX46iLtGJa",
+          "name": "Qeva AI"
         }
       }
     }
@@ -652,7 +652,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.11.0",
-            "content-length": "495",
+            "content-length": "509",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -670,23 +670,23 @@
             "instance": "2522xaf8359c21b",
             "type": "messageFromMe",
             "data": {
-              "messageId": "77C4A68A86970A5D9B04BC0C989BD6CE",
+              "messageId": "3EB0A7DEA280D2835651EB",
               "jid": "5492254423359:97@s.whatsapp.net",
               "me": true,
               "isGroup": false,
-              "remoteJid": "573164602376",
+              "remoteJid": "447453536046",
               "pushName": "Fer { }",
               "key": {
-                "remoteJid": "573164602376@s.whatsapp.net",
+                "remoteJid": "447453536046@s.whatsapp.net",
                 "fromMe": true,
-                "id": "77C4A68A86970A5D9B04BC0C989BD6CE"
+                "id": "3EB0A7DEA280D2835651EB"
               },
               "messageType": "conversation",
               "msgContent": {
-                "conversation": "Gracias 😊"
+                "conversation": "te amo mucho y perdón por hacerte hacer mil cosas"
               },
-              "messageTimestamp": 1754227606,
-              "source": "android",
+              "messageTimestamp": 1754350934,
+              "source": "web",
               "status": 2,
               "broadcast": false,
               "isMedia": false
@@ -705,6 +705,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-03T17:18:30.546Z",
-  "versionId": "9afdd07c-6742-441c-ac02-87646d04fe3d"
+  "updatedAt": "2025-08-05T00:01:42.730Z",
+  "versionId": "b1b29297-9a22-4667-921f-ac8e5e50391e"
 }
