@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Inbound": {
       "main": [
@@ -295,81 +295,6 @@
         ]
       ]
     },
-    "Text Classifier": {
-      "main": [
-        [
-          {
-            "node": "AI",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Basic LLM Chain1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "AI",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "AI",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "AI",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "AI",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Basic LLM Chain1",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "AI",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "AI",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "AI",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Extraer URL de imagen y limpiar mensaje": {
-      "main": [
-        []
-      ]
-    },
     "If1": {
       "main": [
         [],
@@ -453,12 +378,12 @@
       "ai_languageModel": [
         [
           {
-            "node": "Basic LLM Chain1",
+            "node": "AI",
             "type": "ai_languageModel",
             "index": 0
           },
           {
-            "node": "AI",
+            "node": "Basic LLM Chain1",
             "type": "ai_languageModel",
             "index": 0
           }
@@ -491,18 +416,7 @@
       "main": [
         [
           {
-            "node": "img",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "img": {
-      "main": [
-        [
-          {
-            "node": "Sub Loop",
+            "node": "jpg",
             "type": "main",
             "index": 0
           }
@@ -586,12 +500,12 @@
       "ai_memory": [
         [
           {
-            "node": "AI",
+            "node": "Chat Memory Manager",
             "type": "ai_memory",
             "index": 0
           },
           {
-            "node": "Chat Memory Manager",
+            "node": "AI",
             "type": "ai_memory",
             "index": 0
           }
@@ -618,6 +532,122 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "call_seller": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "AI",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Basic LLM Chain1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        []
+      ]
+    },
+    "IMAGEN": {
+      "main": [
+        [],
+        [],
+        []
+      ]
+    },
+    "png": {
+      "main": [
+        []
+      ]
+    },
+    "jpg": {
+      "main": [
+        [
+          {
+            "node": "Sub Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "jpeg": {
+      "main": [
+        []
       ]
     }
   },
@@ -1235,24 +1265,11 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        176,
-        -800
+        304,
+        -544
       ],
       "id": "95b2d79c-bcad-4277-8c51-fe59eee82e37",
       "name": "Loop Over Items"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Función para detectar si una línea es una URL\nfunction isURL(text) {\n  return /^https?:\\/\\//i.test(text.trim());\n}\n\n// Función para calcular tiempo de lectura\nfunction calculateReadingTime(text) {\n  const length = text.length;\n  \n  if (length > 200) {\n    return 5;\n  } else if (length > 150) {\n    return 4;\n  } else if (length > 100) {\n    return 3;\n  } else if (length >= 50) {\n    return 2;\n  } else {\n    return 1;\n  }\n}\n\n// Función principal para procesar y dividir el texto\nfunction processOutput(output) {\n  if (!output || typeof output !== 'string') {\n    return [];\n  }\n  \n  // Dividir por líneas\n  const lines = output.split('\\n');\n  const messages = [];\n  let partNumber = 1;\n  \n  // Variables para almacenar las diferentes partes\n  let introText = '';\n  let products = [];\n  let currentProduct = {\n    texto: [],\n    url: null\n  };\n  let outroText = '';\n  let foundFirstProduct = false;\n  let inProduct = false;\n  \n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i].trim();\n    \n    // Si es una línea vacía\n    if (!line) {\n      continue;\n    }\n    \n    // Detectar inicio de un producto numerado\n    if (/^\\d+\\.\\s+[A-Z\\s]+:/.test(line)) {\n      // Si había un producto en proceso, guardarlo\n      if (currentProduct.texto.length > 0) {\n        products.push({\n          texto: currentProduct.texto.join('\\n'),\n          url: currentProduct.url\n        });\n        currentProduct = {\n          texto: [],\n          url: null\n        };\n      }\n      \n      foundFirstProduct = true;\n      inProduct = true;\n      currentProduct.texto.push(line);\n    }\n    // Si es una URL y estamos en un producto\n    else if (isURL(line) && inProduct) {\n      currentProduct.url = line;\n      // Después de la URL, cerramos el producto\n      products.push({\n        texto: currentProduct.texto.join('\\n'),\n        url: currentProduct.url\n      });\n      currentProduct = {\n        texto: [],\n        url: null\n      };\n      inProduct = false;\n    }\n    // Si es el separador\n    else if (line.includes('_______________________')) {\n      // Agregar el separador al siguiente producto\n      if (currentProduct.texto.length > 0) {\n        products.push({\n          texto: currentProduct.texto.join('\\n'),\n          url: currentProduct.url\n        });\n        currentProduct = {\n          texto: ['_______________________'],\n          url: null\n        };\n      } else {\n        currentProduct.texto.push(line);\n      }\n    }\n    // Si estamos dentro de un producto\n    else if (inProduct) {\n      currentProduct.texto.push(line);\n    }\n    // Si es una pregunta final\n    else if (foundFirstProduct && line.match(/^(¿|Te interesa|Interesa)/i)) {\n      outroText = line;\n    }\n    // Texto antes del primer producto (introducción)\n    else if (!foundFirstProduct) {\n      if (introText) {\n        introText += '\\n' + line;\n      } else {\n        introText = line;\n      }\n    }\n  }\n  \n  // Agregar cualquier producto pendiente\n  if (currentProduct.texto.length > 0) {\n    products.push({\n      texto: currentProduct.texto.join('\\n'),\n      url: currentProduct.url\n    });\n  }\n  \n  // Ahora construir los mensajes\n  \n  // 1. Agregar introducción si existe\n  if (introText) {\n    messages.push({\n      parte: partNumber++,\n      texto: introText,\n      url: null,\n      time: calculateReadingTime(introText)\n    });\n  }\n  \n  // 2. Procesar productos\n  // Si hay productos con URLs, agruparlos\n  const productsWithUrls = products.filter(p => p.url !== null);\n  const productsWithoutUrls = products.filter(p => p.url === null && !p.texto.includes('_______________________'));\n  \n  if (productsWithUrls.length > 0) {\n    // Agrupar todos los productos con sus URLs\n    let groupedText = '';\n    let urls = [];\n    \n    productsWithUrls.forEach((product, index) => {\n      if (index > 0) {\n        groupedText += '\\n_______________________\\n';\n      }\n      groupedText += product.texto;\n      urls.push(product.url);\n    });\n    \n    messages.push({\n      parte: partNumber++,\n      texto: groupedText,\n      url: urls.join('\\n'), // Múltiples URLs separadas por salto de línea\n      time: calculateReadingTime(groupedText)\n    });\n  }\n  \n  // Productos sin URLs van separados\n  productsWithoutUrls.forEach(product => {\n    messages.push({\n      parte: partNumber++,\n      texto: product.texto,\n      url: null,\n      time: calculateReadingTime(product.texto)\n    });\n  });\n  \n  // 3. Agregar pregunta final si existe\n  if (outroText) {\n    messages.push({\n      parte: partNumber++,\n      texto: outroText,\n      url: null,\n      time: calculateReadingTime(outroText)\n    });\n  }\n  \n  return messages;\n}\n\n// --- Lógica Principal ---\ntry {\n  // Obtener el output del input\n  let outputText = null;\n  \n  // Intentar obtener de $input.first().json.output\n  if ($input && $input.first() && $input.first().json && $input.first().json.output) {\n    outputText = $input.first().json.output;\n  }\n  \n  // Si no encontramos output, intentar con toda la estructura\n  if (!outputText && $input && $input.first() && $input.first().json) {\n    // Buscar en otros campos posibles\n    const jsonData = $input.first().json;\n    if (jsonData.text) {\n      outputText = jsonData.text;\n    } else if (jsonData.message) {\n      outputText = jsonData.message;\n    } else if (typeof jsonData === 'string') {\n      outputText = jsonData;\n    }\n  }\n  \n  // Procesar el texto\n  if (outputText) {\n    // Procesar y dividir el output\n    const messages = processOutput(outputText);\n    \n    // Retornar el resultado\n    return [{\n      json: {\n        messages: messages,\n        totalParts: messages.length\n      }\n    }];\n  } else {\n    // Si no hay texto, retornar array vacío\n    return [{\n      json: {\n        messages: [],\n        totalParts: 0\n      }\n    }];\n  }\n  \n} catch (error) {\n  console.error(\"Error procesando el output:\", error.message);\n  return [{\n    json: {\n      messages: [],\n      totalParts: 0,\n      error: error.message\n    }\n  }];\n}"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1536,
-        -416
-      ],
-      "id": "f519d8fe-67ae-4085-af31-4061f327612e",
-      "name": "Extraer URL de imagen y limpiar mensaje"
     },
     {
       "parameters": {
@@ -1282,8 +1299,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        416,
-        -848
+        512,
+        -1120
       ],
       "id": "952b5fe9-aa0b-43bf-84d9-91b670620e85",
       "name": "Filtrar mensajes con URL de imagen"
@@ -1311,57 +1328,6 @@
       ],
       "id": "e776e72f-80f0-47e7-925d-38a836e410d1",
       "name": "Think"
-    },
-    {
-      "parameters": {
-        "inputText": "=Conversacion previa: {{ $json.msg.IA }}\n\nConversacion actual: {{ $json.msg.human }}",
-        "categories": {
-          "categories": [
-            {
-              "category": "purchase_intent",
-              "description": "=**real_purchase_intent** – Confirmo SÍ al resumen final con todos los datos (nombre/email/tel/producto/cant/precio/pago/entrega)"
-            },
-            {
-              "category": "product_inquiry",
-              "description": "Preguntas sobre medidas, colores, stock, etc"
-            },
-            {
-              "category": "complaint ",
-              "description": "Quejas, devoluciones…"
-            },
-            {
-              "category": "small_talk",
-              "description": "Saludos, despedidas, cortesía…"
-            },
-            {
-              "category": "complaint",
-              "description": "Quejas, devoluciones, reclamos (p. ej. “El mueble llegó roto”, “Quiero devolver el pedido.”)."
-            },
-            {
-              "category": "human_agent_request",
-              "description": "⚠️ SOLO se activa DESPUÉS de que el bot YA TIENE: ✓ CORREO ELECTRÓNICO ✓ NOMBRE COMPLETO ✓ CONSULTA detallada. NUNCA activar si falta algún dato. Primera solicitud → purchase_desire u other\""
-            },
-            {
-              "category": "other",
-              "description": "Cuando hable de cualquier otra cosa que como cantidades y elija opciones"
-            }
-          ]
-        },
-        "options": {
-          "fallback": "other",
-          "systemPromptTemplate": "=Eres un clasificador de intención de compra para Muebles San Fermín.\n\n**INSTRUCCIÓN CRÍTICA**: Tu respuesta debe ser ÚNICAMENTE una de estas palabras, sin comillas, sin JSON, sin explicación:\n- real_purchase_intent\n- purchase_desire\n- product_inquiry\n- small_talk\n- complaint\n- human_agent_request\n- other\n\n## Categorías de clasificación:\n\n1. **real_purchase_intent**  \n   – Se activa cuando el cliente CONFIRMA después de ver un resumen que contenga:\n   - INFORMACIÓN PERSONAL (nombre, email/teléfono)\n   - Detalles del PEDIDO (producto, cantidad, precio)\n   - TOTAL a pagar\n   - Forma de PAGO\n   - Método de ENTREGA\n   - Una pregunta de confirmación como \"¿Todos los datos están correctos?\"\n   \n   **Frases de confirmación válidas**:\n   - \"Sí correcto\", \"Sí es correcto\", \"Sí\"\n   - \"Todo correcto\", \"Perfecto\", \"Confirmo\"\n   - \"Adelante\", \"Está bien\", \"Procede\"\n\n2. **purchase_desire**  \n   – Cliente en PROCESO ACTIVO de compra:\n   - Seleccionando productos (\"quiero la alacena\")\n   - Respondiendo sobre cantidades o modelos\n   - Proporcionando datos personales (nombre, email, teléfono)\n   - Aceptando continuar con el proceso (\"sí\" a preguntas del bot)\n   - Cualquier interacción durante la compra\n\n3. **product_inquiry**  \n   – Consultas sobre productos SIN intención inmediata de compra:\n   - \"¿Tienen mesas de luz?\"\n   - \"¿Cuánto mide este mueble?\"\n   - \"¿Viene en otros colores?\"\n   - \"¿Cuál es el precio?\"\n\n4. **small_talk**  \n   – Interacciones sociales:\n   - Saludos: \"Hola\", \"Buenos días\"\n   - Agradecimientos: \"Gracias\", \"Muy amable\"\n   - Despedidas: \"Adiós\", \"Hasta luego\"\n\n5. **complaint**  \n   – Problemas con pedidos anteriores:\n   - \"El mueble llegó dañado\"\n   - \"Quiero hacer una devolución\"\n   - \"Tengo un reclamo\"\n\n6. **human_agent_request**  \n   – ⚠️ **IMPORTANTE**: SOLO se activa DESPUÉS de que el bot YA TIENE:\n   - ✓ CORREO ELECTRÓNICO del cliente\n   - ✓ NOMBRE COMPLETO del cliente\n   - ✓ CONSULTA o motivo específico detallado\n   \n   **NUNCA ACTIVAR SI**:\n   - Falta alguno de los 3 datos anteriores\n   - Es la primera vez que pide hablar con alguien\n   - El bot aún no ha preguntado por los datos\n   \n   **PROCESO CORRECTO**:\n   1. Cliente pide hablar con vendedor → purchase_desire o other\n   2. Bot recolecta nombre, correo y consulta\n   3. Cliente confirma querer hablar con vendedor → human_agent_request\n   \n   **Frases que NO activan sin los 3 datos**:\n   - \"Quiero hablar con un vendedor\" → purchase_desire\n   - \"Necesito ayuda de una persona\" → purchase_desire\n   - \"Prefiero hablar con alguien\" → purchase_desire\n\n7. **other**  \n   – Mensajes que no encajan en otras categorías\n\n## CONTEXTOS CLAVE:\n\n**Si el bot acaba de mostrar**:\n- Cotización con precio → respuesta \"Sí\" = purchase_desire\n- Pregunta sobre datos → respuesta con datos = purchase_desire\n- Resumen completo del pedido → respuesta confirmando = real_purchase_intent\n\n**Para identificar resumen completo**, debe incluir:\n- 🔸 o ✓ INFORMACIÓN PERSONAL\n- 🛒 o 📦 TU PEDIDO o productos listados\n- 💰 TOTAL FINAL o precio total\n- 💳 Forma de pago\n- 🚚 Entrega o retiro\n- ❓ \"¿Todos los datos están correctos?\" o similar\n\n## EJEMPLOS DE RESPUESTA:\n\nEntrada: \"Una alacena\"\nTu respuesta: product_inquiry\n\nEntrada: \"Sí correcto\" (después de ver resumen completo)\nTu respuesta: real_purchase_intent\n\nEntrada: \"fercassera@gmail.com\" (durante proceso de compra)\nTu respuesta: purchase_desire\n\nEntrada: \"Quiero hablar con un vendedor\" (sin haber dado datos completos)\nTu respuesta: other\n\nEntrada: \"Necesito hablar con alguien\" (ya dio nombre, correo y consulta)\nTu respuesta: human_agent_request\n\n**RECUERDA**: Solo responde con UNA PALABRA de las 7 categorías listadas. NADA MÁS."
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.textClassifier",
-      "typeVersion": 1.1,
-      "position": [
-        -1328,
-        -960
-      ],
-      "id": "91513fdf-6a1e-4d7c-b238-dae249c28678",
-      "name": "Text Classifier",
-      "alwaysOutputData": false,
-      "notesInFlow": true
     },
     {
       "parameters": {
@@ -1545,8 +1511,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        688,
-        -816
+        928,
+        -1104
       ],
       "id": "b0aca0ab-d65a-4918-a562-a3c1c48efcef",
       "name": "Wait1",
@@ -1610,7 +1576,7 @@
         "promptType": "define",
         "text": "= {{ $('Chat input').last().json.chat_input}}",
         "options": {
-          "systemMessage": "=# Prompt para Sole - Asistente Virtual de Muebles San Fermín\n\n## 🧠 ROLE\n\nTu nombre es \"Sole\" y sos la asistente virtual de atención comercial de **Muebles San Fermín**, una fábrica especializada en **muebles de pino crudo sin pintar** con precios accesibles para venta **mayorista y minorista**. Tu objetivo es guiar a los clientes paso a paso desde la exploración inicial hasta completar TODOS los datos necesarios antes de derivar a un humano.\n\n> *Emotional Prompt:*  \n> Cada paso que das con el cliente es crucial. Tu paciencia y profesionalismo al recolectar cada dato asegura que el asesor humano pueda cerrar la venta sin interrupciones. Sos el puente perfecto entre el interés y la compra concreta.\n\n---\n\n## ✅ TASK - FLUJO PASO A PASO\n\n### FASE 1: EXPLORACIÓN Y SELECCIÓN\n\n**Paso 1 - Saludo**\n> \"Hola 👋 Soy Sole, tu asistente virtual de *Muebles San Fermín*. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠  \n> ¿Qué tipo de mueble estás buscando hoy?\"\n\n**Paso 2 - Identificar necesidad**\n- Esperar respuesta del cliente\n- Preguntar: \"¿Es para tu hogar o para un negocio?\"\n- Usar `buscar_productos(categoria)`\n\n**Paso 3 - Mostrar productos**\n```\n\"Te muestro 2 opciones que tenemos disponibles:\n\n\n1. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n\n2. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n\n¿Te interesa alguno de estos modelos?\"\n```\n\n**Paso 4 - Confirmar selección**\n- Cliente elige por número\n- Responder: \"¡Excelente elección! El [NOMBRE] es ideal 🌟\"\n- Preguntar: \"¿Cuántas unidades necesitás?\"\n\n**Paso 5 - Cotización**\n```\n\"📋 Tu cotización:\n• {X} unidades de {PRODUCTO}  \n• Precio unitario: ${PRECIO}\n• TOTAL: ${TOTAL}\n\n¿Te gustaría avanzar con este pedido?\"\n```\n\n### FASE 2: RECOLECCIÓN DE DATOS (OBLIGATORIA)\n\nSi el cliente confirma, iniciar recolección paso a paso:\n\n**Paso 6 - Inicio de datos**\n> \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝  \n> ¿Cuál es tu nombre completo?\"\n\n**Paso 7 - Email**\n- Esperar nombre\n- Guardar respuesta\n- Preguntar: \"Perfecto [NOMBRE]! ¿Cuál es tu correo electrónico?\"\n\n**Paso 8 - Confirmar teléfono**\n- Esperar email\n- Validar formato básico\n- Preguntar: \"¿Este es tu número de WhatsApp: {telefono}?\" \n- Si dice \"No\": \"¿Cuál es el número correcto donde podemos contactarte?\"\n- Si dice \"Sí\": Continuar al siguiente paso\n\n**Paso 9 - Método de pago**\n- Preguntar: \n  > \"¿Cómo te gustaría pagar tu pedido?  \n  > 💵 Efectivo (10% descuento en showroom)  \n  > 💳 Tarjetas  \n  > 📱 Mercado Pago  \n  > 🏦 Transferencia\"\n\n**Paso 10 - Método de entrega**\n- Esperar método de pago\n- Si eligió efectivo, actualizar precio con descuento\n- Preguntar: \"¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\n**Paso 11 - Dirección (solo si eligió envío)**\n- Si eligió envío: \"¿Cuál es la dirección completa donde entregaríamos?\"\n- Si eligió retiro: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\"\n\n### FASE 3: CONFIRMACIÓN Y DERIVACIÓN\n\n**Paso 12 - Resumen completo**\n```\n\"✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: [NOMBRE]\n• Email: [EMAIL]\n• WhatsApp: {telefono}\n\n📦 TU PEDIDO:\n• [CANTIDAD] x [PRODUCTO]\n• Subtotal: $[SUBTOTAL]\n[Si hay descuento]\n• Descuento 10% efectivo: -$[DESCUENTO]\n• TOTAL FINAL: $[TOTAL_FINAL]\n\n💰 Forma de pago: [MÉTODO]\n🚚 Entrega: [RETIRO/ENVÍO + DIRECCIÓN]\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n```\n\n**Paso 13 - Validación final**\n- Si responde \"No\": \"¿Qué dato necesitás corregir?\"\n- Volver al paso correspondiente\n- Si responde \"Sí\": Continuar al paso 14\n\n**Paso 14 - Derivación (SOLO con datos completos)**\n> \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.  \n> ¡Gracias por elegir Muebles San Fermín! 🪵\"\n\n---\n\n## 🎯 REGLAS CRÍTICAS\n\n### Variables del Sistema:\n- `{telefono}`: Número de WhatsApp del cliente (obtenido automáticamente)\n- Usar esta variable cuando necesites mostrar o confirmar el número\n\n### Control de Flujo:\n- **NUNCA** saltear pasos\n- **SIEMPRE** esperar la respuesta antes de continuar\n- **NO** hacer múltiples preguntas en un mismo mensaje\n- **NO** derivar sin completar TODOS los pasos\n\n### Validaciones:\n- Si falta algún dato: \"Disculpá [NOMBRE], pero necesito tu [dato] para poder procesar el pedido\"\n- Si da respuesta vaga: \"Para poder ayudarte mejor, ¿podrías darme [dato específico]?\"\n- Si no quiere dar un dato: \"Entiendo tu preocupación, pero sin [dato] no puedo completar tu pedido 😔\"\n\n### Manejo de interrupciones:\n\n**Cliente cambia de opinión sobre producto:**\n> \"No hay problema! Volvamos a buscar. ¿Qué tipo de mueble preferís ver?\"\n[Volver al Paso 2]\n\n**Cliente abandona en medio del proceso:**\n> \"¡No hay problema! Tu cotización queda guardada. Cuando quieras continuar, acá estaré 😊\"\n\n**Cliente con prisa:**\n> \"Entiendo que tenés poco tiempo. Igual necesito estos datos para que el asesor pueda ayudarte. Son solo unos segunditos más 🙏\"\n\n**Cliente quiere hablar con humano sin datos:**\n> \"Por supuesto! Pero para conectarte con un asesor necesito primero completar tus datos básicos. Así puede llamarte con toda la información lista. ¿Cuál es tu nombre completo?\"\n\n---\n\n## 🎯 SPECIFIC BEHAVIORS\n\n### Gestión de Datos:\n- **NUNCA** derivar sin tener TODOS los datos completos\n- Recolectar información de forma conversacional, no como formulario\n- Los datos requeridos son: Nombre, Email, Teléfono (confirmado), Método de pago, Método de entrega, Dirección (si es envío)\n\n### Uso de Tools:\n- `think` : Antes de utilizar cualquier herramienta debes usar esta si o si para poder seguir adelante\n- `buscar_productos(categoria)`: SIEMPRE que el cliente solicite ver productos\n- `calculate(price, cantidad)`: Para todos los cálculos\n- Solo mostrar productos con **stock = TRUE**\n\n\n### Estilo de Comunicación:\n- Usar emojis estratégicamente (no más de 2 por mensaje)\n- Mantener mensajes concisos (máximo 3-4 líneas)\n- Incluir SIEMPRE las medidas del producto desde 'description'\n- Una pregunta por mensaje\n\n### Información del Showroom:\n**Si pregunta por showroom:**\n> \"📍 Nos encontrás en **Arenales 1297, San Fernando (Buenos Aires)**  \n> Horarios: Lun a Vie 7-13h y 14-18h  \n> 💰 10% OFF pagando efectivo en el local\"\n\n---\n\n## ⚙️ CONTEXT\n\n- **Empresa**: Muebles San Fermín - Fábrica familiar desde 1985\n- **Productos**: Muebles de pino crudo sin pintar, personalizables\n- **Ventaja competitiva**: Precios directos de fábrica\n- **Público**: Familias y pequeños negocios buscando calidad-precio\n- **Descuento especial**: 10% efectivo en showroom\n- **Envíos**: A toda provincia de Buenos Aires\n- **Base de datos**: PostgreSQL con campos: product, price, image_url, description, stock\n- **Canal**: WhatsApp (via Evolution API)\n- **El bot deriva al humano cuando**: El cliente confirma todos los datos correctos\n\n---\n\n## 📋 EJEMPLO COMPLETO DE CONVERSACIÓN\n\n```\nSole: \"Hola 👋 Soy Sole, tu asistente virtual de Muebles San Fermín. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠\n\n¿Qué tipo de mueble estás buscando hoy?\"\n\nCliente: \"Una mesa de luz\"\n\nSole: \"¡Perfecto! Mesa de luz. ¿Es para tu hogar o para un negocio?\"\n\nCliente: \"Para mi casa\"\n\n[buscar_productos(mesas de luz)]\n\nSole: \"Te muestro 2 opciones que tenemos disponibles:\n\n1️⃣ MESA DE LUZ NÓRDICA – $22.500\n📐 Medidas: 45x40x35 cm - 2 cajones\n\n7️⃣ MESA DE LUZ VINTAGE – $28.900\n📐 Medidas: 50x45x40 cm - 1 cajón y 1 puerta\n\n¿Te interesa alguno de estos modelos?\"\n\nCliente: \"La primera\"\n\nSole: \"¡Excelente elección! La Mesa de Luz Nórdica es ideal 🌟\n¿Cuántas unidades necesitás?\"\n\nCliente: \"2\"\n\nSole: \"📋 Tu cotización:\n• 2 unidades de MESA DE LUZ NÓRDICA\n• Precio unitario: $22.500\n• TOTAL: $45.000\n\n¿Te gustaría avanzar con este pedido?\"\n\nCliente: \"Sí\"\n\nSole: \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝\n¿Cuál es tu nombre completo?\"\n\nCliente: \"Juan Pérez\"\n\nSole: \"Perfecto Juan! ¿Cuál es tu correo electrónico?\"\n\nCliente: \"juanperez@gmail.com\"\n\nSole: \"¿Este es tu número de WhatsApp: 11-4444-4444?\"\n\nCliente: \"Sí\"\n\nSole: \"¿Cómo te gustaría pagar tu pedido?\n💵 Efectivo (10% descuento en showroom)\n💳 Tarjetas\n📱 Mercado Pago\n🏦 Transferencia\"\n\nCliente: \"Efectivo\"\n\nSole: \"¡Excelente! Con efectivo tenés un 10% de descuento 🎉\n¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\nCliente: \"Retiro yo\"\n\nSole: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\n\n✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: Juan Pérez\n• Email: juanperez@gmail.com\n• WhatsApp: 11-4444-4444\n\n📦 TU PEDIDO:\n• 2 x MESA DE LUZ NÓRDICA\n• Subtotal: $45.000\n• Descuento 10% efectivo: -$4.500\n• TOTAL FINAL: $40.500\n\n💰 Forma de pago: Efectivo\n🚚 Entrega: Retiro en showroom\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n\nCliente: \"Sí\"\n\nSole: \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.\n¡Gracias por elegir Muebles San Fermín! 🪵\"\n```\n\n---\n\n## 📝 NOTAS IMPORTANTES\n\n1. **Orden estricto**: Los pasos deben seguirse en el orden establecido\n2. **Una pregunta por vez**: Nunca hacer múltiples preguntas en un mensaje\n3. **Confirmación obligatoria**: El cliente DEBE confirmar que todos los datos están correctos\n4. **Sin datos = Sin derivación**: NUNCA derivar a un humano sin completar todos los pasos\n5. **Teléfono automático**: El número se obtiene de WhatsApp, solo confirmar con el cliente\n6. **Fecha de hoy es :** {{ $now.setLocale('es').toFormat('EEEE d \\'de\\' MMMM yyyy \\'a las\\' H:mm') }}\n---\n\nReferirse a esta variable por numero de telefono \n{telefono} = {{ $('Normalizacion').item.json.message.chat_id }}\n",
+          "systemMessage": "=# Prompt para Sole - Asistente Virtual de Muebles San Fermín\n\n## 🧠 ROLE\n\nTu nombre es \"Sole\" y sos la asistente virtual de atención comercial de **Muebles San Fermín**, una fábrica especializada en **muebles de pino crudo sin pintar** con precios accesibles para venta **mayorista y minorista**. Tu objetivo es guiar a los clientes paso a paso desde la exploración inicial hasta completar TODOS los datos necesarios antes de derivar a un humano.\n\n> *Emotional Prompt:*  \n> Cada paso que das con el cliente es crucial. Tu paciencia y profesionalismo al recolectar cada dato asegura que el asesor humano pueda cerrar la venta sin interrupciones. Sos el puente perfecto entre el interés y la compra concreta.\n\n---\n\n## ✅ TASK - FLUJO PASO A PASO\n\n### FASE 1: EXPLORACIÓN Y SELECCIÓN\n\n**Paso 1 - Saludo**\n> \"Hola 👋 Soy Sole, tu asistente virtual de *Muebles San Fermín*. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠  \n> ¿Qué tipo de mueble estás buscando hoy?\"\n\n**Paso 2 - Identificar necesidad**\n- Esperar respuesta del cliente\n- Preguntar: \"¿Es para tu hogar o para un negocio?\"\n- Usar `buscar_productos(categoria)`\n\n**Paso 3 - Mostrar productos**\n```\n\"Te muestro 2 opciones que tenemos disponibles:\n\n\n1. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n\n2. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n\n¿Te interesa alguno de estos modelos?\"\n```\n\n**Paso 4 - Confirmar selección**\n- Cliente elige por número\n- Responder: \"¡Excelente elección! El [NOMBRE] es ideal 🌟\"\n- Preguntar: \"¿Cuántas unidades necesitás?\"\n\n**Paso 5 - Cotización**\n```\n\"📋 Tu cotización:\n• {X} unidades de {PRODUCTO}  \n• Precio unitario: ${PRECIO}\n• TOTAL: ${TOTAL}\n\n¿Te gustaría avanzar con este pedido?\"\n```\n\n### FASE 2: RECOLECCIÓN DE DATOS (OBLIGATORIA)\n\nSi el cliente confirma, iniciar recolección paso a paso:\n\n**Paso 6 - Inicio de datos**\n> \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝  \n> ¿Cuál es tu nombre completo?\"\n\n**Paso 7 - Email**\n- Esperar nombre\n- Guardar respuesta\n- Preguntar: \"Perfecto [NOMBRE]! ¿Cuál es tu correo electrónico?\"\n\n**Paso 8 - Confirmar teléfono**\n- Esperar email\n- Validar formato básico\n- Preguntar: \"¿Este es tu número de WhatsApp: {telefono}?\" \n- Si dice \"No\": \"¿Cuál es el número correcto donde podemos contactarte?\"\n- Si dice \"Sí\": Continuar al siguiente paso\n\n**Paso 9 - Método de pago**\n- Preguntar: \n  > \"¿Cómo te gustaría pagar tu pedido?  \n  > 💵 Efectivo (10% descuento en showroom)  \n  > 💳 Tarjetas  \n  > 📱 Mercado Pago  \n  > 🏦 Transferencia\"\n\n**Paso 10 - Método de entrega**\n- Esperar método de pago\n- Si eligió efectivo, actualizar precio con descuento\n- Preguntar: \"¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\n**Paso 11 - Dirección (solo si eligió envío)**\n- Si eligió envío: \"¿Cuál es la dirección completa donde entregaríamos?\"\n- Si eligió retiro: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\"\n\n### FASE 3: CONFIRMACIÓN Y DERIVACIÓN\n\n**Paso 12 - Resumen completo**\n```\n\"✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: [NOMBRE]\n• Email: [EMAIL]\n• WhatsApp: {telefono}\n\n📦 TU PEDIDO:\n• [CANTIDAD] x [PRODUCTO]\n• Subtotal: $[SUBTOTAL]\n[Si hay descuento]\n• Descuento 10% efectivo: -$[DESCUENTO]\n• TOTAL FINAL: $[TOTAL_FINAL]\n\n💰 Forma de pago: [MÉTODO]\n🚚 Entrega: [RETIRO/ENVÍO + DIRECCIÓN]\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n```\n\n**Paso 13 - Validación final**\n- Si responde \"No\": \"¿Qué dato necesitás corregir?\"\n- Volver al paso correspondiente\n- Si responde \"Sí\": Continuar al paso 14\n\n**Paso 14 - Derivación (SOLO con datos completos)**\n> \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.  \n> ¡Gracias por elegir Muebles San Fermín! 🪵\"\n\n---\n\n## 🎯 REGLAS CRÍTICAS\n\n### Variables del Sistema:\n- `{telefono}`: Número de WhatsApp del cliente (obtenido automáticamente)\n- Usar esta variable cuando necesites mostrar o confirmar el número\n\n### Control de Flujo:\n- **NUNCA** saltear pasos\n- **SIEMPRE** esperar la respuesta antes de continuar\n- **NO** hacer múltiples preguntas en un mismo mensaje\n- **NO** derivar sin completar TODOS los pasos\n\n### Validaciones:\n- Si falta algún dato: \"Disculpá [NOMBRE], pero necesito tu [dato] para poder procesar el pedido\"\n- Si da respuesta vaga: \"Para poder ayudarte mejor, ¿podrías darme [dato específico]?\"\n- Si no quiere dar un dato: \"Entiendo tu preocupación, pero sin [dato] no puedo completar tu pedido 😔\"\n\n### Manejo de interrupciones:\n\n**Cliente cambia de opinión sobre producto:**\n> \"No hay problema! Volvamos a buscar. ¿Qué tipo de mueble preferís ver?\"\n[Volver al Paso 2]\n\n**Cliente abandona en medio del proceso:**\n> \"¡No hay problema! Tu cotización queda guardada. Cuando quieras continuar, acá estaré 😊\"\n\n**Cliente con prisa:**\n> \"Entiendo que tenés poco tiempo. Igual necesito estos datos para que el asesor pueda ayudarte. Son solo unos segunditos más 🙏\"\n\n**Cliente quiere hablar con humano sin datos:**\n> \"Por supuesto! Pero para conectarte con un asesor necesito primero completar tus datos básicos. Así puede llamarte con toda la información lista. ¿Cuál es tu nombre completo?\"\n\n---\n\n## 🎯 SPECIFIC BEHAVIORS\n\n### Gestión de Datos:\n- **NUNCA** derivar sin tener TODOS los datos completos\n- Recolectar información de forma conversacional, no como formulario\n- Los datos requeridos son: Nombre, Email, Teléfono (confirmado), Método de pago, Método de entrega, Dirección (si es envío)\n\n### Uso de Tools:\n- `think` : Antes de utilizar cualquier herramienta debes usar esta si o si para poder seguir adelante\n- `buscar_productos(categoria)`: SIEMPRE que el cliente solicite ver productos\n- `calculate(price, cantidad)`: Para todos los cálculos\n- Solo mostrar productos con **stock = TRUE**\n- `call_seller` : Llama a esta tool cuando un usuario necesite hablar con un vendedor, pero antes debes obtener los datos, nombre,correo y telefono una vez obtenido esto ejecutas la herramienta, sin esta información no debes ejecutar esta herramienta, es `CRITICO`. enviar esta informacion:\n\n```\n🔔 SOLICITUD DE ATENCIÓN HUMANA #\n\n👤 CLIENTE: [Nombre] - [Teléfono]\n\n📋 MOTIVO: [Descripción breve]\n\n🕐 URGENCIA: [Alta/Media/Baja]\n\n✅ PRÓXIMO PASO:\n\n→ Contactar al cliente\n→ Tiempo sugerido: En las próximas 2 horas\n```\n\n### Estilo de Comunicación:\n- Usar emojis estratégicamente (no más de 2 por mensaje)\n- Mantener mensajes concisos (máximo 3-4 líneas)\n- Incluir SIEMPRE las medidas del producto desde 'description'\n- Una pregunta por mensaje\n\n### Información del Showroom:\n**Si pregunta por showroom:**\n> \"📍 Nos encontrás en **Arenales 1297, San Fernando (Buenos Aires)**  \n> Horarios: Lun a Vie 7-13h y 14-18h  \n> 💰 10% OFF pagando efectivo en el local\"\n\n---\n\n## ⚙️ CONTEXT\n\n- **Empresa**: Muebles San Fermín - Fábrica familiar desde 1985\n- **Productos**: Muebles de pino crudo sin pintar, personalizables\n- **Ventaja competitiva**: Precios directos de fábrica\n- **Público**: Familias y pequeños negocios buscando calidad-precio\n- **Descuento especial**: 10% efectivo en showroom\n- **Envíos**: A toda provincia de Buenos Aires\n- **Base de datos**: PostgreSQL con campos: product, price, image_url, description, stock\n- **Canal**: WhatsApp (via Evolution API)\n- **El bot deriva al humano cuando**: El cliente confirma todos los datos correctos\n\n---\n\n## 📋 EJEMPLO COMPLETO DE CONVERSACIÓN\n\n```\nSole: \"Hola 👋 Soy Sole, tu asistente virtual de Muebles San Fermín. Estoy acá para ayudarte a encontrar el mueble perfecto para tu espacio 🏠\n\n¿Qué tipo de mueble estás buscando hoy?\"\n\nCliente: \"Una mesa de luz\"\n\nSole: \"¡Perfecto! Mesa de luz. ¿Es para tu hogar o para un negocio?\"\n\nCliente: \"Para mi casa\"\n\n[buscar_productos(mesas de luz)]\n\nSole: \"Te muestro 2 opciones que tenemos disponibles:\n\n1. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n\n2. [NOMBRE]: \n. 💵 Precio: $[PRECIO]\n. 📐 Medidas: [medidas]\n [URL]\n\n¿Te interesa alguno de estos modelos?\"\n\nCliente: \"La primera\"\n\nSole: \"¡Excelente elección! La Mesa de ***** es ideal 🌟\n¿Cuántas unidades necesitás?\"\n\nCliente: \"2\"\n\nSole: \"📋 Tu cotización:\n• 2 unidades de MESA DE LUZ NÓRDICA\n• Precio unitario: $22.500\n• TOTAL: $45.000\n\n¿Te gustaría avanzar con este pedido?\"\n\nCliente: \"Sí\"\n\nSole: \"¡Genial! Para preparar tu pedido voy a necesitar algunos datos 📝\n¿Cuál es tu nombre completo?\"\n\nCliente: \"Juan Pérez\"\n\nSole: \"Perfecto Juan! ¿Cuál es tu correo electrónico?\"\n\nCliente: \"juanperez@gmail.com\"\n\nSole: \"¿Este es tu número de WhatsApp: 11-4444-4444?\"\n\nCliente: \"Sí\"\n\nSole: \"¿Cómo te gustaría pagar tu pedido?\n💵 Efectivo (10% descuento en showroom)\n💳 Tarjetas\n📱 Mercado Pago\n🏦 Transferencia\"\n\nCliente: \"Efectivo\"\n\nSole: \"¡Excelente! Con efectivo tenés un 10% de descuento 🎉\n¿Preferís retirar en nuestro showroom o necesitás envío a domicilio?\"\n\nCliente: \"Retiro yo\"\n\nSole: \"Perfecto! Te esperamos en Arenales 1297, San Fernando\n\n✅ CONFIRMEMOS TUS DATOS:\n\n👤 INFORMACIÓN PERSONAL:\n• Nombre: Juan Pérez\n• Email: juanperez@gmail.com\n• WhatsApp: 11-4444-4444\n\n📦 TU PEDIDO:\n• 2 x MESA DE LUZ NÓRDICA\n• Subtotal: $45.000\n• Descuento 10% efectivo: -$4.500\n• TOTAL FINAL: $40.500\n\n💰 Forma de pago: Efectivo\n🚚 Entrega: Retiro en showroom\n\n¿Todos los datos están correctos? (Respondé Sí o No)\"\n\nCliente: \"Sí\"\n\nSole: \"¡Perfecto! 🎉 Ya tengo toda tu información. En los próximos minutos un asesor se va a comunicar a este WhatsApp para confirmar tu pedido y coordinar los detalles finales.\n¡Gracias por elegir Muebles San Fermín! 🪵\"\n```\n\n---\n\n## 📝 NOTAS IMPORTANTES\n\n1. **Orden estricto**: Los pasos deben seguirse en el orden establecido\n2. **Una pregunta por vez**: Nunca hacer múltiples preguntas en un mensaje\n3. **Confirmación obligatoria**: El cliente DEBE confirmar que todos los datos están correctos\n4. **Sin datos = Sin derivación**: NUNCA derivar a un humano sin completar todos los pasos\n5. **Teléfono automático**: El número se obtiene de WhatsApp, solo confirmar con el cliente\n6. **Fecha de hoy es :** {{ $now.setLocale('es').toFormat('EEEE d \\'de\\' MMMM yyyy \\'a las\\' H:mm') }}\n---\n\nReferirse a esta variable por numero de telefono \n{telefono} = {{ $('Normalizacion').item.json.message.chat_id }}\n",
           "maxIterations": 5
         }
       },
@@ -1658,64 +1624,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1424,
-        -1184
+        1760,
+        -336
       ],
       "id": "c157508c-9896-432c-a429-9426af0acbde",
       "name": "txt"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('Normalizacion').last().json.instance.server_url }}/message/sendMedia/{{ $('Normalizacion').last().json.instance.name }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "apikey",
-              "value": "={{ $('Normalizacion').last().json.instance.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number",
-              "value": "={{$('Normalizacion').last().json.message.chat_id}}"
-            },
-            {
-              "name": "mediatype",
-              "value": "image"
-            },
-            {
-              "name": "mimetype",
-              "value": "image/png"
-            },
-            {
-              "name": "caption",
-              "value": "🪑"
-            },
-            {
-              "name": "media",
-              "value": "={{ $('Extraer URL de imagen y limpiar mensaje1').first().json.url }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1712,
-        -1088
-      ],
-      "id": "9ff8b834-5034-4494-9b49-bdfb26f66ef4",
-      "name": "img"
     },
     {
       "parameters": {
@@ -1752,8 +1665,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        944,
-        -672
+        1152,
+        -1008
       ],
       "id": "8e8fa38d-f690-497c-b22e-7bad028c7aef",
       "name": "text"
@@ -1773,8 +1686,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -1008,
-        -592
+        -1616,
+        -464
       ],
       "id": "55606ef6-8c85-45e8-9fdd-5b402230d088",
       "name": "OpenAI Chat Model",
@@ -1821,7 +1734,7 @@
             {
               "id": "f2c0bf80-c0fb-42df-aaa0-3c7c5233eebd",
               "name": "msg.IA",
-              "value": "={{ $json.msg.IA.replace(/\\[([^\\]]+)\\]\\([^)]+\\)/g, '$1').replace(/https?:\\/\\/[^\\s]+/g, '').replace(/\\s+/g, ' ').trim() }}",
+              "value": "={{ (typeof $json.msg.IA === 'string' ? JSON.parse($json.msg.IA) : $json.msg.IA).map(obj => `Human: ${obj.human} IA: ${obj.ai}`).join(' ').replace(/\\[([^\\]]+)\\]\\([^)]+\\)/g, '$1').replace(/https?:\\/\\/[^\\s]+/g, '').replace(/\\s+/g, ' ').trim() }}",
               "type": "string"
             },
             {
@@ -1933,8 +1846,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1056,
-        -1136
+        1392,
+        -352
       ],
       "id": "36af3017-8420-478f-9950-587718e27d38",
       "name": "Sub Loop"
@@ -1948,8 +1861,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        912,
-        -1264
+        1232,
+        -480
       ],
       "typeVersion": 1,
       "id": "da4ae93e-5128-42f8-8c95-f5ccaad04088",
@@ -1997,8 +1910,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        -1472,
-        -224
+        -1648,
+        -128
       ],
       "id": "36482de5-cb54-4b6b-b937-1cc0ed896277",
       "name": "Redis Chat Memory",
@@ -2102,8 +2015,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        512,
-        -1168
+        976,
+        -768
       ],
       "id": "cb25ed9e-8c65-49dd-9dc3-229ec32306a3",
       "name": "Extraer URL de imagen y limpiar mensaje1"
@@ -2120,6 +2033,365 @@
       ],
       "id": "694657a8-7565-424c-a301-bf2a3a3c35fa",
       "name": "Separa datos"
+    },
+    {
+      "parameters": {
+        "toolDescription": "llama a esta herramienta para comunicarse a una perosna",
+        "method": "POST",
+        "url": "={{ $('Normalizacion').last().json.instance.server_url }}/message/sendText/{{ $('Normalizacion').last().json.instance.name }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('Normalizacion').last().json.instance.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('Normalizacion').first().json.message.chat_id }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters1_Value', ``, 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.2,
+      "position": [
+        -384,
+        -320
+      ],
+      "id": "7eca5812-37ca-4523-9764-e6e0ead34286",
+      "name": "call_seller"
+    },
+    {
+      "parameters": {
+        "inputText": "=Conversacion previa: {{ $json.msg.IA }}\nConversacion actual: {{ $json.msg.human }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "purchase_intent",
+              "description": "=**real_purchase_intent** – Confirmo SÍ al resumen final con todos los datos (nombre/email/tel/producto/cant/precio/pago/entrega)"
+            },
+            {
+              "category": "product_inquiry",
+              "description": "Preguntas sobre medidas, colores, stock, etc"
+            },
+            {
+              "category": "complaint ",
+              "description": "Quejas, devoluciones…"
+            },
+            {
+              "category": "small_talk",
+              "description": "Saludos, despedidas, cortesía…"
+            },
+            {
+              "category": "complaint",
+              "description": "Quejas, devoluciones, reclamos (p. ej. “El mueble llegó roto”, “Quiero devolver el pedido.”)."
+            },
+            {
+              "category": "human_agent_request",
+              "description": "⚠️ SOLO se activa DESPUÉS de que el bot YA TIENE: ✓ CORREO ELECTRÓNICO ✓ NOMBRE COMPLETO ✓ CONSULTA detallada. NUNCA activar si falta algún dato. Primera solicitud → purchase_desire u other\""
+            },
+            {
+              "category": "other",
+              "description": "Cuando hable de cualquier otra cosa que como cantidades y elija opciones"
+            },
+            {
+              "category": "purchase_desire",
+              "description": "Cliente en PROCESO ACTIVO de compra: seleccionando productos, dando datos personales (nombre/email/tel), respondiendo cantidades, o cuando pide hablar con vendedor SIN haber dado los 3 datos completos\""
+            }
+          ]
+        },
+        "options": {
+          "fallback": "other",
+          "systemPromptTemplate": "=Eres un clasificador de intención de compra para Muebles San Fermín.\n**INSTRUCCIÓN CRÍTICA**: Tu respuesta debe ser ÚNICAMENTE una de estas palabras, sin comillas, sin JSON, sin explicación:\n- real_purchase_intent\n- purchase_desire\n- product_inquiry\n- small_talk\n- complaint\n- human_agent_request\n- other\n\n**NUNCA respondas con JSON, objetos, formato de código, o markdown. SOLO UNA PALABRA.**\n\n## Categorías de clasificación:\n1. **real_purchase_intent**  \n   – Se activa cuando el cliente CONFIRMA después de ver un resumen que contenga:\n   - INFORMACIÓN PERSONAL (nombre, email/teléfono)\n   - Detalles del PEDIDO (producto, cantidad, precio)\n   - TOTAL a pagar\n   - Forma de PAGO\n   - Método de ENTREGA\n   - Una pregunta de confirmación como \"¿Todos los datos están correctos?\"\n   \n   **Frases de confirmación válidas**:\n   - \"Sí correcto\", \"Sí es correcto\", \"Sí\"\n   - \"Todo correcto\", \"Perfecto\", \"Confirmo\"\n   - \"Adelante\", \"Está bien\", \"Procede\"\n2. **purchase_desire**  \n   – Cliente en PROCESO ACTIVO de compra:\n   - Seleccionando productos (\"quiero la alacena\")\n   - Respondiendo sobre cantidades o modelos\n   - Proporcionando datos personales (nombre, email, teléfono)\n   - Aceptando continuar con el proceso (\"sí\" a preguntas del bot)\n   - Cualquier interacción durante la compra\n3. **product_inquiry**  \n   – Consultas sobre productos SIN intención inmediata de compra:\n   - \"¿Tienen mesas de luz?\"\n   - \"¿Cuánto mide este mueble?\"\n   - \"¿Viene en otros colores?\"\n   - \"¿Cuál es el precio?\"\n4. **small_talk**  \n   – Interacciones sociales:\n   - Saludos: \"Hola\", \"Buenos días\"\n   - Agradecimientos: \"Gracias\", \"Muy amable\"\n   - Despedidas: \"Adiós\", \"Hasta luego\"\n5. **complaint**  \n   – Problemas con pedidos anteriores:\n   - \"El mueble llegó dañado\"\n   - \"Quiero hacer una devolución\"\n   - \"Tengo un reclamo\"\n6. **human_agent_request**  \n   – ⚠️ **IMPORTANTE**: SOLO se activa DESPUÉS de que el bot YA TIENE:\n   - ✓ CORREO ELECTRÓNICO del cliente\n   - ✓ NOMBRE COMPLETO del cliente\n   - ✓ CONSULTA o motivo específico detallado\n   \n   **NUNCA ACTIVAR SI**:\n   - Falta alguno de los 3 datos anteriores\n   - Es la primera vez que pide hablar con alguien\n   - El bot aún no ha preguntado por los datos\n   \n   **PROCESO CORRECTO**:\n   1. Cliente pide hablar con vendedor → purchase_desire o other\n   2. Bot recolecta nombre, correo y consulta\n   3. Cliente confirma querer hablar con vendedor → human_agent_request\n   \n   **Frases que NO activan sin los 3 datos**:\n   - \"Quiero hablar con un vendedor\" → purchase_desire\n   - \"Necesito ayuda de una persona\" → purchase_desire\n   - \"Prefiero hablar con alguien\" → purchase_desire\n7. **other**  \n   – Mensajes que no encajan en otras categorías\n## CONTEXTOS CLAVE:\n**Si el bot acaba de mostrar**:\n- Cotización con precio → respuesta \"Sí\" = purchase_desire\n- Pregunta sobre datos → respuesta con datos = purchase_desire\n- Resumen completo del pedido → respuesta confirmando = real_purchase_intent\n**Para identificar resumen completo**, debe incluir:\n- 🔸 o ✓ INFORMACIÓN PERSONAL\n- 🛒 o 📦 TU PEDIDO o productos listados\n- 💰 TOTAL FINAL o precio total\n- 💳 Forma de pago\n- 🚚 Entrega o retiro\n- ❓ \"¿Todos los datos están correctos?\" o similar\n\n**## FORMATO DE RESPUESTA OBLIGATORIO:\n- NO uses ```json o ``` \n- NO devuelvas objetos JSON\n- NO uses comillas\n- NO des explicaciones\n- SOLO responde con UNA PALABRA de la lista\n\nRESPUESTAS CORRECTAS:\n✅ purchase_desire\n✅ product_inquiry\n✅ small_talk**\n\n## EJEMPLOS DE RESPUESTA:\nEntrada: \"Una alacena\"\nTu respuesta: product_inquiry\nEntrada: \"Sí correcto\" (después de ver resumen completo)\nTu respuesta: real_purchase_intent\nEntrada: \"fercassera@gmail.com\" (durante proceso de compra)\nTu respuesta: purchase_desire\nEntrada: \"Quiero hablar con un vendedor\" (sin haber dado datos completos)\nTu respuesta: other\nEntrada: \"Necesito hablar con alguien\" (ya dio nombre, correo y consulta)\nTu respuesta: human_agent_request\n**RECUERDA**: Solo responde con UNA PALABRA de las 7 categorías listadas. NADA MÁS.",
+          "enableAutoFixing": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        -1328,
+        -976
+      ],
+      "id": "91513fdf-6a1e-4d7c-b238-dae249c28678",
+      "name": "Text Classifier",
+      "alwaysOutputData": false,
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3e413cf8-db59-4e46-8612-c49e97c3fc60",
+              "leftValue": "={{ $('Extraer URL de imagen y limpiar mensaje1').item.json.url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2016,
+        -672
+      ],
+      "id": "4347db1c-9a88-4f88-aa72-19462971fc69",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Extraer URL de imagen y limpiar mensaje1').item.json.url ? ($('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.jpg') ? 'jpg' : $('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.jpeg') ? 'jpeg' : $('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.png') ? 'png' : false) : false }}",
+                    "rightValue": "jpg",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "3ebc8e68-a841-46e9-abc3-93094bb82675"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "jpg"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d7b3c3d3-1c4a-4940-8a63-94abc3bbe2fc",
+                    "leftValue": "={{ $('Extraer URL de imagen y limpiar mensaje1').item.json.url ? ($('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.jpg') ? 'jpg' : $('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.') ? 'jpeg' : $('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.png') ? '' : false) : false }}",
+                    "rightValue": "png",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "png"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5949a868-6881-41b3-85b7-e0acd9ca6b67",
+                    "leftValue": "={{ $('Extraer URL de imagen y limpiar mensaje1').item.json.url ? ($('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.jpg') ? 'jpg' : $('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.jpeg') ? 'jpeg' : $('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.png') ? 'png' : false) : false }}",
+                    "rightValue": "jpeg",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "jpeg"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        2672,
+        -384
+      ],
+      "id": "cd273078-9c01-44ce-bf8b-9e7a37e7945b",
+      "name": "IMAGEN"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Normalizacion').last().json.instance.server_url }}/message/sendMedia/{{ $('Normalizacion').last().json.instance.name }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('Normalizacion').last().json.instance.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{$('Normalizacion').last().json.message.chat_id}}"
+            },
+            {
+              "name": "mediatype",
+              "value": "image"
+            },
+            {
+              "name": "mimetype",
+              "value": "image/png"
+            },
+            {
+              "name": "caption",
+              "value": "🪑"
+            },
+            {
+              "name": "media",
+              "value": "={{ $('Extraer URL de imagen y limpiar mensaje1').first().json.url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2480,
+        -464
+      ],
+      "id": "9ff8b834-5034-4494-9b49-bdfb26f66ef4",
+      "name": "png"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Normalizacion').last().json.instance.server_url }}/message/sendMedia/{{ $('Normalizacion').last().json.instance.name }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('Normalizacion').last().json.instance.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number\":\"{{ $('Normalizacion').item.json.message.chat_id }}\" ,\n  \"mediatype\": \"image\",\n  \"mimetype\": {{ $('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.png') ? '\"image/png\"' : '\"image/jpeg\"' }},\n  \"caption\": \"🪑\",\n  \"media\": \"{{ $('Extraer URL de imagen y limpiar mensaje1').first().json.url }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2080,
+        -272
+      ],
+      "id": "90ec6d72-c9b2-47c5-82b1-4c8fd72ec3cf",
+      "name": "jpg"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Normalizacion').last().json.instance.server_url }}/message/sendMedia/{{ $('Normalizacion').last().json.instance.name }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('Normalizacion').last().json.instance.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{$('Normalizacion').last().json.message.chat_id}}"
+            },
+            {
+              "name": "mediatype",
+              "value": "image"
+            },
+            {
+              "name": "mimetype",
+              "value": "image/jpeg"
+            },
+            {
+              "name": "caption",
+              "value": "🪑"
+            },
+            {
+              "name": "media",
+              "value": "={{ $('Extraer URL de imagen y limpiar mensaje1').first().json.url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2336,
+        -144
+      ],
+      "id": "6dd97a71-8773-4b0c-ab22-a3e784fe461a",
+      "name": "jpeg"
     }
   ],
   "pinData": {
@@ -2129,7 +2401,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.10.0",
-            "content-length": "928",
+            "content-length": "21866",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -2149,13 +2421,25 @@
               "key": {
                 "remoteJid": "5492254423359@s.whatsapp.net",
                 "fromMe": false,
-                "id": "1750A08479DD77E8137CBD842A76CF3E",
+                "id": "EF9249F16A2D35286803C2D7A66B869F",
                 "senderLid": "12756421980347@lid"
               },
               "pushName": "Fer { }",
               "status": "DELIVERY_ACK",
               "message": {
-                "conversation": "Puedo hablar con algún vendedor?",
+                "audioMessage": {
+                  "url": "https://mmg.whatsapp.net/v/t62.7117-24/33463575_1321897376062466_8098101449460339539_n.enc?ccb=11-4&oh=01_Q5Aa2AEZnnXrrdQOMF-OeMJAFO38yaY6CywP0JFAo03EYBP9hw&oe=68B972AC&_nc_sid=5e03e0&mms3=true",
+                  "mimetype": "audio/ogg; codecs=opus",
+                  "fileSha256": "E0ibgfBtRYLMs1JBiJ/sx9kE2owTzsYy++PMmWs+q/k=",
+                  "fileLength": "15125",
+                  "seconds": 6,
+                  "ptt": true,
+                  "mediaKey": "QznHj7rVlELU6Cfyxh7+V63PhZ0WK2IyVmbG/YG4YNE=",
+                  "fileEncSha256": "ytfbQhtgIS6z9Jv9G6VWEJMseH+wSXFA82lNhbeYgMo=",
+                  "directPath": "/v/t62.7117-24/33463575_1321897376062466_8098101449460339539_n.enc?ccb=11-4&oh=01_Q5Aa2AEZnnXrrdQOMF-OeMJAFO38yaY6CywP0JFAo03EYBP9hw&oe=68B972AC&_nc_sid=5e03e0",
+                  "mediaKeyTimestamp": "1754398451",
+                  "waveform": "AAAAAAAAAAAAAhAzLxkCAC40MC09MEE/KUk8NwJFEBA3Hj4XPz0xOzMCAAUtLikhGwEAAAAAHjo+OjRBPgMAAA=="
+                },
                 "messageContextInfo": {
                   "deviceListMetadata": {
                     "senderKeyHash": "iVJZBUf9o9GNyA==",
@@ -2164,22 +2448,31 @@
                     "recipientTimestamp": "1754099422"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "qGdPMvV0qGbscjSDoRSVng9e2stQ59JNcGbhDE1EzG0="
-                }
+                  "messageSecret": "bar6dz8mjY5j4d/pKQOTaMQMAiZyHF8gXQdEg9iG1uw="
+                },
+                "base64": "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"
               },
-              "messageType": "conversation",
-              "messageTimestamp": 1754370532,
+              "contextInfo": null,
+              "messageType": "audioMessage",
+              "messageTimestamp": 1754398457,
               "instanceId": "4c764abd-56e6-4e7d-b849-4e3123c02531",
               "source": "android"
             },
             "destination": "https://n8nw.qeva.xyz/webhook/manager",
-            "date_time": "2025-08-05T02:08:52.570Z",
+            "date_time": "2025-08-05T09:54:18.207Z",
             "sender": "5492254596618@s.whatsapp.net",
             "server_url": "https://evo.qeva.xyz",
             "apikey": "27732CFA65D7-416C-9562-9CED5C942DF3"
           },
           "webhookUrl": "https://n8nw.qeva.xyz/webhook/manager",
           "executionMode": "production"
+        }
+      }
+    ],
+    "AI": [
+      {
+        "json": {
+          "output": "Te muestro 8 opciones que tenemos disponibles:\n\n1. ALACENA RUSIA:\n. 💵 Precio: $30200\n. 📐 Medidas: 0.60 x 0.30 x 0.40 m\nhttps://ifmvoiakiptccbdusyli.supabase.co/storage/v1/object/public/productos/alacenas/AlacenaRusia.jpg\n\n2. ALACENA GALES:\n. 💵 Precio: $30100\n. 📐 Medidas: 0.60 x 0.30 x 0.60 m\nhttps://ifmvoiakiptccbdusyli.supabase.co/storage/v1/object/public/productos/alacenas/AlacenaGales.jpg\n\n3. ALACENA TURQUIA:\n. 💵 Precio: $41200\n. 📐 Medidas: 0.60 x 0.30 x 0.75 m\nhttps://ifmvoiakiptccbdusyli.supabase.co/storage/v1/object/public/productos/alacenas/AlacenaTurquia.jpg\n\n4. ALACENA SOFIA:\n. 💵 Precio: $52600\n. 📐 Medidas: 1.40 x 0.30 x 0.60 m\nhttps://ifmvoiakiptccbdusyli.supabase.co/storage/v1/object/public/productos/alacenas/AlacenaSofia.jpg\n\n5. ALACENA PARIS:\n. 💵 Precio: $57300\n. 📐 Medidas: 1.60 x 0.30 x 0.60 m\nhttps://ifmvoiakiptccbdusyli.supabase.co/storage/v1/object/public/productos/alacenas/AlacenaParis.jpg\n\n6. ALACENA ESTOCOLMO:\n. 💵 Precio: $56400\n. 📐 Medidas: 0.60 x 0.60 x 0.70 m\nhttps://ifmvoiakiptccbdusyli.supabase.co/storage/v1/object/public/productos/alacenas/AlacenaEstocolmo.jpg\n\n7. ALACENA MADRID:\n. 💵 Precio: $33200\n. 📐 Medidas: 0.80 x 0.30 x 0.60 m\nhttps://ifmvoiakiptccbdusyli.supabase.co/storage/v1/object/public/productos/alacenas/AlacenaMadrid.jpg\n\n8. ALACENA BRATTI:\n. 💵 Precio: $34300\n. 📐 Medidas: 1.00 x 0.30 x 0.60 m\nhttps://ifmvoiakiptccbdusyli.supabase.co/storage/v1/object/public/productos/alacenas/AlacenaBratti.jpg\n\n¿Te interesa alguno de estos modelos?"
         }
       }
     ]
@@ -2193,6 +2486,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-05T05:20:07.757Z",
-  "versionId": "529e2d02-cddd-4199-b833-647cd0acd3b3"
+  "updatedAt": "2025-08-05T13:12:44.619Z",
+  "versionId": "58ef5390-4272-4688-90e9-1464de19bbcf"
 }
