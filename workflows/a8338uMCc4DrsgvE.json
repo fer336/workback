@@ -374,7 +374,7 @@
             {
               "id": "6900b05f-3f95-479a-a763-2fbb75de7603",
               "name": "msg.status",
-              "value": "={{ $json.body.data['0'].status }}",
+              "value": "={{ $json?.body?.data['0']?.status || $('Datos').first().json.body.data.msgContent.conversation }}",
               "type": "string"
             }
           ]
@@ -623,7 +623,7 @@
     {
       "parameters": {
         "chatId": "164729397",
-        "text": "={{ $('Datos').item.json.body.data.pushName }}: {{ $json.text }}",
+        "text": "={{ $('Datos').item.json.body.data.pushName }}: {{ $json?.text ||$json.msg.status  }}",
         "additionalFields": {
           "appendAttribution": false
         }
@@ -652,7 +652,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.11.0",
-            "content-length": "509",
+            "content-length": "713",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -668,26 +668,33 @@
           "query": {},
           "body": {
             "instance": "2522xaf8359c21b",
-            "type": "messageFromMe",
+            "type": "message",
             "data": {
-              "messageId": "3EB0A7DEA280D2835651EB",
+              "messageId": "0338B28D79F11A74A4D3416D79CE1E89",
               "jid": "5492254423359:97@s.whatsapp.net",
-              "me": true,
+              "me": false,
               "isGroup": false,
               "remoteJid": "447453536046",
-              "pushName": "Fer { }",
+              "pushName": "Quena",
               "key": {
                 "remoteJid": "447453536046@s.whatsapp.net",
-                "fromMe": true,
-                "id": "3EB0A7DEA280D2835651EB"
+                "fromMe": false,
+                "id": "0338B28D79F11A74A4D3416D79CE1E89"
               },
               "messageType": "conversation",
               "msgContent": {
-                "conversation": "te amo mucho y perdón por hacerte hacer mil cosas"
+                "conversation": "Tengo ansiedad, no me encuentro bien",
+                "messageContextInfo": {
+                  "deviceListMetadata": {
+                    "recipientKeyHash": "iVJZBUf9o9GNyA==",
+                    "recipientTimestamp": "1753698939"
+                  },
+                  "deviceListMetadataVersion": 2,
+                  "messageSecret": "PyH/FXpH20w5HyUKKuyocE6avdlSXqDiyF5PpAJGJ4w="
+                }
               },
-              "messageTimestamp": 1754350934,
-              "source": "web",
-              "status": 2,
+              "messageTimestamp": 1754386867,
+              "source": "android",
               "broadcast": false,
               "isMedia": false
             }
@@ -705,6 +712,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-05T00:01:42.730Z",
-  "versionId": "b1b29297-9a22-4667-921f-ac8e5e50391e"
+  "updatedAt": "2025-08-05T09:54:24.024Z",
+  "versionId": "2c329979-1026-41bf-b28d-56ccbc890246"
 }
