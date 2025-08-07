@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Inbound": {
       "main": [
@@ -488,11 +488,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Texto3": {
-      "main": [
-        []
       ]
     },
     "ME": {
@@ -1427,22 +1422,6 @@
     },
     {
       "parameters": {
-        "content": "### Agregamos sublooping para el envio de mensajes",
-        "height": 448,
-        "width": 1056,
-        "color": 4
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        3392,
-        848
-      ],
-      "typeVersion": 1,
-      "id": "bf5aed48-6711-418d-84cb-a837554785e0",
-      "name": "Sticky Note3"
-    },
-    {
-      "parameters": {
         "content": "### Estado Bot",
         "height": 224,
         "width": 288,
@@ -1738,55 +1717,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://gate.whapi.cloud/messages/text",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "typing_time",
-              "value": "={{1}}"
-            },
-            {
-              "name": "body",
-              "value": "=Apartir de ahora la comunicacion sera con *Francisco*"
-            },
-            {
-              "name": "to",
-              "value": "={{ $('V1').first().json.msg.telefono }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -368,
-        1184
-      ],
-      "id": "8b0a58dc-e131-48a5-9537-2fe00d8f47b2",
-      "name": "Texto3",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "ekaTMbiKps3wYx80",
-          "name": "Whapi - Agente inmobiliario"
-        }
-      }
-    },
-    {
-      "parameters": {
         "content": "## Intervencion Humana\n",
         "height": 864,
         "width": 1520,
@@ -2042,8 +1972,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        640,
-        1232
+        -144,
+        1600
       ],
       "id": "66c0ef6f-b7ac-4d29-8923-95b0600879c4",
       "name": "Redis",
@@ -2062,7 +1992,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.10.0",
-            "content-length": "903",
+            "content-length": "625",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -2080,33 +2010,22 @@
             "instance": "Fernando",
             "data": {
               "key": {
-                "remoteJid": "5492254423359@s.whatsapp.net",
-                "fromMe": false,
-                "id": "4DF5EAC61530FE06A810317C9D2258A2",
-                "senderLid": "12756421980347@lid"
+                "remoteJid": "56937434094@s.whatsapp.net",
+                "fromMe": true,
+                "id": "F4D0F2DE64BD8AA3E3E0163F5BBF2412"
               },
-              "pushName": "Fer { }",
-              "status": "DELIVERY_ACK",
+              "pushName": "Automátizaciones AI",
+              "status": "SERVER_ACK",
               "message": {
-                "conversation": "Efectivo",
-                "messageContextInfo": {
-                  "deviceListMetadata": {
-                    "senderKeyHash": "iVJZBUf9o9GNyA==",
-                    "senderTimestamp": "1753698939",
-                    "recipientKeyHash": "F1tkbDhHhKbugw==",
-                    "recipientTimestamp": "1754099422"
-                  },
-                  "deviceListMetadataVersion": 2,
-                  "messageSecret": "duX3EDxYXP0AaeqGAwAp60i1LUTQujVBLUOnQEJB6yE="
-                }
+                "conversation": "Perdón taba testea do un agente"
               },
               "messageType": "conversation",
-              "messageTimestamp": 1754421947,
+              "messageTimestamp": 1754493980,
               "instanceId": "4c764abd-56e6-4e7d-b849-4e3123c02531",
               "source": "android"
             },
             "destination": "https://n8nw.qeva.xyz/webhook/manager",
-            "date_time": "2025-08-05T16:25:47.854Z",
+            "date_time": "2025-08-06T12:26:20.478Z",
             "sender": "5492254596618@s.whatsapp.net",
             "server_url": "https://evo.qeva.xyz",
             "apikey": "27732CFA65D7-416C-9562-9CED5C942DF3"
@@ -2126,6 +2045,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-05T20:47:40.265Z",
-  "versionId": "8e12a65d-2b63-4406-b071-e1d8c2b7e41b"
+  "updatedAt": "2025-08-06T15:26:55.519Z",
+  "versionId": "63c64513-7ff0-4806-9dd1-89a5ec4fe555"
 }
