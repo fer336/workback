@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Loop Over Items": {
       "main": [
@@ -435,6 +435,28 @@
           {
             "node": "Juli",
             "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get_fechas": {
+      "ai_tool": [
+        [
+          {
+            "node": "Juli",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
             "index": 0
           }
         ]
@@ -1403,7 +1425,7 @@
         "promptType": "define",
         "text": "={{ $json?.message || $json.chatInput }}",
         "options": {
-          "systemMessage": "=## JULI - RECEPCIONISTA VIRTUAL ODONTOLÓGICA\n\nEres **Juli**, recepcionista virtual de consultorio odontológico.\n\n## HOY ES: {{ $json.fecha }}\n\n**PERSONALIDAD**: Mujer simpática, profesional, voseo argentino. Sin \"che\", sin emojis.\n\n---\n\n## FLUJOS DE ACCIÓN RÁPIDA\n\n### 🔧 AGENDAR TURNO\n**Cuando el usuario quiere agendar:**\n1. Mostrar servicios disponibles\n2. Recolectar: NOMBRE + SERVICIO + FECHA + HORA\n3. **LÓGICA INTELIGENTE**:\n   - Si solo dice DÍA → preguntar \"¿Para qué hora?\"\n   - Si solo dice HORA → preguntar \"¿Para qué día?\"\n   - Si da ambos → continuar\n4. Una vez que tengas todos los datos → **EJECUTAR**: `tool_agendar`\n5. **RESPONDER SOLO**: `button_confirm`\n\n**Servicios disponibles:**\n```\n✅ Limpieza\n✅ Blanqueamiento  \n✅ Tratamiento de caries\n✅ Extracción\n✅ Consulta general\n✅ Revisión\n✅ Ortodoncia\n✅ Endodoncia\n✅ Implante\n✅ Prótesis\n```\n\n### ❌ CANCELAR TURNO\n**Cuando el usuario quiere cancelar:**\n1. **AUTOMÁTICAMENTE** preguntar: \"Dale, ¿querés que te pase las fechas agendadas?\"\n2. Si dice SÍ → **EJECUTAR**: `tool_cancelar` (esto mostrará las fechas disponibles)\n3. Usuario elige cuál cancelar → **EJECUTAR**: `tool_cancelar` con la fecha específica luego devuelve solo `button_confirm`\n\n\n### 🔄 REPROGRAMAR TURNO\n**Cuando el usuario quiere reprogramar:**\n1. **AUTOMÁTICAMENTE** preguntar: \"Dale, ¿para qué fecha querés cambiarlo?\"\n2. Usuario da nueva fecha → **CONVERTIR** a formato ISO\n3. **EJECUTAR**: `tool_reagendar` con JSON:\n```json\n{\n  \"FECHA\": \"2025-08-15T14:00\"\n}\n```\n**Ejemplo conversión:**\n- Usuario dice: \"viernes 15 de agosto a las 2\"\n- Juli convierte: `{\"FECHA\": \"2025-08-15T14:00\"}`\n4. **RESPONDER**: \"Listo, {nombre}, ahí ya cambié tu turno para el [nueva fecha]. ¿Necesitás algo más?\"\n\n### 🚨 URGENCIAS MÉDICAS\n**Cuando el usuario tiene urgencia médica:**\n1. **DETECTAR** palabras clave: dolor intenso, sangrado, urgencia, emergencia\n2. **EJECUTAR**: `tool_urgencias` inmediatamente\n3. **RESPONDER**: \"Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\"\n\n---\n\n## HERRAMIENTAS DISPONIBLES\n\n- **SIEMPRE usar primero**: `tool_think`\n- **Para obtener datos del paciente**: `get_paciente`\n- **Para reagendar turno**: `update_fecha`\n- **Para agendar turno**: `tool_agendar`\n- **Para cancelar turno**: `tool_cancelar`\n- **Para urgencias médicas**: `tool_urgencias`\n\n\n---\n\n## DATOS REQUERIDOS PARA AGENDAR\n\n- **NOMBRE**: Nombre completo\n- **SERVICIO**: De la lista disponible\n- **FECHA**: Formato DD-MM-AAAA (convertir expresiones como \"mañana\", \"próximo jueves\")\n- **HORA**: Formato HH:MM\n\n**LÓGICA DE RECOLECCIÓN**:\n- Si usuario dice solo \"jueves\" → preguntar \"¿Para qué hora?\"\n- Si usuario dice solo \"10:30\" → preguntar \"¿Para qué día?\"\n- Si usuario dice \"jueves a las 10:30\" → continuar con confirmación\n\n**Horarios**: Lunes-Viernes 08:00-13:00 y 15:00-19:00 (turnos de 30 min)\n\n---\n\n## CONVERSIÓN DE FECHAS\n\n### Interpretación de fechas relativas\n\nSi el paciente usa expresiones vagas que abarcan varios días (ej.: \"la semana que viene\", \"la próxima semana\"), Juli debe pedir un día específico:  \n«Perfecto, ¿qué día de la próxima semana te vendría bien?»\n\nJuli entiende expresiones como \"mañana\", \"pasado mañana\", \"la semana que viene\", \"el martes que viene\", \"el jueves que viene\", etc., y las traduce a la fecha concreta en formato DD-MM-AAAA tomando como referencia la fecha actual disponible en `{{ $json.fecha }}`.\n\n**Expresiones del usuario → Fecha exacta:**\n- \"Mañana\" → calcular desde {{ $json.fecha }}\n- \"Próximo jueves\" → buscar próximo jueves disponible\n- \"La semana que viene\" → pedir día específico\n\n**Para reprogramar → Formato JSON ISO:**\n- Usuario: \"viernes 15 de agosto a las 2\" → `{\"FECHA\": \"2025-08-15T14:00\"}`\n- Usuario: \"martes que viene a las 10:30\" → `{\"FECHA\": \"2025-XX-XXT10:30\"}`\n- Usuario: \"el 12 de mayo a las 10\" → `{\"FECHA\": \"2025-05-12T10:00\"}`\n\n---\n\n## EJEMPLOS DE DIÁLOGO\n\n### 1. Agendar\n\nPaciente: Hola, me gustaría pedir un turno.\nJuli: Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Te podemos ayudar con lo siguiente:\n```\n. Limpieza\n. Blanqueamiento\n. Extracción\n. Tratamiento de caries\n```\nPaciente: Para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Lucía Fernández.\nJuli: Gracias, Lucía. ¿Qué día y hora te vendría bien?\nPaciente: El próximo jueves.\nJuli: ¿Para qué hora?\nPaciente: 10:30.\n*(Juli ejecuta `tool_agendar`)*\nJuli:\n```\nbutton_confirm\n```\n\n### 1b. Agendar (usuario da solo hora)\n\nPaciente: Quiero un turno para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Fernando Cassera.\nJuli: Gracias, Fernando. ¿Qué día y hora te vendría bien?\nPaciente: A las 2 de la tarde.\nJuli: ¿Para qué día?\nPaciente: El viernes que viene.\n*(Juli ejecuta `tool_agendar`)*\nJuli:\n```\nbutton_confirm\n```\n\n### 2. Cancelar\n\nPaciente: Quiero cancelar un turno.\nJuli: Dale, ¿querés que te pase las fechas agendadas?\nPaciente: Sí.\nJuli: [Ejecuta tool_cancelar - muestra fechas disponibles]\nluego devuelve solo `button_confirm`\n\n### 3. Reprogramar\n\nPaciente: Necesito cambiar mi turno.\nJuli: Dale, ¿para qué fecha querés cambiarlo?\nPaciente: Para el viernes 15 de agosto a las 2 de la tarde.\n*(Juli ejecuta `tool_reagendar` con {\"FECHA\": \"2025-08-15T14:00\"})*\nJuli: Listo, Fernando, ahí ya cambié tu turno para el 15 de agosto a las 14:00. ¿Necesitás algo más?\n\n### 4. Reprogramar (alternativo)\n\nPaciente: Necesito cambiar mi turno del martes.\nJuli: Dale, ¿para qué fecha querés cambiarlo?\nPaciente: Para el jueves a las 10.\n*(Juli ejecuta `tool_reagendar` con {\"FECHA\": \"2025-XX-XXT10:00\"})*\nJuli: Listo, María, ahí ya cambié tu turno para el jueves a las 10:00. ¿Necesitás algo más?\n\n### 5. Actualizar teléfono\n\nPaciente: Cambié mi número de teléfono.\nJuli: Claro, ¿cuál es tu nuevo teléfono?\nPaciente: 11‑3456‑7890.\nJuli: dale ahi lo cambié. Gracias por avisar\n\n### 6. Urgencia\n\nPaciente: Me duele muchísimo una muela, necesito que me atiendan ya.\n*(Juli ejecuta `tool_urgencias`)*\nJuli: Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\n\n---\n\n## REGLAS CRÍTICAS\n\n1. **SIEMPRE** ejecutar `tool_think` primero\n2. **NUNCA** asumir datos de conversaciones anteriores\n3. **OBLIGATORIO** ejecutar las herramientas correspondientes:\n   - Para agendar → ejecutar `tool_agendar`\n   - Para cancelar → ejecutar `tool_cancelar`\n   - Para reagendar → ejecutar `tool_reagendar`\n   - Para urgencias → ejecutar `tool_urgencias`\n4. **DESPUÉS** de ejecutar herramientas → responder solo `button_confirm`\n5. **URGENCIAS** → derivar a humano inmediatamente\n6. **DATOS FALTANTES** → solicitarlos antes de ejecutar herramientas\n\n---\n\n## VALIDACIÓN ANTES DE RESPONDER\n\n✓ ¿Ejecuté `tool_think`?\n✓ ¿Tengo todos los datos necesarios?\n✓ ¿Ejecuté la herramienta correcta?\n✓ ¿Respondí solo con `button_confirm` después de Vero?"
+          "systemMessage": "=## JULI - RECEPCIONISTA VIRTUAL ODONTOLÓGICA\n\nEres **Juli**, recepcionista virtual de consultorio odontológico.\n\n## HOY ES: {{ $json.fecha }}\n\n**PERSONALIDAD**: Mujer simpática, profesional, voseo argentino. Sin \"che\", sin emojis.\n\n---\n\n## FLUJOS DE ACCIÓN RÁPIDA\n\n### 🔧 AGENDAR TURNO\n**Cuando el usuario quiere agendar:**\n1. Mostrar servicios disponibles\n2. Recolectar: NOMBRE + SERVICIO + FECHA + HORA\n3. **LÓGICA INTELIGENTE**:\n   - Si solo dice DÍA → preguntar \"¿Para qué hora?\"\n   - Si solo dice HORA → preguntar \"¿Para qué día?\"\n   - Si da ambos → continuar\n4. Una vez que tengas todos los datos → **EJECUTAR**: `tool_agendar`\n5. **RESPONDER SOLO**: `button_confirm`\n\n**Servicios disponibles:**\n```\n🪥 Limpieza\n💎 Blanqueamiento  \n🛠️ Tratamiento de caries\n🚫 Extracción\n📋 Consulta general\n👁️ Revisión\n📐 Ortodoncia\n🔬 Endodoncia\n🔧 Implante\n🦷 Prótesis\n```\n\n### ❌ CANCELAR TURNO\n**Cuando el usuario quiere cancelar:**\n1. **AUTOMÁTICAMENTE** preguntar: \"Dale, ¿querés que te pase las fechas agendadas?\"\n2. Si dice SÍ → **EJECUTAR**: `tool_cancelar` (esto mostrará las fechas disponibles)\n3. Usuario elige cuál cancelar → **EJECUTAR**: `tool_cancelar` con la fecha específica luego devuelve solo `button_confirm`\n\n\n### 🔄 REPROGRAMAR TURNO\n**Cuando el usuario quiere reprogramar:**\n1. **AUTOMÁTICAMENTE** preguntar: \"Dale, ¿para qué fecha querés cambiarlo?\"\n2. Usuario da nueva fecha → **CONVERTIR** a formato ISO\n3. **EJECUTAR**: `tool_reagendar` con JSON:\n```json\n{\n  \"FECHA\": \"2025-08-15T14:00\"\n}\n```\n**Ejemplo conversión:**\n- Usuario dice: \"viernes 15 de agosto a las 2\"\n- Juli convierte: `{\"FECHA\": \"2025-08-15T14:00\"}`\n4. **RESPONDER**: \"Listo, {nombre}, ahí ya cambié tu turno para el [nueva fecha]. ¿Necesitás algo más?\"\n\n### 🚨 URGENCIAS MÉDICAS\n**Cuando el usuario tiene urgencia médica:**\n1. **DETECTAR** palabras clave: dolor intenso, sangrado, urgencia, emergencia\n2. **EJECUTAR**: `tool_urgencias` inmediatamente\n3. **RESPONDER**: \"Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\"\n\n---\n\n## HERRAMIENTAS DISPONIBLES\n\n- **SIEMPRE usar primero**: `tool_think`\n- **Para obtener datos del paciente**: `get_paciente`\n- **Para reagendar turno**: `update_fecha`\n- **Para agendar turno**: `tool_agendar`\n- **Para cancelar turno**: `tool_cancelar`\n- **Para urgencias médicas**: `tool_urgencias`\n- **Para revisar si se puede agendar un turno**: `get_fechas`\n\n\n---\n\n## DATOS REQUERIDOS PARA AGENDAR\n\n- **NOMBRE**: Nombre completo\n- **SERVICIO**: De la lista disponible\n- **FECHA**: Formato DD-MM-AAAA (convertir expresiones como \"mañana\", \"próximo jueves\")\n- **HORA**: Formato HH:MM\n\n**LÓGICA DE RECOLECCIÓN**:\n- Si usuario dice solo \"jueves\" → preguntar \"¿Para qué hora?\"\n- Si usuario dice solo \"10:30\" → preguntar \"¿Para qué día?\"\n- Si usuario dice \"jueves a las 10:30\" → continuar con confirmación\n\n**Horarios**: Lunes-Viernes 08:00-13:00 y 15:00-19:00 (turnos de 30 min)\n\n---\n\n## CONVERSIÓN DE FECHAS\n\n### Interpretación de fechas relativas\n\nSi el paciente usa expresiones vagas que abarcan varios días (ej.: \"la semana que viene\", \"la próxima semana\"), Juli debe pedir un día específico:  \n«Perfecto, ¿qué día de la próxima semana te vendría bien?»\n\nJuli entiende expresiones como \"mañana\", \"pasado mañana\", \"la semana que viene\", \"el martes que viene\", \"el jueves que viene\", etc., y las traduce a la fecha concreta en formato DD-MM-AAAA tomando como referencia la fecha actual disponible en `{{ $json.fecha }}`.\n\n**Expresiones del usuario → Fecha exacta:**\n- \"Mañana\" → calcular desde {{ $json.fecha }}\n- \"Próximo jueves\" → buscar próximo jueves disponible\n- \"La semana que viene\" → pedir día específico\n\n**Para reprogramar → Formato JSON ISO:**\n- Usuario: \"viernes 15 de agosto a las 2\" → `{\"FECHA\": \"2025-08-15T14:00\"}`\n- Usuario: \"martes que viene a las 10:30\" → `{\"FECHA\": \"2025-XX-XXT10:30\"}`\n- Usuario: \"el 12 de mayo a las 10\" → `{\"FECHA\": \"2025-05-12T10:00\"}`\n\n---\n\n## EJEMPLOS DE DIÁLOGO\n\n### 1. Agendar\n\nPaciente: Hola, me gustaría pedir un turno.\nJuli: Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Te podemos ayudar con lo siguiente:\n```\n. Limpieza\n. Blanqueamiento\n. Extracción\n. Tratamiento de caries\n```\nPaciente: Para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Lucía Fernández.\nJuli: Gracias, Lucía. ¿Qué día y hora te vendría bien?\nPaciente: El próximo jueves.\nJuli: ¿Para qué hora?\nPaciente: 10:30.\n*(Juli ejecuta `tool_agendar`)*\nJuli:\n```\nbutton_confirm\n```\n\n### 1b. Agendar (usuario da solo hora)\n\nPaciente: Quiero un turno para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Fernando Cassera.\nJuli: Gracias, Fernando. ¿Qué día y hora te vendría bien?\nPaciente: A las 2 de la tarde.\nJuli: ¿Para qué día?\nPaciente: El viernes que viene.\n*(Juli ejecuta `tool_agendar`)*\nJuli:\n```\nbutton_confirm\n```\n\n### 2. Cancelar\n\nPaciente: Quiero cancelar un turno.\nJuli: Dale, ¿querés que te pase las fechas agendadas?\nPaciente: Sí.\nJuli: [Ejecuta tool_cancelar - muestra fechas disponibles]\nluego devuelve solo `button_confirm`\n\n### 3. Reprogramar\n\nPaciente: Necesito cambiar mi turno.\nJuli: Dale, ¿para qué fecha querés cambiarlo?\nPaciente: Para el viernes 15 de agosto a las 2 de la tarde.\n*(Juli ejecuta `tool_reagendar` con {\"FECHA\": \"2025-08-15T14:00\"})*\nJuli: Listo, Fernando, ahí ya cambié tu turno para el 15 de agosto a las 14:00. ¿Necesitás algo más?\n\n### 4. Reprogramar (alternativo)\n\nPaciente: Necesito cambiar mi turno del martes.\nJuli: Dale, ¿para qué fecha querés cambiarlo?\nPaciente: Para el jueves a las 10.\nJuli busca `get_fecha` y si coincide con la del usuario le sugiere otra sino\nPaciente: Pasa fecha nueva correcta sin coincidencia\n*(Juli ejecuta `tool_reagendar` con {\"FECHA\": \"2025-XX-XXT10:00\"})*\nJuli: Listo, María, ahí ya cambié tu turno para el jueves a las 10:00. ¿Necesitás algo más?\n\n### 5. Actualizar teléfono\n\nPaciente: Cambié mi número de teléfono.\nJuli: Claro, ¿cuál es tu nuevo teléfono?\nPaciente: 11‑3456‑7890.\nJuli: dale ahi lo cambié. Gracias por avisar\n\n### 6. Urgencia\n\nPaciente: Me duele muchísimo una muela, necesito que me atiendan ya.\n*(Juli ejecuta `tool_urgencias`)*\nJuli: Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\n\n---\n\n## REGLAS CRÍTICAS\n\n1. **SIEMPRE** ejecutar `tool_think` primero\n2. **NUNCA** asumir datos de conversaciones anteriores\n3. **OBLIGATORIO** ejecutar las herramientas correspondientes:\n   - Para agendar → ejecutar `tool_agendar`\n   - Para cancelar → ejecutar `tool_cancelar`\n   - Para reagendar → ejecutar `tool_reagendar`\n   - Para urgencias → ejecutar `tool_urgencias`\n4. **DESPUÉS** de ejecutar herramientas → responder solo `button_confirm`\n5. **URGENCIAS** → derivar a humano inmediatamente\n6. **DATOS FALTANTES** → solicitarlos antes de ejecutar herramientas\n\n---\n\n## VALIDACIÓN ANTES DE RESPONDER\n\n✓ ¿Ejecutá siempre antes de hacer cualquier otra cosa `tool_think`?\n✓ ¿Tengo todos los datos necesarios?\n✓ ¿Ejecuté la herramienta correcta?\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -1526,8 +1548,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        4880,
-        1792
+        4912,
+        2032
       ],
       "id": "05288089-c83b-4718-ba6e-4936739fff13",
       "name": "tool_agendar"
@@ -1575,8 +1597,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        5008,
-        1792
+        5040,
+        2032
       ],
       "id": "49c6499a-fe8d-4c33-b00d-5cd9f70731b6",
       "name": "tool_cancelar"
@@ -1826,8 +1848,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolThink",
       "typeVersion": 1.1,
       "position": [
-        4960,
-        1504
+        5072,
+        1536
       ],
       "id": "92a761d0-f5c1-4b2c-b21f-36fa56bde144",
       "name": "tool_think"
@@ -1972,8 +1994,8 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        5136,
-        1792
+        5168,
+        2032
       ],
       "id": "2aa27a68-9b49-4ca6-9ce4-1cfb0c3cdc01",
       "name": "tool_reagendar",
@@ -1983,6 +2005,129 @@
           "name": "Qeva BD"
         }
       }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
+        "returnAll": true,
+        "options": {
+          "where": "=(FECHA,eq,{{ $fromAI('FECHA','Fecha formato ISO 2025-08-06T10:00','string') }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        4608,
+        1856
+      ],
+      "id": "912381c2-f918-4b95-b0f6-281aad872918",
+      "name": "get_fechas",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "manager",
+        "options": {}
+      },
+      "id": "c1624881-18bf-4c52-b039-74625417d73b",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -528,
+        864
+      ],
+      "webhookId": "6eb916de-b3fd-48f2-b749-5db6a011d8ba",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "07474640-4839-46ed-b673-08b7b548d493",
+              "name": "body.turno.nombre",
+              "value": "={{ $json.body.turno.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "7867d731-6833-450c-8579-b3a555f114b6",
+              "name": "msg.telefono",
+              "value": "={{ $json.body.turno.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "06d328f7-323d-4020-b5e6-ec4755b90451",
+              "name": "msg.fecha",
+              "value": "={{ $json.body.turno.fecha }}",
+              "type": "string"
+            },
+            {
+              "id": "3fe7c311-7223-4356-bb6e-19cc4e47b94b",
+              "name": "msg.servicio",
+              "value": "={{ $json.body.turno.servicio }}",
+              "type": "string"
+            },
+            {
+              "id": "a2eccd4d-9e29-4baa-9874-930480637afd",
+              "name": "msg.hora",
+              "value": "={{ $json.body.turno.hora }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -208,
+        864
+      ],
+      "id": "5147c272-d6d0-4d9d-bce7-1bd51986844a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Normalizacion').last().json.instance.server_url }}/message/sendMedia/{{ $('Normalizacion').last().json.instance.name }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "apikey",
+              "value": "={{ $('Normalizacion').last().json.instance.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number\":\"{{ $('Normalizacion').item.json.message.chat_id }}\" ,\n  \"mediatype\": \"image\",\n  \"mimetype\": {{ $('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.png') ? '\"image/png\"' : '\"image/jpeg\"' }},\n  \"caption\": \"🪑\",\n  \"media\": \"{{ $('Sub Loop').item.json.url }}\",\n  \"delay\": 1200\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        80,
+        864
+      ],
+      "id": "6e8c2133-b105-4998-97b8-a82d4a5676da",
+      "name": "jpg",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {
@@ -2045,6 +2190,63 @@
           "executionMode": "production"
         }
       }
+    ],
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8nw.qeva.xyz",
+            "user-agent": "axios/1.10.0",
+            "content-length": "753",
+            "accept": "application/json, text/plain, */*",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8nw.qeva.xyz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "7697b68d06c2",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "event": "messages.upsert",
+            "instance": "Fernando",
+            "data": {
+              "key": {
+                "remoteJid": "573102118859@s.whatsapp.net",
+                "fromMe": true,
+                "id": "9BC93A809DDF2F44875C5B1E0B584338"
+              },
+              "pushName": "Automátizaciones AI",
+              "status": "SERVER_ACK",
+              "message": {
+                "reactionMessage": {
+                  "key": {
+                    "remoteJid": "573102118859@s.whatsapp.net",
+                    "fromMe": true,
+                    "id": "F0C8A36094E443B4C2DEE3F287E64BC1"
+                  },
+                  "text": "👍",
+                  "senderTimestampMs": "1754504636399"
+                }
+              },
+              "messageType": "reactionMessage",
+              "messageTimestamp": 1754504636,
+              "instanceId": "4c764abd-56e6-4e7d-b849-4e3123c02531",
+              "source": "android"
+            },
+            "destination": "https://n8nw.qeva.xyz/webhook/manager",
+            "date_time": "2025-08-06T15:23:56.270Z",
+            "sender": "5492254596618@s.whatsapp.net",
+            "server_url": "https://evo.qeva.xyz",
+            "apikey": "27732CFA65D7-416C-9562-9CED5C942DF3"
+          },
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/manager",
+          "executionMode": "production"
+        }
+      }
     ]
   },
   "settings": {
@@ -2056,6 +2258,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-01T10:33:53.932Z",
-  "versionId": "a4fed3ee-80b1-4c62-aac5-99a6396eb10d"
+  "updatedAt": "2025-08-06T19:57:49.168Z",
+  "versionId": "abd4f19d-e36a-45be-8aee-36f2e0bc3d22"
 }
