@@ -1,0 +1,303 @@
+{
+  "active": true,
+  "connections": {
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Configuración3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuración3": {
+      "main": [
+        [
+          {
+            "node": "Preparar Consultas1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Consultas1": {
+      "main": [
+        [
+          {
+            "node": "Obtener Citas1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Citas1": {
+      "main": [
+        [
+          {
+            "node": "var",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buttons ": {
+      "main": [
+        [
+          {
+            "node": "Lista2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "var": {
+      "main": [
+        [
+          {
+            "node": "Buttons ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lista2": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-08-07T13:22:32.195Z",
+  "id": "ernX45kT4o7kTsWn",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "AGENTE CITAS - CRON",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": "1"
+            }
+          ]
+        }
+      },
+      "name": "Schedule Trigger2",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -2624,
+        -1104
+      ],
+      "id": "7d149974-a370-4336-91e8-193bb3dcb540"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "server_evolution",
+              "name": "server",
+              "value": "https://db.qeva.xyz",
+              "type": "string"
+            },
+            {
+              "id": "table",
+              "name": "table",
+              "value": "m9m2veegnrfeeza",
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ DateTime.fromISO($json.timestamp).toFormat(\"yyyy-MM-dd'T'HH:mm\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2400,
+        -1104
+      ],
+      "id": "e4edb31b-dfba-4950-bce4-768affaa032c",
+      "name": "Configuración3"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtener timestamp actual\nconst timestamp = $input.first().json.timestamp;\n\n// Convertir timestamp a Date\nconst now = new Date(timestamp);\n\n// Formatear la fecha actual para la búsqueda\nconst year = now.getFullYear();\nconst month = String(now.getMonth() + 1).padStart(2, '0');\nconst day = String(now.getDate()).padStart(2, '0');\nconst hours = String(now.getHours()).padStart(2, '0');\nconst minutes = String(now.getMinutes()).padStart(2, '0');\n\n// Formato ISO para la búsqueda SIN segundos\nconst currentDateString = `${year}-${month}-${day}T${hours}:${minutes}`;\n\n// Crear query\nconst query = {\n  tipo: '1h',\n  whereCondition: `(FECHA_RECORDATORIO,eq,${currentDateString})`,\n  fields: 'FECHA',\n  buscarCitasDe: currentDateString,  // Hora actual\n  horaActual: now.toISOString()      // Hora actual con formato completo\n};\n\nreturn [{\n  json: {\n    ...($input.first().json),\n    tipoRecordatorio: query.tipo,\n    whereCondition: query.whereCondition,\n    fields: query.fields,\n    buscarCitasDe: query.buscarCitasDe,\n    horaActual: query.horaActual\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2176,
+        -1104
+      ],
+      "id": "756e9ecb-41e0-4e20-916b-cda015d7d747",
+      "name": "Preparar Consultas1"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
+        "returnAll": true,
+        "options": {
+          "where": "={{ $json.whereCondition }}"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -1952,
+        -1104
+      ],
+      "id": "292d39a3-732f-47fc-a113-1c3d211051c6",
+      "name": "Obtener Citas1",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "{\n  // OBTENER DATOS DEL INPUT\n  const datos = $input.first().json;\n  \n  // EXTRAER DATOS DEL TURNO\n  const paciente = datos.NOMBRE;\n  const fechaCompleta = datos.FECHA; // \"2025-08-07T09:52\"\n  const servicio = datos.SERVICIO;\n  const telefono = datos.TELEFONO;\n  const confirmado = datos.CONFIRMACION_CITA;\n  \n  // SEPARAR FECHA Y HORA\n  const [fecha, hora] = fechaCompleta.split('T');\n  const horaCorta = hora ? hora.substring(0, 5) : '00:00'; // Obtener solo HH:MM\n  \n  // FORMATEAR FECHA PARA MOSTRAR (DD-MM-YYYY)\n  const [año, mes, dia] = fecha.split('-');\n  const fechaFormateada = `${dia}-${mes}-${año}`;\n  \n  // CONSTRUIR MENSAJE DE LISTA\n  const requestBody = {\n    to: telefono,\n    buttonText: \"Opciones 📋\",\n    title: \"⏰ Recordatorio - Tu turno es en 1 hora\",\n    description: `*🔔 RECORDATORIO IMPORTANTE*\n\n👤 *Paciente:* ${paciente}\n📅 *Fecha:* ${fechaFormateada}\n🕐 *Hora:* ${horaCorta}\n🏥 *Servicio:* ${servicio}\n\n📍 *Recordatorios:*\n- Llegá 10 minutos antes\n- Traé DNI y estudios previos\n- En caso de no poder asistir, avisanos\n\nSeleccione una opción:`,\n    footer: confirmado ? \"✅ Tu turno está confirmado\" : \"⚠️ Turno pendiente de confirmación\",\n    sections: [\n      {\n        title: \"📋 Opciones Disponibles\",\n        rows: confirmado ? \n          // Si está confirmado, solo mostrar opción de cancelar\n          [\n            {\n              rowId: `❌ CANCELAR TURNO`,\n              title: \"❌ Cancelar Turno\",\n              description: \"No podré asistir al turno programado\"\n            }\n          ] :\n          // Si NO está confirmado, mostrar ambas opciones\n          [\n            {\n              rowId: `✅ TURNO CONFIRMADO`,\n              title: \"✅ Confirmar Turno\",\n              description: \"Confirmo mi asistencia en la fecha y hora indicada\"\n            },\n            {\n              rowId: `❌ CANCELAR TURNO`,\n              title: \"❌ Cancelar Turno\",\n              description: \"No podré asistir al turno programado\"\n            }\n          ]\n      }\n    ]\n  };\n  \n  // RETORNAR RESULTADO\n  return [{ json: requestBody }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1504,
+        -1104
+      ],
+      "id": "370f8f58-d141-474a-8362-6e30f1e971b9",
+      "name": "Buttons "
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "include": "except",
+        "excludeFields": "CreatedAt, UpdatedAt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1728,
+        -1104
+      ],
+      "id": "f51db356-e9a3-444b-8eb1-702c431de20a",
+      "name": "var"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/list",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $json.to }}"
+            },
+            {
+              "name": "buttonText",
+              "value": "={{ $json.buttonText }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "footer",
+              "value": "={{ $json.footer }}"
+            },
+            {
+              "name": "sections",
+              "value": "={{ $json.sections }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1280,
+        -1104
+      ],
+      "id": "7dabb6de-2b52-47a7-b3b9-c2502b900c17",
+      "name": "Lista2"
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger2": [
+      {
+        "json": {
+          "timestamp": "2025-08-07T16:00:08.006-03:00",
+          "Readable date": "August 7th 2025, 4:00:08 pm",
+          "Readable time": "4:00:08 pm",
+          "Day of week": "Thursday",
+          "Year": "2025",
+          "Month": "August",
+          "Day of month": "07",
+          "Hour": "16",
+          "Minute": "00",
+          "Second": "08",
+          "Timezone": "America/Argentina/Buenos_Aires (UTC-03:00)"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "errorWorkflow": "EBMwLGTBawYqkZM1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": {
+    "node:Schedule Trigger2": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-07T23:20:25.771Z",
+  "versionId": "bc097093-2c81-4984-9c0f-a149b0a3f503"
+}
