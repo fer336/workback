@@ -82,6 +82,20 @@
         ],
         [
           {
+            "node": "Turno confirmado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "DELETE TURNO",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Elimina la cita - Reagendar",
             "type": "main",
             "index": 0
@@ -159,7 +173,7 @@
       "main": [
         [
           {
-            "node": "Validar Cliente",
+            "node": "If3",
             "type": "main",
             "index": 0
           }
@@ -451,11 +465,55 @@
         ]
       ]
     },
-    "Webhook": {
+    "Turno confirmado": {
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "Confirmacion de turno",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirmacion de turno": {
+      "main": [
+        [
+          {
+            "node": "Chat Memory Manager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Turno eliminado": {
+      "main": [
+        [
+          {
+            "node": "Chat Memory Manager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DELETE TURNO": {
+      "main": [
+        [
+          {
+            "node": "Turno eliminado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Validar Cliente",
             "type": "main",
             "index": 0
           }
@@ -483,7 +541,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        6128,
+        6336,
         864
       ],
       "alwaysOutputData": false,
@@ -499,7 +557,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        5616,
+        5824,
         912
       ]
     },
@@ -510,7 +568,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5408,
+        5616,
         912
       ],
       "id": "7e6e667c-3852-4a08-988a-fbeb788f00d7",
@@ -705,7 +763,7 @@
                 "conditions": [
                   {
                     "id": "b64bdc33-47da-4c94-988d-1ba19386a5a2",
-                    "leftValue": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === '📋 REAGENDAR CONSULTA'}}",
+                    "leftValue": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId == '✅ TURNO CONFIRMADO' }}",
                     "rightValue": "📆 Elegir cita",
                     "operator": {
                       "type": "boolean",
@@ -717,7 +775,57 @@
                 "combinator": "and"
               },
               "renameOutput": true,
-              "outputKey": "Reprogramar"
+              "outputKey": "✅ TURNO CONFIRMADO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b90b24f3-c0b9-4bda-addd-c595e3a99cb4",
+                    "leftValue": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId == '❌ CANCELAR TURNO' }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "❌ CANCELAR TURNO"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "79032457-2ad1-4ff3-baef-b638cff374d7",
+                    "leftValue": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === '📋 REAGENDAR CONSULTA'}}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "📋 REAGENDAR CONSULTA"
             }
           ]
         },
@@ -728,7 +836,7 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        1872,
+        2080,
         1472
       ]
     },
@@ -835,7 +943,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        1072,
+        1280,
         1504
       ],
       "id": "c5ab87b0-a7b0-4888-a119-b947b4cdc145",
@@ -865,8 +973,8 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        2240,
-        1360
+        2368,
+        1120
       ],
       "id": "b0a3baea-a6b0-41fa-bd73-621752c626cb",
       "name": "Encolado de msg"
@@ -885,8 +993,8 @@
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        2480,
-        1360
+        2608,
+        1120
       ],
       "id": "57e833c9-a45c-4567-9112-6c9030b0cde2",
       "name": "Sort"
@@ -907,8 +1015,8 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        2720,
-        1360
+        2848,
+        1120
       ],
       "id": "d56f06da-58f6-4a29-9401-6c8c3708f463",
       "name": "Aggregate"
@@ -936,8 +1044,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        2944,
-        1360
+        3072,
+        1120
       ],
       "id": "c74f07ad-996e-42fe-a227-ab4098286316",
       "name": "chatInput"
@@ -963,6 +1071,12 @@
               "name": "clientebd",
               "value": "={{ JSON.stringify($json.list) }}",
               "type": "object"
+            },
+            {
+              "id": "40cb2db6-1a0b-486b-b2dd-3680515eb92a",
+              "name": "msg.id_admini",
+              "value": "35",
+              "type": "string"
             }
           ]
         },
@@ -973,7 +1087,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1472,
+        1680,
         1504
       ],
       "notesInFlow": true
@@ -1033,8 +1147,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        736,
-        1504
+        -176,
+        1536
       ]
     },
     {
@@ -1128,8 +1242,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -176,
-        1488
+        -752,
+        1520
       ],
       "notesInFlow": true
     },
@@ -1177,7 +1291,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        5040,
+        5248,
         912
       ],
       "id": "fbe2965f-d40d-4261-871b-b7bbb8f0e867",
@@ -1211,8 +1325,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        400,
-        1488
+        -448,
+        1520
       ],
       "id": "65fd2d50-ced7-4369-a225-5fac8dab1049",
       "name": "If1"
@@ -1226,8 +1340,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        3104,
-        944
+        976,
+        960
       ],
       "typeVersion": 1,
       "id": "d44129c9-f75f-49a5-b47d-7e851ba57c53",
@@ -1241,8 +1355,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        3184,
-        1024
+        1056,
+        1040
       ],
       "id": "9e4dd2d0-6ca8-4527-86cf-16f662e01065",
       "name": "Redis1",
@@ -1262,8 +1376,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -288,
-        1408
+        -864,
+        1440
       ],
       "typeVersion": 1,
       "id": "dd729165-949b-4bde-9422-6084aa323478",
@@ -1304,7 +1418,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        6912,
+        7120,
         960
       ],
       "id": "97b1cca0-7af9-47c8-b11e-ba24a8d70794",
@@ -1317,8 +1431,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2224,
-        1680
+        2624,
+        1312
       ],
       "id": "2bb0d3a5-c3af-402d-afa4-4e61afd44d4e",
       "name": "Code"
@@ -1346,6 +1460,14 @@
             {
               "fieldName": "SERVICIO",
               "fieldValue": "={{ $json.SERVICIO }}"
+            },
+            {
+              "fieldName": "Usuario_id",
+              "fieldValue": "35"
+            },
+            {
+              "fieldName": "FECHA_RECORDATORIO",
+              "fieldValue": "={{ new Date($json.FECHA + ':00').toISOString().substring(0, 16).replace(new Date($json.FECHA + ':00').toISOString().substring(11, 16), String(parseInt($json.FECHA.substring(11, 13)) - 1).padStart(2, '0') + $json.FECHA.substring(13, 16)) }}"
             }
           ]
         }
@@ -1353,8 +1475,8 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2480,
-        1680
+        2816,
+        1312
       ],
       "id": "850e3ce7-4929-4da4-af83-94c27ff4ec86",
       "name": "CreateCITA",
@@ -1400,8 +1522,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2720,
-        1680
+        3056,
+        1312
       ],
       "id": "30af8255-0446-4a9c-92ac-831add95af46",
       "name": "Turno creado"
@@ -1413,8 +1535,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        6688,
-        944
+        6928,
+        832
       ],
       "id": "a1cff4fe-47dd-438b-a817-42bbdf4f778a",
       "name": "Wait",
@@ -1425,13 +1547,13 @@
         "promptType": "define",
         "text": "={{ $json?.message || $json.chatInput }}",
         "options": {
-          "systemMessage": "=## JULI - RECEPCIONISTA VIRTUAL ODONTOLÓGICA\n\nEres **Juli**, recepcionista virtual de consultorio odontológico.\n\n## HOY ES: {{ $json.fecha }}\n\n**PERSONALIDAD**: Mujer simpática, profesional, voseo argentino. Sin \"che\", sin emojis.\n\n---\n\n## FLUJOS DE ACCIÓN RÁPIDA\n\n### 🔧 AGENDAR TURNO\n**Cuando el usuario quiere agendar:**\n1. Mostrar servicios disponibles\n2. Recolectar: NOMBRE + SERVICIO + FECHA + HORA\n3. **LÓGICA INTELIGENTE**:\n   - Si solo dice DÍA → preguntar \"¿Para qué hora?\"\n   - Si solo dice HORA → preguntar \"¿Para qué día?\"\n   - Si da ambos → continuar\n4. Una vez que tengas todos los datos → **EJECUTAR**: `tool_agendar`\n5. **RESPONDER SOLO**: `button_confirm`\n\n**Servicios disponibles:**\n```\n🪥 Limpieza\n💎 Blanqueamiento  \n🛠️ Tratamiento de caries\n🚫 Extracción\n📋 Consulta general\n👁️ Revisión\n📐 Ortodoncia\n🔬 Endodoncia\n🔧 Implante\n🦷 Prótesis\n```\n\n### ❌ CANCELAR TURNO\n**Cuando el usuario quiere cancelar:**\n1. **AUTOMÁTICAMENTE** preguntar: \"Dale, ¿querés que te pase las fechas agendadas?\"\n2. Si dice SÍ → **EJECUTAR**: `tool_cancelar` (esto mostrará las fechas disponibles)\n3. Usuario elige cuál cancelar → **EJECUTAR**: `tool_cancelar` con la fecha específica luego devuelve solo `button_confirm`\n\n\n### 🔄 REPROGRAMAR TURNO\n**Cuando el usuario quiere reprogramar:**\n1. **AUTOMÁTICAMENTE** preguntar: \"Dale, ¿para qué fecha querés cambiarlo?\"\n2. Usuario da nueva fecha → **CONVERTIR** a formato ISO\n3. **EJECUTAR**: `tool_reagendar` con JSON:\n```json\n{\n  \"FECHA\": \"2025-08-15T14:00\"\n}\n```\n**Ejemplo conversión:**\n- Usuario dice: \"viernes 15 de agosto a las 2\"\n- Juli convierte: `{\"FECHA\": \"2025-08-15T14:00\"}`\n4. **RESPONDER**: \"Listo, {nombre}, ahí ya cambié tu turno para el [nueva fecha]. ¿Necesitás algo más?\"\n\n### 🚨 URGENCIAS MÉDICAS\n**Cuando el usuario tiene urgencia médica:**\n1. **DETECTAR** palabras clave: dolor intenso, sangrado, urgencia, emergencia\n2. **EJECUTAR**: `tool_urgencias` inmediatamente\n3. **RESPONDER**: \"Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\"\n\n---\n\n## HERRAMIENTAS DISPONIBLES\n\n- **SIEMPRE usar primero**: `tool_think`\n- **Para obtener datos del paciente**: `get_paciente`\n- **Para reagendar turno**: `update_fecha`\n- **Para agendar turno**: `tool_agendar`\n- **Para cancelar turno**: `tool_cancelar`\n- **Para urgencias médicas**: `tool_urgencias`\n- **Para revisar si se puede agendar un turno**: `get_fechas`\n\n\n---\n\n## DATOS REQUERIDOS PARA AGENDAR\n\n- **NOMBRE**: Nombre completo\n- **SERVICIO**: De la lista disponible\n- **FECHA**: Formato DD-MM-AAAA (convertir expresiones como \"mañana\", \"próximo jueves\")\n- **HORA**: Formato HH:MM\n\n**LÓGICA DE RECOLECCIÓN**:\n- Si usuario dice solo \"jueves\" → preguntar \"¿Para qué hora?\"\n- Si usuario dice solo \"10:30\" → preguntar \"¿Para qué día?\"\n- Si usuario dice \"jueves a las 10:30\" → continuar con confirmación\n\n**Horarios**: Lunes-Viernes 08:00-13:00 y 15:00-19:00 (turnos de 30 min)\n\n---\n\n## CONVERSIÓN DE FECHAS\n\n### Interpretación de fechas relativas\n\nSi el paciente usa expresiones vagas que abarcan varios días (ej.: \"la semana que viene\", \"la próxima semana\"), Juli debe pedir un día específico:  \n«Perfecto, ¿qué día de la próxima semana te vendría bien?»\n\nJuli entiende expresiones como \"mañana\", \"pasado mañana\", \"la semana que viene\", \"el martes que viene\", \"el jueves que viene\", etc., y las traduce a la fecha concreta en formato DD-MM-AAAA tomando como referencia la fecha actual disponible en `{{ $json.fecha }}`.\n\n**Expresiones del usuario → Fecha exacta:**\n- \"Mañana\" → calcular desde {{ $json.fecha }}\n- \"Próximo jueves\" → buscar próximo jueves disponible\n- \"La semana que viene\" → pedir día específico\n\n**Para reprogramar → Formato JSON ISO:**\n- Usuario: \"viernes 15 de agosto a las 2\" → `{\"FECHA\": \"2025-08-15T14:00\"}`\n- Usuario: \"martes que viene a las 10:30\" → `{\"FECHA\": \"2025-XX-XXT10:30\"}`\n- Usuario: \"el 12 de mayo a las 10\" → `{\"FECHA\": \"2025-05-12T10:00\"}`\n\n---\n\n## EJEMPLOS DE DIÁLOGO\n\n### 1. Agendar\n\nPaciente: Hola, me gustaría pedir un turno.\nJuli: Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Te podemos ayudar con lo siguiente:\n```\n. Limpieza\n. Blanqueamiento\n. Extracción\n. Tratamiento de caries\n```\nPaciente: Para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Lucía Fernández.\nJuli: Gracias, Lucía. ¿Qué día y hora te vendría bien?\nPaciente: El próximo jueves.\nJuli: ¿Para qué hora?\nPaciente: 10:30.\n*(Juli ejecuta `tool_agendar`)*\nJuli:\n```\nbutton_confirm\n```\n\n### 1b. Agendar (usuario da solo hora)\n\nPaciente: Quiero un turno para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Fernando Cassera.\nJuli: Gracias, Fernando. ¿Qué día y hora te vendría bien?\nPaciente: A las 2 de la tarde.\nJuli: ¿Para qué día?\nPaciente: El viernes que viene.\n*(Juli ejecuta `tool_agendar`)*\nJuli:\n```\nbutton_confirm\n```\n\n### 2. Cancelar\n\nPaciente: Quiero cancelar un turno.\nJuli: Dale, ¿querés que te pase las fechas agendadas?\nPaciente: Sí.\nJuli: [Ejecuta tool_cancelar - muestra fechas disponibles]\nluego devuelve solo `button_confirm`\n\n### 3. Reprogramar\n\nPaciente: Necesito cambiar mi turno.\nJuli: Dale, ¿para qué fecha querés cambiarlo?\nPaciente: Para el viernes 15 de agosto a las 2 de la tarde.\n*(Juli ejecuta `tool_reagendar` con {\"FECHA\": \"2025-08-15T14:00\"})*\nJuli: Listo, Fernando, ahí ya cambié tu turno para el 15 de agosto a las 14:00. ¿Necesitás algo más?\n\n### 4. Reprogramar (alternativo)\n\nPaciente: Necesito cambiar mi turno del martes.\nJuli: Dale, ¿para qué fecha querés cambiarlo?\nPaciente: Para el jueves a las 10.\nJuli busca `get_fecha` y si coincide con la del usuario le sugiere otra sino\nPaciente: Pasa fecha nueva correcta sin coincidencia\n*(Juli ejecuta `tool_reagendar` con {\"FECHA\": \"2025-XX-XXT10:00\"})*\nJuli: Listo, María, ahí ya cambié tu turno para el jueves a las 10:00. ¿Necesitás algo más?\n\n### 5. Actualizar teléfono\n\nPaciente: Cambié mi número de teléfono.\nJuli: Claro, ¿cuál es tu nuevo teléfono?\nPaciente: 11‑3456‑7890.\nJuli: dale ahi lo cambié. Gracias por avisar\n\n### 6. Urgencia\n\nPaciente: Me duele muchísimo una muela, necesito que me atiendan ya.\n*(Juli ejecuta `tool_urgencias`)*\nJuli: Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\n\n---\n\n## REGLAS CRÍTICAS\n\n1. **SIEMPRE** ejecutar `tool_think` primero\n2. **NUNCA** asumir datos de conversaciones anteriores\n3. **OBLIGATORIO** ejecutar las herramientas correspondientes:\n   - Para agendar → ejecutar `tool_agendar`\n   - Para cancelar → ejecutar `tool_cancelar`\n   - Para reagendar → ejecutar `tool_reagendar`\n   - Para urgencias → ejecutar `tool_urgencias`\n4. **DESPUÉS** de ejecutar herramientas → responder solo `button_confirm`\n5. **URGENCIAS** → derivar a humano inmediatamente\n6. **DATOS FALTANTES** → solicitarlos antes de ejecutar herramientas\n\n---\n\n## VALIDACIÓN ANTES DE RESPONDER\n\n✓ ¿Ejecutá siempre antes de hacer cualquier otra cosa `tool_think`?\n✓ ¿Tengo todos los datos necesarios?\n✓ ¿Ejecuté la herramienta correcta?\n"
+          "systemMessage": "=## JULI - RECEPCIONISTA VIRTUAL ODONTOLÓGICA\n\nEres **Juli**, recepcionista virtual de consultorio odontológico.\n\n## HOY ES: {{ $json.fecha }}\n\n**PERSONALIDAD**: Mujer simpática, profesional, voseo argentino. Sin \"che\", sin emojis.\n\n---\n\n## FLUJOS DE ACCIÓN RÁPIDA\n\n### 🔧 AGENDAR TURNO\n**Cuando el usuario quiere agendar:**\n1. Mostrar servicios disponibles\n2. Recolectar: NOMBRE + SERVICIO + FECHA + HORA\n3. **LÓGICA INTELIGENTE**:\n   - Si solo dice DÍA → preguntar \"¿Para qué hora?\"\n   - Si solo dice HORA → preguntar \"¿Para qué día?\"\n   - Si da ambos → continuar\n4. Una vez que tengas todos los datos → **EJECUTAR**: `tool_agendar`\n5. **RESPONDER SOLO**: `button_confirm`\n\n**Servicios disponibles:**\n```\n🪥 Limpieza\n💎 Blanqueamiento  \n🛠️ Tratamiento de caries\n🚫 Extracción\n📋 Consulta general\n👁️ Revisión\n📐 Ortodoncia\n🔬 Endodoncia\n🔧 Implante\n🦷 Prótesis\n```\n\n### ❌ CANCELAR TURNO\n**Cuando el usuario quiere cancelar:**\n1. **AUTOMÁTICAMENTE** preguntar: \"Dale, ¿querés que te pase las fechas agendadas?\"\n2. Si dice SÍ → **EJECUTAR**: `tool_cancelar` (esto mostrará las fechas disponibles)\n3. Usuario elige cuál cancelar → **EJECUTAR**: `tool_cancelar` con la fecha específica luego devuelve solo `button_confirm`\n\n\n### 🔄 REPROGRAMAR TURNO\n**Cuando el usuario quiere reprogramar:**\n\n**LÓGICA INTELIGENTE DE CONTEXTO:**\n- Si acaba de confirmar una cita y dice \"cambiarla a [HORA]\" → **MANTENER** la misma fecha, cambiar solo la hora\n- Si dice \"no puedo a las 9, podés cambiármela a las 10\" → **MISMO DÍA**, nueva hora\n- Si no hay contexto de cita reciente → preguntar fecha completa\n\n**FLUJO:**\n1. **DETECTAR CONTEXTO**:\n   - ¿Hay una cita recién confirmada en la conversación?\n   - ¿El usuario solo menciona una hora nueva?\n   \n2. **SI SOLO CAMBIA HORA** (contexto de cita reciente):\n   - **EJECUTAR**: `tool_reagendar` manteniendo fecha original + nueva hora\n   - **RESPONDER**: \"Perfecto, ahí te cambié el turno para la misma fecha a las [nueva hora]. ¿Algo más?\"\n\n3. **SI NO HAY CONTEXTO**:\n   - **PREGUNTAR**: \"Dale, ¿para qué fecha querés cambiarlo?\"\n   - Usuario da nueva fecha → **CONVERTIR** a formato ISO\n   - **EJECUTAR**: `tool_reagendar` con JSON completo\n\n**Ejemplo conversión:**\n- Usuario dice: \"viernes 15 de agosto a las 2\" → `{\"FECHA\": \"2025-08-15T14:00\"}`\n- Usuario dice: \"podés cambiármela a las 10\" (después de confirmar cita) → mantener fecha original + `T10:00`\n\n### 🚨 URGENCIAS MÉDICAS\n**Cuando el usuario tiene urgencia médica:**\n1. **DETECTAR** palabras clave: dolor intenso, sangrado, urgencia, emergencia\n2. **EJECUTAR**: `tool_urgencias` inmediatamente\n3. **RESPONDER**: \"Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\"\n\n---\n\n## HERRAMIENTAS DISPONIBLES\n\n- **SIEMPRE usar primero**: `tool_think`\n- **Para obtener datos del paciente**: `get_paciente`\n- **Para reagendar turno**: `update_fecha`\n- **Para agendar turno**: `tool_agendar`\n- **Para cancelar turno**: `tool_cancelar`\n- **Para urgencias médicas**: `tool_urgencias`\n- **Para revisar si se puede agendar un turno**: `get_fechas`\n\n\n---\n\n## DATOS REQUERIDOS PARA AGENDAR\n\n- **NOMBRE**: Nombre completo\n- **SERVICIO**: De la lista disponible\n- **FECHA**: Formato DD-MM-AAAA (convertir expresiones como \"mañana\", \"próximo jueves\")\n- **HORA**: Formato HH:MM\n\n**LÓGICA DE RECOLECCIÓN**:\n- Si usuario dice solo \"jueves\" → preguntar \"¿Para qué hora?\"\n- Si usuario dice solo \"10:30\" → preguntar \"¿Para qué día?\"\n- Si usuario dice \"jueves a las 10:30\" → continuar con confirmación\n\n**Horarios**: Lunes-Viernes 08:00-13:00 y 15:00-19:00 (turnos de 30 min)\n\n---\n\n## CONVERSIÓN DE FECHAS\n\n### Interpretación de fechas relativas\n\nSi el paciente usa expresiones vagas que abarcan varios días (ej.: \"la semana que viene\", \"la próxima semana\"), Juli debe pedir un día específico:  \n«Perfecto, ¿qué día de la próxima semana te vendría bien?»\n\nJuli entiende expresiones como \"mañana\", \"pasado mañana\", \"la semana que viene\", \"el martes que viene\", \"el jueves que viene\", etc., y las traduce a la fecha concreta en formato DD-MM-AAAA tomando como referencia la fecha actual disponible en `{{ $json.fecha }}`.\n\n**Expresiones del usuario → Fecha exacta:**\n- \"Mañana\" → calcular desde {{ $json.fecha }}\n- \"Próximo jueves\" → buscar próximo jueves disponible\n- \"La semana que viene\" → pedir día específico\n\n**Para reprogramar → Formato JSON ISO:**\n- Usuario: \"viernes 15 de agosto a las 2\" → `{\"FECHA\": \"2025-08-15T14:00\"}`\n- Usuario: \"martes que viene a las 10:30\" → `{\"FECHA\": \"2025-XX-XXT10:30\"}`\n- Usuario: \"el 12 de mayo a las 10\" → `{\"FECHA\": \"2025-05-12T10:00\"}`\n\n---\n\n## EJEMPLOS DE DIÁLOGO\n\n### 1. Agendar\n\nPaciente: Hola, me gustaría pedir un turno.\nJuli: Hola, ¿cómo estás? Sí, contame para qué necesitabas el turno. Te podemos ayudar con lo siguiente:\n```\n. Limpieza\n. Blanqueamiento\n. Extracción\n. Tratamiento de caries\n```\nPaciente: Para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Lucía Fernández.\nJuli: Gracias, Lucía. ¿Qué día y hora te vendría bien?\nPaciente: El próximo jueves.\nJuli: ¿Para qué hora?\nPaciente: 10:30.\n*(Juli ejecuta `tool_agendar`)*\nJuli:\n```\nbutton_confirm\n```\n\n### 1b. Agendar (usuario da solo hora)\n\nPaciente: Quiero un turno para limpieza.\nJuli: Perfecto. ¿Me pasas tu nombre completo?\nPaciente: Fernando Cassera.\nJuli: Gracias, Fernando. ¿Qué día y hora te vendría bien?\nPaciente: A las 2 de la tarde.\nJuli: ¿Para qué día?\nPaciente: El viernes que viene.\n*(Juli ejecuta `tool_agendar`)*\nJuli:\n```\nbutton_confirm\n```\n\n### 2. Cancelar\n\nPaciente: Quiero cancelar un turno.\nJuli: Dale, ¿querés que te pase las fechas agendadas?\nPaciente: Sí.\nJuli: [Ejecuta tool_cancelar - muestra fechas disponibles]\nluego devuelve solo `button_confirm`\n\n### 3. Reprogramar\n\nPaciente: Necesito cambiar mi turno.\nJuli: Dale, ¿para qué fecha querés cambiarlo?\nPaciente: Para el viernes 15 de agosto a las 2 de la tarde.\n*(Juli ejecuta `tool_reagendar` con {\"FECHA\": \"2025-08-15T14:00\"})*\nJuli: Listo, Fernando, ahí ya cambié tu turno para el 15 de agosto a las 14:00. ¿Necesitás algo más?\n\n### 4. Reprogramar (cambio de hora mismo día)\n\n*(Después de confirmar cita para las 9:00)*\nPaciente: Me acordé que a las 9 no puedo, ¿podés cambiarla a las 10?\n*(Juli detecta contexto de cita recién confirmada + solo menciona hora nueva)*\n*(Juli ejecuta `tool_reagendar` manteniendo fecha original pero cambiando hora a 10:00)*\nJuli: Perfecto, ahí te cambié el turno para la misma fecha a las 10:00. Algo más necesitabas?\n\n### 5. Reprogramar (sin contexto)\n\nPaciente: Necesito cambiar mi turno del martes.\nJuli: Dale, ¿para qué fecha querés cambiarlo?\nPaciente: Para el jueves a las 10.\nJuli busca `get_fecha` y si coincide con la del usuario le sugiere otra sino\nPaciente: Pasa fecha nueva correcta sin coincidencia\n*(Juli ejecuta `tool_reagendar` con {\"FECHA\": \"2025-XX-XXT10:00\"})*\nJuli: Listo, María, ahí ya cambié tu turno para el jueves a las 10:00. ¿Necesitás algo más?\n\n### 6. Actualizar teléfono\n\nPaciente: Cambié mi número de teléfono.\nJuli: Claro, ¿cuál es tu nuevo teléfono?\nPaciente: 11‑3456‑7890.\nJuli: dale ahi lo cambié. Gracias por avisar\n\n### 7. Urgencia\n\nPaciente: Me duele muchísimo una muela, necesito que me atiendan ya.\n*(Juli ejecuta `tool_urgencias`)*\nJuli: Entiendo. Voy a pasarte con recepción para que puedan ayudarte de inmediato.\n\n### 8. VER TURNOS AGENDADOS\nPaciente: que turnos tengo agendando?\nPaciente: no me acuerdo que turnos tengo\n*(Juli ejecuta `get_fechas`)*\nJuli: \n\n### 9. Despedidas múltiples (ejemplo)\n\nJuli: Perfecto, ahí te cambié el turno para la misma fecha a las 10:00. Algo más necesitabas?\nPaciente: Nada más.\nJuli: Bárbaro, nos vemos.\nPaciente: Dale gracias.\nJuli: ¡Saludos!\nPaciente: Chau.\nJuli: 👋\n\n---\n\n## 👋 DESPEDIDAS INTELIGENTES\n\n**Cuando el usuario dice \"nada más\", \"no, gracias\", \"listo\", etc.:**\n\n**PRIMERA DESPEDIDA** (rotar entre estas opciones):\n- \"De nada, que tengas un lindo día\"\n- \"Perfecto, que andes bien\"\n- \"Dale, que tengas buen día\"\n- \"Bárbaro, nos vemos\"\n- \"Listo, que te vaya bien\"\n\n**SI EL USUARIO RESPONDE NUEVAMENTE** (\"gracias\", \"dale gracias\", \"chau\", etc.):\n\n**SEGUNDA DESPEDIDA** (más breve, rotar entre):\n- \"¡Chau!\"\n- \"¡Saludos!\"\n- \"¡Hasta luego!\"\n- \"¡Que estés bien!\"\n- \"¡Nos vemos!\"\n\n**SI INSISTE UNA TERCERA VEZ**:\n- Solo responder con emoji: \"👋\"\n\n**LÓGICA**:\n- **NUNCA** repetir la misma despedida consecutivamente\n- Usar despedidas más cortas en respuestas subsiguientes\n- Después de 3 intercambios de despedida, solo emoji\n\n---\n\n## REGLAS CRÍTICAS\n\n1. **SIEMPRE** ejecutar `tool_think` primero\n2. **NUNCA** asumir datos de conversaciones anteriores\n3. **OBLIGATORIO** ejecutar las herramientas correspondientes:\n   - Para agendar → ejecutar `tool_agendar`\n   - Para cancelar → ejecutar `tool_cancelar`\n   - Para reagendar → ejecutar `tool_reagendar`\n   - Para urgencias → ejecutar `tool_urgencias`\n4. **DESPUÉS** de ejecutar herramientas → responder solo `button_confirm`\n5. **URGENCIAS** → derivar a humano inmediatamente\n6. **DATOS FALTANTES** → solicitarlos antes de ejecutar herramientas\n\n---\n\n## VALIDACIÓN ANTES DE RESPONDER\n\n✓ ¿Ejecutá siempre antes de hacer cualquier otra cosa `tool_think`?\n✓ ¿Tengo todos los datos necesarios?\n✓ ¿Ejecuté la herramienta correcta?\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        4464,
+        4672,
         1360
       ],
       "id": "e532a2a9-8832-4762-a416-a6511d3a6578",
@@ -1468,11 +1590,13 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        6464,
-        880
+        6672,
+        896
       ],
       "id": "5a885cf7-f0af-4442-bef4-d2625fa22ab9",
-      "name": "escribiendo..."
+      "name": "escribiendo...",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -1548,7 +1672,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        4912,
+        5120,
         2032
       ],
       "id": "05288089-c83b-4718-ba6e-4936739fff13",
@@ -1597,7 +1721,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        5040,
+        5248,
         2032
       ],
       "id": "49c6499a-fe8d-4c33-b00d-5cd9f70731b6",
@@ -1638,7 +1762,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2720,
+        2928,
         1872
       ],
       "id": "03fd461e-c352-4afd-9c25-d82682282f49",
@@ -1679,7 +1803,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2480,
+        2688,
         2256
       ],
       "id": "df7080c5-db06-46fd-9bea-9ae50c34b5f6",
@@ -1689,8 +1813,8 @@
       "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "getAll",
-        "projectId": "pg80f80zr77phub",
-        "table": "mydefkz038xyn3g",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
         "returnAll": true,
         "options": {
           "where": "=(TELEFONO,eq,{{ $('Variables globales').item.json.msg.telefono }})"
@@ -1699,7 +1823,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        4464,
+        4672,
         1856
       ],
       "id": "0d4900c8-9afa-45d6-8a23-e8d1aac57268",
@@ -1723,7 +1847,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        4288,
+        4496,
         1536
       ],
       "id": "4fd8a825-c262-4d8c-b549-fda46c7578ec",
@@ -1744,7 +1868,7 @@
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        3504,
+        3920,
         2384
       ],
       "id": "ff4a4b1f-e147-430d-af39-96010c83cc07",
@@ -1777,7 +1901,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2224,
+        2432,
         2256
       ],
       "id": "8c60509d-7f13-41de-b908-00bbbb7de030",
@@ -1805,41 +1929,11 @@
       "type": "@n8n/n8n-nodes-langchain.memoryManager",
       "typeVersion": 1.1,
       "position": [
-        3168,
+        3584,
         2048
       ],
       "id": "832c84e7-2312-467e-9041-7d1ee70d9191",
       "name": "Chat Memory Manager"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "=https://us.api-wa.me/2522xaf8359c21b/message/{{ $json.data.key.id }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "*/*"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {}
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        3056,
-        1584
-      ],
-      "id": "f04e1927-5289-4f1d-bc94-c1a464256581",
-      "name": "Delete lista"
     },
     {
       "parameters": {
@@ -1848,7 +1942,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolThink",
       "typeVersion": 1.1,
       "position": [
-        5072,
+        5280,
         1536
       ],
       "id": "92a761d0-f5c1-4b2c-b21f-36fa56bde144",
@@ -1857,7 +1951,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "f33",
+        "path": "turnos",
         "options": {}
       },
       "id": "ca741c62-a356-40d2-a609-bac27382bfdb",
@@ -1865,8 +1959,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -544,
-        1488
+        -1120,
+        1520
       ],
       "webhookId": "6eb916de-b3fd-48f2-b749-5db6a011d8ba"
     },
@@ -1881,7 +1975,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2224,
+        2432,
         1952
       ],
       "id": "8e967101-49ad-47d1-a474-8f6e797a26d7",
@@ -1932,7 +2026,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2720,
+        2928,
         2048
       ],
       "id": "75a1ff38-11be-4cfe-9939-8e8d3dd347fb",
@@ -1966,7 +2060,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2416,
+        2624,
         1952
       ],
       "id": "8c8384bc-ac93-4a63-9c6d-3b33df9a376a",
@@ -1994,7 +2088,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        5168,
+        5376,
         2032
       ],
       "id": "2aa27a68-9b49-4ca6-9ce4-1cfb0c3cdc01",
@@ -2020,7 +2114,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        4608,
+        4816,
         1856
       ],
       "id": "912381c2-f918-4b95-b0f6-281aad872918",
@@ -2034,100 +2128,180 @@
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "manager",
-        "options": {}
-      },
-      "id": "c1624881-18bf-4c52-b039-74625417d73b",
-      "name": "Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -528,
-        864
-      ],
-      "webhookId": "6eb916de-b3fd-48f2-b749-5db6a011d8ba",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
+        "authentication": "nocoDbApiToken",
+        "operation": "update",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
+        "fieldsUi": {
+          "fieldValues": [
             {
-              "id": "07474640-4839-46ed-b673-08b7b548d493",
-              "name": "body.turno.nombre",
-              "value": "={{ $json.body.turno.nombre }}",
-              "type": "string"
+              "fieldName": "Id",
+              "fieldValue": "={{ $json.id_cliente }}"
             },
             {
-              "id": "7867d731-6833-450c-8579-b3a555f114b6",
-              "name": "msg.telefono",
-              "value": "={{ $json.body.turno.telefono }}",
-              "type": "string"
+              "fieldName": "CONFIRMACION_CITA",
+              "fieldValue": "True"
             },
             {
-              "id": "06d328f7-323d-4020-b5e6-ec4755b90451",
-              "name": "msg.fecha",
-              "value": "={{ $json.body.turno.fecha }}",
-              "type": "string"
-            },
-            {
-              "id": "3fe7c311-7223-4356-bb6e-19cc4e47b94b",
-              "name": "msg.servicio",
-              "value": "={{ $json.body.turno.servicio }}",
-              "type": "string"
-            },
-            {
-              "id": "a2eccd4d-9e29-4baa-9874-930480637afd",
-              "name": "msg.hora",
-              "value": "={{ $json.body.turno.hora }}",
-              "type": "string"
+              "fieldName": "RECORDATORIO_ENVIADO",
+              "fieldValue": "True"
             }
           ]
-        },
-        "options": {}
+        }
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
       "position": [
-        -208,
-        864
+        2640,
+        1520
       ],
-      "id": "5147c272-d6d0-4d9d-bce7-1bd51986844a",
-      "name": "Edit Fields"
+      "id": "d4289b93-571e-4042-aa15-46bc540113c6",
+      "name": "Turno confirmado",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $('Normalizacion').last().json.instance.server_url }}/message/sendMedia/{{ $('Normalizacion').last().json.instance.name }}",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/text",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "apikey",
-              "value": "={{ $('Normalizacion').last().json.instance.apikey }}"
+              "name": "accept",
+              "value": "*/*"
             }
           ]
         },
         "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"number\":\"{{ $('Normalizacion').item.json.message.chat_id }}\" ,\n  \"mediatype\": \"image\",\n  \"mimetype\": {{ $('Extraer URL de imagen y limpiar mensaje1').item.json.url.toLowerCase().endsWith('.png') ? '\"image/png\"' : '\"image/jpeg\"' }},\n  \"caption\": \"🪑\",\n  \"media\": \"{{ $('Sub Loop').item.json.url }}\",\n  \"delay\": 1200\n}",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "=5492254423359"
+            },
+            {
+              "name": "text",
+              "value": "=✅ En una hora nos visita {{ $('Variables globales').item.json.clientebd.Paciente }} para {{ $('Variables globales').item.json.clientebd['0'].SERVICIO }}, acaba de confirmar el turno."
+            },
+            {
+              "name": "status",
+              "value": "recording"
+            }
+          ]
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        80,
-        864
+        2928,
+        1520
       ],
-      "id": "6e8c2133-b105-4998-97b8-a82d4a5676da",
-      "name": "jpg",
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
+      "id": "43509636-0bf2-4a5f-a1b8-69365cf59cba",
+      "name": "Confirmacion de turno"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            },
+            {
+              "name": "text",
+              "value": "=El paciente {{ $('Variables globales').item.json.clientebd.Paciente }} acaba de cancelar su turno de las {{ $('Variables globales').item.json.clientebd['0'].FECHA.split('T')[1] + ' hs' }} asique se libero este espacio"
+            },
+            {
+              "name": "status",
+              "value": "recording"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2784,
+        1712
+      ],
+      "id": "061a5e2b-daca-45fd-bfd5-03a3d37cca7e",
+      "name": "Turno eliminado"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "delete",
+        "projectId": "p95q7ph2qlpkvjj",
+        "table": "m9m2veegnrfeeza",
+        "id": "={{ $json.id_cliente }}"
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        2512,
+        1712
+      ],
+      "id": "2ce41a80-1821-4e16-ad31-cd4fd305f1ae",
+      "name": "DELETE TURNO",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c40f2af4-b39e-4431-b00c-9044fbebc2b3",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        32,
+        1440
+      ],
+      "id": "086bb300-6aa0-4526-851e-348f5d625874",
+      "name": "If3"
     }
   ],
   "pinData": {
@@ -2137,7 +2311,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.11.0",
-            "content-length": "773",
+            "content-length": "1861",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -2155,7 +2329,7 @@
             "instance": "2522xaf8359c21b",
             "type": "message",
             "data": {
-              "messageId": "1B892286FBFF029DFA3EADB2127E79B1",
+              "messageId": "AB727DBCE4FB547B9DA7F5F850199BA5",
               "jid": "5492254423359:97@s.whatsapp.net",
               "me": false,
               "isGroup": false,
@@ -2164,86 +2338,66 @@
               "key": {
                 "remoteJid": "5492254596618@s.whatsapp.net",
                 "fromMe": false,
-                "id": "1B892286FBFF029DFA3EADB2127E79B1"
+                "id": "AB727DBCE4FB547B9DA7F5F850199BA5"
               },
-              "messageType": "conversation",
+              "messageType": "messageContextInfo",
               "msgContent": {
-                "conversation": "Tenés libre?",
                 "messageContextInfo": {
                   "deviceListMetadata": {
                     "senderKeyHash": "F1tkbDhHhKbugw==",
-                    "senderTimestamp": "1753523520",
-                    "recipientKeyHash": "iVJZBUf9o9GNyA==",
-                    "recipientTimestamp": "1753698939"
+                    "senderTimestamp": "1754099422",
+                    "recipientKeyHash": "+3TxtVM6bUC/nA==",
+                    "recipientTimestamp": "1754580051"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "PI9ksd2xE2fo2k04j7rYQfdpMd+CKWt/FzxVWTCYoxk="
+                  "messageSecret": "7f72bjSkd2e0FWlnzarO5WIrUssUjdEzOU2ADQqTdjI="
+                },
+                "listResponseMessage": {
+                  "title": "✅ Confirmar Turno",
+                  "listType": "SINGLE_SELECT",
+                  "singleSelectReply": {
+                    "selectedRowId": "✅ TURNO CONFIRMADO"
+                  },
+                  "contextInfo": {
+                    "stanzaId": "3EB023DF9EFCBA11205694",
+                    "participant": "5492254423359@s.whatsapp.net",
+                    "quotedMessage": {
+                      "listMessage": {
+                        "title": "⏰ Recordatorio - Tu turno es en 1 hora",
+                        "description": "*🔔 RECORDATORIO IMPORTANTE*\n\n👤 *Paciente:* Fernando Ariel\n📅 *Fecha:* 12-08-2025\n🕐 *Hora:* 11:00\n🏥 *Servicio:* Limpieza\n\n📍 *Recordatorios:*\n- Llegá 10 minutos antes\n- Traé DNI y estudios previos\n- En caso de no poder asistir, avisanos\n\nSeleccione una opción:",
+                        "buttonText": "Opciones 📋",
+                        "listType": "SINGLE_SELECT",
+                        "sections": [
+                          {
+                            "title": "📋 Opciones Disponibles",
+                            "rows": [
+                              {
+                                "title": "✅ Confirmar Turno",
+                                "description": "Confirmo mi asistencia en la fecha y hora indicada",
+                                "rowId": "✅ TURNO CONFIRMADO"
+                              },
+                              {
+                                "title": "❌ Cancelar Turno",
+                                "description": "No podré asistir al turno programado",
+                                "rowId": "❌ CANCELAR TURNO"
+                              }
+                            ]
+                          }
+                        ],
+                        "footerText": "⚠️ Turno pendiente de confirmación"
+                      }
+                    }
+                  },
+                  "description": "Confirmo mi asistencia en la fecha y hora indicada"
                 }
               },
-              "messageTimestamp": 1753994848,
+              "messageTimestamp": 1754618613,
               "source": "android",
               "broadcast": false,
               "isMedia": false
             }
           },
-          "webhookUrl": "https://n8nw.qeva.xyz/webhook/f33",
-          "executionMode": "production"
-        }
-      }
-    ],
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "n8nw.qeva.xyz",
-            "user-agent": "axios/1.10.0",
-            "content-length": "753",
-            "accept": "application/json, text/plain, */*",
-            "accept-encoding": "gzip, compress, deflate, br",
-            "content-type": "application/json",
-            "x-forwarded-for": "172.18.0.1",
-            "x-forwarded-host": "n8nw.qeva.xyz",
-            "x-forwarded-port": "443",
-            "x-forwarded-proto": "https",
-            "x-forwarded-server": "7697b68d06c2",
-            "x-real-ip": "172.18.0.1"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "event": "messages.upsert",
-            "instance": "Fernando",
-            "data": {
-              "key": {
-                "remoteJid": "573102118859@s.whatsapp.net",
-                "fromMe": true,
-                "id": "9BC93A809DDF2F44875C5B1E0B584338"
-              },
-              "pushName": "Automátizaciones AI",
-              "status": "SERVER_ACK",
-              "message": {
-                "reactionMessage": {
-                  "key": {
-                    "remoteJid": "573102118859@s.whatsapp.net",
-                    "fromMe": true,
-                    "id": "F0C8A36094E443B4C2DEE3F287E64BC1"
-                  },
-                  "text": "👍",
-                  "senderTimestampMs": "1754504636399"
-                }
-              },
-              "messageType": "reactionMessage",
-              "messageTimestamp": 1754504636,
-              "instanceId": "4c764abd-56e6-4e7d-b849-4e3123c02531",
-              "source": "android"
-            },
-            "destination": "https://n8nw.qeva.xyz/webhook/manager",
-            "date_time": "2025-08-06T15:23:56.270Z",
-            "sender": "5492254596618@s.whatsapp.net",
-            "server_url": "https://evo.qeva.xyz",
-            "apikey": "27732CFA65D7-416C-9562-9CED5C942DF3"
-          },
-          "webhookUrl": "https://n8nw.qeva.xyz/webhook/manager",
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/turnos",
           "executionMode": "production"
         }
       }
@@ -2258,6 +2412,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-06T19:57:49.168Z",
-  "versionId": "abd4f19d-e36a-45be-8aee-36f2e0bc3d22"
+  "updatedAt": "2025-08-08T02:26:35.362Z",
+  "versionId": "5e55db24-546c-4428-8b97-b721136b9bfc"
 }
