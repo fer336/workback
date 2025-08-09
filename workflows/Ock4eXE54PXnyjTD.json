@@ -103,17 +103,6 @@
         ]
       ]
     },
-    "Validar Cliente": {
-      "main": [
-        [
-          {
-            "node": "Variables globales",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Encolado de msg": {
       "main": [
         [
@@ -169,47 +158,12 @@
         ]
       ]
     },
-    "From Me2": {
-      "main": [
-        [
-          {
-            "node": "If3",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
-      ]
-    },
-    "V1": {
-      "main": [
-        [
-          {
-            "node": "If1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "If": {
       "main": [
         [],
         [
           {
             "node": "Separa datos",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If1": {
-      "main": [
-        [],
-        [
-          {
-            "node": "From Me2",
             "type": "main",
             "index": 0
           }
@@ -391,17 +345,6 @@
         ]
       ]
     },
-    "Webhook1": {
-      "main": [
-        [
-          {
-            "node": "V1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Cancelar": {
       "main": [
         [
@@ -509,11 +452,165 @@
         ]
       ]
     },
-    "If3": {
+    "Es Grupo?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "From Me?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "From Me?": {
       "main": [
         [
           {
-            "node": "Validar Cliente",
+            "node": "Obtener Estado Usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Estado Usuario": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Activar Usuario (24h)": {
+      "main": [
+        [
+          {
+            "node": "Contador Mensajes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contador Mensajes": {
+      "main": [
+        [
+          {
+            "node": "Confirmacion de turno2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Usuario Activo?": {
+      "main": [
+        [
+          {
+            "node": "Obtener Contador Mensajes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Contador Mensajes": {
+      "main": [
+        [
+          {
+            "node": "Límite Alcanzado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Límite Alcanzado?": {
+      "main": [
+        [
+          {
+            "node": "Enviar Límite Alcanzado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Validar Cliente y Continuar Bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Cliente y Continuar Bot": {
+      "main": [
+        [
+          {
+            "node": "Variables globales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "V1": {
+      "main": [
+        [
+          {
+            "node": "Es Grupo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "V1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Es Primera Vez y #inicio?": {
+      "main": [
+        [
+          {
+            "node": "Activar Usuario (24h)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "inicio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Es Primera Vez y #inicio?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Usuario Activo?",
             "type": "main",
             "index": 0
           }
@@ -541,7 +638,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        6336,
+        6752,
         864
       ],
       "alwaysOutputData": false,
@@ -557,7 +654,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        5824,
+        6240,
         912
       ]
     },
@@ -568,7 +665,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5616,
+        6032,
         912
       ],
       "id": "7e6e667c-3852-4a08-988a-fbeb788f00d7",
@@ -713,7 +810,7 @@
                 "conditions": [
                   {
                     "id": "d1365037-6336-4f42-ad67-111b60828b07",
-                    "leftValue": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === 'Confirmar ✅' }}",
+                    "leftValue": "={{ $('Webhook').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === 'Confirmar ✅' }}",
                     "rightValue": "Confirmar ✅",
                     "operator": {
                       "type": "boolean",
@@ -738,7 +835,7 @@
                 "conditions": [
                   {
                     "id": "06ff860d-976d-4fdc-9dd3-8c9483137f8d",
-                    "leftValue": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === 'Cancelar turno ❌' }}",
+                    "leftValue": "={{ $('Webhook').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === 'Cancelar turno ❌' }}",
                     "rightValue": " ❌ Cancelar cita",
                     "operator": {
                       "type": "boolean",
@@ -763,7 +860,7 @@
                 "conditions": [
                   {
                     "id": "b64bdc33-47da-4c94-988d-1ba19386a5a2",
-                    "leftValue": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId == '✅ TURNO CONFIRMADO' }}",
+                    "leftValue": "={{ $('Webhook').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId == '✅ TURNO CONFIRMADO' }}",
                     "rightValue": "📆 Elegir cita",
                     "operator": {
                       "type": "boolean",
@@ -788,7 +885,7 @@
                 "conditions": [
                   {
                     "id": "b90b24f3-c0b9-4bda-addd-c595e3a99cb4",
-                    "leftValue": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId == '❌ CANCELAR TURNO' }}",
+                    "leftValue": "={{ $('Webhook').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId == '❌ CANCELAR TURNO' }}",
                     "rightValue": "",
                     "operator": {
                       "type": "boolean",
@@ -813,7 +910,7 @@
                 "conditions": [
                   {
                     "id": "79032457-2ad1-4ff3-baef-b638cff374d7",
-                    "leftValue": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === '📋 REAGENDAR CONSULTA'}}",
+                    "leftValue": "={{ $('Webhook').first().json.body.data.msgContent.listResponseMessage.contextInfo.quotedMessage.listMessage.buttonText === '📋 REAGENDAR CONSULTA'}}",
                     "rightValue": "",
                     "operator": {
                       "type": "boolean",
@@ -836,118 +933,9 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        2080,
+        2496,
         1472
       ]
-    },
-    {
-      "parameters": {
-        "workflowId": {
-          "__rl": true,
-          "value": "93rlsJqTd0Ntt2NC",
-          "mode": "list",
-          "cachedResultName": "AGENTE CITAS - GET CLIENTES"
-        },
-        "workflowInputs": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "numero": "={{ $('V1').item.json.msg.telefono }}",
-            "idTabla": "m9m2veegnrfeeza",
-            "token": "3WY4UecQy9Nl522fe_DXDSHeQDVSQJpmDG7mMoFz",
-            "servidor_db": "={{ $('V1').item.json.datos.server_db }}",
-            "nombre_columna": "TELEFONO"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "servidor_db",
-              "displayName": "servidor_db",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "idTabla",
-              "displayName": "idTabla",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "token",
-              "displayName": "token",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "numero",
-              "displayName": "numero",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "nombre_columna",
-              "displayName": "nombre_columna",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string"
-            },
-            {
-              "id": "pushname",
-              "displayName": "pushname",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": true
-            },
-            {
-              "id": "servidor_evo",
-              "displayName": "servidor_evo",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": true
-            },
-            {
-              "id": "id_mensaje",
-              "displayName": "id_mensaje",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "canBeUsedToMatch": true,
-              "type": "string",
-              "removed": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": true
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.2,
-      "position": [
-        1280,
-        1504
-      ],
-      "id": "c5ab87b0-a7b0-4888-a119-b947b4cdc145",
-      "name": "Validar Cliente"
     },
     {
       "parameters": {
@@ -973,7 +961,7 @@
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        2368,
+        2784,
         1120
       ],
       "id": "b0a3baea-a6b0-41fa-bd73-621752c626cb",
@@ -993,7 +981,7 @@
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        2608,
+        3024,
         1120
       ],
       "id": "57e833c9-a45c-4567-9112-6c9030b0cde2",
@@ -1015,7 +1003,7 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        2848,
+        3264,
         1120
       ],
       "id": "d56f06da-58f6-4a29-9401-6c8c3708f463",
@@ -1044,7 +1032,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        3072,
+        3488,
         1120
       ],
       "id": "c74f07ad-996e-42fe-a227-ab4098286316",
@@ -1087,181 +1075,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1680,
+        2096,
         1504
       ],
       "notesInFlow": true
-    },
-    {
-      "parameters": {
-        "content": "## Variables de BD",
-        "height": 380,
-        "width": 340,
-        "color": 7
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        928,
-        1344
-      ],
-      "typeVersion": 1,
-      "id": "87dec40f-8ed5-46bf-aeec-9ab6874d5c91",
-      "name": "Sticky Note9"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "94746291-c0f3-44f3-b635-1fe696d7d74e",
-              "leftValue": "={{ $json.msg.from_me }}",
-              "rightValue": "false",
-              "operator": {
-                "type": "string",
-                "operation": "equals"
-              }
-            },
-            {
-              "id": "7216b3e8-2aeb-4512-bf22-8ad17559b9f5",
-              "leftValue": "={{ $json.msg.telefono }}",
-              "rightValue": "5492254596618",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "a1f4af36-41b4-4acd-ac08-9f4161346528",
-      "name": "From Me2",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -176,
-        1536
-      ]
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
-              "name": "msg.telefono",
-              "value": "={{ $json.body.data.key.remoteJid.replace(/\\D/g, '') }}",
-              "type": "string"
-            },
-            {
-              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
-              "name": "msg.pushname",
-              "value": "={{ $json.body.data.pushName }}",
-              "type": "string"
-            },
-            {
-              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
-              "name": "msg.type",
-              "value": "={{ $json.body.data.messageType }}",
-              "type": "string"
-            },
-            {
-              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
-              "name": "msg.content",
-              "value": "={{ $json?.body?.data?.msgContent?.extendedTextMessage?.contextInfo?.quotedMessage?.conversation || $json.body?.data?.msgContent?.extendedTextMessage?.text || $json?.body?.data?.fileBase64 || $json?.body?.data?.msgContent?.conversation || $json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId }}",
-              "type": "string"
-            },
-            {
-              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
-              "name": "msg.timestamp",
-              "value": "={{ $json.body.data.messageTimestamp.toDateTime('s').toLocal().toISO()}}",
-              "type": "string"
-            },
-            {
-              "id": "2dfc64f4-b222-4ea7-b095-fdd96d9fcb95",
-              "name": "msg.idmsg",
-              "value": "={{ $json.body.data.key.id }}",
-              "type": "string"
-            },
-            {
-              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
-              "name": "datos.server_db",
-              "value": "https://db.qeva.xyz",
-              "type": "string"
-            },
-            {
-              "id": "be83160a-e151-4f62-bfde-590af142ae74",
-              "name": "db.table_clientes",
-              "value": "mydefkz038xyn3g",
-              "type": "string"
-            },
-            {
-              "id": "c85ab512-ca17-401b-b025-4b6fc11ac818",
-              "name": "db.token_db",
-              "value": "3WY4UecQy9Nl522fe_DXDSHeQDVSQJpmDG7mMoFz",
-              "type": "string"
-            },
-            {
-              "id": "6fedaf9c-efe8-46e5-bb61-b42525ddafa1",
-              "name": "msg.grupo",
-              "value": "={{ $json.body.data.isGroup }}",
-              "type": "boolean"
-            },
-            {
-              "id": "7f846767-8866-43e5-845a-d1feda60451c",
-              "name": "datos.token",
-              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
-              "type": "string"
-            },
-            {
-              "id": "b2193a26-668b-423d-9330-d3dd835f5466",
-              "name": "msg.from_me",
-              "value": "={{ $json.body.data.key.fromMe }}",
-              "type": "string"
-            },
-            {
-              "id": "49aecbc3-3d0e-4836-bcfa-dc79599cc53e",
-              "name": "button.confirm",
-              "value": "={{ $json.body.data.msgContent.templateButtonReplyMessage.selectedId }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "d8d36f05-4341-4df9-b609-f4fb2107baa9",
-      "name": "V1",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -752,
-        1520
-      ],
-      "notesInFlow": true
-    },
-    {
-      "parameters": {
-        "content": "## Variables globales",
-        "height": 380,
-        "width": 340,
-        "color": 7
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        1344,
-        1344
-      ],
-      "typeVersion": 1,
-      "id": "b4b1482a-aa97-4609-8ed2-22de72f31af4",
-      "name": "Sticky Note11"
     },
     {
       "parameters": {
@@ -1291,45 +1108,11 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        5248,
+        5664,
         912
       ],
       "id": "fbe2965f-d40d-4261-871b-b7bbb8f0e867",
       "name": "If"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "dedeb630-ea71-4ac7-808d-7401688ff128",
-              "leftValue": "={{ $json.msg.grupo }}",
-              "rightValue": "",
-              "operator": {
-                "type": "boolean",
-                "operation": "true",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -448,
-        1520
-      ],
-      "id": "65fd2d50-ced7-4369-a225-5fac8dab1049",
-      "name": "If1"
     },
     {
       "parameters": {
@@ -1341,7 +1124,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         976,
-        960
+        688
       ],
       "typeVersion": 1,
       "id": "d44129c9-f75f-49a5-b47d-7e851ba57c53",
@@ -1356,7 +1139,7 @@
       "typeVersion": 1,
       "position": [
         1056,
-        1040
+        768
       ],
       "id": "9e4dd2d0-6ca8-4527-86cf-16f662e01065",
       "name": "Redis1",
@@ -1366,22 +1149,6 @@
           "name": "Redis account"
         }
       }
-    },
-    {
-      "parameters": {
-        "content": "### Variables globales colocar las que necesites de cada api utilizada",
-        "height": 260,
-        "width": 340,
-        "color": 5
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -864,
-        1440
-      ],
-      "typeVersion": 1,
-      "id": "dd729165-949b-4bde-9422-6084aa323478",
-      "name": "Sticky Note2"
     },
     {
       "parameters": {
@@ -1418,7 +1185,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        7120,
+        7536,
         960
       ],
       "id": "97b1cca0-7af9-47c8-b11e-ba24a8d70794",
@@ -1431,7 +1198,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2624,
+        3040,
         1312
       ],
       "id": "2bb0d3a5-c3af-402d-afa4-4e61afd44d4e",
@@ -1475,7 +1242,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2816,
+        3232,
         1312
       ],
       "id": "850e3ce7-4929-4da4-af83-94c27ff4ec86",
@@ -1522,7 +1289,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3056,
+        3472,
         1312
       ],
       "id": "30af8255-0446-4a9c-92ac-831add95af46",
@@ -1535,7 +1302,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        6928,
+        7344,
         832
       ],
       "id": "a1cff4fe-47dd-438b-a817-42bbdf4f778a",
@@ -1553,7 +1320,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.9,
       "position": [
-        4672,
+        5088,
         1360
       ],
       "id": "e532a2a9-8832-4762-a416-a6511d3a6578",
@@ -1590,7 +1357,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        6672,
+        7088,
         896
       ],
       "id": "5a885cf7-f0af-4442-bef4-d2625fa22ab9",
@@ -1672,7 +1439,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        5120,
+        5536,
         2032
       ],
       "id": "05288089-c83b-4718-ba6e-4936739fff13",
@@ -1721,7 +1488,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        5248,
+        5664,
         2032
       ],
       "id": "49c6499a-fe8d-4c33-b00d-5cd9f70731b6",
@@ -1762,7 +1529,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2928,
+        3344,
         1872
       ],
       "id": "03fd461e-c352-4afd-9c25-d82682282f49",
@@ -1803,7 +1570,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2688,
+        3104,
         2256
       ],
       "id": "df7080c5-db06-46fd-9bea-9ae50c34b5f6",
@@ -1823,7 +1590,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        4672,
+        5088,
         1856
       ],
       "id": "0d4900c8-9afa-45d6-8a23-e8d1aac57268",
@@ -1847,7 +1614,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        4496,
+        4912,
         1536
       ],
       "id": "4fd8a825-c262-4d8c-b549-fda46c7578ec",
@@ -1868,7 +1635,7 @@
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        3920,
+        4336,
         2384
       ],
       "id": "ff4a4b1f-e147-430d-af39-96010c83cc07",
@@ -1901,7 +1668,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2432,
+        2848,
         2256
       ],
       "id": "8c60509d-7f13-41de-b908-00bbbb7de030",
@@ -1929,7 +1696,7 @@
       "type": "@n8n/n8n-nodes-langchain.memoryManager",
       "typeVersion": 1.1,
       "position": [
-        3584,
+        4000,
         2048
       ],
       "id": "832c84e7-2312-467e-9041-7d1ee70d9191",
@@ -1942,7 +1709,7 @@
       "type": "@n8n/n8n-nodes-langchain.toolThink",
       "typeVersion": 1.1,
       "position": [
-        5280,
+        5696,
         1536
       ],
       "id": "92a761d0-f5c1-4b2c-b21f-36fa56bde144",
@@ -1950,32 +1717,16 @@
     },
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "turnos",
-        "options": {}
-      },
-      "id": "ca741c62-a356-40d2-a609-bac27382bfdb",
-      "name": "Webhook1",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [
-        -1120,
-        1520
-      ],
-      "webhookId": "6eb916de-b3fd-48f2-b749-5db6a011d8ba"
-    },
-    {
-      "parameters": {
         "authentication": "nocoDbApiToken",
         "operation": "delete",
         "projectId": "p95q7ph2qlpkvjj",
         "table": "m9m2veegnrfeeza",
-        "id": "={{ $('Webhook1').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId }}"
+        "id": "={{ $('Webhook').first().json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId }}"
       },
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2432,
+        2848,
         1952
       ],
       "id": "8e967101-49ad-47d1-a474-8f6e797a26d7",
@@ -2026,7 +1777,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2928,
+        3344,
         2048
       ],
       "id": "75a1ff38-11be-4cfe-9939-8e8d3dd347fb",
@@ -2060,7 +1811,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        2624,
+        3040,
         1952
       ],
       "id": "8c8384bc-ac93-4a63-9c6d-3b33df9a376a",
@@ -2088,7 +1839,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        5376,
+        5792,
         2032
       ],
       "id": "2aa27a68-9b49-4ca6-9ce4-1cfb0c3cdc01",
@@ -2114,7 +1865,7 @@
       "type": "n8n-nodes-base.nocoDbTool",
       "typeVersion": 3,
       "position": [
-        4816,
+        5232,
         1856
       ],
       "id": "912381c2-f918-4b95-b0f6-281aad872918",
@@ -2152,7 +1903,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2640,
+        3056,
         1520
       ],
       "id": "d4289b93-571e-4042-aa15-46bc540113c6",
@@ -2199,7 +1950,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2928,
+        3344,
         1520
       ],
       "id": "43509636-0bf2-4a5f-a1b8-69365cf59cba",
@@ -2240,7 +1991,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2784,
+        3200,
         1712
       ],
       "id": "061a5e2b-daca-45fd-bfd5-03a3d37cca7e",
@@ -2257,7 +2008,7 @@
       "type": "n8n-nodes-base.nocoDb",
       "typeVersion": 3,
       "position": [
-        2512,
+        2928,
         1712
       ],
       "id": "2ce41a80-1821-4e16-ad31-cd4fd305f1ae",
@@ -2280,9 +2031,52 @@
           },
           "conditions": [
             {
-              "id": "c40f2af4-b39e-4431-b00c-9044fbebc2b3",
-              "leftValue": "",
+              "leftValue": "={{ $json.msg.grupo }}",
               "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "id": "7f40e6df-dd87-470d-a108-679cd9e14fd6"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -480,
+        1264
+      ],
+      "id": "b3c8dbb8-6e1e-4885-84f0-a6464dc1ac98",
+      "name": "Es Grupo?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.msg.from_me }}",
+              "rightValue": "false",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "id": "f0886197-f57c-431f-afe8-f597257ffddc"
+            },
+            {
+              "id": "99bab74e-0c4c-45eb-bd1d-9418b3324a31",
+              "leftValue": "={{ $json.msg.telefono }}",
+              "rightValue": "5492254596618",
               "operator": {
                 "type": "string",
                 "operation": "equals",
@@ -2294,24 +2088,500 @@
         },
         "options": {}
       },
+      "id": "bad0a69c-9004-48fd-9baf-94729d4d3bc7",
+      "name": "From Me?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        32,
-        1440
+        -208,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "user_state",
+        "key": "=user:{{ $('V1').item.json.msg.telefono }}:state",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        112,
+        1264
       ],
-      "id": "086bb300-6aa0-4526-851e-348f5d625874",
-      "name": "If3"
+      "id": "420ce4dd-c5e3-49df-b372-ed0f070b3ac4",
+      "name": "Obtener Estado Usuario",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=user:{{ $('V1').item.json.msg.telefono }}:state",
+        "value": "active",
+        "expire": true,
+        "ttl": 86400
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        1056
+      ],
+      "id": "bdc1b686-35d6-451d-a63e-df699d0f8893",
+      "name": "Activar Usuario (24h)",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=user:{{ $('V1').item.json.msg.telefono }}:messages",
+        "expire": true,
+        "ttl": 86400
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        1056
+      ],
+      "id": "ef5974f1-fcdd-4c7c-b02d-8ef895688c89",
+      "name": "Contador Mensajes",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.user_state }}",
+              "rightValue": "active",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "id": "f52e149b-f59b-4ea9-aa73-2ddf4e9805c2"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        720,
+        1424
+      ],
+      "id": "381d65a2-4315-45a8-b04e-63e9d729566a",
+      "name": "Usuario Activo?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('V1').item.json.datos.token }}/message/sendText/{{ $('V1').item.json.datos.token }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('V1').item.json.msg.telefono }}"
+            },
+            {
+              "name": "text",
+              "value": "🎉 ¡Bienvenido! Tu bot de prueba ha sido activado por 1 horas.|✅ Ya puedes comenzar a usar todas las funciones.📝 Comandos disponibles:• /menu - Ver opciones• /ayuda - Obtener ayuda• /estado - Ver tu estado actual"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2000,
+        1008
+      ],
+      "id": "fa0ec6fb-115d-4f09-a427-39381359b7ce",
+      "name": "Enviar Bienvenida"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "93rlsJqTd0Ntt2NC",
+          "mode": "list",
+          "cachedResultName": "AGENTE CITAS - GET CLIENTES"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "numero": "={{ $('V1').item.json.msg.telefono }}",
+            "idTabla": "m9m2veegnrfeeza",
+            "token": "3WY4UecQy9Nl522fe_DXDSHeQDVSQJpmDG7mMoFz",
+            "servidor_db": "={{ $('V1').item.json.datos.server_db }}",
+            "nombre_columna": "TELEFONO"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1712,
+        1504
+      ],
+      "id": "da3f46db-d5bc-479c-8076-f61ffb4bfff0",
+      "name": "Validar Cliente y Continuar Bot"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "message_count",
+        "key": "=user:{{ $('V1').item.json.msg.telefono }}:messages",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1216,
+        1408
+      ],
+      "id": "1a6edf93-e4ee-4913-9cb9-01e7bef2c71d",
+      "name": "Obtener Contador Mensajes",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.message_count }}",
+              "rightValue": 50,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              },
+              "id": "097c4f9b-deea-4907-b053-0801297931b9"
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1488,
+        1408
+      ],
+      "id": "7174a528-7dd3-4acf-a8da-c00815d0d978",
+      "name": "Límite Alcanzado?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('V1').item.json.datos.token }}/message/sendText/{{ $('V1').item.json.datos.token }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $('V1').item.json.msg.telefono }}"
+            },
+            {
+              "name": "text",
+              "value": "⚠️ Has alcanzado el límite de 50 mensajes en tu prueba.\n\n💎 Para continuar usando el bot, contáctanos para obtener acceso completo."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1712,
+        1312
+      ],
+      "id": "d0f4ed79-edf9-4d78-a8fe-e6d69b18d5b1",
+      "name": "Enviar Límite Alcanzado"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
+              "name": "msg.telefono",
+              "value": "={{ $json.body.data.key.remoteJid.replace(/\\D/g, '') }}",
+              "type": "string"
+            },
+            {
+              "id": "dab7ca54-c3d2-4a36-a9ca-a0ebbd375ef5",
+              "name": "msg.pushname",
+              "value": "={{ $json.body.data.pushName }}",
+              "type": "string"
+            },
+            {
+              "id": "cc7dcfe1-8ad7-4fe8-93ec-8f643c7d08c7",
+              "name": "msg.type",
+              "value": "={{ $json.body.data.messageType }}",
+              "type": "string"
+            },
+            {
+              "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
+              "name": "msg.content",
+              "value": "={{ $json?.body?.data?.msgContent?.extendedTextMessage?.contextInfo?.quotedMessage?.conversation || $json.body?.data?.msgContent?.extendedTextMessage?.text || $json?.body?.data?.fileBase64 || $json?.body?.data?.msgContent?.conversation || $json.body.data.msgContent.listResponseMessage.singleSelectReply.selectedRowId }}",
+              "type": "string"
+            },
+            {
+              "id": "01710423-6391-4a34-81e1-06d4779caf4d",
+              "name": "msg.timestamp",
+              "value": "={{ $json.body.data.messageTimestamp.toDateTime('s').toLocal().toISO()}}",
+              "type": "string"
+            },
+            {
+              "id": "ca81718f-74eb-4960-ac3a-5b59f39f8710",
+              "name": "datos.server_db",
+              "value": "https://db.qeva.xyz",
+              "type": "string"
+            },
+            {
+              "id": "7f846767-8866-43e5-845a-d1feda60451c",
+              "name": "datos.token",
+              "value": "B2v6DZyi27qmgYXOnvrYLEJ4l8KgN410",
+              "type": "string"
+            },
+            {
+              "id": "b2193a26-668b-423d-9330-d3dd835f5466",
+              "name": "msg.from_me",
+              "value": "={{ $json.body.data.key.fromMe }}",
+              "type": "string"
+            },
+            {
+              "id": "6fedaf9c-efe8-46e5-bb61-b42525ddafa1",
+              "name": "msg.grupo",
+              "value": "={{ $json.body.data.isGroup }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "10dd5a40-19ef-46f0-aa94-3fbbc27c0119",
+      "name": "V1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -784,
+        1264
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "turnos",
+        "options": {}
+      },
+      "id": "a9e215d9-ce11-4d74-aae6-f8078a8f238d",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1152,
+        1264
+      ],
+      "webhookId": "57b1b1ea-8cfe-4255-838f-096906f45b1a"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            },
+            {
+              "name": "text",
+              "value": "=🎉 Bienvenido! Tu bot de prueba ha sido activado por 1 horas.|✅ Ya puedes comenzar a usar todas las funciones\n\n*Es un agente de turnos que podra agendar, reprogramar cancelar y te enviara un recordatorio 1 hs antes del evento que registres*"
+            },
+            {
+              "name": "status",
+              "value": "recording"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1504,
+        1056
+      ],
+      "id": "e9c1e143-121a-48bc-ab69-73e075c2fc13",
+      "name": "Confirmacion de turno2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('V1').first().json.msg.content }}",
+              "rightValue": "#inicio",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "id": "7f40e6df-dd87-470d-a108-679cd9e14fd6"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        736,
+        1120
+      ],
+      "id": "a9ec7fbe-cd72-4960-b5f9-8b8c92a4ac4b",
+      "name": "Es Primera Vez y #inicio?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://us.api-wa.me/2522xaf8359c21b/message/text",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "*/*"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "to",
+              "value": "={{ $('V1').first().json.msg.telefono }}"
+            },
+            {
+              "name": "text",
+              "value": "=⚠️ Para activar el bot de prueba, envía #inicio"
+            },
+            {
+              "name": "status",
+              "value": "recording"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        1264
+      ],
+      "id": "8314b72c-5ca1-4215-a08b-1ef05f45d267",
+      "name": "inicio"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0c476129-c2ca-4e67-bdda-dbf5708d6c4e",
+              "leftValue": "={{ $json.user_state }}",
+              "rightValue": "active",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        352,
+        1264
+      ],
+      "id": "1dd8637f-2e5a-45e6-96f9-40fce7086006",
+      "name": "If1"
     }
   ],
   "pinData": {
-    "Webhook1": [
+    "Webhook": [
       {
         "json": {
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.11.0",
-            "content-length": "1861",
+            "content-length": "764",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -2329,7 +2599,7 @@
             "instance": "2522xaf8359c21b",
             "type": "message",
             "data": {
-              "messageId": "AB727DBCE4FB547B9DA7F5F850199BA5",
+              "messageId": "2A742204AC851A7530DC362E5C87826D",
               "jid": "5492254423359:97@s.whatsapp.net",
               "me": false,
               "isGroup": false,
@@ -2338,10 +2608,11 @@
               "key": {
                 "remoteJid": "5492254596618@s.whatsapp.net",
                 "fromMe": false,
-                "id": "AB727DBCE4FB547B9DA7F5F850199BA5"
+                "id": "2A742204AC851A7530DC362E5C87826D"
               },
-              "messageType": "messageContextInfo",
+              "messageType": "conversation",
               "msgContent": {
+                "conversation": "HolS",
                 "messageContextInfo": {
                   "deviceListMetadata": {
                     "senderKeyHash": "F1tkbDhHhKbugw==",
@@ -2350,48 +2621,10 @@
                     "recipientTimestamp": "1754580051"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "7f72bjSkd2e0FWlnzarO5WIrUssUjdEzOU2ADQqTdjI="
-                },
-                "listResponseMessage": {
-                  "title": "✅ Confirmar Turno",
-                  "listType": "SINGLE_SELECT",
-                  "singleSelectReply": {
-                    "selectedRowId": "✅ TURNO CONFIRMADO"
-                  },
-                  "contextInfo": {
-                    "stanzaId": "3EB023DF9EFCBA11205694",
-                    "participant": "5492254423359@s.whatsapp.net",
-                    "quotedMessage": {
-                      "listMessage": {
-                        "title": "⏰ Recordatorio - Tu turno es en 1 hora",
-                        "description": "*🔔 RECORDATORIO IMPORTANTE*\n\n👤 *Paciente:* Fernando Ariel\n📅 *Fecha:* 12-08-2025\n🕐 *Hora:* 11:00\n🏥 *Servicio:* Limpieza\n\n📍 *Recordatorios:*\n- Llegá 10 minutos antes\n- Traé DNI y estudios previos\n- En caso de no poder asistir, avisanos\n\nSeleccione una opción:",
-                        "buttonText": "Opciones 📋",
-                        "listType": "SINGLE_SELECT",
-                        "sections": [
-                          {
-                            "title": "📋 Opciones Disponibles",
-                            "rows": [
-                              {
-                                "title": "✅ Confirmar Turno",
-                                "description": "Confirmo mi asistencia en la fecha y hora indicada",
-                                "rowId": "✅ TURNO CONFIRMADO"
-                              },
-                              {
-                                "title": "❌ Cancelar Turno",
-                                "description": "No podré asistir al turno programado",
-                                "rowId": "❌ CANCELAR TURNO"
-                              }
-                            ]
-                          }
-                        ],
-                        "footerText": "⚠️ Turno pendiente de confirmación"
-                      }
-                    }
-                  },
-                  "description": "Confirmo mi asistencia en la fecha y hora indicada"
+                  "messageSecret": "FndHQKQz67usN0SGb+/Xt4puxBUYmdyjrDHEYYdwd5o="
                 }
               },
-              "messageTimestamp": 1754618613,
+              "messageTimestamp": 1754653309,
               "source": "android",
               "broadcast": false,
               "isMedia": false
@@ -2412,6 +2645,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-08T02:26:35.362Z",
-  "versionId": "5e55db24-546c-4428-8b97-b721136b9bfc"
+  "updatedAt": "2025-08-08T11:43:51.545Z",
+  "versionId": "bdde5b81-1b1d-40e2-8a4c-f6665923720c"
 }
