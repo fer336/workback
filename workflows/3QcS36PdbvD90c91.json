@@ -34,7 +34,7 @@
         ],
         [
           {
-            "node": "Edit Fields3",
+            "node": "GET audio",
             "type": "main",
             "index": 0
           }
@@ -100,20 +100,8 @@
     },
     "If": {
       "main": [
-        [
-          {
-            "node": "V1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "V",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        [],
+        []
       ]
     },
     "V1": {
@@ -131,7 +119,7 @@
       "main": [
         [
           {
-            "node": "If",
+            "node": "V1",
             "type": "main",
             "index": 0
           }
@@ -151,13 +139,7 @@
     },
     "Transcribe a recording": {
       "main": [
-        [
-          {
-            "node": "Segmentos",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Edit Fields4": {
@@ -284,6 +266,39 @@
           }
         ]
       ]
+    },
+    "GET audio": {
+      "main": [
+        [
+          {
+            "node": "Convert audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert audio": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Segmentos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-06-28T03:55:39.939Z",
@@ -313,8 +328,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1376,
-        144
+        208,
+        -464
       ]
     },
     {
@@ -330,8 +345,8 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        1600,
-        144
+        432,
+        -464
       ]
     },
     {
@@ -461,7 +476,7 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        2048,
+        2256,
         48
       ]
     },
@@ -474,8 +489,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2496,
-        -24
+        2704,
+        -32
       ],
       "webhookId": "8a810ad6-4ecf-4781-aed8-7f2b295770dc"
     },
@@ -488,7 +503,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        2272,
+        2480,
         48
       ]
     },
@@ -511,8 +526,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1824,
-        -48
+        1760,
+        -16
       ]
     },
     {
@@ -543,8 +558,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        704,
-        408
+        592,
+        320
       ],
       "id": "4284d93e-f95b-438f-a7b2-fa4288688552",
       "name": "If"
@@ -556,7 +571,7 @@
             {
               "id": "f9ecf2fc-da2c-4f44-897a-5dc0a2f2f379",
               "name": "msg.telefono_sender",
-              "value": "={{ $('Lu').item.json.body.data.remoteJid }}",
+              "value": "={{ $('Lu').item.json.body.data.key.remoteJid }}",
               "type": "string"
             },
             {
@@ -574,7 +589,7 @@
             {
               "id": "81612acf-1b66-4c8e-82e4-ce8c77b31334",
               "name": "msg.content",
-              "value": "={{ $('Lu').item.json.body.data.msgContent.conversation }}",
+              "value": "={{ $('Lu').item.json.body.data.message.conversation }}",
               "type": "string"
             },
             {
@@ -612,8 +627,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        480,
-        408
+        672,
+        160
       ],
       "id": "537f6c10-c5c3-4316-9631-ed5760d57d33",
       "name": "Lu",
@@ -630,7 +645,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2720,
+        2928,
         48
       ],
       "id": "087e81d4-78a9-486d-b142-95aef0f8ca7c",
@@ -647,14 +662,15 @@
       "parameters": {
         "operation": "sendPhoto",
         "chatId": "164729397",
-        "file": "={{ $('Lu').item.json.body.data.urlMedia }}",
+        "binaryData": true,
+        "binaryPropertyName": "={{ $('Lu').item.json.body.data.message.base64 }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1376,
-        336
+        1728,
+        400
       ],
       "id": "d22e3fd7-4451-4045-be4b-297291336b86",
       "name": "Send a photo message",
@@ -680,8 +696,8 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        1824,
-        144
+        656,
+        -464
       ],
       "credentials": {
         "openAiApi": {
@@ -709,8 +725,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1376,
-        864
+        1328,
+        1056
       ]
     },
     {
@@ -726,8 +742,8 @@
       "type": "n8n-nodes-base.convertToFile",
       "typeVersion": 1.1,
       "position": [
-        1600,
-        864
+        1552,
+        1056
       ]
     },
     {
@@ -818,8 +834,8 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        1152,
-        656
+        1104,
+        848
       ]
     },
     {
@@ -834,8 +850,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        2048,
-        768
+        2000,
+        960
       ]
     },
     {
@@ -847,8 +863,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2496,
-        480
+        2448,
+        784
       ],
       "webhookId": "8a810ad6-4ecf-4781-aed8-7f2b295770dc"
     },
@@ -861,8 +877,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        2272,
-        768
+        2224,
+        960
       ]
     },
     {
@@ -914,8 +930,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        928,
-        672
+        880,
+        864
       ],
       "notesInFlow": true
     },
@@ -930,8 +946,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        2720,
-        768
+        2672,
+        960
       ],
       "id": "c79f6e4e-b2c3-4e1b-98fd-4d0b9241b5dd",
       "name": "Send a text message1",
@@ -953,8 +969,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        1376,
-        528
+        1328,
+        720
       ],
       "id": "f4f83feb-ae50-4a29-b590-33e6318ef5df",
       "name": "Send a photo message1",
@@ -980,8 +996,8 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        1824,
-        864
+        1776,
+        1056
       ],
       "credentials": {
         "openAiApi": {
@@ -1009,59 +1025,199 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1824,
-        672
+        1776,
+        864
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Normalizacion').item.json.instance.server_url }}/chat/getBase64FromMediaMessage/{{ $('Normalizacion').item.json.instance.name }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $('Normalizacion').item.json.instance.apikey }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "message.key.id",
+              "value": "={{ $('Normalizacion').item.json.message.message_id }}"
+            },
+            {
+              "name": "convertToMp4",
+              "value": "={{Boolean(false)}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1616,
+        192
+      ],
+      "id": "441a9626-3cf2-402b-9064-1e313ff66bdb",
+      "name": "GET audio"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "base64",
+        "options": {
+          "mimeType": "={{ $json.mimetype }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1840,
+        192
+      ],
+      "id": "f92ce3e4-1163-4233-a978-236a2f12d0ce",
+      "name": "Convert audio"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        2064,
+        192
+      ],
+      "id": "4193e1eb-848d-4f7a-9be8-0853b4180c80",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "tpho37KNAAX388pI",
+          "name": "OpenAi account"
+        }
+      }
     }
   ],
   "pinData": {
+    "If": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8nw.qeva.xyz",
+            "user-agent": "axios/1.10.0",
+            "content-length": "847",
+            "accept": "application/json, text/plain, */*",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "n8nw.qeva.xyz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "7697b68d06c2",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "event": "messages.upsert",
+            "instance": "luchi",
+            "data": {
+              "key": {
+                "remoteJid": "5492267401421@s.whatsapp.net",
+                "fromMe": false,
+                "id": "19813BCEE44105B68755050AF0E96CD7",
+                "senderLid": "195039481348128@lid"
+              },
+              "pushName": "lauralflexas",
+              "status": "DELIVERY_ACK",
+              "message": {
+                "conversation": "Nos vemos mañana",
+                "messageContextInfo": {
+                  "deviceListMetadata": {
+                    "recipientKeyHash": "zjDh5XiqcgDYoQ==",
+                    "recipientTimestamp": "1754690975"
+                  },
+                  "deviceListMetadataVersion": 2,
+                  "messageSecret": "fL2UGNkObd4gO1iYAZp/I+gtUpRIv5aHf2r7GasM+PI="
+                }
+              },
+              "messageType": "conversation",
+              "messageTimestamp": 1754861951,
+              "instanceId": "8adf915d-d4ce-4f67-96e9-0b1f10a60a9c",
+              "source": "android"
+            },
+            "destination": "https://n8nw.qeva.xyz/webhook/luchi",
+            "date_time": "2025-08-10T18:39:11.775Z",
+            "sender": "5492254596235@s.whatsapp.net",
+            "server_url": "https://evo.qeva.xyz",
+            "apikey": "1A28F8706FD6-4AA1-9530-85F62DE888F0"
+          },
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/luchi",
+          "executionMode": "production"
+        }
+      }
+    ],
     "Lu": [
       {
         "json": {
           "headers": {
             "host": "n8nw.qeva.xyz",
-            "user-agent": "axios/1.8.4",
-            "content-length": "511",
+            "user-agent": "axios/1.10.0",
+            "content-length": "847",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
-            "instance-key": "2522xaf8359c21b",
-            "x-forwarded-for": "144.126.133.227",
+            "x-forwarded-for": "172.18.0.1",
             "x-forwarded-host": "n8nw.qeva.xyz",
             "x-forwarded-port": "443",
             "x-forwarded-proto": "https",
             "x-forwarded-server": "7697b68d06c2",
-            "x-real-ip": "144.126.133.227"
+            "x-real-ip": "172.18.0.1"
           },
           "params": {},
           "query": {},
           "body": {
-            "instance": "2522xaf8359c21b",
-            "type": "messageFromMe",
+            "event": "messages.upsert",
+            "instance": "luchi",
             "data": {
-              "messageId": "930FAE46404F91CE7B12DFFF0889DAC3",
-              "jid": "5492254423359:89@s.whatsapp.net",
-              "me": true,
-              "isGroup": false,
-              "remoteJid": "5492254606018",
-              "pushName": "Fer { }",
               "key": {
-                "remoteJid": "5492254606018@s.whatsapp.net",
-                "fromMe": true,
-                "id": "930FAE46404F91CE7B12DFFF0889DAC3"
+                "remoteJid": "5492267401421@s.whatsapp.net",
+                "fromMe": false,
+                "id": "19813BCEE44105B68755050AF0E96CD7",
+                "senderLid": "195039481348128@lid"
+              },
+              "pushName": "lauralflexas",
+              "status": "DELIVERY_ACK",
+              "message": {
+                "conversation": "Nos vemos mañana",
+                "messageContextInfo": {
+                  "deviceListMetadata": {
+                    "recipientKeyHash": "zjDh5XiqcgDYoQ==",
+                    "recipientTimestamp": "1754690975"
+                  },
+                  "deviceListMetadataVersion": 2,
+                  "messageSecret": "fL2UGNkObd4gO1iYAZp/I+gtUpRIv5aHf2r7GasM+PI="
+                }
               },
               "messageType": "conversation",
-              "msgContent": {
-                "conversation": "Está en alquiler o venta?"
-              },
-              "messageTimestamp": 1752674199,
-              "source": "android",
-              "status": 2,
-              "broadcast": false,
-              "isMedia": false
-            }
+              "messageTimestamp": 1754861951,
+              "instanceId": "8adf915d-d4ce-4f67-96e9-0b1f10a60a9c",
+              "source": "android"
+            },
+            "destination": "https://n8nw.qeva.xyz/webhook/luchi",
+            "date_time": "2025-08-10T18:39:11.775Z",
+            "sender": "5492254596235@s.whatsapp.net",
+            "server_url": "https://evo.qeva.xyz",
+            "apikey": "1A28F8706FD6-4AA1-9530-85F62DE888F0"
           },
-          "webhookUrl": "https://n8nw.qeva.xyz/webhook/es-wa",
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/luchi",
           "executionMode": "production"
         }
       }
@@ -1075,6 +1231,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-09T13:27:09.134Z",
-  "versionId": "b431bfe8-ad43-494d-be04-c8069db3a9fb"
+  "updatedAt": "2025-08-11T17:05:09.826Z",
+  "versionId": "08f10fc3-d550-47f7-be4d-f0e29f654693"
 }
