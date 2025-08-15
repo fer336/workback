@@ -572,13 +572,7 @@
     },
     "Webhook": {
       "main": [
-        [
-          {
-            "node": "V1",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Es Primera Vez y #inicio?": {
@@ -639,17 +633,6 @@
         ]
       ]
     },
-    "Redis Trigger": {
-      "main": [
-        [
-          {
-            "node": "Switch",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "If3": {
       "main": [
         [],
@@ -661,191 +644,6 @@
         [
           {
             "node": "Obtener Estado Usuario",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "Chat Memory Manager1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Chat Memory Manager1": {
-      "main": [
-        [
-          {
-            "node": "limpiamos msg",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "limpiamos msg": {
-      "main": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "OpenRouter Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "AI Agent": {
-      "main": [
-        [
-          {
-            "node": "If4",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Loop Over Items1": {
-      "main": [
-        [],
-        [
-          {
-            "node": "escribiendo...1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Split Out1": {
-      "main": [
-        [
-          {
-            "node": "Loop Over Items1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Separa datos1": {
-      "main": [
-        [
-          {
-            "node": "Split Out1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "Loop Over Items1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait1": {
-      "main": [
-        [
-          {
-            "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "escribiendo...1": {
-      "main": [
-        [
-          {
-            "node": "Wait1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If4": {
-      "main": [
-        [],
-        [
-          {
-            "node": "Separa datos1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "memory2": {
-      "ai_memory": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "Chat Memory Manager1",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Switch": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Edit Fields1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields1": {
-      "main": [
-        [
-          {
-            "node": "HTTP Request1",
             "type": "main",
             "index": 0
           }
@@ -1327,12 +1125,12 @@
           "conditions": [
             {
               "id": "9a858fa6-8f70-4ce7-a956-8c0209fbb10f",
-              "leftValue": "={{ $json.output }}",
+              "leftValue": "={{ $json.output.includes('button_confirm') }}",
               "rightValue": "button_confirm",
               "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
               }
             }
           ],
@@ -1923,6 +1721,7 @@
         "messages": {
           "messageValues": [
             {
+              "type": "ai",
               "message": "={{ $json.data.message.extendedTextMessage.text }}"
             }
           ]
@@ -2311,7 +2110,7 @@
             {
               "id": "99bab74e-0c4c-45eb-bd1d-9418b3324a31",
               "leftValue": "={{ $json.msg.telefono }}",
-              "rightValue": "=5492254423359",
+              "rightValue": "=584121496804",
               "operator": {
                 "type": "string",
                 "operation": "equals",
@@ -2365,8 +2164,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        944,
-        976
+        912,
+        928
       ],
       "id": "a805cb74-e715-430e-b239-64f185b0c54a",
       "name": "Activar Usuario (24h)",
@@ -2387,8 +2186,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        1168,
-        976
+        1136,
+        928
       ],
       "id": "d7cad34d-6e9e-4721-a96c-30d07721f85a",
       "name": "Contador Mensajes",
@@ -2747,8 +2546,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1408,
-        976
+        1376,
+        928
       ],
       "id": "be13cead-e52e-4316-a99d-fc4109c125cc",
       "name": "Confirmacion de turno2"
@@ -2912,29 +2711,6 @@
     },
     {
       "parameters": {
-        "channels": "=__keyevent@0__:expired",
-        "options": {
-          "jsonParseBody": true,
-          "onlyMessage": false
-        }
-      },
-      "type": "n8n-nodes-base.redisTrigger",
-      "typeVersion": 1,
-      "position": [
-        -1648,
-        672
-      ],
-      "id": "5b399a83-8d82-4ce0-910c-b39101f6ba6e",
-      "name": "Redis Trigger",
-      "credentials": {
-        "redis": {
-          "id": "f1mfRViKXHypdB9h",
-          "name": "Redis account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -2961,8 +2737,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -1472,
-        416
+        -1488,
+        -48
       ],
       "id": "44e54a51-c88d-4f1e-b0f8-55c9550793c8",
       "name": "If3"
@@ -2973,7 +2749,7 @@
         "key": "=usuario:{{ $json.msg.telefono }}:ultimomsg",
         "value": "esperando",
         "expire": true,
-        "ttl": 120
+        "ttl": 300
       },
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
@@ -2987,108 +2763,6 @@
         "redis": {
           "id": "f1mfRViKXHypdB9h",
           "name": "Redis account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "c34ea9fc-ce79-478f-9c07-e4e6a6eed15d",
-              "name": "usuario",
-              "value": "={{ ($json.message.match(/usuario:(\\d+):ultimomsg/) || [])[1] }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -848,
-        512
-      ],
-      "id": "cec81e46-2730-448c-b864-dee01578dff2",
-      "name": "Edit Fields"
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.memoryManager",
-      "typeVersion": 1.1,
-      "position": [
-        -624,
-        512
-      ],
-      "id": "6dc76c1d-975c-4cfe-99d6-6acde5320d1a",
-      "name": "Chat Memory Manager1"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "e325c5b3-b99c-43da-a5c8-a478c9048312",
-              "name": "msg",
-              "value": "={{ $json.messages.slice(-2).map(m => 'Usuario: ' + m.human + '\\n\\nAgente: ' + m.ai).join('\\n\\n---\\n\\n') }}",
-              "type": "string"
-            },
-            {
-              "id": "98f4cd87-7d6e-4b0a-a2b3-190095da6110",
-              "name": "telefono",
-              "value": "={{ $('Edit Fields').item.json.usuario }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -272,
-        512
-      ],
-      "id": "78a76b56-6432-48a7-b498-3ffa365a3399",
-      "name": "limpiamos msg"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "=Conversacion previa: {{ $json.msg }}",
-        "options": {
-          "systemMessage": "=# PROMPT PARA SUB-AGENTE DE CONTINUIDAD DE CONVERSACIÓN\n\n## REGLA ABSOLUTA:\n**SOLO devuelve \"FINALIZADO\" si el usuario se despidió explícitamente con palabras como:**\n- \"chau\", \"adiós\", \"hasta luego\", \"no gracias\", \"no necesito nada más\", \"listo, gracias\"\n\n**EN TODOS LOS DEMÁS CASOS → Genera un mensaje de seguimiento personalizado**\n\n## INSTRUCCIONES PASO A PASO:\n\n### PASO 1: Analiza los últimos mensajes\n- Lee el último mensaje del agente\n- Lee el último mensaje del usuario (si existe)\n\n### PASO 2: Decide qué responder\n\n#### CASO A: Si hay despedida explícita del usuario\n→ Responde: FINALIZADO\n\n#### CASO B: TODO LO DEMÁS (99% de los casos)\n→ Crea un mensaje corto y personalizado que:\n- Continue donde quedó la conversación\n- NO repita información ya dicha\n- NO repita saludos ni presentaciones\n- Sea directo y vaya al punto\n\n## EJEMPLOS DE MENSAJES PERSONALIZADOS:\n\n### Situación 1: Agente saludó, usuario no respondió\n- Agente: \"¡Hola! Soy Juli. ¿En qué puedo ayudarte?\"\n- Usuario: (sin respuesta)\n→ **Mensaje:** \"¿Necesitás agendar un turno o consultar algo?\"\n\n### Situación 2: Usuario pidió turno\n- Usuario: \"quiero un turno\"\n→ **Mensaje:** \"¿Para qué tratamiento lo necesitás?\"\n\n### Situación 3: Usuario dio su nombre\n- Usuario: \"María\"\n→ **Mensaje:** \"Perfecto María, ¿qué servicio necesitás?\"\n\n### Situación 4: Usuario eligió día\n- Usuario: \"el martes\"\n→ **Mensaje:** \"¿En qué horario del martes te queda mejor?\"\n\n### Situación 5: Pregunta sin responder\n- Agente: \"¿Qué día preferís?\"\n- Usuario: (sin respuesta)\n→ **Mensaje:** \"¿Qué día te queda mejor para el turno?\"\n\n### Situación 6: Usuario dijo \"ok\" o respuesta corta\n- Usuario: \"ok\"\n→ **Mensaje:** \"¿Necesitás algo más o agendamos el turno?\"\n\n## FORMATO DE RESPUESTA:\n\n**Opción 1:** FINALIZADO (solo si hay despedida explícita)\n\n**Opción 2:** [Tu mensaje personalizado de 1-2 líneas]\n\n## ERRORES A EVITAR:\n❌ NO repitas \"Hola, soy Juli\" si ya lo dijiste\n❌ NO uses \"disculpa la demora\"\n❌ NO menciones el tiempo\n❌ NO repitas la misma pregunta con las mismas palabras\n❌ NO devuelvas FINALIZADO sin despedida explícita\n\n## RECUERDA:\n- El 99% de las veces debes generar un mensaje personalizado\n- FINALIZADO es la excepción, no la regla\n- Si dudas → genera un mensaje de seguimiento\n- Analiza el contexto y continúa naturalmente"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2.2,
-      "position": [
-        -48,
-        512
-      ],
-      "id": "beda6fdb-dd90-451c-ad01-d00cbfaf6b32",
-      "name": "AI Agent"
-    },
-    {
-      "parameters": {
-        "model": "google/gemini-2.5-flash",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
-      "typeVersion": 1,
-      "position": [
-        -144,
-        736
-      ],
-      "id": "1a3a0999-9a3d-4f13-8c3e-2de71a8c8fe5",
-      "name": "OpenRouter Chat Model",
-      "credentials": {
-        "openRouterApi": {
-          "id": "ADdm45cFSIFSG59w",
-          "name": "Gemini"
         }
       }
     },
@@ -3132,353 +2806,6 @@
       ],
       "id": "48cf9188-2e11-4325-93c9-ef32c3a3e803",
       "name": "send msg"
-    },
-    {
-      "parameters": {
-        "batchSize": "=1",
-        "options": {
-          "reset": false
-        }
-      },
-      "id": "2f41d35d-57b0-432f-9bb6-4d0edcf8e58b",
-      "name": "Loop Over Items1",
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 3,
-      "position": [
-        976,
-        512
-      ],
-      "alwaysOutputData": false,
-      "executeOnce": false
-    },
-    {
-      "parameters": {
-        "fieldToSplitOut": "messages",
-        "options": {}
-      },
-      "id": "7a3a80ce-2ec1-4796-89e9-2706db70be7d",
-      "name": "Split Out1",
-      "type": "n8n-nodes-base.splitOut",
-      "typeVersion": 1,
-      "position": [
-        752,
-        512
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para dividir texto en fragmentos con tiempo de lectura\nfunction splitTextIntoChunks(text, maxChars = 200) {\n  // Si el texto es muy corto, devolvemos un solo fragmento\n  if (!text || text.length <= maxChars) {\n    return [{\n      parte: 1,\n      texto: text || '',\n      time: calculateReadingTime(text || '')\n    }];\n  }\n\n  const chunks = [];\n  let currentChunk = '';\n  let partNumber = 1;\n  \n  // Dividimos por palabras para no cortar palabras a la mitad\n  const words = text.split(' ');\n  \n  for (let i = 0; i < words.length; i++) {\n    const word = words[i];\n    const potentialChunk = currentChunk ? currentChunk + ' ' + word : word;\n    \n    // Si agregar la siguiente palabra excede el límite\n    if (potentialChunk.length > maxChars) {\n      // Si la palabra sola es más larga que maxChars, la cortamos\n      if (word.length > maxChars) {\n        // Guardamos el chunk actual si tiene contenido\n        if (currentChunk) {\n          chunks.push({\n            parte: partNumber++,\n            texto: currentChunk.trim(),\n            time: calculateReadingTime(currentChunk.trim())\n          });\n        }\n        \n        // Cortamos la palabra larga en pedazos\n        let remainingWord = word;\n        while (remainingWord.length > maxChars) {\n          chunks.push({\n            parte: partNumber++,\n            texto: remainingWord.substring(0, maxChars),\n            time: calculateReadingTime(remainingWord.substring(0, maxChars))\n          });\n          remainingWord = remainingWord.substring(maxChars);\n        }\n        \n        // El resto de la palabra se convierte en el nuevo currentChunk\n        currentChunk = remainingWord;\n      } else {\n        // Guardamos el chunk actual y empezamos uno nuevo con esta palabra\n        chunks.push({\n          parte: partNumber++,\n          texto: currentChunk.trim(),\n          time: calculateReadingTime(currentChunk.trim())\n        });\n        currentChunk = word;\n      }\n    } else {\n      // Si cabe, agregamos la palabra al chunk actual\n      currentChunk = potentialChunk;\n    }\n  }\n  \n  // Agregar el último chunk si queda algo\n  if (currentChunk.trim()) {\n    chunks.push({\n      parte: partNumber,\n      texto: currentChunk.trim(),\n      time: calculateReadingTime(currentChunk.trim())\n    });\n  }\n  \n  return chunks;\n}\n\n// Función para calcular el tiempo de lectura basado en la longitud del texto\nfunction calculateReadingTime(text) {\n  const length = text.length;\n  \n  if (length > 150) {\n    return 4; // segundos\n  } else if (length >= 50) {\n    return 3; // segundos\n  } else {\n    return 1; // segundo\n  }\n}\n\n// Función para determinar si un texto necesita ser dividido\nfunction needsSplitting(text) {\n  if (!text || typeof text !== 'string') return false;\n  \n  // Criterios: más de 500 caracteres o más de 100 palabras\n  const charCount = text.length;\n  const wordCount = text.split(/\\s+/).filter(word => word.length > 0).length;\n  \n  return charCount > 500 || wordCount > 100;\n}\n\n// Función para procesar el texto y dividirlo inteligentemente (función original mejorada)\nfunction processAndSplitText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un array vacío\n    if (text === null || text === undefined) {\n      return [];\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) {\n        // Si output es un string, lo usamos\n        if (typeof text.output === 'string') {\n          text = text.output;\n        } else {\n          // Si output es un objeto o array, intentamos extraer de ahí\n          const extracted = extractTextContent(text.output);\n          if (extracted) {\n            text = extracted;\n          } else {\n            // Si no pudimos extraer, intentamos convertir todo el objeto a string\n            try {\n              text = JSON.stringify(text);\n            } catch (e) {\n              console.error(\"No se pudo serializar el objeto a string:\", e);\n              return [];\n            }\n          }\n        }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n          console.error(\"No se pudo serializar el objeto a string:\", e);\n          return [];\n        }\n      }\n    } else {\n      // Si no es string, objeto, null o undefined, devolvemos vacío\n      console.warn(\"Entrada a processAndSplitText no es string, objeto, null o undefined:\", typeof text);\n      return [];\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n    return [];\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '');         // Elimina signos de exclamación e interrogación iniciales y finales\n\n  // Divide en líneas para análisis\n  const lines = processedText.split('\\n');\n\n  // Grupos para almacenar los mensajes\n  const messages = [];\n  let currentMessage = [];\n  let inNumberedSection = false;\n  let currentSectionNumber = null;\n\n  // Detectar secciones numeradas y agrupables\n  for (let i = 0; i < lines.length; i++) {\n    const line = lines[i];\n    // Detecta si la línea es un encabezado numerado (ej: \"1. Tipo de propiedad:\")\n    const numberedHeaderMatch = line.match(/^\\s*(\\d+)\\.\\s+([^:]+):/);\n\n    if (numberedHeaderMatch) {\n      const sectionNumber = parseInt(numberedHeaderMatch[1]);\n\n      // Si estamos empezando una nueva sección numerada O si el número no es el siguiente esperado\n      if (!inNumberedSection || (inNumberedSection && sectionNumber !== currentSectionNumber + 1)) {\n        // Si tenemos contenido previo, guardamos como mensaje separado\n        if (currentMessage.length > 0) {\n          messages.push(currentMessage.join('\\n').trim());\n          currentMessage = [];\n        }\n        inNumberedSection = true;\n      }\n      currentSectionNumber = sectionNumber;\n      currentMessage.push(line);\n\n    } else if (line.trim() === '') {\n      // Una línea vacía puede terminar una sección si hay contenido previo\n      if (currentMessage.length > 0) {\n        // Si no estamos en una sección numerada, una línea vacía termina el mensaje actual\n        if (!inNumberedSection) {\n          messages.push(currentMessage.join('\\n').trim());\n          currentMessage = [];\n        } else {\n          // Si estamos en una sección numerada, una línea vacía se agrega al mensaje actual\n          currentMessage.push(line);\n        }\n      }\n\n    } else {\n      // Línea con contenido que no es un encabezado numerado\n      currentMessage.push(line);\n      inNumberedSection = false;\n    }\n  }\n\n  // Agregar el último mensaje si queda algo\n  if (currentMessage.length > 0) {\n    messages.push(currentMessage.join('\\n').trim());\n  }\n\n  // Filtrar mensajes vacíos y limpiar líneas vacías extra\n  return messages\n    .filter(msg => msg.length > 0)\n    .map(msg => {\n      // Eliminar líneas vacías múltiples dentro del mensaje\n      return msg.replace(/\\n{2,}/g, '\\n\\n');\n    });\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n      const extracted = extractTextContent(item);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    return null;\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él\n    if (data.output !== undefined && data.output !== null) {\n      const extracted = extractTextContent(data.output);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si tiene un campo 'response', intentamos extraer texto de él\n    if (data.response !== undefined && data.response !== null) {\n      const extracted = extractTextContent(data.response);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si tiene un campo 'json', intentamos extraer texto de él\n    if (data.json !== undefined && data.json !== null) {\n      const extracted = extractTextContent(data.json);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n    try {\n      return JSON.stringify(data);\n    } catch (e) {\n      console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n      return null;\n    }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const textArray = processAndSplitText(textToProcess);\n    \n    // Procesar cada mensaje y dividirlo en chunks si es necesario\n    const processedMessages = [];\n    \n    for (const message of textArray) {\n      if (needsSplitting(message)) {\n        // Si el mensaje es largo, lo dividimos en chunks\n        const chunks = splitTextIntoChunks(message);\n        processedMessages.push(...chunks);\n      } else {\n        // Si el mensaje es corto, lo agregamos tal cual con tiempo de lectura\n        processedMessages.push({\n          parte: processedMessages.length + 1,\n          texto: message,\n          time: calculateReadingTime(message)\n        });\n      }\n    }\n    \n    // Re-numerar las partes para que sean consecutivas\n    processedMessages.forEach((msg, index) => {\n      msg.parte = index + 1;\n    });\n    \n    // Devolvemos la estructura con los mensajes procesados\n    return [{json: {messages: processedMessages, totalParts: processedMessages.length}}];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un array vacío\n    return [{json: {messages: [], totalParts: 0}}];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{json: {messages: [], totalParts: 0, error: error.message}}];\n}"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        528,
-        512
-      ],
-      "id": "ee77de87-ef7a-4796-95cb-db19d4b9d971",
-      "name": "Separa datos1"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://us.api-wa.me/2522xe636258b15/message/text",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "*/*"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "to",
-              "value": "={{ $('limpiamos msg').item.json.telefono }}"
-            },
-            {
-              "name": "text",
-              "value": "={{ $('Loop Over Items1').item.json.texto }}"
-            },
-            {
-              "name": "status",
-              "value": "recording"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1648,
-        512
-      ],
-      "id": "fd9c15e5-e95f-4c5c-9049-1c8d43011bb1",
-      "name": "HTTP Request"
-    },
-    {
-      "parameters": {
-        "amount": 1
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        1424,
-        432
-      ],
-      "id": "4f400e09-8901-4a6b-825b-24da93a86eef",
-      "name": "Wait1",
-      "webhookId": "aa8c0ee9-ac10-4c70-9b62-1402bc6d08f5"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://us.api-wa.me/2522xe636258b15/message/presence",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "*/*"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "to",
-              "value": "={{ $('V1').first().json.msg.telefono }}"
-            },
-            {
-              "name": "status",
-              "value": "composing"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1200,
-        432
-      ],
-      "id": "e6941787-394c-43c3-8d07-9c2ce0acc0e6",
-      "name": "escribiendo...1",
-      "alwaysOutputData": true,
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "0b7bfc46-f915-40ce-b3d8-c4942809f4f1",
-              "leftValue": "={{ $json.output }}",
-              "rightValue": "FINALIZADO",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        304,
-        512
-      ],
-      "id": "5a649ea2-2cdf-490f-830f-912866536031",
-      "name": "If4"
-    },
-    {
-      "parameters": {
-        "sessionIdType": "customKey",
-        "sessionKey": "=user:{{ $('Edit Fields').item.json.usuario }}",
-        "sessionTTL": 600
-      },
-      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
-      "typeVersion": 1.5,
-      "position": [
-        64,
-        736
-      ],
-      "id": "d9bed46b-7ada-4a13-8a53-98e0f8ee2e1f",
-      "name": "memory2",
-      "credentials": {
-        "redis": {
-          "id": "f1mfRViKXHypdB9h",
-          "name": "Redis account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Edit Fields').item.json.usuario }}",
-        "sessionTTL": 1800
-      },
-      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
-      "typeVersion": 1.5,
-      "position": [
-        -736,
-        784
-      ],
-      "id": "8569111f-cf16-4e6b-acda-8b8d834a11bf",
-      "name": "memory",
-      "credentials": {
-        "redis": {
-          "id": "f1mfRViKXHypdB9h",
-          "name": "Redis account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "b9c23b07-71b1-4888-849a-09ecb880aa5e",
-                    "leftValue": "={{ $json.message.match(/usuario:\\d+:ultimomsg/) !== null }}",
-                    "rightValue": "",
-                    "operator": {
-                      "type": "boolean",
-                      "operation": "true",
-                      "singleValue": true
-                    }
-                  }
-                ],
-                "combinator": "and"
-              },
-              "renameOutput": true,
-              "outputKey": "Usuario"
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "f68e054f-389b-4cec-a32a-c922fe60c99f",
-                    "leftValue": "={{ $json.message.match(/user:\\d+:status/) !== null }}",
-                    "rightValue": "",
-                    "operator": {
-                      "type": "boolean",
-                      "operation": "true",
-                      "singleValue": true
-                    }
-                  }
-                ],
-                "combinator": "and"
-              },
-              "renameOutput": true,
-              "outputKey": "Reinicio"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        -1344,
-        672
-      ],
-      "id": "4dba5bf4-6ea8-4846-be05-f9dd14a2c2e2",
-      "name": "Switch"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://us.api-wa.me/2522xe636258b15/message/text",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "accept",
-              "value": "*/*"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "to",
-              "value": "={{ $('limpiamos msg').item.json.telefono }}"
-            },
-            {
-              "name": "text",
-              "value": "={{ $('Loop Over Items1').item.json.texto }}"
-            },
-            {
-              "name": "status",
-              "value": "recording"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -848,
-        928
-      ],
-      "id": "6d28e24c-6f3f-4781-9a3b-b6628fa37c1e",
-      "name": "HTTP Request1",
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "c34ea9fc-ce79-478f-9c07-e4e6a6eed15d",
-              "name": "usuario",
-              "value": "={{ ($json.message.match(/user:(\\d+):state/) || [])[1] }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -1136,
-        816
-      ],
-      "id": "2f2424d5-77f1-44ef-9e52-6395840847d8",
-      "name": "Edit Fields1"
     }
   ],
   "pinData": {
@@ -3509,7 +2836,7 @@
           "headers": {
             "host": "n8nw.qeva.xyz",
             "user-agent": "axios/1.11.0",
-            "content-length": "751",
+            "content-length": "726",
             "accept": "application/json, text/plain, */*",
             "accept-encoding": "gzip, compress, deflate, br",
             "content-type": "application/json",
@@ -3527,47 +2854,39 @@
             "instance": "2522xe636258b15",
             "type": "message",
             "data": {
-              "messageId": "471184CDDC84B51BABC2A436B09BE34C",
+              "messageId": "3A21548F4E69D038F074",
               "jid": "5492254596618:41@s.whatsapp.net",
               "me": false,
               "isGroup": false,
-              "remoteJid": "5492254423359",
-              "pushName": "Fer { }",
+              "remoteJid": "5492213994411",
+              "pushName": "Nm",
               "key": {
-                "remoteJid": "5492254423359@s.whatsapp.net",
+                "remoteJid": "5492213994411@s.whatsapp.net",
                 "fromMe": false,
-                "id": "471184CDDC84B51BABC2A436B09BE34C"
+                "id": "3A21548F4E69D038F074"
               },
               "messageType": "conversation",
               "msgContent": {
-                "conversation": "Hola",
+                "conversation": "por la tarde",
                 "messageContextInfo": {
                   "deviceListMetadata": {
-                    "senderKeyHash": "mdrt64lZPf3MFg==",
-                    "senderTimestamp": "1754931188",
+                    "senderKeyHash": "fcpZXST4TbYQlQ==",
+                    "senderTimestamp": "1754073273",
                     "recipientKeyHash": "10c53GxlYru2XA==",
-                    "recipientTimestamp": "1755092178"
+                    "recipientTimestamp": "1754099422"
                   },
                   "deviceListMetadataVersion": 2,
-                  "messageSecret": "LAhnN/wBc6/9/LDp8cxDABGzHpwlwGhudCQ4vdbjiK4="
+                  "messageSecret": "1MwO2rN9/F6cc02HkDKnnaGPuVi+3zaE0AQkmOORXnE="
                 }
               },
-              "messageTimestamp": 1755092424,
-              "source": "android",
+              "messageTimestamp": 1755192606,
+              "source": "ios",
               "broadcast": false,
               "isMedia": false
             }
           },
           "webhookUrl": "https://n8nw.qeva.xyz/webhook/qeva",
           "executionMode": "production"
-        }
-      }
-    ],
-    "Redis Trigger": [
-      {
-        "json": {
-          "channel": "__keyevent@0__:expired",
-          "message": "usuario:5492254423359:ultimomsg"
         }
       }
     ]
@@ -3580,7 +2899,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2025-08-13T14:07:27.430Z",
-  "versionId": "a3082568-8e19-404e-8358-565c4e35dd59"
+  "triggerCount": 1,
+  "updatedAt": "2025-08-14T18:20:53.711Z",
+  "versionId": "35e4bced-e6dd-4c0d-b91d-5bbf8a51b84e"
 }
