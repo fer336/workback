@@ -1,109 +1,11 @@
 {
   "active": false,
   "connections": {
-    "Trigger Manual": {
+    "When clicking ‘Execute workflow’": {
       "main": [
         [
           {
-            "node": "Configuración",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Paginación",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Configuración": {
-      "main": [
-        [
-          {
-            "node": "Buscar en Google",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Google Maps (Alternativa)",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Buscar en Google": {
-      "main": [
-        [
-          {
-            "node": "Dividir Resultados",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Dividir Resultados": {
-      "main": [
-        [
-          {
-            "node": "Obtener Página",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Obtener Página": {
-      "main": [
-        [
-          {
-            "node": "Extraer Datos",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Extraer Datos": {
-      "main": [
-        [
-          {
-            "node": "Formatear Datos",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Formatear Datos": {
-      "main": [
-        [
-          {
-            "node": "Guardar en Google Sheets",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Guardar en Google Sheets": {
-      "main": [
-        [
-          {
-            "node": "Notificar Telegram",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Google Maps (Alternativa)": {
-      "main": [
-        [
-          {
-            "node": "Parsear Maps",
+            "node": "Select rows from a table",
             "type": "main",
             "index": 0
           }
@@ -117,295 +19,50 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "My workflow 21",
+  "name": "POSTGRES",
   "nodes": [
     {
       "parameters": {},
-      "id": "9f8f1f05-6919-4a5a-9aa4-e3d2884620e3",
-      "name": "Trigger Manual",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -288,
-        0
-      ]
-    },
-    {
-      "parameters": {
-        "content": "## 🎯 Web Scraping de Leads\n\n### Configuración:\n1. Define tu búsqueda en Google Search\n2. Ajusta filtros de localización\n3. Configura palabras clave del negocio\n4. Ejecuta y obtén leads",
-        "height": 200,
-        "width": 300
-      },
-      "id": "3e881670-9289-4693-a5d5-4c7efb5c83e3",
-      "name": "Instrucciones",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        -448,
-        -208
-      ]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://www.googleapis.com/customsearch/v1",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "key",
-              "value": "={{ $node['Configuración'].json.google_api_key }}"
-            },
-            {
-              "name": "cx",
-              "value": "={{ $node['Configuración'].json.search_engine_id }}"
-            },
-            {
-              "name": "q",
-              "value": "={{ $node['Configuración'].json.busqueda }} {{ $node['Configuración'].json.ciudad }} contacto teléfono"
-            },
-            {
-              "name": "num",
-              "value": "10"
-            },
-            {
-              "name": "start",
-              "value": "={{ ($node['Paginación'].json.page - 1) * 10 + 1 }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "e402e413-962c-4d7a-84c5-0ff9006b5ef2",
-      "name": "Buscar en Google",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4,
-      "position": [
-        112,
-        0
+        -304,
+        112
       ],
-      "continueOnFail": true
+      "id": "b9d281b3-0792-4c89-b286-beb8724fb1fb",
+      "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "id": "a4fffb5f-cd31-45c8-bbd6-bc928d933f48",
-      "name": "Configuración",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3,
-      "position": [
-        -96,
-        0
-      ]
-    },
-    {
-      "parameters": {
-        "fieldToSplitOut": "items",
-        "options": {}
-      },
-      "id": "5cfa87ed-b247-45fc-b8fd-5d8ac2268384",
-      "name": "Dividir Resultados",
-      "type": "n8n-nodes-base.itemLists",
-      "typeVersion": 2,
-      "position": [
-        304,
-        0
-      ]
-    },
-    {
-      "parameters": {
-        "url": "={{ $json.link }}",
-        "options": {
-          "redirect": {
-            "redirect": {
-              "maxRedirects": 5
-            }
-          },
-          "timeout": 10000
-        }
-      },
-      "id": "1b5b9cd6-df1e-4ef1-a6ef-c200dfc9ab5f",
-      "name": "Obtener Página",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4,
-      "position": [
-        512,
-        0
-      ],
-      "continueOnFail": true
-    },
-    {
-      "parameters": {
-        "extractionValues": {
-          "values": [
-            {
-              "key": "telefono"
-            },
-            {
-              "key": "email"
-            },
-            {
-              "key": "whatsapp",
-              "cssSelector": "a[href*='wa.me'], a[href*='whatsapp']"
-            },
-            {
-              "key": "instagram",
-              "cssSelector": "a[href*='instagram.com']"
-            },
-            {
-              "key": "facebook",
-              "cssSelector": "a[href*='facebook.com']"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "dc64eb39-011f-4aa3-b7b5-b0e211daaa93",
-      "name": "Extraer Datos",
-      "type": "n8n-nodes-base.htmlExtract",
-      "typeVersion": 1,
-      "position": [
-        704,
-        0
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Limpiar y formatear datos extraídos\nconst items = [];\n\nfor (const item of $input.all()) {\n  const data = item.json;\n  \n  // Obtener información básica del resultado de búsqueda\n  const titulo = data.title || '';\n  const url = data.link || '';\n  const descripcion = data.snippet || '';\n  \n  // Limpiar teléfonos\n  let telefonos = [];\n  if (data.telefono) {\n    // Convertir a array si es string\n    const tels = Array.isArray(data.telefono) ? data.telefono : [data.telefono];\n    telefonos = tels.map(tel => {\n      // Limpiar formato\n      return tel.replace(/[^0-9+]/g, '')\n                .replace(/^54/, '+54')\n                .trim();\n    }).filter(tel => tel && tel.length >= 8);\n  }\n  \n  // Limpiar emails\n  let emails = [];\n  if (data.email) {\n    const mails = Array.isArray(data.email) ? data.email : [data.email];\n    emails = [...new Set(mails.filter(email => email && email.includes('@')))];\n  }\n  \n  // Extraer número de WhatsApp si existe\n  let whatsapp = '';\n  if (data.whatsapp) {\n    const waLink = Array.isArray(data.whatsapp) ? data.whatsapp[0] : data.whatsapp;\n    const waMatch = waLink.match(/wa\\.me\\/(\\d+)/);\n    if (waMatch) {\n      whatsapp = '+' + waMatch[1];\n    }\n  }\n  \n  // Solo agregar si tiene al menos un método de contacto\n  if (telefonos.length > 0 || emails.length > 0 || whatsapp) {\n    items.push({\n      json: {\n        nombre_negocio: titulo,\n        url_sitio: url,\n        descripcion: descripcion,\n        telefonos: telefonos.join(', '),\n        emails: emails.join(', '),\n        whatsapp: whatsapp,\n        instagram: data.instagram || '',\n        facebook: data.facebook || '',\n        fecha_extraccion: new Date().toISOString(),\n        fuente: 'Google Search',\n        busqueda_utilizada: $node['Configuración'].json.busqueda,\n        ciudad: $node['Configuración'].json.ciudad\n      }\n    });\n  }\n}\n\nreturn items;"
-      },
-      "id": "dd116dfb-0fef-4eff-8697-9188d0ccb428",
-      "name": "Formatear Datos",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        912,
-        0
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
+        "operation": "select",
+        "schema": {
           "__rl": true,
-          "value": "={{ $node['Configuración'].json.google_sheet_id }}",
-          "mode": "id"
+          "mode": "list",
+          "value": "public"
         },
-        "sheetName": {
+        "table": {
           "__rl": true,
-          "value": "Leads",
-          "mode": "name"
-        },
-        "columns": {
-          "mappingMode": "autoMapInputData",
-          "value": {}
+          "value": "objetivos_financieros",
+          "mode": "list",
+          "cachedResultName": "objetivos_financieros"
         },
         "options": {}
       },
-      "id": "1d0aa4d2-2a8d-49a5-a053-0be769ef5109",
-      "name": "Guardar en Google Sheets",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4,
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
       "position": [
-        1104,
-        0
+        336,
+        -160
       ],
+      "id": "f63cfff7-b22b-4f11-a6a5-823ae7df25fc",
+      "name": "Select rows from a table",
+      "alwaysOutputData": true,
       "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "uyuvATuLJQlzto7q",
-          "name": "google sheet"
+        "postgres": {
+          "id": "W5DRKbtQwL4G3FJ7",
+          "name": "Sistema Financiero"
         }
       }
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "d967a502-dd50-429d-8b0b-713d5de317f1",
-      "name": "Paginación",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3,
-      "position": [
-        -96,
-        -144
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "removeDuplicates",
-        "compare": "selectedFields",
-        "fieldsToCompare": {
-          "fields": [
-            {
-              "fieldName": "telefonos"
-            },
-            {
-              "fieldName": "emails"
-            }
-          ]
-        },
-        "options": {
-          "removeOtherFields": false
-        }
-      },
-      "id": "a5783706-bd26-42f3-be99-fe5ca2051988",
-      "name": "Eliminar Duplicados",
-      "type": "n8n-nodes-base.itemLists",
-      "typeVersion": 2,
-      "position": [
-        1040,
-        208
-      ]
-    },
-    {
-      "parameters": {
-        "additionalFields": {}
-      },
-      "id": "29c29476-4591-4000-95b5-d04a3607367b",
-      "name": "Notificar Telegram",
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1,
-      "position": [
-        1312,
-        0
-      ],
-      "webhookId": "039eea4c-727e-401a-9701-46fcec340487",
-      "credentials": {
-        "telegramApi": {
-          "id": "VI6ccesjlTwys1zE",
-          "name": "Telegram account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "url": "https://www.google.com/maps/search/{{ encodeURIComponent($node['Configuración'].json.busqueda + ' ' + $node['Configuración'].json.ciudad) }}",
-        "options": {
-          "timeout": 15000
-        }
-      },
-      "id": "b4080644-42e0-4f90-a338-a0fc1734cad7",
-      "name": "Google Maps (Alternativa)",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4,
-      "position": [
-        112,
-        192
-      ],
-      "continueOnFail": true
-    },
-    {
-      "parameters": {
-        "jsCode": "// Extraer datos de Google Maps\nconst html = $input.first().json.data;\nconst leads = [];\n\n// Regex patterns para Maps\nconst phonePattern = /\\\"\\+?[0-9\\s\\-\\(\\)]+\\\"/g;\nconst namePattern = /\\\"title\\\":\\\"([^\\\"]+)\\\"/g;\n\n// Extraer nombres\nconst names = [...html.matchAll(namePattern)].map(match => match[1]);\n\n// Extraer teléfonos\nconst phones = [...html.matchAll(phonePattern)]\n  .map(match => match[0].replace(/\\\"/g, ''))\n  .filter(phone => phone.length > 8);\n\n// Combinar datos\nnames.forEach((name, index) => {\n  if (phones[index]) {\n    leads.push({\n      json: {\n        nombre_negocio: name,\n        telefono: phones[index],\n        fuente: 'Google Maps',\n        ciudad: $node['Configuración'].json.ciudad\n      }\n    });\n  }\n});\n\nreturn leads;"
-      },
-      "id": "1ca13ad5-a9fd-4fd6-bfff-c7ce4a0e05d4",
-      "name": "Parsear Maps",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        304,
-        192
-      ]
     }
   ],
   "pinData": {},
@@ -415,6 +72,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-12T14:26:23.247Z",
-  "versionId": "0d2f7106-dd27-42bd-bd5b-aa0fc5a1df3e"
+  "updatedAt": "2025-08-16T13:20:08.492Z",
+  "versionId": "4507a4c1-67fb-4e3b-a3d4-8b49d4b5d35a"
 }
