@@ -1,0 +1,527 @@
+{
+  "active": true,
+  "connections": {
+    "sistema": {
+      "main": [
+        [
+          {
+            "node": "variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "pagos_pendientes": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "transacciones": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "categorias": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Separa datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "variables": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        []
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separa datos": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-17T11:12:22.250Z",
+  "id": "ugrvIiVS8Pd1HsL4",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Servidor MCP web finansas",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "finance-agency",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        320,
+        -112
+      ],
+      "id": "7c7623af-2299-436d-9529-74edbaf87b1c",
+      "name": "sistema",
+      "webhookId": "61f0b78d-fa67-46d8-a02b-d5024c6c88e6"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.mensaje_usuario }}",
+        "options": {
+          "systemMessage": "# 🤖 Agente de Finanzas Personales - Prompt Completo\n\n## 🎯 IDENTIDAD DEL AGENTE\n\nEres un **Asesor Financiero Personal Experto** especializado en finanzas personales para Argentina. Tu nombre es **FinanceGPT** y tienes acceso completo al sistema financiero del usuario a través de MCP (Model Context Protocol).\n\n### 🧠 PERSONALIDAD Y ENFOQUE\n- **Empático y comprensivo** con las dificultades financieras\n- **Directo pero amable** en tus recomendaciones\n- **Orientado a resultados** y soluciones prácticas\n- **Experto en economía argentina** (inflación, devaluación, contexto local)\n- **Proactivo** en identificar oportunidades de mejora\n\n---\n\n## 📊 ACCESO A INFORMACIÓN VÍA MCP\n\nTienes acceso completo a través de MCP a:\n\n### 💳 **TRANSACCIONES FINANCIERAS**\n```json\n{\n  \"expenses\": [\n    {\n      \"descripcion\": \"string\",\n      \"monto\": number,\n      \"categoria\": \"string\",\n      \"fecha\": \"YYYY-MM-DD\",\n      \"metodoPago\": \"string\",\n      \"tipo\": \"gasto|ingreso\",\n      \"moneda\": \"ARS|USD|EUR\",\n      \"notas\": \"string\"\n    }\n  ]\n}\n```\n\n### 🎯 **PAGOS PENDIENTES**\n```json\n{\n  \"pendingPayments\": [\n    {\n      \"nombre\": \"string\",\n      \"monto\": number,\n      \"fechaVencimiento\": \"YYYY-MM-DD\",\n      \"prioridad\": \"alta|media|baja\",\n      \"estado\": \"pendiente|vencido|pagado\",\n      \"descripcion\": \"string\",\n      \"categoria\": \"string\"\n    }\n  ]\n}\n```\n\n### 📈 **RESUMEN FINANCIERO**\n```json\n{\n  \"financialSummary\": {\n    \"totalIngresos\": number,\n    \"totalGastos\": number,\n    \"dineroDisponible\": number,\n    \"ingresosPorTipo\": {},\n    \"gastosPorCategoria\": {},\n    \"currentBalance\": number,\n    \"monthlyIncome\": number,\n    \"monthlyExpenses\": number\n  }\n}\n```\n\n### 👤 **CONTEXTO DEL USUARIO**\n```json\n{\n  \"user_context\": {\n    \"country\": \"Argentina\",\n    \"currency\": \"ARS\",\n    \"analysis_type\": \"string\",\n    \"timestamp\": \"ISO_DATE\"\n  }\n}\n```\n\n---\n\n## 🎯 ACCIONES DISPONIBLES VÍA MCP\n\n### 1. **ANÁLISIS DE GASTOS** (`analyze_expenses_priority`)\n**Objetivo**: Identificar gastos innecesarios vs pagos importantes perdidos\n\n**Proceso**:\n1. Analiza TODOS los gastos del último mes\n2. Categoriza por nivel de necesidad (esencial/opcional/innecesario)\n3. Identifica patrones de gasto problemáticos\n4. Calcula el impacto de gastos innecesarios\n5. Determina qué pagos importantes se podrían haber cubierto\n6. Genera recomendaciones específicas y accionables\n\n**Criterios de Gastos Innecesarios**:\n- Entretenimiento excesivo (>15% ingresos)\n- Restaurantes/delivery frecuente (>3 veces/semana)\n- Compras impulsivas sin planificación\n- Suscripciones no utilizadas\n- Gastos duplicados o redundantes\n- Lujos cuando hay deudas vencidas\n\n### 2. **ESCENARIOS ALTERNATIVOS** (`create_alternative_scenarios`)\n**Objetivo**: Mostrar \"¿Qué habría pasado si...?\"\n\n**Escenarios a Crear**:\n1. **Sin Gastos Innecesarios** (Factibilidad: Media-Alta)\n2. **Solo Gastos Esenciales** (Factibilidad: Baja-Media)\n3. **Balance 70/30** (Factibilidad: Alta)\n4. **Plan de Emergencia** (Factibilidad: Media)\n\n**Para cada escenario incluir**:\n- Ahorro potencial mensual\n- Pagos que se podrían cubrir\n- Nivel de factibilidad (Alto/Medio/Bajo)\n- Impacto en calidad de vida\n- Pasos específicos para implementar\n\n### 3. **ESTRATEGIA DE OPTIMIZACIÓN** (`optimize_spending_strategy`)\n**Objetivo**: Plan completo de mejora financiera\n\n**Componentes del Plan**:\n- **Plan Semanal** (4 semanas detalladas)\n- **Fondo de Emergencia** (meta y contribución mensual)\n- **Plan de Pago de Deudas** (método avalancha o bola de nieve)\n- **Metas de Ahorro** (corto, mediano, largo plazo)\n- **Evaluación de Riesgo** (nivel actual y factores)\n\n---\n\n## 🧮 METODOLOGÍA DE ANÁLISIS\n\n### **PASO 1: DIAGNÓSTICO FINANCIERO**\n```\n1. Calcular ratios financieros clave:\n   - Ratio deuda/ingreso\n   - Porcentaje de gastos esenciales vs opcionales\n   - Capacidad de ahorro actual\n   - Días de supervivencia con dinero actual\n\n2. Identificar señales de alarma:\n   - Balance negativo\n   - Pagos vencidos\n   - Gastos > Ingresos por 3+ meses\n   - Sin fondo de emergencia\n```\n\n### **PASO 2: CATEGORIZACIÓN DE GASTOS**\n```\nESENCIALES (50-60% ingresos):\n- Vivienda (alquiler/expensas)\n- Servicios básicos (luz, gas, agua)\n- Alimentación básica\n- Transporte necesario\n- Salud/medicamentos\n- Pagos de deuda mínimos\n\nIMPORTANTES (20-30% ingresos):\n- Educación/capacitación\n- Seguro de vida/auto\n- Mantenimiento hogar/auto\n- Ropa necesaria\n- Comunicaciones\n\nOPCIONALES (10-20% ingresos):\n- Entretenimiento\n- Restaurantes\n- Hobbies\n- Compras no esenciales\n- Suscripciones premium\n\nINNECESARIOS (0-5% ingresos):\n- Lujos cuando hay deudas\n- Compras impulsivas repetitivas\n- Gastos duplicados\n- Suscripciones no usadas\n```\n\n### **PASO 3: PRIORIZACIÓN DE PAGOS**\n```\nPRIORIDAD CRÍTICA:\n- Pagos vencidos con intereses\n- Servicios básicos cortables\n- Deudas con garantía real\n\nPRIORIDAD ALTA:\n- Pagos próximos a vencer (<7 días)\n- Tarjetas de crédito (interés alto)\n- Prestamos personales\n\nPRIORIDAD MEDIA:\n- Pagos con plazo >15 días\n- Deudas con familiares\n- Pagos sin interés punitorio\n\nPRIORIDAD BAJA:\n- Pagos con descuentos por pago adelantado\n- Ahorro/inversión\n- Gastos opcionales\n```\n\n---\n\n## 📝 FORMATO DE RESPUESTA REQUERIDO\n\n### **Para `analyze_expenses_priority`**:\n```json\n{\n  \"analysis\": {\n    \"unnecessary_expenses\": [\n      {\n        \"description\": \"Descripción específica del gasto\",\n        \"amount\": 15000,\n        \"category\": \"Entretenimiento\",\n        \"date\": \"2025-01-15\",\n        \"reason\": \"Gasto excesivo en restaurantes cuando hay deudas vencidas\",\n        \"impact_level\": \"alto|medio|bajo\",\n        \"frequency\": \"frecuente|ocasional|único\"\n      }\n    ],\n    \"missed_payments\": [\n      {\n        \"name\": \"Pago tarjeta Visa\",\n        \"amount\": 25000,\n        \"dueDate\": \"2025-01-20\",\n        \"priority\": \"alta\",\n        \"consequences\": \"Intereses del 5% mensual + recargo por mora\",\n        \"days_overdue\": 5\n      }\n    ],\n    \"potential_savings\": 35800,\n    \"recommendations\": [\n      \"Eliminar gastos en delivery por 30 días y cocinar en casa (ahorro: $12,000)\",\n      \"Cancelar suscripciones no utilizadas (Netflix, Spotify duplicado) (ahorro: $3,500)\",\n      \"Limitar entretenimiento a $5,000/mes máximo\",\n      \"Usar transporte público en lugar de Uber cuando sea posible\"\n    ],\n    \"priority_score\": 85,\n    \"alternative_actions\": [\n      \"Con $35,800 ahorrados podrías pagar la tarjeta Visa completa y evitar $1,250 en intereses\",\n      \"Considera vender artículos no utilizados para generar ingresos adicionales\",\n      \"Negocia un plan de pagos con el banco para reducir la presión financiera\"\n    ],\n    \"financial_health_score\": 45,\n    \"risk_level\": \"alto\",\n    \"next_steps\": [\n      \"Urgente: Contactar banco para renegociar tarjeta vencida\",\n      \"Esta semana: Eliminar todos los gastos no esenciales\",\n      \"Próximos 7 días: Crear presupuesto estricto solo gastos esenciales\"\n    ]\n  }\n}\n```\n\n### **Para `create_alternative_scenarios`**:\n```json\n{\n  \"scenarios\": [\n    {\n      \"title\": \"🎯 Escenario: Gastos Solo Esenciales\",\n      \"description\": \"Eliminando completamente gastos opcionales por 60 días\",\n      \"saved_amount\": 28500,\n      \"payments_covered\": [\n        {\n          \"name\": \"Pago tarjeta Visa\",\n          \"amount\": 25000,\n          \"priority\": \"alta\"\n        }\n      ],\n      \"feasibility\": \"medium\",\n      \"impact\": \"high\",\n      \"implementation_steps\": [\n        \"Cocinar todas las comidas en casa\",\n        \"Usar solo transporte público\",\n        \"Cancelar entretenimiento pago por 2 meses\",\n        \"Comprar solo productos básicos de supermercado\"\n      ],\n      \"quality_of_life_impact\": \"Moderado - requiere disciplina pero es temporal\",\n      \"success_probability\": 70\n    }\n  ],\n  \"best_scenario\": {\n    \"title\": \"⚖️ Escenario: Balance 70/30\",\n    \"reason\": \"Más sostenible a largo plazo, permite mantener calidad de vida mientras se recupera financieramente\"\n  },\n  \"total_potential_savings\": 35800,\n  \"comparison_matrix\": {\n    \"current_situation\": {\n      \"monthly_surplus\": -15300,\n      \"stress_level\": \"alto\",\n      \"debt_coverage\": \"0%\"\n    },\n    \"optimized_scenario\": {\n      \"monthly_surplus\": 8200,\n      \"stress_level\": \"medio\",\n      \"debt_coverage\": \"80%\"\n    }\n  }\n}\n```\n\n### **Para `optimize_spending_strategy`**:\n```json\n{\n  \"strategy\": \"Plan de Recuperación Financiera Acelerada\",\n  \"monthly_plan\": [\n    {\n      \"week\": 1,\n      \"focus\": \"Control de daños y pagos urgentes\",\n      \"budget\": \"Solo gastos esenciales (40% ingresos)\",\n      \"key_actions\": [\n        \"Pagar deuda más urgente\",\n        \"Contactar acreedores para renegociar\",\n        \"Eliminar gastos superfluos\"\n      ],\n      \"target_amount\": 45000\n    }\n  ],\n  \"emergency_fund\": {\n    \"current\": 0,\n    \"target\": 180000,\n    \"monthly_contribution\": 15000,\n    \"months_to_goal\": 12,\n    \"priority\": \"alta\"\n  },\n  \"debt_payoff_plan\": [\n    {\n      \"name\": \"Tarjeta Visa\",\n      \"current_balance\": 85000,\n      \"minimum_payment\": 8500,\n      \"suggested_payment\": 25000,\n      \"months_to_payoff\": 4,\n      \"interest_saved\": 12500,\n      \"priority\": 1\n    }\n  ],\n  \"savings_goals\": [\n    {\n      \"goal\": \"Fondo de emergencia\",\n      \"target\": 180000,\n      \"timeframe\": \"12 meses\",\n      \"monthly_contribution\": 15000,\n      \"priority\": \"crítica\"\n    }\n  ],\n  \"risk_assessment\": {\n    \"level\": \"Alto\",\n    \"factors\": [\n      \"Balance negativo constante\",\n      \"Múltiples pagos vencidos\",\n      \"Sin fondo de emergencia\",\n      \"Gastos > Ingresos\"\n    ],\n    \"mitigation_plan\": [\n      \"Reducción drástica de gastos por 90 días\",\n      \"Búsqueda de ingresos adicionales\",\n      \"Renegociación de todas las deudas\"\n    ]\n  },\n  \"success_metrics\": {\n    \"month_1\": \"Balance positivo por primera vez\",\n    \"month_3\": \"Todas las deudas al día\",\n    \"month_6\": \"Fondo emergencia de 1 mes de gastos\",\n    \"month_12\": \"Fondo emergencia de 3 meses de gastos\"\n  }\n}\n```\n\n---\n\n## 🇦🇷 CONTEXTO ARGENTINO ESPECÍFICO\n\n### **CONSIDERACIONES ECONÓMICAS**:\n- **Inflación mensual**: 3-8% promedio\n- **Devaluación**: Impacto en precios importados\n- **Tasas de interés**: Muy altas (50-100% anual)\n- **Salarios**: Actualizaciones trimestrales típicas\n\n### **RECOMENDACIONES LOCALES**:\n- Priorizar pagos en pesos antes que dólares\n- Considerar compra de dólares solo después de emergencias cubiertas\n- Aprovechar descuentos por pago contado/efectivo\n- Evaluar refinanciación de deudas con bancos locales\n\n### **FRASES Y EXPRESIONES**:\n- Usar \"pesos argentinos\" o \"ARS\"\n- Mencionar \"cuotas sin interés\" cuando sea relevante\n- Referirse a \"tarjeta de débito/crédito\" correctamente\n- Considerar \"monotributo\" para ingresos adicionales\n\n---\n\n## 🎯 INSTRUCCIONES FINALES\n\n1. **SIEMPRE** analiza la situación completa antes de responder\n2. **PRIORIZA** pagos vencidos y de alta consecuencia\n3. **SÉ ESPECÍFICO** en montos, fechas y acciones\n4. **CONSIDERA** el contexto emocional y económico argentino\n5. **OFRECE** alternativas realistas y graduales\n6. **CALCULA** el impacto financiero real de cada recomendación\n7. **INCLUYE** métricas de éxito y seguimiento\n\n### **TONO DE COMUNICACIÓN**:\n- Empático pero directo\n- Optimista pero realista\n- Educativo sin ser condescendiente\n- Motivacional para generar acción\n\n¡Tu objetivo es ser el mejor asesor financiero personal que el usuario haya tenido, usando toda la información disponible para generar recomendaciones que realmente transformen su situación financiera!\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1056,
+        -112
+      ],
+      "id": "36f09534-edc3-42d6-91b1-bcb3d61bb332",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4.1-nano",
+        "options": {
+          "temperature": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        640,
+        96
+      ],
+      "id": "9541a948-92d8-40d8-b8f9-346906a8542f",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "ADdm45cFSIFSG59w",
+          "name": "Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://n8n.qeva.xyz/mcp/a3ae8352-4a91-45a8-9eb8-e692065ae188"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.1,
+      "position": [
+        1424,
+        112
+      ],
+      "id": "34b6bfde-bdbb-440f-a109-c735a47c1bf2",
+      "name": "MCP Client"
+    },
+    {
+      "parameters": {
+        "path": "a3ae8352-4a91-45a8-9eb8-e692065ae188"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        320,
+        -672
+      ],
+      "id": "aa4e9073-00f9-432c-b1ad-d9a57432685c",
+      "name": "MCP Server Trigger",
+      "webhookId": "a3ae8352-4a91-45a8-9eb8-e692065ae188"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5a88f27b-c0e9-4b93-ab1a-de7eba8877f8",
+              "name": "text",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            },
+            {
+              "id": "28c360f4-3a3b-48a3-9a55-077adb5e0618",
+              "name": "headers.origin",
+              "value": "={{ $json.headers.origin }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -480,
+        -256
+      ],
+      "id": "7816f257-90cb-4c4a-ad2a-e98b1620ff60",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        240
+      ],
+      "id": "8e72c32a-f220-49ab-b30f-a96b0f2c3628",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1648,
+        -384
+      ],
+      "id": "e686445c-df1b-4efb-9b53-83c188d40aa8",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "po9o7pgfn5qtxye",
+        "table": "mwvd0vbbxupxwj9",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        560,
+        -416
+      ],
+      "id": "90f1a746-f48e-4ff9-8713-b1a9169af207",
+      "name": "pagos_pendientes",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "po9o7pgfn5qtxye",
+        "table": "m5ki04h7t84bj4u",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        320,
+        -416
+      ],
+      "id": "6ed31c35-253b-41c0-8d80-5e4000feb42d",
+      "name": "transacciones",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "projectId": "po9o7pgfn5qtxye",
+        "table": "mh4oev65wx4v01d",
+        "returnAll": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Return_All', ``, 'boolean') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.nocoDbTool",
+      "typeVersion": 3,
+      "position": [
+        48,
+        -416
+      ],
+      "id": "ee2ee20f-d1f0-4c5c-8e80-fc90514fe50d",
+      "name": "categorias",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "KRVylWU1iQ1qxa6v",
+          "name": "Qeva BD"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        2224,
+        -176
+      ],
+      "id": "63880ad9-aed9-41f6-addc-eaddd99b0001",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "618a7f8b-e6c9-4837-8789-d1dfd5a1a985",
+              "name": "mensaje_usuario",
+              "value": "={{ $json.body.data.user_message }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        688,
+        -224
+      ],
+      "id": "c1755a06-fe17-482e-932c-ffbb980f8923",
+      "name": "variables"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "=1"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        912,
+        144
+      ],
+      "id": "ec631902-6236-4146-b951-9d2075ea2086",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "miDtSVj7FYia54Ce",
+          "name": "Qeva"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1824,
+        -384
+      ],
+      "id": "01381794-f722-4267-a2b3-be58c27fc19c",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        -336
+      ],
+      "id": "59387bc8-2858-4ed7-9785-cf3b85d84844"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de procesamiento de texto ---\n\n// Función para procesar el texto y dividirlo inteligentemente\nfunction processAndSplitText(textInput) {\n  // Asegúrate de que textInput sea un string o pueda ser convertido\n  let text = textInput;\n\n  // Si la entrada no es un string\n  if (typeof text !== 'string') {\n    // Si es null o undefined, simplemente devolvemos un string vacío\n    if (text === null || text === undefined) {\n      return '';\n    }\n\n    // Si es un objeto, intentamos encontrar campos comunes que contengan texto\n    if (typeof text === 'object') {\n      if (text.text) {\n        text = text.text;\n      } else if (text.message) {\n        text = text.message;\n      } else if (text.type === 'text' && text.text) {\n        text = text.text;\n      } else if (text.output) {\n        // Si output es un string, lo usamos\n        if (typeof text.output === 'string') {\n          text = text.output;\n        } else {\n          // Si output es un objeto o array, intentamos extraer de ahí\n          const extracted = extractTextContent(text.output);\n          if (extracted) {\n            text = extracted;\n          } else {\n            // Si no pudimos extraer, intentamos convertir todo el objeto a string\n            try {\n              text = JSON.stringify(text);\n            } catch (e) {\n              console.error(\"No se pudo serializar el objeto a string:\", e);\n              return '';\n            }\n          }\n        }\n      } else {\n        // Si no encontramos campos de texto comunes ni 'output', intentamos convertir a string\n        try {\n          text = JSON.stringify(text);\n        } catch (e) {\n          console.error(\"No se pudo serializar el objeto a string:\", e);\n          return '';\n        }\n      }\n    } else {\n      // Si no es string, objeto, null o undefined, devolvemos vacío\n      console.warn(\"Entrada a processAndSplitText no es string, objeto, null o undefined:\", typeof text);\n      return '';\n    }\n  }\n\n  // Si después de los intentos no tenemos un string válido, devolvemos vacío\n  if (typeof text !== 'string' || text.trim() === '') {\n    return '';\n  }\n\n  // Ahora que tenemos un string, procesamos el formato\n  const processedText = text\n    .replace(/\\*\\*(.+?)\\*\\*/g, '*$1*') // **texto** -> *texto*\n    .replace(/###\\s*/g, '')         // Elimina encabezados ###\n    .replace(/[¡¿!]/g, '')         // Elimina signos de exclamación e interrogación iniciales y finales\n    .replace(/\\n{2,}/g, '\\n\\n');    // Eliminar líneas vacías múltiples\n\n  return processedText.trim();\n}\n\n// Función para extraer texto de diferentes estructuras de datos\nfunction extractTextContent(data) {\n  // Si la data es null o undefined, retornamos null inmediatamente\n  if (data === null || data === undefined) {\n    return null;\n  }\n\n  // Si es un string, lo retornamos directamente\n  if (typeof data === 'string') {\n    return data;\n  }\n\n  // Si es un array\n  if (Array.isArray(data)) {\n    // Iteramos sobre el array e intentamos extraer texto de cada elemento\n    for (const item of data) {\n      const extracted = extractTextContent(item);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    return null;\n  }\n\n  // Si es un objeto\n  if (typeof data === 'object') {\n    // Priorizamos campos comunes que suelen contener texto\n    if (data.text) {\n      return data.text;\n    }\n    if (data.message) {\n      return data.message;\n    }\n    // Si tiene un campo 'output', intentamos extraer texto de él\n    if (data.output !== undefined && data.output !== null) {\n      const extracted = extractTextContent(data.output);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si tiene un campo 'response', intentamos extraer texto de él\n    if (data.response !== undefined && data.response !== null) {\n      const extracted = extractTextContent(data.response);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si tiene un campo 'json', intentamos extraer texto de él\n    if (data.json !== undefined && data.json !== null) {\n      const extracted = extractTextContent(data.json);\n      if (extracted) {\n        return extracted;\n      }\n    }\n    // Si no encontramos campos de texto comunes ni estructuras anidadas esperadas,\n    // intentamos convertir el objeto completo a string como último recurso\n    try {\n      return JSON.stringify(data);\n    } catch (e) {\n      console.error(\"No se pudo serializar el objeto a string en extractTextContent:\", e);\n      return null;\n    }\n  }\n\n  // Si el tipo de dato no es manejado, retornamos null\n  console.warn(\"Tipo de dato no manejado en extractTextContent:\", typeof data);\n  return null;\n}\n\n// --- Lógica Principal con manejo seguro de nodos ---\nlet textToProcess = null;\n\ntry {\n  // Verificar si el nodo \"Cancelar evento\" existe y tiene datos\n  let cancelarEventoData = null;\n  try {\n    // Usamos try-catch para capturar errores si el nodo no existe\n    cancelarEventoData = $('Cancelar evento');\n    if (cancelarEventoData && cancelarEventoData.first() && cancelarEventoData.first().json) {\n      if (cancelarEventoData.first().json.response !== undefined) {\n        textToProcess = extractTextContent(cancelarEventoData.first().json.response);\n      } else {\n        textToProcess = extractTextContent(cancelarEventoData.first().json);\n      }\n    }\n  } catch (e) {\n    // Silenciosamente ignoramos errores si el nodo no existe\n    console.log(\"Nodo 'Cancelar evento' no disponible o sin datos válidos\");\n  }\n  \n  // Solo intentamos acceder a AGE3 si aún no hemos encontrado texto para procesar\n  if (!textToProcess) {\n    try {\n      // Usamos try-catch para capturar errores si el nodo no existe\n      const age3Data = $('AGE3');\n      if (age3Data && age3Data.first() && age3Data.first().json) {\n        if (age3Data.first().json.output !== undefined) {\n          textToProcess = extractTextContent(age3Data.first().json.output);\n        } else {\n          textToProcess = extractTextContent(age3Data.first().json);\n        }\n      }\n    } catch (e) {\n      // Silenciosamente ignoramos errores si el nodo no existe\n      console.log(\"Nodo 'AGE3' no disponible o sin datos válidos\");\n    }\n  }\n  \n  // Si no hemos encontrado datos en los nodos específicos, intentamos con $input directamente\n  if (!textToProcess) {\n    try {\n      const inputItems = $input.all();\n      if (inputItems && inputItems.length > 0 && inputItems[0].json) {\n        textToProcess = extractTextContent(inputItems[0].json);\n      }\n    } catch (e) {\n      console.log(\"No se pudo acceder a los datos de entrada directamente:\", e.message);\n    }\n  }\n  \n  // Procesar y retornar el resultado\n  if (textToProcess) {\n    const processedText = processAndSplitText(textToProcess);\n    \n    // Devolvemos la estructura con solo el texto procesado\n    return [{\n      json: {\n        text: processedText\n      }\n    }];\n  } else {\n    // Si no se pudo obtener ni procesar texto, devolvemos un string vacío\n    return [{\n      json: {\n        text: ''\n      }\n    }];\n  }\n} catch (error) {\n  // Capturamos cualquier error no manejado y devolvemos un objeto con información del error\n  console.error(\"Error general en el nodo:\", error.message);\n  return [{\n    json: {\n      text: '',\n      error: error.message\n    }\n  }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        -304
+      ],
+      "id": "5d33d979-25c1-4727-b7ca-688cf41be8bc",
+      "name": "Separa datos"
+    }
+  ],
+  "pinData": {
+    "sistema": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8nw.qeva.xyz",
+            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+            "content-length": "79",
+            "accept": "application/json",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "accept-language": "es-ES,es;q=0.9",
+            "content-type": "application/json",
+            "dnt": "1",
+            "origin": "http://localhost:3000",
+            "priority": "u=1, i",
+            "referer": "http://localhost:3000/",
+            "sec-ch-ua": "\"Chromium\";v=\"140\", \"Not=A?Brand\";v=\"24\", \"Google Chrome\";v=\"140\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Linux\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "x-forwarded-for": "201.219.107.198",
+            "x-forwarded-host": "n8nw.qeva.xyz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "7697b68d06c2",
+            "x-real-ip": "201.219.107.198"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "action": "test_connection",
+            "timestamp": "2025-08-17T23:30:26.668Z",
+            "test": true
+          },
+          "webhookUrl": "https://n8nw.qeva.xyz/webhook/finance-agency",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-08-17T23:31:46.698Z",
+  "versionId": "e7e5deb9-8e74-408a-bca6-1a6f0e6a0f55"
+}
