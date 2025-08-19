@@ -71,7 +71,7 @@
       "main": [
         [
           {
-            "node": "ultimoMsg1",
+            "node": "contador de mensajes",
             "type": "main",
             "index": 0
           }
@@ -202,12 +202,53 @@
           }
         ]
       ]
+    },
+    "Redis": {
+      "main": [
+        []
+      ]
+    },
+    "contador de mensajes": {
+      "main": [
+        [
+          {
+            "node": "Envio el 3er msg?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Envio el 3er msg?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "ultimoMsg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ultimoMsg": {
+      "main": [
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-08-14T18:21:11.005Z",
   "id": "4i5emEnq7tj3K7uY",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "AGENTE CITAS - FOLLOW UP QEVA",
   "nodes": [
     {
@@ -305,7 +346,7 @@
         "promptType": "define",
         "text": "=Conversacion previa: {{ $json.msg }}",
         "options": {
-          "systemMessage": "=# PROMPT PARA SUB-AGENTE DE CONTINUIDAD DE CONVERSACIÓN\n\n## REGLA ABSOLUTA:\n**SOLO devuelve \"FINALIZADO\" si el usuario se despidió explícitamente con palabras como:**\n- \"chau\", \"adiós\", \"hasta luego\", \"no gracias\", \"no necesito nada más\", \"listo, gracias\"\n\n**EN TODOS LOS DEMÁS CASOS → Genera ÚNICAMENTE una pregunta o mensaje de seguimiento directo**\n\n## INSTRUCCIONES CRÍTICAS:\n\n### NO HAGAS ESTO:\n❌ NO expliques tu razonamiento\n❌ NO digas \"Gracias por la información\"\n❌ NO resumas lo que dijo el usuario\n❌ NO repitas información ya dicha\n❌ NO reflexiones sobre la conversación\n\n### SÍ HAZ ESTO:\n✅ SOLO genera la siguiente pregunta directa\n✅ Continúa el flujo natural de la conversación\n✅ Sé directo y conciso\n✅ Varía las preguntas si no hay respuesta\n\n## EJEMPLOS CORRECTOS:\n\n### Situación: Usuario dio su nombre completo\n- Usuario: \"Genial, ¿qué día y horario te quedan mejor para agendar la limpieza?\"\n→ **Tu respuesta:** \"¿Preferís turno de mañana o tarde?\"\n\n### Situación: Usuario eligió servicio\n- Usuario: \"Limpieza\"\n→ **Tu respuesta:** \"¿Qué día te queda mejor?\"\n\n### Situación: Usuario no responde (primera vez)\n- Agente: \"¿En qué puedo ayudarte?\"\n- Usuario: (sin respuesta)\n→ **Tu respuesta:** \"¿Necesitás agendar un turno?\"\n\n### Situación: Usuario no responde (segunda vez)\n- Agente: \"¿Necesitás agendar un turno?\"\n- Usuario: (sin respuesta)\n→ **Tu respuesta:** \"¿Querés información sobre algún tratamiento?\"\n\n## FORMATO DE RESPUESTA:\n**Opción 1:** FINALIZADO (solo si hay despedida explícita)\n**Opción 2:** [Solo la pregunta directa, sin explicaciones]\n\n## VALIDACIÓN ANTES DE RESPONDER:\n1. ¿Es solo una pregunta sin explicaciones? ✓\n2. ¿Es diferente a las preguntas anteriores? ✓\n3. ¿Continúa naturalmente la conversación? ✓\n4. ¿Es de 1-2 líneas máximo? ✓\n\n## RECUERDA:\n- **NUNCA** expliques, solo pregunta\n- **NUNCA** agradezcas, solo continúa\n- **NUNCA** resumas, solo avanza\n- Si dudas → haz la siguiente pregunta lógica"
+          "systemMessage": "=# PROMPT PARA SUB-AGENTE DE CONTINUIDAD DE CONVERSACIÓN\n\n## REGLA ABSOLUTA\n**Devuelve exactamente `FINALIZADO` (en mayúsculas, sin comillas ni texto extra) si se cumple cualquiera de estas condiciones:**\n- El usuario se despide explícitamente: \"chau\", \"adiós\", \"hasta luego\", \"no gracias\", \"no necesito nada más\", \"listo, gracias\".\n- **Cualquier mensaje (del usuario o del agente) contiene la cadena `button_confirm`** (insensible a mayúsculas/minúsculas), por ejemplo: `Agente: button_confirm`.\n\n**En TODOS los demás casos → Genera ÚNICAMENTE una pregunta o mensaje de seguimiento directo.**\n\n> Implementación sugerida (lógica interna): si `texto_total` cumple `/button_confirm\\b/i` → responder `FINALIZADO`.\n\n## INSTRUCCIONES CRÍTICAS\n\n### NO HAGAS ESTO:\n❌ NO expliques tu razonamiento  \n❌ NO digas \"Gracias por la información\"  \n❌ NO resumas lo que dijo el usuario  \n❌ NO repitas información ya dicha  \n❌ NO reflexiones sobre la conversación  \n\n### SÍ HAZ ESTO:\n✅ SOLO genera la siguiente pregunta directa  \n✅ Continúa el flujo natural de la conversación  \n✅ Sé directo y conciso  \n✅ Variá las preguntas si no hay respuesta  \n\n## EJEMPLOS CORRECTOS\n\n### Situación: Usuario dio su nombre completo\n- Usuario: \"Genial, ¿qué día y horario te quedan mejor para agendar la limpieza?\"\n→ **Tu respuesta:** \"¿Preferís turno de mañana o tarde?\"\n\n### Situación: Usuario eligió servicio\n- Usuario: \"Limpieza\"\n→ **Tu respuesta:** \"¿Qué día te queda mejor?\"\n\n### Situación: Usuario no responde (primera vez)\n- Agente: \"¿En qué puedo ayudarte?\"\n- Usuario: (sin respuesta)\n→ **Tu respuesta:** \"¿Necesitás agendar un turno?\"\n\n### Situación: Usuario no responde (segunda vez)\n- Agente: \"¿Necesitás agendar un turno?\"\n- Usuario: (sin respuesta)\n→ **Tu respuesta:** \"¿Querés información sobre algún tratamiento?\"\n\n### Situación: Confirmación por botón\n- Secuencia:\n  - Usuario: \"Fernando alonso\"\n  - Agente: \"Bárbaro, Fernando. ¿Para qué servicio sería el turno?\"\n  - Usuario: \"Para limpieza\"\n  - **Agente: \"button_confirm\"**\n→ **Tu respuesta:** `FINALIZADO`\n\n## FORMATO DE RESPUESTA\n**Opción 1:** `FINALIZADO` (solo si aplica la regla absoluta)  \n**Opción 2:** [Solo la pregunta directa, sin explicaciones]\n\n## VALIDACIÓN ANTES DE RESPONDER\n1. ¿Es solo una pregunta sin explicaciones? ✓  \n2. ¿Es diferente a las preguntas anteriores? ✓  \n3. ¿Continúa naturalmente la conversación? ✓  \n4. ¿Es de 1–2 líneas máximo? ✓  \n\n## RECUERDA\n- **NUNCA** expliques, solo preguntá  \n- **NUNCA** agradezcas, solo continuá  \n- **NUNCA** resumas, solo avanzá  \n- Si dudás → hacé la siguiente pregunta lógica\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -417,7 +458,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1232,
+        1440,
         128
       ],
       "id": "706ee027-c7b5-406d-8877-9f6524404713",
@@ -430,7 +471,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        1008,
+        1216,
         48
       ],
       "id": "e9df5016-4675-473a-bbb2-2b6a0146cf68",
@@ -468,7 +509,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        784,
+        992,
         48
       ],
       "id": "fc830765-6749-4ece-9a2d-b1f06714d8b2",
@@ -540,8 +581,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
       "typeVersion": 1.5,
       "position": [
-        -1248,
-        -16
+        -1440,
+        32
       ],
       "id": "302c1c39-d10d-49c2-8b9e-2882b313133f",
       "name": "memory",
@@ -671,8 +712,8 @@
       "type": "n8n-nodes-base.redis",
       "typeVersion": 1,
       "position": [
-        784,
-        -144
+        1616,
+        -32
       ],
       "id": "2449b720-c2bd-4032-abae-a19b81c31b05",
       "name": "ultimoMsg1",
@@ -705,14 +746,136 @@
       ],
       "id": "a296d4bd-5a01-436b-8000-76a4723aa480",
       "name": "usuario"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=contador:{{ $('Edit Fields').first().json.usuario }}:recordatorio",
+        "expire": true,
+        "ttl": 3600
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1776,
+        -256
+      ],
+      "id": "e14c8cec-0706-4274-be5d-0a9b36e27fab",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "contador",
+        "key": "=contador:{{ $('Edit Fields').first().json.usuario }}:recordatorio",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        960,
+        -224
+      ],
+      "id": "841aced2-bce6-43f6-9c9a-e5113e0f5777",
+      "name": "contador de mensajes",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b5e7258e-4262-49bb-afe6-5f1f81a0854e",
+              "leftValue": "={{ $json.contador }}",
+              "rightValue": 2,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1216,
+        -272
+      ],
+      "id": "55e5a174-2d75-405b-86ba-2b94ff5dc440",
+      "name": "Envio el 3er msg?"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "=usuario:{{ $('Edit Fields').item.json.usuario }}:ultimomsg",
+        "value": "esperando",
+        "expire": true,
+        "ttl": 540
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1504,
+        -288
+      ],
+      "id": "d78461d1-679f-4f6c-a035-cd59a4e4cca9",
+      "name": "ultimoMsg",
+      "credentials": {
+        "redis": {
+          "id": "f1mfRViKXHypdB9h",
+          "name": "Redis account"
+        }
+      }
     }
   ],
   "pinData": {
+    "ultimoMsg1": [
+      {
+        "json": {
+          "status": 200,
+          "data": {
+            "key": {
+              "remoteJid": "5492254423359@s.whatsapp.net",
+              "fromMe": true,
+              "id": "3EB0B187109E256E127C37"
+            },
+            "message": {
+              "extendedTextMessage": {
+                "text": "Hay algo más en lo que pueda ayudarte hoy?"
+              }
+            },
+            "messageTimestamp": "1755520743",
+            "status": "PENDING"
+          }
+        }
+      }
+    ],
     "Redis Trigger": [
       {
         "json": {
           "channel": "__keyevent@0__:expired",
-          "message": "usuario:584121496804:ultimomsg"
+          "message": "usuario:5492254423359:ultimomsg"
         }
       }
     ]
@@ -723,6 +886,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-15T15:04:38.972Z",
-  "versionId": "126f3c4c-f7cf-4c25-a841-ac6b036f769d"
+  "updatedAt": "2025-08-18T13:18:59.540Z",
+  "versionId": "3ef214d4-e7b9-4bb1-a665-7c3c5853125a"
 }
