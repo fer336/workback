@@ -177,7 +177,7 @@
     },
     {
       "parameters": {
-        "jsCode": "{\n  // OBTENER DATOS DEL INPUT\n  const datos = $input.first().json;\n  \n  // EXTRAER DATOS DEL TURNO\n  const paciente = datos.NOMBRE;\n  const fechaCompleta = datos.FECHA; // \"2025-08-07T09:52\"\n  const servicio = datos.SERVICIO;\n  const telefono = datos.TELEFONO;\n  const confirmado = datos.CONFIRMACION_CITA;\n  \n  // SEPARAR FECHA Y HORA\n  const [fecha, hora] = fechaCompleta.split('T');\n  const horaCorta = hora ? hora.substring(0, 5) : '00:00'; // Obtener solo HH:MM\n  \n  // FORMATEAR FECHA PARA MOSTRAR (DD-MM-YYYY)\n  const [año, mes, dia] = fecha.split('-');\n  const fechaFormateada = `${dia}-${mes}-${año}`;\n  \n  // CONSTRUIR MENSAJE DE LISTA\n  const requestBody = {\n    to: telefono,\n    buttonText: \"Opciones 📋\",\n    title: \"⏰ Recordatorio - Tu turno es en 1 hora\",\n    description: `*🔔 RECORDATORIO IMPORTANTE*\n\n👤 *Paciente:* ${paciente}\n📅 *Fecha:* ${fechaFormateada}\n🕐 *Hora:* ${horaCorta}\n🏥 *Servicio:* ${servicio}\n\n📍 *Recordatorios:*\n- Llegá 10 minutos antes\n- Traé DNI y estudios previos\n- En caso de no poder asistir, avisanos\n\nSeleccione una opción:`,\n    footer: confirmado ? \"✅ Tu turno está confirmado\" : \"⚠️ Turno pendiente de confirmación\",\n    sections: [\n      {\n        title: \"📋 Opciones Disponibles\",\n        rows: confirmado ? \n          // Si está confirmado, solo mostrar opción de cancelar\n          [\n            {\n              rowId: `❌ CANCELAR TURNO`,\n              title: \"❌ Cancelar Turno\",\n              description: \"No podré asistir al turno programado\"\n            }\n          ] :\n          // Si NO está confirmado, mostrar ambas opciones\n          [\n            {\n              rowId: `✅ TURNO CONFIRMADO`,\n              title: \"✅ Confirmar Turno\",\n              description: \"Confirmo mi asistencia en la fecha y hora indicada\"\n            },\n            {\n              rowId: `❌ CANCELAR TURNO`,\n              title: \"❌ Cancelar Turno\",\n              description: \"No podré asistir al turno programado\"\n            }\n          ]\n      }\n    ]\n  };\n  \n  // RETORNAR RESULTADO\n  return [{ json: requestBody }];\n}"
+        "jsCode": "{\n  // OBTENER DATOS DEL INPUT\n  const datos = $input.first().json;\n  \n  // EXTRAER DATOS DEL TURNO\n  const paciente = datos.NOMBRE;\n  const fechaCompleta = datos.FECHA; // \"2025-08-07T09:52\"\n  const servicio = datos.SERVICIO;\n  const telefono = datos.TELEFONO;\n  const confirmado = datos.CONFIRMACION_CITA;\n  \n  // SEPARAR FECHA Y HORA\n  const [fecha, hora] = fechaCompleta.split('T');\n  const horaCorta = hora ? hora.substring(0, 5) : '00:00'; // Obtener solo HH:MM\n  \n  // FORMATEAR FECHA PARA MOSTRAR (DD-MM-YYYY)\n  const [año, mes, dia] = fecha.split('-');\n  const fechaFormateada = `${dia}-${mes}-${año}`;\n  \n  // CONSTRUIR MENSAJE DE LISTA\n  const requestBody = {\n    to: telefono,\n    buttonText: \"Opciones 📋\",\n    title: \"⏰ Recordatorio - Tu turno es en 1 hora\",\n    description: `*🔔 RECORDATORIO IMPORTANTE*\n👤 *Paciente:* ${paciente}\n📅 *Fecha:* ${fechaFormateada}\n🕐 *Hora:* ${horaCorta}\n🏥 *Servicio:* ${servicio}\n📍 *Recordatorios:*\n- Llegá 10 minutos antes\n- Traé DNI y estudios previos\n- En caso de no poder asistir, avisanos\nSeleccione una opción:`,\n    footer: confirmado ? \"✅ Tu turno está confirmado\" : \"⚠️ Turno pendiente de confirmación\",\n    sections: [\n      {\n        title: \"📋 Opciones Disponibles\",\n        rows: confirmado ? \n          // Si está confirmado, solo mostrar opción de cancelar\n          [\n            {\n              rowId: `❌ CANCELAR TURNO`,\n              title: \"❌ Cancelar Turno\",\n              description: \"No podré asistir al turno programado\"\n            }\n          ] :\n          // Si NO está confirmado, CONFIRMAR PRIMERO, luego cancelar\n          [\n            {\n              rowId: `✅ TURNO CONFIRMADO`,\n              title: \"✅ Confirmar Turno\",\n              description: \"Confirmo mi asistencia en la fecha y hora indicada\"\n            },\n            {\n              rowId: `❌ CANCELAR TURNO`,\n              title: \"❌ Cancelar Turno\",\n              description: \"No podré asistir al turno programado\"\n            }\n          ]\n      }\n    ]\n  };\n  \n  // RETORNAR RESULTADO\n  return [{ json: requestBody }];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -226,7 +226,7 @@
           "parameters": [
             {
               "name": "to",
-              "value": "={{ $json.to }}"
+              "value": "=5492254423359"
             },
             {
               "name": "buttonText",
@@ -298,6 +298,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-08-18T12:23:09.413Z",
-  "versionId": "fe7b2090-ecce-41d9-bd2f-4f373e1a2ddd"
+  "updatedAt": "2025-08-20T14:58:31.248Z",
+  "versionId": "3e343cc6-6a7e-4b27-b21d-524be7280378"
 }
