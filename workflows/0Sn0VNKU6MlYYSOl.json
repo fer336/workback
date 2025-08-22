@@ -1,0 +1,273 @@
+{
+  "active": false,
+  "connections": {
+    "AUTORIZE TOKEN": {
+      "main": [
+        [
+          {
+            "node": "PROCESAR DATOS OAUTH",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PROCESAR DATOS OAUTH": {
+      "main": [
+        [
+          {
+            "node": "CREAR CREDENCIAL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CREAR CREDENCIAL": {
+      "main": [
+        [
+          {
+            "node": "RESPUESTA EXITOSA",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "RESPUESTA ERROR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-21T14:59:02.923Z",
+  "id": "0Sn0VNKU6MlYYSOl",
+  "isArchived": false,
+  "meta": null,
+  "name": "My workflow 21",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "auth-token",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -816,
+        48
+      ],
+      "id": "62751ab1-cd00-4666-ab39-475bed3b76c0",
+      "name": "AUTORIZE TOKEN",
+      "webhookId": "5042da8e-bf69-4e22-bdf2-1cebe8820e03"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bd26c818-fd73-421b-8395-aa5a7b555696",
+              "name": "business_name",
+              "value": "={{ $json.body.business_name }}",
+              "type": "string"
+            },
+            {
+              "id": "18a5f1ea-499e-4196-9da8-3e641fb2d2f0",
+              "name": "name",
+              "value": "={{ $json.body.user_info.name }}",
+              "type": "string"
+            },
+            {
+              "id": "ff1e6f06-e184-4ecf-9d3a-4487dab0eb9d",
+              "name": "email",
+              "value": "={{ $json.body.user_info.email }}",
+              "type": "string"
+            },
+            {
+              "id": "86c1f2fc-5fd0-4a3e-b295-4efa697f26cd",
+              "name": "access_token",
+              "value": "={{ $json.body.access_token }}",
+              "type": "string"
+            },
+            {
+              "id": "303d8673-7efe-43c1-b7fc-97bcd60a817c",
+              "name": "refresh_token",
+              "value": "={{ $json.body.refresh_token }}",
+              "type": "string"
+            },
+            {
+              "id": "907b20c1-c940-40dd-8ba9-b19e28a10605",
+              "name": "scope",
+              "value": "={{ $json.body.scope }}",
+              "type": "string"
+            },
+            {
+              "id": "5d32382a-b050-4040-b85d-daa6f24fca7b",
+              "name": "token_type",
+              "value": "={{ $json.body.token_type }}",
+              "type": "string"
+            },
+            {
+              "id": "3df2dd15-a042-4140-9700-ac428898b09b",
+              "name": "expires_in",
+              "value": "={{ $json.body.expires_in }}",
+              "type": "number"
+            },
+            {
+              "id": "34ff54a5-9dc0-4b55-b10e-484c87e1de7d",
+              "name": "client_id",
+              "value": "14156192305-l407pd59el0vrkuenjmmpvh4neh6jueo.apps.googleusercontent.com",
+              "type": "string"
+            },
+            {
+              "id": "74f3ce06-c7be-4a93-80b1-66eaa50fa39d",
+              "name": "client_secret",
+              "value": "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",
+              "type": "string"
+            },
+            {
+              "id": "64dd0924-41fb-4daf-8d7e-57742e43b138",
+              "name": "schemaType",
+              "value": "={{(() => { \n  const scope = $json.body.scope || ''; \n  if (scope.includes('drive')) {\n    return 'googleDriveOAuth2Api';\n  } else if (scope.includes('spreadsheets')) {\n    return 'googleSheetsOAuth2Api';\n  } else if (scope.includes('calendar')) {\n    return 'googleCalendarOAuth2Api';\n  } else if (scope.includes('contacts')) {\n    return 'googleContactsOAuth2Api';\n  } else if (scope.includes('mail.google')) {\n    return 'gmailOAuth2';\n  }\n  return 'googleDriveOAuth2Api';\n})()}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -592,
+        48
+      ],
+      "id": "f8db31d4-1647-4ca5-85fe-0f285fc52e0b",
+      "name": "PROCESAR DATOS OAUTH"
+    },
+    {
+      "parameters": {
+        "resource": "credential",
+        "name": "={{ $json.business_name }} ({{ $json.name }} - {{ $json.email }})",
+        "credentialTypeName": "={{ $json.schemaType }}",
+        "data": "={{ (() => {\n  const oauth = $json;\n  \n  // Estructura base para todas las credenciales Google OAuth2\n  const base = {\n    clientId: oauth.client_id,\n    clientSecret: oauth.client_secret\n  };\n  \n  // Para Gmail (gmailOAuth2)\n  if (oauth.schemaType === 'gmailOAuth2') {\n    return JSON.stringify({\n      ...base,\n      accessToken: oauth.access_token,\n      refreshToken: oauth.refresh_token\n    });\n  }\n  \n  // Para el resto de servicios Google (Drive, Sheets, Calendar, Contacts)\n  return JSON.stringify({\n    ...base,\n    oauthTokenData: {\n      access_token: oauth.access_token,\n      refresh_token: oauth.refresh_token,\n      scope: oauth.scope,\n      token_type: oauth.token_type,\n      expires_in: oauth.expires_in\n    },\n    grantType: \"authorizationCode\",\n    authUrl: \"https://accounts.google.com/o/oauth2/v2/auth\",\n    accessTokenUrl: \"https://oauth2.googleapis.com/token\",\n    authQueryParameters: \"access_type=offline\"\n  });\n})() }}",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        48
+      ],
+      "id": "e4d1fa33-c28b-430f-9116-656d11ffde01",
+      "name": "CREAR CREDENCIAL",
+      "retryOnFail": false,
+      "credentials": {
+        "n8nApi": {
+          "id": "IdAUYtzJJPhnkh6p",
+          "name": "n8n qeva"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c8777102-a4fd-4384-8259-a0b38c2439e6",
+              "name": "status.code",
+              "value": "success",
+              "type": "string"
+            },
+            {
+              "id": "f89bd349-bbcc-4b45-a902-e5a69e6e2533",
+              "name": "status.message",
+              "value": "Integración realizada con éxito!",
+              "type": "string"
+            },
+            {
+              "id": "extra1",
+              "name": "business_name",
+              "value": "={{ $('PROCESAR DATOS OAUTH').item.json.business_name }}",
+              "type": "string"
+            },
+            {
+              "id": "extra2",
+              "name": "user_email",
+              "value": "={{ $('PROCESAR DATOS OAUTH').item.json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "extra3",
+              "name": "service_type",
+              "value": "={{ $('PROCESAR DATOS OAUTH').item.json.schemaType }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -96,
+        -48
+      ],
+      "id": "ba640a44-2d24-49fc-8b96-2290431d4e81",
+      "name": "RESPUESTA EXITOSA"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c8777102-a4fd-4384-8259-a0b38c2439e6",
+              "name": "status.code",
+              "value": "error",
+              "type": "string"
+            },
+            {
+              "id": "b61829a0-28e1-4b9a-98e7-9c93555886d9",
+              "name": "status.message",
+              "value": "Error al crear la credencial en n8n",
+              "type": "string"
+            },
+            {
+              "id": "extra1",
+              "name": "business_name",
+              "value": "={{ $('PROCESAR DATOS OAUTH').item.json.business_name }}",
+              "type": "string"
+            },
+            {
+              "id": "error_details",
+              "name": "error_details",
+              "value": "={{ $json.error || 'Error desconocido' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -96,
+        128
+      ],
+      "id": "0486e41d-6a89-462f-a0a2-6aa73724a3a3",
+      "name": "RESPUESTA ERROR"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-21T15:03:11.659Z",
+  "versionId": "f20b1af9-5c9d-4ec4-8f44-ecf9b89f374f"
+}
