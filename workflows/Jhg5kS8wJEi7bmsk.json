@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Preparar Mensaje": {
       "main": [
@@ -10,11 +10,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Code": {
-      "main": [
-        []
       ]
     },
     "FERNANDO": {
@@ -130,23 +125,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        144,
-        1024
+        -80,
+        1072
       ],
       "id": "6036c74c-8077-421d-a60b-ea2e115ecdc5"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Nodo de depuración\nconst inputData = $node[\"Preparar Mensaje\"].json;\nconsole.log(\"Datos originales:\", JSON.stringify(inputData, null, 2));\n\n// Intentar con una serialización/deserialización adicional\nconst serialized = JSON.stringify(inputData);\nconst deserialized = JSON.parse(serialized);\nconsole.log(\"Después de serializar/deserializar:\", JSON.stringify(deserialized, null, 2));\n\nreturn {json: deserialized};"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        864,
-        1200
-      ],
-      "id": "bb462e51-8317-466b-80a4-b0b598949ae5",
-      "name": "Code"
     },
     {
       "parameters": {
@@ -162,62 +144,6 @@
       "typeVersion": 1,
       "id": "3a5ac9ca-9811-4765-983c-96f2a4a71a12",
       "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('vars').item.json.url }}/message/sendText/{{ $('vars').item.json.instance }}",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "apikey",
-              "value": "={{ $('vars').item.json.apikey }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            {
-              "name": "number",
-              "value": "={{ $json.number }}"
-            },
-            {
-              "name": "options",
-              "value": "={{ $json.options }}"
-            },
-            {
-              "name": "text",
-              "value": "={{ $json.textMessage.text }}"
-            },
-            {
-              "name": "mentions",
-              "value": "={{ $json.textMessage.mentions }}"
-            },
-            {
-              "name": "mentionsEveryOne",
-              "value": "true"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "name": "Mensaje2",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 3,
-      "position": [
-        1008,
-        1328
-      ],
-      "id": "26951623-760e-4013-931a-7cb12e2ec413",
-      "disabled": true
     },
     {
       "parameters": {
@@ -265,8 +191,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        400,
-        1024
+        176,
+        1072
       ],
       "id": "948a1325-ab71-4e2d-8f04-80084d5e3137",
       "credentials": {
@@ -294,8 +220,7 @@
       ],
       "id": "b812773e-1f6e-475a-8360-d9206fe2776e",
       "name": "Webhook",
-      "webhookId": "9ba09d30-2eb8-4bdf-8785-2bfc45e3f63d",
-      "disabled": true
+      "webhookId": "9ba09d30-2eb8-4bdf-8785-2bfc45e3f63d"
     },
     {
       "parameters": {
@@ -350,7 +275,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -544,
+        -592,
         1296
       ],
       "id": "4d448bde-b5b2-4007-a7ee-3e52d8ae13e6",
@@ -471,8 +396,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -528,
-        1552
+        -320,
+        1520
       ],
       "id": "22a8d1bb-ffc3-42cb-accd-94216d6ded01",
       "name": "HTTP Request1"
@@ -485,8 +410,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        -208,
-        1552
+        -64,
+        1520
       ],
       "id": "c0d7ccf7-440e-414c-847b-bc9bdbeb796e"
     },
@@ -529,8 +454,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        128,
-        1552
+        192,
+        1520
       ],
       "id": "922f52e1-f147-464d-b0fb-831de9ff56d3",
       "name": "es-wa"
@@ -582,8 +507,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -368,
-        1024
+        -592,
+        1072
       ],
       "id": "993491aa-eb67-4e86-80a2-e8123176b1cc",
       "name": "vars1"
@@ -614,8 +539,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 3,
       "position": [
-        -128,
-        1024
+        -336,
+        1072
       ],
       "id": "aac34276-b477-4aff-a29c-c3a00f5d7c47",
       "credentials": {
@@ -636,8 +561,8 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -928,
-        1392
+        -608,
+        1520
       ],
       "id": "03a2ed6b-8565-4be1-ab32-6586afaa6299",
       "name": "chat",
@@ -715,7 +640,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2025-08-11T20:02:00.954Z",
-  "versionId": "a8c06b1e-52e6-4b71-a73a-eaa602651224"
+  "triggerCount": 2,
+  "updatedAt": "2025-08-21T10:32:52.452Z",
+  "versionId": "8eb1f6ad-330c-4d87-a7ea-b661f49ece71"
 }
