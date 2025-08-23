@@ -165,7 +165,7 @@
       "credentials": {
         "httpHeaderAuth": {
           "id": "ekaTMbiKps3wYx80",
-          "name": "Whapi - Agente inmobiliario"
+          "name": "Whapi - Fer"
         }
       }
     },
@@ -303,7 +303,7 @@
     },
     {
       "parameters": {
-        "jsCode": "{\n  // OBTENER DATOS DEL INPUT\n  const editFields = $('var').item.json;\n\n  // EXTRAER DATOS DEL TURNO\n  const paciente = editFields.nombre;\n  const fecha = editFields.fecha; // \"2025-08-01\"\n  const hora = editFields.hora;   // \"10:00\"\n  const motivo = editFields.servicio;\n  const telefono = editFields.telefono;\n\n  // COMBINAR FECHA Y HORA EN FORMATO ISO\n  const fechaHora = `${fecha}T${hora}`; // \"2025-08-01T10:00\"\n\n  // FORMATEAR FECHA PARA MOSTRAR (DD-MM-YYYY)\n  const [año, mes, dia] = fecha.split('-');\n  const fechaFormateada = `${dia}-${mes}-${año}`; // \"01-08-2025\"\n\n  // CONSTRUIR MENSAJE DE LISTA\n  const requestBody = {\n    to: telefono,\n    buttonText: \"Confirmar ✅\",\n    title: \"🦷 Consultorio Médico\",\n    description: `*Resumen de su turno*\n👤 *Paciente:* ${paciente}\n📅 *Fecha:* ${fechaFormateada}\n🕐 *Hora:* ${hora}\n🏥 *Servicio:* ${motivo}\n📍 *Recordatorio: Traer DNI y estudios previos*\nSeleccione una opción:`,\n    footer: \"Centro Médico • Confirme su asistencia\",\n    sections: [\n      {\n        title: \"📋 Opciones Disponibles\",\n        rows: [\n          {\n            rowId: `✅ CONFIRMADO - ${paciente} | ${fechaHora} | ${motivo}`,\n            title: \"✅ Confirmar Turno\",\n            description: \"Confirmo mi asistencia en la fecha y hora indicada\"\n          }\n         \n        ]\n      }\n    ]\n  };\n\n  // RETORNAR RESULTADO\n  return [{ json: requestBody }];\n}"
+        "jsCode": "{\n  // OBTENER DATOS DEL INPUT\n  const editFields = $('var').item.json;\n  \n  // EXTRAER DATOS DEL TURNO\n  const paciente = editFields.nombre;\n  let fechaCompleta = editFields.fecha; // Puede venir como \"2025-08-25T18:00:00\" o \"2025-08-25T18:00\"\n  const hora = editFields.hora;   // \"18:00\"\n  const motivo = editFields.servicio;\n  const telefono = editFields.telefono;\n  \n  // QUITAR SEGUNDOS SI VIENEN EN LA FECHA\n  // Si la fecha tiene el formato con segundos (2025-09-08T14:00:00), lo convertimos a sin segundos\n  if (fechaCompleta.includes(':') && fechaCompleta.split(':').length > 2) {\n    // Encontrar la posición del último \":\" y cortar hasta ahí\n    fechaCompleta = fechaCompleta.substring(0, fechaCompleta.lastIndexOf(':'));\n  }\n  \n  // SEPARAR FECHA Y HORA DEL CAMPO fechaCompleta\n  const [soloFecha, soloHora] = fechaCompleta.split('T'); // [\"2025-08-25\", \"18:00\"]\n  \n  // FORMATEAR FECHA PARA MOSTRAR (DD-MM-YYYY)\n  const [año, mes, dia] = soloFecha.split('-');\n  const fechaFormateada = `${dia}-${mes}-${año}`; // \"25-08-2025\"\n  \n  // USAR fechaCompleta YA PROCESADA (sin segundos)\n  const fechaHoraISO = fechaCompleta; // Ahora siempre será \"2025-08-25T18:00\"\n  \n  // CONSTRUIR MENSAJE DE LISTA\n  const requestBody = {\n    to: telefono,\n    buttonText: \"Confirmar ✅\",\n    title: \"🦷 Consultorio Médico\",\n    description: `*Resumen de su turno*\n👤 *Paciente:* ${paciente}\n📅 *Fecha:* ${fechaFormateada}\n🕐 *Hora:* ${hora}\n🏥 *Servicio:* ${motivo}\n📍 *Recordatorio: Traer DNI y estudios previos*\nSeleccione una opción:`,\n    footer: \"Centro Médico • Confirme su asistencia\",\n    sections: [\n      {\n        title: \"📋 Opciones Disponibles\",\n        rows: [\n          {\n            rowId: `✅ CONFIRMADO - ${paciente} | ${fechaHoraISO} | ${motivo}`,\n            title: \"✅ Confirmar Turno\",\n            description: \"Confirmo mi asistencia en la fecha y hora indicada\"\n          }\n        ]\n      }\n    ]\n  };\n  \n  // RETORNAR RESULTADO\n  return [{ json: requestBody }];\n}"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -380,11 +380,11 @@
     "datos": [
       {
         "json": {
-          "nombre": "Cris",
-          "fecha": "2025-08-08T10:00",
-          "hora": "10:00",
-          "servicio": "Limpieza",
-          "telefono": "56937434094"
+          "nombre": "Fernando",
+          "fecha": "2025-09-08T14:00:00",
+          "hora": "14:00",
+          "servicio": "limpieza",
+          "telefono": "5492254423359"
         }
       }
     ]
@@ -395,6 +395,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-14T15:38:01.300Z",
-  "versionId": "afd55f2c-8327-497c-af45-05912f8a30f5"
+  "updatedAt": "2025-08-23T02:20:24.287Z",
+  "versionId": "8eab6e10-8c59-43eb-89ba-1eded005a8bb"
 }
